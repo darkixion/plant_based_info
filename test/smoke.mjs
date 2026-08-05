@@ -382,10 +382,65 @@ await test("the requested foods are present", async () => {
   await withPage(async page => {
     const want = ["Shiitake mushrooms","Oyster mushrooms","Brussels sprouts","Couscous",
       "Wild rice","Asparagus","Artichokes","Jerusalem artichokes","Swiss chard","Guava",
-      "Blackberries","Kiwi","Cannellini beans","Butter beans","Adzuki beans","Black-eyed peas"];
+      "Blackberries","Kiwi","Cannellini beans","Butter beans","Adzuki beans","Black-eyed peas",
+      "Kohlrabi","Grapefruit","Raspberries","Lychees","Mango","Apricots","Apple","Pear",
+      "Cherries","Pineapple","Watermelon","Coconut","Blueberries"];
     const have = await page.evaluate(() => FOODS.map(f => f.name));
     const missing = want.filter(n => !have.includes(n));
     eq(missing.length, 0, `missing foods: ${missing.join(", ")}`);
+
+    // Each food appears once. Coconut and blueberries were already in the table
+    // when they were asked for again, and a second row would have collided on
+    // the storage key and taken saved favourites with it.
+    const dupes = want.filter(n => have.filter(h => h === n).length > 1);
+    eq(dupes.join(", "), "", "foods listed twice");
+  });
+});
+
+await test("foods sharing a name are told apart in the chart", async () => {
+  await withPage(async page => {
+    // The table carries a state line under every name, so three sweet peppers
+    // read fine there. The chart has one line per bar and would show three
+    // identical labels with no way to tell which colour is which.
+    const shared = await page.evaluate(() => {
+      const n = {};
+      FOODS.forEach(f => n[f.name] = (n[f.name] || 0) + 1);
+      return Object.keys(n).filter(k => n[k] > 1);
+    });
+    assert(shared.length > 0, "expected at least one shared name in the data");
+
+    // The chart only offers nutrients from the groups currently switched on.
+    await page.click('#groupNav [data-grp="vitamin"]');
+    await page.click("#vChart");
+    await page.selectOption("#chartNut", "vitc");
+    const labels = await page.locator("#chartRows .lbl span:last-child").allTextContents();
+    const dupes = labels.filter((l, i) => labels.indexOf(l) !== i);
+    eq(dupes.join(", "), "", "chart rows sharing a label");
+
+    // and the row that shares a name says which one it is
+    const peppers = labels.filter(l => l.startsWith("Bell pepper"));
+    assert(peppers.length >= 2, `expected several peppers high in vitamin C, got ${peppers}`);
+    assert(peppers.every(p => /Bell pepper, \w+, raw/.test(p)), `labelled: ${peppers.join(" | ")}`);
+  });
+});
+
+await test("the methodology names the amino acid gaps from the data", async () => {
+  await withPage(async page => {
+    // A hardcoded list would still name three foods long after there were five.
+    const { none, partial } = await page.evaluate(() => {
+      const ids = DATA.nutrients.filter(n => n.group === "amino").map(n => n.id);
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const gaps = f => ids.filter(id => f.v[at(id)] === null).length;
+      return { none: DATA.foods.filter(f => gaps(f) === ids.length).map(f => f.name),
+               partial: DATA.foods.filter(f => gaps(f) > 0 && gaps(f) < ids.length).map(f => f.name) };
+    });
+    assert(none.length && partial.length, "expected both kinds of gap to exist");
+
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    for (const n of none) assert(text.includes(n), `unassayed food not named: ${n}`);
+    for (const n of partial) assert(text.includes(n), `partially assayed food not named: ${n}`);
+    assert(text.includes(`${partial.length} more`), `partial count wrong, expected ${partial.length}`);
   });
 });
 
@@ -530,6 +585,45 @@ await test("the two sticky header rows meet with no gap to scroll through", asyn
   });
 });
 
+await test("a group label follows the scroll until the next group pushes it off", async () => {
+  await withPage(async page => {
+    await page.setViewportSize({ width: 1200, height: 900 });
+
+    // Where each label sits, and where the group and the food column are,
+    // all in the scrollport's own coordinates.
+    const probe = () => page.evaluate(() => {
+      const sc = document.querySelector("#scroller").getBoundingClientRect();
+      const food = document.querySelector("#thead th.food").getBoundingClientRect();
+      const at = g => {
+        const th = document.querySelector(`#thead th.grp[data-g="${g}"]`);
+        const l = th.querySelector(".grplabel").getBoundingClientRect();
+        return { label: l.left - sc.left, cell: th.getBoundingClientRect().left - sc.left };
+      };
+      return { foodRight: food.right - sc.left, macro: at("macro"), amino: at("amino") };
+    });
+    const scroll = x => page.locator("#scroller").evaluate((el, x) => { el.scrollLeft = x; }, x);
+
+    const rest = await probe();
+    assert(rest.macro.label > rest.foodRight,
+      `label should start clear of the food column, got ${rest.macro.label} vs ${rest.foodRight}`);
+
+    // The group has scrolled well past the left edge; its label must not have.
+    await scroll(400);
+    const held = await probe();
+    assert(held.macro.cell < 0, `the group itself should have scrolled off, got ${held.macro.cell}`);
+    eq(Math.round(held.macro.label), Math.round(rest.macro.label), "label held in place");
+    assert(held.macro.label > held.foodRight, "label must stay clear of the food column");
+
+    // Far enough over and the next group takes the spot, pushing the old label
+    // out rather than the two sitting on top of each other.
+    await scroll(1150);
+    const pushed = await probe();
+    eq(Math.round(pushed.amino.label), Math.round(rest.macro.label), "amino label takes over");
+    assert(pushed.macro.label < pushed.amino.label,
+      "the outgoing label must be pushed past, not left overlapping");
+  });
+});
+
 // ---------------------------------------------------------------- omega columns
 
 await test("omega-7 and omega-9 columns are present and populated", async () => {
@@ -544,14 +638,20 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
     // These are the foods with no USDA source row, no 16:1 or 18:1 measurement
     // in the row they map to, or an existing MUFA total that disagrees with it
     // so both fractions are withheld.
+    // Named with their state: three bell peppers share a name, and only the
+    // yellow one is missing these, so a bare name would not say which row.
     const missing = await page.evaluate(() => {
       const i9 = DATA.nutrients.findIndex(n => n.id === "oleic");
       const i7 = DATA.nutrients.findIndex(n => n.id === "palmitoleic");
-      return DATA.foods.filter(f => f.v[i9] === null || f.v[i7] === null).map(f => f.name);
+      return DATA.foods.filter(f => f.v[i9] === null || f.v[i7] === null)
+        .map(f => `${f.name}${f.state ? ` (${f.state})` : ""}`);
     });
-    const expected = ["Adzuki beans", "Amaranth", "Broccoli", "Brown rice", "Dates",
-      "Edamame", "Hemp seeds", "Kale", "Nutritional yeast", "Seitan",
-      "Shiitake mushrooms", "Soy milk", "Teff", "Tempeh", "Wholewheat pasta"];
+    const expected = [
+      "Adzuki beans (cooked)", "Amaranth (cooked)", "Bell pepper (yellow, raw)",
+      "Broccoli (cooked)", "Brown rice (cooked)", "Dates", "Edamame (cooked)",
+      "Hemp seeds (hulled)", "Kale (raw)", "Leeks (cooked)", "Nutritional yeast",
+      "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)",
+      "Tempeh", "Wholewheat pasta (cooked)"];
     eq(missing.slice().sort().join(", "), expected.join(", "), "foods without omega figures");
   });
 });

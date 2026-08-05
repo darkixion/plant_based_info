@@ -143,6 +143,13 @@ const say = m => { $("#live").textContent = m; };
 const cols = () => NUTS.map((n, i) => ({ ...n, i })).filter(n => S.groups.has(n.group));
 const val = (f, id) => f.v[IDX.get(id)];
 
+/* The table gives every row a state line under its name, so "Bell pepper" three
+   times over is unambiguous there. The chart has one line per bar and would
+   show three identical labels, so a name shared by more than one food takes its
+   state with it. Only the ambiguous ones, to keep the label column short. */
+const NAME_COUNT = FOODS.reduce((m, f) => m.set(f.name, (m.get(f.name) || 0) + 1), new Map());
+const fullName = f => NAME_COUNT.get(f.name) > 1 && f.state ? `${f.name}, ${f.state}` : f.name;
+
 const isFav = i => S.favs.has(SLUGS[i]);
 function toggleFav(i) {
   isFav(i) ? S.favs.delete(SLUGS[i]) : S.favs.add(SLUGS[i]);
@@ -424,8 +431,10 @@ function renderTable() {
   const groupHead = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
     const own = c.filter(x => x.group === g.id);
     const anyLens = own.some(x => x.lens);
+    // The label sits in its own box so it can stick to the left of the
+    // scrollport while the group scrolls past underneath it.
     return `<th class="grp${anyLens ? " lens" : ""}" data-g="${g.id}" colspan="${own.length}"
-      scope="colgroup">${g.label}</th>`;
+      scope="colgroup"><span class="grplabel">${esc(g.label)}</span></th>`;
   }).join("");
 
   // Each header explains what its nutrient does: as a native tooltip on hover,
@@ -509,6 +518,14 @@ function syncHeadOffset() {
   if (!row) return;
   const h = row.getBoundingClientRect().height;
   if (h) $("#grid").style.setProperty("--head1", `${Math.floor(h)}px`);
+
+  /* The group labels stick just clear of the food column, which is itself
+     sticky at the left edge. Its width is content-driven, so measure it too.
+     Rounded up: a shade too far right is a hairline of extra clearance, while
+     too far left slides the label under the food column, which paints over it. */
+  const food = row.cells[0];
+  const w = food && food.getBoundingClientRect().width;
+  if (w) $("#grid").style.setProperty("--foodw", `${Math.ceil(w)}px`);
 }
 addEventListener("resize", syncHeadOffset);
 
@@ -543,7 +560,7 @@ function renderChart() {
     const v = val(f, n.id) ?? 0;
     return `<div class="crow">
       <span class="lbl"><span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
-        <span>${esc(f.name)}</span></span>
+        <span title="${esc(fullName(f))}">${esc(fullName(f))}</span></span>
       <span class="track"><i style="width:${(v / max * 100).toFixed(1)}%"></i></span>
       <span class="val">${fmt(v, n)} <span class="unit">${S.dv && n.dv ? "" : n.unit}</span></span>
     </div>`;
@@ -551,7 +568,7 @@ function renderChart() {
   $("#chartRows").setAttribute("role", "img");
   $("#chartRows").setAttribute("aria-label",
     `Bar chart of ${n.label} across ${Math.min(r.length, 25)} foods, highest first. ` +
-    r.slice(0, 25).map(({ f }) => `${f.name} ${fmtText(val(f, n.id), n)}`).join(", "));
+    r.slice(0, 25).map(({ f }) => `${fullName(f)} ${fmtText(val(f, n.id), n)}`).join(", "));
 }
 
 /** Derived figures, computed from the columns already in the table rather than
@@ -943,7 +960,18 @@ $("#lensForm").addEventListener("submit", e => {
   say(`Saved highlight group ${name}, ${ids.length} nutrients.`);
 });
 
-/* ---------- dialogs ---------- */
+/* ---------- dialogs ----------
+   The methodology note names the foods USDA has never assayed for amino acids.
+   Counted from the data rather than typed out, because that list grows every
+   time a minor fruit or vegetable is added and a hardcoded one goes quietly
+   wrong: it would still name three foods long after there were five. */
+const AMINO_IDS = NUTS.filter(n => n.group === "amino").map(n => n.id);
+const aminoGaps = f => AMINO_IDS.filter(id => val(f, id) === null).length;
+const NO_AMINOS = FOODS.filter(f => aminoGaps(f) === AMINO_IDS.length);
+const PART_AMINOS = FOODS.filter(f => aminoGaps(f) > 0 && aminoGaps(f) < AMINO_IDS.length);
+const andList = names => names.slice().sort()
+  .join(", ").replace(/, ([^,]*)$/, " and $1");
+
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
@@ -1061,9 +1089,13 @@ const DLG = {
       <li><b>Iodine is not included</b>, as reliable per-food values are scarce for plant foods.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for
-      staples and often skipped for minor vegetables and fruit. Artichokes, Jerusalem artichokes
-      and blackberries have no published amino acid analysis at all, and a few others are partial.
-      Where that is the case the food gets no amino acid score, rather than a score of zero.</li>
+      staples and often skipped for minor vegetables and fruit. ${andList(NO_AMINOS.map(fullName))}
+      ${NO_AMINOS.length === 1 ? "has" : "have"} no published amino acid analysis at all, and
+      ${PART_AMINOS.length} more ${PART_AMINOS.length === 1 ? "is" : "are"} partial:
+      ${andList(PART_AMINOS.map(fullName))}. A single missing amino acid is enough, since the
+      score is capped by the scarcest one and there is no way to know whether the missing column
+      was the scarcest. Where that is the case the food gets no amino acid score, rather than a
+      score of zero.</li>
     </ul>`],
   about: ["About this database", `
     <p>A single-page reference for the nutrient content of whole plant foods: ${FOODS.length} foods

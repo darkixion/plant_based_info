@@ -10,8 +10,8 @@ Repo: `/home/thom/development/plant_based_info`, branch `main`, **4 commits, and
 the work below is still uncommitted in the working tree**. The GitHub remote
 (`darkixion/plant_based_info`) is public, so pushing stays the owner's call.
 
-- **91 foods x 60 nutrients**, sourced from USDA SR Legacy.
-- `npm test` runs 43 browser tests against the built page. All passing.
+- **123 foods x 60 nutrients**, sourced from USDA SR Legacy.
+- `npm test` runs 46 browser tests against the built page. All passing.
 - `npm run build` turns `src/` into a single self-contained `index.html`.
   **Edit `src/`, never `index.html`.**
 - `~/Downloads/vegan-nutrients.html` is a synced copy of the built page.

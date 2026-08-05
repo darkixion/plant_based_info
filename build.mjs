@@ -129,6 +129,9 @@ async function build() {
     throw new Error(`data validation failed:\n  - ${problems.join("\n  - ")}`);
 
   let out = html;
+  // The meta description is the one piece of prose the page cannot fill in for
+  // itself at runtime, since search engines read it before any script runs.
+  out = inject(out, "{{FOODCOUNT}}", String(data.foods.length));
   out = inject(out, "/*{{STYLES}}*/", css.trim());
   out = inject(out, "//{{DATA}}", `const DATA = ${safeJSON(data)};`);
   out = inject(out, "//{{ICONS}}", `const I = ${safeJSON(icons)};`);

@@ -26,7 +26,41 @@
   {"name":"Butter beans","alt":"Lima beans","state":"cooked","cat":"Legumes","colour":"#DCD3A8","fdc_id":"174253"},
   {"name":"Adzuki beans","alt":"Aduki beans","state":"cooked","cat":"Legumes","colour":"#7A3B2E","fdc_id":"173728"},
   {"name":"Black-eyed peas","alt":"Cowpeas","state":"cooked","cat":"Legumes","colour":"#D8CDB0","fdc_id":"173759"},
-  {"name":"Kohlrabi","alt":"German turnip","state":"cooked","cat":"Vegetables","colour":"#B8C98E","fdc_id":"168425"}
+  {"name":"Kohlrabi","alt":"German turnip","state":"cooked","cat":"Vegetables","colour":"#B8C98E","fdc_id":"168425"},
+
+  {"name":"Grapefruit","state":"raw","cat":"Fruit","colour":"#E9796B","fdc_id":"173033"},
+  {"name":"Raspberries","state":"raw","cat":"Fruit","colour":"#A81F45","fdc_id":"167755"},
+  {"name":"Lychees","alt":"Litchis","state":"raw","cat":"Fruit","colour":"#F2DFDC","fdc_id":"169086"},
+  {"name":"Mango","state":"raw","cat":"Fruit","colour":"#F0A830","fdc_id":"169910"},
+  {"name":"Apricots","state":"raw","cat":"Fruit","colour":"#E8A15C","fdc_id":"171697"},
+  {"name":"Apple","state":"raw, with skin","cat":"Fruit","colour":"#C4453A","fdc_id":"171688"},
+  {"name":"Pear","state":"raw","cat":"Fruit","colour":"#C6CE7A","fdc_id":"169118"},
+  {"name":"Cherries","state":"sweet, raw","cat":"Fruit","colour":"#8E1B2E","fdc_id":"171719"},
+  {"name":"Pineapple","state":"raw","cat":"Fruit","colour":"#F2D14E","fdc_id":"169124"},
+  {"name":"Watermelon","state":"raw","cat":"Fruit","colour":"#E35A6A","fdc_id":"167765"},
+
+  {"name":"Radishes","state":"raw","cat":"Vegetables","colour":"#CE2F52","fdc_id":"169276"},
+  {"name":"Courgette","alt":"Zucchini","state":"cooked","cat":"Vegetables","colour":"#547F31","fdc_id":"169292"},
+  {"name":"Aubergine","alt":"Eggplant","state":"cooked","cat":"Vegetables","colour":"#4A2A55","fdc_id":"169229"},
+  {"name":"Bell pepper","alt":"Sweet pepper","state":"green, raw","cat":"Vegetables","colour":"#4C9A3A","fdc_id":"170427"},
+  {"name":"Bell pepper","alt":"Sweet pepper","state":"red, raw","cat":"Vegetables","colour":"#C92A2A","fdc_id":"170108"},
+  {"name":"Bell pepper","alt":"Sweet pepper","state":"yellow, raw","cat":"Vegetables","colour":"#F0C419","fdc_id":"169383"},
+  {"name":"Carrots","state":"raw","cat":"Vegetables","colour":"#E8801F","fdc_id":"170393"},
+  {"name":"Parsnips","state":"cooked","cat":"Vegetables","colour":"#EFE3C4","fdc_id":"170009"},
+  {"name":"Leeks","state":"cooked","cat":"Vegetables","colour":"#A8C46A","fdc_id":"168426"},
+  {"name":"Shallots","state":"raw","cat":"Vegetables","colour":"#C08A6E","fdc_id":"170499"},
+  {"name":"Turnip","state":"cooked","cat":"Vegetables","colour":"#DCD2DC","fdc_id":"170058"},
+  {"name":"Swede","alt":"Rutabaga","state":"cooked","cat":"Vegetables","colour":"#E0A855","fdc_id":"168455"},
+  {"name":"Onions","state":"raw","cat":"Vegetables","colour":"#E3D4A8","fdc_id":"170000"},
+  {"name":"Celery","state":"raw","cat":"Vegetables","colour":"#B7CC72","fdc_id":"169988"},
+  {"name":"Spring onions","alt":"Scallions","state":"raw","cat":"Vegetables","colour":"#7DAF3E","fdc_id":"170005"},
+  {"name":"Cucumber","state":"raw, with peel","cat":"Vegetables","colour":"#6E9B4A","fdc_id":"168409"},
+  {"name":"Ginger root","state":"raw","cat":"Vegetables","colour":"#D6B57E","fdc_id":"169231"},
+  {"name":"Peaches","state":"raw","cat":"Fruit","colour":"#F2A26A","fdc_id":"169928"},
+  {"name":"Grapes","state":"raw","cat":"Fruit","colour":"#9BAF56","fdc_id":"174683"},
+  {"name":"Plums","state":"raw","cat":"Fruit","colour":"#6B2E52","fdc_id":"169949"},
+  {"name":"Passion fruit","alt":"Granadilla","state":"raw","cat":"Fruit","colour":"#C98A2E","fdc_id":"169108"},
+  {"name":"Pomegranate","state":"raw","cat":"Fruit","colour":"#A81C34","fdc_id":"169134"}
  ],
 
  "staples": [
@@ -79,6 +113,11 @@
   "Romanesco": "Not in SR Legacy under romanesco, romanesque or broccoflower. It is a cultivar of Brassica oleracea, the same species as the cauliflower and broccoli rows, so it could only be approximated from one of those rather than measured.",
   "Freekeh": "Not in SR Legacy under freekeh, frikeh or farik. It is immature durum wheat, roasted, so it could only be approximated from a durum or bulgur row rather than measured.",
   "Celeriac": "In SR Legacy (169987 cooked, 170400 raw) but with no amino acid analysis at all, so the row would be blank across the whole amino group.",
-  "Fennel": "In SR Legacy (169385 bulb, raw only) but with no amino acid analysis at all, and raw only, which does not match the cooked-vegetable convention."
+  "Fennel": "In SR Legacy (169385 bulb, raw only) but with no amino acid analysis at all, and raw only, which does not match the cooked-vegetable convention.",
+  "Cavolo nero": "Not in SR Legacy under cavolo nero, lacinato, Tuscan or palmifolia. It is a cultivar of the same species as the Kale row already in the table, so it could only be approximated from that rather than measured.",
+  "Runner beans": "Not in SR Legacy. It carries snap or green beans, which are Phaseolus vulgaris; the runner bean is P. coccineus, a different species.",
+  "Dragon fruit": "Not in SR Legacy under dragon fruit, pitaya or pitahaya.",
+  "Bell pepper, orange": "SR Legacy carries sweet peppers raw in green, red and yellow only. All three are in the table; there is no orange row.",
+  "Onions, white and red": "SR Legacy has one generic 'Onions, raw' row, which is in the table, plus a 'sweet' variety. It does not separate white, brown or yellow, and red onions."
  }
 }

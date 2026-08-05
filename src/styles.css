@@ -177,13 +177,20 @@ th,td{padding:0; text-align:right; white-space:nowrap}
 thead th{position:sticky; background:var(--raise); z-index:3; font-weight:600; color:var(--ink);
   border-bottom:1px solid var(--line); font-size:12.5px}
 thead tr:first-child th{top:0}
-/* --head1 is measured from the rendered first header row, see syncHeadOffset().
+/* --head1 and --foodw are measured from the rendered header, see syncHeadOffset().
    The fallback is deliberately a pixel under the usual height: too small only
    overlaps the row above, while too large leaves a gap for table rows to scroll
    through, which is the visible bug this replaced. */
 thead tr:nth-child(2) th{top:var(--head1,36px)}
 th.grp{text-align:left; border-left:1px solid var(--line); padding:9px 12px;
   font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+/* A group label follows the horizontal scroll inside its own group, so a wide
+   group keeps its name on screen instead of losing it off the left edge, and
+   only gives way when the next group's label arrives to push it out. Sticking
+   point is the right edge of the food column plus the cell's own padding, which
+   is exactly where the label already sits at scroll zero, so it slides into
+   place with no jump. --foodw is measured after render, see syncHeadOffset(). */
+.grplabel{display:inline-block; position:sticky; left:calc(var(--foodw,210px) + 12px)}
 th.grp[data-g=amino]{color:#2F7D8C} th.grp[data-g=vitamin]{color:#8A6B12}
 th.grp[data-g=mineral]{color:#7A5AA8} th.grp[data-g=fats]{color:#A8623C}
 th.grp[data-g=plant]{color:#2F8C63}
