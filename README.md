@@ -63,8 +63,24 @@ would highlight nothing.
 
 ## Data source
 
-Values currently follow USDA FoodData Central. See the in-page **Methodology**
-dialog for how amino acids are derived and what the figures do not account for.
+Values follow USDA FoodData Central. See the in-page **Methodology** dialog for
+how amino acids are derived and what the figures do not account for.
+
+A move to a European source was investigated and rejected. EuroFIR's own
+FoodEXplorer is subscription-only; its best free member database, Danish
+[Frida](https://frida.fooddata.dk) 6.1 (CC BY 4.0), is genuinely richer —
+231 parameters including iodine, biotin and oxalic acid, with complete
+18-amino-acid profiles for 967 foods. The blocker was **state matching**: seven
+of these foods are absent from Frida, and eight more exist only raw or dry where
+this table shows them cooked. Comparing 100 g of dry quinoa with 100 g of cooked
+broccoli is not a fair row, so the swap would have traded a consistent table for
+a mixed one. Worth revisiting if the food list ever changes to an as-purchased
+basis.
+
+**Derived figures are computed from the table, never sourced separately.**
+Amino acid score, limiting amino acid, protein per 100 kcal and the omega-6:3
+ratio are all calculated in `app.js` from the columns already present, so they
+cannot drift out of agreement with the row they describe.
 
 ## Licence and disclaimer
 

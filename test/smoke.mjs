@@ -181,6 +181,60 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
   });
 });
 
+// ---------------------------------------------------------------- derived figures
+
+/** Waits on the row *content*, not the row count: searching for two different
+ *  foods can leave the count unchanged at 1 across the search debounce, and a
+ *  click would then land on the previous food. */
+async function selectFood(page, query, name) {
+  await page.fill("#q", query);
+  await page.waitForFunction(
+    n => [...document.querySelectorAll("#tbody .fname b")].some(e => e.textContent === n),
+    name);
+  await page.locator("#tbody .fname", { hasText: name }).first().click();
+  await page.waitForFunction(
+    n => document.querySelector("#detail h3")?.textContent === n, name);
+  return page.locator("#detail").textContent();
+}
+
+await test("protein quality is derived and nutritionally sane", async () => {
+  await withPage(async page => {
+    // Seitan is wheat gluten: famously lysine-limited and a low scorer.
+    const panel = await selectFood(page, "seitan", "Seitan");
+    assert(/Protein quality/.test(panel), "protein quality section shown");
+    assert(/Lysine/.test(panel), `lysine named as limiting, got: ${panel.slice(0, 400)}`);
+
+    // Tofu meets the pattern throughout, so it must not be labelled "limiting".
+    const tofu = await selectFood(page, "tofu", "Tofu");
+    assert(/Meets the adult FAO\/WHO pattern/.test(tofu),
+      `tofu reported complete, got: ${tofu.slice(0, 400)}`);
+    assert(!/Limiting amino acid/.test(tofu), "no limiting acid claimed for a complete protein");
+  });
+});
+
+await test("protein quality is suppressed where it would be noise", async () => {
+  await withPage(async page => {
+    // Banana has ~1 g protein per 100 g; a score off that is rounding artefact.
+    const panel = await selectFood(page, "banana", "Banana");
+    assert(!/NaN|Infinity|undefined/.test(panel), `no broken numbers: ${panel.slice(0, 300)}`);
+  });
+});
+
+await test("no food produces a broken derived figure", async () => {
+  await withPage(async page => {
+    const bad = await page.evaluate(() => {
+      const out = [];
+      for (let i = 0; i < FOODS.length; i++) {
+        S.sel = i; renderDetail();
+        const t = document.querySelector("#detail").textContent;
+        if (/NaN|Infinity|undefined|null/.test(t)) out.push(FOODS[i].name);
+      }
+      return out;
+    });
+    eq(bad.length, 0, `foods with broken detail panels: ${bad.join(", ")}`);
+  });
+});
+
 // ---------------------------------------------------------------- favourites
 
 await test("favourites persist across a reload", async () => {

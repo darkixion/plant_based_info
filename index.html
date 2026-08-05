@@ -644,6 +644,52 @@ function fmt(v, n) {
   return v.toFixed(n.dp);
 }
 
+/* ---------- derived protein quality ----------
+   Scores a food's essential amino acids against the FAO/WHO 2007 requirement
+   pattern for adults, in mg per g of protein. Methionine is scored together
+   with cysteine and phenylalanine together with tyrosine, because each pair
+   spares the other — the same pairing the methodology note describes.
+   The lowest-scoring entry is the limiting amino acid: the one that caps how
+   much of the protein the body can actually use. */
+const FAO_PATTERN = [
+  { label: "Histidine",              ids: ["his"],        mg: 15 },
+  { label: "Isoleucine",             ids: ["ile"],        mg: 30 },
+  { label: "Leucine",                ids: ["leu"],        mg: 59 },
+  { label: "Lysine",                 ids: ["lys"],        mg: 45 },
+  { label: "Methionine + cysteine",  ids: ["met", "cys"], mg: 22 },
+  { label: "Phenylalanine + tyrosine", ids: ["phe", "tyr"], mg: 38 },
+  { label: "Threonine",              ids: ["thr"],        mg: 23 },
+  { label: "Tryptophan",             ids: ["trp"],        mg: 6 },
+  { label: "Valine",                 ids: ["val"],        mg: 39 },
+];
+
+function proteinQuality(f) {
+  const protein = val(f, "protein");
+  // Below about a gram per 100 g the ratios are dominated by rounding, and
+  // calling something "a complete protein" on that basis would be misleading.
+  if (!protein || protein < 1) return null;
+
+  const scored = FAO_PATTERN.map(p => {
+    const mgPerG = p.ids.reduce((s, id) => s + (val(f, id) ?? 0), 0) * 1000 / protein;
+    return { label: p.label, pc: (mgPerG / p.mg) * 100 };
+  });
+  if (scored.some(s => !isFinite(s.pc))) return null;
+
+  const limiting = scored.reduce((a, b) => (b.pc < a.pc ? b : a));
+  return {
+    score: Math.round(limiting.pc),      // amino acid score = the limiting one
+    limiting: limiting.label,
+    perKcal: (val(f, "kcal") ?? 0) > 0 ? protein / val(f, "kcal") * 100 : null,
+  };
+}
+
+/** Omega-6 to omega-3, the ratio dietary guidance actually talks about. */
+function omegaRatio(f) {
+  const la = val(f, "la"), ala = val(f, "ala");
+  if (!la || !ala) return null;
+  return la >= ala ? { a: la / ala, flip: false } : { a: ala / la, flip: true };
+}
+
 function rows() {
   const q = S.q.trim().toLowerCase();
   let r = FOODS.map((f, i) => ({ f, i }));
@@ -851,6 +897,37 @@ function renderChart() {
     r.slice(0, 25).map(({ f }) => `${f.name} ${fmt(val(f, n.id), n)}`).join(", "));
 }
 
+/** Derived figures, computed from the columns already in the table rather than
+ *  sourced separately — so they cannot disagree with the rest of the row. */
+function proteinQualityBlock(f) {
+  const q = proteinQuality(f), o = omegaRatio(f);
+  if (!q && !o) return "";
+
+  let rows = "";
+  if (q) {
+    const complete = q.score >= 100;
+    rows += `<div class="drow"><dt>Amino acid score</dt>
+        <dd class="${complete ? "pc" : ""}">${q.score}%</dd></div>
+      <div class="drow"><dt>${complete ? "Lowest relative to need" : "Limiting amino acid"}</dt>
+        <dd>${esc(q.limiting)}</dd></div>`;
+    if (q.perKcal !== null)
+      rows += `<div class="drow"><dt>Protein per 100 kcal</dt>
+        <dd>${q.perKcal.toFixed(1)} g</dd></div>`;
+  }
+  if (o) rows += `<div class="drow"><dt>Omega-6 : omega-3</dt>
+      <dd>${o.flip ? `1 : ${o.a.toFixed(1)}` : `${o.a.toFixed(1)} : 1`}</dd></div>`;
+
+  const note = q
+    ? (q.score >= 100
+        ? "Meets the adult FAO/WHO pattern for every essential amino acid."
+        : `Scored against the FAO/WHO adult pattern. ${esc(q.limiting)} caps the
+           score; pairing this food with one richer in it raises the total.`)
+    : "";
+
+  return `<h4 style="margin-top:18px">Protein quality</h4><dl>${rows}</dl>` +
+    (note ? `<p style="font-size:11.5px;color:var(--faint);margin:8px 0 0;line-height:1.4">${note}</p>` : "");
+}
+
 /* ---------- detail panel ---------- */
 function renderDetail() {
   const f = FOODS[S.sel];
@@ -869,8 +946,9 @@ function renderDetail() {
       const sub = id === "fiber" || id === "satfat";
       return `<div class="drow${sub ? " sub" : ""}"><dt>${esc(n.label)}</dt>
         <dd>${(g(id) ?? 0).toFixed(n.dp)} ${n.unit}</dd></div>`;
-    }).join("") + `</dl>
-      <h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => `
+    }).join("") + `</dl>`
+      + proteinQualityBlock(f)
+      + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => `
         <div class="drow"><dt>${esc(n.label)}</dt>
           <dd class="pc">${Math.round(pc)}% DV</dd></div>`).join("") + `</dl>`;
   } else {
@@ -1214,6 +1292,22 @@ const DLG = {
     figures in the table are that profile multiplied by the food's protein content, so the amino acid
     columns always reconcile with the protein column. It also means cooked and dry forms of the same
     food share one profile, because water content divides out.</p>
+    <h4>Amino acid score and the limiting amino acid</h4>
+    <p>The protein quality figures are <em>derived</em> from the columns already in the table, not
+    sourced separately, so they cannot disagree with the rest of the row. Each essential amino acid
+    is expressed as milligrams per gram of protein and compared with the FAO/WHO 2007 requirement
+    pattern for adults. The lowest of those ratios is the amino acid score, and the amino acid
+    responsible is the <b>limiting</b> one — the one that caps how much of the protein your body can
+    put to use.</p>
+    <p>Methionine is scored together with cysteine, and phenylalanine together with tyrosine,
+    because each pair spares the other. A score at or above 100% means the food meets the adult
+    pattern across the board; below it, combining that food with one richer in the limiting acid
+    raises the total. This is why grains and pulses complement each other so neatly — cereals run
+    short on lysine, pulses on the sulphur pair, and each covers the other's gap.</p>
+    <p>Two caveats. The score says nothing about <em>digestibility</em>, which is what fuller
+    measures like PDCAAS and DIAAS add, and plant proteins generally digest less completely than
+    animal ones. And a score computed on a food with very little protein is mostly rounding noise,
+    so it is not shown below about a gram per 100 g.</p>
     <h4>What "daily value" means here</h4>
     <p>Percentages use general adult reference intakes — FDA Daily Values for vitamins and minerals,
     and the FAO/WHO 2007 scoring pattern where amino acids are concerned. They are a common yardstick,
