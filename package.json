@@ -1,0 +1,15 @@
+{
+  "name": "plant-based-info",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Single-page plant-based nutrition reference. Builds to one self-contained HTML file.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "serve": "node --run build && node -e \"import('node:http').then(({default:h})=>import('node:fs').then(({readFileSync})=>h.createServer((q,s)=>{s.setHeader('content-type','text/html');s.end(readFileSync('index.html'))}).listen(8080,()=>console.log('http://localhost:8080'))))\""
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

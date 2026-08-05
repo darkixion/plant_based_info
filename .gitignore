@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+*.log
+
+# Working copies of upstream food-composition datasets. These are large and
+# redistributable only under their own licences — fetch them with
+# `node tools/fetch-frida.mjs` rather than committing them here.
+tools/cache/
