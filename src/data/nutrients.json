@@ -539,6 +539,33 @@
    "dv": null,
    "dp": 0,
    "why": "The red pigment in tomatoes, watermelon and pink guava. Unlike the carotenes it yields no vitamin A, and cooking with a little fat frees far more of it than eating the fruit raw."
+  },
+  {
+   "id": "anthocyanidins",
+   "label": "Anthocyanidins",
+   "group": "plant",
+   "unit": "mg",
+   "dv": null,
+   "dp": 1,
+   "why": "The red, purple and blue pigments in berries, and the reason a blackberry is not a raspberry. They are what most people mean by antioxidants in fruit, though only a small fraction of what a portion contains is absorbed."
+  },
+  {
+   "id": "flavan3ols",
+   "label": "Flavan-3-ols",
+   "group": "plant",
+   "unit": "mg",
+   "dv": null,
+   "dp": 1,
+   "why": "The catechins, which give tea, cocoa and apple skin their astringency. Dark berries and nuts lead this column here, because USDA never measured the full set for cocoa powder and it is withheld rather than undercounted."
+  },
+  {
+   "id": "flavonols",
+   "label": "Flavonols",
+   "group": "plant",
+   "unit": "mg",
+   "dv": null,
+   "dp": 1,
+   "why": "Quercetin and its relatives, the most widespread flavonoids in vegetables and the best measured of the group. Kale, watercress and onions carry the most of anything here, by a wide margin over the fruit."
   }
  ],
  "notes": [
@@ -637,7 +664,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -705,7 +735,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Garbanzo beans"
   },
@@ -774,7 +807,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -842,7 +878,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -910,7 +949,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -978,7 +1020,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Yellow or green split peas"
   },
@@ -1047,7 +1092,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Green gram"
   },
@@ -1116,7 +1164,10 @@
     22,
     0,
     2593,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1184,7 +1235,10 @@
     0,
     8,
     1619,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Green soybeans"
   },
@@ -1249,6 +1303,9 @@
     0.23,
     0.56,
     1.4,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -1321,6 +1378,9 @@
     null,
     null,
     null,
+    null,
+    null,
+    null,
     null
    ]
   },
@@ -1385,6 +1445,9 @@
     0.56,
     1.3,
     0,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -1457,7 +1520,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1521,6 +1587,9 @@
     0.128,
     0.223,
     1.5,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -1593,7 +1662,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Textured vegetable protein"
   },
@@ -1658,6 +1730,9 @@
     0.626,
     4.92,
     28.9,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -1730,7 +1805,10 @@
     0,
     0,
     53,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1798,7 +1876,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1866,7 +1947,10 @@
     0,
     0,
     60,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1930,6 +2014,9 @@
     0.149,
     0.854,
     5.5,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -2002,7 +2089,10 @@
     0,
     0,
     94,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2066,6 +2156,9 @@
     0.12,
     0.68,
     20,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -2139,7 +2232,10 @@
     0,
     0,
     1,
-    0
+    0,
+    2.46,
+    4.47,
+    3.39
    ]
   },
   {
@@ -2207,7 +2303,10 @@
     0,
     0,
     9,
-    0
+    0,
+    2.71,
+    0,
+    null
    ]
   },
   {
@@ -2275,7 +2374,10 @@
     0,
     0,
     22,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2343,7 +2445,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Groundnuts"
   },
@@ -2412,6 +2517,9 @@
     10,
     0,
     2903,
+    null,
+    7.33,
+    6.85,
     null
    ]
   },
@@ -2480,7 +2588,10 @@
     0,
     0,
     0,
-    0
+    0,
+    0,
+    0,
+    null
    ]
   },
   {
@@ -2548,7 +2659,10 @@
     3,
     0,
     92,
-    0
+    0,
+    6.71,
+    5.25,
+    null
    ]
   },
   {
@@ -2612,6 +2726,9 @@
     0.924,
     2.723,
     55.2,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -2684,6 +2801,9 @@
     null,
     null,
     null,
+    null,
+    null,
+    null,
     null
    ]
   },
@@ -2752,7 +2872,10 @@
     0,
     0,
     651,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Linseed"
   },
@@ -2821,7 +2944,10 @@
     1,
     1,
     74,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2889,7 +3015,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2957,7 +3086,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3025,7 +3157,10 @@
     0,
     0,
     1080,
-    0
+    0,
+    0,
+    0,
+    2.39
    ]
   },
   {
@@ -3093,7 +3228,10 @@
     0,
     0,
     12198,
-    0
+    0,
+    null,
+    null,
+    10.7
    ]
   },
   {
@@ -3161,7 +3299,10 @@
     0,
     27,
     6261,
-    0
+    0,
+    null,
+    null,
+    92.98
    ]
   },
   {
@@ -3229,7 +3370,10 @@
     43,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3296,6 +3440,9 @@
     0,
     0,
     0,
+    0,
+    0,
+    null,
     0,
     0
    ]
@@ -3365,7 +3512,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3429,6 +3579,9 @@
     0.5,
     0.4,
     0,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -3501,6 +3654,9 @@
     24,
     28,
     271,
+    0,
+    0.33,
+    0.52,
     0
    ]
   },
@@ -3569,7 +3725,10 @@
     25,
     0,
     22,
-    0
+    0,
+    0,
+    6.12,
+    0.18
    ]
   },
   {
@@ -3633,6 +3792,9 @@
     0.142,
     0.23,
     5.7,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -3705,7 +3867,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3773,7 +3938,10 @@
     0,
     0,
     1290,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3841,7 +4009,10 @@
     0,
     0,
     25,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3909,7 +4080,10 @@
     0,
     0,
     64,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3977,7 +4151,10 @@
     0,
     0,
     771,
-    30
+    30,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -4045,7 +4222,10 @@
     0,
     0,
     464,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Globe artichokes"
   },
@@ -4114,7 +4294,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Sunchokes"
   },
@@ -4183,7 +4366,10 @@
     45,
     0,
     11000,
-    0
+    0,
+    null,
+    null,
+    11.1
    ],
    "alt": "Silverbeet"
   },
@@ -4252,7 +4438,10 @@
     0,
     0,
     0,
-    5204
+    5204,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -4320,7 +4509,10 @@
     0,
     0,
     118,
-    0
+    0,
+    100.61,
+    42.5,
+    4.52
    ]
   },
   {
@@ -4388,7 +4580,10 @@
     0,
     0,
     122,
-    0
+    0,
+    0,
+    0.37,
+    1.07
    ],
    "alt": "Chinese gooseberry"
   },
@@ -4457,7 +4652,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "White kidney beans"
   },
@@ -4526,7 +4724,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Lima beans"
   },
@@ -4591,6 +4792,9 @@
     0.298,
     0.573,
     1.2,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -4664,7 +4868,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Cowpeas"
   },
@@ -4733,7 +4940,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Laver"
   },
@@ -4802,7 +5012,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Kombu"
   },
@@ -4871,7 +5084,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Sesame paste"
   },
@@ -4940,7 +5156,10 @@
     0,
     0,
     38,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Cacao"
   },
@@ -5009,7 +5228,10 @@
     0,
     0,
     70,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5077,7 +5299,10 @@
     0,
     0,
     56,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5145,7 +5370,10 @@
     0,
     0,
     54,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5208,6 +5436,9 @@
     1.11,
     0.226,
     2.86,
+    null,
+    null,
+    null,
     null,
     null,
     null,
@@ -5281,7 +5512,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Fava beans"
   },
@@ -5350,7 +5584,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Haricot beans"
   },
@@ -5419,7 +5656,10 @@
     0,
     0,
     29,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5487,7 +5727,10 @@
     1,
     0,
     40,
-    0
+    0,
+    null,
+    0,
+    6.42
    ],
    "alt": "Bok choy"
   },
@@ -5556,7 +5799,10 @@
     0,
     0,
     5767,
-    0
+    0,
+    null,
+    null,
+    53.22
    ]
   },
   {
@@ -5624,7 +5870,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Beets"
   },
@@ -5693,7 +5942,10 @@
     23,
     161,
     906,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Maize"
   },
@@ -5762,7 +6014,10 @@
     1130,
     3116,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5830,7 +6085,10 @@
     0,
     0,
     30,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5898,7 +6156,10 @@
     5,
     0,
     295,
-    0
+    0,
+    null,
+    null,
+    0.05
    ]
   },
   {
@@ -5966,7 +6227,10 @@
     0,
     0,
     510,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6034,7 +6298,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6102,7 +6369,10 @@
     0,
     9,
     17,
-    0
+    0,
+    18.02,
+    15.99,
+    null
    ]
   },
   {
@@ -6170,6 +6440,9 @@
     null,
     null,
     null,
+    null,
+    0,
+    0,
     null
    ]
   },
@@ -6238,7 +6511,10 @@
     0,
     0,
     9,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6306,7 +6582,10 @@
     0,
     0,
     13,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6374,7 +6653,10 @@
     11,
     116,
     129,
-    0
+    0,
+    null,
+    0,
+    0.73
    ]
   },
   {
@@ -6442,7 +6724,10 @@
     0,
     0,
     80,
-    0
+    0,
+    163.3,
+    6.69,
+    10.63
    ]
   },
   {
@@ -6510,7 +6795,10 @@
     0,
     0,
     26,
-    0
+    0,
+    27.01,
+    4.6,
+    1.65
    ]
   },
   {
@@ -6578,7 +6866,10 @@
     0,
     0,
     23,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Medjool"
   },
@@ -6647,7 +6938,10 @@
     0,
     0,
     32,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6715,7 +7009,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6783,7 +7080,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "German turnip"
   },
@@ -6852,7 +7152,10 @@
     4,
     6,
     6,
-    1135
+    1135,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -6920,7 +7223,10 @@
     16,
     0,
     136,
-    0
+    0,
+    48.63,
+    5.83,
+    1.11
    ]
   },
   {
@@ -6988,7 +7294,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Litchis"
   },
@@ -7057,7 +7366,10 @@
     9,
     10,
     23,
-    3
+    3,
+    null,
+    1.72,
+    0.11
    ]
   },
   {
@@ -7125,7 +7437,10 @@
     19,
     104,
     89,
-    0
+    0,
+    null,
+    8.41,
+    2.26
    ]
   },
   {
@@ -7193,7 +7508,10 @@
     0,
     11,
     29,
-    0
+    0,
+    1.59,
+    9.29,
+    4.15
    ]
   },
   {
@@ -7261,7 +7579,10 @@
     1,
     2,
     44,
-    0
+    0,
+    2.06,
+    4.81,
+    1.14
    ]
   },
   {
@@ -7329,7 +7650,10 @@
     0,
     0,
     85,
-    0
+    0,
+    31.98,
+    9.75,
+    2.63
    ]
   },
   {
@@ -7397,7 +7721,10 @@
     0,
     0,
     0,
-    0
+    0,
+    0,
+    0,
+    0.15
    ]
   },
   {
@@ -7465,7 +7792,10 @@
     0,
     78,
     8,
-    4532
+    4532,
+    0,
+    0,
+    0.45
    ]
   },
   {
@@ -7533,7 +7863,10 @@
     0,
     0,
     10,
-    0
+    0,
+    63.13,
+    0,
+    0.86
    ]
   },
   {
@@ -7601,7 +7934,10 @@
     0,
     0,
     1150,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Zucchini"
   },
@@ -7670,7 +8006,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Eggplant"
   },
@@ -7739,7 +8078,10 @@
     21,
     7,
     341,
-    0
+    0,
+    null,
+    0,
+    2.27
    ],
    "alt": "Sweet pepper"
   },
@@ -7808,7 +8150,10 @@
     20,
     490,
     51,
-    0
+    0,
+    null,
+    0,
+    0.25
    ],
    "alt": "Sweet pepper"
   },
@@ -7877,7 +8222,10 @@
     null,
     null,
     null,
-    null
+    null,
+    null,
+    null,
+    1.27
    ],
    "alt": "Sweet pepper"
   },
@@ -7946,7 +8294,10 @@
     3477,
     0,
     256,
-    1
+    1,
+    null,
+    0,
+    0.49
    ]
   },
   {
@@ -8014,7 +8365,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -8082,7 +8436,10 @@
     0,
     0,
     925,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -8150,7 +8507,10 @@
     0,
     0,
     8,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -8218,7 +8578,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -8286,7 +8649,10 @@
     0,
     0,
     13,
-    10
+    10,
+    null,
+    null,
+    null
    ],
    "alt": "Rutabaga"
   },
@@ -8355,7 +8721,10 @@
     0,
     0,
     4,
-    0
+    0,
+    null,
+    0,
+    25.99
    ]
   },
   {
@@ -8423,7 +8792,10 @@
     0,
     0,
     283,
-    0
+    0,
+    0,
+    0,
+    0.61
    ]
   },
   {
@@ -8491,7 +8863,10 @@
     0,
     0,
     1137,
-    0
+    0,
+    null,
+    null,
+    12.04
    ],
    "alt": "Scallions"
   },
@@ -8560,7 +8935,10 @@
     11,
     26,
     23,
-    0
+    0,
+    null,
+    0,
+    0.17
    ]
   },
   {
@@ -8628,7 +9006,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -8696,7 +9077,10 @@
     0,
     67,
     91,
-    0
+    0,
+    1.92,
+    8.6,
+    0.88
    ]
   },
   {
@@ -8764,7 +9148,10 @@
     1,
     0,
     72,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -8832,7 +9219,10 @@
     0,
     35,
     73,
-    0
+    0,
+    5.94,
+    7.58,
+    0.9
    ]
   },
   {
@@ -8900,7 +9290,10 @@
     0,
     41,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Granadilla"
   },
@@ -8969,6 +9362,9 @@
     0,
     0,
     0,
+    0,
+    null,
+    0.81,
     0
    ]
   },
@@ -9037,7 +9433,10 @@
     6,
     6,
     0,
-    0
+    0,
+    null,
+    null,
+    1.7
    ]
   },
   {
@@ -9105,7 +9504,10 @@
     0,
     0,
     3555,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Arugula"
   },
@@ -9174,7 +9576,10 @@
     0,
     0,
     1,
-    0
+    0,
+    null,
+    null,
+    0.18
    ],
    "alt": "Celery root"
   },
@@ -9243,7 +9648,10 @@
     2715,
     0,
     1014,
-    0
+    0,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -9311,7 +9719,10 @@
     0,
     0,
     0,
-    0
+    0,
+    null,
+    null,
+    null
    ],
    "alt": "Marmite or Vegemite type"
   }

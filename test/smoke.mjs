@@ -715,6 +715,73 @@ await test("no food claims more omega-9 plus omega-7 than monounsaturated", asyn
   });
 });
 
+await test("the flavonoid columns exist and rank the foods they should", async () => {
+  await withPage(async page => {
+    const b = page.locator('#groupNav [data-grp="plant"]');
+    if (await b.getAttribute("aria-pressed") === "false") await b.click();
+    const heads = await page.locator("#thead th .sortbtn").allTextContents();
+    for (const label of ["Anthocyanidins", "Flavan-3-ols", "Flavonols"])
+      assert(heads.some(h => h.includes(label)), `${label} column: ${heads.join(" | ")}`);
+
+    // The richest food in each subclass. If a future pull loosens the join or
+    // starts summing partially measured subclasses, these move: cocoa powder
+    // would take flavan-3-ols with a 261 mg partial sum, and rocket would take
+    // flavonols from kale on three of the four compounds.
+    const top = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const best = id => DATA.foods.filter(f => typeof f.v[at(id)] === "number")
+        .sort((x, y) => y.v[at(id)] - x.v[at(id)])[0].name;
+      return { anth: best("anthocyanidins"), fl3: best("flavan3ols"), flol: best("flavonols") };
+    });
+    eq(top.anth, "Blueberries", "richest in anthocyanidins");
+    eq(top.fl3, "Blackberries", "richest in flavan-3-ols");
+    eq(top.flol, "Kale", "richest in flavonols");
+  });
+});
+
+await test("a partly measured flavonoid subclass is withheld, not summed", async () => {
+  await withPage(async page => {
+    // USDA measured quercetin alone for asparagus and two of the five catechins
+    // for cocoa powder. Summing what is there would put a 15.2 and a 261.3 in
+    // the table looking exactly like the complete figures beside them, so both
+    // must read as no data. This is the single rule the columns rest on.
+    const withheld = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const of = name => DATA.foods.find(f => f.name === name);
+      return {
+        asparagus: of("Asparagus").v[at("flavonols")],
+        cocoa: of("Cocoa powder").v[at("flavan3ols")],
+        // Kale is the control: fully measured, so it must carry a number.
+        kale: of("Kale").v[at("flavonols")],
+      };
+    });
+    eq(withheld.asparagus, null, "asparagus flavonols (quercetin only)");
+    eq(withheld.cocoa, null, "cocoa flavan-3-ols (2 of 5 catechins)");
+    assert(typeof withheld.kale === "number" && withheld.kale > 90,
+      `kale flavonols should be measured, got ${withheld.kale}`);
+  });
+});
+
+await test("the methodology counts the flavonoid coverage from the data", async () => {
+  await withPage(async page => {
+    // The sparsest columns in the table, so the number describing them is the
+    // one most likely to be overtaken quietly by a new food.
+    const reached = await page.evaluate(() => {
+      const ids = ["anthocyanidins", "flavan3ols", "flavonols"]
+        .map(id => DATA.nutrients.findIndex(n => n.id === id));
+      return DATA.foods.filter(f => ids.some(i => f.v[i] !== null)).length;
+    });
+    assert(reached > 0 && reached < 128, `expected partial coverage, got ${reached}`);
+
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    assert(text.includes(`only ${reached} of`), `coverage count not stated, expected ${reached}`);
+    // No total flavonoid column, and the reason is on the page rather than only
+    // in the README, because it is the question the table invites.
+    assert(/ORAC/.test(text), "the withdrawn ORAC database is not explained");
+  });
+});
+
 await test("foods with no measurement say so rather than showing a zero", async () => {
   await withPage(async page => {
     await page.click('#groupNav [data-grp="fats"]');

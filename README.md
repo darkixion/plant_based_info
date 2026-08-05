@@ -148,12 +148,76 @@ the whole fat group from the mapped rows would resolve this, at the cost of
 changing values that are currently displayed. The build enforces the same
 constraint, so this cannot regress silently.
 
+### The flavonoid columns, and why they come from a second tool
+
+```bash
+node tools/flavonoids.mjs extract      # .accdb -> tools/cache/flav_r33/*.csv
+node tools/flavonoids.mjs coverage     # what the join reaches, writes nothing
+node tools/flavonoids.mjs pull         # add the columns to nutrients.json
+```
+
+**SR Legacy cannot supply flavonoids.** It defines the nutrient ids (1348
+anthocyanidins, 1347 flavonoids, 1343 isoflavones, and ids for quercetin, the
+individual catechins and six proanthocyanidin chain lengths) but not one row in
+`food_nutrient.csv` carries a value for any of them. The vocabulary is there and
+the measurements never were. That was verified before any of this was built.
+
+The data lives in the *USDA Database for the Flavonoid Content of Selected
+Foods, Release 3.3*, hosted on the ARS Beltsville site rather than on FoodData
+Central, and it ships as an MS Access `.accdb`. `extract` reads it with either
+`mdbtools` or `uv run --with access-parser`, whichever is present, and writes
+CSVs that every later step reads. **That reader is a one-off developer
+dependency and must stay inside `flavonoids.mjs`**; `build.mjs` has no
+dependencies by design.
+
+**The join is exact and must stay that way.** Release 3.3 is keyed by NDB
+number and `sr_legacy_food.csv` maps `fdc_id` to `NDB_number`, so every food
+resolves through the row a human already reviewed. There is no fuzzy matching,
+and the near-misses are precisely the trap: USDA's *raw* aubergine row carries
+85.7 mg of anthocyanidins and its *cooked* row carries 0.1, so reaching for a
+close-enough row would be wrong by a factor of 800. Grapes are missing for the
+same reason. The flavonoid database holds them only under codes internal to
+itself (red 48 mg, black 22, white 5.7, Concord 120) which never join to SR
+Legacy, and picking one variety would be a choice dressed as a measurement.
+
+**A subclass is only shown where the whole subclass was measured.** USDA
+published individual compounds, not totals, so each column is a sum, and summing
+whatever happens to be present produces a partial total that reads like a
+complete one. USDA measured quercetin alone for asparagus; a 15.2 mg flavonols
+figure built from it would sit in the table looking like kale's 93. So
+`SUBCLASS` in the tool names the compounds a food must have, and the cost is
+visible in `coverage`: cocoa powder has the largest flavan-3-ol figure in the
+source at 261 mg, but only two of the five catechins were measured for it, so it
+shows no data. Minor compounds outside the required list (isorhamnetin,
+gallocatechin) are added to the sum when present but never required.
+
+**Coverage is 51 of 128 foods**, and per subclass: anthocyanidins 24, flavan-3-ols
+35, flavonols 38. Sparse, and deliberately preferred to the alternative. USDA's
+*Expanded Flavonoid Database, Release 1.1* reaches 101 of these foods, but split
+by its own derivation codes its **analytical** counts are 26 and 47, slightly
+*worse* than Release 3.3. The extra fifty foods are imputations and assumed
+zeros. It was downloaded, measured and rejected on that basis, so it does not
+need checking again.
+
+Because these columns have no SR Legacy id, `usda.mjs` lists them in
+`FROM_OTHER_SOURCE` rather than `COLUMN_TO_USDA`. A newly added food gets "no
+data" for them until `flavonoids.mjs pull` runs, which is usually the correct
+answer anyway.
+
 ### What is deliberately not in the data
 
-- **Phytosterols, phytic acid, isoflavones and total flavonoids.** SR Legacy has
-  no figures at all for the last three and reaches only 8 to 14 of these foods
-  for phytosterols. USDA publishes them in separate databases that are not part
-  of SR Legacy and would need their own download and mapping.
+- **A total flavonoid column, or any single antioxidant score.** A total would
+  sum a different set of subclasses for each food, so no two rows would be
+  comparable. As for an antioxidant score, USDA withdrew its own ORAC database
+  in 2012 because antioxidant capacity measured in a test tube predicts nothing
+  useful in the body, and that withdrawal is the reason not to invent a
+  replacement.
+- **Phytosterols, phytic acid, isoflavones and proanthocyanidins.** SR Legacy has
+  no figures at all for them and reaches only 8 to 14 of these foods for
+  phytosterols. USDA publishes phytosterols in a separate database that would
+  need its own download and mapping. Isoflavones are in the expanded flavonoid
+  release, but its analytical values cover the soy foods so patchily that miso
+  would be the only soy row with a figure.
 - **Foods with no SR Legacy row at all**, among them romanesco, freekeh, cavolo
   nero, runner beans and dragon fruit. Each could only be approximated from a
   near relative already in the table, which would be an estimate rather than a

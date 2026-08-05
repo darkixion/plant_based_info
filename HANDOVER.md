@@ -3,19 +3,20 @@
 Written 2026-08-05, updated 2026-08-06. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-**Next session starts with the flavonoid scoping below.** It is scoped, not
-started, and the groundwork that makes it cheap is already recorded there.
+**The flavonoid work that this note used to scope is done and shipped.** What it
+found, including the parts that argue against going further, is in the README
+under "The flavonoid columns, and why they come from a second tool". Start from
+the open list at the bottom instead.
 
 ## Current state
 
-Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything up to
-and including the 32 fruit and vegetables is committed and pushed (`d4d8b8b`).
-**The last five foods and the yeast fortification markers are uncommitted** in
-the working tree. The GitHub remote (`darkixion/plant_based_info`) is public, so
-pushing stays the owner's call.
+Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything is
+committed and pushed. The GitHub remote (`darkixion/plant_based_info`) is
+public, so pushing stays the owner's call.
 
-- **128 foods x 60 nutrients**, sourced from USDA SR Legacy.
-- `npm test` runs 47 browser tests against the built page. All passing.
+- **128 foods x 63 nutrients**, sourced from USDA SR Legacy plus the USDA
+  flavonoid release for the last three columns.
+- `npm test` runs 50 browser tests against the built page. All passing.
 - `npm run build` turns `src/` into a single self-contained `index.html`.
   **Edit `src/`, never `index.html`.**
 - `~/Downloads/vegan-nutrients.html` is a copy of the built page, **currently
@@ -28,8 +29,8 @@ pushing stays the owner's call.
 
 1. **Plant compounds**, a sixth nutrient group: beta-carotene, alpha-carotene,
    beta-cryptoxanthin, lutein and zeaxanthin, and lycopene. 385 of 455 values
-   filled. Phytosterols and the flavonoid family were deliberately left out;
-   the reasons are in the README and in the Methodology dialog.
+   filled. Phytosterols were deliberately left out and still are; the flavonoids
+   were too at the time, and have since been added (see below).
 2. **Food categories** moved from the toolbar dropdown into the sidebar, as a
    list with counts. The dropdown is gone.
 3. **Search** moved from the hero into the top of the sidebar, so all three ways
@@ -58,71 +59,44 @@ their own group while it scrolls; the food list grew from 91 to **128** across
 three batches; and two more pieces of prose that were drifting behind the data
 now derive from it, the amino acid gap list and the fortified food list.
 
-## Next up: anthocyanins and the rest of the flavonoids
+## The flavonoids, now shipped
 
-The question that prompted this: does the table cover antioxidants? Partly. The
-carotenoids do, and so do vitamins A, C and E with selenium, zinc, copper and
-manganese behind them. **Anthocyanins and the whole polyphenol family do not**,
-which is conspicuous now that blackberries, blueberries, raspberries, cherries,
-plums, pomegranate, aubergine and red grapes are all in the table and the
-compound that defines them is missing.
+Three columns joined the plant compounds group: **anthocyanidins**,
+**flavan-3-ols** and **flavonols**, from the USDA Database for the Flavonoid
+Content of Selected Foods, Release 3.3. `tools/flavonoids.mjs` does the
+extraction, the join and the pull, and `README.md` explains every decision in
+it. The parts most likely to be re-litigated:
 
-### What is already established
+- **51 of 128 foods have a flavonoid row at all**, and after the completeness
+  rule below the columns fill 24, 35 and 38 of 128. Sparse, and accepted as
+  such, because the alternative was worse.
+- **A subclass is shown only where the whole subclass was measured.** USDA
+  published individual compounds, not totals, so each column is a sum, and
+  summing whatever is present yields a partial total indistinguishable from a
+  complete one. USDA measured quercetin alone for asparagus; the resulting
+  15.2 mg would have sat next to kale's 93 looking like the same kind of
+  number. Cocoa powder loses the largest flavan-3-ol figure in the source, 261
+  mg, on two of five catechins. That cost is deliberate and `flavonoids.mjs
+  coverage` prints it every run.
+- **The expanded release was downloaded, measured and rejected.** Release 1.1
+  reaches 101 of these foods, but split by its own derivation codes the
+  analytical counts are 26 and 47, slightly *worse* than 3.3. The extra fifty
+  are imputations and assumed zeros. It does not need checking again.
+- **No total flavonoid column and no antioxidant score**, for reasons now
+  stated on the page rather than only here. A total sums a different set of
+  subclasses per food, and USDA withdrew its own ORAC database in 2012.
+- **Aubergine and grapes are absent and should stay absent.** USDA's raw
+  aubergine row carries 85.7 mg of anthocyanidins and its cooked row 0.1, and
+  our row is cooked. Grapes exist in the flavonoid database only under codes
+  internal to it that never join to SR Legacy, disagreeing wildly by variety.
+  Both are exactly the near-miss the exact join is there to refuse.
+- **Isoflavones were looked at and dropped.** The analytical values cover the
+  soy foods so patchily that miso would be the only soy row with a figure,
+  which is worse than no column.
 
-- **SR Legacy cannot supply them.** It *defines* the nutrient ids: 1348
-  anthocyanidins, 1347 flavonoids, 1343 isoflavones, 1339 total phenolics, plus
-  ids for quercetin, the individual catechins and six proanthocyanidin chain
-  lengths. **Zero rows in `food_nutrient.csv` carry a value for any of them.**
-  The vocabulary is there, the measurements never were. Verified, not assumed.
-- **The data lives in a separate USDA release**: the *Database for the Flavonoid
-  Content of Selected Foods, Release 3.3* (March 2018), hosted on the ARS
-  Beltsville site rather than on FoodData Central. **It is not on the FDC
-  download page**, so `tools/usda.mjs` cannot reach it the way it reaches SR
-  Legacy. 506 foods, five subclasses: flavonols, flavones, flavanones,
-  flavan-3-ols and **anthocyanidins** (cyanidin, delphinidin, malvidin,
-  pelargonidin, peonidin, petunidin).
-- **There is also an expanded release**, 1.1, with 29 individual compounds across
-  2,926 foods. Worth comparing on coverage before choosing.
-- **Proanthocyanidins are not in it** at present, and no isoflavone database is
-  offered alongside it. Those are separate questions.
-- **The join can be exact.** The flavonoid database is keyed by NDB number, and
-  `tools/cache/.../sr_legacy_food.csv` maps `fdc_id` to `NDB_number`. All **125**
-  source rows the table uses have one. So this needs no fuzzy matching and no
-  human review pass, unlike `usda.mjs match`. That is the single fact that makes
-  this cheap, and it is why the work is worth doing rather than deferring again.
-
-### The obstacle
-
-Release 3.3 ships as an **MS Access `.accdb` file**, not CSV. Extraction needs
-`mdbtools` (`mdb-export`) or equivalent. That is a one-off developer dependency
-for the extraction step only; it must not become a dependency of `build.mjs`,
-which has none by design and must stay that way.
-
-### Steps, in order
-
-1. Download Release 3.3 into `tools/cache/` (gitignored) and extract with
-   `mdb-export`. If `mdbtools` is unavailable, check whether the expanded 1.1
-   release offers a CSV or Excel form.
-2. **Measure coverage before building anything.** Join on NDB number and count
-   how many of the 128 foods are reached, per subclass. Report it as a table like
-   the carotenoid one in the first handover. This is the go/no-go.
-3. Only then decide the shape. Anthocyanidins alone is the honest minimum, since
-   that is what the question was about. The six individual anthocyanidins as
-   separate columns is probably too fine; a single total is likely right.
-4. If it proceeds: extend `KNOWN` and `COLUMN_TO_USDA`, add the columns to the
-   existing `plant` group rather than making a seventh, and write a `why`
-   sentence for each. `build.mjs` will refuse to build without one.
-
-### Two cautions to carry in
-
-- **Expect it to be sparse.** 506 foods against SR Legacy's 7,793. If coverage
-  lands where the phytosterols did, 8 to 14 of the mapped foods, the answer is
-  the same as it was for phytosterols: do not ship a column that is almost
-  entirely `n/a`.
-- **Do not add an ORAC or "total antioxidant" column.** USDA withdrew its ORAC
-  database in 2012 on the grounds that test-tube antioxidant capacity does not
-  predict anything useful in the body. A single antioxidant-power number would be
-  worse than no number, and the withdrawal is the reason to say so.
+The `.accdb` reader is a developer dependency of `flavonoids.mjs` alone. It
+tries `mdbtools` then `uv run --with access-parser`. `build.mjs` still has no
+dependencies and must keep none.
 
 ## Open, in rough order of value
 
@@ -130,8 +104,13 @@ which has none by design and must stay that way.
   MUFA totals that disagree with their USDA row, so their omega-9 and omega-7
   are withheld. A re-pull resolves them but changes roughly 17 currently
   displayed values. Still an open offer, not a decision anyone has made.
-- **Phytosterols**, if the plant compounds group is worth deepening beyond the
-  flavonoid work above. Also a separate download and mapping, not a `pull`.
+- **Phytosterols**, if the plant compounds group is worth deepening further.
+  Also a separate download and mapping, not a `pull`. Note that the flavonoid
+  work found its coverage no better than the 8 to 14 foods estimated earlier,
+  so this is likely still a no.
+- **Proanthocyanidins**, which Release 3.3 does not carry at all. USDA
+  published them separately once; whether that release is still available was
+  not checked.
 - **Estimated rows.** Romanesco and freekeh could be approximated from
   cauliflower and durum wheat, but only behind a visible "estimated" marker.
   The table carries no provenance concept yet; the per-cell `notes` mechanism
@@ -145,7 +124,13 @@ which has none by design and must stay that way.
 - **No invented data.** Where USDA has no figure the table shows `n/a` and the
   detail panel says "not measured". Protein quality is withheld entirely rather
   than scoring absent amino acids as zeros. Kohlrabi has no tyrosine figure, so
-  it gets no amino acid score, which is correct rather than a gap to fill.
+  it gets no amino acid score, which is correct rather than a gap to fill. The
+  flavonoid columns extend this to partial measurements: an incomplete sum is
+  withheld rather than shown looking like a complete one.
+- **Prose that describes the data derives from the data.** The amino acid gap
+  list, the fortified food list and the flavonoid coverage count are all
+  computed in `app.js` and asserted in the tests, because each of them had or
+  would have drifted silently behind the table.
 - **`tools/usda.mjs pull` refuses to write a value that contradicts a total
   already in the table**, and `build.mjs` enforces the same constraint.
 - **Food mappings are reviewed by a human and committed.** An early automated

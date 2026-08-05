@@ -978,6 +978,13 @@ const FORTIFIED = NOTES.find(n => n.id === "fortified");
 const FORTIFIED_FOODS = Object.keys(FORTIFIED?.cells || {})
   .map(s => FOODS[BY_SLUG.get(s)]).filter(Boolean);
 
+/* And how far the flavonoid data reaches. Counted, not typed, for the same
+   reason: the flavonoid columns are the sparsest in the table, so a number
+   describing them is the one most likely to be quietly overtaken by a new
+   food. A food counts as reached if any one subclass was measured for it. */
+const FLAV_IDS = ["anthocyanidins", "flavan3ols", "flavonols"];
+const FLAV_REACHED = FOODS.filter(f => FLAV_IDS.some(id => val(f, id) !== null)).length;
+
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
@@ -1044,10 +1051,28 @@ const DLG = {
     vitamin A column already counts the provitamin-A carotenoids through it, so giving them
     percentages of their own would show the same intake twice. Conversion is also poor and varies
     between people, so a microgram of beta-carotene is not a microgram of retinol.</p>
-    <p>Phytosterols, phytic acid, isoflavones and total flavonoids are <em>not</em> here. SR Legacy
-    carries no figures at all for the last three, and reaches only 8 to 14 of these foods for
-    phytosterols, so those columns would be almost entirely blank. USDA publishes them in separate
-    databases that would need their own mapping.</p>
+    <p>Then three flavonoid subclasses: <b>anthocyanidins</b>, the red and purple berry pigments;
+    <b>flavan-3-ols</b>, the catechins behind the astringency of tea and apple skin; and
+    <b>flavonols</b>, quercetin and its relatives, the most widespread of the three in vegetables.
+    These are the closest the table comes to answering "what about antioxidants", and they come
+    from a different USDA release than everything else, the Database for the Flavonoid Content of
+    Selected Foods. It measured only ${FLAV_REACHED} of these ${FOODS.length} foods, so these
+    columns are mostly blank, and that is the honest state of the evidence rather than an
+    omission.</p>
+    <p><b>A blank here is not a zero, and the two are worth telling apart.</b> USDA published
+    individual compounds, not subclass totals, so each figure is a sum. A sum is only shown where
+    the whole subclass was measured. Cocoa powder has the largest single flavan-3-ol figure in the
+    source, but only two of the five catechins were ever measured for it, so it shows no data
+    rather than a total that understates by an unknown amount.</p>
+    <p>There is deliberately no <em>total flavonoid</em> column and no antioxidant score. A total
+    would sum a different set of subclasses for each food, so two rows could not be compared. As
+    for a single antioxidant number, USDA withdrew its own ORAC database in 2012, on the grounds
+    that antioxidant capacity measured in a test tube predicts nothing useful in the body.</p>
+    <p>Phytosterols, phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. SR Legacy
+    carries no figures at all for them, and reaches only 8 to 14 of these foods for phytosterols.
+    USDA's expanded flavonoid release would reach twice as many of these foods, but it gets there
+    by imputing values from other foods rather than measuring them, which is the one thing this
+    table will not do.</p>
     <h4>Amino acid score and the limiting amino acid</h4>
     <p>The protein quality figures are <em>derived</em> from the columns already in the table, not
     sourced separately, so they cannot disagree with the rest of the row. Each essential amino acid
@@ -1134,7 +1159,7 @@ $("#totalFoods").textContent = FOODS.length;
 
 // Derived from the data so adding a column cannot leave the prose behind.
 const GROUP_BLURB = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
-                      vitamin: "vitamins", mineral: "minerals", plant: "carotenoids" };
+                      vitamin: "vitamins", mineral: "minerals", plant: "plant compounds" };
 $("#compBlurb").textContent = `${NUTS.length} nutrients per food: ` +
   GROUPS.map(g => `${NUTS.filter(n => n.group === g.id).length} ${GROUP_BLURB[g.id]}`)
     .join(", ").replace(/, ([^,]*)$/, " and $1") + ".";

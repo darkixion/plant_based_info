@@ -349,13 +349,25 @@ const COLUMN_TO_USDA = {
   betacar: 1107, alphacar: 1108, cryptox: 1120, luteinzea: 1123, lycopene: 1122,
 };
 
+/* Columns SR Legacy cannot fill. It defines nutrient ids for the flavonoids but
+   carries a value for none of them in any row, so these come from a separate
+   release and a separate tool. A food added here gets "no data" for them until
+   `flavonoids.mjs pull` runs, which is correct rather than a gap: most foods
+   have no flavonoid measurement at all. Listing them explicitly, rather than
+   letting the check ignore anything unmapped, keeps a genuinely forgotten
+   column an error. */
+const FROM_OTHER_SOURCE = {
+  anthocyanidins: "flavonoids.mjs", flavan3ols: "flavonoids.mjs", flavonols: "flavonoids.mjs",
+};
+
 async function cmdAdd(args) {
   const dry = args.includes("--dry-run");
   await ensureDataset();
   const data = await readData();
   const spec = JSON.parse(await readFile(join(ROOT, "tools", "food-additions.json"), "utf8"));
 
-  const unknown = data.nutrients.filter(n => !COLUMN_TO_USDA[n.id]).map(n => n.id);
+  const unknown = data.nutrients
+    .filter(n => !COLUMN_TO_USDA[n.id] && !FROM_OTHER_SOURCE[n.id]).map(n => n.id);
   if (unknown.length) throw new Error(`no USDA id mapped for column(s): ${unknown.join(", ")}`);
 
   const additions = [...(spec.requested || []), ...(spec.staples || [])];
@@ -394,6 +406,11 @@ async function cmdAdd(args) {
   }
 
   console.log(`\n${added} foods added, ${skipped} already present, ${alts} alternative names set`);
+  if (added) {
+    const others = [...new Set(Object.values(FROM_OTHER_SOURCE))];
+    console.log(`  Columns SR Legacy cannot fill are left as "no data". Run ` +
+      `${others.join(", ")} to\n  see whether the new foods have one.`);
+  }
   if (thin.length) {
     console.log(`\n${thin.length} with sparse data (USDA has no figure for many columns):`);
     thin.forEach(t => console.log(`  ${t}`));
