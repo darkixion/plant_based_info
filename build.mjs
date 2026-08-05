@@ -63,12 +63,12 @@ function validate(data) {
 
     const slug = `${f.name} ${f.state || ""}`.toLowerCase().trim()
       .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    if (slugs.has(slug)) problems.push(`duplicate food key "${slug}" — saved favourites would collide`);
+    if (slugs.has(slug)) problems.push(`duplicate food key "${slug}", saved favourites would collide`);
     slugs.add(slug);
   }
 
   // Cross-field checks. A fraction exceeding the total it belongs to is the
-  // signature of a food mapped to the wrong source row — the values look
+  // signature of a food mapped to the wrong source row, the values look
   // individually plausible and only disagree when compared with each other.
   const at = id => nutrients.findIndex(n => n.id === id);
   const subsets = [
@@ -127,7 +127,7 @@ const run = () => build().catch(err => {
 await run();
 
 if (process.argv.includes("--watch")) {
-  console.log("watching src/ — ctrl-c to stop");
+  console.log("watching src/, ctrl-c to stop");
   let timer;
   for await (const _ of watch(SRC, { recursive: true })) {
     clearTimeout(timer);              // editors fire several events per save

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VeganNutrients — complete plant-based nutrition database</title>
+<title>VeganNutrients: complete plant-based nutrition database</title>
 <meta name="description" content="Browse amino acids, vitamins, minerals, omega oils and macronutrients for 44 vegan foods. Sortable, filterable, per 100 g.">
 <style>
 /*{{STYLES}}*/
@@ -118,6 +118,7 @@
     <button class="btn push" type="button" id="resetBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v6h6"/><path d="M3.5 13a9 9 0 1 0 2.1-6.4L3 9"/></svg> Reset columns</button>
   </div>
 
+  <p class="lensnote" id="lensNote" hidden></p>
   <p class="meta" id="meta"></p>
   <p aria-live="polite" class="sr" id="live"></p>
 
@@ -183,8 +184,8 @@
   <p><b>Not medical advice.</b> Nutrient needs vary by age, sex, pregnancy, medication and health
   status. Daily values shown are general adult reference figures (FDA DV / FAO-WHO patterns) and
   will not match everyone. Talk to a dietitian or GP before making big dietary changes, and note
-  that vitamin&nbsp;B12 cannot be reliably obtained from unfortified plant foods — supplementation
-  is standard advice on a vegan diet.</p>
+  that vitamin&nbsp;B12 cannot be reliably obtained from unfortified plant foods, so
+  supplementation is standard advice on a vegan diet.</p>
 </footer>
 </div>
 </div>
@@ -206,6 +207,13 @@
           <label for="lensName" style="font-size:13.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">Name</label>
           <input class="lensname" id="lensName" type="text" maxlength="40" required
                  placeholder="e.g. Creatine precursors" autocomplete="off">
+        </div>
+        <div>
+          <label for="lensWhy" style="font-size:13.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">
+            What it means <span class="lenscount">optional, shown when the group is selected</span></label>
+          <input class="lensname" id="lensWhy" type="text" maxlength="240"
+                 placeholder="e.g. What the body uses to make creatine, which plant foods do not supply."
+                 autocomplete="off">
         </div>
         <div>
           <p style="font-size:13.5px;font-weight:600;color:var(--ink);margin:0 0 8px">

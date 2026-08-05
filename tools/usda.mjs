@@ -8,7 +8,7 @@
  *
  * Why a committed map rather than matching on the fly: automated food matching
  * is confidently wrong in ways that are hard to spot. An early fingerprint-only
- * run paired "Black beans" with "Black pudding, boiled" — blood sausage — purely
+ * run paired "Black beans" with "Black pudding, boiled" (blood sausage) purely
  * because the macros lined up. So matching is a one-off step whose output is
  * reviewed by a human and version-controlled, and the pull step only ever reads
  * that reviewed map.
@@ -33,8 +33,8 @@ const MAP = join(ROOT, "src", "data", "usda-map.json");
 /* USDA nutrient ids we know how to describe. Extend as needed. */
 const KNOWN = {
   // Named to match the existing "Omega-3 (ALA)" / "Omega-6 (LA)" columns.
-  // 18:1 is undifferentiated in SR Legacy — it includes a little n-7 vaccenic
-  // alongside the n-9 oleic — but in plant foods it is overwhelmingly oleic.
+  // 18:1 is undifferentiated in SR Legacy: it includes a little n-7 vaccenic
+  // alongside the n-9 oleic, but in plant foods it is overwhelmingly oleic.
   // The Methodology dialog states this; the label should not overclaim.
   // `after` keeps the omegas in numeric order ahead of the totals they belong
   // to, so a fresh pull reproduces the committed column order.
@@ -103,7 +103,7 @@ async function ensureDataset() {
     console.log("done");
   }
   try { await exec("unzip", ["-o", "-q", zip, "-d", CACHE]); }
-  catch { throw new Error(`could not unzip ${zip} — is 'unzip' installed?`); }
+  catch { throw new Error(`could not unzip ${zip}. Is 'unzip' installed?`); }
 }
 
 /** Nutrient values per food, restricted to the ids we care about. */
@@ -188,7 +188,7 @@ async function cmdMatch() {
       if (!overlap) continue;
       if (!best || d < best.d) best = { d, fdc, desc };
     }
-    if (!best) { report.push(["NONE", f.name, "—"]); continue; }
+    if (!best) { report.push(["NONE", f.name, "(no match)"]); continue; }
     const confidence = best.d < 0.02 ? "exact" : best.d < 0.12 ? "close" : "weak";
     out[slug] = { fdc_id: best.fdc, description: best.desc, confidence,
                   distance: +best.d.toFixed(4), reviewed: false };
@@ -200,7 +200,7 @@ async function cmdMatch() {
   console.log(report.map(([c, a, b]) => `  ${c.padEnd(6)} ${a.padEnd(22)} ${b.slice(0, 52)}`).join("\n"));
   console.log(`\nwrote ${MAP}`);
   console.log(`${report.length - w.length} confident, ${w.length} need review ` +
-    `— check them, then set "reviewed": true on every entry you accept.`);
+    `Check them, then set "reviewed": true on every entry you accept.`);
 }
 
 /* ---------- pull ---------- */
@@ -290,19 +290,93 @@ async function cmdPull(args) {
   console.log(`\n${filled} values filled, ${missing.length} left as "no data"`);
   if (missing.length) console.log(`  ${missing.join(", ")}`);
   if (conflicts.length) {
-    console.log(`\n${conflicts.length} withheld — existing totals disagree with the mapped USDA row:`);
+    console.log(`\n${conflicts.length} withheld, existing totals disagree with the mapped USDA row:`);
     conflicts.forEach(c => console.log(`  ${c}`));
     console.log(`  Left as "no data". Re-pulling the whole fat group from the mapped\n` +
                 `  rows would resolve these, at the cost of changing existing values.`);
   }
   if (dry) { console.log("\n--dry-run: nothing written"); return; }
   await writeFile(DATA, JSON.stringify(data, null, 1) + "\n");
-  console.log(`\nwrote ${DATA} — run 'npm test' to verify`);
+  console.log(`\nwrote ${DATA}, run 'npm test' to verify`);
+}
+
+/* ---------- add foods ----------
+   Every column for a new food comes from one USDA row. That matters for the
+   amino acids: the existing rows derive them from a per-protein profile, which
+   only differs from the source figures when the stored protein disagrees with
+   USDA's. Sourcing a whole food from a single row makes the two identical, so
+   no new methodology enters the table. */
+const COLUMN_TO_USDA = {
+  kcal: 1008, protein: 1003, carbs: 1005, fiber: 1079, sugars: 2000, fat: 1004,
+  satfat: 1258, water: 1051, ala: 1404, la: 1316, palmitoleic: 1275, oleic: 1268,
+  mufa: 1292, pufa: 1293, his: 1221, ile: 1212, leu: 1213, lys: 1214, met: 1215,
+  cys: 1216, phe: 1217, tyr: 1218, thr: 1211, trp: 1210, val: 1219, arg: 1220,
+  alaa: 1222, asp: 1223, glu: 1224, gly: 1225, pro: 1226, ser: 1227, vita: 1106,
+  vitc: 1162, vitd: 1114, vite: 1109, vitk: 1185, b1: 1165, b2: 1166, b3: 1167,
+  b5: 1170, b6: 1175, b9: 1177, b12: 1178, chol: 1180, ca: 1087, fe: 1089,
+  mg: 1090, p: 1091, k: 1092, na: 1093, zn: 1095, cu: 1098, mn: 1101, se: 1103,
+};
+
+async function cmdAdd(args) {
+  const dry = args.includes("--dry-run");
+  await ensureDataset();
+  const data = await readData();
+  const spec = JSON.parse(await readFile(join(ROOT, "tools", "food-additions.json"), "utf8"));
+
+  const unknown = data.nutrients.filter(n => !COLUMN_TO_USDA[n.id]).map(n => n.id);
+  if (unknown.length) throw new Error(`no USDA id mapped for column(s): ${unknown.join(", ")}`);
+
+  const additions = [...(spec.requested || []), ...(spec.staples || [])];
+  const names = await readCSV("food.csv");
+  const desc = new Map(names.map(r => [r.fdc_id, r.description]));
+  const vals = await loadNutrients(Object.values(COLUMN_TO_USDA));
+
+  const have = new Set(data.foods.map(slugify));
+  let added = 0, skipped = 0;
+  const thin = [];
+  for (const f of additions) {
+    if (!desc.has(f.fdc_id)) throw new Error(`${f.name}: fdc_id ${f.fdc_id} is not in SR Legacy`);
+    if (have.has(slugify(f))) { skipped++; continue; }
+    const v = vals.get(f.fdc_id) || {};
+    const row = data.nutrients.map(n => {
+      const a = v[String(COLUMN_TO_USDA[n.id])];
+      return a === undefined ? null : a;
+    });
+    const filled = row.filter(x => x !== null).length;
+    if (filled < data.nutrients.length * 0.5)
+      thin.push(`${f.name} (${filled}/${data.nutrients.length} values)`);
+    const food = { name: f.name, state: f.state || "", cat: f.cat, colour: f.colour, v: row };
+    if (f.alt) food.alt = f.alt;
+    data.foods.push(food);
+    have.add(slugify(f));
+    added++;
+    console.log(`  + ${f.name.padEnd(22)} ${String(filled).padStart(2)}/${data.nutrients.length}  ${desc.get(f.fdc_id).slice(0, 46)}`);
+  }
+
+  // Alternative names for foods that were already in the table.
+  let alts = 0;
+  for (const [slug, alt] of Object.entries(spec.alt_names_for_existing || {})) {
+    const f = data.foods.find(x => slugify(x) === slug);
+    if (!f) { console.log(`  ! no food matches "${slug}" for alt name "${alt}"`); continue; }
+    if (f.alt !== alt) { f.alt = alt; alts++; }
+  }
+
+  console.log(`\n${added} foods added, ${skipped} already present, ${alts} alternative names set`);
+  if (thin.length) {
+    console.log(`\n${thin.length} with sparse data (USDA has no figure for many columns):`);
+    thin.forEach(t => console.log(`  ${t}`));
+  }
+  for (const [n, why] of Object.entries(spec.unavailable || {}))
+    console.log(`\n  not added, ${n}: ${why}`);
+  if (dry) { console.log("\n--dry-run: nothing written"); return; }
+  await writeFile(DATA, JSON.stringify(data, null, 1) + "\n");
+  console.log(`\nwrote ${DATA}, run 'npm test' to verify`);
 }
 
 const [cmd, ...rest] = process.argv.slice(2);
 try {
   if (cmd === "match") await cmdMatch();
   else if (cmd === "pull") await cmdPull(rest);
-  else { console.error("usage: usda.mjs match | pull <nutrientId>... [--dry-run]"); process.exit(1); }
+  else if (cmd === "add") await cmdAdd(rest);
+  else { console.error("usage: usda.mjs match | pull <nutrientId>... | add [--dry-run]"); process.exit(1); }
 } catch (e) { console.error(`\n${e.message}\n`); process.exit(1); }

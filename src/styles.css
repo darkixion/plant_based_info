@@ -4,9 +4,9 @@
   --line:#E7EAE4; --line-soft:#F0F2EE; --page:#FFFFFF; --panel:#FFFFFF;
   --raise:#FAFBF9; --shadow:0 1px 2px rgba(20,32,22,.06),0 8px 24px -12px rgba(20,32,22,.10);
   --warn:#B4531B; --amber:#C08A16; --r:12px; --tap:44px;
-  /* per-group column washes — sequenced so no two adjacent groups share a hue */
+  /* per-group column washes, sequenced so no two adjacent groups share a hue */
   --t-macro:#F3F8EF; --t-fats:#FCF4EC; --t-amino:#EDF5F7; --t-vitamin:#FBF6E8; --t-mineral:#F4F1FA;
-  /* lens highlight — deliberately off-palette so it never reads as a group tint */
+  /* lens highlight, deliberately off-palette so it never reads as a group tint */
   --lens-bg:#FDEEF3; --lens-line:#C2477E; --lens-ink:#8E2F5B;
 }
 [data-theme=dark]{
@@ -94,6 +94,11 @@ button,input,select{font:inherit; color:inherit}
   border:2px solid var(--lens-line); flex:none}
 select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px var(--lens-line)}
 .lenshint{font-size:12.5px; color:var(--lens-ink); font-weight:600}
+.lensnote{margin:0 0 12px; padding:11px 14px; border-radius:10px; font-size:13.5px;
+  line-height:1.5; color:var(--body); background:var(--lens-bg);
+  border:1px solid var(--lens-line); border-left-width:3px; max-width:96ch}
+.lensnote b{color:var(--lens-ink); font-weight:650}
+.lensnote .cols{display:block; margin-top:6px; font-size:12px; color:var(--muted)}
 
 /* lens editor dialog */
 .lensform{display:flex; flex-direction:column; gap:14px}
@@ -211,12 +216,16 @@ thead tr:nth-child(2) th.lens.sorted{box-shadow:inset 0 3px 0 var(--lens-line),i
 .fname{display:flex; flex-direction:column; align-items:flex-start; line-height:1.25; min-width:0; border:0; background:none; padding:2px 0; margin:0; text-align:left; border-radius:6px}
 .fname:hover b{color:var(--green-dark); text-decoration:underline}
 .fname b{font-weight:600; color:var(--ink); font-size:13.5px}
+.fname b .alt{font-weight:400; color:var(--faint)}
 .fname span{font-size:11.5px; color:var(--faint)}
 .fav{border:0; background:none; padding:7px; border-radius:8px; color:var(--faint); line-height:0;
      margin-left:auto; min-width:34px; min-height:34px}
 .fav:hover{background:var(--line-soft); color:var(--green)}
 .fav[aria-pressed=true]{color:var(--green)}
 td.num.low{color:var(--faint)}
+/* "n/a" means nobody published a figure. Kept visually quieter than a real
+   number so it never reads as a measured value. */
+td.num .na{color:var(--faint); font-style:italic; font-size:12px}
 td.num b{font-weight:600; color:var(--ink)}
 .dv{display:block; font-size:10.5px; color:var(--green-dark); font-weight:600; line-height:1.1}
 .empty{padding:52px 20px; text-align:center; color:var(--muted)}
@@ -248,6 +257,8 @@ td.num b{font-weight:600; color:var(--ink)}
   margin-inline:-8px; padding-inline:8px; border-radius:0 4px 4px 0}
 .drow.lensrow dt{color:var(--lens-ink); font-weight:600}
 .drow .pc{color:var(--green-dark); font-weight:600}
+.drow .nodata{color:var(--faint); font-weight:400; font-style:italic; font-size:12.5px}
+.nodatanote{font-size:11.5px; color:var(--faint); line-height:1.45; margin:8px 0 0}
 dl{margin:0}
 .bararea{margin-top:4px}
 .minibar{height:5px; border-radius:3px; background:var(--line-soft); overflow:hidden; margin-top:5px}

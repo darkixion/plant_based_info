@@ -21,17 +21,28 @@ const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
    A lens is a named set of nutrients that cuts across the column groups.
    Only nutrients present in DATA are listed; anything unknown is dropped on load. */
 const BUILTIN_LENSES = [
-  { id: "eaa",       name: "Essential amino acids", ids: ["his","ile","leu","lys","met","phe","thr","trp","val"] },
-  { id: "creatine",  name: "Creatine precursors",   ids: ["gly","arg","met"] },
-  { id: "bcaa",      name: "Branched-chain (BCAA)", ids: ["leu","ile","val"] },
-  { id: "sulphur",   name: "Sulphur amino acids",   ids: ["met","cys"] },
-  { id: "aromatic",  name: "Aromatic amino acids",  ids: ["phe","tyr"] },
-  { id: "iron",      name: "Iron & absorption",     ids: ["fe","vitc"] },
-  { id: "bone",      name: "Bone health",           ids: ["ca","vitd","vitk","mg","p"] },
-  { id: "methyl",    name: "B12, folate & methylation", ids: ["b12","b9","b6","chol","met"] },
-  { id: "omega",     name: "Omega balance",         ids: ["ala","la"] },
-  { id: "antiox",    name: "Antioxidant vitamins",  ids: ["vita","vitc","vite","se"] },
-  { id: "electro",   name: "Electrolytes",          ids: ["na","k","mg","ca"] },
+  { id: "eaa", name: "Essential amino acids", ids: ["his","ile","leu","lys","met","phe","thr","trp","val"],
+    why: "The nine amino acids the body cannot make and must get from food. A protein is only as useful as its scarcest one, so the lowest of these caps the rest." },
+  { id: "creatine", name: "Creatine precursors", ids: ["gly","arg","met"],
+    why: "Creatine is not present in plant foods, so vegans synthesise it from these three amino acids. Body stores tend to run lower on a plant-based diet." },
+  { id: "bcaa", name: "Branched-chain (BCAA)", ids: ["leu","ile","val"],
+    why: "The three amino acids muscle burns directly rather than sending to the liver. Leucine is the one that triggers muscle protein synthesis." },
+  { id: "sulphur", name: "Sulphur amino acids", ids: ["met","cys"],
+    why: "Methionine and cysteine are scored as a pair because cysteine spares methionine. Pulses are usually short on both, which is what grains make up for." },
+  { id: "aromatic", name: "Aromatic amino acids", ids: ["phe","tyr"],
+    why: "Phenylalanine and tyrosine are scored as a pair, since the body makes tyrosine from phenylalanine. Both feed dopamine and thyroid hormone production." },
+  { id: "iron", name: "Iron & absorption", ids: ["fe","vitc"],
+    why: "Plant iron is non-haem and poorly absorbed on its own. Vitamin C in the same meal can multiply uptake severalfold, so the two columns are worth reading together." },
+  { id: "bone", name: "Bone health", ids: ["ca","vitd","vitk","mg","p"],
+    why: "Calcium is only half the story: vitamin D governs how much you absorb, vitamin K directs it into bone, and magnesium and phosphorus build the mineral itself." },
+  { id: "methyl", name: "B12, folate & methylation", ids: ["b12","b9","b6","chol","met"],
+    why: "The nutrients that keep homocysteine in check. B12 is the critical gap on a vegan diet, because unfortified plant foods are not a reliable source whatever these figures show." },
+  { id: "omega", name: "Omega balance", ids: ["ala","la"],
+    why: "The two fats the body cannot make. They compete for the same enzymes, so a diet heavy in omega-6 blunts conversion of omega-3 into the forms the body actually uses." },
+  { id: "antiox", name: "Antioxidant vitamins", ids: ["vita","vitc","vite","se"],
+    why: "Nutrients that limit oxidative damage, working in different compartments: vitamin C in water, vitamin E in fat, and selenium as part of the enzymes that recycle them." },
+  { id: "electro", name: "Electrolytes", ids: ["na","k","mg","ca"],
+    why: "The minerals governing fluid balance, nerve signalling and muscle contraction. Whole plant foods are naturally high in potassium and low in sodium, the opposite of most processed food." },
 ];
 
 const S = {
@@ -91,7 +102,8 @@ function loadPrefs() {
     S.custom = p.custom
       .filter(l => l && typeof l.name === "string" && Array.isArray(l.ids))
       .map(l => ({ id: String(l.id || ""), name: l.name.slice(0, 40),
-                   ids: l.ids.filter(x => IDX.has(x)) }))
+                   ids: l.ids.filter(x => IDX.has(x)),
+                   ...(typeof l.why === "string" && l.why ? { why: l.why.slice(0, 240) } : {}) }))
       .filter(l => l.id && l.ids.length);
   }
   if (typeof p.lens === "string" && lensById(p.lens)) S.lens = p.lens;
@@ -118,18 +130,27 @@ function toggleFav(i) {
   savePrefs();
 }
 
-function fmt(v, n) {
-  if (v === null || v === undefined) return "—";
+/** Plain text, for aria-labels and anywhere markup would leak. "n/a" marks a
+ *  nutrient nobody has published a figure for, which is not the same as zero. */
+function fmtText(v, n) {
+  if (v === null || v === undefined) return "n/a";
   if (S.dv && n.dv) return v === 0 ? "0%" : Math.round((v / n.dv) * 100) + "%";
   if (v === 0) return "0";
   return v.toFixed(n.dp);
+}
+
+/** Display form: same thing, with the "n/a" marked up so it can be greyed. */
+function fmt(v, n) {
+  return (v === null || v === undefined)
+    ? '<span class="na">n/a</span>'
+    : fmtText(v, n);
 }
 
 /* ---------- derived protein quality ----------
    Scores a food's essential amino acids against the FAO/WHO 2007 requirement
    pattern for adults, in mg per g of protein. Methionine is scored together
    with cysteine and phenylalanine together with tyrosine, because each pair
-   spares the other — the same pairing the methodology note describes.
+   spares the other, the same pairing the methodology note describes.
    The lowest-scoring entry is the limiting amino acid: the one that caps how
    much of the protein the body can actually use. */
 const FAO_PATTERN = [
@@ -150,8 +171,14 @@ function proteinQuality(f) {
   // calling something "a complete protein" on that basis would be misleading.
   if (!protein || protein < 1) return null;
 
+  // An unmeasured amino acid is not a zero. Treating it as one would report a
+  // score of 0% and name a limiting acid for a food nobody has ever assayed,
+  // which is a fabricated conclusion rather than a missing one.
+  if (FAO_PATTERN.some(p => p.ids.some(id => val(f, id) === null || val(f, id) === undefined)))
+    return null;
+
   const scored = FAO_PATTERN.map(p => {
-    const mgPerG = p.ids.reduce((s, id) => s + (val(f, id) ?? 0), 0) * 1000 / protein;
+    const mgPerG = p.ids.reduce((s, id) => s + val(f, id), 0) * 1000 / protein;
     return { label: p.label, pc: (mgPerG / p.mg) * 100 };
   });
   if (scored.some(s => !isFinite(s.pc))) return null;
@@ -177,7 +204,8 @@ function rows() {
   if (S.favsOnly) r = r.filter(x => isFav(x.i));
   if (S.cat) r = r.filter(x => x.f.cat === S.cat);
   if (q) r = r.filter(x =>
-    (x.f.name + " " + x.f.state + " " + x.f.cat).toLowerCase().includes(q));
+    (x.f.name + " " + (x.f.alt || "") + " " + x.f.state + " " + x.f.cat)
+      .toLowerCase().includes(q));
   const { id, dir } = S.sort;
   r.sort((a, b) => {
     if (id === "__name") return dir * a.f.name.localeCompare(b.f.name);
@@ -224,12 +252,28 @@ function toggleGroup(id) {
 
 /* ---------- highlight lens ---------- */
 function renderLensSelect() {
-  const opt = l => `<option value="${esc(l.id)}"${l.id === S.lens ? " selected" : ""}>${esc(l.name)}</option>`;
+  // title= gives the native option tooltip on hover; the same sentence is shown
+  // in full under the toolbar once a lens is selected, since option tooltips
+  // are unavailable to touch and to most screen readers.
+  const opt = l => `<option value="${esc(l.id)}"${l.id === S.lens ? " selected" : ""}` +
+    `${l.why ? ` title="${esc(l.why)}"` : ""}>${esc(l.name)}</option>`;
   $("#lensSel").innerHTML =
     `<option value=""${S.lens ? "" : " selected"}>None</option>` +
     `<optgroup label="Built in">${BUILTIN_LENSES.map(opt).join("")}</optgroup>` +
     (S.custom.length ? `<optgroup label="Yours">${S.custom.map(opt).join("")}</optgroup>` : "");
   $("#lensSel").classList.toggle("lensactive", !!S.lens);
+  renderLensNote();
+}
+
+function renderLensNote() {
+  const l = lensById(S.lens), box = $("#lensNote");
+  if (!l) { box.hidden = true; box.innerHTML = ""; return; }
+  const cols = l.ids.map(id => NUTS[IDX.get(id)]?.label).filter(Boolean);
+  box.hidden = false;
+  box.innerHTML =
+    `<b>${esc(l.name)}</b>` +
+    (l.why ? ` ${esc(l.why)}` : ` Highlighting ${cols.length} nutrients.`) +
+    `<span class="cols">${cols.map(esc).join(" · ")}</span>`;
 }
 
 /** Highlighting a nutrient whose group is switched off would highlight nothing,
@@ -294,7 +338,7 @@ function renderTable() {
     return `<th scope="col" aria-sort="${aria}" data-g="${n.group}" class="${colClass(n)}">
       <button class="sortbtn" type="button" data-sort="${n.id}">
         <span>${esc(n.label)} <span class="unit">${unit}</span>${
-          n.lens ? '<span class="sr"> — highlighted</span>' : ""}</span>
+          n.lens ? '<span class="sr">, highlighted</span>' : ""}</span>
         <span class="ar" aria-hidden="true">${n.sorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
       </button></th>`;
   }).join("");
@@ -313,9 +357,10 @@ function renderTable() {
     <tr data-i="${i}" ${S.sel === i ? 'aria-selected="true"' : ""}>
       <td class="food${nameSorted ? " sorted" : ""}"><div class="fcell">
         <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
-        <button class="fname" type="button" data-pick="${i}">
-          <b>${esc(f.name)}</b>${f.state ? `<span>${esc(f.state)}</span>` : ""}
-          <span class="sr">— show full profile</span></button>
+        <button class="fname" type="button" data-pick="${i}" data-name="${esc(f.name)}">
+          <b>${esc(f.name)}${f.alt ? ` <span class="alt">(${esc(f.alt)})</span>` : ""}</b>
+          ${f.state ? `<span>${esc(f.state)}</span>` : ""}
+          <span class="sr">, show full profile</span></button>
         <button class="fav" type="button" data-fav="${i}" aria-pressed="${isFav(i)}">
           ${isFav(i) ? I.heartFull : I.heart}
           <span class="sr">${isFav(i) ? "Remove" : "Add"} ${esc(f.name)} ${isFav(i) ? "from" : "to"} favourites</span>
@@ -375,13 +420,19 @@ function renderChart() {
   $("#chartRows").setAttribute("role", "img");
   $("#chartRows").setAttribute("aria-label",
     `Bar chart of ${n.label} across ${Math.min(r.length, 25)} foods, highest first. ` +
-    r.slice(0, 25).map(({ f }) => `${f.name} ${fmt(val(f, n.id), n)}`).join(", "));
+    r.slice(0, 25).map(({ f }) => `${f.name} ${fmtText(val(f, n.id), n)}`).join(", "));
 }
 
 /** Derived figures, computed from the columns already in the table rather than
- *  sourced separately — so they cannot disagree with the rest of the row. */
+ *  sourced separately, so they cannot disagree with the rest of the row. */
 function proteinQualityBlock(f) {
   const q = proteinQuality(f), o = omegaRatio(f);
+  const aaMissing = NUTS.some(n => n.group === "amino" && val(f, n.id) === null);
+  if (!q && aaMissing && (val(f, "protein") ?? 0) >= 1)
+    return `<h4 style="margin-top:18px">Protein quality</h4>
+      <p class="nodatanote" style="margin-top:0">No amino acid score: USDA has not published a
+      full amino acid analysis for this food, so there is nothing to score it against. The gap is
+      in the source data, not in the food.</p>`;
   if (!q && !o) return "";
 
   let rows = "";
@@ -436,18 +487,28 @@ function renderDetail() {
     const list = NUTS.filter(n => n.group === S.tab);
     const max = Math.max(...list.map(n => g(n.id) ?? 0), 0.0001);
     const L = lensIds();
+    const unmeasured = list.filter(n => g(n.id) === null || g(n.id) === undefined).length;
     body = `<h4>${S.tab === "amino" ? "Amino acids" : S.tab === "vitamin" ? "Vitamins" : "Minerals"}</h4>
       <dl>` + list.map(n => {
-        const v = g(n.id) ?? 0;
-        const pc = n.dv ? Math.round(v / n.dv * 100) : null;
+        const v = g(n.id);
+        // Distinguish "measured as none" from "never measured": rendering a
+        // missing figure as 0.000 asserts an absence nobody established.
+        const none = v === null || v === undefined;
+        const pc = !none && n.dv ? Math.round(v / n.dv * 100) : null;
         return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <dt>${esc(n.label)}</dt>
-            <dd>${v.toFixed(n.dp)} ${n.unit}${pc !== null ? ` <span class="pc">· ${pc}%</span>` : ""}</dd>
+            <dd>${none ? `<span class="nodata">not measured</span>`
+              : `${v.toFixed(n.dp)} ${n.unit}${pc !== null ? ` <span class="pc">· ${pc}%</span>` : ""}`}</dd>
           </div>
-          <div class="minibar" aria-hidden="true"><i style="width:${(v / max * 100).toFixed(1)}%"></i></div>
+          ${none ? "" : `<div class="minibar" aria-hidden="true"><i style="width:${(v / max * 100).toFixed(1)}%"></i></div>`}
         </div>`;
-      }).join("") + `</dl>`;
+      }).join("") + `</dl>` +
+      (unmeasured ? `<p class="nodatanote">${unmeasured === list.length
+          ? "USDA publishes no figures at all for this group in this food."
+          : `USDA publishes no figure for ${unmeasured} of the ${list.length}.`}
+        Unmeasured is not the same as none: nobody has analysed it, rather than
+        having analysed it and found nothing.</p>` : "");
   }
 
   $("#detail").innerHTML = `
@@ -457,6 +518,7 @@ function renderDetail() {
         <span class="sr">${isFav(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
       <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
       <h3>${esc(f.name)}</h3>
+      ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
       ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
       <div class="per">${esc(f.cat)} · per 100 g</div>
     </div>
@@ -636,10 +698,11 @@ document.addEventListener("keydown", e => {
 /* ---------- CSV ---------- */
 function csv() {
   const c = cols(), r = rows();
-  const head = ["Food", "State", "Category", ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit})`)];
+  const head = ["Food", "Also known as", "State", "Category",
+                ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit})`)];
   const q = s => `"${String(s).replace(/"/g, '""')}"`;
   const lines = [head.map(q).join(",")].concat(r.map(({ f }) =>
-    [q(f.name), q(f.state), q(f.cat), ...c.map(n => {
+    [q(f.name), q(f.alt || ""), q(f.state), q(f.cat), ...c.map(n => {
       const v = val(f, n.id);
       if (v === null) return "";
       return S.dv && n.dv ? Math.round(v / n.dv * 100) : v;
@@ -689,6 +752,7 @@ function renderSavedLenses() {
 function openLensEditor() {
   $("#lensErr").textContent = "";
   $("#lensName").value = "";
+  $("#lensWhy").value = "";
   renderSavedLenses();
   // Pre-tick whatever is highlighted now, so refining a built-in lens into your
   // own variant is a couple of clicks rather than starting from nothing.
@@ -722,7 +786,8 @@ $("#lensForm").addEventListener("submit", e => {
   if (!ids.length) { $("#lensErr").textContent = "Pick at least one nutrient."; return; }
 
   const id = "c" + Date.now().toString(36);
-  S.custom.push({ id, name: name.slice(0, 40), ids });
+  const why = $("#lensWhy").value.trim().slice(0, 240);
+  S.custom.push({ id, name: name.slice(0, 40), ids, ...(why ? { why } : {}) });
   savePrefs();
   $("#lensDlg").close();
   setLens(id);                       // also switches on any groups it needs
@@ -742,7 +807,7 @@ const DLG = {
     sorted column is shown in bold all the way down, so you can keep your place while scrolling
     sideways. Sorting applies to the whole dataset, not just the page you are looking at.</p>
     <h4>Highlight what you came for</h4>
-    <p>The <b>Highlight</b> menu picks out a set of nutrients wherever they sit in the table —
+    <p>The <b>Highlight</b> menu picks out a set of nutrients wherever they sit in the table:
     the nine essential amino acids, the three the body uses to make creatine, the pair that matter
     for iron absorption, and so on. Choosing one switches on any column group it needs.</p>
     <p>Press <b>Custom…</b> to build your own from any combination of nutrients and give it a name.
@@ -756,7 +821,7 @@ const DLG = {
     exactly the rows and columns you can currently see.</p>
     <h4>What gets remembered</h4>
     <p>Your favourites, saved highlight groups, visible columns, sort order and light or dark mode
-    are kept in this browser between visits. Nothing is sent anywhere — it is stored on your own
+    are kept in this browser between visits. Nothing is sent anywhere. It is stored on your own
     machine, so it will not follow you to another device, and clearing site data will clear it.
     <b>Reset columns</b> restores the default view but leaves your favourites and saved groups
     alone.</p>
@@ -766,7 +831,7 @@ const DLG = {
   meth: ["Methodology and limits", `
     <h4>Where the numbers come from</h4>
     <p>Macronutrients, vitamins, minerals and fat fractions follow USDA FoodData Central entries for
-    the food in the state listed — cooked where it says cooked, dry where it says dry. Figures are
+    the food in the state listed: cooked where it says cooked, dry where it says dry. Figures are
     representative values for the food, not a lab analysis of any particular packet.</p>
     <h4>How amino acids are calculated</h4>
     <p>Each food has a profile of amino acids expressed as grams per 100 g of <em>protein</em>. The
@@ -775,39 +840,39 @@ const DLG = {
     food share one profile, because water content divides out.</p>
     <h4>The omega columns</h4>
     <p>Four named omega columns sit alongside the monounsaturated and polyunsaturated totals.
-    Omega-3 is <b>ALA</b> and omega-6 is <b>LA</b> — the two your body cannot make. Omega-9
+    Omega-3 is <b>ALA</b> and omega-6 is <b>LA</b>, the two your body cannot make. Omega-9
     (<b>oleic</b>) and omega-7 (<b>palmitoleic</b>) are the two main monounsaturated fractions, and
     both are counted inside the monounsaturated total rather than in addition to it.</p>
-    <p>One honest caveat. USDA reports 18:1 <em>undifferentiated</em>, meaning the figure bundles a
+    <p>One caveat. USDA reports 18:1 <em>undifferentiated</em>, meaning the figure bundles a
     small amount of n-7 vaccenic acid in with the n-9 oleic acid. In plant foods 18:1 is
     overwhelmingly oleic, so reading it as omega-9 is the usual convention and a close
-    approximation — but it is not a direct n-9 measurement. The 16:1 figure has no such ambiguity.
+    approximation, but it is not a direct n-9 measurement. The 16:1 figure has no such ambiguity.
     A few foods have no measurement at all and show a dash rather than a zero.</p>
     <h4>Amino acid score and the limiting amino acid</h4>
     <p>The protein quality figures are <em>derived</em> from the columns already in the table, not
     sourced separately, so they cannot disagree with the rest of the row. Each essential amino acid
     is expressed as milligrams per gram of protein and compared with the FAO/WHO 2007 requirement
     pattern for adults. The lowest of those ratios is the amino acid score, and the amino acid
-    responsible is the <b>limiting</b> one — the one that caps how much of the protein your body can
+    responsible is the <b>limiting</b> one, the one that caps how much of the protein your body can
     put to use.</p>
     <p>Methionine is scored together with cysteine, and phenylalanine together with tyrosine,
     because each pair spares the other. A score at or above 100% means the food meets the adult
     pattern across the board; below it, combining that food with one richer in the limiting acid
-    raises the total. This is why grains and pulses complement each other so neatly — cereals run
+    raises the total. This is why grains and pulses complement each other so neatly: cereals run
     short on lysine, pulses on the sulphur pair, and each covers the other's gap.</p>
     <p>Two caveats. The score says nothing about <em>digestibility</em>, which is what fuller
     measures like PDCAAS and DIAAS add, and plant proteins generally digest less completely than
     animal ones. And a score computed on a food with very little protein is mostly rounding noise,
     so it is not shown below about a gram per 100 g.</p>
     <h4>What "daily value" means here</h4>
-    <p>Percentages use general adult reference intakes — FDA Daily Values for vitamins and minerals,
+    <p>Percentages use general adult reference intakes: FDA Daily Values for vitamins and minerals,
     and the FAO/WHO 2007 scoring pattern where amino acids are concerned. They are a common yardstick,
     not a personal target. Requirements shift with age, sex, body size, pregnancy, lactation,
     medication and illness.</p>
     <h4>Known caveats</h4>
     <ul>
       <li><b>Protein is estimated from nitrogen.</b> Standard analysis multiplies nitrogen by 6.25,
-      which counts non-protein nitrogen too. This overstates protein in some foods — spirulina
+      which counts non-protein nitrogen too. This overstates protein in some foods, spirulina
       especially, because it is rich in nucleic acids.</li>
       <li><b>Sulphur and aromatic amino acids work in pairs.</b> Methionine is spared by cysteine and
       phenylalanine by tyrosine. Judge those four columns as two pairs, not four separate rows.</li>
@@ -817,6 +882,11 @@ const DLG = {
       plant milks, cereals and nutritional yeast are often fortified with B12, D, calcium and iodine,
       and the packet will beat these figures.</li>
       <li><b>Iodine is not included</b>, as reliable per-food values are scarce for plant foods.</li>
+      <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
+      food. Amino acids are the common gap: they are expensive to assay, so they are measured for
+      staples and often skipped for minor vegetables and fruit. Artichokes, Jerusalem artichokes
+      and blackberries have no published amino acid analysis at all, and a few others are partial.
+      Where that is the case the food gets no amino acid score, rather than a score of zero.</li>
     </ul>`],
   about: ["About this database", `
     <p>A single-page reference for the nutrient content of whole plant foods: ${FOODS.length} foods

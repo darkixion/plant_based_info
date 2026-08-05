@@ -3,7 +3,7 @@
  * Smoke tests for the built page.
  *
  * These drive the real file in a real browser, because every feature here is
- * about rendering and persistence — things that unit tests on the source would
+ * about rendering and persistence, which unit tests on the source would
  * not actually exercise. Run with `npm test` (builds first).
  */
 import { chromium } from "playwright";
@@ -21,7 +21,7 @@ async function test(name, fn) {
   catch (e) { failed++; results.push(`  FAIL  ${name}\n          ${e.message}`); }
 }
 function assert(cond, msg) { if (!cond) throw new Error(msg); }
-const eq = (a, b, msg) => assert(Object.is(a, b), `${msg} — expected ${b}, got ${a}`);
+const eq = (a, b, msg) => assert(Object.is(a, b), `${msg}, expected ${b}, got ${a}`);
 
 /** Prefer the system Chrome so a CI box (or this one) needs no browser download;
  *  fall back to Playwright's own build when there isn't one. */
@@ -106,10 +106,10 @@ await test("sorting a column bolds every value in it", async () => {
 await test("sorting actually reorders the data", async () => {
   await withPage(async page => {
     await page.click('[data-sort="fiber"]');            // first click = high to low
-    const names = await page.locator("#tbody .fname b").allTextContents();
-    eq(names[0], "Chia seeds", "highest-fibre food first");
+    const names = await page.locator("#tbody .fname").evaluateAll(e => e.map(x => x.dataset.name));
+    eq(names[0], "Cocoa powder", "highest-fibre food first");
     await page.click('[data-sort="fiber"]');            // second click reverses
-    const rev = await page.locator("#tbody .fname b").allTextContents();
+    const rev = await page.locator("#tbody .fname").evaluateAll(e => e.map(x => x.dataset.name));
     assert(rev[0] !== names[0], "reversing changes the first row");
   });
 });
@@ -181,6 +181,87 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
   });
 });
 
+// ---------------------------------------------------------------- names and lens copy
+
+await test("alternative names are shown and are searchable", async () => {
+  await withPage(async page => {
+    const rendered = await page.evaluate(() => {
+      const f = document.querySelector('#tbody .fname[data-name="Flaxseed"]');
+      return f && f.textContent.replace(/\s+/g, " ").trim();
+    });
+    assert(/Flaxseed \(Linseed\)/.test(rendered || ""), `shown as: ${rendered}`);
+
+    // searching the other name must find the food
+    await page.fill("#q", "linseed");
+    await page.waitForFunction(() => {
+      const n = document.querySelectorAll("#tbody .fname");
+      return n.length === 1 && n[0].dataset.name === "Flaxseed";
+    });
+  });
+});
+
+await test("selecting a highlight explains what it means", async () => {
+  await withPage(async page => {
+    assert(await page.locator("#lensNote").isVisible() === false, "no note before selecting");
+    await page.selectOption("#lensSel", "creatine");
+    const note = await page.locator("#lensNote").textContent();
+    assert(/Creatine precursors/.test(note), `names the group: ${note}`);
+    assert(/synthesise it from these three amino acids/.test(note), `explains it: ${note}`);
+    assert(/Glycine/.test(note) && /Arginine/.test(note), `lists its nutrients: ${note}`);
+
+    await page.selectOption("#lensSel", "");
+    assert(await page.locator("#lensNote").isVisible() === false, "note clears with the highlight");
+  });
+});
+
+await test("every built-in highlight carries the same sentence as its tooltip", async () => {
+  await withPage(async page => {
+    const opts = await page.locator("#lensSel optgroup[label='Built in'] option")
+      .evaluateAll(els => els.map(e => ({ v: e.value, t: e.title })));
+    assert(opts.length >= 11, `all built-ins listed, got ${opts.length}`);
+    const bare = opts.filter(o => !o.t || o.t.length < 40).map(o => o.v);
+    eq(bare.length, 0, `options missing a tooltip: ${bare.join(", ")}`);
+
+    // the tooltip and the note must not drift apart
+    await page.selectOption("#lensSel", "iron");
+    const tip = opts.find(o => o.v === "iron").t;
+    const note = await page.locator("#lensNote").textContent();
+    assert(note.includes(tip), "note text matches the option tooltip");
+  });
+});
+
+await test("a custom highlight can carry its own explanation", async () => {
+  await withPage(async page => {
+    await page.click("#lensEdit");
+    await page.fill("#lensName", "Thyroid");
+    await page.fill("#lensWhy", "Selenium and zinc both feed thyroid hormone production.");
+    await page.locator("#nutPick input:checked").evaluateAll(
+      els => els.forEach(e => { e.checked = false; }));
+    await page.check('#nutPick input[value="se"]');
+    await page.check('#nutPick input[value="zn"]');
+    await page.click("#lensSave");
+    await page.waitForSelector("#lensDlg", { state: "hidden" });
+    const note = await page.locator("#lensNote").textContent();
+    assert(/thyroid hormone production/.test(note), `custom explanation shown: ${note}`);
+
+    await page.reload();
+    await page.waitForSelector("#tbody tr");
+    const after = await page.locator("#lensNote").textContent();
+    assert(/thyroid hormone production/.test(after), `explanation persists: ${after}`);
+  });
+});
+
+await test("the requested foods are present", async () => {
+  await withPage(async page => {
+    const want = ["Shiitake mushrooms","Oyster mushrooms","Brussels sprouts","Couscous",
+      "Wild rice","Asparagus","Artichokes","Jerusalem artichokes","Swiss chard","Guava",
+      "Blackberries","Kiwi","Cannellini beans","Butter beans","Adzuki beans","Black-eyed peas"];
+    const have = await page.evaluate(() => FOODS.map(f => f.name));
+    const missing = want.filter(n => !have.includes(n));
+    eq(missing.length, 0, `missing foods: ${missing.join(", ")}`);
+  });
+});
+
 // ---------------------------------------------------------------- layout
 
 await test("the food table fills the screen when there are rows to show", async () => {
@@ -197,8 +278,8 @@ await test("a short result set does not leave a tall empty box", async () => {
     await page.setViewportSize({ width: 1500, height: 900 });
     await page.fill("#q", "seitan");
     await page.waitForFunction(() => {
-      const n = document.querySelectorAll("#tbody .fname b");
-      return n.length === 1 && n[0].textContent === "Seitan";
+      const n = document.querySelectorAll("#tbody .fname");
+      return n.length === 1 && n[0].dataset.name === "Seitan";
     });
     const h = await page.locator("#scroller").evaluate(el => el.getBoundingClientRect().height);
     assert(h < 400, `one row should collapse the box, got ${Math.round(h)}`);
@@ -221,7 +302,7 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
       const i7 = DATA.nutrients.findIndex(n => n.id === "palmitoleic");
       return DATA.foods.filter(f => f.v[i9] !== null && f.v[i7] !== null).length;
     });
-    eq(filled, 33, "foods carrying both omega figures");
+    eq(filled, 75, "foods carrying both omega figures");
   });
 });
 
@@ -239,7 +320,7 @@ await test("no food claims more omega-9 plus omega-7 than monounsaturated", asyn
   });
 });
 
-await test("foods with no measurement show a dash, not a zero", async () => {
+await test("foods with no measurement say so rather than showing a zero", async () => {
   await withPage(async page => {
     await page.click('#groupNav [data-grp="fats"]');
     // Seitan is deliberately unmapped: USDA has no matching row for it.
@@ -247,13 +328,13 @@ await test("foods with no measurement show a dash, not a zero", async () => {
     // be somewhere on an unfiltered page.
     await page.fill("#q", "seitan");
     await page.waitForFunction(() => {
-      const n = document.querySelectorAll("#tbody .fname b");
-      return n.length === 1 && n[0].textContent === "Seitan";
+      const n = document.querySelectorAll("#tbody .fname");
+      return n.length === 1 && n[0].dataset.name === "Seitan";
     });
     const cells = await page.locator('#tbody tr td[data-g="fats"]').allTextContents();
-    assert(cells.some(c => c.trim() === "—"),
-      `expected a dash among ${JSON.stringify(cells)}`);
-    assert(!cells.every(c => c.trim() === "—"), "other fat columns still have values");
+    assert(cells.some(c => c.trim() === "n/a"),
+      `expected an n/a among ${JSON.stringify(cells)}`);
+    assert(!cells.every(c => c.trim() === "n/a"), "other fat columns still have values");
   });
 });
 
@@ -274,9 +355,9 @@ await test("the comprehensiveness blurb tracks the real column counts", async ()
 async function selectFood(page, query, name) {
   await page.fill("#q", query);
   await page.waitForFunction(
-    n => [...document.querySelectorAll("#tbody .fname b")].some(e => e.textContent === n),
+    n => [...document.querySelectorAll("#tbody .fname")].some(e => e.dataset.name === n),
     name);
-  await page.locator("#tbody .fname", { hasText: name }).first().click();
+  await page.locator(`#tbody .fname[data-name="${name}"]`).first().click();
   await page.waitForFunction(
     n => document.querySelector("#detail h3")?.textContent === n, name);
   return page.locator("#detail").textContent();
@@ -328,7 +409,7 @@ await test("favourites persist across a reload", async () => {
   await page.goto(PAGE);
   await page.waitForSelector("#tbody tr");
 
-  const starred = await page.locator("#tbody .fname b").first().textContent();
+  const starred = await page.locator("#tbody .fname").first().evaluate(e => e.dataset.name);
   await page.locator("#tbody .fav").first().click();
   eq(await page.locator("#favCount").textContent(), "1", "favourite count");
 
@@ -337,7 +418,7 @@ await test("favourites persist across a reload", async () => {
   eq(await page.locator("#favCount").textContent(), "1", "count after reload");
 
   await page.click('.navbtn[data-act="favs"]');
-  const rows = await page.locator("#tbody .fname b").allTextContents();
+  const rows = await page.locator("#tbody .fname").evaluateAll(e => e.map(x => x.dataset.name));
   eq(rows.length, 1, "rows when filtered to favourites");
   eq(rows[0], starred, "the same food is still starred");
   await ctx.close();
