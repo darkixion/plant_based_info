@@ -240,6 +240,9 @@ td.num b{font-weight:600; color:var(--ink)}
 .drow:last-child{border-bottom:0}
 .drow dt{color:var(--body)} .drow dd{margin:0; color:var(--ink); font-weight:600}
 .drow.sub dt{padding-left:14px; color:var(--muted); font-size:12.5px}
+.drow.lensrow{background:var(--lens-bg); border-left:2px solid var(--lens-line);
+  margin-inline:-8px; padding-inline:8px; border-radius:0 4px 4px 0}
+.drow.lensrow dt{color:var(--lens-ink); font-weight:600}
 .drow .pc{color:var(--green-dark); font-weight:600}
 dl{margin:0}
 .bararea{margin-top:4px}

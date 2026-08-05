@@ -248,6 +248,9 @@ td.num b{font-weight:600; color:var(--ink)}
 .drow:last-child{border-bottom:0}
 .drow dt{color:var(--body)} .drow dd{margin:0; color:var(--ink); font-weight:600}
 .drow.sub dt{padding-left:14px; color:var(--muted); font-size:12.5px}
+.drow.lensrow{background:var(--lens-bg); border-left:2px solid var(--lens-line);
+  margin-inline:-8px; padding-inline:8px; border-radius:0 4px 4px 0}
+.drow.lensrow dt{color:var(--lens-ink); font-weight:600}
 .drow .pc{color:var(--green-dark); font-weight:600}
 dl{margin:0}
 .bararea{margin-top:4px}
@@ -577,6 +580,11 @@ function savePrefs() {
   } catch { storageOK = false; }
 }
 
+const lensById = id => id
+  ? [...BUILTIN_LENSES, ...S.custom].find(l => l.id === id) || null
+  : null;
+const lensIds = () => new Set(lensById(S.lens)?.ids || []);
+
 function loadPrefs() {
   let p;
   try { p = JSON.parse(localStorage.getItem(LS_KEY) || "null"); }
@@ -590,7 +598,7 @@ function loadPrefs() {
     const g = p.groups.filter(x => GROUPS.some(G => G.id === x));
     if (g.length) S.groups = new Set(g);
   }
-  if (p.sort && IDX.has(p.sort.id) || p.sort?.id === "__name")
+  if (p.sort && (p.sort.id === "__name" || IDX.has(p.sort.id)))
     S.sort = { id: p.sort.id, dir: p.sort.dir === 1 ? 1 : -1 };
   if (typeof p.dv === "boolean") S.dv = p.dv;
   if (typeof p.dark === "boolean") S.dark = p.dark;
@@ -611,11 +619,6 @@ function loadPrefs() {
   S.favsOnly = p.favsOnly === true && S.favs.size > 0;
 }
 
-const lensById = id => id
-  ? [...BUILTIN_LENSES, ...S.custom].find(l => l.id === id) || null
-  : null;
-const lensIds = () => new Set(lensById(S.lens)?.ids || []);
-
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -624,6 +627,15 @@ const say = m => { $("#live").textContent = m; };
 /* ---------- data helpers ---------- */
 const cols = () => NUTS.map((n, i) => ({ ...n, i })).filter(n => S.groups.has(n.group));
 const val = (f, id) => f.v[IDX.get(id)];
+
+const isFav = i => S.favs.has(SLUGS[i]);
+function toggleFav(i) {
+  isFav(i) ? S.favs.delete(SLUGS[i]) : S.favs.add(SLUGS[i]);
+  // Un-starring the last favourite while filtered to favourites would leave an
+  // empty table with no obvious way back, so drop the filter with it.
+  if (S.favsOnly && !S.favs.size) S.favsOnly = false;
+  savePrefs();
+}
 
 function fmt(v, n) {
   if (v === null || v === undefined) return "—";
@@ -635,7 +647,7 @@ function fmt(v, n) {
 function rows() {
   const q = S.q.trim().toLowerCase();
   let r = FOODS.map((f, i) => ({ f, i }));
-  if (S.favsOnly) r = r.filter(x => S.favs.has(x.i));
+  if (S.favsOnly) r = r.filter(x => isFav(x.i));
   if (S.cat) r = r.filter(x => x.f.cat === S.cat);
   if (q) r = r.filter(x =>
     (x.f.name + " " + x.f.state + " " + x.f.cat).toLowerCase().includes(q));
@@ -657,7 +669,10 @@ function paged(r) {
   return r.slice(start, start + S.per);
 }
 
-/* ---------- sidebar groups + pills ---------- */
+/* ---------- sidebar groups ----------
+   The sidebar is the only place groups are toggled. There used to be a second
+   row of pills doing the same job, which meant two controls to keep in sync
+   and two places to look. */
 function renderGroups() {
   const counts = {};
   NUTS.forEach(n => counts[n.group] = (counts[n.group] || 0) + 1);
@@ -666,9 +681,6 @@ function renderGroups() {
         aria-pressed="${S.groups.has(g.id)}">
       ${g.icon}<span>${g.label}</span>
       <span class="count">${counts[g.id]}</span><span class="dot"></span></button></li>`).join("");
-  $("#pills").innerHTML = GROUPS.map(g => `
-    <button class="pill" type="button" data-grp="${g.id}" aria-pressed="${S.groups.has(g.id)}">
-      ${g.icon}<span>${g.label}</span><span class="n">${counts[g.id]}</span></button>`).join("");
 }
 
 function toggleGroup(id) {
@@ -679,33 +691,90 @@ function toggleGroup(id) {
   document.querySelectorAll(`[data-grp="${id}"]`)
     .forEach(b => b.setAttribute("aria-pressed", String(on)));
   say(`${g.label} ${on ? "shown" : "hidden"}. ${cols().length} nutrient columns visible.`);
+  savePrefs();
+  render();
+}
+
+/* ---------- highlight lens ---------- */
+function renderLensSelect() {
+  const opt = l => `<option value="${esc(l.id)}"${l.id === S.lens ? " selected" : ""}>${esc(l.name)}</option>`;
+  $("#lensSel").innerHTML =
+    `<option value=""${S.lens ? "" : " selected"}>None</option>` +
+    `<optgroup label="Built in">${BUILTIN_LENSES.map(opt).join("")}</optgroup>` +
+    (S.custom.length ? `<optgroup label="Yours">${S.custom.map(opt).join("")}</optgroup>` : "");
+  $("#lensSel").classList.toggle("lensactive", !!S.lens);
+}
+
+/** Highlighting a nutrient whose group is switched off would highlight nothing,
+ *  so selecting a lens turns on whatever groups it needs. */
+function setLens(id) {
+  S.lens = lensById(id) ? id : "";
+  const l = lensById(S.lens);
+  if (l) {
+    const needed = new Set(l.ids.map(x => NUTS[IDX.get(x)].group));
+    const added = [...needed].filter(g => !S.groups.has(g));
+    added.forEach(g => S.groups.add(g));
+    if (added.length) {
+      renderGroups();
+      say(`Highlighting ${l.name}. Also showing ${added
+        .map(g => GROUPS.find(G => G.id === g).label.toLowerCase()).join(" and ")}.`);
+    } else say(`Highlighting ${l.name}, ${l.ids.length} nutrients.`);
+  } else say("Highlight cleared.");
+  renderLensSelect();
+  savePrefs();
   render();
 }
 
 /* ---------- table ---------- */
+/** Decorates the visible columns with everything the renderer needs to know
+ *  about position: where each group starts, and where each run of highlighted
+ *  columns begins and ends so the accent rule is drawn once per run rather
+ *  than between every adjacent pair. */
+function layout() {
+  const c = cols(), L = lensIds();
+  return c.map((n, k) => {
+    const lens = L.has(n.id);
+    return { ...n,
+      gstart: k === 0 || c[k - 1].group !== n.group,
+      lens,
+      lensL: lens && (k === 0 || !L.has(c[k - 1].id)),
+      lensR: lens && (k === c.length - 1 || !L.has(c[k + 1].id)),
+      sorted: S.sort.id === n.id,
+    };
+  });
+}
+
+const colClass = n => [
+  n.gstart && "gstart", n.lens && "lens", n.lensL && "lensL",
+  n.lensR && "lensR", n.sorted && "sorted",
+].filter(Boolean).join(" ");
+
 function renderTable() {
-  const c = cols(), r = rows(), page = paged(r);
+  const c = layout(), r = rows(), page = paged(r);
   const nameSorted = S.sort.id === "__name";
+  const L = lensIds();
 
   const groupHead = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
-    const n = c.filter(x => x.group === g.id).length;
-    return `<th class="grp" data-g="${g.id}" colspan="${n}" scope="colgroup">${g.label}</th>`;
+    const own = c.filter(x => x.group === g.id);
+    const anyLens = own.some(x => x.lens);
+    return `<th class="grp${anyLens ? " lens" : ""}" data-g="${g.id}" colspan="${own.length}"
+      scope="colgroup">${g.label}</th>`;
   }).join("");
 
   const cells = c.map(n => {
-    const active = S.sort.id === n.id;
-    const aria = active ? (S.sort.dir === 1 ? "ascending" : "descending") : "none";
+    const aria = n.sorted ? (S.sort.dir === 1 ? "ascending" : "descending") : "none";
     const unit = S.dv && n.dv ? "%DV" : n.unit;
-    return `<th scope="col" aria-sort="${aria}">
+    return `<th scope="col" aria-sort="${aria}" data-g="${n.group}" class="${colClass(n)}">
       <button class="sortbtn" type="button" data-sort="${n.id}">
-        <span>${esc(n.label)} <span class="unit">${unit}</span></span>
-        <span class="ar" aria-hidden="true">${active ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
+        <span>${esc(n.label)} <span class="unit">${unit}</span>${
+          n.lens ? '<span class="sr"> — highlighted</span>' : ""}</span>
+        <span class="ar" aria-hidden="true">${n.sorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
       </button></th>`;
   }).join("");
 
   $("#thead").innerHTML = `
     <tr>
-      <th class="food" rowspan="2" scope="col" aria-sort="${nameSorted ? (S.sort.dir === 1 ? "ascending" : "descending") : "none"}">
+      <th class="food${nameSorted ? " sorted" : ""}" rowspan="2" scope="col" aria-sort="${nameSorted ? (S.sort.dir === 1 ? "ascending" : "descending") : "none"}">
         <button class="sortbtn" type="button" data-sort="__name" style="justify-content:flex-start">
           <span>Food <span class="unit">per 100 g</span></span>
           <span class="ar" aria-hidden="true">${nameSorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
@@ -715,28 +784,47 @@ function renderTable() {
 
   $("#tbody").innerHTML = page.length ? page.map(({ f, i }) => `
     <tr data-i="${i}" ${S.sel === i ? 'aria-selected="true"' : ""}>
-      <td class="food"><div class="fcell">
+      <td class="food${nameSorted ? " sorted" : ""}"><div class="fcell">
         <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
         <button class="fname" type="button" data-pick="${i}">
           <b>${esc(f.name)}</b>${f.state ? `<span>${esc(f.state)}</span>` : ""}
           <span class="sr">— show full profile</span></button>
-        <button class="fav" type="button" data-fav="${i}" aria-pressed="${S.favs.has(i)}">
-          ${S.favs.has(i) ? I.heartFull : I.heart}
-          <span class="sr">${S.favs.has(i) ? "Remove" : "Add"} ${esc(f.name)} ${S.favs.has(i) ? "from" : "to"} favourites</span>
+        <button class="fav" type="button" data-fav="${i}" aria-pressed="${isFav(i)}">
+          ${isFav(i) ? I.heartFull : I.heart}
+          <span class="sr">${isFav(i) ? "Remove" : "Add"} ${esc(f.name)} ${isFav(i) ? "from" : "to"} favourites</span>
         </button></div></td>
       ${c.map(n => {
         const v = val(f, n.id);
         const zero = v === 0 || v === null;
-        return `<td class="num${zero ? " low" : ""}">${fmt(v, n)}</td>`;
+        return `<td class="num${zero ? " low" : ""} ${colClass(n)}" data-g="${n.group}">${fmt(v, n)}</td>`;
       }).join("")}
     </tr>`).join("")
-    : `<tr><td class="empty" colspan="${c.length + 1}">
-         <b>No foods match that search</b>Try a different term, or clear the filters.</td></tr>`;
+    : `<tr><td class="empty" colspan="${c.length + 1}">${emptyState()}</td></tr>`;
 
+  const lens = lensById(S.lens);
   $("#cap").textContent =
     `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values per 100 g of food` +
-    (S.dv ? ", shown as % of adult daily value." : ".");
+    (S.dv ? ", shown as % of adult daily value." : ".") +
+    (lens ? ` ${lens.name} highlighted.` : "");
   return r;
+}
+
+/** The three ways to end up with no rows need three different ways out. */
+function emptyState() {
+  if (S.favsOnly && !S.favs.size)
+    return `<b>No favourites yet</b>Star a food with the heart button to build a shortlist,
+            then come back here.
+            <div style="margin-top:14px"><button class="btn" type="button" data-act="favs">
+              Show all foods</button></div>`;
+  if (S.favsOnly)
+    return `<b>No favourites match the other filters</b>Your shortlist has
+            ${S.favs.size} food${S.favs.size === 1 ? "" : "s"}, but none of them match the
+            current search or category.
+            <div style="margin-top:14px"><button class="btn" type="button" data-act="clearfilters">
+              Clear search and category</button></div>`;
+  return `<b>No foods match that search</b>Try a different term, or clear the filters.
+          <div style="margin-top:14px"><button class="btn" type="button" data-act="clearfilters">
+            Clear search and category</button></div>`;
 }
 
 /* ---------- chart ---------- */
@@ -788,11 +876,12 @@ function renderDetail() {
   } else {
     const list = NUTS.filter(n => n.group === S.tab);
     const max = Math.max(...list.map(n => g(n.id) ?? 0), 0.0001);
+    const L = lensIds();
     body = `<h4>${S.tab === "amino" ? "Amino acids" : S.tab === "vitamin" ? "Vitamins" : "Minerals"}</h4>
       <dl>` + list.map(n => {
         const v = g(n.id) ?? 0;
         const pc = n.dv ? Math.round(v / n.dv * 100) : null;
-        return `<div class="drow" style="display:block">
+        return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <dt>${esc(n.label)}</dt>
             <dd>${v.toFixed(n.dp)} ${n.unit}${pc !== null ? ` <span class="pc">· ${pc}%</span>` : ""}</dd>
@@ -804,9 +893,9 @@ function renderDetail() {
 
   $("#detail").innerHTML = `
     <div class="dhead">
-      <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${S.favs.has(S.sel)}">
-        ${S.favs.has(S.sel) ? I.heartFull : I.heart}
-        <span class="sr">${S.favs.has(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
+      <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${isFav(S.sel)}">
+        ${isFav(S.sel) ? I.heartFull : I.heart}
+        <span class="sr">${isFav(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
       <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
       <h3>${esc(f.name)}</h3>
       ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
@@ -841,9 +930,11 @@ function renderPager(total) {
   $("#pager").innerHTML = `<div style="display:flex;gap:6px;align-items:center">${h}</div>`;
 
   const c = cols().length;
+  const lens = lensById(S.lens);
   $("#meta").innerHTML = `${I.info} Showing <b>${total}</b> of ${FOODS.length} foods ·
     <b>${c}</b> of ${NUTS.length} nutrients` +
-    (S.favsOnly ? " · favourites only" : "") + (S.dv ? " · % daily value" : "");
+    (S.favsOnly ? " · favourites only" : "") + (S.dv ? " · % daily value" : "") +
+    (lens ? ` · <span class="lenshint">${esc(lens.name)}</span> highlighted` : "");
   $("#favCount").textContent = S.favs.size || "";
   $("#cmpCount").textContent = "";
 }
@@ -876,6 +967,7 @@ document.addEventListener("click", e => {
     else S.sort = { id, dir: id === "__name" ? 1 : -1 };
     const label = id === "__name" ? "Food name" : NUTS[IDX.get(id)].label;
     say(`Sorted by ${label}, ${S.sort.dir === 1 ? "ascending" : "descending"}.`);
+    savePrefs();
     return render();
   }
 
@@ -887,8 +979,8 @@ document.addEventListener("click", e => {
 
   if (t.dataset.fav !== undefined) {
     const i = +t.dataset.fav;
-    S.favs.has(i) ? S.favs.delete(i) : S.favs.add(i);
-    say(`${FOODS[i].name} ${S.favs.has(i) ? "added to" : "removed from"} favourites.`);
+    toggleFav(i);
+    say(`${FOODS[i].name} ${isFav(i) ? "added to" : "removed from"} favourites.`);
     return render();
   }
 
@@ -902,7 +994,17 @@ document.addEventListener("click", e => {
 
   if (t.dataset.act === "favs") {
     S.favsOnly = !S.favsOnly; S.page = 1;
-    say(S.favsOnly ? "Showing favourites only." : "Showing all foods.");
+    say(S.favsOnly
+      ? `Showing favourites only, ${S.favs.size} food${S.favs.size === 1 ? "" : "s"}.`
+      : "Showing all foods.");
+    savePrefs();
+    return render();
+  }
+  if (t.dataset.act === "clearfilters") {
+    S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
+    S.cat = ""; $("#catSel").value = ""; S.page = 1;
+    savePrefs();
+    say("Search and category cleared.");
     return render();
   }
   if (t.dataset.act === "compare") { S.view = S.view === "chart" ? "table" : "chart"; return render(); }
@@ -911,24 +1013,32 @@ document.addEventListener("click", e => {
 
 $("#vTable").onclick = () => { S.view = "table"; render(); };
 $("#vChart").onclick = () => { S.view = "chart"; render(); };
-$("#chartNut").onchange = e => { S.chartNut = e.target.value; renderChart(); };
+$("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); renderChart(); };
 $("#perPage").onchange = e => {
-  S.per = e.target.value === "All" ? "All" : +e.target.value; S.page = 1; render();
+  S.per = e.target.value === "All" ? "All" : +e.target.value; S.page = 1; savePrefs(); render();
 };
-$("#catSel").onchange = e => { S.cat = e.target.value; S.page = 1; render(); };
+$("#catSel").onchange = e => { S.cat = e.target.value; S.page = 1; savePrefs(); render(); };
+$("#lensSel").onchange = e => setLens(e.target.value);
 $("#dvBtn").onclick = e => {
   S.dv = !S.dv;
   e.currentTarget.setAttribute("aria-pressed", String(S.dv));
   e.currentTarget.lastChild.textContent = S.dv ? " Show raw amounts" : " Show % daily value";
   say(S.dv ? "Showing percentage of daily value." : "Showing raw amounts.");
+  savePrefs();
   render();
 };
+/* Resets the view, not the user's own data: favourites and saved highlight
+   groups took effort to create and are not what "reset columns" means. */
 $("#resetBtn").onclick = () => {
   S.groups = new Set(["macro", "amino"]); S.sort = { id: "protein", dir: -1 };
-  S.q = ""; $("#q").value = ""; S.cat = ""; $("#catSel").value = "";
+  S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
+  S.cat = ""; $("#catSel").value = "";
   S.dv = false; $("#dvBtn").setAttribute("aria-pressed", "false");
-  S.favsOnly = false; S.page = 1;
-  renderGroups(); render(); say("Columns and filters reset.");
+  $("#dvBtn").lastChild.textContent = " Show % daily value";
+  S.favsOnly = false; S.page = 1; S.lens = "";
+  savePrefs();
+  renderGroups(); renderLensSelect(); render();
+  say("Columns and filters reset. Favourites and saved highlight groups kept.");
 };
 
 let qt;
@@ -940,13 +1050,13 @@ $("#q").oninput = e => {
 };
 $("#qClear").onclick = () => { S.q = ""; $("#q").value = ""; $("#qClear").hidden = true; $("#q").focus(); render(); };
 
-$("#themeBtn").onclick = e => {
-  S.dark = !S.dark;
+function applyTheme() {
   document.documentElement.dataset.theme = S.dark ? "dark" : "";
-  e.currentTarget.setAttribute("aria-pressed", String(S.dark));
+  $("#themeBtn").setAttribute("aria-pressed", String(S.dark));
   $("#themeIc").innerHTML = S.dark ? I.sun : I.moon;
   $("#themeTx").textContent = S.dark ? "Light mode" : "Dark mode";
-};
+}
+$("#themeBtn").onclick = () => { S.dark = !S.dark; applyTheme(); savePrefs(); };
 
 /* roving tabindex across the detail tabs */
 document.addEventListener("keydown", e => {
@@ -983,23 +1093,114 @@ function csv() {
 }
 $("#csvBtn").onclick = csv; $("#csvBtn2").onclick = csv;
 
+/* ---------- custom highlight groups ---------- */
+function renderNutPick(chosen = new Set()) {
+  $("#nutPick").innerHTML = GROUPS.map(g => {
+    const list = NUTS.filter(n => n.group === g.id);
+    return `<div class="lensgroup"><h5>${esc(g.label)}</h5><div class="nutgrid">` +
+      list.map(n => `<label><input type="checkbox" name="nut" value="${esc(n.id)}"
+        ${chosen.has(n.id) ? "checked" : ""}> ${esc(n.label)}</label>`).join("") +
+      `</div></div>`;
+  }).join("");
+  updateLensCount();
+}
+
+const pickedNuts = () =>
+  [...document.querySelectorAll('#nutPick input[name=nut]:checked')].map(i => i.value);
+
+function updateLensCount() {
+  const n = pickedNuts().length;
+  $("#lensCount").textContent = n ? `· ${n} selected` : "· none selected yet";
+}
+
+function renderSavedLenses() {
+  const box = $("#savedLenses");
+  if (!S.custom.length) { box.innerHTML = ""; return; }
+  box.innerHTML = `<p style="font-size:13.5px;font-weight:600;color:var(--ink);margin:0 0 8px">
+      Your highlight groups</p>` +
+    S.custom.map(l => `<div class="savedlens">
+      <span class="swatch" aria-hidden="true" style="width:11px;height:11px;border-radius:3px;
+        background:var(--lens-bg);border:2px solid var(--lens-line);flex:none"></span>
+      <span>${esc(l.name)}</span>
+      <span class="lenscount">${l.ids.length} nutrient${l.ids.length === 1 ? "" : "s"}</span>
+      <button class="rm" type="button" data-rmlens="${esc(l.id)}">${I.x}
+        <span class="sr">Delete ${esc(l.name)}</span></button></div>`).join("");
+}
+
+function openLensEditor() {
+  $("#lensErr").textContent = "";
+  $("#lensName").value = "";
+  renderSavedLenses();
+  // Pre-tick whatever is highlighted now, so refining a built-in lens into your
+  // own variant is a couple of clicks rather than starting from nothing.
+  renderNutPick(lensIds());
+  $("#lensDlg").showModal();
+  $("#lensName").focus();
+}
+
+$("#lensEdit").onclick = openLensEditor;
+$("#lensCancel").onclick = () => $("#lensDlg").close();
+$("#lensX").onclick = () => $("#lensDlg").close();
+$("#nutPick").addEventListener("change", updateLensCount);
+
+$("#savedLenses").addEventListener("click", e => {
+  const b = e.target.closest("[data-rmlens]");
+  if (!b) return;
+  const id = b.dataset.rmlens;
+  const gone = S.custom.find(l => l.id === id);
+  S.custom = S.custom.filter(l => l.id !== id);
+  if (S.lens === id) S.lens = "";
+  savePrefs();
+  renderSavedLenses(); renderLensSelect(); render();
+  say(`Deleted highlight group ${gone ? gone.name : ""}.`);
+});
+
+$("#lensForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("#lensName").value.trim();
+  const ids = pickedNuts();
+  if (!name) { $("#lensErr").textContent = "Give the group a name."; $("#lensName").focus(); return; }
+  if (!ids.length) { $("#lensErr").textContent = "Pick at least one nutrient."; return; }
+
+  const id = "c" + Date.now().toString(36);
+  S.custom.push({ id, name: name.slice(0, 40), ids });
+  savePrefs();
+  $("#lensDlg").close();
+  setLens(id);                       // also switches on any groups it needs
+  say(`Saved highlight group ${name}, ${ids.length} nutrients.`);
+});
+
 /* ---------- dialogs ---------- */
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
-    <p>The five category buttons — in the sidebar or the row under the headline — switch whole
-    groups of columns on and off. Amino acids and macronutrients start visible; turn on vitamins,
+    <p>The five <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and
+    off. Each group has its own background tint in the table, so you can tell at a glance where one
+    ends and the next begins. Amino acids and macronutrients start visible; turn on vitamins,
     minerals and omega oils as you need them.</p>
     <h4>Sort by anything</h4>
-    <p>Every column header is a button. One click sorts high to low, a second reverses it. Sorting
-    applies to the whole dataset, not just the page you are looking at.</p>
+    <p>Every column header is a button. One click sorts high to low, a second reverses it. The
+    sorted column is shown in bold all the way down, so you can keep your place while scrolling
+    sideways. Sorting applies to the whole dataset, not just the page you are looking at.</p>
+    <h4>Highlight what you came for</h4>
+    <p>The <b>Highlight</b> menu picks out a set of nutrients wherever they sit in the table —
+    the nine essential amino acids, the three the body uses to make creatine, the pair that matter
+    for iron absorption, and so on. Choosing one switches on any column group it needs.</p>
+    <p>Press <b>Custom…</b> to build your own from any combination of nutrients and give it a name.
+    Your groups are saved in this browser and appear in the same menu.</p>
     <h4>Compare like for like</h4>
     <p><b>Show % daily value</b> converts every column that has a reference value into a percentage,
     which makes a milligram of selenium and a gram of protein comparable at a glance.</p>
     <h4>Narrow it down</h4>
     <p>Search by name or category, filter to one food group, or star foods and switch on
-    <b>Favourites</b> to see only your shortlist. <b>Export CSV</b> writes out exactly the rows and
-    columns you can currently see.</p>
+    <b>Favourites</b> in the sidebar to see only your shortlist. <b>Export CSV</b> writes out
+    exactly the rows and columns you can currently see.</p>
+    <h4>What gets remembered</h4>
+    <p>Your favourites, saved highlight groups, visible columns, sort order and light or dark mode
+    are kept in this browser between visits. Nothing is sent anywhere — it is stored on your own
+    machine, so it will not follow you to another device, and clearing site data will clear it.
+    <b>Reset columns</b> restores the default view but leaves your favourites and saved groups
+    alone.</p>
     <h4>Keyboard</h4>
     <p>Everything is reachable by tab. The table region itself is focusable, so you can scroll it
     sideways with the arrow keys. The detail panel tabs move with left and right arrows.</p>`],
@@ -1060,8 +1261,23 @@ $("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").
 $("#catSel").innerHTML = `<option value="">All categories</option>` +
   CATS.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
 $("#totalFoods").textContent = FOODS.length;
+
+// Default to the system theme on a first visit; a stored choice wins over it.
+S.dark = matchMedia("(prefers-color-scheme: dark)").matches;
+loadPrefs();
+
+// Reflect restored state in the controls that hold their own value.
+applyTheme();
+$("#catSel").value = S.cat;
+$("#perPage").value = String(S.per);
+$("#dvBtn").setAttribute("aria-pressed", String(S.dv));
+if (S.dv) $("#dvBtn").lastChild.textContent = " Show raw amounts";
+
 renderGroups();
+renderLensSelect();
 render();
+
+if (S.favs.size) say(`${S.favs.size} saved favourite${S.favs.size === 1 ? "" : "s"} restored.`);
 </script>
 </body>
 </html>

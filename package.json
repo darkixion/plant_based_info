@@ -7,9 +7,13 @@
   "scripts": {
     "build": "node build.mjs",
     "watch": "node build.mjs --watch",
+    "test": "node build.mjs && node test/smoke.mjs",
     "serve": "node --run build && node -e \"import('node:http').then(({default:h})=>import('node:fs').then(({readFileSync})=>h.createServer((q,s)=>{s.setHeader('content-type','text/html');s.end(readFileSync('index.html'))}).listen(8080,()=>console.log('http://localhost:8080'))))\""
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
   }
 }
