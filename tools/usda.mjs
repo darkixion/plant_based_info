@@ -36,8 +36,10 @@ const KNOWN = {
   // 18:1 is undifferentiated in SR Legacy — it includes a little n-7 vaccenic
   // alongside the n-9 oleic — but in plant foods it is overwhelmingly oleic.
   // The Methodology dialog states this; the label should not overclaim.
-  1268: { id: "oleic", label: "Omega-9 (oleic)", group: "fats", unit: "g", dv: null, dp: 3 },
-  1275: { id: "palmitoleic", label: "Omega-7 (palmitoleic)", group: "fats", unit: "g", dv: null, dp: 3 },
+  // `after` keeps the omegas in numeric order ahead of the totals they belong
+  // to, so a fresh pull reproduces the committed column order.
+  1268: { id: "oleic", label: "Omega-9 (oleic)", group: "fats", unit: "g", dv: null, dp: 3, after: "palmitoleic" },
+  1275: { id: "palmitoleic", label: "Omega-7 (palmitoleic)", group: "fats", unit: "g", dv: null, dp: 3, after: "la" },
 };
 
 /* Columns used to fingerprint a food. Deliberately wide: energy and macros
@@ -49,6 +51,10 @@ const FINGERPRINT = [
 
 const slugify = f => `${f.name} ${f.state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+/** `after` positions the column at build time; it is not page data, so it must
+ *  not end up shipped inside nutrients.json. */
+const column = ({ after, ...col }) => col;
 
 /* ---------- csv ---------- */
 /** Minimal RFC4180 reader; the USDA files quote fields containing commas. */
@@ -215,14 +221,37 @@ async function cmdPull(args) {
 
   const vals = await loadNutrients(ids);
 
-  // Insert new columns at the end of their group so the table order stays sane.
-  for (const id of ids) {
-    const def = KNOWN[id];
-    if (data.nutrients.some(n => n.id === def.id)) { console.log(`  ${def.id}: already present, updating values`); continue; }
-    const last = data.nutrients.map((n, i) => [n, i]).filter(([n]) => n.group === def.group).pop();
-    data.nutrients.splice(last[1] + 1, 0, { ...def });
-    data.foods.forEach(f => f.v.splice(last[1] + 1, 0, null));
-    console.log(`  + column ${def.id} (${def.label}) after position ${last[1]}`);
+  /* Insert new columns after the nutrient named in `after`, falling back to the
+     end of the group. Columns can depend on each other (omega-9 sits after
+     omega-7), so keep passing until nothing more can be placed. */
+  let pending = ids.map(id => KNOWN[id])
+    .filter(def => {
+      if (!data.nutrients.some(n => n.id === def.id)) return true;
+      console.log(`  ${def.id}: already present, updating values`);
+      return false;
+    });
+  while (pending.length) {
+    const before = pending.length;
+    pending = pending.filter(def => {
+      let at = def.after ? data.nutrients.findIndex(n => n.id === def.after) : -1;
+      if (def.after && at === -1) return true;           // its anchor is not placed yet
+      if (at === -1) at = data.nutrients.map((n, i) => [n, i])
+        .filter(([n]) => n.group === def.group).pop()[1];
+      data.nutrients.splice(at + 1, 0, column(def));
+      data.foods.forEach(f => f.v.splice(at + 1, 0, null));
+      console.log(`  + column ${def.id} (${def.label}) at ${at + 1}`);
+      return false;
+    });
+    if (pending.length === before) {                     // unresolvable anchors
+      pending.forEach(def => {
+        const at = data.nutrients.map((n, i) => [n, i])
+          .filter(([n]) => n.group === def.group).pop()[1];
+        data.nutrients.splice(at + 1, 0, column(def));
+        data.foods.forEach(f => f.v.splice(at + 1, 0, null));
+        console.log(`  + column ${def.id} appended to ${def.group} (anchor "${def.after}" not found)`);
+      });
+      break;
+    }
   }
 
   const IDX = new Map(data.nutrients.map((n, i) => [n.id, i]));

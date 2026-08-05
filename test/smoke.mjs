@@ -181,6 +181,30 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
   });
 });
 
+// ---------------------------------------------------------------- layout
+
+await test("the food table fills the screen when there are rows to show", async () => {
+  await withPage(async page => {
+    await page.setViewportSize({ width: 1500, height: 900 });
+    await page.selectOption("#perPage", "All");
+    const h = await page.locator("#scroller").evaluate(el => el.getBoundingClientRect().height);
+    assert(h > 900 * 0.9, `table box should be near viewport height, got ${Math.round(h)} of 900`);
+  });
+});
+
+await test("a short result set does not leave a tall empty box", async () => {
+  await withPage(async page => {
+    await page.setViewportSize({ width: 1500, height: 900 });
+    await page.fill("#q", "seitan");
+    await page.waitForFunction(() => {
+      const n = document.querySelectorAll("#tbody .fname b");
+      return n.length === 1 && n[0].textContent === "Seitan";
+    });
+    const h = await page.locator("#scroller").evaluate(el => el.getBoundingClientRect().height);
+    assert(h < 400, `one row should collapse the box, got ${Math.round(h)}`);
+  });
+});
+
 // ---------------------------------------------------------------- omega columns
 
 await test("omega-7 and omega-9 columns are present and populated", async () => {

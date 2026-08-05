@@ -141,8 +141,12 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
 @media (max-width:1160px){.split{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- table ---------- */
-.tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto; max-height:74vh;
-           background:var(--panel)}
+/* Fill the screen rather than stopping short. dvh so mobile browser chrome
+   collapsing does not leave the box overshooting the viewport. It stays a
+   max-height, so a short result set still shrinks to its rows instead of
+   leaving a tall empty panel. */
+.tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto;
+           max-height:calc(100dvh - 32px); background:var(--panel)}
 .tablewrap:focus-visible{outline:3px solid var(--green); outline-offset:-3px}
 table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
 caption{text-align:left; padding:12px 14px; color:var(--muted); font-size:13px;
