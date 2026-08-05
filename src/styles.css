@@ -161,7 +161,7 @@ thead th{position:sticky; background:var(--raise); z-index:3; font-weight:600; c
   border-bottom:1px solid var(--line); font-size:12.5px}
 thead tr:first-child th{top:0}
 thead tr:nth-child(2) th{top:38px}
-th.grp{text-align:center; border-left:1px solid var(--line); padding:9px 12px;
+th.grp{text-align:left; border-left:1px solid var(--line); padding:9px 12px;
   font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
 th.grp[data-g=amino]{color:#2F7D8C} th.grp[data-g=vitamin]{color:#8A6B12}
 th.grp[data-g=mineral]{color:#7A5AA8} th.grp[data-g=fats]{color:#A8623C}

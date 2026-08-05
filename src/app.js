@@ -47,7 +47,7 @@ const BUILTIN_LENSES = [
 
 const S = {
   groups: new Set(["macro", "amino"]),
-  sort: { id: "protein", dir: -1 },
+  sort: { id: "__name", dir: 1 },
   q: "", cat: "", page: 1, per: 20,
   sel: 0, favs: new Set(), favsOnly: false,
   dv: false, view: "table", tab: "overview",
