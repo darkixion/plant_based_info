@@ -506,6 +506,51 @@ await test("fortification-dependent figures are marked, and only those", async (
   });
 });
 
+await test("every cell a note names actually renders its marker", async () => {
+  await withPage(async page => {
+    // The one above checks a single food in detail. This one walks the whole
+    // notes block, so a food added to it cannot go unmarked on the page.
+    const pairs = await page.evaluate(() => {
+      const slug = f => `${f.name} ${f.state || ""}`.toLowerCase().trim()
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      return (DATA.notes || []).flatMap(n =>
+        Object.entries(n.cells).flatMap(([s, ids]) => {
+          const f = DATA.foods.find(x => slug(x) === s);
+          return ids.map(id => ({ slug: s, name: f.name, group: DATA.nutrients
+            .find(nu => nu.id === id).group, id }));
+        }));
+    });
+    assert(pairs.length >= 14, `expected the notes to cover several cells, got ${pairs.length}`);
+
+    for (const g of new Set(pairs.map(p => p.group))) {
+      const b = page.locator(`#groupNav [data-grp="${g}"]`);
+      if (await b.getAttribute("aria-pressed") === "false") await b.click();
+    }
+    for (const slug of new Set(pairs.map(p => p.slug))) {
+      const mine = pairs.filter(p => p.slug === slug);
+      await page.fill("#q", mine[0].name);
+      await page.waitForFunction(s => {
+        const sl = f => `${f.name} ${f.state || ""}`.toLowerCase().trim()
+          .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        return [...document.querySelectorAll("#tbody tr")]
+          .some(tr => sl(FOODS[+tr.dataset.i]) === s);
+      }, slug);
+
+      const marked = await page.evaluate(s => {
+        const sl = f => `${f.name} ${f.state || ""}`.toLowerCase().trim()
+          .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        const tr = [...document.querySelectorAll("#tbody tr")]
+          .find(t => sl(FOODS[+t.dataset.i]) === s);
+        const heads = [...document.querySelectorAll("#thead tr:nth-child(2) th")]
+          .map(th => th.querySelector("[data-sort]").dataset.sort);
+        return [...tr.querySelectorAll("td.num")]
+          .map((td, i) => td.querySelector("sup.fnote") ? heads[i] : null).filter(Boolean);
+      }, slug);
+      eq(marked.sort().join(","), mine.map(p => p.id).sort().join(","), `markers on ${slug}`);
+    }
+  });
+});
+
 await test("the note key stays away when nothing on the page is marked", async () => {
   await withPage(async page => {
     await page.click("#groupNav [data-grp=vitamin]");

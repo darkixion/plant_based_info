@@ -154,13 +154,24 @@ constraint, so this cannot regress silently.
   no figures at all for the last three and reaches only 8 to 14 of these foods
   for phytosterols. USDA publishes them in separate databases that are not part
   of SR Legacy and would need their own download and mapping.
-- **Romanesco and freekeh.** Neither is in SR Legacy under any name. Both could
-  only be approximated from a near relative already in the table, which would be
-  an estimate rather than a measurement.
-- **Celeriac and fennel.** Both are in SR Legacy but with no amino acid analysis
-  at all, and fennel raw only. Reasons for all four are recorded under
-  `unavailable` in `tools/food-additions.json`.
+- **Foods with no SR Legacy row at all**, among them romanesco, freekeh, cavolo
+  nero, runner beans and dragon fruit. Each could only be approximated from a
+  near relative already in the table, which would be an estimate rather than a
+  measurement. Some are subtler than they look: USDA's snap beans are
+  *Phaseolus vulgaris* while the runner bean is *P. coccineus*.
+- **Varieties USDA does not separate**, such as orange sweet peppers, and white
+  and red onions. There is one generic onion row, which is in the table.
+- **Fennel**, which is in SR Legacy but raw only and with no amino acid
+  analysis, so it does not match the cooked-vegetable convention.
 - **Iodine**, as reliable per-food values are scarce for plant foods.
+
+Every one of these carries its reason under `unavailable` in
+`tools/food-additions.json`. That list is the record of what was looked for and
+not found, so the same search does not get repeated. Check it before concluding
+a food is missing by oversight, and delete an entry if a usable row turns up.
+Absence of amino acids is *not* on its own a reason to exclude a food: roughly
+twenty rows have none, and the table handles that by withholding the protein
+quality score rather than by leaving the food out.
 
 ## Licence and disclaimer
 

@@ -972,6 +972,12 @@ const PART_AMINOS = FOODS.filter(f => aminoGaps(f) > 0 && aminoGaps(f) < AMINO_I
 const andList = names => names.slice().sort()
   .join(", ").replace(/, ([^,]*)$/, " and $1");
 
+/* Likewise the foods whose figures depend on fortification: named from the note
+   itself, so adding a food to it cannot leave the prose describing two. */
+const FORTIFIED = NOTES.find(n => n.id === "fortified");
+const FORTIFIED_FOODS = Object.keys(FORTIFIED?.cells || {})
+  .map(s => FOODS[BY_SLUG.get(s)]).filter(Boolean);
+
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
@@ -1073,12 +1079,14 @@ const DLG = {
       <li><b>Selenium tracks the soil, not the seed.</b> The Brazil nut figure is a typical value and
       real nuts vary by more than an order of magnitude.</li>
       <li><b>Fortification is marked where it drives the figure.</b> Most rows are for the
-      unfortified food, and a commercial packet of plant milk or cereal will beat them. Two rows
-      are the other way round, because no unfortified version of the product is really sold:
-      nutritional yeast and soy milk. Their fortified values carry an asterisk with a note under
-      the table. Unfortified nutritional yeast has no B12 at all, and its 12,500% daily value here
-      is entirely what the maker added, as is soy milk's B12, calcium and vitamin D. Iodine is not
-      a column, so fortification with it is not shown anywhere.</li>
+      unfortified food, and a commercial packet of plant milk or cereal will beat them. A few are
+      the other way round, because no unfortified version of the product is really sold:
+      ${andList(FORTIFIED_FOODS.map(fullName))}. Those values carry
+      ${FORTIFIED ? `a “${esc(FORTIFIED.marker)}”` : "a marker"} with a note under the table.
+      Yeast contains no B12 whatever, so every microgram in the yeast rows was put there by the
+      maker, along with most of their thiamin, riboflavin, niacin and folate; the same goes for
+      soy milk's B12, calcium and vitamin D. Iodine is not a column, so fortification with it is
+      not shown anywhere.</li>
       <li><b>Seaweed is not a B12 source.</b> Nori and kelp show zero here, which is the right
       answer for the wrong-looking reason. They do contain corrinoids that some assays count as
       B12, but they are inactive analogues the body cannot use, and there is evidence that they

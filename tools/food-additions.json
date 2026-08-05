@@ -60,7 +60,13 @@
   {"name":"Grapes","state":"raw","cat":"Fruit","colour":"#9BAF56","fdc_id":"174683"},
   {"name":"Plums","state":"raw","cat":"Fruit","colour":"#6B2E52","fdc_id":"169949"},
   {"name":"Passion fruit","alt":"Granadilla","state":"raw","cat":"Fruit","colour":"#C98A2E","fdc_id":"169108"},
-  {"name":"Pomegranate","state":"raw","cat":"Fruit","colour":"#A81C34","fdc_id":"169134"}
+  {"name":"Pomegranate","state":"raw","cat":"Fruit","colour":"#A81C34","fdc_id":"169134"},
+
+  {"name":"Alfalfa sprouts","state":"raw","cat":"Vegetables","colour":"#A8C97E","fdc_id":"168384"},
+  {"name":"Rocket","alt":"Arugula","state":"raw","cat":"Vegetables","colour":"#4F8B32","fdc_id":"169387"},
+  {"name":"Celeriac","alt":"Celery root","state":"raw","cat":"Vegetables","colour":"#DFDCC8","fdc_id":"170400"},
+  {"name":"Pumpkin","state":"cooked","cat":"Vegetables","colour":"#C96A10","fdc_id":"168449"},
+  {"name":"Yeast extract","alt":"Marmite or Vegemite type","state":"spread","cat":"Algae & yeast","colour":"#2E1C12","fdc_id":"167717"}
  ],
 
  "staples": [
@@ -112,7 +118,6 @@
   "Samphire": "Not in SR Legacy under samphire, salicornia, glasswort or sea beans.",
   "Romanesco": "Not in SR Legacy under romanesco, romanesque or broccoflower. It is a cultivar of Brassica oleracea, the same species as the cauliflower and broccoli rows, so it could only be approximated from one of those rather than measured.",
   "Freekeh": "Not in SR Legacy under freekeh, frikeh or farik. It is immature durum wheat, roasted, so it could only be approximated from a durum or bulgur row rather than measured.",
-  "Celeriac": "In SR Legacy (169987 cooked, 170400 raw) but with no amino acid analysis at all, so the row would be blank across the whole amino group.",
   "Fennel": "In SR Legacy (169385 bulb, raw only) but with no amino acid analysis at all, and raw only, which does not match the cooked-vegetable convention.",
   "Cavolo nero": "Not in SR Legacy under cavolo nero, lacinato, Tuscan or palmifolia. It is a cultivar of the same species as the Kale row already in the table, so it could only be approximated from that rather than measured.",
   "Runner beans": "Not in SR Legacy. It carries snap or green beans, which are Phaseolus vulgaris; the runner bean is P. coccineus, a different species.",
