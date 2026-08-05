@@ -1,0 +1,315 @@
+{
+ "lentils-cooked": {
+  "fdc_id": "172421",
+  "description": "Lentils, mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "chickpeas-cooked": {
+  "fdc_id": "173757",
+  "description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "black-beans-cooked": {
+  "fdc_id": "173735",
+  "description": "Beans, black, mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "kidney-beans-cooked": {
+  "fdc_id": "173740",
+  "description": "Beans, kidney, all types, mature seeds, cooked, boiled, without salt",
+  "confidence": "close",
+  "distance": 0.0555,
+  "reviewed": true
+ },
+ "pinto-beans-cooked": {
+  "fdc_id": "175200",
+  "description": "Beans, pinto, mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "split-peas-cooked": {
+  "fdc_id": "172429",
+  "description": "Peas, split, mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "mung-beans-cooked": {
+  "fdc_id": "174257",
+  "description": "Mung beans, mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "green-peas-cooked": {
+  "fdc_id": "170420",
+  "description": "Peas, green, cooked, boiled, drained, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "edamame-cooked": {
+  "fdc_id": "168411",
+  "description": "Edamame, frozen, prepared",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "lupin-beans-cooked": {
+  "fdc_id": "172424",
+  "description": "Lupins, mature seeds, cooked, boiled, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "tofu-firm": {
+  "fdc_id": "172475",
+  "description": "Tofu, raw, firm, prepared with calcium sulfate",
+  "confidence": "exact",
+  "distance": 0.0002,
+  "reviewed": true
+ },
+ "tempeh": {
+  "fdc_id": "174272",
+  "description": "Tempeh",
+  "confidence": "exact",
+  "distance": 0.0085,
+  "reviewed": true
+ },
+ "natto": {
+  "fdc_id": "172443",
+  "description": "Natto",
+  "confidence": "exact",
+  "distance": 0.0002,
+  "reviewed": true
+ },
+ "soy-milk-unsweetened": {
+  "fdc_id": null,
+  "description": null,
+  "confidence": "none",
+  "distance": null,
+  "reviewed": true,
+  "note": "Every soymilk row in SR Legacy lacks 16:1 and 18:1, so no match yields fatty acid data."
+ },
+ "oats-rolled-dry": {
+  "fdc_id": "169705",
+  "description": "Oats (Includes foods for USDA's Food Distribution Program)",
+  "confidence": "close",
+  "distance": 0.0459,
+  "reviewed": true
+ },
+ "quinoa-cooked": {
+  "fdc_id": "168917",
+  "description": "Quinoa, cooked",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "brown-rice-cooked": {
+  "fdc_id": "169704",
+  "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "buckwheat-cooked": {
+  "fdc_id": "170686",
+  "description": "Buckwheat groats, roasted, cooked",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "amaranth-cooked": {
+  "fdc_id": "170683",
+  "description": "Amaranth grain, cooked",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "wholewheat-pasta-cooked": {
+  "fdc_id": "168910",
+  "description": "Pasta, whole-wheat, cooked (Includes foods for USDA's Food Distribution Program)",
+  "confidence": "exact",
+  "distance": null,
+  "reviewed": true,
+  "note": "Matcher picked spinach pasta on macros alone; this is the right food by name and state."
+ },
+ "almonds": {
+  "fdc_id": "170567",
+  "description": "Nuts, almonds",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "walnuts": {
+  "fdc_id": "170187",
+  "description": "Nuts, walnuts, english",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "cashews": {
+  "fdc_id": "170162",
+  "description": "Nuts, cashew nuts, raw",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "peanuts": {
+  "fdc_id": "172430",
+  "description": "Peanuts, all types, raw",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "pistachios": {
+  "fdc_id": "170184",
+  "description": "Nuts, pistachio nuts, raw",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "brazil-nuts": {
+  "fdc_id": "170569",
+  "description": "Nuts, brazilnuts, dried, unblanched",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "hazelnuts": {
+  "fdc_id": "170581",
+  "description": "Nuts, hazelnuts or filberts",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "chia-seeds": {
+  "fdc_id": "170554",
+  "description": "Seeds, chia seeds, dried",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "hemp-seeds-hulled": {
+  "fdc_id": "170148",
+  "description": "Seeds, hemp seed, hulled",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "flaxseed": {
+  "fdc_id": "169414",
+  "description": "Seeds, flaxseed",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "pumpkin-seeds": {
+  "fdc_id": "170556",
+  "description": "Seeds, pumpkin and squash seed kernels, dried",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "sunflower-seeds": {
+  "fdc_id": "170562",
+  "description": "Seeds, sunflower seed kernels, dried",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "sesame-seeds": {
+  "fdc_id": "170150",
+  "description": "Seeds, sesame seeds, whole, dried",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "broccoli-cooked": {
+  "fdc_id": "169967",
+  "description": "Broccoli, cooked, boiled, drained, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "spinach-raw": {
+  "fdc_id": "168462",
+  "description": "Spinach, raw",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "kale-raw": {
+  "fdc_id": "168421",
+  "description": "Kale, raw",
+  "confidence": "weak",
+  "distance": 0.3628,
+  "reviewed": true
+ },
+ "sweet-potato-baked": {
+  "fdc_id": "168483",
+  "description": "Sweet potato, cooked, baked in skin, flesh, without salt",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "mushrooms-white-raw": {
+  "fdc_id": "169251",
+  "description": "Mushrooms, white, raw",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "spirulina-dried": {
+  "fdc_id": "170495",
+  "description": "Seaweed, spirulina, dried",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "nutritional-yeast": {
+  "fdc_id": null,
+  "description": null,
+  "confidence": "none",
+  "distance": null,
+  "reviewed": true,
+  "note": "SR Legacy has only 'Yeast extract spread' (a Marmite-type product) and baker's yeast. Neither is nutritional yeast; ours is fortified, theirs are not."
+ },
+ "avocado": {
+  "fdc_id": "171705",
+  "description": "Avocados, raw, all commercial varieties",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "banana": {
+  "fdc_id": "173944",
+  "description": "Bananas, raw",
+  "confidence": "exact",
+  "distance": 0,
+  "reviewed": true
+ },
+ "tvp-dry": {
+  "fdc_id": "174275",
+  "description": "Soy flour, defatted",
+  "confidence": "exact",
+  "distance": 0.007,
+  "reviewed": true,
+  "note": "Fingerprint distance 0.007 across energy, protein, fat and carbohydrate: this is the row our TVP figures came from. Name matching missed it because 'TVP' shares no word with the USDA description."
+ },
+ "seitan": {
+  "fdc_id": null,
+  "description": null,
+  "confidence": "none",
+  "distance": null,
+  "reviewed": true,
+  "note": "Closest candidate is 'Vital wheat gluten' at distance 0.914 — the dry ingredient, not hydrated seitan. Not the source row."
+ }
+}

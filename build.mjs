@@ -66,6 +66,27 @@ function validate(data) {
     if (slugs.has(slug)) problems.push(`duplicate food key "${slug}" — saved favourites would collide`);
     slugs.add(slug);
   }
+
+  // Cross-field checks. A fraction exceeding the total it belongs to is the
+  // signature of a food mapped to the wrong source row — the values look
+  // individually plausible and only disagree when compared with each other.
+  const at = id => nutrients.findIndex(n => n.id === id);
+  const subsets = [
+    { total: "mufa", parts: ["oleic", "palmitoleic"], label: "monounsaturated" },
+    { total: "fat", parts: ["satfat"], label: "total fat" },
+  ];
+  for (const { total, parts, label } of subsets) {
+    const ti = at(total), pis = parts.map(at);
+    if (ti === -1 || pis.some(i => i === -1)) continue;
+    for (const f of foods) {
+      const t = f.v[ti];
+      if (typeof t !== "number") continue;
+      const sum = pis.reduce((s, i) => s + (typeof f.v[i] === "number" ? f.v[i] : 0), 0);
+      // 1% tolerance: the parts and the total are separate lab measurements.
+      if (sum > t * 1.01 + 0.005)
+        problems.push(`${f.name}: ${parts.join(" + ")} = ${sum.toFixed(3)} exceeds ${label} ${t}`);
+    }
+  }
   return problems;
 }
 

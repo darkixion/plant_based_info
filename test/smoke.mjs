@@ -181,6 +181,67 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
   });
 });
 
+// ---------------------------------------------------------------- omega columns
+
+await test("omega-7 and omega-9 columns are present and populated", async () => {
+  await withPage(async page => {
+    await page.click('#groupNav [data-grp="fats"]');
+    const heads = await page.locator("#thead th .sortbtn").allTextContents();
+    assert(heads.some(h => /Omega-9/.test(h)), `omega-9 column: ${heads.join(" | ")}`);
+    assert(heads.some(h => /Omega-7/.test(h)), `omega-7 column: ${heads.join(" | ")}`);
+
+    // 44 foods, less 5 with no USDA source row or no measurement, less 6 whose
+    // existing MUFA total disagrees with the mapped row and are withheld.
+    const filled = await page.evaluate(() => {
+      const i9 = DATA.nutrients.findIndex(n => n.id === "oleic");
+      const i7 = DATA.nutrients.findIndex(n => n.id === "palmitoleic");
+      return DATA.foods.filter(f => f.v[i9] !== null && f.v[i7] !== null).length;
+    });
+    eq(filled, 33, "foods carrying both omega figures");
+  });
+});
+
+await test("no food claims more omega-9 plus omega-7 than monounsaturated", async () => {
+  await withPage(async page => {
+    const bad = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const [m, a, b] = ["mufa", "oleic", "palmitoleic"].map(at);
+      return DATA.foods
+        .filter(f => typeof f.v[m] === "number" &&
+          (f.v[a] || 0) + (f.v[b] || 0) > f.v[m] * 1.01 + 0.005)
+        .map(f => `${f.name}: ${(f.v[a] || 0) + (f.v[b] || 0)} > ${f.v[m]}`);
+    });
+    eq(bad.length, 0, `fractions exceeding the total: ${bad.join("; ")}`);
+  });
+});
+
+await test("foods with no measurement show a dash, not a zero", async () => {
+  await withPage(async page => {
+    await page.click('#groupNav [data-grp="fats"]');
+    // Seitan is deliberately unmapped: USDA has no matching row for it.
+    // Wait for the search to have actually narrowed, not merely for Seitan to
+    // be somewhere on an unfiltered page.
+    await page.fill("#q", "seitan");
+    await page.waitForFunction(() => {
+      const n = document.querySelectorAll("#tbody .fname b");
+      return n.length === 1 && n[0].textContent === "Seitan";
+    });
+    const cells = await page.locator('#tbody tr td[data-g="fats"]').allTextContents();
+    assert(cells.some(c => c.trim() === "—"),
+      `expected a dash among ${JSON.stringify(cells)}`);
+    assert(!cells.every(c => c.trim() === "—"), "other fat columns still have values");
+  });
+});
+
+await test("the comprehensiveness blurb tracks the real column counts", async () => {
+  await withPage(async page => {
+    const txt = await page.locator("#compBlurb").textContent();
+    const total = await page.evaluate(() => DATA.nutrients.length);
+    assert(txt.startsWith(`${total} nutrients per food`), `blurb says: ${txt}`);
+    assert(/6 fat fractions/.test(txt), `fat count updated: ${txt}`);
+  });
+});
+
 // ---------------------------------------------------------------- derived figures
 
 /** Waits on the row *content*, not the row count: searching for two different

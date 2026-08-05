@@ -82,6 +82,35 @@ Amino acid score, limiting amino acid, protein per 100 kcal and the omega-6:3
 ratio are all calculated in `app.js` from the columns already present, so they
 cannot drift out of agreement with the row they describe.
 
+### Pulling more nutrients from USDA
+
+```bash
+node tools/usda.mjs match              # propose food mappings for review
+node tools/usda.mjs pull 1268 1275     # add those USDA nutrients as columns
+node tools/usda.mjs pull 1268 --dry-run
+```
+
+`match` downloads the SR Legacy bulk dataset (cached in `tools/cache/`,
+gitignored) and proposes a mapping from each of our foods to a USDA row, scored
+on a nutritional fingerprint and required to share a name word. `pull` reads
+only the reviewed mapping and never re-decides it.
+
+**Mappings are reviewed by a human and committed** to `src/data/usda-map.json`.
+This is not ceremony. An early fingerprint-only run paired *Black beans* with
+*Black pudding, boiled* — blood sausage — because the macros happened to line
+up. `pull` refuses to run while any entry has `"reviewed": false`. Three foods
+are deliberately unmapped with the reason recorded: seitan, soy milk and
+nutritional yeast have no suitable SR Legacy row.
+
+**The tool will not write a value that contradicts a total already in the
+table.** Six foods have existing MUFA figures that disagree with the USDA row
+they map to — Edamame's own fat fractions don't sum to its total fat, before
+USDA is involved at all — so their omega-9 and omega-7 are left as "no data"
+rather than shown exceeding the monounsaturated column above them. Re-pulling
+the whole fat group from the mapped rows would resolve this, at the cost of
+changing values that are currently displayed. The build enforces the same
+constraint, so this cannot regress silently.
+
 ## Licence and disclaimer
 
 Reference data, not medical advice. Nutrient needs vary by age, sex, pregnancy,

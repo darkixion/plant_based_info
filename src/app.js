@@ -773,6 +773,16 @@ const DLG = {
     figures in the table are that profile multiplied by the food's protein content, so the amino acid
     columns always reconcile with the protein column. It also means cooked and dry forms of the same
     food share one profile, because water content divides out.</p>
+    <h4>The omega columns</h4>
+    <p>Four named omega columns sit alongside the monounsaturated and polyunsaturated totals.
+    Omega-3 is <b>ALA</b> and omega-6 is <b>LA</b> — the two your body cannot make. Omega-9
+    (<b>oleic</b>) and omega-7 (<b>palmitoleic</b>) are the two main monounsaturated fractions, and
+    both are counted inside the monounsaturated total rather than in addition to it.</p>
+    <p>One honest caveat. USDA reports 18:1 <em>undifferentiated</em>, meaning the figure bundles a
+    small amount of n-7 vaccenic acid in with the n-9 oleic acid. In plant foods 18:1 is
+    overwhelmingly oleic, so reading it as omega-9 is the usual convention and a close
+    approximation — but it is not a direct n-9 measurement. The 16:1 figure has no such ambiguity.
+    A few foods have no measurement at all and show a dash rather than a zero.</p>
     <h4>Amino acid score and the limiting amino acid</h4>
     <p>The protein quality figures are <em>derived</em> from the columns already in the table, not
     sourced separately, so they cannot disagree with the rest of the row. Each essential amino acid
@@ -809,8 +819,8 @@ const DLG = {
       <li><b>Iodine is not included</b>, as reliable per-food values are scarce for plant foods.</li>
     </ul>`],
   about: ["About this database", `
-    <p>A single-page reference for the nutrient content of whole plant foods: 44 foods across
-    53 nutrients, all per 100 g, all sortable and filterable.</p>
+    <p>A single-page reference for the nutrient content of whole plant foods: ${FOODS.length} foods
+    across ${NUTS.length} nutrients, all per 100 g, all sortable and filterable.</p>
     <h4>Why per 100 g</h4>
     <p>It is the only basis on which foods compare fairly. Bear in mind that cooked legumes and
     grains are mostly water, so a realistic portion of lentils delivers far more than the per-100 g
@@ -836,6 +846,13 @@ $("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").
 $("#catSel").innerHTML = `<option value="">All categories</option>` +
   CATS.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
 $("#totalFoods").textContent = FOODS.length;
+
+// Derived from the data so adding a column cannot leave the prose behind.
+const GROUP_BLURB = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
+                      vitamin: "vitamins", mineral: "minerals" };
+$("#compBlurb").textContent = `${NUTS.length} nutrients per food: ` +
+  GROUPS.map(g => `${NUTS.filter(n => n.group === g.id).length} ${GROUP_BLURB[g.id]}`)
+    .join(", ").replace(/, ([^,]*)$/, " and $1") + ".";
 
 // Default to the system theme on a first visit; a stored choice wins over it.
 S.dark = matchMedia("(prefers-color-scheme: dark)").matches;
