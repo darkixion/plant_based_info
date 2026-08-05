@@ -6,7 +6,8 @@
    "group": "macro",
    "unit": "kcal",
    "dv": 2000,
-   "dp": 0
+   "dp": 0,
+   "why": "How much energy the food releases when the body burns it. Per 100 g it says as much about water content as about the food, since cooked grains and pulses are mostly water."
   },
   {
    "id": "protein",
@@ -14,7 +15,8 @@
    "group": "macro",
    "unit": "g",
    "dv": 50,
-   "dp": 2
+   "dp": 2,
+   "why": "Supplies the amino acids the body rebuilds into its own tissue, enzymes and antibodies. Quantity is only half of it: the amino acid columns show whether the mix is usable."
   },
   {
    "id": "carbs",
@@ -22,7 +24,8 @@
    "group": "macro",
    "unit": "g",
    "dv": 275,
-   "dp": 2
+   "dp": 2,
+   "why": "The body's most readily used fuel, arriving in whole plant foods with the fibre and minerals still attached. Measured by difference, so this figure includes both the fibre and the sugars below it."
   },
   {
    "id": "fiber",
@@ -30,7 +33,8 @@
    "group": "macro",
    "unit": "g",
    "dv": 28,
-   "dp": 1
+   "dp": 1,
+   "why": "The part of a plant human enzymes cannot break down, which is why it reaches the gut bacteria intact. It slows glucose absorption and feeds the microbiome, and most diets fall short of it."
   },
   {
    "id": "sugars",
@@ -38,7 +42,8 @@
    "group": "macro",
    "unit": "g",
    "dv": null,
-   "dp": 1
+   "dp": 1,
+   "why": "The sugars inside the carbohydrate total, whether naturally present or added. In whole fruit they come bound up with fibre and water, which is why they behave differently from the same amount in a drink."
   },
   {
    "id": "fat",
@@ -46,7 +51,8 @@
    "group": "macro",
    "unit": "g",
    "dv": 78,
-   "dp": 2
+   "dp": 2,
+   "why": "The most energy-dense nutrient, and the vehicle for vitamins A, D, E and K, none of which the body absorbs well from a fat-free meal. Which kind of fat matters more than how much."
   },
   {
    "id": "satfat",
@@ -54,7 +60,8 @@
    "group": "macro",
    "unit": "g",
    "dv": 20,
-   "dp": 2
+   "dp": 2,
+   "why": "The fraction with no double bonds, solid at room temperature. Plant foods are generally low in it, coconut and palm being the exceptions, and it is the fraction dietary guidance asks people to limit."
   },
   {
    "id": "water",
@@ -62,7 +69,8 @@
    "group": "macro",
    "unit": "g",
    "dv": null,
-   "dp": 1
+   "dp": 1,
+   "why": "How much of 100 g is simply water. It is the main reason cooked and dry forms of one food look so different: a cooked grain is mostly water, so everything else in the row is diluted."
   },
   {
    "id": "ala",
@@ -70,7 +78,8 @@
    "group": "fats",
    "unit": "g",
    "dv": 1.6,
-   "dp": 3
+   "dp": 3,
+   "why": "The only omega-3 the body cannot make, and the form plant foods supply. Conversion into the long-chain EPA and DHA that the brain and eyes actually use is inefficient, so a high ALA intake is not the same thing."
   },
   {
    "id": "la",
@@ -78,7 +87,8 @@
    "group": "fats",
    "unit": "g",
    "dv": 17,
-   "dp": 3
+   "dp": 3,
+   "why": "The essential omega-6, plentiful in nuts, seeds and their oils. It competes with ALA for the same conversion enzymes, so a very high intake makes the little omega-3 conversion there is smaller still."
   },
   {
    "id": "palmitoleic",
@@ -86,7 +96,8 @@
    "group": "fats",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "A monounsaturated fat concentrated in macadamias and sea buckthorn. Not essential, since the body makes its own, and counted inside the monounsaturated total rather than in addition to it."
   },
   {
    "id": "oleic",
@@ -94,7 +105,8 @@
    "group": "fats",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "The main monounsaturated fat, and what makes olive oil what it is. The body can make it, so it is not essential, but replacing saturated fat with it is one of the better-supported dietary swaps."
   },
   {
    "id": "mufa",
@@ -102,7 +114,8 @@
    "group": "fats",
    "unit": "g",
    "dv": null,
-   "dp": 2
+   "dp": 2,
+   "why": "Fats with a single double bond, the omega-9 and omega-7 columns included. Stable enough to cook with, and the fraction Mediterranean diets are richest in."
   },
   {
    "id": "pufa",
@@ -110,7 +123,8 @@
    "group": "fats",
    "unit": "g",
    "dv": null,
-   "dp": 2
+   "dp": 2,
+   "why": "Fats with more than one double bond, including both of the essential fatty acids. They oxidise readily with heat and light, which is why cold-pressed seed oils need more careful handling."
   },
   {
    "id": "his",
@@ -118,7 +132,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Essential, and the starting point for histamine, which the immune system and the stomach both run on. It also buffers the acid that builds up in working muscle."
   },
   {
    "id": "ile",
@@ -126,7 +141,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "One of the three branched-chain amino acids, burned in the muscle itself rather than sent to the liver first. It also has a hand in haemoglobin production and glucose uptake."
   },
   {
    "id": "leu",
@@ -134,7 +150,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "The branched-chain amino acid that signals muscle to start building protein, which is why it is the one strength athletes count. Soy, pulses and seeds are the richest plant sources."
   },
   {
    "id": "lys",
@@ -142,7 +159,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Essential, needed for collagen and for carrying fat into the mitochondria to be burned. It is the one cereals run short on, and precisely what pulses supply."
   },
   {
    "id": "met",
@@ -150,7 +168,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Essential, and the starting point for every methylation reaction in the body. Pulses are usually short of it, which is what grains, nuts and seeds make up for."
   },
   {
    "id": "cys",
@@ -158,7 +177,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Not essential in itself, because the body makes it from methionine, but every gram eaten is a gram of methionine saved. It carries the sulphur in glutathione, the body's own main antioxidant."
   },
   {
    "id": "phe",
@@ -166,7 +186,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Essential, and the raw material for tyrosine and everything downstream of it. Scored as a pair with tyrosine because the conversion only runs one way."
   },
   {
    "id": "tyr",
@@ -174,7 +195,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Made from phenylalanine, and the precursor of dopamine, adrenaline and thyroid hormone. Not essential so long as phenylalanine is plentiful, which is why the two are scored together."
   },
   {
    "id": "thr",
@@ -182,7 +204,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Essential, and used heavily in the mucus lining the gut and in the collagen and elastin holding tissue together. Losses through the gut are large, so more is needed than body tissue alone suggests."
   },
   {
    "id": "trp",
@@ -190,7 +213,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Essential, and the precursor of serotonin, melatonin and some of the body's own niacin. It is the scarcest essential amino acid in nearly every food, which is why the requirement for it is the lowest."
   },
   {
    "id": "val",
@@ -198,7 +222,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "The third branched-chain amino acid, used in muscle for energy and repair. Like the other two it is burned where it lands rather than processed by the liver first."
   },
   {
    "id": "arg",
@@ -206,7 +231,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Not essential for a healthy adult, but the sole source of nitric oxide, which is what relaxes blood vessels. Nuts, seeds and pulses are the richest plant sources."
   },
   {
    "id": "alaa",
@@ -214,7 +240,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Not essential. Muscle uses it to ship spare nitrogen to the liver, which turns the carbon back into glucose, a loop that keeps blood sugar up through long exercise."
   },
   {
    "id": "asp",
@@ -222,7 +249,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Not essential. It feeds the urea cycle that disposes of surplus nitrogen, and is a building block of the purines in DNA."
   },
   {
    "id": "glu",
@@ -230,7 +258,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "The most abundant amino acid in most proteins, and the brain's main excitatory signal. It is also what gives tomatoes, mushrooms and soy sauce their savoury taste."
   },
   {
    "id": "gly",
@@ -238,7 +267,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "The smallest amino acid, a third of all the collagen in the body, and one of the three the body needs to make creatine. Plant diets tend to supply less of it than omnivorous ones."
   },
   {
    "id": "pro",
@@ -246,7 +276,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Not essential. It is what makes collagen kink the way it does, so skin, connective tissue and blood vessel walls all depend on it."
   },
   {
    "id": "ser",
@@ -254,7 +285,8 @@
    "group": "amino",
    "unit": "g",
    "dv": null,
-   "dp": 3
+   "dp": 3,
+   "why": "Not essential. It goes into cell membranes and into the one-carbon pathway that folate and B12 also feed, which ties it to methylation."
   },
   {
    "id": "vita",
@@ -262,7 +294,8 @@
    "group": "vitamin",
    "unit": "µg",
    "dv": 900,
-   "dp": 0
+   "dp": 0,
+   "why": "Runs vision in dim light, keeps skin and mucous membranes intact and directs part of the immune response. Plant foods contain no retinol, only carotenoids the body converts, and this figure already counts that conversion."
   },
   {
    "id": "vitc",
@@ -270,7 +303,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 90,
-   "dp": 1
+   "dp": 1,
+   "why": "Needed to build collagen, which is why scurvy is a disease of missing fruit and veg. It also multiplies the absorption of plant iron eaten in the same meal, which matters more on a plant-based diet."
   },
   {
    "id": "vitd",
@@ -278,7 +312,8 @@
    "group": "vitamin",
    "unit": "µg",
    "dv": 20,
-   "dp": 1
+   "dp": 1,
+   "why": "Governs how much calcium the gut takes up, so bone depends on it as much as on calcium itself. Almost no plant food contains any: skin makes it from sunlight, and at high latitudes that stops in winter."
   },
   {
    "id": "vite",
@@ -286,7 +321,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 15,
-   "dp": 2
+   "dp": 2,
+   "why": "The main antioxidant inside cell membranes, where it protects the polyunsaturated fats from oxidising. Nuts, seeds and their oils are the plant sources that count."
   },
   {
    "id": "vitk",
@@ -294,7 +330,8 @@
    "group": "vitamin",
    "unit": "µg",
    "dv": 120,
-   "dp": 1
+   "dp": 1,
+   "why": "Activates the proteins that bind calcium into bone and that clot blood. Dark leafy greens supply it in quantity, and it needs some fat in the meal to be absorbed."
   },
   {
    "id": "b1",
@@ -302,7 +339,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 1.2,
-   "dp": 3
+   "dp": 3,
+   "why": "Releases energy from carbohydrate, so the more carbohydrate a diet carries the more of it gets used. Nerve tissue is what fails first without it."
   },
   {
    "id": "b2",
@@ -310,7 +348,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 1.3,
-   "dp": 3
+   "dp": 3,
+   "why": "Part of the two coenzymes that carry electrons through energy metabolism, so almost nothing burns fuel without it. It is one of the nutrients plant-based diets can quietly run low on."
   },
   {
    "id": "b3",
@@ -318,7 +357,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 16,
-   "dp": 2
+   "dp": 2,
+   "why": "Underpins the coenzymes behind several hundred reactions, from releasing energy to repairing DNA. The body also makes some from tryptophan, so a good protein intake covers part of the need."
   },
   {
    "id": "b5",
@@ -326,7 +366,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 5,
-   "dp": 2
+   "dp": 2,
+   "why": "The core of coenzyme A, which is how both fat and carbohydrate enter the reactions that burn them. It is spread widely enough across foods that shortfalls are rare."
   },
   {
    "id": "b6",
@@ -334,7 +375,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 1.7,
-   "dp": 3
+   "dp": 3,
+   "why": "The coenzyme for most of what the body does with amino acids, including building the neurotransmitters. It works with folate and B12 to keep homocysteine in check."
   },
   {
    "id": "b9",
@@ -342,7 +384,8 @@
    "group": "vitamin",
    "unit": "µg",
    "dv": 400,
-   "dp": 0
+   "dp": 0,
+   "why": "Builds and repairs DNA, so demand rises wherever cells divide fast, which is why it matters most in early pregnancy. Pulses and dark leaves are the richest sources."
   },
   {
    "id": "b12",
@@ -350,7 +393,8 @@
    "group": "vitamin",
    "unit": "µg",
    "dv": 2.4,
-   "dp": 2
+   "dp": 2,
+   "why": "Needed for nerve insulation and for red blood cells, and the one nutrient a plant-based diet cannot supply reliably. No unfortified plant food is a dependable source, so a supplement is standard advice."
   },
   {
    "id": "chol",
@@ -358,7 +402,8 @@
    "group": "vitamin",
    "unit": "mg",
    "dv": 550,
-   "dp": 1
+   "dp": 1,
+   "why": "Goes into cell membranes and into acetylcholine, the neurotransmitter behind memory and muscle control. The body makes some but rarely enough, and plant sources are thinner than animal ones."
   },
   {
    "id": "ca",
@@ -366,7 +411,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 1300,
-   "dp": 0
+   "dp": 0,
+   "why": "Nearly all of it is in bone, but the small fraction outside runs nerve signalling and muscle contraction, and the body will strip bone to keep that supply steady. Absorption from greens is good except where oxalate binds it."
   },
   {
    "id": "fe",
@@ -374,7 +420,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 18,
-   "dp": 2
+   "dp": 2,
+   "why": "Carries oxygen in the blood. Plant iron is the non-haem form, absorbed several times less readily than the haem kind, which is why vitamin C in the same meal and tea between meals both change the outcome."
   },
   {
    "id": "mg",
@@ -382,7 +429,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 420,
-   "dp": 0
+   "dp": 0,
+   "why": "A cofactor in several hundred enzymes, including everything that uses ATP, so muscle, nerve and heart rhythm all lean on it. It sits at the centre of the chlorophyll molecule, which is why green leaves carry it."
   },
   {
    "id": "p",
@@ -390,7 +438,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 1250,
-   "dp": 0
+   "dp": 0,
+   "why": "Most of it is in bone alongside calcium, and the rest is the backbone of DNA and the phosphate groups in ATP. In seeds and grains much of it is locked up as phytate and poorly absorbed."
   },
   {
    "id": "k",
@@ -398,7 +447,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 4700,
-   "dp": 0
+   "dp": 0,
+   "why": "The mineral inside cells, balanced against the sodium outside them, and that gradient is what nerve and muscle run on. Whole plant foods are naturally rich in it, the opposite of most processed food."
   },
   {
    "id": "na",
@@ -406,7 +456,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 2300,
-   "dp": 0
+   "dp": 0,
+   "why": "Controls fluid balance and, through it, blood pressure. Whole plant foods contain very little, so nearly all of what people eat is added during cooking or processing."
   },
   {
    "id": "zn",
@@ -414,7 +465,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 11,
-   "dp": 2
+   "dp": 2,
+   "why": "A cofactor in hundreds of enzymes, and central to immune function and wound healing. Phytate in wholegrains and pulses binds it, so soaking, sprouting and fermenting all raise how much gets through."
   },
   {
    "id": "cu",
@@ -422,7 +474,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 0.9,
-   "dp": 3
+   "dp": 3,
+   "why": "Needed to move iron around the body and to build connective tissue, and part of the enzyme that mops up superoxide. Nuts, seeds and cocoa are the richest sources by a distance."
   },
   {
    "id": "mn",
@@ -430,7 +483,8 @@
    "group": "mineral",
    "unit": "mg",
    "dv": 2.3,
-   "dp": 3
+   "dp": 3,
+   "why": "A cofactor in bone formation, in carbohydrate metabolism, and in the enzyme that protects mitochondria from oxidation. Wholegrains, nuts and tea supply it easily."
   },
   {
    "id": "se",
@@ -438,7 +492,76 @@
    "group": "mineral",
    "unit": "µg",
    "dv": 55,
-   "dp": 1
+   "dp": 1,
+   "why": "Part of the enzymes that recycle the body's antioxidants and that activate thyroid hormone. Content tracks the soil the plant grew in rather than the plant itself, so figures vary by more than tenfold."
+  },
+  {
+   "id": "betacar",
+   "label": "Beta-carotene",
+   "group": "plant",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "why": "The orange pigment in carrots and squash, and the main plant source of vitamin A. The body splits it into retinol only as needed, which makes it self-limiting in a way preformed vitamin A is not."
+  },
+  {
+   "id": "alphacar",
+   "label": "Alpha-carotene",
+   "group": "plant",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "why": "A second provitamin A carotenoid, usually found alongside beta-carotene and converted at about half the rate. Carrots, pumpkin and winter squash are where it concentrates."
+  },
+  {
+   "id": "cryptox",
+   "label": "Beta-cryptoxanthin",
+   "group": "plant",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "why": "The third provitamin A carotenoid, and the colour in tangerines, persimmons and red peppers. Converted less efficiently than beta-carotene, though absorbed more readily than it."
+  },
+  {
+   "id": "luteinzea",
+   "label": "Lutein + zeaxanthin",
+   "group": "plant",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "why": "The two pigments the retina concentrates into the macula, where they filter blue light. Dark leafy greens and sweetcorn are by far the richest sources. Reported together because assays do not separate them."
+  },
+  {
+   "id": "lycopene",
+   "label": "Lycopene",
+   "group": "plant",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "why": "The red pigment in tomatoes, watermelon and pink guava. Unlike the carotenes it yields no vitamin A, and cooking with a little fat frees far more of it than eating the fruit raw."
+  }
+ ],
+ "notes": [
+  {
+   "id": "fortified",
+   "marker": "*",
+   "short": "Depends on fortification",
+   "text": "Added during manufacture, not present in the food itself. Unfortified nutritional yeast has no vitamin B12 at all, and plant milks are fortified to whatever level the maker chooses, so the packet is the only thing that tells you what is in yours.",
+   "cells": {
+    "nutritional-yeast": [
+     "b1",
+     "b2",
+     "b3",
+     "b6",
+     "b9",
+     "b12"
+    ],
+    "soy-milk-unsweetened": [
+     "vitd",
+     "b12",
+     "ca"
+    ]
+   }
   }
  ],
  "foods": [
@@ -502,7 +625,12 @@
     1.27,
     0.251,
     0.494,
-    2.8
+    2.8,
+    5,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -565,7 +693,12 @@
     1.53,
     0.352,
     1.03,
-    3.7
+    3.7,
+    16,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Garbanzo beans"
   },
@@ -629,7 +762,12 @@
     1.12,
     0.209,
     0.444,
-    1.2
+    1.2,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -692,7 +830,12 @@
     1.07,
     0.242,
     0.477,
-    1.1
+    1.1,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -755,7 +898,12 @@
     0.98,
     0.219,
     0.453,
-    6.2
+    6.2,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -818,7 +966,12 @@
     1,
     0.184,
     0.396,
-    0.6
+    0.6,
+    4,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Yellow or green split peas"
   },
@@ -882,7 +1035,12 @@
     0.84,
     0.156,
     0.298,
-    2.5
+    2.5,
+    14,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Green gram"
   },
@@ -946,7 +1104,12 @@
     1.19,
     0.173,
     0.55,
-    1.9
+    1.9,
+    470,
+    22,
+    0,
+    2593,
+    0
    ]
   },
   {
@@ -1009,7 +1172,12 @@
     1.37,
     0.344,
     1.02,
-    0.8
+    0.8,
+    175,
+    0,
+    8,
+    1619,
+    0
    ],
    "alt": "Green soybeans"
   },
@@ -1073,7 +1241,12 @@
     1.38,
     0.23,
     0.56,
-    1.4
+    1.4,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1136,7 +1309,12 @@
     1.57,
     0.383,
     1.18,
-    17.4
+    17.4,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1199,7 +1377,12 @@
     1.14,
     0.56,
     1.3,
-    0
+    0,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1262,7 +1445,12 @@
     3.03,
     0.67,
     1.53,
-    8.8
+    8.8,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -1325,7 +1513,12 @@
     0.26,
     0.128,
     0.223,
-    1.5
+    1.5,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1388,7 +1581,12 @@
     4.5,
     2.1,
     3.6,
-    2
+    2,
+    24,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Textured vegetable protein"
   },
@@ -1452,7 +1650,12 @@
     3.97,
     0.626,
     4.92,
-    28.9
+    28.9,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1515,7 +1718,12 @@
     1.09,
     0.192,
     0.631,
-    2.8
+    2.8,
+    3,
+    0,
+    0,
+    53,
+    0
    ]
   },
   {
@@ -1578,7 +1786,12 @@
     0.71,
     0.081,
     0.974,
-    5.8
+    5.8,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -1641,7 +1854,12 @@
     0.61,
     0.13,
     0.403,
-    2.2
+    2.2,
+    0,
+    0,
+    0,
+    60,
+    0
    ]
   },
   {
@@ -1704,7 +1922,12 @@
     0.86,
     0.149,
     0.854,
-    5.5
+    5.5,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -1767,7 +1990,12 @@
     1.13,
     0.174,
     1.3,
-    25.6
+    25.6,
+    2,
+    0,
+    0,
+    94,
+    0
    ]
   },
   {
@@ -1830,7 +2058,12 @@
     0.9,
     0.12,
     0.68,
-    20
+    20,
+    null,
+    null,
+    null,
+    null,
+    null
    ],
    "alt": "Wheat gluten"
   },
@@ -1894,7 +2127,12 @@
     3.12,
     1.031,
     2.179,
-    4.1
+    4.1,
+    1,
+    0,
+    0,
+    1,
+    0
    ]
   },
   {
@@ -1957,7 +2195,12 @@
     3.09,
     1.586,
     3.414,
-    4.9
+    4.9,
+    12,
+    0,
+    0,
+    9,
+    0
    ]
   },
   {
@@ -2020,7 +2263,12 @@
     5.78,
     2.195,
     1.655,
-    19.9
+    19.9,
+    0,
+    0,
+    0,
+    22,
+    0
    ]
   },
   {
@@ -2083,7 +2331,12 @@
     3.27,
     1.144,
     1.934,
-    7.2
+    7.2,
+    0,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Groundnuts"
   },
@@ -2147,7 +2400,12 @@
     2.2,
     1.3,
     1.2,
-    7
+    7,
+    305,
+    10,
+    0,
+    2903,
+    null
    ]
   },
   {
@@ -2210,7 +2468,12 @@
     4.06,
     1.743,
     1.223,
-    1917
+    1917,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -2273,7 +2536,12 @@
     2.45,
     1.725,
     6.175,
-    2.4
+    2.4,
+    11,
+    3,
+    0,
+    92,
+    0
    ]
   },
   {
@@ -2336,7 +2604,12 @@
     4.58,
     0.924,
     2.723,
-    55.2
+    55.2,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2399,7 +2672,12 @@
     9.9,
     1.6,
     7.6,
-    0
+    0,
+    7,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2462,7 +2740,12 @@
     4.34,
     1.22,
     2.482,
-    25.4
+    25.4,
+    0,
+    0,
+    0,
+    651,
+    0
    ],
    "alt": "Linseed"
   },
@@ -2526,7 +2809,12 @@
     7.81,
     1.343,
     4.543,
-    9.4
+    9.4,
+    9,
+    1,
+    1,
+    74,
+    0
    ]
   },
   {
@@ -2589,7 +2877,12 @@
     5,
     1.8,
     1.95,
-    53
+    53,
+    30,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -2652,7 +2945,12 @@
     7.75,
     4.082,
     2.46,
-    34.4
+    34.4,
+    5,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -2715,7 +3013,12 @@
     0.45,
     0.061,
     0.194,
-    1.6
+    1.6,
+    929,
+    0,
+    0,
+    1080,
+    0
    ]
   },
   {
@@ -2778,7 +3081,12 @@
     0.53,
     0.13,
     0.897,
-    1
+    1,
+    5626,
+    0,
+    0,
+    12198,
+    0
    ]
   },
   {
@@ -2841,7 +3149,12 @@
     0.56,
     0.15,
     0.659,
-    0.9
+    0.9,
+    2873,
+    0,
+    27,
+    6261,
+    0
    ]
   },
   {
@@ -2904,7 +3217,12 @@
     0.32,
     0.161,
     0.497,
-    0.2
+    0.2,
+    11509,
+    43,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -2967,7 +3285,12 @@
     0.52,
     0.318,
     0.047,
-    9.3
+    9.3,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -3030,7 +3353,12 @@
     2,
     6.1,
     1.9,
-    7.2
+    7.2,
+    342,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -3093,7 +3421,12 @@
     7,
     0.5,
     0.4,
-    0
+    0,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3156,7 +3489,12 @@
     0.64,
     0.19,
     0.142,
-    0.4
+    0.4,
+    62,
+    24,
+    28,
+    271,
+    0
    ]
   },
   {
@@ -3219,7 +3557,12 @@
     0.15,
     0.078,
     0.27,
-    1
+    1,
+    26,
+    25,
+    0,
+    22,
+    0
    ]
   },
   {
@@ -3282,7 +3625,12 @@
     1.03,
     0.142,
     0.23,
-    5.7
+    5.7,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -3345,7 +3693,12 @@
     0.77,
     0.244,
     0.113,
-    2.6
+    2.6,
+    29,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -3408,7 +3761,12 @@
     0.33,
     0.083,
     0.227,
-    1.5
+    1.5,
+    465,
+    0,
+    0,
+    1290,
+    0
    ]
   },
   {
@@ -3471,7 +3829,12 @@
     0.26,
     0.041,
     0.084,
-    27.5
+    27.5,
+    0,
+    0,
+    0,
+    25,
+    0
    ]
   },
   {
@@ -3534,7 +3897,12 @@
     1.34,
     0.121,
     0.282,
-    0.8
+    0.8,
+    2,
+    0,
+    0,
+    64,
+    0
    ]
   },
   {
@@ -3597,7 +3965,12 @@
     0.6,
     0.165,
     0.154,
-    6.1
+    6.1,
+    604,
+    0,
+    0,
+    771,
+    30
    ]
   },
   {
@@ -3660,7 +4033,12 @@
     0.4,
     0.127,
     0.225,
-    0.2
+    0.2,
+    8,
+    0,
+    0,
+    464,
+    0
    ],
    "alt": "Globe artichokes"
   },
@@ -3724,7 +4102,12 @@
     0.12,
     0.14,
     0.06,
-    0.7
+    0.7,
+    12,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Sunchokes"
   },
@@ -3788,7 +4171,12 @@
     0.36,
     0.179,
     0.366,
-    0.9
+    0.9,
+    3647,
+    45,
+    0,
+    11000,
+    0
    ],
    "alt": "Silverbeet"
   },
@@ -3852,7 +4240,12 @@
     0.23,
     0.23,
     0.15,
-    0.6
+    0.6,
+    374,
+    0,
+    0,
+    0,
+    5204
    ]
   },
   {
@@ -3915,7 +4308,12 @@
     0.53,
     0.165,
     0.646,
-    0.4
+    0.4,
+    128,
+    0,
+    0,
+    118,
+    0
    ]
   },
   {
@@ -3978,7 +4376,12 @@
     0.14,
     0.13,
     0.098,
-    0.2
+    0.2,
+    52,
+    0,
+    0,
+    122,
+    0
    ],
    "alt": "Chinese gooseberry"
   },
@@ -4042,7 +4445,12 @@
     1.38,
     0.287,
     0.636,
-    1.3
+    1.3,
+    0,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "White kidney beans"
   },
@@ -4106,7 +4514,12 @@
     0.95,
     0.235,
     0.516,
-    4.5
+    4.5,
+    0,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Lima beans"
   },
@@ -4170,7 +4583,12 @@
     1.77,
     0.298,
     0.573,
-    1.2
+    1.2,
+    null,
+    null,
+    null,
+    null,
+    null
    ],
    "alt": "Aduki beans"
   },
@@ -4234,7 +4652,12 @@
     1.29,
     0.268,
     0.475,
-    2.5
+    2.5,
+    9,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Cowpeas"
   },
@@ -4298,7 +4721,12 @@
     1.05,
     0.264,
     0.988,
-    0.7
+    0.7,
+    3121,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Laver"
   },
@@ -4362,7 +4790,12 @@
     1.23,
     0.13,
     0.2,
-    0.7
+    0.7,
+    70,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Kombu"
   },
@@ -4426,7 +4859,12 @@
     4.62,
     1.61,
     1.456,
-    34.4
+    34.4,
+    40,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Sesame paste"
   },
@@ -4490,7 +4928,12 @@
     6.81,
     3.788,
     3.837,
-    14.3
+    14.3,
+    0,
+    0,
+    0,
+    38,
+    0
    ],
    "alt": "Cacao"
   },
@@ -4554,7 +4997,12 @@
     0.91,
     0.161,
     0.272,
-    0.9
+    0.9,
+    2,
+    0,
+    0,
+    70,
+    0
    ]
   },
   {
@@ -4617,7 +5065,12 @@
     0.82,
     0.105,
     0.259,
-    8.6
+    8.6,
+    5,
+    0,
+    0,
+    56,
+    0
    ]
   },
   {
@@ -4680,7 +5133,12 @@
     0.57,
     0.075,
     0.609,
-    0.6
+    0.6,
+    1,
+    0,
+    0,
+    54,
+    0
    ]
   },
   {
@@ -4743,6 +5201,11 @@
     1.11,
     0.226,
     2.86,
+    null,
+    null,
+    null,
+    null,
+    null,
     null
    ]
   },
@@ -4806,7 +5269,12 @@
     1.01,
     0.259,
     0.421,
-    2.6
+    2.6,
+    9,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Fava beans"
   },
@@ -4870,7 +5338,12 @@
     1.03,
     0.21,
     0.527,
-    2.9
+    2.9,
+    0,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Haricot beans"
   },
@@ -4934,7 +5407,12 @@
     0.17,
     0.018,
     0.132,
-    0.6
+    0.6,
+    7,
+    0,
+    0,
+    29,
+    0
    ]
   },
   {
@@ -4997,7 +5475,12 @@
     0.19,
     0.021,
     0.159,
-    0.5
+    0.5,
+    2681,
+    1,
+    0,
+    40,
+    0
    ],
    "alt": "Bok choy"
   },
@@ -5061,7 +5544,12 @@
     0.11,
     0.077,
     0.244,
-    0.9
+    0.9,
+    1914,
+    0,
+    0,
+    5767,
+    0
    ]
   },
   {
@@ -5124,7 +5612,12 @@
     0.35,
     0.074,
     0.326,
-    0.7
+    0.7,
+    21,
+    0,
+    0,
+    0,
+    0
    ],
    "alt": "Beets"
   },
@@ -5188,7 +5681,12 @@
     0.62,
     0.049,
     0.167,
-    0.2
+    0.2,
+    66,
+    23,
+    161,
+    906,
+    0
    ],
    "alt": "Maize"
   },
@@ -5252,7 +5750,12 @@
     0.13,
     0.065,
     0.172,
-    0.5
+    0.5,
+    4570,
+    1130,
+    3116,
+    0,
+    0
    ]
   },
   {
@@ -5315,7 +5818,12 @@
     0.36,
     0.118,
     0.219,
-    0.4
+    0.4,
+    6,
+    0,
+    0,
+    30,
+    0
    ]
   },
   {
@@ -5378,7 +5886,12 @@
     0.19,
     0.096,
     0.151,
-    0.6
+    0.6,
+    8,
+    5,
+    0,
+    295,
+    0
    ]
   },
   {
@@ -5441,7 +5954,12 @@
     0.22,
     0.251,
     0.02,
-    0.9
+    0.9,
+    198,
+    0,
+    0,
+    510,
+    0
    ]
   },
   {
@@ -5504,7 +6022,12 @@
     1.1,
     0.435,
     1.5,
-    10.1
+    10.1,
+    0,
+    0,
+    0,
+    0,
+    0
    ]
   },
   {
@@ -5567,7 +6090,12 @@
     4.53,
     1.2,
     4.5,
-    3.8
+    3.8,
+    29,
+    0,
+    9,
+    17,
+    0
    ]
   },
   {
@@ -5630,7 +6158,12 @@
     1.3,
     0.756,
     4.131,
-    3.6
+    3.6,
+    null,
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -5693,7 +6226,12 @@
     6.45,
     1.324,
     8.802,
-    0.7
+    0.7,
+    17,
+    0,
+    0,
+    9,
+    0
    ]
   },
   {
@@ -5756,7 +6294,12 @@
     0.57,
     0.507,
     1.18,
-    1.2
+    1.2,
+    14,
+    0,
+    0,
+    13,
+    0
    ]
   },
   {
@@ -5819,7 +6362,12 @@
     0.07,
     0.045,
     0.025,
-    0.5
+    0.5,
+    71,
+    11,
+    116,
+    129,
+    0
    ]
   },
   {
@@ -5882,7 +6430,12 @@
     0.16,
     0.057,
     0.336,
-    0.1
+    0.1,
+    32,
+    0,
+    0,
+    80,
+    0
    ]
   },
   {
@@ -5945,7 +6498,12 @@
     0.14,
     0.048,
     0.386,
-    0.4
+    0.4,
+    7,
+    0,
+    0,
+    26,
+    0
    ]
   },
   {
@@ -6008,7 +6566,12 @@
     0.44,
     0.362,
     0.296,
-    null
+    null,
+    89,
+    0,
+    0,
+    23,
+    0
    ],
    "alt": "Medjool"
   },
@@ -6072,7 +6635,12 @@
     0.55,
     0.287,
     0.51,
-    0.6
+    0.6,
+    6,
+    0,
+    0,
+    32,
+    0
    ]
   },
   {
@@ -6135,8 +6703,82 @@
     2.56,
     0.42,
     0.859,
-    7
+    7,
+    52,
+    0,
+    0,
+    0,
+    0
    ]
+  },
+  {
+   "name": "Kohlrabi",
+   "state": "cooked",
+   "cat": "Vegetables",
+   "colour": "#B8C98E",
+   "v": [
+    29,
+    1.8,
+    6.69,
+    1.1,
+    2.8,
+    0.11,
+    0.014,
+    90.3,
+    null,
+    null,
+    0,
+    0.008,
+    0.008,
+    0.053,
+    0.02,
+    0.083,
+    0.071,
+    0.059,
+    0.014,
+    0.007,
+    0.041,
+    null,
+    0.052,
+    0.011,
+    0.053,
+    0.111,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    2,
+    54,
+    0,
+    0.52,
+    0.1,
+    0.04,
+    0.02,
+    0.39,
+    0.16,
+    0.154,
+    12,
+    0,
+    13.2,
+    25,
+    0.4,
+    19,
+    45,
+    340,
+    21,
+    0.31,
+    0.132,
+    0.142,
+    0.8,
+    21,
+    0,
+    0,
+    0,
+    0
+   ],
+   "alt": "German turnip"
   }
  ]
 }

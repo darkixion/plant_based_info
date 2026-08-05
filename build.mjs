@@ -49,6 +49,12 @@ function validate(data) {
     ids.add(n.id);
     if (typeof n.dp !== "number") problems.push(`${n.id}: missing decimal-places (dp)`);
     if (!n.group) problems.push(`${n.id}: missing group`);
+    // Every column header explains what its nutrient does. Required rather than
+    // optional, because a column that quietly lacks one is a column whose header
+    // silently stops doing something the others all do.
+    if (!n.why) problems.push(`${n.id}: missing "why", the sentence explaining what it does`);
+    else if (n.why.length < 40)
+      problems.push(`${n.id}: "why" is too short to say anything useful`);
   }
 
   // A short or long value array silently misaligns every column after the gap,
@@ -65,6 +71,21 @@ function validate(data) {
       .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     if (slugs.has(slug)) problems.push(`duplicate food key "${slug}", saved favourites would collide`);
     slugs.add(slug);
+  }
+
+  // Per-cell notes point at a food and a nutrient by name. A typo in either
+  // would simply never match, so the note would vanish from the page with
+  // nothing to say it had gone.
+  for (const note of data.notes || []) {
+    for (const field of ["id", "marker", "short", "text"])
+      if (!note[field]) problems.push(`note ${note.id || "?"}: missing ${field}`);
+    for (const [slug, nutIds] of Object.entries(note.cells || {})) {
+      if (!slugs.has(slug)) problems.push(`note ${note.id}: no food with key "${slug}"`);
+      if (!Array.isArray(nutIds) || !nutIds.length)
+        problems.push(`note ${note.id}: "${slug}" lists no nutrients`);
+      for (const n of nutIds || [])
+        if (!ids.has(n)) problems.push(`note ${note.id}: "${slug}" names unknown nutrient "${n}"`);
+    }
   }
 
   // Cross-field checks. A fraction exceeding the total it belongs to is the

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VeganNutrients: complete plant-based nutrition database</title>
-<meta name="description" content="Browse amino acids, vitamins, minerals, omega oils and macronutrients for 44 vegan foods. Sortable, filterable, per 100 g.">
+<meta name="description" content="Browse amino acids, vitamins, minerals, omega oils, carotenoids and macronutrients for 91 whole plant foods. Sortable, filterable, per 100 g.">
 <style>
 /*{{STYLES}}*/
 </style>
@@ -24,6 +24,13 @@
   </div>
   <p class="tagline">Complete plant-based nutrition database</p>
 
+  <div class="search">
+    <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></span>
+    <label class="sr" for="q">Search foods by name or category</label>
+    <input id="q" type="search" placeholder="Search foods…" autocomplete="off" spellcheck="false">
+    <button class="clr" type="button" id="qClear" hidden><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="sr">Clear search</span></button>
+  </div>
+
   <nav aria-label="Sections">
     <ul class="navlist">
       <li><a href="#main" aria-current="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg> Foods</a></li>
@@ -39,6 +46,11 @@
     <ul class="navlist" id="groupNav"></ul>
   </nav>
 
+  <h2 class="grouptitle" id="catH">Food categories</h2>
+  <nav aria-labelledby="catH">
+    <ul class="navlist" id="catNav"></ul>
+  </nav>
+
   <div class="sidecard">
     <ul class="navlist">
       <li><button class="navbtn" type="button" data-dlg="how"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg> How to use</button></li>
@@ -52,7 +64,6 @@
 <div class="top">
   <button class="tlink" type="button" data-dlg="about"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg> About</button>
   <button class="tlink" type="button" data-dlg="meth"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h5.5A3.5 3.5 0 0 1 11 7.5V20a2.5 2.5 0 0 0-2.5-2.5H2Z"/><path d="M22 4h-5.5A3.5 3.5 0 0 0 13 7.5V20a2.5 2.5 0 0 1 2.5-2.5H22Z"/></svg> Resources</button>
-  <button class="tlink" type="button" id="csvBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button>
   <button class="tlink" type="button" id="themeBtn" aria-pressed="false">
     <span id="themeIc"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg></span> <span id="themeTx">Dark mode</span></button>
 </div>
@@ -88,15 +99,9 @@
       <path d="M40 168c22-14 44-10 54 6-20 12-42 10-54-6Z" fill="#4E9226"/>
     </g>
   </svg>
-  <div class="search">
-    <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></span>
-    <label class="sr" for="q">Search foods by name or category</label>
-    <input id="q" type="search" placeholder="Search foods…" autocomplete="off" spellcheck="false">
-    <button class="clr" type="button" id="qClear" hidden><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="sr">Clear search</span></button>
-  </div>
   <h1>Explore the complete nutrition of <em>vegan foods</em></h1>
   <p>Browse <b id="totalFoods"></b> whole plant foods with full profiles: amino acids, vitamins,
-     minerals, omega oils and macronutrients. All figures per 100&nbsp;g.</p>
+     minerals, omega oils, carotenoids and macronutrients. All figures per 100&nbsp;g.</p>
 </header>
 
 <main class="sect" id="main" tabindex="-1">
@@ -106,8 +111,6 @@
       <button type="button" id="vTable" aria-pressed="true">Table</button>
       <button type="button" id="vChart" aria-pressed="false">Chart</button>
     </div>
-    <label class="sr" for="catSel">Filter by food category</label>
-    <select class="sel" id="catSel"></select>
     <span class="lensgrp">
       <span class="swatch" aria-hidden="true"></span>
       <label for="lensSel" style="font-size:14px">Highlight</label>
@@ -115,10 +118,12 @@
       <button class="btn" type="button" id="lensEdit">Custom…</button>
     </span>
     <button class="btn" type="button" id="dvBtn" aria-pressed="false"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5 5 19"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Show % daily value</button>
+    <button class="btn" type="button" id="csvBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button>
     <button class="btn push" type="button" id="resetBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v6h6"/><path d="M3.5 13a9 9 0 1 0 2.1-6.4L3 9"/></svg> Reset columns</button>
   </div>
 
   <p class="lensnote" id="lensNote" hidden></p>
+  <p class="nutnote" id="nutNote"></p>
   <p class="meta" id="meta"></p>
   <p aria-live="polite" class="sr" id="live"></p>
 
@@ -133,6 +138,7 @@
             <tbody id="tbody"></tbody>
           </table>
         </div>
+        <div class="notekey" id="noteKey" hidden></div>
       </div>
       <div id="chartView" hidden>
         <div class="chart">
@@ -170,14 +176,6 @@
     </div>
   </section>
 
-  <div class="cta">
-    <div style="flex:1;min-width:220px">
-      <h3>Build your own comparison</h3>
-      <p>Star foods to filter down to a shortlist, then export the visible columns as CSV.</p>
-    </div>
-    <button class="btn" type="button" data-act="favs"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg> View favourites</button>
-    <button class="btn primary" type="button" id="csvBtn2"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button>
-  </div>
 </main>
 
 <footer>

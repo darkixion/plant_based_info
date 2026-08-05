@@ -62,8 +62,10 @@ await test("the duplicated nutrient-group pills are gone", async () => {
   await withPage(async page => {
     eq(await page.locator("#pills").count(), 0, "#pills element");
     eq(await page.locator(".pill").count(), 0, "elements with .pill");
-    // ...but the sidebar controls still exist and still work
-    assert(await page.locator("#groupNav [data-grp]").count() === 5, "sidebar group buttons");
+    // ...but the sidebar controls still exist and still work. Counted against
+    // the data so adding a nutrient group cannot leave it out of the sidebar.
+    const groups = await page.evaluate(() => new Set(DATA.nutrients.map(n => n.group)).size);
+    eq(await page.locator("#groupNav [data-grp]").count(), groups, "sidebar group buttons");
   });
 });
 
@@ -181,6 +183,76 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
   });
 });
 
+await test("switching off the last group says so on the button that comes back", async () => {
+  await withPage(async page => {
+    // The table falls back to macronutrients rather than rendering nothing.
+    // Switching macro off first, then amino, used to leave the macro button
+    // reading "off" with all nine of its columns still on screen.
+    await page.click("#groupNav [data-grp=macro]");
+    await page.click("#groupNav [data-grp=amino]");
+
+    const shown = await page.evaluate(() =>
+      [...new Set([...document.querySelectorAll("#thead th[data-g]")].map(th => th.dataset.g))]);
+    const pressed = await page.locator('#groupNav [data-grp][aria-pressed="true"]')
+      .evaluateAll(els => els.map(e => e.dataset.grp));
+    eq(pressed.sort().join(","), shown.sort().join(","), "buttons pressed vs columns shown");
+    eq(shown.join(","), "macro", "the fallback group");
+  });
+});
+
+// ---------------------------------------------------------------- sidebar controls
+
+await test("search and category filter both live in the sidebar", async () => {
+  await withPage(async page => {
+    // The three ways of narrowing the table belong together. Search was in the
+    // hero and the category filter was a select in the toolbar.
+    eq(await page.locator(".side #q").count(), 1, "search inside the sidebar");
+    eq(await page.locator(".hero #q").count(), 0, "search left in the hero");
+    eq(await page.locator("#catSel").count(), 0, "the old category dropdown");
+    assert(await page.locator(".side #q").isVisible(), "search should be visible");
+
+    // One button per category, plus "All foods", each carrying its own count.
+    const cats = await page.evaluate(() => [...new Set(DATA.foods.map(f => f.cat))].length);
+    eq(await page.locator("#catNav [data-cat]").count(), cats + 1, "category buttons");
+    const all = await page.locator('#catNav [data-cat=""] .count').textContent();
+    eq(+all, await page.evaluate(() => DATA.foods.length), "count on All foods");
+  });
+});
+
+await test("filtering by category narrows the table and can be switched off", async () => {
+  await withPage(async page => {
+    const btn = page.locator('#catNav [data-cat="Nuts"]');
+    const expected = await page.evaluate(() => DATA.foods.filter(f => f.cat === "Nuts").length);
+    eq(+(await btn.locator(".count").textContent()), expected, "count on Nuts");
+
+    await btn.click();
+    eq(await btn.getAttribute("aria-pressed"), "true", "Nuts pressed");
+    const shown = await page.locator("#tbody .fname").count();
+    eq(shown, expected, "rows shown");
+
+    // Clicking the category you are already in is the way back to everything.
+    await btn.click();
+    eq(await btn.getAttribute("aria-pressed"), "false", "Nuts still pressed");
+    assert(await page.locator("#tbody .fname").count() > expected, "should show all foods again");
+  });
+});
+
+await test("the chosen category survives a reload", async () => {
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+  await page.click('#catNav [data-cat="Grains"]');
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+  eq(await page.locator('#catNav [data-cat="Grains"]').getAttribute("aria-pressed"), "true",
+     "Grains still selected after reload");
+  const cats = await page.locator("#tbody .fname").evaluateAll(
+    els => els.map(e => e.closest("tr").dataset.i));
+  assert(cats.length > 0, "should still show the grains");
+  await ctx.close();
+});
+
 // ---------------------------------------------------------------- names and lens copy
 
 await test("alternative names are shown and are searchable", async () => {
@@ -230,6 +302,61 @@ await test("every built-in highlight carries the same sentence as its tooltip", 
   });
 });
 
+// ------------------------------------------------- what each nutrient does
+
+await test("every nutrient explains itself, in the data and on its header", async () => {
+  await withPage(async page => {
+    const bare = await page.evaluate(() =>
+      DATA.nutrients.filter(n => !n.why || n.why.length < 40).map(n => n.id));
+    eq(bare.join(", "), "", "nutrients with no explanation");
+
+    // Switch every column on, then check each header carries it.
+    const ids = await page.locator("#groupNav [data-grp]")
+      .evaluateAll(els => els.map(e => e.dataset.grp));
+    for (const id of ids) {
+      const b = page.locator(`#groupNav [data-grp="${id}"]`);
+      if (await b.getAttribute("aria-pressed") === "false") await b.click();
+    }
+    const heads = await page.locator("#thead tr:nth-child(2) [data-sort]")
+      .evaluateAll(els => els.map(e => ({ id: e.dataset.sort, title: e.title,
+                                          desc: e.getAttribute("aria-describedby") })));
+    eq(heads.length, await page.evaluate(() => DATA.nutrients.length), "headers");
+
+    const why = await page.evaluate(() =>
+      Object.fromEntries(DATA.nutrients.map(n => [n.id, n.why])));
+    // The tooltip, the described-by text and the data must not drift apart.
+    for (const h of heads) {
+      eq(h.title, why[h.id], `tooltip on ${h.id}`);
+      eq(h.desc, `why-${h.id}`, `description link on ${h.id}`);
+      eq(await page.locator(`#why-${h.id}`).textContent(), why[h.id], `description on ${h.id}`);
+    }
+  });
+});
+
+await test("the explanation has a visible home, not just a tooltip", async () => {
+  await withPage(async page => {
+    // A native title reaches a mouse and nothing else.
+    const note = page.locator("#nutNote");
+    assert(await note.isVisible(), "the note should always be on screen");
+    assert(/Point at a column header/.test(await note.textContent()), "prompt before hovering");
+
+    const box = () => note.evaluate(el => el.getBoundingClientRect().height);
+    const before = await box();
+
+    await page.hover('#thead [data-sort="fiber"]');
+    const why = await page.evaluate(() => DATA.nutrients.find(n => n.id === "fiber").why);
+    assert((await note.textContent()).includes(why), await note.textContent());
+    // Growing on hover would shove the header out from under the pointer.
+    eq(await box(), before, "note height on hover");
+
+    // Sorting leaves it there, which is how it is reachable without a pointer.
+    await page.click('#thead [data-sort="protein"]');
+    await page.mouse.move(0, 0);
+    const p = await page.evaluate(() => DATA.nutrients.find(n => n.id === "protein").why);
+    assert((await note.textContent()).includes(p), await note.textContent());
+  });
+});
+
 await test("a custom highlight can carry its own explanation", async () => {
   await withPage(async page => {
     await page.click("#lensEdit");
@@ -262,6 +389,96 @@ await test("the requested foods are present", async () => {
   });
 });
 
+// ---------------------------------------------------------------- one control per state
+
+await test("export and favourites each have exactly one control", async () => {
+  await withPage(async page => {
+    // Both were duplicated once: Export CSV in the top bar and again in a
+    // "Build your own comparison" box, which also held a second favourites
+    // toggle. Two controls for one piece of state is two places to look and
+    // two things to keep in sync.
+    const exporters = await page.locator("button")
+      .evaluateAll(els => els.filter(e => /Export CSV/.test(e.textContent)).length);
+    eq(exporters, 1, "Export CSV buttons");
+    eq(await page.locator('[data-act="favs"]').count(), 1, "favourites toggles");
+    eq(await page.locator("#csvBtn").count(), 1, "#csvBtn");
+    // It belongs with the controls that decide what gets exported.
+    assert(await page.locator(".bar #csvBtn").count() === 1, "Export CSV should sit in the toolbar");
+  });
+});
+
+await test("export writes the visible columns and rows", async () => {
+  await withPage(async page => {
+    await page.fill("#q", "kohlrabi");
+    await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.click("#csvBtn"),
+    ]);
+    const text = await (await download.createReadStream()).toArray()
+      .then(cs => Buffer.concat(cs).toString("utf8"));
+    const [head, ...rows] = text.replace(/^﻿/, "").trim().split("\r\n");
+    eq(rows.length, 1, "exported rows should follow the filter");
+    assert(/^"Food","Also known as","State","Category"/.test(head), `header: ${head}`);
+    assert(head.includes('"Protein (g)"'), `visible column missing: ${head}`);
+    assert(!head.includes("Beta-carotene"), `hidden column exported: ${head}`);
+    assert(rows[0].startsWith('"Kohlrabi","German turnip","cooked","Vegetables"'), rows[0]);
+  });
+});
+
+// ---------------------------------------------------------------- fortification notes
+
+await test("fortification-dependent figures are marked, and only those", async () => {
+  await withPage(async page => {
+    await page.click("#groupNav [data-grp=vitamin]");
+    await page.fill("#q", "nutritional yeast");
+    await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
+
+    const marked = await page.evaluate(() => {
+      const heads = [...document.querySelectorAll("#thead tr:nth-child(2) th")]
+        .map(th => th.querySelector("[data-sort]").dataset.sort);
+      const cells = [...document.querySelectorAll("#tbody tr td.num")];
+      return cells.map((td, i) => td.querySelector("sup.fnote") ? heads[i] : null).filter(Boolean);
+    });
+    // B12 and folate are entirely fortification here, and so are the other B
+    // vitamins at several thousand percent of a daily value. Pantothenic acid
+    // is not: yeast is genuinely a good source of it, so it stays unmarked.
+    eq(marked.sort().join(","), "b1,b12,b2,b3,b6,b9", "marked vitamin cells");
+
+    const key = page.locator("#noteKey");
+    assert(await key.isVisible(), "the key should appear with the markers");
+    assert(/Depends on fortification/.test(await key.textContent()), await key.textContent());
+  });
+});
+
+await test("the note key stays away when nothing on the page is marked", async () => {
+  await withPage(async page => {
+    await page.click("#groupNav [data-grp=vitamin]");
+    await page.fill("#q", "lentils");
+    await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
+    eq(await page.locator("#tbody sup.fnote").count(), 0, "markers on an unfortified food");
+    assert(await page.locator("#noteKey").isVisible() === false, "key should be hidden");
+  });
+});
+
+await test("a marker is announced rather than left as bare punctuation", async () => {
+  await withPage(async page => {
+    await page.click("#groupNav [data-grp=vitamin]");
+    await page.fill("#q", "soy milk");
+    await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
+    const cell = await page.evaluate(() => {
+      const heads = [...document.querySelectorAll("#thead tr:nth-child(2) th")]
+        .map(th => th.querySelector("[data-sort]").dataset.sort);
+      const i = heads.indexOf("b12");
+      const td = document.querySelectorAll("#tbody tr td.num")[i];
+      return { sup: td.querySelector("sup.fnote")?.getAttribute("aria-hidden"),
+               sr: td.querySelector(".sr")?.textContent.trim() };
+    });
+    eq(cell.sup, "true", "the asterisk itself should be hidden from assistive tech");
+    assert(/Depends on fortification/.test(cell.sr || ""), `spoken text: ${cell.sr}`);
+  });
+});
+
 // ---------------------------------------------------------------- layout
 
 await test("the food table fills the screen when there are rows to show", async () => {
@@ -286,6 +503,33 @@ await test("a short result set does not leave a tall empty box", async () => {
   });
 });
 
+await test("the two sticky header rows meet with no gap to scroll through", async () => {
+  await withPage(async page => {
+    await page.setViewportSize({ width: 1500, height: 900 });
+    await page.selectOption("#perPage", "All");
+    // Switch on every group, so the widest and tallest header this page can
+    // produce is the one under test. Resolve the ids first: clicking flips
+    // aria-pressed, so a locator matching on it goes stale after the first one.
+    const ids = await page.locator("#groupNav [data-grp]")
+      .evaluateAll(els => els.map(e => e.dataset.grp));
+    for (const id of ids) {
+      const b = page.locator(`#groupNav [data-grp="${id}"]`);
+      if (await b.getAttribute("aria-pressed") === "false") await b.click();
+    }
+    await page.locator("#scroller").evaluate(el => { el.scrollTop = 300; });
+
+    const gap = await page.evaluate(() => {
+      const r1 = document.querySelector("#thead tr:first-child th.grp").getBoundingClientRect();
+      const r2 = document.querySelector("#thead tr:nth-child(2) th").getBoundingClientRect();
+      return r2.top - r1.bottom;
+    });
+    // Negative is a hairline overlap and invisible. Positive is the bug: rows
+    // scrolling underneath show through the strip between the two header rows.
+    assert(gap <= 0, `gap between the header rows, got ${gap.toFixed(3)}px`);
+    assert(gap > -2, `header rows overlapping too far, got ${gap.toFixed(3)}px`);
+  });
+});
+
 // ---------------------------------------------------------------- omega columns
 
 await test("omega-7 and omega-9 columns are present and populated", async () => {
@@ -295,14 +539,20 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
     assert(heads.some(h => /Omega-9/.test(h)), `omega-9 column: ${heads.join(" | ")}`);
     assert(heads.some(h => /Omega-7/.test(h)), `omega-7 column: ${heads.join(" | ")}`);
 
-    // 44 foods, less 5 with no USDA source row or no measurement, less 6 whose
-    // existing MUFA total disagrees with the mapped row and are withheld.
-    const filled = await page.evaluate(() => {
+    // Naming the gaps rather than counting them: a bare total silently drifts
+    // every time a food is added, and says nothing about which food changed.
+    // These are the foods with no USDA source row, no 16:1 or 18:1 measurement
+    // in the row they map to, or an existing MUFA total that disagrees with it
+    // so both fractions are withheld.
+    const missing = await page.evaluate(() => {
       const i9 = DATA.nutrients.findIndex(n => n.id === "oleic");
       const i7 = DATA.nutrients.findIndex(n => n.id === "palmitoleic");
-      return DATA.foods.filter(f => f.v[i9] !== null && f.v[i7] !== null).length;
+      return DATA.foods.filter(f => f.v[i9] === null || f.v[i7] === null).map(f => f.name);
     });
-    eq(filled, 75, "foods carrying both omega figures");
+    const expected = ["Adzuki beans", "Amaranth", "Broccoli", "Brown rice", "Dates",
+      "Edamame", "Hemp seeds", "Kale", "Nutritional yeast", "Seitan",
+      "Shiitake mushrooms", "Soy milk", "Teff", "Tempeh", "Wholewheat pasta"];
+    eq(missing.slice().sort().join(", "), expected.join(", "), "foods without omega figures");
   });
 });
 

@@ -6,6 +6,7 @@
   --warn:#B4531B; --amber:#C08A16; --r:12px; --tap:44px;
   /* per-group column washes, sequenced so no two adjacent groups share a hue */
   --t-macro:#F3F8EF; --t-fats:#FCF4EC; --t-amino:#EDF5F7; --t-vitamin:#FBF6E8; --t-mineral:#F4F1FA;
+  --t-plant:#EBF7F1;
   /* lens highlight, deliberately off-palette so it never reads as a group tint */
   --lens-bg:#FDEEF3; --lens-line:#C2477E; --lens-ink:#8E2F5B;
 }
@@ -16,6 +17,7 @@
   --raise:#1B231B; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
   --warn:#F0A16A; --amber:#E5BE55;
   --t-macro:#141C14; --t-fats:#1F1712; --t-amino:#101D20; --t-vitamin:#1D1910; --t-mineral:#181426;
+  --t-plant:#0E1F19;
   --lens-bg:#2E1520; --lens-line:#E081AE; --lens-ink:#F2AFCC;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -57,6 +59,10 @@ button,input,select{font:inherit; color:inherit}
 .navbtn .dot{margin-left:auto; width:9px; height:9px; border-radius:50%; background:var(--line);
              flex:none; border:1px solid var(--line)}
 .navbtn[aria-pressed=true] .dot{background:var(--green); border-color:var(--green)}
+/* Categories carry no icon of their own. Indent by exactly the icon column so
+   their labels line up with the labelled buttons above rather than sitting a
+   few pixels to the left of them. */
+.navbtn.sub{padding-left:38px}
 .grouptitle{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--faint);
             font-weight:650; padding:20px 10px 8px}
 .sidecard{border:1px solid var(--line); border-radius:var(--r); padding:6px; margin-top:22px}
@@ -69,15 +75,17 @@ button,input,select{font:inherit; color:inherit}
        background:none; border:1px solid transparent; color:var(--body); font-size:14px;
        text-decoration:none; min-height:40px}
 .tlink:hover{background:var(--raise)}
-.hero{padding:6px 26px 30px; border-bottom:1px solid var(--line); position:relative; overflow:hidden}
-.search{position:relative; max-width:390px; margin-bottom:30px}
-.search input{width:100%; padding:13px 42px 13px 40px; border:1px solid var(--line);
-  border-radius:10px; background:var(--panel); font-size:14.5px}
+.hero{padding:16px 26px 30px; border-bottom:1px solid var(--line); position:relative; overflow:hidden}
+/* Search lives in the sidebar, alongside the other two ways of narrowing the
+   table. Sized to the sidebar rather than the hero it used to sit in. */
+.search{position:relative; margin:2px 0 16px}
+.search input{width:100%; padding:11px 36px 11px 34px; border:1px solid var(--line);
+  border-radius:10px; background:var(--panel); font-size:14px}
 .search input::placeholder{color:var(--faint)}
-.search .ic{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--faint);
+.search .ic{position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--faint);
             pointer-events:none; display:flex}
-.search .clr{position:absolute; right:8px; top:50%; transform:translateY(-50%); border:0;
-  background:none; color:var(--muted); padding:8px; border-radius:6px; line-height:0}
+.search .clr{position:absolute; right:4px; top:50%; transform:translateY(-50%); border:0;
+  background:none; color:var(--muted); padding:7px; border-radius:6px; line-height:0}
 .hero h1{font-size:clamp(26px,3.1vw,36px); max-width:21ch; font-weight:600; letter-spacing:-.03em}
 .hero h1 em{font-style:normal; color:var(--green)}
 .hero p{max-width:52ch; margin:16px 0 0; color:var(--muted); font-size:15px}
@@ -99,6 +107,15 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
   border:1px solid var(--lens-line); border-left-width:3px; max-width:96ch}
 .lensnote b{color:var(--lens-ink); font-weight:650}
 .lensnote .cols{display:block; margin-top:6px; font-size:12px; color:var(--muted)}
+/* What a nutrient does. Shaped like the lens note so the two read as the same
+   kind of aside, but in the neutral palette: this one describes a column that
+   is already there rather than a highlight the reader switched on. */
+/* min-height fits the longest of the sentences at this width, so moving from
+   one header to the next never resizes the box and never nudges the table. */
+.nutnote{margin:0 0 12px; padding:10px 14px; border-radius:10px; font-size:13.5px;
+  line-height:1.5; color:var(--muted); background:var(--raise); min-height:83px;
+  border:1px solid var(--line); border-left:3px solid var(--green-line); max-width:96ch}
+.nutnote b{color:var(--ink); font-weight:650}
 
 /* lens editor dialog */
 .lensform{display:flex; flex-direction:column; gap:14px}
@@ -160,11 +177,16 @@ th,td{padding:0; text-align:right; white-space:nowrap}
 thead th{position:sticky; background:var(--raise); z-index:3; font-weight:600; color:var(--ink);
   border-bottom:1px solid var(--line); font-size:12.5px}
 thead tr:first-child th{top:0}
-thead tr:nth-child(2) th{top:38px}
+/* --head1 is measured from the rendered first header row, see syncHeadOffset().
+   The fallback is deliberately a pixel under the usual height: too small only
+   overlaps the row above, while too large leaves a gap for table rows to scroll
+   through, which is the visible bug this replaced. */
+thead tr:nth-child(2) th{top:var(--head1,36px)}
 th.grp{text-align:left; border-left:1px solid var(--line); padding:9px 12px;
   font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
 th.grp[data-g=amino]{color:#2F7D8C} th.grp[data-g=vitamin]{color:#8A6B12}
 th.grp[data-g=mineral]{color:#7A5AA8} th.grp[data-g=fats]{color:#A8623C}
+th.grp[data-g=plant]{color:#2F8C63}
 th.grp[data-g=macro]{color:var(--green-dark)}
 /* ---- per-group column washes ----
    Specificity is deliberate: these sit at (0,1,2) so the row hover and
@@ -174,6 +196,7 @@ thead th[data-g=fats],   tbody td[data-g=fats]   {background:var(--t-fats)}
 thead th[data-g=amino],  tbody td[data-g=amino]  {background:var(--t-amino)}
 thead th[data-g=vitamin],tbody td[data-g=vitamin]{background:var(--t-vitamin)}
 thead th[data-g=mineral],tbody td[data-g=mineral]{background:var(--t-mineral)}
+thead th[data-g=plant],  tbody td[data-g=plant]  {background:var(--t-plant)}
 /* a hairline where one group ends and the next begins */
 th.gstart,td.gstart{border-left:1px solid var(--line)}
 .sortbtn{width:100%; border:0; background:none; padding:10px 12px; display:flex; gap:6px;
@@ -222,6 +245,14 @@ thead tr:nth-child(2) th.lens.sorted{box-shadow:inset 0 3px 0 var(--lens-line),i
      margin-left:auto; min-width:34px; min-height:34px}
 .fav:hover{background:var(--line-soft); color:var(--green)}
 .fav[aria-pressed=true]{color:var(--green)}
+/* ---- per-cell notes ----
+   Marks a figure whose source needs explaining, fortification being the case
+   that matters here. Warm rather than red: the number is not wrong, it just
+   does not mean what an unmarked number in the same column means. */
+sup.fnote{color:var(--warn); font-weight:700; font-size:10.5px; margin-left:1px}
+.notekey{display:flex; flex-direction:column; gap:7px; margin:10px 2px 0; font-size:12.5px;
+  color:var(--muted); line-height:1.45; max-width:100ch}
+.notekey b{color:var(--ink); font-weight:650}
 td.num.low{color:var(--faint)}
 /* "n/a" means nobody published a figure. Kept visually quieter than a real
    number so it never reads as a measured value. */
@@ -276,7 +307,7 @@ dl{margin:0}
 .crow .val{text-align:right; font-weight:600; color:var(--ink)}
 .crow .sw{width:22px; height:22px}
 
-/* ---------- about + cta ---------- */
+/* ---------- about ---------- */
 .about{background:var(--green-tint); border:1px solid var(--green-line); border-radius:var(--r);
        padding:22px; margin-top:22px}
 .about h2{font-size:19px; margin-bottom:16px}
@@ -285,9 +316,6 @@ dl{margin:0}
 .col .ic{width:30px; height:30px; border-radius:8px; background:var(--panel);
   border:1px solid var(--green-line); display:grid; place-items:center; margin-bottom:9px;
   color:var(--green)}
-.cta{display:flex; gap:18px; align-items:center; flex-wrap:wrap; border:1px solid var(--line);
-     border-radius:var(--r); padding:18px 22px; margin:18px 0 30px; background:var(--panel)}
-.cta h3{font-size:16px} .cta p{margin:3px 0 0; color:var(--muted); font-size:13.5px}
 footer{padding:0 26px 40px; color:var(--faint); font-size:12.5px; max-width:80ch}
 dialog{border:1px solid var(--line); border-radius:var(--r); padding:0; max-width:640px;
   width:calc(100% - 32px); background:var(--panel); color:var(--body); box-shadow:var(--shadow)}

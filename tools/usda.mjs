@@ -40,6 +40,18 @@ const KNOWN = {
   // to, so a fresh pull reproduces the committed column order.
   1268: { id: "oleic", label: "Omega-9 (oleic)", group: "fats", unit: "g", dv: null, dp: 3, after: "palmitoleic" },
   1275: { id: "palmitoleic", label: "Omega-7 (palmitoleic)", group: "fats", unit: "g", dv: null, dp: 3, after: "la" },
+
+  // Carotenoids. No daily value exists for any of them individually: only
+  // vitamin A carries a DV, and it already counts the provitamin-A ones through
+  // its own column, so giving them a dv here would double-count them in the
+  // "% daily value" view. Chained through `after` so a fresh pull reproduces
+  // the committed column order; the first anchors to the last mineral, which is
+  // what places the whole group at the end of the table.
+  1107: { id: "betacar", label: "Beta-carotene", group: "plant", unit: "µg", dv: null, dp: 0, after: "se" },
+  1108: { id: "alphacar", label: "Alpha-carotene", group: "plant", unit: "µg", dv: null, dp: 0, after: "betacar" },
+  1120: { id: "cryptox", label: "Beta-cryptoxanthin", group: "plant", unit: "µg", dv: null, dp: 0, after: "alphacar" },
+  1123: { id: "luteinzea", label: "Lutein + zeaxanthin", group: "plant", unit: "µg", dv: null, dp: 0, after: "cryptox" },
+  1122: { id: "lycopene", label: "Lycopene", group: "plant", unit: "µg", dv: null, dp: 0, after: "luteinzea" },
 };
 
 /* Columns used to fingerprint a food. Deliberately wide: energy and macros
@@ -203,6 +215,31 @@ async function cmdMatch() {
     `Check them, then set "reviewed": true on every entry you accept.`);
 }
 
+/* ---------- source rows ----------
+   Which USDA row each food came from. Two files answer that, because foods
+   arrived by two routes: the original list was matched and reviewed into
+   usda-map.json, while everything added later names its row directly in
+   food-additions.json. Both are human-chosen, so a pull that read only the
+   first would silently leave the 46 added foods empty in every new column.
+   The reviewed map wins on a collision, since it is the record that was
+   explicitly checked. */
+async function sourceRows() {
+  const map = JSON.parse(await readFile(MAP, "utf8"));
+  const unreviewed = Object.entries(map).filter(([, m]) => !m.reviewed);
+  if (unreviewed.length)
+    throw new Error(`${unreviewed.length} mapping(s) not reviewed: ` +
+      `${unreviewed.slice(0, 4).map(([k]) => k).join(", ")}${unreviewed.length > 4 ? "…" : ""}\n` +
+      `  Check them in ${MAP} and set "reviewed": true.`);
+
+  const spec = JSON.parse(await readFile(join(ROOT, "tools", "food-additions.json"), "utf8"));
+  const rows = new Map();
+  for (const f of [...(spec.requested || []), ...(spec.staples || [])])
+    rows.set(slugify(f), f.fdc_id);
+  // Deliberately unmapped foods carry a null fdc_id and a recorded reason.
+  for (const [slug, m] of Object.entries(map)) rows.set(slug, m.fdc_id);
+  return rows;
+}
+
 /* ---------- pull ---------- */
 async function cmdPull(args) {
   const dry = args.includes("--dry-run");
@@ -212,13 +249,7 @@ async function cmdPull(args) {
 
   await ensureDataset();
   const data = await readData();
-  const map = JSON.parse(await readFile(MAP, "utf8"));
-  const unreviewed = Object.entries(map).filter(([, m]) => !m.reviewed);
-  if (unreviewed.length)
-    throw new Error(`${unreviewed.length} mapping(s) not reviewed: ` +
-      `${unreviewed.slice(0, 4).map(([k]) => k).join(", ")}${unreviewed.length > 4 ? "…" : ""}\n` +
-      `  Check them in ${MAP} and set "reviewed": true.`);
-
+  const rows = await sourceRows();
   const vals = await loadNutrients(ids);
 
   /* Insert new columns after the nutrient named in `after`, falling back to the
@@ -257,10 +288,10 @@ async function cmdPull(args) {
   const IDX = new Map(data.nutrients.map((n, i) => [n.id, i]));
   let filled = 0, missing = [];
   for (const f of data.foods) {
-    const m = map[slugify(f)];
+    const fdc = rows.get(slugify(f));
     for (const id of ids) {
       const col = IDX.get(KNOWN[id].id);
-      const v = m && vals.get(m.fdc_id)?.[String(id)];
+      const v = fdc && vals.get(fdc)?.[String(id)];
       if (v === undefined || v === null) { f.v[col] = null; missing.push(`${f.name}/${KNOWN[id].id}`); }
       else { f.v[col] = v; filled++; }
     }
@@ -315,6 +346,7 @@ const COLUMN_TO_USDA = {
   vitc: 1162, vitd: 1114, vite: 1109, vitk: 1185, b1: 1165, b2: 1166, b3: 1167,
   b5: 1170, b6: 1175, b9: 1177, b12: 1178, chol: 1180, ca: 1087, fe: 1089,
   mg: 1090, p: 1091, k: 1092, na: 1093, zn: 1095, cu: 1098, mn: 1101, se: 1103,
+  betacar: 1107, alphacar: 1108, cryptox: 1120, luteinzea: 1123, lycopene: 1122,
 };
 
 async function cmdAdd(args) {

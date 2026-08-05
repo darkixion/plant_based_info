@@ -5,6 +5,7 @@ const GROUPS = [
   { id: "amino",   label: "Amino acids",    icon: I.amino },
   { id: "vitamin", label: "Vitamins",       icon: I.vit   },
   { id: "mineral", label: "Minerals",       icon: I.min   },
+  { id: "plant",   label: "Plant compounds", icon: I.plant },
 ];
 const IDX = new Map(NUTS.map((n, i) => [n.id, i]));
 const CATS = [...new Set(FOODS.map(f => f.cat))].sort();
@@ -16,6 +17,27 @@ const slugify = f => `${f.name} ${f.state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const SLUGS = FOODS.map(slugify);
 const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
+
+/* ---------- per-cell notes ----------
+   Some figures are true of the product but not of the food. Nutritional yeast
+   is sold fortified, so its B vitamins are whatever the maker added and the
+   unfortified flakes have almost none; the same goes for the B12, calcium and
+   vitamin D in soy milk. That varies cell by cell rather than food by food,
+   which is why the note is keyed on both: soy milk's protein is still soy
+   milk's protein. Keyed by slug, so reordering the food list cannot repoint a
+   note at the wrong row. */
+const NOTES = DATA.notes || [];
+const NOTE_AT = new Map();
+for (const note of NOTES)
+  for (const [slug, ids] of Object.entries(note.cells || {}))
+    for (const id of ids) NOTE_AT.set(`${slug} ${id}`, note);
+const noteFor = (i, id) => NOTE_AT.get(`${SLUGS[i]} ${id}`) || null;
+
+/** The visible marker, plus the same thing said in words for screen readers,
+ *  since a lone asterisk announces as punctuation or not at all. */
+const noteMark = note =>
+  `<sup class="fnote" aria-hidden="true">${esc(note.marker)}</sup>` +
+  `<span class="sr">, ${esc(note.short)}</span>`;
 
 /* ---------- highlight lenses ----------
    A lens is a named set of nutrients that cuts across the column groups.
@@ -238,14 +260,52 @@ function renderGroups() {
       <span class="count">${counts[g.id]}</span><span class="dot"></span></button></li>`).join("");
 }
 
+/* ---------- sidebar categories ----------
+   The same reasoning as the nutrient groups: one control, in one place. This
+   used to be a select in the toolbar, which meant the two ways of narrowing the
+   table lived in two different parts of the page. Counts come from the data, so
+   a category cannot appear here with nothing in it. */
+function renderCats() {
+  const counts = {};
+  FOODS.forEach(f => counts[f.cat] = (counts[f.cat] || 0) + 1);
+  const items = [["", "All foods", FOODS.length],
+                 ...CATS.map(c => [c, c, counts[c]])];
+  $("#catNav").innerHTML = items.map(([id, label, n]) => `
+    <li><button class="navbtn sub" type="button" data-cat="${esc(id)}"
+        aria-pressed="${S.cat === id}">
+      <span>${esc(label)}</span>
+      <span class="count">${n}</span><span class="dot"></span></button></li>`).join("");
+}
+
+function setCat(cat) {
+  // Clicking the category already showing is the way back to everything, so it
+  // does not become a filter you can switch on but not off.
+  S.cat = cat === S.cat ? "" : cat;
+  S.page = 1;
+  renderCats();
+  say(S.cat ? `Showing ${S.cat} only.` : "Showing all categories.");
+  savePrefs();
+  render();
+}
+
 function toggleGroup(id) {
   S.groups.has(id) ? S.groups.delete(id) : S.groups.add(id);
-  if (!S.groups.size) S.groups.add("macro");
-  const on = S.groups.has(id);
+  // A table with no columns is not a view anyone asked for, so switching off the
+  // last group falls back to macronutrients.
+  const fellBack = !S.groups.size;
+  if (fellBack) S.groups.add("macro");
+
+  // Sync every button from the state rather than only the one just clicked: the
+  // fallback switches a group back on that nobody pressed, and that button was
+  // left reading "off" while its nine columns sat there in the table. Setting
+  // the attribute rather than re-rendering keeps focus on the button.
+  document.querySelectorAll("#groupNav [data-grp]").forEach(b =>
+    b.setAttribute("aria-pressed", String(S.groups.has(b.dataset.grp))));
+
   const g = GROUPS.find(x => x.id === id);
-  document.querySelectorAll(`[data-grp="${id}"]`)
-    .forEach(b => b.setAttribute("aria-pressed", String(on)));
-  say(`${g.label} ${on ? "shown" : "hidden"}. ${cols().length} nutrient columns visible.`);
+  say(fellBack
+    ? `The table needs at least one group, so macronutrients stay shown.`
+    : `${g.label} ${S.groups.has(id) ? "shown" : "hidden"}. ${cols().length} nutrient columns visible.`);
   savePrefs();
   render();
 }
@@ -296,6 +356,42 @@ function setLens(id) {
   render();
 }
 
+/* ---------- what a nutrient does ----------
+   A native `title` covers hovering with a mouse and nothing else, so the same
+   sentence gets a visible home under the toolbar. Hover or tab onto a column
+   header and it explains that nutrient; otherwise it falls back to whichever
+   column the table is sorted by, which is what makes it reachable by touch,
+   where tapping a header is how you sort. */
+let hoverNut = null;
+
+/* Always on screen, never toggled. Appearing on hover would push the table down
+   by its own height at the moment the pointer reaches a header, moving the
+   header out from under the cursor. So it holds a prompt when there is nothing
+   to explain, and the box is tall enough for the longest sentence either way. */
+function renderNutNote() {
+  const id = hoverNut || (S.sort.id !== "__name" ? S.sort.id : null);
+  const n = id ? NUTS[IDX.get(id)] : null;
+  $("#nutNote").innerHTML = n && n.why
+    ? `<b>${esc(n.label)}</b> ${esc(n.why)}`
+    : `Point at a column header, or tab onto one, to read what that nutrient
+       does in the body. Sorting by a column leaves its explanation here.`;
+}
+
+/* Bound to #thead itself, which survives every re-render of its contents. */
+const nutOf = e => {
+  const id = e.target.closest?.("[data-sort]")?.dataset.sort;
+  return id && id !== "__name" ? id : null;
+};
+function previewNut(id) {
+  if (id === hoverNut) return;
+  hoverNut = id;
+  renderNutNote();
+}
+$("#thead").addEventListener("mouseover", e => previewNut(nutOf(e)));
+$("#thead").addEventListener("mouseleave", () => previewNut(null));
+$("#thead").addEventListener("focusin", e => previewNut(nutOf(e)));
+$("#thead").addEventListener("focusout", () => previewNut(null));
+
 /* ---------- table ---------- */
 /** Decorates the visible columns with everything the renderer needs to know
  *  about position: where each group starts, and where each run of highlighted
@@ -332,15 +428,20 @@ function renderTable() {
       scope="colgroup">${g.label}</th>`;
   }).join("");
 
+  // Each header explains what its nutrient does: as a native tooltip on hover,
+  // in the note under the toolbar on hover or keyboard focus, and as a
+  // description a screen reader reads out after the button's own label. The
+  // tooltip alone would reach neither keyboard nor screen reader users.
   const cells = c.map(n => {
     const aria = n.sorted ? (S.sort.dir === 1 ? "ascending" : "descending") : "none";
     const unit = S.dv && n.dv ? "%DV" : n.unit;
     return `<th scope="col" aria-sort="${aria}" data-g="${n.group}" class="${colClass(n)}">
-      <button class="sortbtn" type="button" data-sort="${n.id}">
+      <button class="sortbtn" type="button" data-sort="${n.id}"
+        ${n.why ? `title="${esc(n.why)}" aria-describedby="why-${esc(n.id)}"` : ""}>
         <span>${esc(n.label)} <span class="unit">${unit}</span>${
           n.lens ? '<span class="sr">, highlighted</span>' : ""}</span>
         <span class="ar" aria-hidden="true">${n.sorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
-      </button></th>`;
+      </button>${n.why ? `<span class="sr" id="why-${esc(n.id)}">${esc(n.why)}</span>` : ""}</th>`;
   }).join("");
 
   $("#thead").innerHTML = `
@@ -353,6 +454,9 @@ function renderTable() {
       ${groupHead}
     </tr><tr>${cells}</tr>`;
 
+  // Only the notes actually on show get a key beneath the table: a legend for a
+  // marker nobody can see is just more to read.
+  const shownNotes = new Set();
   $("#tbody").innerHTML = page.length ? page.map(({ f, i }) => `
     <tr data-i="${i}" ${S.sel === i ? 'aria-selected="true"' : ""}>
       <td class="food${nameSorted ? " sorted" : ""}"><div class="fcell">
@@ -368,7 +472,11 @@ function renderTable() {
       ${c.map(n => {
         const v = val(f, n.id);
         const zero = v === 0 || v === null;
-        return `<td class="num${zero ? " low" : ""} ${colClass(n)}" data-g="${n.group}">${fmt(v, n)}</td>`;
+        // A note explains where a figure came from, so there has to be one.
+        const note = v === null ? null : noteFor(i, n.id);
+        if (note) shownNotes.add(note);
+        return `<td class="num${zero ? " low" : ""} ${colClass(n)}" data-g="${n.group}">${
+          fmt(v, n)}${note ? noteMark(note) : ""}</td>`;
       }).join("")}
     </tr>`).join("")
     : `<tr><td class="empty" colspan="${c.length + 1}">${emptyState()}</td></tr>`;
@@ -378,8 +486,31 @@ function renderTable() {
     `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values per 100 g of food` +
     (S.dv ? ", shown as % of adult daily value." : ".") +
     (lens ? ` ${lens.name} highlighted.` : "");
+
+  const key = $("#noteKey");
+  key.hidden = !shownNotes.size;
+  key.innerHTML = [...shownNotes].map(n =>
+    `<span><sup class="fnote">${esc(n.marker)}</sup> <b>${esc(n.short)}.</b>
+     ${esc(n.text)}</span>`).join("");
+
+  syncHeadOffset();
   return r;
 }
+
+/* Both header rows are sticky: the first at the top of the scroller, the second
+   directly beneath it. That only works if the second one's offset is exactly the
+   first one's height, and the height depends on the font, the zoom level and the
+   group labels themselves. It had been hardcoded at 38px against a row that
+   actually measures 36.8, and table rows scrolled visibly through the 1.2px gap.
+   Measure it instead. Flooring means any leftover fraction becomes an invisible
+   overlap rather than a visible gap. */
+function syncHeadOffset() {
+  const row = $("#thead").rows[0];
+  if (!row) return;
+  const h = row.getBoundingClientRect().height;
+  if (h) $("#grid").style.setProperty("--head1", `${Math.floor(h)}px`);
+}
+addEventListener("resize", syncHeadOffset);
 
 /** The three ways to end up with no rows need three different ways out. */
 function emptyState() {
@@ -464,8 +595,17 @@ function proteinQualityBlock(f) {
 function renderDetail() {
   const f = FOODS[S.sel];
   const g = id => val(f, id);
-  const tabs = [["overview", "Overview", I.macro], ["vitamin", "Vitamins", I.vit],
-                ["mineral", "Minerals", I.min], ["amino", "Amino acids", I.amino]];
+  // Overview first, then one tab per group that has its own detail list. Driven
+  // off GROUPS so a new group cannot be added to the table and left out of here.
+  const DETAIL_TABS = ["vitamin", "mineral", "amino", "plant"];
+  const tabs = [["overview", "Overview", I.macro], ...DETAIL_TABS
+    .map(id => GROUPS.find(g => g.id === id))
+    .filter(Boolean)
+    .map(g => [g.id, g.label, g.icon])];
+
+  // The panel shows the same figures as the table, so it carries the same
+  // markers, and explains them once at the foot rather than per row.
+  const shown = new Set();
 
   let body;
   if (S.tab === "overview") {
@@ -480,26 +620,32 @@ function renderDetail() {
         <dd>${(g(id) ?? 0).toFixed(n.dp)} ${n.unit}</dd></div>`;
     }).join("") + `</dl>`
       + proteinQualityBlock(f)
-      + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => `
-        <div class="drow"><dt>${esc(n.label)}</dt>
-          <dd class="pc">${Math.round(pc)}% DV</dd></div>`).join("") + `</dl>`;
+      + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => {
+        const note = noteFor(S.sel, n.id);
+        if (note) shown.add(note);
+        return `<div class="drow"><dt>${esc(n.label)}</dt>
+          <dd class="pc">${Math.round(pc)}% DV${note ? noteMark(note) : ""}</dd></div>`;
+      }).join("") + `</dl>`;
   } else {
     const list = NUTS.filter(n => n.group === S.tab);
     const max = Math.max(...list.map(n => g(n.id) ?? 0), 0.0001);
     const L = lensIds();
     const unmeasured = list.filter(n => g(n.id) === null || g(n.id) === undefined).length;
-    body = `<h4>${S.tab === "amino" ? "Amino acids" : S.tab === "vitamin" ? "Vitamins" : "Minerals"}</h4>
+    body = `<h4>${esc(GROUPS.find(g => g.id === S.tab)?.label || S.tab)}</h4>
       <dl>` + list.map(n => {
         const v = g(n.id);
         // Distinguish "measured as none" from "never measured": rendering a
         // missing figure as 0.000 asserts an absence nobody established.
         const none = v === null || v === undefined;
         const pc = !none && n.dv ? Math.round(v / n.dv * 100) : null;
+        const note = none ? null : noteFor(S.sel, n.id);
+        if (note) shown.add(note);
         return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <dt>${esc(n.label)}</dt>
             <dd>${none ? `<span class="nodata">not measured</span>`
-              : `${v.toFixed(n.dp)} ${n.unit}${pc !== null ? ` <span class="pc">· ${pc}%</span>` : ""}`}</dd>
+              : `${v.toFixed(n.dp)} ${n.unit}${pc !== null ? ` <span class="pc">· ${pc}%</span>` : ""}${
+                 note ? noteMark(note) : ""}`}</dd>
           </div>
           ${none ? "" : `<div class="minibar" aria-hidden="true"><i style="width:${(v / max * 100).toFixed(1)}%"></i></div>`}
         </div>`;
@@ -528,7 +674,9 @@ function renderDetail() {
           aria-selected="${S.tab === id}" aria-controls="tabp"
           tabindex="${S.tab === id ? 0 : -1}">${ic}<span>${label}</span></button>`).join("")}
     </div>
-    <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}</div>
+    <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}${
+      [...shown].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
+        <b>${esc(n.short)}.</b> ${esc(n.text)}</p>`).join("")}</div>
     <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>`;
 }
 
@@ -573,6 +721,7 @@ function render() {
   if (showChart) renderChart();
   renderDetail();
   renderPager(r.length);
+  renderNutNote();
 }
 
 /* ---------- events ---------- */
@@ -581,6 +730,7 @@ document.addEventListener("click", e => {
   if (!t) return;
 
   if (t.dataset.grp) return toggleGroup(t.dataset.grp);
+  if (t.dataset.cat !== undefined) return setCat(t.dataset.cat);
 
   if (t.dataset.sort) {
     const id = t.dataset.sort;
@@ -623,7 +773,7 @@ document.addEventListener("click", e => {
   }
   if (t.dataset.act === "clearfilters") {
     S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
-    S.cat = ""; $("#catSel").value = ""; S.page = 1;
+    S.cat = ""; renderCats(); S.page = 1;
     savePrefs();
     say("Search and category cleared.");
     return render();
@@ -638,7 +788,6 @@ $("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); rende
 $("#perPage").onchange = e => {
   S.per = e.target.value === "All" ? "All" : +e.target.value; S.page = 1; savePrefs(); render();
 };
-$("#catSel").onchange = e => { S.cat = e.target.value; S.page = 1; savePrefs(); render(); };
 $("#lensSel").onchange = e => setLens(e.target.value);
 $("#dvBtn").onclick = e => {
   S.dv = !S.dv;
@@ -653,12 +802,12 @@ $("#dvBtn").onclick = e => {
 $("#resetBtn").onclick = () => {
   S.groups = new Set(["macro", "amino"]); S.sort = { id: "protein", dir: -1 };
   S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
-  S.cat = ""; $("#catSel").value = "";
+  S.cat = "";
   S.dv = false; $("#dvBtn").setAttribute("aria-pressed", "false");
   $("#dvBtn").lastChild.textContent = " Show % daily value";
   S.favsOnly = false; S.page = 1; S.lens = "";
   savePrefs();
-  renderGroups(); renderLensSelect(); render();
+  renderGroups(); renderCats(); renderLensSelect(); render();
   say("Columns and filters reset. Favourites and saved highlight groups kept.");
 };
 
@@ -713,7 +862,7 @@ function csv() {
   a.click(); URL.revokeObjectURL(a.href);
   say(`Exported ${r.length} foods and ${c.length} nutrients as CSV.`);
 }
-$("#csvBtn").onclick = csv; $("#csvBtn2").onclick = csv;
+$("#csvBtn").onclick = csv;
 
 /* ---------- custom highlight groups ---------- */
 function renderNutPick(chosen = new Set()) {
@@ -798,10 +947,10 @@ $("#lensForm").addEventListener("submit", e => {
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
-    <p>The five <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and
+    <p>The <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and
     off. Each group has its own background tint in the table, so you can tell at a glance where one
     ends and the next begins. Amino acids and macronutrients start visible; turn on vitamins,
-    minerals and omega oils as you need them.</p>
+    minerals, omega oils and plant compounds as you need them.</p>
     <h4>Sort by anything</h4>
     <p>Every column header is a button. One click sorts high to low, a second reverses it. The
     sorted column is shown in bold all the way down, so you can keep your place while scrolling
@@ -816,9 +965,12 @@ const DLG = {
     <p><b>Show % daily value</b> converts every column that has a reference value into a percentage,
     which makes a milligram of selenium and a gram of protein comparable at a glance.</p>
     <h4>Narrow it down</h4>
-    <p>Search by name or category, filter to one food group, or star foods and switch on
-    <b>Favourites</b> in the sidebar to see only your shortlist. <b>Export CSV</b> writes out
-    exactly the rows and columns you can currently see.</p>
+    <p>All three ways of narrowing the table sit in the sidebar. <b>Search</b> at the top matches
+    on name, alternative name, state and category. <b>Food categories</b> filters to one group of
+    foods, and clicking the category you are already in takes you back to all of them. Star foods
+    with the heart button and switch on <b>Favourites</b> to see only your shortlist.</p>
+    <p><b>Export CSV</b>, above the table, writes out exactly the rows and columns you can
+    currently see, so narrowing the table narrows the export with it.</p>
     <h4>What gets remembered</h4>
     <p>Your favourites, saved highlight groups, visible columns, sort order and light or dark mode
     are kept in this browser between visits. Nothing is sent anywhere. It is stored on your own
@@ -848,6 +1000,20 @@ const DLG = {
     overwhelmingly oleic, so reading it as omega-9 is the usual convention and a close
     approximation, but it is not a direct n-9 measurement. The 16:1 figure has no such ambiguity.
     A few foods have no measurement at all and show a dash rather than a zero.</p>
+    <h4>The plant compounds group</h4>
+    <p>Five carotenoids: the orange, red and yellow pigments plants make, which is why the richest
+    figures sit with the carrots, peppers, tomatoes and dark leaves rather than with the pulses and
+    grains. <b>Beta-carotene</b>, <b>alpha-carotene</b> and <b>beta-cryptoxanthin</b> are provitamin
+    A, meaning the body converts them into retinol; <b>lutein and zeaxanthin</b> concentrate in the
+    retina; <b>lycopene</b> does neither and is counted for its own sake.</p>
+    <p>None of the five carries a daily value here, deliberately. Only vitamin A has one, and the
+    vitamin A column already counts the provitamin-A carotenoids through it, so giving them
+    percentages of their own would show the same intake twice. Conversion is also poor and varies
+    between people, so a microgram of beta-carotene is not a microgram of retinol.</p>
+    <p>Phytosterols, phytic acid, isoflavones and total flavonoids are <em>not</em> here. SR Legacy
+    carries no figures at all for the last three, and reaches only 8 to 14 of these foods for
+    phytosterols, so those columns would be almost entirely blank. USDA publishes them in separate
+    databases that would need their own mapping.</p>
     <h4>Amino acid score and the limiting amino acid</h4>
     <p>The protein quality figures are <em>derived</em> from the columns already in the table, not
     sourced separately, so they cannot disagree with the rest of the row. Each essential amino acid
@@ -878,9 +1044,20 @@ const DLG = {
       phenylalanine by tyrosine. Judge those four columns as two pairs, not four separate rows.</li>
       <li><b>Selenium tracks the soil, not the seed.</b> The Brazil nut figure is a typical value and
       real nuts vary by more than an order of magnitude.</li>
-      <li><b>Fortification is invisible here.</b> Values are for the unfortified food. Commercial
-      plant milks, cereals and nutritional yeast are often fortified with B12, D, calcium and iodine,
-      and the packet will beat these figures.</li>
+      <li><b>Fortification is marked where it drives the figure.</b> Most rows are for the
+      unfortified food, and a commercial packet of plant milk or cereal will beat them. Two rows
+      are the other way round, because no unfortified version of the product is really sold:
+      nutritional yeast and soy milk. Their fortified values carry an asterisk with a note under
+      the table. Unfortified nutritional yeast has no B12 at all, and its 12,500% daily value here
+      is entirely what the maker added, as is soy milk's B12, calcium and vitamin D. Iodine is not
+      a column, so fortification with it is not shown anywhere.</li>
+      <li><b>Seaweed is not a B12 source.</b> Nori and kelp show zero here, which is the right
+      answer for the wrong-looking reason. They do contain corrinoids that some assays count as
+      B12, but they are inactive analogues the body cannot use, and there is evidence that they
+      compete with real B12 rather than substituting for it. A seaweed figure quoted elsewhere as
+      B12 is usually measuring those. The same caution applies to tempeh and miso, whose traces
+      come from bacteria on the surface and are too small and too variable to rely on. There is no
+      dependable unfortified plant source, which is why a supplement is the standard advice.</li>
       <li><b>Iodine is not included</b>, as reliable per-food values are scarce for plant foods.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for
@@ -913,13 +1090,11 @@ $("#dlg").addEventListener("close", () => lastFocus?.focus());
 $("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").close(); });
 
 /* ---------- boot ---------- */
-$("#catSel").innerHTML = `<option value="">All categories</option>` +
-  CATS.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
 $("#totalFoods").textContent = FOODS.length;
 
 // Derived from the data so adding a column cannot leave the prose behind.
 const GROUP_BLURB = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
-                      vitamin: "vitamins", mineral: "minerals" };
+                      vitamin: "vitamins", mineral: "minerals", plant: "carotenoids" };
 $("#compBlurb").textContent = `${NUTS.length} nutrients per food: ` +
   GROUPS.map(g => `${NUTS.filter(n => n.group === g.id).length} ${GROUP_BLURB[g.id]}`)
     .join(", ").replace(/, ([^,]*)$/, " and $1") + ".";
@@ -930,12 +1105,12 @@ loadPrefs();
 
 // Reflect restored state in the controls that hold their own value.
 applyTheme();
-$("#catSel").value = S.cat;
 $("#perPage").value = String(S.per);
 $("#dvBtn").setAttribute("aria-pressed", String(S.dv));
 if (S.dv) $("#dvBtn").lastChild.textContent = " Show raw amounts";
 
 renderGroups();
+renderCats();
 renderLensSelect();
 render();
 

@@ -1,7 +1,8 @@
 # plant_based_info
 
 A single-page nutrient reference for whole plant foods: amino acids, vitamins,
-minerals, omega oils and macronutrients, all per 100 g, sortable and filterable.
+minerals, omega oils, carotenoids and macronutrients, all per 100 g, sortable
+and filterable.
 
 The deliverable is **one self-contained `index.html`**: no server, no build step
 at view time, no network calls. Open it from disk, email it, or serve it from
@@ -42,6 +43,21 @@ like plausible numbers rather than an error. The build refuses to produce output
 if lengths disagree, if a nutrient id is duplicated, or if two foods would
 generate the same storage key.
 
+Every nutrient also carries a `why`: one or two sentences on what it does in the
+body, shown as the column header's tooltip, as the header's accessible
+description, and in the note above the table on hover, focus or sort. The build
+requires one per nutrient, so a new column cannot ship without an explanation.
+
+The third top-level key is `notes`, for figures that need a caveat attached to
+the individual cell rather than the whole food. Each note names a marker, a
+short label, the explanation, and the food-and-nutrient pairs it applies to.
+Only one exists so far, covering the values that come from fortification rather
+than from the food: nutritional yeast's B vitamins and soy milk's B12, calcium
+and vitamin D. Soy milk's protein is still soy milk's protein, which is why this
+is keyed per cell. The build checks every food key and nutrient id a note names,
+since a typo in either would simply stop matching and the note would vanish with
+nothing to say it had gone.
+
 ## Notes for future changes
 
 **Favourites are stored by food key, not row index.** Keys come from the food's
@@ -52,9 +68,18 @@ reordering the list is safe. The build fails if two foods collide on a key.
 guarded so blocked storage degrades to a working page rather than an error. Bump
 the key if the stored shape changes incompatibly.
 
-**Nutrient groups are toggled in one place**, the sidebar. There was previously
-a second row of pills doing the same job; two controls for one piece of state is
-what made it worth removing.
+**One control per piece of state.** Nutrient groups, food categories, search and
+favourites are all toggled in the sidebar, and Export CSV sits once above the
+table. Each of those started out duplicated: a second row of group pills, a
+category dropdown in the toolbar, a search box in the hero, and a "Build your
+own comparison" box holding a second Export CSV and a second favourites toggle.
+Two controls for one piece of state is two places to look and two things to keep
+in sync.
+
+**Switching off the last nutrient group falls back to macronutrients**, since a
+table with no columns is not a view anyone asked for. `toggleGroup` therefore
+syncs every sidebar button from the state rather than only the one clicked: the
+fallback switches a group on that nobody pressed.
 
 **Highlight lenses** are named nutrient sets that cut across groups. Built-ins
 live in `BUILTIN_LENSES` in `app.js`; users can save their own. Selecting a lens
@@ -95,6 +120,19 @@ gitignored) and proposes a mapping from each of our foods to a USDA row, scored
 on a nutritional fingerprint and required to share a name word. `pull` reads
 only the reviewed mapping and never re-decides it.
 
+**Two files record which USDA row a food came from**, because foods arrived by
+two routes. The original list was matched and reviewed into `usda-map.json`;
+everything added since names its row directly in `tools/food-additions.json`.
+`pull` reads both, through `sourceRows()`. It used to read only the first, which
+would have left the 46 added foods empty in every newly pulled column.
+
+Adding a nutrient means an entry in `KNOWN` (the column definition, with `after`
+to place it) and in `COLUMN_TO_USDA` (so `add` can fill it for new foods). A new
+*group* additionally needs a `GROUPS` entry and icon in `app.js`, a `--t-<group>`
+tint pair and a `th.grp[data-g=…]` colour in `styles.css`, and a `GROUP_BLURB`
+line. The first nutrient in a new group must anchor its `after` to an existing
+column, since `pull` has no group to append to yet.
+
 **Mappings are reviewed by a human and committed** to `src/data/usda-map.json`.
 This is not ceremony. An early fingerprint-only run paired *Black beans* with
 *Black pudding, boiled* (blood sausage) because the macros happened to line up. `pull` refuses to run while any entry has `"reviewed": false`. Three foods
@@ -109,6 +147,20 @@ rather than shown exceeding the monounsaturated column above them. Re-pulling
 the whole fat group from the mapped rows would resolve this, at the cost of
 changing values that are currently displayed. The build enforces the same
 constraint, so this cannot regress silently.
+
+### What is deliberately not in the data
+
+- **Phytosterols, phytic acid, isoflavones and total flavonoids.** SR Legacy has
+  no figures at all for the last three and reaches only 8 to 14 of these foods
+  for phytosterols. USDA publishes them in separate databases that are not part
+  of SR Legacy and would need their own download and mapping.
+- **Romanesco and freekeh.** Neither is in SR Legacy under any name. Both could
+  only be approximated from a near relative already in the table, which would be
+  an estimate rather than a measurement.
+- **Celeriac and fennel.** Both are in SR Legacy but with no amino acid analysis
+  at all, and fennel raw only. Reasons for all four are recorded under
+  `unavailable` in `tools/food-additions.json`.
+- **Iodine**, as reliable per-food values are scarce for plant foods.
 
 ## Licence and disclaimer
 
