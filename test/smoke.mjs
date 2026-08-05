@@ -185,18 +185,18 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
 
 await test("alternative names are shown and are searchable", async () => {
   await withPage(async page => {
-    const rendered = await page.evaluate(() => {
-      const f = document.querySelector('#tbody .fname[data-name="Flaxseed"]');
-      return f && f.textContent.replace(/\s+/g, " ").trim();
-    });
-    assert(/Flaxseed \(Linseed\)/.test(rendered || ""), `shown as: ${rendered}`);
-
-    // searching the other name must find the food
+    // Search by the alternative name: this both proves the search matches it
+    // and brings the row onto the page whatever the default sort happens to be.
     await page.fill("#q", "linseed");
     await page.waitForFunction(() => {
       const n = document.querySelectorAll("#tbody .fname");
       return n.length === 1 && n[0].dataset.name === "Flaxseed";
     });
+    const rendered = await page.evaluate(() => {
+      const f = document.querySelector('#tbody .fname[data-name="Flaxseed"]');
+      return f && f.textContent.replace(/\s+/g, " ").trim();
+    });
+    assert(/Flaxseed \(Linseed\)/.test(rendered || ""), `shown as: ${rendered}`);
   });
 });
 
