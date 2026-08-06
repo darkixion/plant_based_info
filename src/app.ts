@@ -25,6 +25,53 @@ interface Note {
 }
 interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
 
+/* ---------- state ----------
+   The literal unions are taken from loadPrefs(), which is the authority on
+   what a stored preference is allowed to be. */
+type Basis = "g" | "kcal";
+type WeightUnit = "kg" | "stlb";
+type View = "table" | "chart";
+
+interface Sort { id: string; dir: 1 | -1; }
+interface DayEntry { slug: string; g: number; }
+
+/* `why` is optional because loadPrefs() builds custom lenses with a conditional
+   spread that omits the key entirely when there is no text. */
+interface Lens { id: string; name: string; ids: string[]; why?: string; }
+
+interface State {
+  groups: Set<NutrientGroup>;
+  sort: Sort;
+  q: string;
+  cat: string;
+  sel: number;
+  favs: Set<string>;
+  favsOnly: boolean;
+  dv: boolean;
+  basis: Basis;
+  view: View;
+  tab: string;
+  chartNut: string;
+  dark: boolean;
+  lens: string;
+  custom: Lens[];
+  day: DayEntry[];
+  kg: number;
+  wUnit: WeightUnit;
+}
+
+/* One row of dayTotals(). `total` is null when nothing in the day list had a
+   figure for this nutrient, and `partial` marks a sum that covers only some of
+   the foods, which is why no consumer may treat it as a plain number. */
+interface DayTotal {
+  n: Nutrient;
+  total: number | null;
+  from: number;
+  of: number;
+  partial: boolean;
+  notes: Note[];
+}
+
 /* Both are declared by build.mjs ahead of this file, inside the same script.
    They are not owned by this file and must not be redeclared here. */
 declare const DATA: Dataset;
@@ -117,7 +164,7 @@ const DAY_MAX_G = 5000;
 const DEFAULT_G = 100;
 const DEFAULT_KG = 70;
 
-const S = {
+const S: State = {
   groups: new Set(["macro", "amino"]),
   sort: { id: "__name", dir: 1 },
   q: "", cat: "",
@@ -406,7 +453,7 @@ const dayGrams = () => dayContributors().reduce((s, e) => s + e.g, 0);
  * over three of them. Every consumer of this has to decide what to do about
  * that, and none of them may quietly ignore it.
  */
-function dayTotals() {
+function dayTotals(): DayTotal[] {
   const list = dayContributors();
   return NUTS.map(n => {
     let total = 0, from = 0;
