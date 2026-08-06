@@ -2,7 +2,9 @@ node_modules/
 .DS_Store
 *.log
 
-# Working copies of upstream food-composition datasets. These are large and
-# redistributable only under their own licences — fetch them with
-# `node tools/fetch-frida.mjs` rather than committing them here.
+# Working copies of upstream food-composition datasets. They are large, and
+# redistributable only under their own terms, so they are fetched rather than
+# committed. `tools/usda.mjs` downloads SR Legacy on demand; the flavonoid
+# release that `tools/flavonoids.mjs` reads is downloaded by hand, as the README
+# describes.
 tools/cache/

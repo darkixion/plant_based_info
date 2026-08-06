@@ -48,10 +48,13 @@ await test("page loads with no console or page errors", async () => {
   assert(errors.length === 0, `errors: ${errors.join(" | ")}`);
 });
 
-await test("table renders rows and the default column set", async () => {
+await test("table renders every food and the default column set", async () => {
   await withPage(async page => {
+    // No pagination: the table lists everything it has in one scrolling box.
+    // It used to stop at twenty, which meant sorting by a column and then
+    // paging to find where your food had gone.
     const rows = await page.locator("#tbody tr").count();
-    eq(rows, 20, "default page size");
+    eq(rows, await page.evaluate(() => DATA.foods.length), "rows rendered");
     // macro (8) + amino (18) = 26 nutrient columns, plus the food column
     const cells = await page.locator("#tbody tr").first().locator("td").count();
     eq(cells, 27, "cells in first row");
@@ -201,6 +204,48 @@ await test("switching off the last group says so on the button that comes back",
 });
 
 // ---------------------------------------------------------------- sidebar controls
+
+await test("every count in the sidebar shares one right edge", async () => {
+  await withPage(async page => {
+    // `.count` and `.dot` both had margin-left:auto, and flexbox splits the free
+    // space between every auto margin in the row, so each number floated at a
+    // position set by the length of the label beside it.
+    await page.evaluate(() => {
+      S.favs = new Set([SLUGS[0]]);
+      S.day = [{ slug: SLUGS[1], g: 100 }];
+      S.groups = new Set(GROUPS.map(g => g.id));
+      renderGroups(); render();
+    });
+    const rows = await page.evaluate(() =>
+      [...document.querySelectorAll(".side .count")].map(c => {
+        const btn = c.closest(".navbtn, a");
+        return { label: btn.textContent.replace(/\s+/g, " ").trim(),
+                 gap: +(btn.getBoundingClientRect().right
+                        - c.getBoundingClientRect().right).toFixed(1) };
+      }));
+    assert(rows.length > 12, `expected the whole sidebar, got ${rows.length} counts`);
+    const edges = [...new Set(rows.map(r => r.gap))];
+    eq(edges.length, 1, `one right edge, got ${JSON.stringify(rows.map(r => `${r.label}:${r.gap}`))}`);
+
+    // The icons are what used to give way when a row ran short of space: a flex
+    // item with no intrinsic minimum, shrunk to nothing on the longest label.
+    const widths = await page.evaluate(() =>
+      [...new Set([...document.querySelectorAll(".side .navbtn > svg")]
+        .map(s => Math.round(s.getBoundingClientRect().width)))]);
+    eq(widths.join(","), "17", `every icon at its full width, got ${widths.join(", ")}`);
+
+    // Counts must not change width when their row is pressed and turns bold, or
+    // toggling a group would nudge its own number.
+    const pressed = await page.evaluate(() => {
+      const w = b => b.querySelector(".count").getBoundingClientRect().width;
+      const b = document.querySelector('#groupNav [data-grp="vitamin"]');
+      const before = w(b);
+      b.click();
+      return { before, after: w(document.querySelector('#groupNav [data-grp="vitamin"]')) };
+    });
+    eq(pressed.after, pressed.before, "count width across a toggle");
+  });
+});
 
 await test("search and category filter both live in the sidebar", async () => {
   await withPage(async page => {
@@ -384,7 +429,7 @@ await test("the requested foods are present", async () => {
       "Wild rice","Asparagus","Artichokes","Jerusalem artichokes","Swiss chard","Guava",
       "Blackberries","Kiwi","Cannellini beans","Butter beans","Adzuki beans","Black-eyed peas",
       "Kohlrabi","Grapefruit","Raspberries","Lychees","Mango","Apricots","Apple","Pear",
-      "Cherries","Pineapple","Watermelon","Coconut","Blueberries"];
+      "Cherries","Pineapple","Watermelon","Coconut","Blueberries","Borlotti beans","Tomatoes"];
     const have = await page.evaluate(() => FOODS.map(f => f.name));
     const missing = want.filter(n => !have.includes(n));
     eq(missing.length, 0, `missing foods: ${missing.join(", ")}`);
@@ -584,7 +629,6 @@ await test("a marker is announced rather than left as bare punctuation", async (
 await test("the food table fills the screen when there are rows to show", async () => {
   await withPage(async page => {
     await page.setViewportSize({ width: 1500, height: 900 });
-    await page.selectOption("#perPage", "All");
     const h = await page.locator("#scroller").evaluate(el => el.getBoundingClientRect().height);
     assert(h > 900 * 0.9, `table box should be near viewport height, got ${Math.round(h)} of 900`);
   });
@@ -606,7 +650,6 @@ await test("a short result set does not leave a tall empty box", async () => {
 await test("the two sticky header rows meet with no gap to scroll through", async () => {
   await withPage(async page => {
     await page.setViewportSize({ width: 1500, height: 900 });
-    await page.selectOption("#perPage", "All");
     // Switch on every group, so the widest and tallest header this page can
     // produce is the one under test. Resolve the ids first: clicking flips
     // aria-pressed, so a locator matching on it goes stale after the first one.
@@ -693,7 +736,8 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
     });
     const expected = [
       "Adzuki beans (cooked)", "Amaranth (cooked)", "Bell pepper (yellow, raw)",
-      "Broccoli (cooked)", "Brown rice (cooked)", "Dates", "Edamame (cooked)",
+      "Borlotti beans (cooked)", "Broccoli (cooked)", "Brown rice (cooked)", "Dates",
+      "Edamame (cooked)",
       "Hemp seeds (hulled)", "Kale (raw)", "Leeks (cooked)", "Nutritional yeast",
       "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)",
       "Tempeh", "Wholewheat pasta (cooked)"];
@@ -712,6 +756,80 @@ await test("no food claims more omega-9 plus omega-7 than monounsaturated", asyn
         .map(f => `${f.name}: ${(f.v[a] || 0) + (f.v[b] || 0)} > ${f.v[m]}`);
     });
     eq(bad.length, 0, `fractions exceeding the total: ${bad.join("; ")}`);
+  });
+});
+
+await test("the saturated fat breakdown is present and stays inside its total", async () => {
+  await withPage(async page => {
+    await page.click('#groupNav [data-grp="fats"]');
+    const heads = await page.locator("#thead th .sortbtn").allTextContents();
+    for (const h of ["Lauric", "Palmitic", "Stearic"])
+      assert(heads.some(x => x.includes(h)), `${h} column: ${heads.join(" | ")}`);
+
+    // The three named chains are a subset of the saturated total, never the
+    // whole of it, so the sum may fall short but must never exceed.
+    const bad = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const [t, ...p] = ["satfat", "lauric", "palmitic", "stearic"].map(at);
+      return DATA.foods
+        .filter(f => typeof f.v[t] === "number" &&
+          p.reduce((s, i) => s + (f.v[i] || 0), 0) > f.v[t] * 1.01 + 0.005)
+        .map(f => f.name);
+    });
+    eq(bad.length, 0, `breakdown exceeding saturated fat: ${bad.join("; ")}`);
+
+    // Coconut is the reason the breakdown is worth having: its saturated fat is
+    // mostly lauric acid, which is close to absent from every other food here.
+    const lauric = await page.evaluate(() => {
+      const i = DATA.nutrients.findIndex(n => n.id === "lauric");
+      return DATA.foods.map(f => [f.name, f.v[i] || 0])
+        .sort((a, b) => b[1] - a[1])[0];
+    });
+    eq(lauric[0], "Coconut", `richest in lauric acid: ${lauric.join(" ")}`);
+  });
+});
+
+await test("values taken from an undifferentiated id say so per cell", async () => {
+  await withPage(async page => {
+    await page.click('#groupNav [data-grp="fats"]');
+    /* Wait on the row *content*, not the row count. The table lists every food,
+       so searching for a second food leaves the count unchanged at one right
+       across the search debounce, and the cell read during that window belongs
+       to the previous food. Same trap as selectFood() below. */
+    const only = async name => {
+      await page.fill("#q", name);
+      await page.waitForFunction(n => {
+        const rows = document.querySelectorAll("#tbody .fname");
+        return rows.length === 1 && rows[0].dataset.name === n;
+      }, name);
+    };
+    const omega3Cell = name => page.evaluate(n => {
+      const heads = [...document.querySelectorAll("#thead tr:nth-child(2) th")]
+        .map(th => th.querySelector("[data-sort]").dataset.sort);
+      const tr = [...document.querySelectorAll("#tbody tr")]
+        .find(r => r.querySelector(".fname")?.dataset.name === n);
+      const td = [...tr.querySelectorAll("td.num")][heads.indexOf("ala")];
+      return { text: td.textContent, sup: td.querySelector("sup.fnote")?.textContent,
+               hidden: td.querySelector("sup.fnote")?.getAttribute("aria-hidden"),
+               sr: td.querySelector(".sr")?.textContent.trim() };
+    }, name);
+
+    // Brussels sprouts have no differentiated 18:3 in SR Legacy, so their
+    // omega-3 comes from the undifferentiated total and must carry the marker.
+    await only("Brussels sprouts");
+    const cell = await omega3Cell("Brussels sprouts");
+    eq(cell.sup, "†", `marker on the omega-3 cell: ${cell.text}`);
+    eq(cell.hidden, "true", "the dagger itself should be hidden from assistive tech");
+    assert(/Undifferentiated/i.test(cell.sr || ""), `spoken text: ${cell.sr}`);
+
+    const key = page.locator("#noteKey");
+    assert(/undifferentiated/i.test(await key.textContent()), "the key should explain it");
+
+    // Walnuts do have a differentiated figure, so theirs must stay unmarked:
+    // a marker on every cell would say nothing about where any of them came from.
+    await only("Walnuts");
+    const walnut = await omega3Cell("Walnuts");
+    eq(walnut.sup, undefined, "walnut omega-3 is measured directly and should carry no marker");
   });
 });
 
@@ -782,6 +900,97 @@ await test("the methodology counts the flavonoid coverage from the data", async 
   });
 });
 
+await test("the methodology counts the approximated omega figures from the data", async () => {
+  await withPage(async page => {
+    const cells = await page.evaluate(() => {
+      const n = (DATA.notes || []).find(x => x.id === "undifferentiated");
+      return Object.values(n.cells).flat().length;
+    });
+    assert(cells > 0, "expected some approximated omega figures");
+
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    assert(text.includes(`${cells} of`), `approximated count not stated, expected ${cells}`);
+    // The question a vegan reader actually arrives with, answered in words
+    // because the data says a column would be blank for all but a handful.
+    assert(/algae oil/.test(text), "the EPA and DHA answer is missing");
+    assert(/gamma-tocopherol/.test(text), "the vitamin E caveat is missing");
+  });
+});
+
+await test("the methodology counts the amino acid sparsity from the data", async () => {
+  await withPage(async page => {
+    // The paragraph explaining why a day total can be partial names how many
+    // foods have no cysteine figure. Counted rather than typed, like every
+    // other number in this prose, because it moves whenever a food is added.
+    const gaps = await page.evaluate(() => {
+      const i = DATA.nutrients.findIndex(n => n.id === "cys");
+      return DATA.foods.filter(f => f.v[i] === null).length;
+    });
+    assert(gaps > 0, "expected some foods with no cysteine figure");
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    assert(text.includes(`Cysteine has no figure for ${gaps} of`),
+      `cysteine gap count not stated, expected ${gaps}`);
+  });
+});
+
+await test("the page does not claim to be complete", async () => {
+  await withPage(async page => {
+    // It is a selection of foods with real gaps in it: iodine has no column at
+    // all, the flavonoid columns are blank more often than not, and twenty-odd
+    // foods have no amino acid analysis. Billing that as complete nutrition is
+    // the one claim the rest of the copy spends its time walking back.
+    const banned = /\b(complete|comprehensive) (nutrition|plant-based|database)\b|\bcomplete nutrition\b/i;
+    for (const sel of ["h1", ".tagline", "title", ".about h3"]) {
+      const texts = await page.locator(sel).allTextContents();
+      for (const t of texts)
+        assert(!banned.test(t), `${sel} claims completeness: ${t}`);
+    }
+    eq(await page.locator("h1").textContent(), "Explore the nutrition of plant-based wholefoods",
+       "the headline");
+    // "complete protein" and "a complete total" are different words doing real
+    // work, so the ban is on the claim rather than on the word.
+    await page.click('[data-dlg="meth"]');
+    assert(/complete/i.test(await page.locator("#dlgB").textContent()),
+      "the methodology still uses the word where it means something");
+  });
+});
+
+await test("the page does not call itself honest", async () => {
+  await withPage(async page => {
+    // A tic rather than a fact: the copy either is straight about its limits or
+    // it is not, and saying so is what gives it away. Guarded because it is the
+    // sort of word that creeps back in one heading at a time.
+    const seen = [];
+    for (const dlg of [null, "how", "meth", "about"]) {
+      if (dlg) await page.click(`[data-dlg="${dlg}"]`);
+      const text = await page.locator(dlg ? "#dlgB" : "body").textContent();
+      if (/\bhonest/i.test(text)) seen.push(`${dlg || "page"}: ${
+        text.match(/.{0,50}honest.{0,50}/i)[0].replace(/\s+/g, " ")}`);
+      if (dlg) await page.click("#dlgX");
+    }
+    eq(seen.join(" | "), "", "uses of the word");
+    assert(/Note about limits/.test(await page.locator(".about").textContent()),
+      "the heading it replaced");
+  });
+});
+
+await test("every dialog renders without a gap where a number should be", async () => {
+  await withPage(async page => {
+    // Several sentences in these interpolate counts derived from the data. A
+    // renamed nutrient or note id would leave "undefined" mid-sentence rather
+    // than failing, so check all three rather than trusting each in isolation.
+    for (const dlg of ["how", "meth", "about"]) {
+      await page.click(`[data-dlg="${dlg}"]`);
+      const text = await page.locator("#dlgB").textContent();
+      assert(!/undefined|NaN|\[object/.test(text), `${dlg} dialog: ${
+        text.match(/.{0,60}(undefined|NaN|\[object).{0,60}/)?.[0]}`);
+      await page.click("#dlgX");
+    }
+  });
+});
+
 await test("foods with no measurement say so rather than showing a zero", async () => {
   await withPage(async page => {
     await page.click('#groupNav [data-grp="fats"]');
@@ -805,7 +1014,17 @@ await test("the comprehensiveness blurb tracks the real column counts", async ()
     const txt = await page.locator("#compBlurb").textContent();
     const total = await page.evaluate(() => DATA.nutrients.length);
     assert(txt.startsWith(`${total} nutrients per food`), `blurb says: ${txt}`);
-    assert(/6 fat fractions/.test(txt), `fat count updated: ${txt}`);
+    // Counted from the data rather than typed in here. A hardcoded number is
+    // the very drift the blurb was written to avoid, and it went stale the
+    // first time a column joined one of the groups.
+    const counts = await page.evaluate(() => DATA.nutrients.reduce(
+      (m, n) => (m[n.group] = (m[n.group] || 0) + 1, m), {}));
+    const labels = { macro: "macronutrients", fats: "fat fractions",
+      amino: "amino acids", vitamin: "vitamins", mineral: "minerals",
+      plant: "plant compounds" };
+    for (const [group, label] of Object.entries(labels))
+      assert(txt.includes(`${counts[group]} ${label}`),
+        `expected "${counts[group]} ${label}" in: ${txt}`);
   });
 });
 
@@ -863,6 +1082,41 @@ await test("no food produces a broken derived figure", async () => {
   });
 });
 
+await test("energy is given in kilojoules as well as kilocalories", async () => {
+  await withPage(async page => {
+    const txt = await selectFood(page, "lentils", "Lentils");
+    const kcal = await page.evaluate(() => {
+      const i = DATA.nutrients.findIndex(n => n.id === "kcal");
+      return DATA.foods.find(f => f.name === "Lentils").v[i];
+    });
+    // Derived from the column already in the table, by the definition of the
+    // thermochemical calorie, so it cannot drift away from what it converts.
+    assert(txt.includes(`${Math.round(kcal * 4.184)} kJ`),
+      `expected ${Math.round(kcal * 4.184)} kJ in the panel`);
+  });
+});
+
+await test("the detail panel follows the table when the filters change", async () => {
+  await withPage(async page => {
+    // The panel would happily go on describing a food the table no longer had:
+    // filter to nuts with lentils selected and the page said two different
+    // things about one piece of state.
+    const before = await page.locator("#detail h3").textContent();
+    await page.click('#catNav [data-cat="Nuts"]');
+    const after = await page.locator("#detail h3").textContent();
+    const cat = await page.evaluate(n => DATA.foods.find(f => f.name === n).cat, after);
+    eq(cat, "Nuts", `panel moved from ${before} to ${after}, which is a ${cat}`);
+
+    // A food that is still on screen keeps the selection: following the table
+    // must not mean overriding a choice the reader actually made.
+    await page.locator('#tbody .fname[data-name="Walnuts"]').first().click();
+    await page.waitForFunction(() => document.querySelector("#detail h3").textContent === "Walnuts");
+    await page.fill("#q", "wal");
+    await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
+    eq(await page.locator("#detail h3").textContent(), "Walnuts", "kept the chosen food");
+  });
+});
+
 // ---------------------------------------------------------------- favourites
 
 await test("favourites persist across a reload", async () => {
@@ -883,6 +1137,38 @@ await test("favourites persist across a reload", async () => {
   const rows = await page.locator("#tbody .fname").evaluateAll(e => e.map(x => x.dataset.name));
   eq(rows.length, 1, "rows when filtered to favourites");
   eq(rows[0], starred, "the same food is still starred");
+  await ctx.close();
+});
+
+await test("renaming a food carries saved favourites and day entries across", async () => {
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+
+  // Navy beans became Haricot beans. Everything stored is keyed on the food's
+  // name, so without the rename map both of these would simply be dropped on
+  // load, and a favourite starred months ago would vanish with nothing to say
+  // it had gone.
+  await page.evaluate(() => localStorage.setItem("vegan-nutrients:v1", JSON.stringify({
+    favs: ["navy-beans-cooked"], day: [{ slug: "navy-beans-cooked", g: 150 }],
+  })));
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+
+  eq(await page.evaluate(() => [...S.favs].join(",")), "haricot-beans-cooked", "favourite carried");
+  eq(await page.evaluate(() => S.day.map(e => `${e.slug}:${e.g}`).join(",")),
+     "haricot-beans-cooked:150", "day entry carried, quantity intact");
+  eq(await page.locator("#favCount").textContent(), "1", "and it counts");
+
+  // A key that is neither current nor renamed is still dropped rather than kept
+  // as a row that cannot render.
+  await page.evaluate(() => localStorage.setItem("vegan-nutrients:v1", JSON.stringify({
+    favs: ["a-food-that-never-existed"], day: [{ slug: "also-not-a-food", g: 90 }],
+  })));
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+  eq(await page.evaluate(() => S.favs.size + S.day.length), 0, "unknown keys dropped");
   await ctx.close();
 });
 
@@ -950,6 +1236,658 @@ await test("reset restores the view but keeps favourites and custom groups", asy
     const opts = await page.locator("#lensSel option").allTextContents();
     assert(opts.includes("Keep me"), "custom group kept");
     eq(await page.locator("#lensSel").inputValue(), "", "highlight cleared");
+  });
+});
+
+// ---------------------------------------------------------------- my day
+
+/** Seeds a day and lets the page redraw from it. Driving the typeahead for
+ *  every one of these would test the typeahead nine times over and the totals
+ *  once; the typeahead has its own test below. */
+async function seedDay(page, entries) {
+  await page.click("#vDay");
+  await page.evaluate(d => { S.day = d; savePrefs(); render(); }, entries);
+}
+
+await test("a day totals its foods by weight, and the arithmetic is right", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "brown-rice-cooked", g: 180 }]);
+
+    // Hand-computed from the two rows rather than from the same code path that
+    // produced the figure on screen, which would only prove it agrees with
+    // itself. Every value in the table is per 100 g.
+    const want = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const of = s => DATA.foods[BY_SLUG.get(s)];
+      const p = at("protein");
+      return of("lentils-cooked").v[p] * 2 + of("brown-rice-cooked").v[p] * 1.8;
+    });
+    const shown = await page.evaluate(() =>
+      dayTotals()[DATA.nutrients.findIndex(n => n.id === "protein")].total);
+    assert(Math.abs(shown - want) < 1e-9, `protein total, expected ${want}, got ${shown}`);
+
+    // and it reaches the page, not just the function
+    const text = (await page.locator("#daySum .dbody").textContent()).replace(/\s+/g, " ");
+    assert(text.includes(`${want.toFixed(2)} g`), `panel shows the total: ${text.slice(0, 200)}`);
+    assert(/630 g|380 g/.test(await page.locator(".dayfoot").textContent()), "total grams shown");
+  });
+});
+
+await test("a total over a food nobody measured says how many it covers", async () => {
+  await withPage(async page => {
+    // Seitan has no USDA source row, so its fat fractions are "no data". A sum
+    // across it and two foods that do have figures is a partial total, and a
+    // partial total that looks like a complete one is the single failure this
+    // whole view has to avoid.
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "seitan", g: 100 }]);
+    await page.click('#groupNav [data-grp="fats"]');
+
+    const marked = await page.locator(".totcov").evaluateAll(els => els
+      .filter(e => e.textContent.trim())
+      .map(e => e.closest(".totrow").querySelector(".totname").textContent.trim()));
+    assert(marked.length > 0, "expected at least one partial total to be marked");
+    assert(marked.some(m => /Omega-9/.test(m)), `omega-9 marked partial: ${marked.join(", ")}`);
+    const cov = await page.locator(".totcov").evaluateAll(
+      els => els.map(e => e.textContent.trim()).filter(Boolean)[0]);
+    assert(/from \d+ of \d+/.test(cov), `coverage reads as a count: ${cov}`);
+
+    // ...and a nutrient in that state is not reported as a shortfall, because
+    // nobody knows whether it is one.
+    const partialIds = await page.evaluate(() =>
+      dayTotals().filter(t => t.partial).map(t => t.n.id));
+    const shortIds = await page.evaluate(() => dayStanding(dayTotals()).short.map(x => x.id));
+    const both = partialIds.filter(id => shortIds.includes(id));
+    eq(both.join(", "), "", "partial totals reported as shortfalls");
+  });
+});
+
+await test("a day's amino acid score is withheld when a food was never assayed", async () => {
+  await withPage(async page => {
+    // Kohlrabi has no tyrosine figure, so it gets no score of its own and it
+    // must not get one as part of a day either: the score is capped by the
+    // scarcest acid and there is no knowing whether the missing one was it.
+    const gappy = await page.evaluate(() => {
+      const ids = DATA.nutrients.filter(n => n.group === "amino").map(n => n.id);
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const f = DATA.foods.find(x => ids.some(id => x.v[at(id)] === null));
+      return `${f.name} ${f.state || ""}`.toLowerCase().trim()
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    });
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: gappy, g: 100 }]);
+    eq(await page.evaluate(() => dayProteinQuality(dayTotals())), null, "score with a gap");
+    const text = (await page.locator("#daySum").textContent()).replace(/\s+/g, " ");
+    assert(/No score/.test(text), `panel explains the gap: ${text.slice(0, 300)}`);
+    assert(/gap is in the source data/.test(text), "explains whose gap it is");
+
+    // Remove the gappy food and the score comes back.
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    assert(await page.evaluate(() => dayProteinQuality(dayTotals())) !== null,
+      "score with no gaps");
+  });
+});
+
+await test("a day of rice and lentils scores higher than either alone", async () => {
+  await withPage(async page => {
+    // This is the claim the whole feature makes: complementation happens across
+    // a day rather than within a meal. Cereals run short on lysine and pulses on
+    // the sulphur pair, so the pair beats both. If this ever stops being true
+    // the summary is telling people something the data does not support.
+    const score = async day => {
+      await seedDay(page, day);
+      return page.evaluate(() => dayProteinQuality(dayTotals())?.score ?? null);
+    };
+    const rice = await score([{ slug: "brown-rice-cooked", g: 180 }]);
+    const lentils = await score([{ slug: "lentils-cooked", g: 200 }]);
+    const both = await score([{ slug: "brown-rice-cooked", g: 180 },
+                              { slug: "lentils-cooked", g: 200 }]);
+    assert(both > rice, `together ${both} should beat rice alone ${rice}`);
+    assert(both > lentils, `together ${both} should beat lentils alone ${lentils}`);
+  });
+});
+
+await test("nothing whose daily value is a budget is reported as a shortfall", async () => {
+  await withPage(async page => {
+    // "Short on saturated fat" is the opposite of advice, and so is being told
+    // off for coming in under the sodium figure.
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "broccoli-cooked", g: 150 }]);
+    const short = await page.evaluate(() => dayStanding(dayTotals()).short.map(x => x.id));
+    for (const id of ["satfat", "fat", "na", "kcal", "carbs"])
+      assert(!short.includes(id), `${id} listed as a shortfall: ${short.join(", ")}`);
+    // The real gaps on a plant-based day are still there.
+    assert(short.includes("b12"), `B12 should be short: ${short.join(", ")}`);
+  });
+});
+
+await test("a fortified figure is still marked once it has been totalled", async () => {
+  await withPage(async page => {
+    // Every microgram of B12 in the yeast row was put there by the maker. A
+    // total that quietly absorbs it would be the one place on the page where
+    // that stops being said.
+    await seedDay(page, [{ slug: "nutritional-yeast", g: 15 }]);
+    await page.click('#groupNav [data-grp="vitamin"]');
+    const row = await page.evaluate(() => {
+      const r = [...document.querySelectorAll(".totrow")]
+        .find(x => x.querySelector(".totname").textContent.includes("B12"));
+      return { marker: r.querySelector("sup.fnote")?.textContent,
+               hidden: r.querySelector("sup.fnote")?.getAttribute("aria-hidden"),
+               sr: r.querySelector(".sr")?.textContent.trim() };
+    });
+    eq(row.marker, "*", "marker on the B12 total");
+    eq(row.hidden, "true", "the marker itself is hidden from assistive tech");
+    assert(/fortification/i.test(row.sr || ""), `spoken text: ${row.sr}`);
+    assert(/Depends on fortification/.test(await page.locator("#dayTotals .notekey").textContent()),
+      "the key explains it under the totals");
+  });
+});
+
+await test("the standing notes appear whether the day is empty or full", async () => {
+  await withPage(async page => {
+    const has = async () => {
+      const t = (await page.locator("#daySum").textContent()).replace(/\s+/g, " ");
+      return { b12: /B12/.test(t), iodine: /Iodine is not in this data/.test(t),
+               absorption: /Intake is not absorption/.test(t) };
+    };
+    await page.click("#vDay");
+    // An empty day is exactly where someone might conclude the page has nothing
+    // to say, and a list of what you lack implies the list is complete.
+    let n = await has();
+    assert(n.b12 && n.iodine && n.absorption, `on an empty day: ${JSON.stringify(n)}`);
+
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    n = await has();
+    assert(n.b12 && n.iodine && n.absorption, `on a full day: ${JSON.stringify(n)}`);
+  });
+});
+
+await test("adding by search puts a food in the day and offers favourites first", async () => {
+  await withPage(async page => {
+    await page.locator('#tbody .fname[data-name="Walnuts"]').first()
+      .locator("xpath=following-sibling::button").click();          // star Walnuts
+    await page.click("#vDay");
+    await page.fill("#dayQ", "nuts");
+    await page.waitForSelector("#daySug button");
+    const first = await page.locator("#daySug button").first().textContent();
+    assert(/Walnuts/.test(first), `favourite offered first, got: ${first.replace(/\s+/g, " ")}`);
+
+    await page.locator("#daySug button").first().click();
+    eq(await page.evaluate(() => S.day.length), 1, "foods in the day");
+    eq(await page.evaluate(() => S.day[0].g), 100, "default quantity");
+    eq(await page.locator("#dayCount").textContent(), "1", "count on the segment");
+    // The search clears itself, so the next food can be typed straight in.
+    eq(await page.locator("#dayQ").inputValue(), "", "search box after adding");
+  });
+});
+
+await test("adding a food twice tops it up rather than listing it twice", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.evaluate(() => { addToDay("lentils-cooked", 100); render(); });
+    eq(await page.evaluate(() => S.day.length), 1, "rows in the day");
+    eq(await page.evaluate(() => S.day[0].g), 300, "quantity after topping up");
+  });
+});
+
+await test("a nonsense quantity cannot put a NaN into a total", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.fill('[data-dayg="lentils-cooked"]', "");
+    const totals = await page.evaluate(() =>
+      dayTotals().filter(t => t.total !== null && !isFinite(t.total)).map(t => t.n.id));
+    eq(totals.join(", "), "", "totals that are not finite");
+    assert(!/NaN/.test(await page.locator("#dayView").textContent()), "NaN on the page");
+
+    // And a typed extra zero is a typo rather than a meal.
+    await page.evaluate(() => { setDayGrams("lentils-cooked", 99999); render(); });
+    eq(await page.evaluate(() => S.day[0].g), 5000, "quantity clamped");
+  });
+});
+
+await test("a shortfall links back to the table sorted by that nutrient", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    const btn = page.locator('#daySum .jump[data-daysort="b12"]');
+    assert(await btn.count() === 1, "B12 offered as a shortfall to follow");
+    await btn.click();
+    // Being told you are low on something is only useful next to the foods
+    // that have some of it.
+    eq(await page.evaluate(() => S.view), "table", "back in the table");
+    eq(await page.evaluate(() => S.sort.id), "b12", "sorted by the nutrient");
+    eq(await page.evaluate(() => S.sort.dir), -1, "highest first");
+    assert(await page.locator('#tbody td[data-g="vitamin"]').count() > 0,
+      "the group holding it is switched on");
+  });
+});
+
+await test("body weight changes the amino acid targets and nothing else", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    const lysineAt = kg => page.evaluate(k => {
+      S.kg = k;
+      return dayAminoAcids(dayTotals()).find(a => a.label === "Lysine").pc;
+    }, kg);
+    const light = await lysineAt(50), heavy = await lysineAt(100);
+    assert(light > heavy, `a smaller person needs less, ${light} vs ${heavy}`);
+    // Doubling the weight doubles the requirement, so it halves the percentage.
+    assert(Math.abs(light / heavy - 2) < 1e-9, `ratio, got ${light / heavy}`);
+
+    // Derived from the pattern the per-food score already uses rather than a
+    // second table, so the two cannot drift apart. 45 mg/g x 0.66 g/kg = the
+    // 30 mg/kg/day FAO publishes for lysine.
+    const target = await page.evaluate(() => {
+      S.kg = 70;
+      return dayAminoAcids(dayTotals()).find(a => a.label === "Lysine").target;
+    });
+    assert(Math.abs(target - 2.079) < 1e-9, `lysine target for 70 kg, got ${target}`);
+  });
+});
+
+await test("body weight can be given in stones and pounds", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    const state = () => page.evaluate(() => ({
+      kg: S.kg, unit: S.wUnit,
+      label: document.querySelector("#aaKg").textContent.trim(),
+      fields: [...document.querySelectorAll("[data-w]")].map(i => `${i.id}=${i.value}`).join(" "),
+    }));
+    eq((await state()).fields, "dayKg=70", "the kg field to start with");
+
+    await page.click('[data-wunit="stlb"]');
+    let s = await state();
+    eq(s.fields, "dayStones=11 dayPounds=0", "70 kg in stones and pounds");
+    eq(s.kg, 70, "switching unit must not change the weight itself");
+    assert(/11 st 0 lb/.test(s.label), `the heading follows the unit: ${s.label}`);
+
+    // Typing it back must give back what was typed. 11 st 4 lb is 71.67 kg, and
+    // storing that as a whole 72 turns it into 11 st 5 lb, so the pounds field
+    // would tick up by one the moment it lost focus.
+    await page.fill("#dayStones", "11");
+    await page.fill("#dayPounds", "4");
+    await page.locator("#dayPounds").blur();
+    s = await state();
+    eq(s.fields, "dayStones=11 dayPounds=4", "what was typed is what stays");
+    assert(Math.abs(s.kg - 71.67) < 0.1, `stored in kilograms, got ${s.kg}`);
+
+    // and the same weight in the other unit
+    await page.click('[data-wunit="kg"]');
+    s = await state();
+    eq(s.fields, "dayKg=71.7", "the same weight as kilograms");
+    assert(/71.7 kg/.test(s.label), `heading in kg: ${s.label}`);
+  });
+});
+
+await test("switching units repeatedly does not walk the weight", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.click('[data-wunit="stlb"]');
+    await page.fill("#dayStones", "13");
+    await page.fill("#dayPounds", "7");
+    await page.locator("#dayPounds").blur();
+    const first = await page.evaluate(() => S.kg);
+
+    // Stones and pounds are a display format over one canonical figure, not a
+    // second value to keep in sync, so a round trip has nothing to lose.
+    for (let i = 0; i < 5; i++) {
+      await page.click('[data-wunit="kg"]');
+      await page.click('[data-wunit="stlb"]');
+    }
+    eq(await page.evaluate(() => S.kg), first, "weight after five round trips");
+    eq(await page.evaluate(() => `${document.querySelector("#dayStones").value} ${
+      document.querySelector("#dayPounds").value}`), "13 7", "fields after five round trips");
+  });
+});
+
+await test("pounds past thirteen roll up into stones", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.click('[data-wunit="stlb"]');
+    await page.fill("#dayStones", "11");
+    await page.fill("#dayPounds", "20");
+    await page.locator("#dayPounds").blur();
+    // 11 st 20 lb is 174 lb, which is 12 st 6 lb.
+    eq(await page.evaluate(() => `${document.querySelector("#dayStones").value} st ${
+      document.querySelector("#dayPounds").value} lb`), "12 st 6 lb", "normalised on leaving");
+  });
+});
+
+await test("the weight unit is one control, and it persists", async () => {
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+  await page.click("#vDay");
+  await page.evaluate(() => { S.day = [{ slug: "lentils-cooked", g: 200 }]; savePrefs(); render(); });
+  eq(await page.locator("[data-wunit]").count(), 2, "one two-way control, not two");
+
+  await page.click('[data-wunit="stlb"]');
+  await page.fill("#dayStones", "9");
+  await page.fill("#dayPounds", "12");
+  await page.locator("#dayPounds").blur();
+
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+  await page.click("#vDay");
+  eq(await page.evaluate(() => S.wUnit), "stlb", "unit after reload");
+  eq(await page.locator('[data-wunit="stlb"]').getAttribute("aria-pressed"), "true", "pressed");
+  eq(await page.evaluate(() => `${document.querySelector("#dayStones").value} ${
+    document.querySelector("#dayPounds").value}`), "9 12", "weight after reload");
+  await ctx.close();
+});
+
+await test("a weight field out of range clamps instead of jumping to the default", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    // Typing "5" on the way to "55" used to read as 70 for a keystroke, because
+    // anything under the minimum snapped back to the default.
+    await page.fill("#dayKg", "5");
+    eq(await page.evaluate(() => S.kg), 30, "clamped to the minimum");
+    await page.fill("#dayKg", "999");
+    eq(await page.evaluate(() => S.kg), 250, "clamped to the maximum");
+    await page.fill("#dayKg", "");
+    assert(await page.evaluate(() => isFinite(S.kg) && S.kg > 0), "an empty field is not a NaN");
+    assert(!/NaN/.test(await page.locator("#daySum").textContent()), "NaN on the page");
+  });
+});
+
+await test("the day survives a reload and drops a food that has left the data", async () => {
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+  await page.click("#vDay");
+  await page.evaluate(() => {
+    S.day = [{ slug: "lentils-cooked", g: 220 }, { slug: "a-food-that-was-renamed", g: 90 }];
+    S.kg = 82;
+    savePrefs();
+  });
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+
+  eq(await page.evaluate(() => S.day.length), 1, "entries kept after reload");
+  eq(await page.evaluate(() => S.day[0].g), 220, "quantity kept");
+  eq(await page.evaluate(() => S.kg), 82, "body weight kept");
+  eq(await page.evaluate(() => S.view), "table", "the view itself is not sticky");
+  eq(await page.locator("#dayCount").textContent(), "1", "count reflects what survived");
+  await ctx.close();
+});
+
+await test("the day view exports the day rather than the table", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "seitan", g: 100 }]);
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.click("#csvBtn"),
+    ]);
+    eq(download.suggestedFilename(), "my-day.csv", "filename");
+    const text = await (await download.createReadStream()).toArray()
+      .then(cs => Buffer.concat(cs).toString("utf8"));
+    const lines = text.replace(/^﻿/, "").trim().split("\r\n");
+    assert(/^"Food","State","Grams"/.test(lines[0]), `header: ${lines[0]}`);
+    assert(lines[1].startsWith('"Lentils","cooked",200'), lines[1]);
+    assert(lines.some(l => l.startsWith('"Total"')), "a totals row");
+    assert(lines.some(l => l.startsWith('"% of daily value"')), "a percentage row");
+    // The coverage travels with the numbers, so a partial sum stays labelled as
+    // one outside the page as well as on it.
+    assert(lines.some(l => l.startsWith('"Foods measured"')), "a coverage row");
+  });
+});
+
+await test("my day is a sidebar destination, and the table controls go with it", async () => {
+  await withPage(async page => {
+    // Table and Chart are two renderings of the same food list. My day is not
+    // one of those; it is somewhere else to be, so it sits in the sidebar with
+    // Foods and Favourites rather than in the segmented control.
+    eq(await page.locator(".side #vDay").count(), 1, "My day in the sidebar");
+    eq(await page.locator(".bar #vDay").count(), 0, "My day left in the toolbar");
+    eq(await page.locator(".seg button").count(), 2, "segments beside it");
+
+    await page.click("#vDay");
+    eq(await page.locator("#vDay").getAttribute("aria-pressed"), "true", "pressed");
+    assert(!(await page.locator("#viewGrp").isVisible()), "the view switcher should go away");
+    assert(!(await page.locator("#dvBtn").isVisible()), "%DV describes the table, not the day");
+    assert(await page.locator("#csvBtn").isVisible(), "export stays, it exports the day");
+    eq(await page.locator("#navFoods").getAttribute("aria-current"), null, "Foods not current");
+
+    // Pressing it again is the way back, like clicking the category you are in.
+    await page.click("#vDay");
+    eq(await page.evaluate(() => S.view), "table", "pressed again returns to the table");
+    assert(await page.locator("#viewGrp").isVisible(), "the view switcher comes back");
+    eq(await page.locator("#navFoods").getAttribute("aria-current"), "true", "Foods current again");
+
+    // ...and so is Foods, which is the other thing that looks like a way back.
+    await page.click("#vDay");
+    await page.click("#navFoods");
+    eq(await page.evaluate(() => S.view), "table", "Foods returns to the table");
+  });
+});
+
+await test("the view has one control, and the day is not a second favourites", async () => {
+  await withPage(async page => {
+    // The sidebar used to carry a "Compare foods" button that wrote the same
+    // piece of state as the Chart segment above the table. Two controls for one
+    // piece of state is two places to look and two things to keep in sync.
+    eq(await page.locator('[data-act="compare"]').count(), 0, "the duplicate view control");
+    eq(await page.locator("#vTable, #vChart, #vDay").count(), 3, "view controls");
+
+    // A favourite is a food you care about; a day is what you ate. Clearing one
+    // must not touch the other.
+    await page.locator("#tbody .fav").first().click();
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.click('[data-act="dayclear"]');
+    eq(await page.evaluate(() => S.day.length), 0, "day cleared");
+    eq(await page.evaluate(() => S.favs.size), 1, "favourites untouched");
+
+    await page.click("#resetBtn");
+    eq(await page.evaluate(() => S.favs.size), 1, "favourites survive a reset");
+  });
+});
+
+await test("adding from the detail panel leaves you where you were", async () => {
+  await withPage(async page => {
+    await page.locator('#tbody .fname[data-name="Walnuts"]').first().click();
+    await page.waitForFunction(() => document.querySelector("#detail h3").textContent === "Walnuts");
+    await page.locator("#detail .dayadd-btn").click();
+    eq(await page.evaluate(() => S.day.length), 1, "food added");
+    eq(await page.evaluate(() => S.view), "table", "still in the table");
+    // The count on the segment is what says it landed.
+    eq(await page.locator("#dayCount").textContent(), "1", "count on the segment");
+    assert(/100 g in your day/.test(await page.locator("#detail").textContent()),
+      "the panel says how much is in the day");
+  });
+});
+
+await test("the totals list scores amino acids, not only the panel beside it", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "brown-rice-cooked", g: 180 }]);
+
+    const rows = await page.evaluate(() =>
+      Object.fromEntries([...document.querySelectorAll('.totgroup[data-g="amino"] .totrow')]
+        .map(r => [r.querySelector(".totname").firstChild.textContent.trim(),
+                   r.querySelector(".totpc").textContent.trim()])));
+
+    // The nine FAO entries reach eleven acids, because two of them are pairs.
+    for (const n of ["Histidine", "Isoleucine", "Leucine", "Lysine", "Threonine",
+                     "Tryptophan", "Valine", "Methionine", "Cysteine",
+                     "Phenylalanine", "Tyrosine"])
+      assert(/^\d+%$/.test(rows[n] || ""), `${n} should carry a percentage, got "${rows[n]}"`);
+
+    // The rest are what the body builds for itself, and FAO publishes no
+    // requirement for them, so a percentage would be invented.
+    for (const n of ["Arginine", "Glutamic acid", "Glycine", "Proline", "Serine"])
+      assert(!/%/.test(rows[n] || ""), `${n} should carry no percentage, got "${rows[n]}"`);
+
+    // Methionine is spared by cysteine and phenylalanine by tyrosine, so those
+    // four are measured against the pair's requirement and the row says so.
+    eq(rows["Methionine"], rows["Cysteine"], "the sulphur pair scores as a pair");
+    eq(rows["Phenylalanine"], rows["Tyrosine"], "the aromatic pair scores as a pair");
+    const quals = await page.evaluate(() =>
+      [...document.querySelectorAll('.totgroup[data-g="amino"] .totname .qual')]
+        .map(q => q.textContent.trim()));
+    eq(quals.sort().join(" | "), "with cysteine | with methionine | with phenylalanine | with tyrosine",
+       "each half of a pair names the other");
+  });
+});
+
+await test("the totals and the summary cannot disagree about an amino acid", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "brown-rice-cooked", g: 180 }]);
+    const read = () => page.evaluate(() => ({
+      list: Object.fromEntries([...document.querySelectorAll('.totgroup[data-g="amino"] .totrow')]
+        .map(r => [r.querySelector(".totname").firstChild.textContent.trim(),
+                   r.querySelector(".totpc").textContent.trim()])),
+      panel: Object.fromEntries([...document.querySelectorAll("#aaRows .drow")]
+        .map(r => [r.querySelector("dt").textContent.trim(),
+                   (r.querySelector("dd").textContent.match(/(\d+)%/) || [])[1]])),
+    }));
+    let { list, panel } = await read();
+    for (const [entry, pc] of Object.entries(panel)) {
+      // "Methionine + cysteine" in the panel is two rows in the list.
+      for (const part of entry.split(" + "))
+        eq(list[part[0].toUpperCase() + part.slice(1)], `${pc}%`,
+           `${part} agrees between the list and the panel`);
+    }
+
+    // Both are scored against body weight, so both have to move with it.
+    await page.fill("#dayKg", "50");
+    ({ list, panel } = await read());
+    assert(list["Lysine"] !== undefined && list["Lysine"] !== "70%",
+      `the list follows the weight, got ${list["Lysine"]}`);
+    eq(list["Lysine"], `${panel["Lysine"]}%`, "and still agrees with the panel");
+    assert(/50 kg/.test(await page.locator('.totgroup[data-g="amino"] .nodatanote').textContent()),
+      "the card says which weight it is scoring against");
+  });
+});
+
+await test("a totals card is headed in its group's own table colour", async () => {
+  await withPage(async page => {
+    // The point is that a group reads as the same colour wherever it appears,
+    // so this compares the two against each other rather than against a hex
+    // typed in here, which would pass just as happily if both went grey.
+    const groups = await page.evaluate(() => [...new Set(DATA.nutrients.map(n => n.group))]);
+    for (const id of groups) {
+      const b = page.locator(`#groupNav [data-grp="${id}"]`);
+      if (await b.getAttribute("aria-pressed") === "false") await b.click();
+    }
+    await page.click("#vDay");
+    await page.evaluate(() => { S.day = [{ slug: "lentils-cooked", g: 200 }]; render(); });
+
+    const pairs = await page.evaluate(gs => gs.map(g => {
+      const head = document.querySelector(`#thead th.grp[data-g="${g}"]`);
+      const card = document.querySelector(`.totgroup[data-g="${g}"] h4`);
+      return { g, table: head && getComputedStyle(head).color,
+               card: card && getComputedStyle(card).color };
+    }), groups);
+
+    for (const p of pairs) {
+      assert(p.table && p.card, `${p.g}: expected both a column group and a card`);
+      eq(p.card, p.table, `${p.g} card heading matches its table label`);
+    }
+    // ...and the six are actually different from each other, so "matching"
+    // cannot be satisfied by everything being one colour.
+    eq(new Set(pairs.map(p => p.card)).size, groups.length, "distinct colours per group");
+  });
+});
+
+await test("group colours stay legible when the theme flips", async () => {
+  await withPage(async page => {
+    // Only macronutrients used a themed variable; the other five were fixed hex
+    // and sat at poor contrast on a near-black panel. They carry more weight now
+    // that the totals cards use them too.
+    const read = () => page.evaluate(() =>
+      [...new Set(DATA.nutrients.map(n => n.group))].map(g => {
+        const el = document.querySelector(`#thead th.grp[data-g="${g}"]`);
+        return { g, c: el && getComputedStyle(el).color };
+      }).filter(x => x.c));
+    const groups = await page.evaluate(() => [...new Set(DATA.nutrients.map(n => n.group))]);
+    for (const id of groups) {
+      const b = page.locator(`#groupNav [data-grp="${id}"]`);
+      if (await b.getAttribute("aria-pressed") === "false") await b.click();
+    }
+    const light = await read();
+    await page.click("#themeBtn");
+    const dark = await read();
+
+    const lum = c => { const [r, g, b] = c.match(/[\d.]+/g).map(Number);
+                       return .2126 * r + .7152 * g + .0722 * b; };
+    for (const { g, c } of dark) {
+      const before = light.find(x => x.g === g).c;
+      assert(c !== before, `${g} should lighten for the dark theme, still ${c}`);
+      // Against a --page of #10160F, luminance 22ish. Anything below that is
+      // darker than the background it sits on.
+      assert(lum(c) > 110, `${g} too dark for the dark theme: ${c}`);
+    }
+  });
+});
+
+// ---------------------------------------------------------------- panel shadow
+
+/** Every element that reads as a panel. Kept here as well as in the stylesheet
+ *  on purpose: the point of the shared rule is that one edit reaches all of
+ *  them, and a test that read the selector list out of the CSS would pass just
+ *  as happily if somebody deleted half of it. */
+const PANELS = [".tablewrap", ".detail", ".about", ".sidecard", ".search", ".dayadd",
+                ".daylist", ".totgroup", ".nutnote"];
+
+await test("every panel draws the shared shadow, from one declaration", async () => {
+  await withPage(async page => {
+    await page.click("#vDay");
+    await page.evaluate(() => { S.day = [{ slug: "lentils-cooked", g: 200 }]; render(); });
+
+    const shadows = await page.evaluate(sels => Object.fromEntries(sels.map(s => {
+      const el = document.querySelector(s);
+      return [s, el ? getComputedStyle(el).boxShadow : "MISSING"];
+    })), PANELS);
+    const distinct = new Set(Object.values(shadows));
+    eq(distinct.size, 1, `all panels share one shadow, got ${JSON.stringify(shadows)}`);
+    const [only] = distinct;
+    assert(/rgb/.test(only) && /17px/.test(only), `a real shadow, got ${only}`);
+
+    // The actual requirement: one edit moves all of them. If any panel had its
+    // own hardcoded shadow it would sit here unchanged.
+    await page.evaluate(() =>
+      document.documentElement.style.setProperty("--box-shadow", "1px 2px 3px rgb(1, 2, 3)"));
+    const after = await page.evaluate(sels =>
+      sels.map(s => getComputedStyle(document.querySelector(s)).boxShadow), PANELS);
+    const stuck = after.filter(s => !/rgb\(1, 2, 3\)/.test(s));
+    eq(stuck.length, 0, `panels ignoring the shared setting: ${stuck.join(" | ")}`);
+  });
+});
+
+await test("the shadow is a shadow in dark mode, not a halo", async () => {
+  await withPage(async page => {
+    // "lightgray" behind a near-black panel reads as a glow around it. Only the
+    // colour is themed; the shadow itself stays one declaration.
+    const colourOf = () => page.evaluate(() =>
+      getComputedStyle(document.querySelector(".tablewrap")).boxShadow
+        .match(/rgba?\([^)]*\)/)[0]);
+    const light = await colourOf();
+    await page.click("#themeBtn");
+    const dark = await colourOf();
+    assert(light !== dark, `the shadow colour should follow the theme, both ${light}`);
+
+    const lum = c => { const [r, g, b] = c.match(/[\d.]+/g).map(Number); return r + g + b; };
+    assert(lum(dark) < lum(light), `dark shadow should be darker: ${dark} vs ${light}`);
+  });
+});
+
+await test("a wrapper that carries a shadow is rounded like the box inside it", async () => {
+  await withPage(async page => {
+    await page.click("#vDay");
+    // .dayadd wraps a rounded input but had square corners of its own, so the
+    // shadow drawn on it came out square at the corners, the bottom right most
+    // visibly, around a control that is rounded.
+    for (const sel of [".dayadd", ".search"]) {
+      const r = await page.evaluate(s => {
+        const cs = getComputedStyle(document.querySelector(s));
+        const inp = getComputedStyle(document.querySelector(`${s} input`));
+        return { wrap: [cs.borderTopLeftRadius, cs.borderTopRightRadius,
+                        cs.borderBottomRightRadius, cs.borderBottomLeftRadius],
+                 input: inp.borderBottomRightRadius };
+      }, sel);
+      const corners = new Set(r.wrap);
+      eq(corners.size, 1, `${sel} corners should all match, got ${r.wrap.join(", ")}`);
+      assert(parseFloat(r.wrap[2]) > 0, `${sel} bottom-right radius, got ${r.wrap[2]}`);
+      eq(r.wrap[2], r.input, `${sel} wrapper matches the control it wraps`);
+    }
   });
 });
 

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # The suite prefers a system Chrome and falls back to Playwright's own
+      # build, so the runner needs one of the two installed.
+      - run: npx playwright install --with-deps chromium
+
+      # Builds first, then drives the built page in a real browser.
+      - run: npm test
+
+      # index.html is generated but committed, because the page is served
+      # straight from the repo. A commit where it disagrees with src/ ships a
+      # stale page to anyone loading it, and nobody reads a 180 kB generated
+      # diff closely enough to notice. The build is deterministic and the step
+      # above has just run it, so a clean tree here means the two agree.
+      - name: index.html is up to date with src/
+        run: |
+          if ! git diff --quiet -- index.html; then
+            echo "::error::index.html does not match src/. Run 'npm run build' and commit the result."
+            git diff --stat -- index.html
+            exit 1
+          fi

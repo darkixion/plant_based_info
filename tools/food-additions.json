@@ -66,7 +66,9 @@
   {"name":"Rocket","alt":"Arugula","state":"raw","cat":"Vegetables","colour":"#4F8B32","fdc_id":"169387"},
   {"name":"Celeriac","alt":"Celery root","state":"raw","cat":"Vegetables","colour":"#DFDCC8","fdc_id":"170400"},
   {"name":"Pumpkin","state":"cooked","cat":"Vegetables","colour":"#C96A10","fdc_id":"168449"},
-  {"name":"Yeast extract","alt":"Marmite or Vegemite type","state":"spread","cat":"Algae & yeast","colour":"#2E1C12","fdc_id":"167717"}
+  {"name":"Yeast extract","alt":"Marmite or Vegemite type","state":"spread","cat":"Algae & yeast","colour":"#2E1C12","fdc_id":"167717"},
+  {"name":"Borlotti beans","alt":"Cranberry beans","state":"cooked","cat":"Legumes","colour":"#C4816F","fdc_id":"173736"},
+  {"name":"Tomatoes","state":"raw","cat":"Vegetables","colour":"#E04B2E","fdc_id":"170457"}
  ],
 
  "staples": [
@@ -79,7 +81,7 @@
   {"name":"Bulgur wheat","state":"cooked","cat":"Grains","colour":"#BFA477","fdc_id":"170287"},
   {"name":"Teff","state":"cooked","cat":"Grains","colour":"#8A6A4E","fdc_id":"168918"},
   {"name":"Broad beans","alt":"Fava beans","state":"cooked","cat":"Legumes","colour":"#9AA05E","fdc_id":"173753"},
-  {"name":"Navy beans","alt":"Haricot beans","state":"cooked","cat":"Legumes","colour":"#E4DCC4","fdc_id":"173746"},
+  {"name":"Haricot beans","alt":"Navy beans","state":"cooked","cat":"Legumes","colour":"#E4DCC4","fdc_id":"173746"},
   {"name":"Cauliflower","state":"cooked","cat":"Vegetables","colour":"#EDE7D4","fdc_id":"170397"},
   {"name":"Pak choi","alt":"Bok choy","state":"raw","cat":"Vegetables","colour":"#7FA648","fdc_id":"170390"},
   {"name":"Watercress","state":"raw","cat":"Vegetables","colour":"#357A38","fdc_id":"170068"},

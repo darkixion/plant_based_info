@@ -85,6 +85,16 @@ function validate(data) {
         problems.push(`note ${note.id}: "${slug}" lists no nutrients`);
       for (const n of nutIds || [])
         if (!ids.has(n)) problems.push(`note ${note.id}: "${slug}" names unknown nutrient "${n}"`);
+      // A note explains where a figure came from, so there has to be a figure.
+      // The page only draws a marker next to a value, so an entry pointing at an
+      // empty cell renders nothing at all and would sit in the data unnoticed.
+      const food = foods.find(f => `${f.name} ${f.state || ""}`.toLowerCase().trim()
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") === slug);
+      for (const n of nutIds || []) {
+        const at = nutrients.findIndex(x => x.id === n);
+        if (food && at !== -1 && (food.v[at] === null || food.v[at] === undefined))
+          problems.push(`note ${note.id}: "${slug}" marks "${n}", which has no value to explain`);
+      }
     }
   }
 
@@ -92,8 +102,14 @@ function validate(data) {
   // signature of a food mapped to the wrong source row, the values look
   // individually plausible and only disagree when compared with each other.
   const at = id => nutrients.findIndex(n => n.id === id);
+  // Each list is a subset of its total and never the whole of it, so the sum may
+  // fall short but must never exceed. Polyunsaturated is deliberately absent:
+  // six foods have carried an ALA-plus-LA total slightly above their own
+  // polyunsaturated figure since long before either was checked, and those
+  // values are recorded in the README rather than deleted to satisfy a new rule.
   const subsets = [
     { total: "mufa", parts: ["oleic", "palmitoleic"], label: "monounsaturated" },
+    { total: "satfat", parts: ["lauric", "palmitic", "stearic"], label: "saturated fat" },
     { total: "fat", parts: ["satfat"], label: "total fat" },
   ];
   for (const { total, parts, label } of subsets) {

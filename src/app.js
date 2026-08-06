@@ -18,6 +18,15 @@ const slugify = f => `${f.name} ${f.state || ""}`
 const SLUGS = FOODS.map(slugify);
 const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
 
+/* Renaming a food changes its key, and anything stored under the old one is
+   simply dropped on load: a favourite someone starred months ago vanishes with
+   nothing to say it had gone. One line per rename carries them across, which is
+   cheaper than the alternative of never renaming a food.
+   Navy beans became Haricot beans, the name the rest of this table's British
+   spellings would lead you to expect. */
+const RENAMED = { "navy-beans-cooked": "haricot-beans-cooked" };
+const currentSlug = s => RENAMED[s] || s;
+
 /* ---------- per-cell notes ----------
    Some figures are true of the product but not of the food. Nutritional yeast
    is sold fortified, so its B vitamins are whatever the maker added and the
@@ -67,15 +76,65 @@ const BUILTIN_LENSES = [
     why: "The minerals governing fluid balance, nerve signalling and muscle contraction. Whole plant foods are naturally high in potassium and low in sodium, the opposite of most processed food." },
 ];
 
+/* A day's list is stored as slug and grams, keyed the same way favourites are
+   and for the same reason: the food list can be reordered or extended without
+   silently repointing someone's entries at the wrong food. A quantity beyond
+   this ceiling is a typo rather than a meal, and one extra zero would treble a
+   day's totals without looking obviously wrong. */
+const DAY_MAX_G = 5000;
+const DEFAULT_G = 100;
+const DEFAULT_KG = 70;
+
 const S = {
   groups: new Set(["macro", "amino"]),
   sort: { id: "__name", dir: 1 },
-  q: "", cat: "", page: 1, per: 20,
+  q: "", cat: "",
   sel: 0, favs: new Set(), favsOnly: false,
   dv: false, view: "table", tab: "overview",
   chartNut: "protein", dark: false,
   lens: "", custom: [],
+  day: [], kg: DEFAULT_KG, wUnit: "kg",
 };
+
+/** Anything that is not a usable number becomes zero rather than reaching a
+ *  total: one NaN in one quantity would turn all 66 totals into NaN. */
+const clampG = g => {
+  const n = Math.round(Number(g));
+  return isFinite(n) && n > 0 ? Math.min(n, DAY_MAX_G) : 0;
+};
+/* Kept to one decimal rather than rounded to whole kilograms, because stones
+   and pounds have to survive a round trip through it. 11 st 4 lb is 71.67 kg,
+   and rounding that to 72 turns it back into 11 st 5 lb, so the pounds field
+   would tick up by one the moment it lost focus. A tenth of a kilogram is a
+   tenth of a pound, far too small to move a rounded pounds figure.
+   Out of range clamps to the nearest end rather than snapping back to the
+   default, so a half-typed number does not briefly read as 70. */
+const clampKg = kg => {
+  const n = Number(kg);
+  if (!isFinite(n) || n <= 0) return DEFAULT_KG;
+  return Math.round(Math.min(Math.max(n, 30), 250) * 10) / 10;
+};
+
+/* ---------- body weight units ----------
+   S.kg stays the one canonical value, because the FAO requirements are
+   published per kilogram and every figure derived from them reads it. Stones
+   and pounds are a display and entry format laid over it, never a second
+   source of truth to keep in sync. */
+const LB_PER_KG = 2.2046226218, LB_PER_ST = 14;
+
+const kgToStLb = kg => {
+  const lb = Math.round(kg * LB_PER_KG);
+  return { st: Math.floor(lb / LB_PER_ST), lb: lb % LB_PER_ST };
+};
+const stLbToKg = (st, lb) => (st * LB_PER_ST + lb) / LB_PER_KG;
+
+/** The weight as the reader chose to see it, for the heading above the amino
+ *  acid rows as well as for the fields. */
+function weightLabel() {
+  if (S.wUnit !== "stlb") return `${+S.kg.toFixed(1)} kg`;
+  const { st, lb } = kgToStLb(S.kg);
+  return `${st} st ${lb} lb`;
+}
 
 /* ---------- persistence ----------
    Every write is guarded: Safari private mode and disabled-storage settings
@@ -88,8 +147,9 @@ function savePrefs() {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify({
       favs: [...S.favs], groups: [...S.groups], sort: S.sort, dv: S.dv,
-      per: S.per, dark: S.dark, lens: S.lens, custom: S.custom,
+      dark: S.dark, lens: S.lens, custom: S.custom,
       favsOnly: S.favsOnly, cat: S.cat, chartNut: S.chartNut,
+      day: S.day, kg: S.kg, wUnit: S.wUnit,
     }));
   } catch { storageOK = false; }
 }
@@ -106,7 +166,8 @@ function loadPrefs() {
   if (!p || typeof p !== "object") return;
 
   // Favourites: keep only slugs that still exist in the current dataset.
-  if (Array.isArray(p.favs)) S.favs = new Set(p.favs.filter(s => BY_SLUG.has(s)));
+  if (Array.isArray(p.favs))
+    S.favs = new Set(p.favs.map(currentSlug).filter(s => BY_SLUG.has(s)));
 
   if (Array.isArray(p.groups)) {
     const g = p.groups.filter(x => GROUPS.some(G => G.id === x));
@@ -116,9 +177,21 @@ function loadPrefs() {
     S.sort = { id: p.sort.id, dir: p.sort.dir === 1 ? 1 : -1 };
   if (typeof p.dv === "boolean") S.dv = p.dv;
   if (typeof p.dark === "boolean") S.dark = p.dark;
-  if (p.per === "All" || [10, 20, 30].includes(p.per)) S.per = p.per;
   if (CATS.includes(p.cat)) S.cat = p.cat;
   if (IDX.has(p.chartNut)) S.chartNut = p.chartNut;
+
+  // The day list, cleaned the same way favourites are: an entry naming a food
+  // that no longer exists is dropped rather than left to render as a blank row,
+  // and a quantity that arrives as text or out of range is clamped rather than
+  // allowed to put a NaN into every total.
+  if (Array.isArray(p.day)) {
+    S.day = p.day
+      .filter(e => e && e.slug)
+      .map(e => ({ slug: currentSlug(e.slug), g: clampG(e.g) }))
+      .filter(e => BY_SLUG.has(e.slug));
+  }
+  if (typeof p.kg === "number" && isFinite(p.kg)) S.kg = clampKg(p.kg);
+  if (p.wUnit === "kg" || p.wUnit === "stlb") S.wUnit = p.wUnit;
 
   if (Array.isArray(p.custom)) {
     S.custom = p.custom
@@ -227,6 +300,162 @@ function omegaRatio(f) {
   return la >= ala ? { a: la / ala, flip: false } : { a: ala / la, flip: true };
 }
 
+/* ---------- the day ----------
+   Everything below reads `dayTotals()`, so the rule about partial sums is
+   enforced in one place rather than in each of the things that display one. */
+
+/** The day's entries, resolved to foods. An entry whose slug has left the
+ *  dataset is dropped here as well as on load, so a stale one cannot survive
+ *  a session in which prefs were never re-saved. */
+const dayEntries = () => S.day
+  .map(e => ({ ...e, i: BY_SLUG.get(e.slug) }))
+  .filter(e => e.i !== undefined)
+  .map(e => ({ ...e, f: FOODS[e.i] }));
+
+/** Entries that actually contribute. A food listed at 0 g adds nothing to any
+ *  total, so counting it in the coverage below would report a gap it does not
+ *  cause. */
+const dayContributors = () => dayEntries().filter(e => e.g > 0);
+
+const dayGrams = () => dayContributors().reduce((s, e) => s + e.g, 0);
+
+/**
+ * Totals every nutrient across the day's list, per nutrient reporting:
+ *   total    the sum, or null where no listed food has a figure at all
+ *   from/of  how many contributing foods had a figure, out of how many there are
+ *   partial  true when those two disagree
+ *   notes    the per-cell notes behind the figures that went into the sum
+ *
+ * `partial` is the whole reason this returns an object rather than a number.
+ * Summing whatever happens to be measured produces a total indistinguishable
+ * from a complete one, which is exactly the failure the flavonoid columns were
+ * built to refuse. Cysteine is missing for 19 of these foods and the flavonoid
+ * columns for 90 or more, so a day of six foods will routinely produce sums
+ * over three of them. Every consumer of this has to decide what to do about
+ * that, and none of them may quietly ignore it.
+ */
+function dayTotals() {
+  const list = dayContributors();
+  return NUTS.map(n => {
+    let total = 0, from = 0;
+    const notes = new Set();
+    for (const e of list) {
+      const v = val(e.f, n.id);
+      if (v === null || v === undefined) continue;
+      from++;
+      total += v * e.g / 100;                 // every figure in the table is per 100 g
+      const note = noteFor(e.i, n.id);
+      if (note) notes.add(note);
+    }
+    return { n, total: from ? total : null, from, of: list.length,
+             partial: from > 0 && from < list.length, notes: [...notes] };
+  });
+}
+
+const totalOf = (totals, id) => totals[IDX.get(id)];
+
+/* ---------- amino acids across a day ----------
+   FAO/WHO 2007 publishes adult requirements as milligrams per kilogram of body
+   weight per day. FAO_PATTERN above is that same table divided by the 0.66 g/kg
+   average protein requirement the pattern is built on, so multiplying back
+   recovers it: lysine 45 x 0.66 = 29.7 against a published 30, leucine
+   59 x 0.66 = 38.9 against 39, tryptophan 6 x 0.66 = 3.96 against 4. Deriving
+   it here rather than typing out a second reference table means the day's
+   targets and the per-food score cannot drift apart, which is the same reason
+   the amino acid columns are computed from the protein column. */
+const PROTEIN_G_PER_KG = 0.66;
+
+/** Grams per day of each FAO entry for a given body weight. The pairs stay
+ *  paired: methionine is spared by cysteine and phenylalanine by tyrosine, so
+ *  scoring either alone would report a shortfall the body does not have. */
+const aaTargets = kg => FAO_PATTERN.map(p => ({
+  label: p.label, ids: p.ids, target: p.mg * PROTEIN_G_PER_KG * kg / 1000,
+}));
+
+/** Each FAO entry totalled across the day, against its requirement.
+ *  Withheld entirely where any contributing food is missing any of the acids
+ *  in that entry, since a sum that skips a food understates it. */
+function dayAminoAcids(totals) {
+  const list = dayContributors();
+  if (!list.length) return [];
+  return aaTargets(S.kg).map(t => {
+    const measured = list.every(e => t.ids.every(id => {
+      const v = val(e.f, id);
+      return v !== null && v !== undefined;
+    }));
+    const got = measured
+      ? t.ids.reduce((s, id) => s + (totalOf(totals, id).total ?? 0), 0)
+      : null;
+    return { ...t, got, pc: got === null ? null : got / t.target * 100 };
+  });
+}
+
+/** The day's protein quality: its totals treated as one food and put through
+ *  the same scorer every row in the table uses. This is the figure that answers
+ *  "do I have to combine proteins at every meal", because a day of rice and
+ *  lentils scores higher than either of them alone.
+ *
+ *  Withheld if any listed food has any amino acid gap. proteinQuality() already
+ *  refuses to score a food with a missing acid, and a day is no different: the
+ *  score is capped by the scarcest acid, and there is no knowing whether the
+ *  unmeasured one was it. */
+function dayProteinQuality(totals) {
+  const list = dayContributors();
+  if (!list.length) return null;
+  const ids = FAO_PATTERN.flatMap(p => p.ids);
+  const complete = list.every(e => ids.every(id => {
+    const v = val(e.f, id);
+    return v !== null && v !== undefined;
+  }));
+  if (!complete) return null;
+  return proteinQuality({ v: totals.map(t => t.total) });
+}
+
+/* Nutrients whose daily value is a budget rather than a target. Coming in under
+   one of these is not a shortfall and must never be listed as one: "short on
+   saturated fat" is the opposite of advice. They get their own list when a day
+   goes over instead, which is the direction that means something for them. */
+const A_BUDGET = new Set(["kcal", "carbs", "fat", "satfat", "na"]);
+
+/** Nutrients with a reference value, a complete total, and a percentage worth
+ *  remarking on. Partial totals are excluded rather than reported: telling
+ *  someone they are short of a nutrient a third of their list was never assayed
+ *  for is a fabricated conclusion, not a missing one. */
+function dayStanding(totals) {
+  const scored = totals
+    .filter(t => t.n.dv && t.total !== null && !t.partial)
+    .map(t => ({ id: t.n.id, label: t.n.label, pc: t.total / t.n.dv * 100,
+                 budget: A_BUDGET.has(t.n.id) }));
+  const by = (a, b) => a.pc - b.pc;
+  return {
+    short: scored.filter(x => !x.budget && x.pc < 50).sort(by),
+    over: scored.filter(x => !x.budget && x.pc >= 100).sort((a, b) => -by(a, b)),
+    budget: scored.filter(x => x.budget && x.pc >= 100).sort((a, b) => -by(a, b)),
+  };
+}
+
+function addToDay(slug, g = DEFAULT_G) {
+  if (!BY_SLUG.has(slug)) return;
+  // Adding a food already listed tops up its quantity rather than making a
+  // second row that would have to be totalled and edited separately.
+  const at = S.day.find(e => e.slug === slug);
+  if (at) at.g = clampG(at.g + g);
+  else S.day.push({ slug, g: clampG(g) });
+  savePrefs();
+}
+
+function setDayGrams(slug, g) {
+  const at = S.day.find(e => e.slug === slug);
+  if (!at) return;
+  at.g = clampG(g);
+  savePrefs();
+}
+
+function removeFromDay(slug) {
+  S.day = S.day.filter(e => e.slug !== slug);
+  savePrefs();
+}
+
 function rows() {
   const q = S.q.trim().toLowerCase();
   let r = FOODS.map((f, i) => ({ f, i }));
@@ -245,12 +474,6 @@ function rows() {
     return dir * (x - y);
   });
   return r;
-}
-
-function paged(r) {
-  if (S.per === "All") return r;
-  const start = (S.page - 1) * S.per;
-  return r.slice(start, start + S.per);
 }
 
 /* ---------- sidebar groups ----------
@@ -288,7 +511,6 @@ function setCat(cat) {
   // Clicking the category already showing is the way back to everything, so it
   // does not become a filter you can switch on but not off.
   S.cat = cat === S.cat ? "" : cat;
-  S.page = 1;
   renderCats();
   say(S.cat ? `Showing ${S.cat} only.` : "Showing all categories.");
   savePrefs();
@@ -423,8 +645,8 @@ const colClass = n => [
   n.lensR && "lensR", n.sorted && "sorted",
 ].filter(Boolean).join(" ");
 
-function renderTable() {
-  const c = layout(), r = rows(), page = paged(r);
+function renderTable(r) {
+  const c = layout(), page = r;
   const nameSorted = S.sort.id === "__name";
   const L = lensIds();
 
@@ -503,7 +725,6 @@ function renderTable() {
      ${esc(n.text)}</span>`).join("");
 
   syncHeadOffset();
-  return r;
 }
 
 /* Both header rows are sticky: the first at the top of the scroller, the second
@@ -521,11 +742,13 @@ function syncHeadOffset() {
 
   /* The group labels stick just clear of the food column, which is itself
      sticky at the left edge. Its width is content-driven, so measure it too.
-     Rounded up: a shade too far right is a hairline of extra clearance, while
-     too far left slides the label under the food column, which paints over it. */
+     Exactly, not rounded up: the label's resting position is that width plus
+     the group cell's own padding, so anything else makes it jump by the
+     rounding the moment it sticks. The 12px of padding is the clearance that
+     rounding up was there to guarantee. */
   const food = row.cells[0];
   const w = food && food.getBoundingClientRect().width;
-  if (w) $("#grid").style.setProperty("--foodw", `${Math.ceil(w)}px`);
+  if (w) $("#grid").style.setProperty("--foodw", `${w}px`);
 }
 addEventListener("resize", syncHeadOffset);
 
@@ -548,9 +771,9 @@ function emptyState() {
 }
 
 /* ---------- chart ---------- */
-function renderChart() {
+function renderChart(all) {
   const n = NUTS[IDX.get(S.chartNut)];
-  const r = rows().slice().sort((a, b) => (val(b.f, n.id) ?? -1) - (val(a.f, n.id) ?? -1));
+  const r = all.slice().sort((a, b) => (val(b.f, n.id) ?? -1) - (val(a.f, n.id) ?? -1));
   const max = Math.max(...r.map(x => val(x.f, n.id) ?? 0), 0.0001);
   $("#chartNut").innerHTML = GROUPS.filter(g => S.groups.has(g.id)).map(g =>
     `<optgroup label="${g.label}">` + NUTS.filter(x => x.group === g.id).map(x =>
@@ -612,6 +835,7 @@ function proteinQualityBlock(f) {
 function renderDetail() {
   const f = FOODS[S.sel];
   const g = id => val(f, id);
+  const inDay = S.day.find(e => e.slug === SLUGS[S.sel]);
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
   const DETAIL_TABS = ["vitamin", "mineral", "amino", "plant"];
@@ -633,8 +857,14 @@ function renderDetail() {
     body = `<h4>Macronutrients</h4><dl>` + macro.map(id => {
       const n = NUTS[IDX.get(id)];
       const sub = id === "fiber" || id === "satfat";
+      // Energy twice over: the table sorts on kilocalories, but food labelling
+      // outside the United States leads with kilojoules. Derived here from the
+      // column already present, by the definition of the thermochemical
+      // calorie, so it cannot drift away from the figure it converts.
+      const kj = id === "kcal" && g("kcal") !== null
+        ? ` <span class="pc">· ${Math.round(g("kcal") * 4.184)} kJ</span>` : "";
       return `<div class="drow${sub ? " sub" : ""}"><dt>${esc(n.label)}</dt>
-        <dd>${(g(id) ?? 0).toFixed(n.dp)} ${n.unit}</dd></div>`;
+        <dd>${(g(id) ?? 0).toFixed(n.dp)} ${n.unit}${kj}</dd></div>`;
     }).join("") + `</dl>`
       + proteinQualityBlock(f)
       + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => {
@@ -684,6 +914,9 @@ function renderDetail() {
       ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
       ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
       <div class="per">${esc(f.cat)} · per 100 g</div>
+      <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
+        ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
+      ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
     </div>
     <div class="tabs" role="tablist" aria-label="Nutrient detail sections">
       ${tabs.map(([id, label, ic]) => `
@@ -697,24 +930,12 @@ function renderDetail() {
     <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>`;
 }
 
-/* ---------- pager + meta ---------- */
-function renderPager(total) {
-  const pages = S.per === "All" ? 1 : Math.max(1, Math.ceil(total / S.per));
-  if (S.page > pages) S.page = pages;
-  let h = `<button class="btn" type="button" data-pg="${S.page - 1}" ${S.page === 1 ? "disabled" : ""}>
-             ${I.left}<span class="sr">Previous page</span></button>`;
-  for (let p = 1; p <= pages; p++) {
-    if (pages > 7 && p > 2 && p < pages - 1 && Math.abs(p - S.page) > 1) {
-      if (p === 3) h += `<span style="padding:0 6px;color:var(--faint)">…</span>`;
-      continue;
-    }
-    h += `<button class="btn" type="button" data-pg="${p}" ${p === S.page ? 'aria-current="page"' : ""}
-      style="${p === S.page ? "background:var(--green-tint);border-color:var(--green);font-weight:600" : ""}">${p}</button>`;
-  }
-  h += `<button class="btn" type="button" data-pg="${S.page + 1}" ${S.page === pages ? "disabled" : ""}>
-          ${I.right}<span class="sr">Next page</span></button>`;
-  $("#pager").innerHTML = `<div style="display:flex;gap:6px;align-items:center">${h}</div>`;
-
+/* ---------- meta ----------
+   The table lists every food it has, in one scrolling box. It used to paginate
+   at twenty rows, which meant sorting by a column and then paging to find where
+   your food had gone, and which put a second control on the page for something
+   the scrollbar already did. */
+function renderMeta(total) {
   const c = cols().length;
   const lens = lensById(S.lens);
   $("#meta").innerHTML = `${I.info} Showing <b>${total}</b> of ${FOODS.length} foods ·
@@ -722,22 +943,339 @@ function renderPager(total) {
     (S.favsOnly ? " · favourites only" : "") + (S.dv ? " · % daily value" : "") +
     (lens ? ` · <span class="lenshint">${esc(lens.name)}</span> highlighted` : "");
   $("#favCount").textContent = S.favs.size || "";
-  $("#cmpCount").textContent = "";
+  // Counted from the entries that resolve to a food, not from the stored list.
+  // An entry naming a food that has left the dataset draws no row, so counting
+  // it here would promise one more than the view can show.
+  $("#dayCount").textContent = dayEntries().length || "";
+}
+
+/* ---------- my day ---------- */
+
+/** A total in its own units. Rounded to the nutrient's own decimal places, the
+ *  same as every other figure on the page. */
+const fmtTotal = (v, n) => v === null ? "not measured" : `${v.toFixed(n.dp)} ${n.unit}`;
+
+function renderDayList() {
+  const list = dayEntries();
+  const box = $("#dayList");
+  if (!list.length) {
+    box.innerHTML = `<div class="dayempty">
+      <b>Nothing in your day yet</b>
+      <p>Search above to add a food and say how much of it you had. Everything on
+         this page is per 100 g, and this is where that turns into what you
+         actually ate.</p>
+      ${S.favs.size ? `<p>You have ${S.favs.size} favourite${S.favs.size === 1 ? "" : "s"},
+         which come up first in the search above.</p>` : `<p>Star foods with the heart
+         button in the table and they will come up first here.</p>`}</div>`;
+    return;
+  }
+  box.innerHTML = `<div class="daylist">` + list.map(({ f, g, slug }) => `
+    <div class="dayrow" data-slug="${esc(slug)}">
+      <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
+      <span class="dayname">
+        <b>${esc(f.name)}</b>
+        <span>${f.state ? `${esc(f.state)} · ` : ""}${esc(f.cat)}</span></span>
+      <span class="dayqty">
+        <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="-10"
+          ${g <= 0 ? "disabled" : ""}>${I.minus}<span class="sr">Less ${esc(f.name)}</span></button>
+        <input type="number" inputmode="numeric" data-dayg="${esc(slug)}" value="${g}"
+          min="0" max="${DAY_MAX_G}" step="10"
+          aria-label="Grams of ${esc(f.name)}${f.state ? `, ${esc(f.state)}` : ""}">
+        <span class="u">g</span>
+        <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="10"
+          ${g >= DAY_MAX_G ? "disabled" : ""}>${I.plus}<span class="sr">More ${esc(f.name)}</span></button>
+      </span>
+      <button class="rm" type="button" data-dayrm="${esc(slug)}">${I.x}
+        <span class="sr">Remove ${esc(f.name)} from your day</span></button>
+    </div>`).join("") + `</div>
+    <div class="dayfoot">
+      <button class="btn" type="button" data-act="dayclear">${I.x} Clear the day</button>
+      <span class="push">${list.length} food${list.length === 1 ? "" : "s"} ·
+        <b>${dayGrams()} g</b> in total</span>
+    </div>`;
+}
+
+/** One row per nutrient, in the groups the sidebar has switched on, so that
+ *  control keeps the single meaning it has in the table. */
+/** Which FAO entry each amino acid is scored under, keyed by nutrient id: its
+ *  own where it stands alone, its pair's where it does not. Methionine is
+ *  spared by cysteine and phenylalanine by tyrosine, so each of those is
+ *  measured against the pair's requirement and says so on the row. The eleven
+ *  non-essential acids appear in none of the entries and get no percentage,
+ *  because FAO publishes no requirement for them. */
+/* Counted rather than typed. The first version of the note beside these said
+   "eleven", which was the number of acids the FAO entries cover rather than the
+   number they leave out. */
+const FAO_SCORED = new Set(FAO_PATTERN.flatMap(p => p.ids));
+const NON_ESSENTIAL = NUTS.filter(n => n.group === "amino" && !FAO_SCORED.has(n.id)).length;
+
+function aminoRefsByNutrient(totals) {
+  const m = new Map();
+  for (const a of dayAminoAcids(totals))
+    for (const id of a.ids)
+      m.set(id, { ...a, partners: a.ids.filter(x => x !== id) });
+  return m;
+}
+
+function renderDayTotals(totals) {
+  const list = dayContributors();
+  const box = $("#dayTotals");
+  if (!list.length) { box.innerHTML = ""; return; }
+
+  const aaRef = aminoRefsByNutrient(totals);
+  const shown = new Set();
+  const body = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
+    const rows = totals.filter(t => t.n.group === g.id).map(t => {
+      const { n, total, partial, from, of, notes } = t;
+      /* Amino acids carry no `dv`, because a gram of lysine means nothing
+         against a whole-diet figure; they are scored against the FAO/WHO
+         requirement for a body weight instead. Same percentage as the summary
+         beside this, from the same function, so the two cannot disagree. */
+      const aa = aaRef.get(n.id);
+      const pc = n.dv && total !== null ? total / n.dv * 100 : aa ? aa.pc : null;
+      const pairedWith = aa && aa.partners.length
+        ? `<span class="qual">with ${aa.partners
+            .map(id => NUTS[IDX.get(id)].label.toLowerCase()).join(" and ")}</span>` : "";
+      notes.forEach(x => shown.add(x));
+      return `<div class="totrow${total === null ? " none" : ""}">
+        <span class="totname">${esc(n.label)}${notes.map(noteMark).join("")}${pairedWith}</span>
+        <span class="totval">${total === null
+          ? `<span class="nodata">not measured</span>`
+          : `${total.toFixed(n.dp)} <span class="u">${esc(n.unit)}</span>`}</span>
+        <span class="totbar" aria-hidden="true">${pc === null ? ""
+          : `<i class="${pc >= 100 ? "full" : ""}" style="width:${Math.min(pc, 100).toFixed(1)}%"></i>`}</span>
+        <span class="totpc">${pc === null
+          ? `<span class="noref" aria-hidden="true">&ndash;</span>
+             <span class="sr">no ${n.group === "amino" ? "published requirement" : "daily value published"}</span>`
+          : `${Math.round(pc)}%`}</span>
+        <span class="totcov">${partial ? `from ${from} of ${of}` : ""}</span>
+      </div>`;
+    }).join("");
+    // data-g carries the group's colour to the heading, the same attribute and
+    // the same six colours the table header uses, so a group reads as one
+    // colour wherever it appears.
+    // Amino acids are the one group not measured against a daily value, so the
+    // column says what they are measured against instead.
+    const amino = g.id === "amino";
+    return `<div class="totgroup" data-g="${g.id}"><h4>${g.icon}${esc(g.label)}</h4>
+      <div class="tothead" aria-hidden="true">
+        <span>Nutrient</span><span>Total</span><span></span>
+        <span>${amino ? "of requirement" : "of daily value"}</span><span></span>
+      </div>${rows}
+      ${amino ? `<p class="nodatanote">Against the FAO/WHO adult requirement for
+        ${esc(weightLabel())}, which you can change in the panel beside this. The
+        ${NON_ESSENTIAL} the body can build for itself have no published requirement, so
+        they show a total only.</p>` : ""}
+    </div>`;
+  }).join("");
+
+  box.innerHTML = `<div class="totals">${body}</div>` +
+    (shown.size ? `<div class="notekey">${[...shown].map(n =>
+      `<span><sup class="fnote">${esc(n.marker)}</sup> <b>${esc(n.short)}.</b>
+       ${esc(n.text)}</span>`).join("")}</div>` : "") +
+    `<p class="nodatanote" style="margin-top:12px">Percentages use the same general adult
+     reference values as the rest of the page, and the FAO/WHO requirement for your body
+     weight where amino acids are concerned. Rows with no reference figure show a total
+     only: the fat fractions and the carotenoids are already counted inside the totals above
+     them, so a percentage would show the same intake twice.</p>`;
+}
+
+/** Always shown, whatever the totals say, because each of these is a wrong
+ *  conclusion the totals actively invite. A list of what you are short of
+ *  implies the list is complete, and it is not. */
+const DAY_NOTES = [
+  ["B12", `The one figure to check, and the one this view can most easily mislead you
+    about. Unfortified plant foods are not a source: seaweed's B12 is inactive analogues, and
+    every microgram in the yeast and soy milk rows was added by the maker. A supplement or a
+    reliably fortified food is standard advice whatever this total reads.`],
+  ["Iodine is not in this data", `USDA publishes no dependable per-food iodine figures for plant
+    foods, so there is no column and no total. It is a real requirement and a common gap on a
+    plant-based diet, and its absence here is not evidence that you have enough.`],
+  ["Intake is not absorption", `Plant iron is non-haem and absorbed poorly on its own, though
+    vitamin C in the same meal multiplies it. Calcium from oxalate-rich greens is largely
+    unavailable, and phytates in wholegrains and pulses hold back zinc and iron. A total well
+    over 100% can still leave you short.`],
+];
+
+/** The nine FAO entries, kept paired: methionine is spared by cysteine and
+ *  phenylalanine by tyrosine, so a percentage on either alone would report a
+ *  shortfall the body does not have. Rendered on its own so that changing the
+ *  body weight can redraw these rows without rebuilding the panel around the
+ *  field being typed into. */
+const aminoRows = totals => dayAminoAcids(totals).map(a =>
+  `<div class="drow"><dt>${esc(a.label)}</dt>
+    <dd>${a.got === null ? `<span class="nodata">not measured</span>`
+      : `${a.got.toFixed(2)} g <span class="pc">· ${Math.round(a.pc)}%</span>`}</dd></div>`).join("");
+
+/** The weight field, in whichever unit is chosen, plus the one control that
+ *  chooses. Two inputs in stones and pounds, because that is how the number is
+ *  said, and each carries its own label since one `for` cannot name two. */
+function weightRow() {
+  const unit = (id, label) =>
+    `<button type="button" data-wunit="${id}" aria-pressed="${S.wUnit === id}">${label}</button>`;
+  const field = (id, val, unitLabel, max, name) =>
+    `<input type="number" inputmode="numeric" id="${id}" data-w value="${val}"
+       min="0"${max ? ` max="${max}"` : ""} step="1" aria-label="Body weight in ${name}">
+     <span class="u">${unitLabel}</span>`;
+
+  const { st, lb } = kgToStLb(S.kg);
+  const fields = S.wUnit === "stlb"
+    // No maximum on pounds: 14 or more is a valid thing to type on the way to a
+    // number, and it rolls up into stones when the field is left.
+    ? field("dayStones", st, "st", 40, "stones") + field("dayPounds", lb, "lb", null, "pounds")
+    : field("dayKg", +S.kg.toFixed(1), "kg", 250, "kilograms");
+
+  return `<div class="kgrow">
+    <span class="wlbl">Body weight</span>
+    <span class="seg wunit" role="group" aria-label="Body weight unit">
+      ${unit("kg", "kg")}${unit("stlb", "st lb")}</span>
+    <span class="wfields">${fields}</span>
+  </div>`;
+}
+
+/** Whatever the fields currently say, in kilograms. */
+function readWeight() {
+  if (S.wUnit !== "stlb") return Number($("#dayKg").value);
+  return stLbToKg(Number($("#dayStones").value) || 0, Number($("#dayPounds").value) || 0);
+}
+
+function renderDaySummary(totals) {
+  const list = dayContributors();
+  const box = $("#daySum");
+  const notes = `<div class="dayadvice">` + DAY_NOTES.map(([h, p]) =>
+    `<div><b>${esc(h)}</b> ${esc(p.replace(/\s+/g, " "))}</div>`).join("") + `</div>`;
+
+  if (!list.length) {
+    box.innerHTML = `<div class="dhead"><h3>Your day</h3>
+      <div class="per">nothing added yet</div></div>
+      <div class="dbody"><p class="nodatanote" style="margin-top:0">Add a food and its
+      totals appear here, in units and as a percentage of a daily value.</p>${notes}</div>`;
+    return;
+  }
+
+  const kcal = totalOf(totals, "kcal"), protein = totalOf(totals, "protein");
+  const fibre = totalOf(totals, "fiber");
+  const head = [kcal, protein, fibre].map(t => {
+    const pc = t.n.dv && t.total !== null ? Math.round(t.total / t.n.dv * 100) : null;
+    return `<div class="drow"><dt>${esc(t.n.label)}</dt>
+      <dd>${fmtTotal(t.total, t.n)}${pc === null ? "" : ` <span class="pc">· ${pc}%</span>`}</dd></div>`;
+  }).join("");
+
+  const q = dayProteinQuality(totals);
+  // A ratio between two partial sums is a ratio between two unknowns, so it is
+  // withheld unless every listed food was measured for both.
+  const oComplete = ["ala", "la"].every(id => !totalOf(totals, id).partial);
+  const o = oComplete ? omegaRatio({ v: totals.map(t => t.total) }) : null;
+  const { short, over, budget } = dayStanding(totals);
+
+  const jump = x => `<button class="jump" type="button" data-daysort="${esc(x.id)}">
+    <span>${esc(x.label)}</span><b>${Math.round(x.pc)}%</b>
+    <span class="ar" aria-hidden="true">${I.right}</span>
+    <span class="sr">, show the foods highest in it</span></button>`;
+
+  box.innerHTML = `
+    <div class="dhead"><h3>Your day</h3>
+      <div class="per">${list.length} food${list.length === 1 ? "" : "s"} · ${dayGrams()} g</div></div>
+    <div class="dbody">
+      <dl>${head}</dl>
+
+      <h4 style="margin-top:18px">Protein quality</h4>
+      ${q ? `<dl>
+        <div class="drow"><dt>Amino acid score</dt>
+          <dd class="${q.score >= 100 ? "pc" : ""}">${q.score}%</dd></div>
+        <div class="drow"><dt>${q.score >= 100 ? "Lowest relative to need" : "Limiting amino acid"}</dt>
+          <dd>${esc(q.limiting)}</dd></div>
+        ${q.perKcal !== null ? `<div class="drow"><dt>Protein per 100 kcal</dt>
+          <dd>${q.perKcal.toFixed(1)} g</dd></div>` : ""}
+      </dl>
+      <p class="nodatanote">${q.score >= 100
+        ? `Across the whole day this meets the adult FAO/WHO pattern for every essential amino
+           acid. Foods that fall short on their own cover each other here, which is why
+           combining proteins within a single meal is not necessary.`
+        : `Scored across the day rather than per food, which is the basis that matters:
+           ${esc(q.limiting)} caps it, so adding something richer in that raises the whole day.`}</p>`
+      : `<p class="nodatanote" style="margin-top:0">No score: at least one food in your day has
+         no published amino acid analysis, and a sum that skips it would understate the day.
+         The gap is in the source data rather than in what you ate.</p>`}
+
+      <h4 style="margin-top:18px">Amino acids
+        <span class="lenscount" id="aaKg">against FAO/WHO for ${weightLabel()}</span></h4>
+      <dl id="aaRows">${aminoRows(totals)}</dl>
+      ${weightRow()}
+      <p class="nodatanote">Amino acid requirements are published per kilogram of body weight,
+      so this one figure is what the percentages above are measured against. Stones and pounds
+      are converted to it rather than kept alongside it. Nothing else on the page uses your
+      weight.</p>
+
+      ${o ? `<h4 style="margin-top:18px">Omega balance</h4><dl>
+        <div class="drow"><dt>Omega-6 : omega-3</dt>
+          <dd>${o.flip ? `1 : ${o.a.toFixed(1)}` : `${o.a.toFixed(1)} : 1`}</dd></div></dl>` : ""}
+
+      ${short.length ? `<h4 style="margin-top:18px">Short on</h4>
+        <div class="jumps">${short.slice(0, 8).map(jump).join("")}</div>
+        <p class="nodatanote">Under half a daily value. Pick one to see the foods richest in
+        it. Nutrients where any food in your day was never assayed are left out rather than
+        reported as a shortfall that might not be one.</p>` : ""}
+
+      ${over.length ? `<h4 style="margin-top:18px">Comfortable</h4>
+        <div class="jumps">${over.slice(0, 8).map(jump).join("")}</div>` : ""}
+
+      ${budget.length ? `<h4 style="margin-top:18px">Above the guideline</h4>
+        <div class="jumps">${budget.map(jump).join("")}</div>
+        <p class="nodatanote">These are the figures a daily value caps rather than sets, so
+        they are listed here when a day goes over rather than under.</p>` : ""}
+
+      ${notes}
+    </div>
+    <div class="dfoot">Totals cover only what you have listed. A gap here is as likely to mean
+      a food you have not added as a nutrient you are short of.</div>`;
+}
+
+function renderDay() {
+  const totals = dayTotals();
+  renderDayList();
+  renderDayTotals(totals);
+  renderDaySummary(totals);
 }
 
 /* ---------- master render ---------- */
 function render() {
-  const showChart = S.view === "chart";
-  $("#tableView").hidden = showChart;
+  const showChart = S.view === "chart", showDay = S.view === "day";
+  $("#browseView").hidden = showDay;
+  $("#dayView").hidden = !showDay;
+  $("#tableView").hidden = showChart || showDay;
   $("#chartView").hidden = !showChart;
-  $("#vTable").setAttribute("aria-pressed", String(!showChart));
+  $("#vTable").setAttribute("aria-pressed", String(S.view === "table"));
   $("#vChart").setAttribute("aria-pressed", String(showChart));
-  document.querySelector('[data-act="compare"]').setAttribute("aria-pressed", String(showChart));
   document.querySelector('[data-act="favs"]').setAttribute("aria-pressed", String(S.favsOnly));
-  const r = renderTable();
-  if (showChart) renderChart();
+
+  /* My day lives in the sidebar rather than in the segmented control, because
+     Table and Chart are two renderings of the same food list and this is not:
+     it is somewhere else to be. So the sidebar is the one place that switches
+     between them, and the segmented control goes away while you are here along
+     with everything else that only describes the table. */
+  $("#vDay").setAttribute("aria-pressed", String(showDay));
+  // aria-current="" reads as "not current", so remove it rather than blank it.
+  if (showDay) $("#navFoods").removeAttribute("aria-current");
+  else $("#navFoods").setAttribute("aria-current", "true");
+  for (const sel of ["#viewGrp", ".lensgrp", "#dvBtn", "#nutNote", "#meta"])
+    $(sel).hidden = showDay;
+  if (showDay) $("#lensNote").hidden = true; else renderLensNote();
+
+  /* The rows are worked out once and handed to everything that draws them, so
+     the table, the chart and the meta line cannot disagree about what is on
+     screen. The detail panel follows them: filtering to fruit used to leave it
+     still describing lentils, a food the table no longer had, which is the one
+     place two parts of the page held different ideas of one piece of state. An
+     empty result set has nothing to move to, so the panel keeps what it had. */
+  const r = rows();
+  if (r.length && !r.some(x => x.i === S.sel)) S.sel = r[0].i;
+
+  renderTable(r);
+  if (showChart) renderChart(r);
   renderDetail();
-  renderPager(r.length);
+  renderDay();
+  renderMeta(r.length);
   renderNutNote();
 }
 
@@ -778,10 +1316,8 @@ document.addEventListener("click", e => {
     return document.querySelector(`[data-tab="${S.tab}"]`)?.focus();
   }
 
-  if (t.dataset.pg) { S.page = +t.dataset.pg; render(); $("#scroller").scrollIntoView({ block: "nearest" }); return; }
-
   if (t.dataset.act === "favs") {
-    S.favsOnly = !S.favsOnly; S.page = 1;
+    S.favsOnly = !S.favsOnly;
     say(S.favsOnly
       ? `Showing favourites only, ${S.favs.size} food${S.favs.size === 1 ? "" : "s"}.`
       : "Showing all foods.");
@@ -790,21 +1326,92 @@ document.addEventListener("click", e => {
   }
   if (t.dataset.act === "clearfilters") {
     S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
-    S.cat = ""; renderCats(); S.page = 1;
+    S.cat = ""; renderCats();
     savePrefs();
     say("Search and category cleared.");
     return render();
   }
-  if (t.dataset.act === "compare") { S.view = S.view === "chart" ? "table" : "chart"; return render(); }
   if (t.dataset.dlg) return openDialog(t.dataset.dlg);
+
+  // ---- my day ----
+  if (t.dataset.dayadd !== undefined) {
+    const i = +t.dataset.dayadd;
+    const fromSearch = !!t.closest("#daySug");
+    addToDay(SLUGS[i], DEFAULT_G);
+    const now = S.day.find(e => e.slug === SLUGS[i]);
+    say(`${FOODS[i].name} in your day at ${now.g} g.`);
+    // Adding from the detail panel leaves you where you were: the count on the
+    // count in the sidebar says it landed, and being thrown into another view
+    // mid-browse is not what pressing "add" asked for.
+    if (fromSearch) { $("#dayQ").value = ""; $("#daySug").hidden = true; }
+    render();
+    // Straight to the quantity, which is the next thing anyone wants to change.
+    return fromSearch && document.querySelector(`[data-dayg="${SLUGS[i]}"]`)?.focus();
+  }
+  if (t.dataset.dayrm) {
+    const f = FOODS[BY_SLUG.get(t.dataset.dayrm)];
+    removeFromDay(t.dataset.dayrm);
+    say(`${f ? f.name : "Food"} removed from your day.`);
+    return render();
+  }
+  if (t.dataset.daystep) {
+    const slug = t.dataset.daystep;
+    const at = S.day.find(x => x.slug === slug);
+    if (!at) return;
+    setDayGrams(slug, at.g + +t.dataset.by);
+    return render();
+  }
+  if (t.dataset.wunit) {
+    if (t.dataset.wunit === S.wUnit) return;
+    S.wUnit = t.dataset.wunit === "stlb" ? "stlb" : "kg";
+    savePrefs();
+    // Only the display changes: S.kg is untouched, so switching back and forth
+    // cannot walk the weight away from what was entered.
+    renderDaySummary(dayTotals());
+    say(`Body weight in ${S.wUnit === "stlb" ? "stones and pounds" : "kilograms"}, ${weightLabel()}.`);
+    return document.querySelector("[data-w]")?.focus();
+  }
+  if (t.dataset.act === "dayclear") {
+    const n = S.day.length;
+    S.day = [];
+    savePrefs();
+    say(`Cleared ${n} food${n === 1 ? "" : "s"} from your day.`);
+    return render();
+  }
+  /* The way back to the table from a shortfall. Being told you are low on
+     selenium is only useful next to the foods that have some, and this is the
+     one click between them. */
+  if (t.dataset.daysort) {
+    const id = t.dataset.daysort, n = NUTS[IDX.get(id)];
+    S.view = "table";
+    S.sort = { id, dir: -1 };
+    // Landing on a table sorted by a column you cannot see is the same problem
+    // selecting a lens has, and gets the same answer: switch its group on.
+    const added = !S.groups.has(n.group);
+    if (added) { S.groups.add(n.group); renderGroups(); }
+    savePrefs();
+    render();
+    $("#scroller").scrollIntoView({ block: "nearest" });
+    return say(`Showing the table sorted by ${n.label}, highest first.` + (added
+      ? ` Also showing ${GROUPS.find(g => g.id === n.group).label.toLowerCase()}.` : ""));
+  }
 });
 
 $("#vTable").onclick = () => { S.view = "table"; render(); };
 $("#vChart").onclick = () => { S.view = "chart"; render(); };
-$("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); renderChart(); };
-$("#perPage").onchange = e => {
-  S.per = e.target.value === "All" ? "All" : +e.target.value; S.page = 1; savePrefs(); render();
+/* Pressing it again is the way back, the same as clicking the category you are
+   already in, so it does not become a view you can switch on but not off. */
+$("#vDay").onclick = () => {
+  S.view = S.view === "day" ? "table" : "day";
+  say(S.view === "day" ? "Showing your day." : "Showing the food table.");
+  render();
 };
+$("#navFoods").addEventListener("click", () => {
+  if (S.view !== "day") return;
+  S.view = "table";
+  render();
+});
+$("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); renderChart(rows()); };
 $("#lensSel").onchange = e => setLens(e.target.value);
 $("#dvBtn").onclick = e => {
   S.dv = !S.dv;
@@ -822,15 +1429,15 @@ $("#resetBtn").onclick = () => {
   S.cat = "";
   S.dv = false; $("#dvBtn").setAttribute("aria-pressed", "false");
   $("#dvBtn").lastChild.textContent = " Show % daily value";
-  S.favsOnly = false; S.page = 1; S.lens = "";
+  S.favsOnly = false; S.lens = "";
   savePrefs();
   renderGroups(); renderCats(); renderLensSelect(); render();
-  say("Columns and filters reset. Favourites and saved highlight groups kept.");
+  say("Columns and filters reset. Favourites, your day and saved highlight groups kept.");
 };
 
 let qt;
 $("#q").oninput = e => {
-  S.q = e.target.value; S.page = 1;
+  S.q = e.target.value;
   $("#qClear").hidden = !S.q;
   clearTimeout(qt);
   qt = setTimeout(() => { render(); say(`${rows().length} foods match.`); }, 160);
@@ -844,6 +1451,112 @@ function applyTheme() {
   $("#themeTx").textContent = S.dark ? "Light mode" : "Dark mode";
 }
 $("#themeBtn").onclick = () => { S.dark = !S.dark; applyTheme(); savePrefs(); };
+
+/* ---------- my day: adding, and quantities ----------
+   The table rows gained no button for this. A second icon beside the heart on
+   every one of 128 rows reads as an extra column of furniture, and building a
+   day is a thing people do by naming foods rather than by hunting for them. So
+   the way in is a search here and a button in the detail panel, and the table
+   stays as it was. */
+const DAY_SUGGESTIONS = 8;
+
+/** Favourites first, then the rest, so the hearts earn a second job instead of
+ *  competing with this. */
+function daySuggestions(q) {
+  const t = q.trim().toLowerCase();
+  if (!t) return [];
+  const hit = FOODS.map((f, i) => ({ f, i }))
+    .filter(({ f }) => (`${f.name} ${f.alt || ""} ${f.state || ""} ${f.cat}`)
+      .toLowerCase().includes(t));
+  const rank = ({ f, i }) =>
+    (isFav(i) ? 0 : 2) + (f.name.toLowerCase().startsWith(t) ? 0 : 1);
+  return hit.sort((a, b) => rank(a) - rank(b) || a.f.name.localeCompare(b.f.name))
+    .slice(0, DAY_SUGGESTIONS);
+}
+
+function renderDaySuggestions() {
+  const box = $("#daySug"), list = daySuggestions($("#dayQ").value);
+  box.hidden = !list.length;
+  $("#dayQ").setAttribute("aria-expanded", String(!!list.length));
+  box.innerHTML = list.map(({ f, i }) => {
+    const already = S.day.some(e => e.slug === SLUGS[i]);
+    return `<button type="button" role="option" aria-selected="false" data-dayadd="${i}">
+      <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
+      <span class="s-name"><b>${esc(f.name)}${f.alt ? ` <span class="alt">(${esc(f.alt)})</span>` : ""}</b>
+        <span>${f.state ? `${esc(f.state)} · ` : ""}${esc(f.cat)}</span></span>
+      ${isFav(i) ? `<span class="s-fav" aria-hidden="true">${I.heartFull}</span>` : ""}
+      <span class="s-add">${already ? `+${DEFAULT_G} g` : `${DEFAULT_G} g`}</span>
+      <span class="sr">${already ? `already in your day, add another ${DEFAULT_G} grams`
+        : `add ${DEFAULT_G} grams`}</span></button>`;
+  }).join("");
+}
+
+$("#dayQ").oninput = renderDaySuggestions;
+$("#dayQ").onfocus = renderDaySuggestions;
+$("#dayQ").onkeydown = e => {
+  if (e.key === "Escape") { $("#daySug").hidden = true; $("#dayQ").setAttribute("aria-expanded", "false"); return; }
+  if (e.key === "ArrowDown") { e.preventDefault(); return $("#daySug button")?.focus(); }
+  if (e.key === "Enter") { e.preventDefault(); $("#daySug button")?.click(); }
+};
+/* Arrow keys walk the list, so it can be used without a pointer and without
+   tabbing through every option to reach the one you want. */
+$("#daySug").addEventListener("keydown", e => {
+  const opts = [...$("#daySug").querySelectorAll("button")];
+  const i = opts.indexOf(e.target);
+  if (i === -1) return;
+  if (e.key === "ArrowDown") { e.preventDefault(); opts[(i + 1) % opts.length].focus(); }
+  if (e.key === "ArrowUp") { e.preventDefault(); (i ? opts[i - 1] : $("#dayQ")).focus(); }
+  if (e.key === "Escape") { e.preventDefault(); $("#daySug").hidden = true; $("#dayQ").focus(); }
+});
+/* Clicking away closes it. Checking focus rather than the click target means
+   tabbing out closes it too. */
+document.addEventListener("focusin", e => {
+  if (!$("#dayView").hidden && !e.target.closest(".dayadd")) {
+    $("#daySug").hidden = true;
+    $("#dayQ").setAttribute("aria-expanded", "false");
+  }
+});
+
+/* Typing a quantity must not redraw the field being typed into, so this updates
+   the totals and the summary and leaves the list alone. */
+$("#dayList").addEventListener("input", e => {
+  const slug = e.target.dataset?.dayg;
+  if (!slug) return;
+  setDayGrams(slug, e.target.value);
+  const totals = dayTotals();
+  renderDayTotals(totals);
+  renderDaySummary(totals);
+});
+/* Blur is where the clamped value goes back into the field: showing 5000 the
+   moment somebody types the first digit of 500 would be worse than waiting. */
+$("#dayList").addEventListener("change", e => {
+  if (e.target.dataset?.dayg) render();
+});
+
+/* Same reasoning as the quantity fields: redraw the figures the weight feeds,
+   not the field being typed into. */
+$("#daySum").addEventListener("input", e => {
+  if (e.target.dataset?.w === undefined) return;
+  S.kg = clampKg(readWeight());
+  savePrefs();
+  const totals = dayTotals();
+  $("#aaRows").innerHTML = aminoRows(totals);
+  $("#aaKg").textContent = `against FAO/WHO for ${weightLabel()}`;
+  // The amino acid column in the totals is scored against the same weight, so
+  // it has to move with it. Safe to rebuild: the field being typed into is here
+  // in the summary, not in there.
+  renderDayTotals(totals);
+});
+/* On the way out, put back what the value actually is: clamped into range, and
+   with any pounds over thirteen rolled up into stones. */
+$("#daySum").addEventListener("change", e => {
+  if (e.target.dataset?.w === undefined) return;
+  if (S.wUnit === "stlb") {
+    const { st, lb } = kgToStLb(S.kg);
+    $("#dayStones").value = st;
+    $("#dayPounds").value = lb;
+  } else $("#dayKg").value = +S.kg.toFixed(1);
+});
 
 /* roving tabindex across the detail tabs */
 document.addEventListener("keydown", e => {
@@ -861,24 +1574,60 @@ document.addEventListener("keydown", e => {
   document.querySelector(`[data-tab="${S.tab}"]`).focus();
 });
 
-/* ---------- CSV ---------- */
-function csv() {
-  const c = cols(), r = rows();
+/* ---------- CSV ----------
+   One button, and it has always meant "write out what I can currently see", so
+   in the day view it writes the day rather than the table. */
+const csvQuote = s => `"${String(s).replace(/"/g, '""')}"`;
+
+function download(lines, name) {
+  const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = Object.assign(document.createElement("a"), {
+    href: URL.createObjectURL(blob), download: name });
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+function csvTable() {
+  const c = cols(), r = rows(), q = csvQuote;
   const head = ["Food", "Also known as", "State", "Category",
                 ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit})`)];
-  const q = s => `"${String(s).replace(/"/g, '""')}"`;
   const lines = [head.map(q).join(",")].concat(r.map(({ f }) =>
     [q(f.name), q(f.alt || ""), q(f.state), q(f.cat), ...c.map(n => {
       const v = val(f, n.id);
       if (v === null) return "";
       return S.dv && n.dv ? Math.round(v / n.dv * 100) : v;
     })].join(",")));
-  const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
-  const a = Object.assign(document.createElement("a"), {
-    href: URL.createObjectURL(blob), download: "vegan-nutrients.csv" });
-  a.click(); URL.revokeObjectURL(a.href);
+  download(lines, "vegan-nutrients.csv");
   say(`Exported ${r.length} foods and ${c.length} nutrients as CSV.`);
 }
+
+/** One row per food with its quantity, then the totals, then the percentages,
+ *  then the coverage, so a partial sum stays labelled as one outside the page
+ *  as well as on it. */
+function csvDay() {
+  const c = cols(), totals = dayTotals(), list = dayContributors(), q = csvQuote;
+  const at = id => totals[IDX.get(id)];
+  const head = ["Food", "State", "Grams", ...c.map(n => `${n.label} (${n.unit})`)];
+  const lines = [head.map(q).join(",")];
+
+  for (const { f, g } of list)
+    lines.push([q(f.name), q(f.state || ""), g, ...c.map(n => {
+      const v = val(f, n.id);
+      return v === null ? "" : +(v * g / 100).toFixed(6);
+    })].join(","));
+
+  lines.push([q("Total"), q(""), dayGrams(),
+    ...c.map(n => at(n.id).total === null ? "" : +at(n.id).total.toFixed(6))].join(","));
+  lines.push([q("% of daily value"), q(""), "",
+    ...c.map(n => n.dv && at(n.id).total !== null
+      ? Math.round(at(n.id).total / n.dv * 100) : "")].join(","));
+  lines.push([q("Foods measured"), q(""), "",
+    ...c.map(n => `${at(n.id).from} of ${at(n.id).of}`).map(q)].join(","));
+
+  download(lines, "my-day.csv");
+  say(`Exported your day, ${list.length} foods and ${c.length} nutrients, as CSV.`);
+}
+
+const csv = () => S.view === "day" ? csvDay() : csvTable();
 $("#csvBtn").onclick = csv;
 
 /* ---------- custom highlight groups ---------- */
@@ -985,6 +1734,13 @@ const FORTIFIED_FOODS = Object.keys(FORTIFIED?.cells || {})
 const FLAV_IDS = ["anthocyanidins", "flavan3ols", "flavonols"];
 const FLAV_REACHED = FOODS.filter(f => FLAV_IDS.some(id => val(f, id) !== null)).length;
 
+/* And how many omega figures are approximated from an undifferentiated total
+   rather than measured as the named isomer. Counted from the note itself for
+   the same reason as the rest: the number moves whenever a food is added or a
+   column is re-pulled, and a typed one would quietly stop being true. */
+const UNDIFF = NOTES.find(n => n.id === "undifferentiated");
+const UNDIFF_CELLS = Object.values(UNDIFF?.cells || {}).flat().length;
+
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
@@ -1005,6 +1761,24 @@ const DLG = {
     <h4>Compare like for like</h4>
     <p><b>Show % daily value</b> converts every column that has a reference value into a percentage,
     which makes a milligram of selenium and a gram of protein comparable at a glance.</p>
+    <h4>Build a day and total it</h4>
+    <p>The table answers what is in a food. <b>My day</b>, in the sidebar under Favourites, answers
+    what you got. Type a food into the box at the top, say how many grams, and every one of the
+    ${NUTS.length} nutrients is totalled across the list, in its own units and as a percentage of a
+    daily value. Your favourites come up first in that search, and there is an <b>Add to my day</b>
+    button in the detail panel for when you spot something while browsing.</p>
+    <p>The summary beside it is the part worth reading. It scores the amino acids of the
+    <em>whole day</em> rather than of any one food, which is the basis that matters: cereals run short on
+    lysine and pulses on the sulphur pair, so rice and lentils together score higher than either on
+    its own. That is why combining proteins within a single meal is unnecessary. Under it,
+    <b>Short on</b> lists what fell below half a daily value, and each entry is a button that takes
+    you back to the table sorted by that nutrient, so "low on selenium" becomes "here is what has
+    some" in one click.</p>
+    <p>Two things the totals will not do. A figure summed over foods where some were never
+    assayed is marked with how many it covers, and left out of <b>Short on</b> entirely, because a
+    shortfall nobody measured is not a shortfall anybody knows about. And nothing whose daily value
+    is a budget rather than a target, saturated fat and sodium among them, is ever reported as
+    something you are short of.</p>
     <h4>Narrow it down</h4>
     <p>All three ways of narrowing the table sit in the sidebar. <b>Search</b> at the top matches
     on name, alternative name, state and category. <b>Food categories</b> filters to one group of
@@ -1013,11 +1787,11 @@ const DLG = {
     <p><b>Export CSV</b>, above the table, writes out exactly the rows and columns you can
     currently see, so narrowing the table narrows the export with it.</p>
     <h4>What gets remembered</h4>
-    <p>Your favourites, saved highlight groups, visible columns, sort order and light or dark mode
-    are kept in this browser between visits. Nothing is sent anywhere. It is stored on your own
-    machine, so it will not follow you to another device, and clearing site data will clear it.
-    <b>Reset columns</b> restores the default view but leaves your favourites and saved groups
-    alone.</p>
+    <p>Your favourites, the foods and quantities in your day, saved highlight groups, visible
+    columns, sort order and light or dark mode are kept in this browser between visits. Nothing is
+    sent anywhere. It is stored on your own machine, so it will not follow you to another device,
+    and clearing site data will clear it. <b>Reset columns</b> restores the default view but leaves
+    your favourites, your day and your saved groups alone.</p>
     <h4>Keyboard</h4>
     <p>Everything is reachable by tab. The table region itself is focusable, so you can scroll it
     sideways with the arrow keys. The detail panel tabs move with left and right arrows.</p>`],
@@ -1036,11 +1810,42 @@ const DLG = {
     Omega-3 is <b>ALA</b> and omega-6 is <b>LA</b>, the two your body cannot make. Omega-9
     (<b>oleic</b>) and omega-7 (<b>palmitoleic</b>) are the two main monounsaturated fractions, and
     both are counted inside the monounsaturated total rather than in addition to it.</p>
-    <p>One caveat. USDA reports 18:1 <em>undifferentiated</em>, meaning the figure bundles a
-    small amount of n-7 vaccenic acid in with the n-9 oleic acid. In plant foods 18:1 is
-    overwhelmingly oleic, so reading it as omega-9 is the usual convention and a close
-    approximation, but it is not a direct n-9 measurement. The 16:1 figure has no such ambiguity.
-    A few foods have no measurement at all and show a dash rather than a zero.</p>
+    <p>Some of these figures are <em>undifferentiated</em>, meaning USDA measured a chain length
+    without separating the isomers within it. Omega-9 is the clearest case: 18:1 bundles a small
+    amount of n-7 vaccenic acid in with the n-9 oleic acid. In plant foods 18:1 is overwhelmingly
+    oleic, so reading it as omega-9 is the usual convention and a close approximation, but it is
+    not a direct n-9 measurement. The 16:1 figure behind omega-7 has no such ambiguity.</p>
+    <p>ALA and LA are published both ways, and for most foods only the undifferentiated 18:3 and
+    18:2 exist. Leaving those cells empty would have emptied two thirds of both columns, including
+    pecans, macadamias, tahini, coconut and cocoa, so the undifferentiated figure is used and the
+    cell is marked with ${UNDIFF ? `a “${esc(UNDIFF.marker)}”` : "a marker"}. ${UNDIFF_CELLS} of
+    the figures in those two columns came this way, and the rest are direct measurements of the
+    named isomer. The approximation holds for the same reason it does for omega-9: in plant foods
+    18:2 is essentially all LA and 18:3 essentially all ALA. The one thing that would break it is
+    gamma-linolenic acid, an omega-6 sharing the 18:3 chain length, and the food here that carries
+    it in any quantity is hemp, which has a directly measured figure and takes no approximation.
+    A few foods have no measurement either way and show a dash rather than a zero.</p>
+    <p><b>ALA is not EPA and DHA.</b> The long-chain omega-3s that the brain, eyes and heart
+    actually use are built from ALA by a pathway that converts only a few per cent of it, less in
+    men than in women, and less still on a diet high in omega-6, which is what the two columns
+    read together are for. No whole plant food is a meaningful direct source: USDA finds EPA in
+    four of these ${FOODS.length} foods and DHA in one, all at traces as likely to be assay noise
+    as anything real, which is why neither gets a column. The dependable vegan source is an algae
+    oil supplement, which is where the fish get theirs. The seaweeds in this table are not a
+    substitute for it; the algae cultured for oil are different organisms from nori and kelp.</p>
+    <h4>The saturated fats</h4>
+    <p>The macronutrient group carries a single saturated fat total. The three columns here say
+    what it is made of, because the fractions behave differently enough that the total on its own
+    hides more than it shows. <b>Palmitic (16:0)</b> is the most abundant and the one dietary
+    advice about saturated fat is mostly about, the fraction most consistently shown to raise LDL
+    cholesterol. <b>Stearic (18:0)</b> is largely converted into oleic acid in the body and leaves
+    LDL roughly where it found it. <b>Lauric (12:0)</b> raises LDL but raises HDL alongside it.</p>
+    <p>The three are a subset of the saturated total and never the whole of it, since the shorter
+    and longer chains are left out, so they will usually sum to less than the figure above them.
+    None carries a daily value, because the saturated total already does and counting the same
+    grams twice would overstate them. Coconut is the food this makes legible: almost all of its
+    saturated fat is lauric, which is close to absent everywhere else in the table, and is why
+    coconut never sits neatly on either side of the saturated fat argument.</p>
     <h4>The plant compounds group</h4>
     <p>Five carotenoids: the orange, red and yellow pigments plants make, which is why the richest
     figures sit with the carrots, peppers, tomatoes and dark leaves rather than with the pulses and
@@ -1057,7 +1862,7 @@ const DLG = {
     These are the closest the table comes to answering "what about antioxidants", and they come
     from a different USDA release than everything else, the Database for the Flavonoid Content of
     Selected Foods. It measured only ${FLAV_REACHED} of these ${FOODS.length} foods, so these
-    columns are mostly blank, and that is the honest state of the evidence rather than an
+    columns are mostly blank, and that is the state of the evidence rather than an
     omission.</p>
     <p><b>A blank here is not a zero, and the two are worth telling apart.</b> USDA published
     individual compounds, not subclass totals, so each figure is a sum. A sum is only shown where
@@ -1068,8 +1873,13 @@ const DLG = {
     would sum a different set of subclasses for each food, so two rows could not be compared. As
     for a single antioxidant number, USDA withdrew its own ORAC database in 2012, on the grounds
     that antioxidant capacity measured in a test tube predicts nothing useful in the body.</p>
-    <p>Phytosterols, phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. SR Legacy
-    carries no figures at all for them, and reaches only 8 to 14 of these foods for phytosterols.
+    <p>Phytosterols, phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. For
+    phytic acid, isoflavones and proanthocyanidins, SR Legacy carries no figures at all.
+    Phytosterols it does carry, for 24 of these foods, but the 24 are the wrong ones. Sesame,
+    sunflower seeds and pistachios tower over a long tail of fruit and vegetables at single-figure
+    milligrams, while almonds, walnuts and avocado, the foods most associated with phytosterols,
+    have no figure whatever. A column that ranks foods by which of them happened to be assayed
+    would say more about USDA's sampling than about the foods, which is worse than no column.
     USDA's expanded flavonoid release would reach twice as many of these foods, but it gets there
     by imputing values from other foods rather than measuring them, which is the one thing this
     table will not do.</p>
@@ -1089,6 +1899,34 @@ const DLG = {
     measures like PDCAAS and DIAAS add, and plant proteins generally digest less completely than
     animal ones. And a score computed on a food with very little protein is mostly rounding noise,
     so it is not shown below about a gram per 100 g.</p>
+    <h4>What a day's totals can and cannot tell you</h4>
+    <p>The <b>My day</b> view multiplies each food by the grams you entered and adds the results
+    up. That is the only basis on which a shortfall means anything, and it is worth being clear
+    about what it does not know.</p>
+    <p><b>It only knows what you listed.</b> A nutrient reading zero is far more often a food you
+    have not added than a nutrient you are short of. Nothing here is a record of what you ate.</p>
+    <p><b>A total summed over foods that were never assayed is marked as one.</b> Cysteine has no
+    figure for ${FOODS.filter(f => val(f, "cys") === null).length} of these ${FOODS.length} foods
+    and the flavonoid columns are blank for most, so a day of half a dozen foods will routinely
+    produce sums over three of them. Those carry the count they cover, they are left out of
+    <em>Short on</em>, and the day's amino acid score is withheld altogether if any food in the
+    list is missing any of the nine. A partial sum that reads like a complete one is the same
+    failure the flavonoid columns are built to refuse, and a totals view would otherwise produce
+    it in every column rather than one.</p>
+    <p><b>Amino acids are scored against body weight.</b> FAO/WHO publishes adult requirements per
+    kilogram, so the day view takes one figure for that and defaults to 70 kg. Those targets are
+    derived from the same requirement pattern the per-food score uses, multiplied back by the
+    0.66 g/kg protein requirement the pattern is built on, so the two cannot disagree. Nothing else
+    on the page uses your weight.</p>
+    <p><b>Intake is not absorption</b>, and this is where that matters most. Plant iron is
+    non-haem and poorly absorbed alone, though vitamin C in the same meal multiplies it. Calcium
+    from oxalate-rich greens is largely unavailable. Phytates in wholegrains and pulses hold back
+    zinc and iron. A total comfortably over 100% can still leave you short, and no figure here
+    accounts for it.</p>
+    <p><b>Iodine has no column, so it has no total.</b> A view that lists what you are short of
+    implies the list is complete. It is not, and iodine is a real requirement and a common gap on a
+    plant-based diet. Nor are there upper limits: the one worth knowing unaided is selenium, where
+    a couple of Brazil nuts covers a day and a handful every day is too many.</p>
     <h4>What "daily value" means here</h4>
     <p>Percentages use general adult reference intakes: FDA Daily Values for vitamins and minerals,
     and the FAO/WHO 2007 scoring pattern where amino acids are concerned. They are a common yardstick,
@@ -1103,6 +1941,11 @@ const DLG = {
       phenylalanine by tyrosine. Judge those four columns as two pairs, not four separate rows.</li>
       <li><b>Selenium tracks the soil, not the seed.</b> The Brazil nut figure is a typical value and
       real nuts vary by more than an order of magnitude.</li>
+      <li><b>Vitamin E here is alpha-tocopherol alone.</b> It is the form that carries a daily value
+      and the one the body holds on to, but it is not the only one in food. Most nuts and seeds
+      contain more gamma-tocopherol than alpha, pumpkin seeds, pecans, walnuts and flaxseed
+      especially, and none of that is counted in this column. Read it as the vitamin E your body
+      will bank rather than as everything in the food with vitamin E activity.</li>
       <li><b>Fortification is marked where it drives the figure.</b> Most rows are for the
       unfortified food, and a commercial packet of plant milk or cereal will beat them. A few are
       the other way round, because no unfortified version of the product is really sold:
@@ -1131,7 +1974,7 @@ const DLG = {
       score of zero.</li>
     </ul>`],
   about: ["About this database", `
-    <p>A single-page reference for the nutrient content of whole plant foods: ${FOODS.length} foods
+    <p>A single-page reference for the nutrient content of plant-based wholefoods: ${FOODS.length} foods
     across ${NUTS.length} nutrients, all per 100 g, all sortable and filterable.</p>
     <h4>Why per 100 g</h4>
     <p>It is the only basis on which foods compare fairly. Bear in mind that cooked legumes and
@@ -1170,7 +2013,6 @@ loadPrefs();
 
 // Reflect restored state in the controls that hold their own value.
 applyTheme();
-$("#perPage").value = String(S.per);
 $("#dvBtn").setAttribute("aria-pressed", String(S.dv));
 if (S.dv) $("#dvBtn").lastChild.textContent = " Show raw amounts";
 

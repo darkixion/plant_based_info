@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VeganNutrients: complete plant-based nutrition database</title>
-<meta name="description" content="Browse amino acids, vitamins, minerals, omega oils, carotenoids, flavonoids and macronutrients for {{FOODCOUNT}} whole plant foods. Sortable, filterable, per 100 g.">
+<title>VeganNutrients: nutrition data for plant-based wholefoods</title>
+<meta name="description" content="Browse amino acids, vitamins, minerals, omega oils, carotenoids, flavonoids and macronutrients for {{FOODCOUNT}} plant-based wholefoods. Sortable, filterable, per 100 g.">
 <style>
 /*{{STYLES}}*/
 </style>
@@ -22,7 +22,7 @@
     </svg>
     <b>VeganNutrients</b>
   </div>
-  <p class="tagline">Complete plant-based nutrition database</p>
+  <p class="tagline">Nutrition data for plant-based wholefoods</p>
 
   <div class="search">
     <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg></span>
@@ -33,11 +33,11 @@
 
   <nav aria-label="Sections">
     <ul class="navlist">
-      <li><a href="#main" aria-current="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg> Foods</a></li>
-      <li><button class="navbtn" type="button" data-act="compare" aria-pressed="false">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20V7"/></svg> Compare foods <span class="count" id="cmpCount"></span></button></li>
+      <li><a href="#main" id="navFoods" aria-current="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg> Foods</a></li>
       <li><button class="navbtn" type="button" data-act="favs" aria-pressed="false">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg> Favourites <span class="count" id="favCount"></span></button></li>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg> Favourites <span class="count" id="favCount"></span><span class="dot"></span></button></li>
+      <li><button class="navbtn" type="button" id="vDay" aria-pressed="false">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/></svg> My day <span class="count" id="dayCount"></span><span class="dot"></span></button></li>
     </ul>
   </nav>
 
@@ -99,19 +99,21 @@
       <path d="M40 168c22-14 44-10 54 6-20 12-42 10-54-6Z" fill="#4E9226"/>
     </g>
   </svg>
-  <h1>Explore the complete nutrition of <em>vegan foods</em></h1>
-  <p>Browse <b id="totalFoods"></b> whole plant foods with full profiles: amino acids, vitamins,
+  <h1>Explore the nutrition of <em>plant-based wholefoods</em></h1>
+  <p>Browse <b id="totalFoods"></b> plant-based wholefoods: amino acids, vitamins,
      minerals, omega oils, carotenoids, flavonoids and
      macronutrients. All figures per 100&nbsp;g.</p>
 </header>
 
 <main class="sect" id="main" tabindex="-1">
   <div class="bar">
-    <span class="sectlabel" style="margin:0">View by:</span>
-    <div class="seg" role="group" aria-label="View format">
-      <button type="button" id="vTable" aria-pressed="true">Table</button>
-      <button type="button" id="vChart" aria-pressed="false">Chart</button>
-    </div>
+    <span class="viewgrp" id="viewGrp">
+      <span class="sectlabel" style="margin:0">View by:</span>
+      <span class="seg" role="group" aria-label="View format">
+        <button type="button" id="vTable" aria-pressed="true">Table</button>
+        <button type="button" id="vChart" aria-pressed="false">Chart</button>
+      </span>
+    </span>
     <span class="lensgrp">
       <span class="swatch" aria-hidden="true"></span>
       <label for="lensSel" style="font-size:14px">Highlight</label>
@@ -128,7 +130,7 @@
   <p class="meta" id="meta"></p>
   <p aria-live="polite" class="sr" id="live"></p>
 
-  <div class="split">
+  <div class="split" id="browseView">
     <div>
       <div id="tableView">
         <div class="tablewrap" id="scroller" tabindex="0" role="region"
@@ -150,27 +152,40 @@
           <div id="chartRows"></div>
         </div>
       </div>
-      <div class="bar" style="margin:14px 0 0">
-        <label for="perPage" style="font-size:14px;color:var(--muted)">Rows per page:</label>
-        <select class="sel" id="perPage">
-          <option>10</option><option selected>20</option><option>30</option><option>All</option>
-        </select>
-        <nav class="push" aria-label="Pagination" id="pager"></nav>
-      </div>
     </div>
 
     <aside class="detail" id="detail" aria-live="polite"></aside>
   </div>
 
+  <!-- ============ my day ============
+       The table answers "what is in this food". This answers "what did I get",
+       which is the only basis on which a shortfall means anything. -->
+  <div class="split" id="dayView" hidden>
+    <div>
+      <div class="dayadd">
+        <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+        <label class="sr" for="dayQ">Add a food to your day</label>
+        <input id="dayQ" type="search" placeholder="Add a food…" autocomplete="off" spellcheck="false"
+               role="combobox" aria-expanded="false" aria-controls="daySug" aria-autocomplete="list">
+        <div class="daysug" id="daySug" role="listbox" aria-label="Matching foods" hidden></div>
+      </div>
+
+      <div id="dayList"></div>
+      <div id="dayTotals"></div>
+    </div>
+
+    <aside class="detail daysum" id="daySum" aria-live="polite"></aside>
+  </div>
+
   <section class="about" aria-labelledby="aboutH">
     <h2 id="aboutH">About the nutrient data</h2>
     <div class="cols">
-      <div class="col"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>Comprehensive</h3>
+      <div class="col"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>What is covered</h3>
         <p id="compBlurb"></p></div>
       <div class="col"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h5.5A3.5 3.5 0 0 1 11 7.5V20a2.5 2.5 0 0 0-2.5-2.5H2Z"/><path d="M22 4h-5.5A3.5 3.5 0 0 0 13 7.5V20a2.5 2.5 0 0 1 2.5-2.5H22Z"/></svg></div><h3>Referenced</h3>
         <p>Figures follow USDA FoodData Central. Amino acids are derived from each food's
            per-protein profile, so they stay consistent with its protein figure.</p></div>
-      <div class="col"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Honest about limits</h3>
+      <div class="col"><div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Note about limits</h3>
         <p>These are representative values, not lab results for your packet. Cultivar,
            soil and processing all move them.</p>
         <button class="btn" type="button" data-dlg="meth" style="margin-top:12px">Read the method</button></div>

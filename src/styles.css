@@ -4,9 +4,23 @@
   --line:#E7EAE4; --line-soft:#F0F2EE; --page:#FFFFFF; --panel:#FFFFFF;
   --raise:#FAFBF9; --shadow:0 1px 2px rgba(20,32,22,.06),0 8px 24px -12px rgba(20,32,22,.10);
   --warn:#B4531B; --amber:#C08A16; --r:12px; --tap:44px;
+  /* Every panel on the page draws this one shadow. Change it here and they all
+     change; the list of what counts as a panel is the single rule near the foot
+     of this file, so a new one is added in one place too.
+     Only the colour is split out, because a light shadow on the dark theme is a
+     white halo rather than a shadow. Custom properties resolve where they are
+     used, so the dark override below reaches this declaration without it
+     needing to be written twice. */
+  --box-shadow:10px 10px 17px var(--box-shadow-colour);
+  --box-shadow-colour:lightgray;
   /* per-group column washes, sequenced so no two adjacent groups share a hue */
   --t-macro:#F3F8EF; --t-fats:#FCF4EC; --t-amino:#EDF5F7; --t-vitamin:#FBF6E8; --t-mineral:#F4F1FA;
   --t-plant:#EBF7F1;
+  /* ...and the ink that goes with each wash. One definition, used by the group
+     label in the table header and by the heading on the matching totals card,
+     so a group reads as the same colour wherever it appears. */
+  --g-macro:#3F7A1E; --g-fats:#A8623C; --g-amino:#2F7D8C; --g-vitamin:#8A6B12;
+  --g-mineral:#7A5AA8; --g-plant:#2F8C63;
   /* lens highlight, deliberately off-palette so it never reads as a group tint */
   --lens-bg:#FDEEF3; --lens-line:#C2477E; --lens-ink:#8E2F5B;
 }
@@ -15,12 +29,22 @@
   --ink:#EDF1EA; --body:#C3CCC0; --muted:#98A395; --faint:#7C8879;
   --line:#28312A; --line-soft:#212A23; --page:#10160F; --panel:#161D16;
   --raise:#1B231B; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  --box-shadow-colour:rgba(0,0,0,.62);
   --warn:#F0A16A; --amber:#E5BE55;
   --t-macro:#141C14; --t-fats:#1F1712; --t-amino:#101D20; --t-vitamin:#1D1910; --t-mineral:#181426;
   --t-plant:#0E1F19;
+  /* Lightened for the dark theme. Only macronutrients ever adapted, because it
+     alone was written as a themed variable; the other five were fixed hex and
+     sat at poor contrast on a near-black panel, vitamins worst of all at a dark
+     gold. They carry more weight now that the totals cards use them too. */
+  --g-macro:#9BD668; --g-fats:#E8A075; --g-amino:#7FC8D8; --g-vitamin:#E0C25C;
+  --g-mineral:#B79CE0; --g-plant:#6FD1A2;
   --lens-bg:#2E1520; --lens-line:#E081AE; --lens-ink:#F2AFCC;
 }
 *,*::before,*::after{box-sizing:border-box}
+/* Several things hidden by script carry a display of their own from a class
+   rule, which outranks the user-agent [hidden] rule and leaves them on screen. */
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--page); color:var(--body);
@@ -40,7 +64,10 @@ button,input,select{font:inherit; color:inherit}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 /* ---------- shell ---------- */
-.shell{display:grid; grid-template-columns:248px minmax(0,1fr); min-height:100vh}
+/* Wide enough that "Macronutrients" fits on one line beside its count and dot.
+   It is a single unbreakable word, so it cannot wrap and cannot shrink: given
+   less room it overflows and drags its count out of line with the rest. */
+.shell{display:grid; grid-template-columns:276px minmax(0,1fr); min-height:100vh}
 .side{border-right:1px solid var(--line); padding:22px 16px; position:sticky; top:0;
       height:100vh; overflow-y:auto; background:var(--panel)}
 .brand{display:flex; gap:10px; align-items:center; padding:0 8px}
@@ -54,9 +81,16 @@ button,input,select{font:inherit; color:inherit}
   color:var(--body); text-decoration:none; font-size:14.5px; min-height:40px;
 }
 .navlist a:hover,.navbtn:hover{background:var(--raise)}
+/* Flex items shrink by default, and an SVG with no intrinsic minimum shrinks to
+   nothing. On the longest label the icon was collapsing to zero width, which is
+   both a missing icon and a row whose geometry matched no other. */
+.navlist a > svg,.navbtn > svg{flex:none}
 .navbtn[aria-pressed=true],.navlist a[aria-current]{
   background:var(--green-tint); border-color:var(--green-line); color:var(--ink); font-weight:600}
-.navbtn .dot{margin-left:auto; width:9px; height:9px; border-radius:50%; background:var(--line);
+/* Only the count gets the auto margin. Two of them in one flex row splits the
+   free space between the pair, so the number floated at a position set by the
+   length of the label beside it and no two rows lined up. */
+.navbtn .dot{width:9px; height:9px; border-radius:50%; background:var(--line);
              flex:none; border:1px solid var(--line)}
 .navbtn[aria-pressed=true] .dot{background:var(--green); border-color:var(--green)}
 /* Categories carry no icon of their own. Indent by exactly the icon column so
@@ -66,7 +100,10 @@ button,input,select{font:inherit; color:inherit}
 .grouptitle{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--faint);
             font-weight:650; padding:20px 10px 8px}
 .sidecard{border:1px solid var(--line); border-radius:var(--r); padding:6px; margin-top:22px}
-.count{margin-left:auto; font-size:12px; color:var(--faint); font-variant-numeric:tabular-nums}
+/* Right-aligned in a column wide enough for the longest count in the list, so
+   1, 18 and 130 share an edge instead of each ending wherever it happens to. */
+.count{margin-left:auto; text-align:right; min-width:3ch; font-size:12px; color:var(--faint);
+       font-variant-numeric:tabular-nums; font-weight:400}
 .navbtn[aria-pressed=true] .count{color:var(--green-dark)}
 
 /* ---------- topbar + hero ---------- */
@@ -78,9 +115,10 @@ button,input,select{font:inherit; color:inherit}
 .hero{padding:16px 26px 30px; border-bottom:1px solid var(--line); position:relative; overflow:hidden}
 /* Search lives in the sidebar, alongside the other two ways of narrowing the
    table. Sized to the sidebar rather than the hero it used to sit in. */
-.search{position:relative; margin:2px 0 16px}
+.search{position:relative; margin:2px 0 16px; border-radius:10px}
 .search input{width:100%; padding:11px 36px 11px 34px; border:1px solid var(--line);
-  border-radius:10px; background:var(--panel); font-size:14px}
+  border-radius:inherit; background:var(--panel); font-size:14px;
+  appearance:none; -webkit-appearance:none}
 .search input::placeholder{color:var(--faint)}
 .search .ic{position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--faint);
             pointer-events:none; display:flex}
@@ -187,14 +225,16 @@ th.grp{text-align:left; border-left:1px solid var(--line); padding:9px 12px;
 /* A group label follows the horizontal scroll inside its own group, so a wide
    group keeps its name on screen instead of losing it off the left edge, and
    only gives way when the next group's label arrives to push it out. Sticking
-   point is the right edge of the food column plus the cell's own padding, which
-   is exactly where the label already sits at scroll zero, so it slides into
-   place with no jump. --foodw is measured after render, see syncHeadOffset(). */
-.grplabel{display:inline-block; position:sticky; left:calc(var(--foodw,210px) + 12px)}
-th.grp[data-g=amino]{color:#2F7D8C} th.grp[data-g=vitamin]{color:#8A6B12}
-th.grp[data-g=mineral]{color:#7A5AA8} th.grp[data-g=fats]{color:#A8623C}
-th.grp[data-g=plant]{color:#2F8C63}
-th.grp[data-g=macro]{color:var(--green-dark)}
+   point is the right edge of the food column plus the group cell's own 1px
+   border and 12px of padding, which is exactly where the label already sits at
+   scroll zero, so it slides into place with no jump. Both of those have to be
+   in the sum: leaving the border out puts the stuck label a pixel to the left
+   of its resting position, which is a visible twitch the moment it sticks.
+   --foodw is measured after render, see syncHeadOffset(). */
+.grplabel{display:inline-block; position:sticky; left:calc(var(--foodw,210px) + 13px)}
+th.grp[data-g=macro]{color:var(--g-macro)} th.grp[data-g=fats]{color:var(--g-fats)}
+th.grp[data-g=amino]{color:var(--g-amino)} th.grp[data-g=vitamin]{color:var(--g-vitamin)}
+th.grp[data-g=mineral]{color:var(--g-mineral)} th.grp[data-g=plant]{color:var(--g-plant)}
 /* ---- per-group column washes ----
    Specificity is deliberate: these sit at (0,1,2) so the row hover and
    selected rules at (0,1,3) below still win and row-tracking survives. */
@@ -314,6 +354,155 @@ dl{margin:0}
 .crow .val{text-align:right; font-weight:600; color:var(--ink)}
 .crow .sw{width:22px; height:22px}
 
+/* ---------- my day ---------- */
+/* Adding a food. The table rows deliberately gained no button for this, so this
+   search is the main way in and is sized and placed to look like one. */
+/* The wrapper carries the same radius as the input it wraps. It had none, so it
+   was a square box around a rounded control, and anything painted on it (the
+   panel shadow below, most visibly at the bottom-right) came out square while
+   the box you can actually see was rounded. */
+.dayadd{position:relative; margin-bottom:16px; border-radius:11px}
+.dayadd input{width:100%; padding:13px 14px 13px 40px; border:1px solid var(--line);
+  border-radius:inherit; background:var(--panel); font-size:15px;
+  appearance:none; -webkit-appearance:none}
+.dayadd input::placeholder{color:var(--faint)}
+.dayadd .ic{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--green);
+  pointer-events:none; display:flex}
+.daysug{position:absolute; z-index:8; left:0; right:0; top:calc(100% + 5px); background:var(--panel);
+  border:1px solid var(--line); border-radius:11px; padding:5px;
+  max-height:min(52vh,420px); overflow:auto}
+.daysug button{display:flex; gap:10px; align-items:center; width:100%; text-align:left; border:0;
+  background:none; padding:8px 10px; border-radius:8px; color:var(--body); min-height:46px}
+.daysug button:hover,.daysug button:focus-visible{background:var(--green-tint)}
+.daysug .sw{width:26px; height:26px}
+.daysug .s-name{display:flex; flex-direction:column; line-height:1.25; min-width:0}
+.daysug .s-name b{font-weight:600; color:var(--ink); font-size:13.5px}
+.daysug .s-name b .alt{font-weight:400; color:var(--faint)}
+.daysug .s-name > span{font-size:11.5px; color:var(--faint)}
+.daysug .s-fav{color:var(--green); line-height:0; margin-left:auto}
+.daysug .s-add{margin-left:auto; font-size:12px; color:var(--green-dark); font-weight:650;
+  border:1px solid var(--green-line); background:var(--green-tint); border-radius:6px;
+  padding:3px 7px; flex:none}
+.daysug .s-fav + .s-add{margin-left:0}
+
+.daylist{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
+  overflow:hidden}
+.dayrow{display:flex; gap:12px; align-items:center; padding:9px 12px;
+  border-bottom:1px solid var(--line-soft)}
+.dayrow:last-child{border-bottom:0}
+.dayrow .sw{width:32px; height:32px}
+.dayname{display:flex; flex-direction:column; line-height:1.25; min-width:0; flex:1}
+.dayname b{font-weight:600; color:var(--ink); font-size:14px}
+.dayname > span{font-size:11.5px; color:var(--faint)}
+.dayqty{display:flex; align-items:center; gap:2px; flex:none}
+.dayqty input{width:74px; text-align:right; padding:8px 6px; border:1px solid var(--line);
+  border-radius:8px; background:var(--panel); font-size:14px; min-height:38px;
+  font-variant-numeric:tabular-nums}
+/* The spinners duplicate the two buttons either side of the field. */
+.dayqty input::-webkit-outer-spin-button,.dayqty input::-webkit-inner-spin-button{
+  -webkit-appearance:none; margin:0}
+.dayqty input[type=number]{-moz-appearance:textfield; appearance:textfield}
+.dayqty .u{font-size:12.5px; color:var(--faint); width:14px}
+.dayqty .stp{border:1px solid var(--line); background:var(--panel); color:var(--muted);
+  border-radius:8px; padding:0; line-height:0; min-width:34px; min-height:34px;
+  display:grid; place-items:center}
+.dayqty .stp:hover:not(:disabled){background:var(--green-tint); color:var(--green-dark)}
+.dayqty .stp:disabled{opacity:.35; cursor:default}
+.dayrow .rm{border:0; background:none; color:var(--muted); padding:7px; border-radius:8px;
+  line-height:0; min-width:34px; min-height:34px; flex:none}
+.dayrow .rm:hover{background:var(--line-soft); color:var(--warn)}
+.dayfoot{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:12px 2px 0;
+  font-size:13px; color:var(--muted)}
+.dayfoot b{color:var(--ink)}
+.dayempty{border:1px dashed var(--line); border-radius:var(--r); padding:32px 24px;
+  text-align:center; color:var(--muted); background:var(--panel)}
+.dayempty b{display:block; color:var(--ink); font-size:16px; margin-bottom:8px}
+.dayempty p{margin:0 auto; max-width:52ch; font-size:13.5px}
+.dayempty p + p{margin-top:10px; color:var(--faint); font-size:12.5px}
+
+/* The totals. One row per nutrient rather than 66 columns: there is a single
+   row of data here, so the width belongs to the bar and the coverage note. */
+.totals{margin-top:22px; display:flex; flex-direction:column; gap:18px}
+.totgroup{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
+  padding:14px 16px 8px}
+/* The card heading takes its group's colour, the same one the group label
+   carries in the table header, so the two views agree about what colour a
+   group is. The icon follows through currentColor. */
+.totgroup h4{display:flex; gap:9px; align-items:center; font-size:13.5px; margin-bottom:8px;
+  padding-bottom:8px; border-bottom:1px solid var(--line-soft)}
+.totgroup[data-g=macro] h4{color:var(--g-macro)}
+.totgroup[data-g=fats] h4{color:var(--g-fats)}
+.totgroup[data-g=amino] h4{color:var(--g-amino)}
+.totgroup[data-g=vitamin] h4{color:var(--g-vitamin)}
+.totgroup[data-g=mineral] h4{color:var(--g-mineral)}
+.totgroup[data-g=plant] h4{color:var(--g-plant)}
+.totrow,.tothead{display:grid; grid-template-columns:minmax(120px,1.5fr) 110px minmax(60px,1fr) 66px 84px;
+  gap:12px; align-items:center; padding:7px 0; font-size:13.5px;
+  border-bottom:1px solid var(--line-soft)}
+.totrow:last-child{border-bottom:0}
+.tothead{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint);
+  font-weight:650; padding-bottom:5px}
+.tothead span:nth-child(2),.tothead span:nth-child(4){text-align:right}
+.totname{color:var(--body)}
+/* Methionine is scored with cysteine and phenylalanine with tyrosine, so those
+   four rows say whose requirement the percentage beside them belongs to. */
+.totname .qual{display:block; font-size:11px; color:var(--faint); line-height:1.3}
+.totval{text-align:right; color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+.totval .u{color:var(--faint); font-weight:400; font-size:12px}
+.totbar{height:7px; border-radius:4px; background:var(--line-soft); overflow:hidden}
+.totbar i{display:block; height:100%; background:var(--green); border-radius:4px}
+.totbar i.full{background:var(--green-dark)}
+.totpc{text-align:right; color:var(--green-dark); font-weight:650;
+  font-variant-numeric:tabular-nums}
+/* A dash rather than the words: two thirds of the columns carry no daily value,
+   and "no reference" spelled out on every one of them wrapped to two lines and
+   doubled the height of the amino acid list. Screen readers get the words. */
+.totpc .noref{color:var(--faint); font-weight:400}
+/* A sum over foods where some were never assayed is a partial total that looks
+   exactly like a complete one, so it never appears without saying so. */
+.totcov{font-size:11px; color:var(--warn); font-weight:600; text-align:right}
+.totrow.none .totval{font-weight:400}
+.totrow .nodata{color:var(--faint); font-style:italic; font-size:12.5px}
+@media (max-width:700px){
+  .totrow,.tothead{grid-template-columns:minmax(0,1fr) 96px 58px; }
+  .totbar,.totcov{display:none}
+  .tothead span:nth-child(3),.tothead span:nth-child(5){display:none}
+}
+
+/* The summary column, sharing the detail panel's shape so the two read as the
+   same kind of aside. */
+.daysum .dhead{padding-bottom:16px}
+.dayadd-btn{margin-top:12px}
+.inday{margin-top:8px; font-size:12px; color:var(--green-dark); font-weight:600}
+/* The label and the unit control share the first line and the fields drop to
+   their own, because "Body weight", two numbers, two unit words and a two-way
+   switch will not sit in a 300px column on one line. */
+.kgrow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px;
+  font-size:13px; color:var(--muted)}
+.kgrow .wlbl{flex:1}
+.kgrow .wfields{flex-basis:100%; display:flex; gap:6px; align-items:center}
+.kgrow input{width:72px; text-align:right; padding:7px 8px; border:1px solid var(--line);
+  border-radius:8px; background:var(--panel); min-height:36px; font-variant-numeric:tabular-nums}
+.kgrow .u{color:var(--faint); font-size:12.5px; margin-right:6px}
+.kgrow .u:last-child{margin-right:0}
+/* The toolbar segment at the size this column can spare. */
+.seg.wunit{padding:2px; flex:none}
+.seg.wunit button{padding:4px 10px; min-height:28px; font-size:12.5px}
+.jumps{display:flex; flex-direction:column; gap:4px}
+.jump{display:flex; gap:8px; align-items:center; width:100%; text-align:left; border:1px solid var(--line);
+  background:var(--panel); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--body);
+  min-height:38px}
+.jump:hover{background:var(--green-tint); border-color:var(--green-line)}
+.jump b{margin-left:auto; color:var(--ink); font-variant-numeric:tabular-nums}
+.jump .ar{color:var(--faint); line-height:0; flex:none}
+/* Shown whatever the numbers say. A view that lists what you are short of
+   implies the list is complete, and iodine alone is enough to make it not. */
+.dayadvice{margin-top:18px; display:flex; flex-direction:column; gap:10px}
+.dayadvice > div{font-size:12px; line-height:1.5; color:var(--muted); background:var(--raise);
+  border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:8px;
+  padding:9px 11px}
+.dayadvice b{color:var(--ink); display:block; margin-bottom:2px; font-size:12.5px}
+
 /* ---------- about ---------- */
 .about{background:var(--green-tint); border:1px solid var(--green-line); border-radius:var(--r);
        padding:22px; margin-top:22px}
@@ -323,9 +512,24 @@ dl{margin:0}
 .col .ic{width:30px; height:30px; border-radius:8px; background:var(--panel);
   border:1px solid var(--green-line); display:grid; place-items:center; margin-bottom:9px;
   color:var(--green)}
+/* ---------- the panel shadow ----------
+   One rule, one value. Every box on the page that reads as a panel is listed
+   here and draws --box-shadow from :root, so changing the shadow means editing
+   a single declaration and adding a panel means adding a selector to this one
+   list rather than inventing another shadow beside it.
+
+   Deliberately not here: buttons, segments, table cells and the sidebar nav.
+   They are controls rather than panels, and a 17px drop shadow on each of them
+   would bury the page. The segmented control keeps its own inset --shadow for
+   the pressed state, which says "raised", not "floating". */
+.tablewrap, .detail, .chart, .about, .sidecard, .search, .dayadd, .daysug,
+.daylist, .totgroup, .dayempty, .lensnote, .nutnote, dialog{
+  box-shadow:var(--box-shadow);
+}
+
 footer{padding:0 26px 40px; color:var(--faint); font-size:12.5px; max-width:80ch}
 dialog{border:1px solid var(--line); border-radius:var(--r); padding:0; max-width:640px;
-  width:calc(100% - 32px); background:var(--panel); color:var(--body); box-shadow:var(--shadow)}
+  width:calc(100% - 32px); background:var(--panel); color:var(--body)}
 dialog::backdrop{background:rgba(16,22,15,.45)}
 .dlghead{display:flex; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line)}
 .dlgbody{padding:20px; max-height:64vh; overflow:auto}
