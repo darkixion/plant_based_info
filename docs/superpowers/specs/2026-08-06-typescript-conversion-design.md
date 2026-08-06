@@ -25,9 +25,10 @@ types actually catch" below.
 **Minification, for size.** Worth being honest about the scale. `index.html` is
 244 kB raw but 77 kB gzipped, which is what GitHub Pages serves, and 126 kB of
 the raw figure is `nutrients.json`, which minifying JavaScript does not touch.
-Gzip already collapses most of what a minifier removes. The realistic saving is
-on the order of 10 to 15 kB gzipped. That is a real improvement and not a large
-one, and it was decided on with the number in view.
+Gzip already collapses most of what a minifier removes. The estimate was 10 to
+15 kB gzipped, and the measured figure is **11.7 kB**: the script goes from
+109.9 kB to 72.8 kB raw, and from 36.7 kB to 25.0 kB gzipped. That is a real
+improvement and not a large one, and it was decided on with the number in view.
 
 ## Pipeline
 
@@ -220,30 +221,37 @@ they cover, an incomplete flavonoid sum withheld rather than shown looking
 complete. Strict null checking makes it something the compiler will not let a
 future change forget.
 
-## The debug surface
+## The test globals: a guard test, not a debug surface
 
-The suite drives the page through eighteen top-level names, which minification
-would mangle. They are pinned as string keys at the foot of `app.ts`:
+**Revised after measurement.** This section originally specified an
+`Object.assign(window, ...)` block pinning the names against mangling. Running
+the real compile showed that block is unnecessary, so it is not being built.
 
-```ts
-Object.assign(window, { S, FOODS, GROUPS, SLUGS, BY_SLUG, dayTotals,
-  proteinQuality, omegaRatio, shown, savePrefs, render, addToDay,
-  setDayGrams, dayAminoAcids, dayProteinQuality, dayStanding, toggleGroup });
-```
+esbuild **does not mangle top-level names in a non-module script**. It cannot:
+in a classic script those names are globals, and esbuild has no way to prove
+nothing outside the script references them. Compiling the unmodified `app.js`
+with the exact command above and grepping the output confirmed all seventeen
+app-owned names the suite reaches for survive intact. The page therefore keeps
+exactly today's semantics, and no runtime code needs adding to preserve them.
 
-`DATA` and `I` are deliberately absent. `build.mjs` declares them ahead of the
-app code, outside anything esbuild touches, so they are already global and
-unmangled. Listing them would imply the app exports them.
+The eighteenth name, `DATA`, was never at risk: `build.mjs` declares it ahead of
+the app code, outside anything esbuild touches.
 
-The block carries a comment saying what it is for, because it is now the record
-of what the tests depend on. `HANDOVER.md` recorded four such names; there are
-eighteen, which is the sort of drift that happens to knowledge kept only in
-prose.
+What remains is a real fragility, and it is the one worth protecting. All of
+this holds only while `app.ts` has no `import` or `export`. Add one, and esbuild
+emits a module, every top-level name leaves the global scope, and all 100 tests
+fail at once with errors that point nowhere near the cause.
 
-**A guard test comes with it**, asserting every name in the surface is defined.
-Without it, dropping a name during a rename surfaces as a `ReferenceError` in
-whichever of the 100 tests runs first, and the debugging starts in the wrong
-place.
+So the protection is **a guard test rather than shipped code**: one test that
+probes each name with `typeof` and fails with a message naming the likely cause.
+It defends the same invariant, catches the failure mode that can actually
+happen, and adds nothing to the page a user downloads. Pinning names into
+`window` would have been insurance against a risk that does not exist, at the
+cost of a permanent public surface on the page.
+
+The list in that test is now the written record of what the suite depends on.
+`HANDOVER.md` recorded four such names; there are seventeen plus `DATA`, which
+is the sort of drift that happens to knowledge kept only in prose.
 
 ## Testing
 
