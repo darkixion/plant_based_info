@@ -86,14 +86,14 @@ const GROUPS = [
   { id: "vitamin", label: "Vitamins",       icon: I.vit   },
   { id: "mineral", label: "Minerals",       icon: I.min   },
   { id: "plant",   label: "Plant compounds", icon: I.plant },
-];
+] satisfies { id: NutrientGroup; label: string; icon: string | undefined }[];
 const IDX = new Map(NUTS.map((n, i) => [n.id, i]));
 const CATS = [...new Set(FOODS.map(f => f.cat))].sort();
 
 /* Stable per-food keys. Favourites are stored by slug, never by array index,
    so a reordered or extended food list cannot silently repoint someone's saved
    favourites at the wrong food. */
-const slugify = f => `${f.name} ${f.state || ""}`
+const slugify = (f: Food) => `${f.name} ${f.state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const SLUGS = FOODS.map(slugify);
 const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
@@ -104,8 +104,8 @@ const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
    cheaper than the alternative of never renaming a food.
    Navy beans became Haricot beans, the name the rest of this table's British
    spellings would lead you to expect. */
-const RENAMED = { "navy-beans-cooked": "haricot-beans-cooked" };
-const currentSlug = s => RENAMED[s] || s;
+const RENAMED: Record<string, string> = { "navy-beans-cooked": "haricot-beans-cooked" };
+const currentSlug = (s: string) => RENAMED[s] || s;
 
 /* ---------- per-cell notes ----------
    Some figures are true of the product but not of the food. Nutritional yeast
@@ -120,11 +120,11 @@ const NOTE_AT = new Map();
 for (const note of NOTES)
   for (const [slug, ids] of Object.entries(note.cells || {}))
     for (const id of ids) NOTE_AT.set(`${slug} ${id}`, note);
-const noteFor = (i, id) => NOTE_AT.get(`${SLUGS[i]} ${id}`) || null;
+const noteFor = (i: number, id: string) => NOTE_AT.get(`${SLUGS[i]} ${id}`) || null;
 
 /** The visible marker, plus the same thing said in words for screen readers,
  *  since a lone asterisk announces as punctuation or not at all. */
-const noteMark = note =>
+const noteMark = (note: Note) =>
   `<sup class="fnote" aria-hidden="true">${esc(note.marker)}</sup>` +
   `<span class="sr">, ${esc(note.short)}</span>`;
 
@@ -178,7 +178,7 @@ const S: State = {
 
 /** Anything that is not a usable number becomes zero rather than reaching a
  *  total: one NaN in one quantity would turn all 66 totals into NaN. */
-const clampG = g => {
+const clampG = (g: unknown) => {
   const n = Math.round(Number(g));
   return isFinite(n) && n > 0 ? Math.min(n, DAY_MAX_G) : 0;
 };
@@ -189,7 +189,7 @@ const clampG = g => {
    tenth of a pound, far too small to move a rounded pounds figure.
    Out of range clamps to the nearest end rather than snapping back to the
    default, so a half-typed number does not briefly read as 70. */
-const clampKg = kg => {
+const clampKg = (kg: number) => {
   const n = Number(kg);
   if (!isFinite(n) || n <= 0) return DEFAULT_KG;
   return Math.round(Math.min(Math.max(n, 30), 250) * 10) / 10;
@@ -202,11 +202,11 @@ const clampKg = kg => {
    source of truth to keep in sync. */
 const LB_PER_KG = 2.2046226218, LB_PER_ST = 14;
 
-const kgToStLb = kg => {
+const kgToStLb = (kg: number) => {
   const lb = Math.round(kg * LB_PER_KG);
   return { st: Math.floor(lb / LB_PER_ST), lb: lb % LB_PER_ST };
 };
-const stLbToKg = (st, lb) => (st * LB_PER_ST + lb) / LB_PER_KG;
+const stLbToKg = (st: number, lb: number) => (st * LB_PER_ST + lb) / LB_PER_KG;
 
 /** The weight as the reader chose to see it, for the heading above the amino
  *  acid rows as well as for the fields. */
@@ -234,7 +234,7 @@ function savePrefs() {
   } catch { storageOK = false; }
 }
 
-const lensById = id => id
+const lensById = (id: string) => id
   ? [...BUILTIN_LENSES, ...S.custom].find(l => l.id === id) || null
   : null;
 const lensIds = () => new Set(lensById(S.lens)?.ids || []);
@@ -247,10 +247,10 @@ function loadPrefs() {
 
   // Favourites: keep only slugs that still exist in the current dataset.
   if (Array.isArray(p.favs))
-    S.favs = new Set(p.favs.map(currentSlug).filter(s => BY_SLUG.has(s)));
+    S.favs = new Set(p.favs.map(currentSlug).filter((s: unknown) => BY_SLUG.has(s)));
 
   if (Array.isArray(p.groups)) {
-    const g = p.groups.filter(x => GROUPS.some(G => G.id === x));
+    const g = p.groups.filter((x: unknown) => GROUPS.some(G => G.id === x));
     if (g.length) S.groups = new Set(g);
   }
   if (p.sort && (p.sort.id === "__name" || IDX.has(p.sort.id)))
@@ -267,20 +267,22 @@ function loadPrefs() {
   // allowed to put a NaN into every total.
   if (Array.isArray(p.day)) {
     S.day = p.day
-      .filter(e => e && e.slug)
-      .map(e => ({ slug: currentSlug(e.slug), g: clampG(e.g) }))
-      .filter(e => BY_SLUG.has(e.slug));
+      .filter((e: { slug?: unknown; g?: unknown }) => e && e.slug)
+      .map((e: { slug?: unknown; g?: unknown }) => ({ slug: currentSlug(e.slug), g: clampG(e.g) }))
+      .filter((e: DayEntry) => BY_SLUG.has(e.slug));
   }
   if (typeof p.kg === "number" && isFinite(p.kg)) S.kg = clampKg(p.kg);
   if (p.wUnit === "kg" || p.wUnit === "stlb") S.wUnit = p.wUnit;
 
   if (Array.isArray(p.custom)) {
     S.custom = p.custom
-      .filter(l => l && typeof l.name === "string" && Array.isArray(l.ids))
-      .map(l => ({ id: String(l.id || ""), name: l.name.slice(0, 40),
-                   ids: l.ids.filter(x => IDX.has(x)),
-                   ...(typeof l.why === "string" && l.why ? { why: l.why.slice(0, 240) } : {}) }))
-      .filter(l => l.id && l.ids.length);
+      .filter((l: { id?: unknown; name?: unknown; ids?: unknown[]; why?: unknown }) =>
+        l && typeof l.name === "string" && Array.isArray(l.ids))
+      .map((l: { id?: unknown; name?: unknown; ids?: unknown[]; why?: unknown }) => ({
+        id: String(l.id || ""), name: l.name.slice(0, 40),
+        ids: l.ids.filter((x: unknown) => IDX.has(x)),
+        ...(typeof l.why === "string" && l.why ? { why: l.why.slice(0, 240) } : {}) }))
+      .filter((l: Lens) => l.id && l.ids.length);
   }
   if (typeof p.lens === "string" && lensById(p.lens)) S.lens = p.lens;
 
@@ -317,13 +319,20 @@ const targetInput = (e: Event): HTMLInputElement | null =>
 const targetAnyEl = (e: Event): Element | null =>
   e.target instanceof Element ? e.target : null;
 
-const esc = s => String(s).replace(/[&<>"']/g, c =>
+const esc = (s: unknown) => String(s).replace(/[&<>"']/g, (c: string) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const say = m => { $("#live").textContent = m; };
+const say = (m: string) => { $("#live").textContent = m; };
 
 /* ---------- data helpers ---------- */
 const cols = () => NUTS.map((n, i) => ({ ...n, i })).filter(n => S.groups.has(n.group));
-const val = (f, id) => f.v[IDX.get(id)];
+/* Takes Pick<Food, "v"> rather than Food because it reads nothing but the
+   value vector. That is also why the day view can hand it a day's totals
+   wrapped as { v: [...] } rather than a real food. */
+const val = (f: Pick<Food, "v">, id: string): number | null => {
+  const i = IDX.get(id);
+  if (i === undefined) throw new Error(`unknown nutrient id: ${id}`);
+  return f.v[i] ?? null;
+};
 
 /* ---------- the display basis ----------
    `val` is the stored figure per 100 g and must stay that way: dayTotals(),
@@ -343,7 +352,7 @@ const KCAL_BASIS = 100;
 
 /** Grams of a food that make 100 kcal. Null if it has no energy figure, since
  *  the division below has nothing to divide by. */
-function gramsPer100kcal(f) {
+function gramsPer100kcal(f: Food) {
   const k = val(f, "kcal");
   return k ? KCAL_BASIS / k * GRAMS_PER : null;
 }
@@ -357,7 +366,7 @@ const basisLabel = () => S.basis === "kcal" ? "per 100 kcal" : "per 100 g";
  *  Energy is exempt: energy per 100 kcal is 100 for every food, so the column
  *  would say nothing. The exemption is here rather than at the four call sites
  *  so the table, the sort order and the CSV cannot disagree about it. */
-function shown(f, n) {
+function shown(f: Food, n: Nutrient) {
   const v = val(f, n.id);
   if (S.basis === "g" || n.id === "kcal" || v === null || v === undefined) return v;
   const k = val(f, "kcal");
@@ -369,10 +378,10 @@ function shown(f, n) {
    show three identical labels, so a name shared by more than one food takes its
    state with it. Only the ambiguous ones, to keep the label column short. */
 const NAME_COUNT = FOODS.reduce((m, f) => m.set(f.name, (m.get(f.name) || 0) + 1), new Map());
-const fullName = f => NAME_COUNT.get(f.name) > 1 && f.state ? `${f.name}, ${f.state}` : f.name;
+const fullName = (f: Food) => NAME_COUNT.get(f.name) > 1 && f.state ? `${f.name}, ${f.state}` : f.name;
 
-const isFav = i => S.favs.has(SLUGS[i]);
-function toggleFav(i) {
+const isFav = (i: number) => S.favs.has(SLUGS[i]);
+function toggleFav(i: number) {
   isFav(i) ? S.favs.delete(SLUGS[i]) : S.favs.add(SLUGS[i]);
   // Un-starring the last favourite while filtered to favourites would leave an
   // empty table with no obvious way back, so drop the filter with it.
@@ -382,7 +391,7 @@ function toggleFav(i) {
 
 /** Plain text, for aria-labels and anywhere markup would leak. "n/a" marks a
  *  nutrient nobody has published a figure for, which is not the same as zero. */
-function fmtText(v, n) {
+function fmtText(v: number | null | undefined, n: Nutrient) {
   if (v === null || v === undefined) return "n/a";
   if (S.dv && n.dv) return v === 0 ? "0%" : Math.round((v / n.dv) * 100) + "%";
   if (v === 0) return "0";
@@ -390,7 +399,7 @@ function fmtText(v, n) {
 }
 
 /** Display form: same thing, with the "n/a" marked up so it can be greyed. */
-function fmt(v, n) {
+function fmt(v: number | null | undefined, n: Nutrient) {
   return (v === null || v === undefined)
     ? '<span class="na">n/a</span>'
     : fmtText(v, n);
@@ -415,7 +424,7 @@ const FAO_PATTERN = [
   { label: "Valine",                 ids: ["val"],        mg: 39 },
 ];
 
-function proteinQuality(f) {
+function proteinQuality(f: Pick<Food, "v">) {
   const protein = val(f, "protein");
   // Below about a gram per 100 g the ratios are dominated by rounding, and
   // calling something "a complete protein" on that basis would be misleading.
@@ -442,7 +451,7 @@ function proteinQuality(f) {
 }
 
 /** Omega-6 to omega-3, the ratio dietary guidance actually talks about. */
-function omegaRatio(f) {
+function omegaRatio(f: Pick<Food, "v">) {
   const la = val(f, "la"), ala = val(f, "ala");
   if (!la || !ala) return null;
   return la >= ala ? { a: la / ala, flip: false } : { a: ala / la, flip: true };
@@ -500,7 +509,10 @@ function dayTotals(): DayTotal[] {
   });
 }
 
-const totalOf = (totals, id) => totals[IDX.get(id)];
+const totalOf = (totals: DayTotal[], id: string): DayTotal | undefined => {
+  const i = IDX.get(id);
+  return i === undefined ? undefined : totals[i];
+};
 
 /* ---------- amino acids across a day ----------
    FAO/WHO 2007 publishes adult requirements as milligrams per kilogram of body
@@ -516,14 +528,14 @@ const PROTEIN_G_PER_KG = 0.66;
 /** Grams per day of each FAO entry for a given body weight. The pairs stay
  *  paired: methionine is spared by cysteine and phenylalanine by tyrosine, so
  *  scoring either alone would report a shortfall the body does not have. */
-const aaTargets = kg => FAO_PATTERN.map(p => ({
+const aaTargets = (kg: number) => FAO_PATTERN.map(p => ({
   label: p.label, ids: p.ids, target: p.mg * PROTEIN_G_PER_KG * kg / 1000,
 }));
 
 /** Each FAO entry totalled across the day, against its requirement.
  *  Withheld entirely where any contributing food is missing any of the acids
  *  in that entry, since a sum that skips a food understates it. */
-function dayAminoAcids(totals) {
+function dayAminoAcids(totals: DayTotal[]) {
   const list = dayContributors();
   if (!list.length) return [];
   return aaTargets(S.kg).map(t => {
@@ -547,7 +559,7 @@ function dayAminoAcids(totals) {
  *  refuses to score a food with a missing acid, and a day is no different: the
  *  score is capped by the scarcest acid, and there is no knowing whether the
  *  unmeasured one was it. */
-function dayProteinQuality(totals) {
+function dayProteinQuality(totals: DayTotal[]) {
   const list = dayContributors();
   if (!list.length) return null;
   const ids = FAO_PATTERN.flatMap(p => p.ids);
@@ -569,12 +581,12 @@ const A_BUDGET = new Set(["kcal", "carbs", "fat", "satfat", "na"]);
  *  remarking on. Partial totals are excluded rather than reported: telling
  *  someone they are short of a nutrient a third of their list was never assayed
  *  for is a fabricated conclusion, not a missing one. */
-function dayStanding(totals) {
+function dayStanding(totals: DayTotal[]) {
   const scored = totals
     .filter(t => t.n.dv && t.total !== null && !t.partial)
     .map(t => ({ id: t.n.id, label: t.n.label, pc: t.total / t.n.dv * 100,
                  budget: A_BUDGET.has(t.n.id) }));
-  const by = (a, b) => a.pc - b.pc;
+  const by = (a: { pc: number }, b: { pc: number }) => a.pc - b.pc;
   return {
     short: scored.filter(x => !x.budget && x.pc < 50).sort(by),
     over: scored.filter(x => !x.budget && x.pc >= 100).sort((a, b) => -by(a, b)),
@@ -582,7 +594,7 @@ function dayStanding(totals) {
   };
 }
 
-function addToDay(slug, g = DEFAULT_G) {
+function addToDay(slug: string, g: number = DEFAULT_G) {
   if (!BY_SLUG.has(slug)) return;
   // Adding a food already listed tops up its quantity rather than making a
   // second row that would have to be totalled and edited separately.
@@ -592,14 +604,14 @@ function addToDay(slug, g = DEFAULT_G) {
   savePrefs();
 }
 
-function setDayGrams(slug, g) {
+function setDayGrams(slug: string, g: number | string) {
   const at = S.day.find(e => e.slug === slug);
   if (!at) return;
   at.g = clampG(g);
   savePrefs();
 }
 
-function removeFromDay(slug) {
+function removeFromDay(slug: string) {
   S.day = S.day.filter(e => e.slug !== slug);
   savePrefs();
 }
@@ -632,7 +644,7 @@ function rows() {
    row of pills doing the same job, which meant two controls to keep in sync
    and two places to look. */
 function renderGroups() {
-  const counts = {};
+  const counts: Record<string, number> = {};
   NUTS.forEach(n => counts[n.group] = (counts[n.group] || 0) + 1);
   $("#groupNav").innerHTML = GROUPS.map(g => `
     <li><button class="navbtn" type="button" data-grp="${g.id}"
@@ -647,7 +659,7 @@ function renderGroups() {
    table lived in two different parts of the page. Counts come from the data, so
    a category cannot appear here with nothing in it. */
 function renderCats() {
-  const counts = {};
+  const counts: Record<string, number> = {};
   FOODS.forEach(f => counts[f.cat] = (counts[f.cat] || 0) + 1);
   const items = [["", "All foods", FOODS.length],
                  ...CATS.map(c => [c, c, counts[c]])];
@@ -658,7 +670,7 @@ function renderCats() {
       <span class="count">${n}</span><span class="dot"></span></button></li>`).join("");
 }
 
-function setCat(cat) {
+function setCat(cat: string) {
   // Clicking the category already showing is the way back to everything, so it
   // does not become a filter you can switch on but not off.
   S.cat = cat === S.cat ? "" : cat;
@@ -668,7 +680,7 @@ function setCat(cat) {
   render();
 }
 
-function toggleGroup(id) {
+function toggleGroup(id: NutrientGroup) {
   S.groups.has(id) ? S.groups.delete(id) : S.groups.add(id);
   // A table with no columns is not a view anyone asked for, so switching off the
   // last group falls back to macronutrients.
@@ -695,7 +707,7 @@ function renderLensSelect() {
   // title= gives the native option tooltip on hover; the same sentence is shown
   // in full under the toolbar once a lens is selected, since option tooltips
   // are unavailable to touch and to most screen readers.
-  const opt = l => `<option value="${esc(l.id)}"${l.id === S.lens ? " selected" : ""}` +
+  const opt = (l: Lens) => `<option value="${esc(l.id)}"${l.id === S.lens ? " selected" : ""}` +
     `${l.why ? ` title="${esc(l.why)}"` : ""}>${esc(l.name)}</option>`;
   $("#lensSel").innerHTML =
     `<option value=""${S.lens ? "" : " selected"}>None</option>` +
@@ -718,7 +730,7 @@ function renderLensNote() {
 
 /** Highlighting a nutrient whose group is switched off would highlight nothing,
  *  so selecting a lens turns on whatever groups it needs. */
-function setLens(id) {
+function setLens(id: string) {
   S.lens = lensById(id) ? id : "";
   const l = lensById(S.lens);
   if (l) {
@@ -742,7 +754,7 @@ function setLens(id) {
    header and it explains that nutrient; otherwise it falls back to whichever
    column the table is sorted by, which is what makes it reachable by touch,
    where tapping a header is how you sort. */
-let hoverNut = null;
+let hoverNut: string | null = null;
 
 /* Always on screen, never toggled. Appearing on hover would push the table down
    by its own height at the moment the pointer reaches a header, moving the
@@ -764,7 +776,7 @@ const nutOf = (e: Event): string | null => {
   const id = targetAnyEl(e)?.closest<HTMLElement>("[data-sort]")?.dataset.sort;
   return id && id !== "__name" ? id : null;
 };
-function previewNut(id) {
+function previewNut(id: string | null) {
   if (id === hoverNut) return;
   hoverNut = id;
   renderNutNote();
@@ -793,15 +805,14 @@ function layout() {
   });
 }
 
-const colClass = n => [
+const colClass = (n: ReturnType<typeof layout>[number]) => [
   n.gstart && "gstart", n.lens && "lens", n.lensL && "lensL",
   n.lensR && "lensR", n.sorted && "sorted",
 ].filter(Boolean).join(" ");
 
-function renderTable(r) {
+function renderTable(r: ReturnType<typeof rows>) {
   const c = layout(), page = r;
   const nameSorted = S.sort.id === "__name";
-  const L = lensIds();
 
   const groupHead = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
     const own = c.filter(x => x.group === g.id);
@@ -927,7 +938,7 @@ function emptyState() {
 }
 
 /* ---------- chart ---------- */
-function renderChart(all) {
+function renderChart(all: ReturnType<typeof rows>) {
   const n = NUTS[IDX.get(S.chartNut)];
   const r = all.slice().sort((a, b) => (val(b.f, n.id) ?? -1) - (val(a.f, n.id) ?? -1));
   const max = Math.max(...r.map(x => val(x.f, n.id) ?? 0), 0.0001);
@@ -952,7 +963,7 @@ function renderChart(all) {
 
 /** Derived figures, computed from the columns already in the table rather than
  *  sourced separately, so they cannot disagree with the rest of the row. */
-function proteinQualityBlock(f) {
+function proteinQualityBlock(f: Food) {
   const q = proteinQuality(f), o = omegaRatio(f);
   const aaMissing = NUTS.some(n => n.group === "amino" && val(f, n.id) === null);
   if (!q && aaMissing && (val(f, "protein") ?? 0) >= 1)
@@ -990,7 +1001,7 @@ function proteinQualityBlock(f) {
 /* ---------- detail panel ---------- */
 function renderDetail() {
   const f = FOODS[S.sel];
-  const g = id => shown(f, NUTS[IDX.get(id)]);
+  const g = (id: string) => shown(f, NUTS[IDX.get(id)]);
   const inDay = S.day.find(e => e.slug === SLUGS[S.sel]);
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
@@ -1091,7 +1102,7 @@ function renderDetail() {
    at twenty rows, which meant sorting by a column and then paging to find where
    your food had gone, and which put a second control on the page for something
    the scrollbar already did. */
-function renderMeta(total) {
+function renderMeta(total: number) {
   const c = cols().length;
   const lens = lensById(S.lens);
   $("#meta").innerHTML = `${I.info} Showing <b>${total}</b> of ${FOODS.length} foods ·
@@ -1115,7 +1126,7 @@ function renderMeta(total) {
 
 /** A total in its own units. Rounded to the nutrient's own decimal places, the
  *  same as every other figure on the page. */
-const fmtTotal = (v, n) => v === null ? "not measured" : `${v.toFixed(n.dp)} ${n.unit}`;
+const fmtTotal = (v: number | null, n: Nutrient) => v === null ? "not measured" : `${v.toFixed(n.dp)} ${n.unit}`;
 
 function renderDayList() {
   const list = dayEntries();
@@ -1171,15 +1182,15 @@ function renderDayList() {
 const FAO_SCORED = new Set(FAO_PATTERN.flatMap(p => p.ids));
 const NON_ESSENTIAL = NUTS.filter(n => n.group === "amino" && !FAO_SCORED.has(n.id)).length;
 
-function aminoRefsByNutrient(totals) {
-  const m = new Map();
+function aminoRefsByNutrient(totals: DayTotal[]) {
+  const m = new Map<string, ReturnType<typeof dayAminoAcids>[number] & { partners: string[] }>();
   for (const a of dayAminoAcids(totals))
     for (const id of a.ids)
       m.set(id, { ...a, partners: a.ids.filter(x => x !== id) });
   return m;
 }
 
-function renderDayTotals(totals) {
+function renderDayTotals(totals: DayTotal[]) {
   const list = dayContributors();
   const box = $("#dayTotals");
   if (!list.length) { box.innerHTML = ""; return; }
@@ -1264,7 +1275,7 @@ const DAY_NOTES = [
  *  shortfall the body does not have. Rendered on its own so that changing the
  *  body weight can redraw these rows without rebuilding the panel around the
  *  field being typed into. */
-const aminoRows = totals => dayAminoAcids(totals).map(a =>
+const aminoRows = (totals: DayTotal[]) => dayAminoAcids(totals).map(a =>
   `<div class="drow"><dt>${esc(a.label)}</dt>
     <dd>${a.got === null ? `<span class="nodata">not measured</span>`
       : `${a.got.toFixed(2)} g <span class="pc">· ${Math.round(a.pc)}%</span>`}</dd></div>`).join("");
@@ -1273,9 +1284,9 @@ const aminoRows = totals => dayAminoAcids(totals).map(a =>
  *  chooses. Two inputs in stones and pounds, because that is how the number is
  *  said, and each carries its own label since one `for` cannot name two. */
 function weightRow() {
-  const unit = (id, label) =>
+  const unit = (id: string, label: string) =>
     `<button type="button" data-wunit="${id}" aria-pressed="${S.wUnit === id}">${label}</button>`;
-  const field = (id, val, unitLabel, max, name) =>
+  const field = (id: string, val: number, unitLabel: string, max: number | null, name: string) =>
     `<input type="number" inputmode="numeric" id="${id}" data-w value="${val}"
        min="0"${max ? ` max="${max}"` : ""} step="1" aria-label="Body weight in ${name}">
      <span class="u">${unitLabel}</span>`;
@@ -1301,7 +1312,7 @@ function readWeight() {
   return stLbToKg(Number($<HTMLInputElement>("#dayStones").value) || 0, Number($<HTMLInputElement>("#dayPounds").value) || 0);
 }
 
-function renderDaySummary(totals) {
+function renderDaySummary(totals: DayTotal[]) {
   const list = dayContributors();
   const box = $("#daySum");
   const notes = `<div class="dayadvice">` + DAY_NOTES.map(([h, p]) =>
@@ -1330,7 +1341,7 @@ function renderDaySummary(totals) {
   const o = oComplete ? omegaRatio({ v: totals.map(t => t.total) }) : null;
   const { short, over, budget } = dayStanding(totals);
 
-  const jump = x => `<button class="jump" type="button" data-daysort="${esc(x.id)}">
+  const jump = (x: ReturnType<typeof dayStanding>["short"][number]) => `<button class="jump" type="button" data-daysort="${esc(x.id)}">
     <span>${esc(x.label)}</span><b>${Math.round(x.pc)}%</b>
     <span class="ar" aria-hidden="true">${I.right}</span>
     <span class="sr">, show the foods highest in it</span></button>`;
@@ -1617,7 +1628,7 @@ $("#resetBtn").onclick = () => {
   say("Columns and filters reset. Favourites, your day and saved highlight groups kept.");
 };
 
-let qt;
+let qt: ReturnType<typeof setTimeout>;
 const qInput = $<HTMLInputElement>("#q");
 qInput.oninput = () => {
   S.q = qInput.value;
@@ -1645,13 +1656,13 @@ const DAY_SUGGESTIONS = 8;
 
 /** Favourites first, then the rest, so the hearts earn a second job instead of
  *  competing with this. */
-function daySuggestions(q) {
+function daySuggestions(q: string) {
   const t = q.trim().toLowerCase();
   if (!t) return [];
   const hit = FOODS.map((f, i) => ({ f, i }))
     .filter(({ f }) => (`${f.name} ${f.alt || ""} ${f.state || ""} ${f.cat}`)
       .toLowerCase().includes(t));
-  const rank = ({ f, i }) =>
+  const rank = ({ f, i }: { f: Food; i: number }) =>
     (isFav(i) ? 0 : 2) + (f.name.toLowerCase().startsWith(t) ? 0 : 1);
   return hit.sort((a, b) => rank(a) - rank(b) || a.f.name.localeCompare(b.f.name))
     .slice(0, DAY_SUGGESTIONS);
@@ -1762,9 +1773,9 @@ document.addEventListener("keydown", e => {
 /* ---------- CSV ----------
    One button, and it has always meant "write out what I can currently see", so
    in the day view it writes the day rather than the table. */
-const csvQuote = s => `"${String(s).replace(/"/g, '""')}"`;
+const csvQuote = (s: unknown) => `"${String(s).replace(/"/g, '""')}"`;
 
-function download(lines, name) {
+function download(lines: string[], name: string) {
   const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
   const a = Object.assign(document.createElement("a"), {
     href: URL.createObjectURL(blob), download: name });
@@ -1794,7 +1805,7 @@ function csvTable() {
  *  as well as on it. */
 function csvDay() {
   const c = cols(), totals = dayTotals(), list = dayContributors(), q = csvQuote;
-  const at = id => totals[IDX.get(id)];
+  const at = (id: string) => totals[IDX.get(id)];
   const head = ["Food", "State", "Grams", ...c.map(n => `${n.label} (${n.unit})`)];
   const lines = [head.map(q).join(",")];
 
@@ -1906,10 +1917,10 @@ $("#lensForm").addEventListener("submit", e => {
    time a minor fruit or vegetable is added and a hardcoded one goes quietly
    wrong: it would still name three foods long after there were five. */
 const AMINO_IDS = NUTS.filter(n => n.group === "amino").map(n => n.id);
-const aminoGaps = f => AMINO_IDS.filter(id => val(f, id) === null).length;
+const aminoGaps = (f: Food) => AMINO_IDS.filter(id => val(f, id) === null).length;
 const NO_AMINOS = FOODS.filter(f => aminoGaps(f) === AMINO_IDS.length);
 const PART_AMINOS = FOODS.filter(f => aminoGaps(f) > 0 && aminoGaps(f) < AMINO_IDS.length);
-const andList = names => names.slice().sort()
+const andList = (names: string[]) => names.slice().sort()
   .join(", ").replace(/, ([^,]*)$/, " and $1");
 
 /* Likewise the foods whose figures depend on fortification: named from the note
@@ -2178,7 +2189,7 @@ const DLG = {
     supplement or reliably fortified food is standard advice on a vegan diet.</p>`],
 };
 let lastFocus: HTMLElement | null = null;
-function openDialog(k) {
+function openDialog(k: keyof typeof DLG) {
   const [t, b] = DLG[k];
   lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   $("#dlgT").textContent = t; $("#dlgB").innerHTML = b;
@@ -2192,7 +2203,7 @@ $("#dlg").addEventListener("click", e => { if (targetEl(e)?.id === "dlg") $<HTML
 $("#totalFoods").textContent = String(FOODS.length);
 
 // Derived from the data so adding a column cannot leave the prose behind.
-const GROUP_BLURB = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
+const GROUP_BLURB: Record<NutrientGroup, string> = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
                       vitamin: "vitamins", mineral: "minerals", plant: "plant compounds" };
 $("#compBlurb").textContent = `${NUTS.length} nutrients per food: ` +
   GROUPS.map(g => `${NUTS.filter(n => n.group === g.id).length} ${GROUP_BLURB[g.id]}`)
