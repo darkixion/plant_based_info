@@ -288,7 +288,28 @@ function loadPrefs() {
   S.favsOnly = p.favsOnly === true && S.favs.size > 0;
 }
 
-const $ = s => document.querySelector(s);
+/* The page's own elements are part of the build: src/index.html ships in the
+   same artifact, so a selector that does not match is a build error rather
+   than a runtime condition to handle. Throwing says so at the point of
+   failure instead of yielding null and failing further away. */
+const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => {
+  const el = document.querySelector<T>(sel);
+  if (!el) throw new Error(`missing element: ${sel}`);
+  return el;
+};
+
+/* For the handful of lookups whose element genuinely may not be on the page
+   yet, such as a suggestion button that only exists while the list is open. */
+const $opt = <T extends HTMLElement = HTMLElement>(sel: string): T | null =>
+  document.querySelector<T>(sel);
+
+/* e.target is EventTarget|null to the type system. These narrow it once, so
+   handlers stop reaching for .dataset and .closest through optional calls. */
+const targetEl = (e: Event): HTMLElement | null =>
+  e.target instanceof HTMLElement ? e.target : null;
+const targetInput = (e: Event): HTMLInputElement | null =>
+  e.target instanceof HTMLInputElement ? e.target : null;
+
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const say = m => { $("#live").textContent = m; };
@@ -651,7 +672,7 @@ function toggleGroup(id) {
   // fallback switches a group back on that nobody pressed, and that button was
   // left reading "off" while its nine columns sat there in the table. Setting
   // the attribute rather than re-rendering keeps focus on the button.
-  document.querySelectorAll("#groupNav [data-grp]").forEach(b =>
+  document.querySelectorAll<HTMLElement>("#groupNav [data-grp]").forEach(b =>
     b.setAttribute("aria-pressed", String(S.groups.has(b.dataset.grp))));
 
   const g = GROUPS.find(x => x.id === id);
@@ -861,7 +882,7 @@ function renderTable(r) {
    Measure it instead. Flooring means any leftover fraction becomes an invisible
    overlap rather than a visible gap. */
 function syncHeadOffset() {
-  const row = $("#thead").rows[0];
+  const row = $<HTMLTableSectionElement>("#thead").rows[0];
   if (!row) return;
   const h = row.getBoundingClientRect().height;
   if (h) $("#grid").style.setProperty("--head1", `${Math.floor(h)}px`);
@@ -1074,11 +1095,11 @@ function renderMeta(total) {
     (S.dv && S.basis === "kcal"
       ? ` · <span class="lenshint">5% here is a full day's worth</span> at 2000 kcal` : "") +
     (lens ? ` · <span class="lenshint">${esc(lens.name)}</span> highlighted` : "");
-  $("#favCount").textContent = S.favs.size || "";
+  $("#favCount").textContent = S.favs.size ? String(S.favs.size) : "";
   // Counted from the entries that resolve to a food, not from the stored list.
   // An entry naming a food that has left the dataset draws no row, so counting
   // it here would promise one more than the view can show.
-  $("#dayCount").textContent = dayEntries().length || "";
+  $("#dayCount").textContent = dayEntries().length ? String(dayEntries().length) : "";
 }
 
 /* ---------- my day ---------- */
@@ -1267,8 +1288,8 @@ function weightRow() {
 
 /** Whatever the fields currently say, in kilograms. */
 function readWeight() {
-  if (S.wUnit !== "stlb") return Number($("#dayKg").value);
-  return stLbToKg(Number($("#dayStones").value) || 0, Number($("#dayPounds").value) || 0);
+  if (S.wUnit !== "stlb") return Number($<HTMLInputElement>("#dayKg").value);
+  return stLbToKg(Number($<HTMLInputElement>("#dayStones").value) || 0, Number($<HTMLInputElement>("#dayPounds").value) || 0);
 }
 
 function renderDaySummary(totals) {
@@ -1379,7 +1400,7 @@ function render() {
   $("#chartView").hidden = !showChart;
   $("#vTable").setAttribute("aria-pressed", String(S.view === "table"));
   $("#vChart").setAttribute("aria-pressed", String(showChart));
-  document.querySelector('[data-act="favs"]').setAttribute("aria-pressed", String(S.favsOnly));
+  $('[data-act="favs"]').setAttribute("aria-pressed", String(S.favsOnly));
 
   /* My day lives in the sidebar rather than in the segmented control, because
      Table and Chart are two renderings of the same food list and this is not:
@@ -1413,7 +1434,10 @@ function render() {
 
 /* ---------- events ---------- */
 document.addEventListener("click", e => {
-  const t = e.target.closest("button");
+  // Not targetEl: a click on a button's own SVG icon (the heart, an "x") makes
+  // e.target an SVGElement, which targetEl's HTMLElement check would drop. All
+  // Elements have closest(), so narrow that far and no further.
+  const t = (e.target instanceof Element ? e.target : null)?.closest("button");
   if (!t) return;
 
   if (t.dataset.grp) return toggleGroup(t.dataset.grp);
@@ -1445,7 +1469,7 @@ document.addEventListener("click", e => {
   if (t.dataset.tab) {
     S.tab = t.dataset.tab;
     renderDetail();
-    return document.querySelector(`[data-tab="${S.tab}"]`)?.focus();
+    return $(`[data-tab="${S.tab}"]`).focus();
   }
 
   if (t.dataset.act === "favs") {
@@ -1457,7 +1481,7 @@ document.addEventListener("click", e => {
     return render();
   }
   if (t.dataset.act === "clearfilters") {
-    S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
+    S.q = ""; $<HTMLInputElement>("#q").value = ""; $("#qClear").hidden = true;
     S.cat = ""; renderCats();
     savePrefs();
     say("Search and category cleared.");
@@ -1475,10 +1499,10 @@ document.addEventListener("click", e => {
     // Adding from the detail panel leaves you where you were: the count on the
     // count in the sidebar says it landed, and being thrown into another view
     // mid-browse is not what pressing "add" asked for.
-    if (fromSearch) { $("#dayQ").value = ""; $("#daySug").hidden = true; }
+    if (fromSearch) { $<HTMLInputElement>("#dayQ").value = ""; $("#daySug").hidden = true; }
     render();
     // Straight to the quantity, which is the next thing anyone wants to change.
-    return fromSearch && document.querySelector(`[data-dayg="${SLUGS[i]}"]`)?.focus();
+    return fromSearch && $(`[data-dayg="${SLUGS[i]}"]`).focus();
   }
   if (t.dataset.dayrm) {
     const f = FOODS[BY_SLUG.get(t.dataset.dayrm)];
@@ -1501,7 +1525,7 @@ document.addEventListener("click", e => {
     // cannot walk the weight away from what was entered.
     renderDaySummary(dayTotals());
     say(`Body weight in ${S.wUnit === "stlb" ? "stones and pounds" : "kilograms"}, ${weightLabel()}.`);
-    return document.querySelector("[data-w]")?.focus();
+    return $("[data-w]").focus();
   }
   if (t.dataset.act === "dayclear") {
     const n = S.day.length;
@@ -1543,21 +1567,27 @@ $("#navFoods").addEventListener("click", () => {
   S.view = "table";
   render();
 });
-$("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); renderChart(rows()); };
-$("#lensSel").onchange = e => setLens(e.target.value);
-$("#basisBtn").onclick = e => {
+const chartSel = $<HTMLSelectElement>("#chartNut");
+chartSel.onchange = () => { S.chartNut = chartSel.value; savePrefs(); renderChart(rows()); };
+
+const lensSel = $<HTMLSelectElement>("#lensSel");
+lensSel.onchange = () => setLens(lensSel.value);
+
+const basisBtn = $("#basisBtn");
+basisBtn.onclick = () => {
   S.basis = S.basis === "g" ? "kcal" : "g";
   const perKcal = S.basis === "kcal";
-  e.currentTarget.setAttribute("aria-pressed", String(perKcal));
-  e.currentTarget.lastChild.textContent = perKcal ? " Show per 100 g" : " Show per 100 kcal";
+  basisBtn.setAttribute("aria-pressed", String(perKcal));
+  if (basisBtn.lastChild) basisBtn.lastChild.textContent = perKcal ? " Show per 100 g" : " Show per 100 kcal";
   say(perKcal ? "Showing figures per 100 kcal." : "Showing figures per 100 g.");
   savePrefs();
   render();
 };
-$("#dvBtn").onclick = e => {
+const dvBtn = $("#dvBtn");
+dvBtn.onclick = () => {
   S.dv = !S.dv;
-  e.currentTarget.setAttribute("aria-pressed", String(S.dv));
-  e.currentTarget.lastChild.textContent = S.dv ? " Show raw amounts" : " Show % daily value";
+  dvBtn.setAttribute("aria-pressed", String(S.dv));
+  if (dvBtn.lastChild) dvBtn.lastChild.textContent = S.dv ? " Show raw amounts" : " Show % daily value";
   say(S.dv ? "Showing percentage of daily value." : "Showing raw amounts.");
   savePrefs();
   render();
@@ -1566,12 +1596,12 @@ $("#dvBtn").onclick = e => {
    groups took effort to create and are not what "reset columns" means. */
 $("#resetBtn").onclick = () => {
   S.groups = new Set(["macro", "amino"]); S.sort = { id: "protein", dir: -1 };
-  S.q = ""; $("#q").value = ""; $("#qClear").hidden = true;
+  S.q = ""; $<HTMLInputElement>("#q").value = ""; $("#qClear").hidden = true;
   S.cat = "";
-  S.dv = false; $("#dvBtn").setAttribute("aria-pressed", "false");
-  $("#dvBtn").lastChild.textContent = " Show % daily value";
-  S.basis = "g"; $("#basisBtn").setAttribute("aria-pressed", "false");
-  $("#basisBtn").lastChild.textContent = " Show per 100 kcal";
+  S.dv = false; dvBtn.setAttribute("aria-pressed", "false");
+  if (dvBtn.lastChild) dvBtn.lastChild.textContent = " Show % daily value";
+  S.basis = "g"; basisBtn.setAttribute("aria-pressed", "false");
+  if (basisBtn.lastChild) basisBtn.lastChild.textContent = " Show per 100 kcal";
   S.favsOnly = false; S.lens = "";
   savePrefs();
   renderGroups(); renderCats(); renderLensSelect(); render();
@@ -1579,13 +1609,14 @@ $("#resetBtn").onclick = () => {
 };
 
 let qt;
-$("#q").oninput = e => {
-  S.q = e.target.value;
+const qInput = $<HTMLInputElement>("#q");
+qInput.oninput = () => {
+  S.q = qInput.value;
   $("#qClear").hidden = !S.q;
   clearTimeout(qt);
   qt = setTimeout(() => { render(); say(`${rows().length} foods match.`); }, 160);
 };
-$("#qClear").onclick = () => { S.q = ""; $("#q").value = ""; $("#qClear").hidden = true; $("#q").focus(); render(); };
+$("#qClear").onclick = () => { S.q = ""; qInput.value = ""; $("#qClear").hidden = true; qInput.focus(); render(); };
 
 function applyTheme() {
   document.documentElement.dataset.theme = S.dark ? "dark" : "";
@@ -1618,7 +1649,7 @@ function daySuggestions(q) {
 }
 
 function renderDaySuggestions() {
-  const box = $("#daySug"), list = daySuggestions($("#dayQ").value);
+  const box = $("#daySug"), list = daySuggestions($<HTMLInputElement>("#dayQ").value);
   box.hidden = !list.length;
   $("#dayQ").setAttribute("aria-expanded", String(!!list.length));
   box.innerHTML = list.map(({ f, i }) => {
@@ -1638,14 +1669,15 @@ $("#dayQ").oninput = renderDaySuggestions;
 $("#dayQ").onfocus = renderDaySuggestions;
 $("#dayQ").onkeydown = e => {
   if (e.key === "Escape") { $("#daySug").hidden = true; $("#dayQ").setAttribute("aria-expanded", "false"); return; }
-  if (e.key === "ArrowDown") { e.preventDefault(); return $("#daySug button")?.focus(); }
-  if (e.key === "Enter") { e.preventDefault(); $("#daySug button")?.click(); }
+  if (e.key === "ArrowDown") { e.preventDefault(); return $opt("#daySug button")?.focus(); }
+  if (e.key === "Enter") { e.preventDefault(); $opt("#daySug button")?.click(); }
 };
 /* Arrow keys walk the list, so it can be used without a pointer and without
    tabbing through every option to reach the one you want. */
 $("#daySug").addEventListener("keydown", e => {
-  const opts = [...$("#daySug").querySelectorAll("button")];
-  const i = opts.indexOf(e.target);
+  const opts = [...$("#daySug").querySelectorAll<HTMLElement>("button")];
+  const t = targetEl(e);
+  const i = t ? opts.indexOf(t) : -1;
   if (i === -1) return;
   if (e.key === "ArrowDown") { e.preventDefault(); opts[(i + 1) % opts.length].focus(); }
   if (e.key === "ArrowUp") { e.preventDefault(); (i ? opts[i - 1] : $("#dayQ")).focus(); }
@@ -1654,7 +1686,7 @@ $("#daySug").addEventListener("keydown", e => {
 /* Clicking away closes it. Checking focus rather than the click target means
    tabbing out closes it too. */
 document.addEventListener("focusin", e => {
-  if (!$("#dayView").hidden && !e.target.closest(".dayadd")) {
+  if (!$("#dayView").hidden && !targetEl(e)?.closest(".dayadd")) {
     $("#daySug").hidden = true;
     $("#dayQ").setAttribute("aria-expanded", "false");
   }
@@ -1663,9 +1695,9 @@ document.addEventListener("focusin", e => {
 /* Typing a quantity must not redraw the field being typed into, so this updates
    the totals and the summary and leaves the list alone. */
 $("#dayList").addEventListener("input", e => {
-  const slug = e.target.dataset?.dayg;
-  if (!slug) return;
-  setDayGrams(slug, e.target.value);
+  const input = targetInput(e);
+  if (!input?.dataset.dayg) return;
+  setDayGrams(input.dataset.dayg, input.value);
   const totals = dayTotals();
   renderDayTotals(totals);
   renderDaySummary(totals);
@@ -1673,13 +1705,13 @@ $("#dayList").addEventListener("input", e => {
 /* Blur is where the clamped value goes back into the field: showing 5000 the
    moment somebody types the first digit of 500 would be worse than waiting. */
 $("#dayList").addEventListener("change", e => {
-  if (e.target.dataset?.dayg) render();
+  if (targetEl(e)?.dataset.dayg) render();
 });
 
 /* Same reasoning as the quantity fields: redraw the figures the weight feeds,
    not the field being typed into. */
 $("#daySum").addEventListener("input", e => {
-  if (e.target.dataset?.w === undefined) return;
+  if (targetEl(e)?.dataset.w === undefined) return;
   S.kg = clampKg(readWeight());
   savePrefs();
   const totals = dayTotals();
@@ -1693,19 +1725,20 @@ $("#daySum").addEventListener("input", e => {
 /* On the way out, put back what the value actually is: clamped into range, and
    with any pounds over thirteen rolled up into stones. */
 $("#daySum").addEventListener("change", e => {
-  if (e.target.dataset?.w === undefined) return;
+  if (targetEl(e)?.dataset.w === undefined) return;
   if (S.wUnit === "stlb") {
     const { st, lb } = kgToStLb(S.kg);
-    $("#dayStones").value = st;
-    $("#dayPounds").value = lb;
-  } else $("#dayKg").value = +S.kg.toFixed(1);
+    $<HTMLInputElement>("#dayStones").value = String(st);
+    $<HTMLInputElement>("#dayPounds").value = String(lb);
+  } else $<HTMLInputElement>("#dayKg").value = String(+S.kg.toFixed(1));
 });
 
 /* roving tabindex across the detail tabs */
 document.addEventListener("keydown", e => {
-  if (!e.target.matches?.('[role="tab"]')) return;
-  const t = [...document.querySelectorAll('[role="tab"]')];
-  const i = t.indexOf(e.target);
+  const tab = targetEl(e);
+  if (!tab?.matches('[role="tab"]')) return;
+  const t = [...document.querySelectorAll<HTMLElement>('[role="tab"]')];
+  const i = t.indexOf(tab);
   let j = null;
   if (e.key === "ArrowRight") j = (i + 1) % t.length;
   if (e.key === "ArrowLeft") j = (i - 1 + t.length) % t.length;
@@ -1714,7 +1747,7 @@ document.addEventListener("keydown", e => {
   if (j === null) return;
   e.preventDefault();
   S.tab = t[j].dataset.tab; renderDetail();
-  document.querySelector(`[data-tab="${S.tab}"]`).focus();
+  $(`[data-tab="${S.tab}"]`).focus();
 });
 
 /* ---------- CSV ----------
@@ -1790,7 +1823,7 @@ function renderNutPick(chosen = new Set()) {
 }
 
 const pickedNuts = () =>
-  [...document.querySelectorAll('#nutPick input[name=nut]:checked')].map(i => i.value);
+  [...document.querySelectorAll<HTMLInputElement>('#nutPick input[name=nut]:checked')].map(i => i.value);
 
 function updateLensCount() {
   const n = pickedNuts().length;
@@ -1813,23 +1846,25 @@ function renderSavedLenses() {
 
 function openLensEditor() {
   $("#lensErr").textContent = "";
-  $("#lensName").value = "";
-  $("#lensWhy").value = "";
+  $<HTMLInputElement>("#lensName").value = "";
+  $<HTMLInputElement>("#lensWhy").value = "";
   renderSavedLenses();
   // Pre-tick whatever is highlighted now, so refining a built-in lens into your
   // own variant is a couple of clicks rather than starting from nothing.
   renderNutPick(lensIds());
-  $("#lensDlg").showModal();
+  $<HTMLDialogElement>("#lensDlg").showModal();
   $("#lensName").focus();
 }
 
 $("#lensEdit").onclick = openLensEditor;
-$("#lensCancel").onclick = () => $("#lensDlg").close();
-$("#lensX").onclick = () => $("#lensDlg").close();
+$("#lensCancel").onclick = () => $<HTMLDialogElement>("#lensDlg").close();
+$("#lensX").onclick = () => $<HTMLDialogElement>("#lensDlg").close();
 $("#nutPick").addEventListener("change", updateLensCount);
 
 $("#savedLenses").addEventListener("click", e => {
-  const b = e.target.closest("[data-rmlens]");
+  // Not targetEl: the delete button's content is an "x" SVG icon, so a click
+  // there lands on an SVGElement rather than an HTMLElement.
+  const b = (e.target instanceof Element ? e.target : null)?.closest<HTMLElement>("[data-rmlens]");
   if (!b) return;
   const id = b.dataset.rmlens;
   const gone = S.custom.find(l => l.id === id);
@@ -1842,16 +1877,16 @@ $("#savedLenses").addEventListener("click", e => {
 
 $("#lensForm").addEventListener("submit", e => {
   e.preventDefault();
-  const name = $("#lensName").value.trim();
+  const name = $<HTMLInputElement>("#lensName").value.trim();
   const ids = pickedNuts();
   if (!name) { $("#lensErr").textContent = "Give the group a name."; $("#lensName").focus(); return; }
   if (!ids.length) { $("#lensErr").textContent = "Pick at least one nutrient."; return; }
 
   const id = "c" + Date.now().toString(36);
-  const why = $("#lensWhy").value.trim().slice(0, 240);
+  const why = $<HTMLInputElement>("#lensWhy").value.trim().slice(0, 240);
   S.custom.push({ id, name: name.slice(0, 40), ids, ...(why ? { why } : {}) });
   savePrefs();
-  $("#lensDlg").close();
+  $<HTMLDialogElement>("#lensDlg").close();
   setLens(id);                       // also switches on any groups it needs
   say(`Saved highlight group ${name}, ${ids.length} nutrients.`);
 });
@@ -2133,19 +2168,19 @@ const DLG = {
     One specific note: vitamin B12 is not reliably available from unfortified plant foods, and a
     supplement or reliably fortified food is standard advice on a vegan diet.</p>`],
 };
-let lastFocus = null;
+let lastFocus: HTMLElement | null = null;
 function openDialog(k) {
   const [t, b] = DLG[k];
-  lastFocus = document.activeElement;
+  lastFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   $("#dlgT").textContent = t; $("#dlgB").innerHTML = b;
-  $("#dlg").showModal();
+  $<HTMLDialogElement>("#dlg").showModal();
 }
-$("#dlgX").onclick = () => $("#dlg").close();
+$("#dlgX").onclick = () => $<HTMLDialogElement>("#dlg").close();
 $("#dlg").addEventListener("close", () => lastFocus?.focus());
-$("#dlg").addEventListener("click", e => { if (e.target.id === "dlg") $("#dlg").close(); });
+$("#dlg").addEventListener("click", e => { if (targetEl(e)?.id === "dlg") $<HTMLDialogElement>("#dlg").close(); });
 
 /* ---------- boot ---------- */
-$("#totalFoods").textContent = FOODS.length;
+$("#totalFoods").textContent = String(FOODS.length);
 
 // Derived from the data so adding a column cannot leave the prose behind.
 const GROUP_BLURB = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
@@ -2160,10 +2195,10 @@ loadPrefs();
 
 // Reflect restored state in the controls that hold their own value.
 applyTheme();
-$("#dvBtn").setAttribute("aria-pressed", String(S.dv));
-if (S.dv) $("#dvBtn").lastChild.textContent = " Show raw amounts";
-$("#basisBtn").setAttribute("aria-pressed", String(S.basis === "kcal"));
-if (S.basis === "kcal") $("#basisBtn").lastChild.textContent = " Show per 100 g";
+dvBtn.setAttribute("aria-pressed", String(S.dv));
+if (S.dv && dvBtn.lastChild) dvBtn.lastChild.textContent = " Show raw amounts";
+basisBtn.setAttribute("aria-pressed", String(S.basis === "kcal"));
+if (S.basis === "kcal" && basisBtn.lastChild) basisBtn.lastChild.textContent = " Show per 100 g";
 
 renderGroups();
 renderCats();
