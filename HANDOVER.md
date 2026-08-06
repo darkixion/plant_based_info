@@ -5,6 +5,80 @@ everything durable that a handover note should not be holding.
 
 ## Latest session, 2026-08-06 (fifth)
 
+**`src/app.js` is now `src/app.ts`.** esbuild compiles it to a minified
+`dist/app.js`, which `build.mjs` inlines exactly where it used to inline the
+hand-written file. Nothing about the deliverable moved: one self-contained
+`index.html`, no build step at view time, no network calls, and `build.mjs`
+still imports nothing but `node:*`. 103 tests, all passing.
+
+**`npm test` now runs `tsc --noEmit` before it compiles anything**, and CI runs
+the same check as a step of its own so a type error is reported as a type error
+rather than as a failed test run. The gate was watched failing before it was
+trusted: a deliberate `const _typecheck: number = "not a number"` appended to
+`src/app.ts` stopped the run at the check step, with nothing compiled, nothing
+rebuilt and no browser started.
+
+The page is **11.1 kB smaller gzipped**, 77.2 kB down to 66.2 kB, and the script
+11.2 kB, 36.7 kB down to 25.5 kB. `nutrients.json` is most of what remains, so
+this is close to the ceiling for minification alone. The README carries the raw
+byte counts and the reasoning.
+
+**The error count, as a record: 304 at the start, then 230 once the dataset had
+a shape, then 231, 222, 215, 186, 185, 81, 86, and 0.** It went up twice, which
+is the interesting part rather than a wobble. Both rises were the checks
+starting to bite somewhere a too-confident type had been holding them off, so
+the count rising was the previous step having landed rather than a step going
+backwards.
+
+**What the conversion found is the answer to whether it was worth doing.**
+
+- **Two real display bugs, both live in the shipped page**, both the same
+  species: a fabricated zero standing in for a measurement that does not exist.
+  They are described in full below. **Neither was caught by the 101 tests that
+  existed at the time.** The suite was green through both, for months. Each now
+  has a regression test.
+- **Three errors in this project's own planning and design documents**, each a
+  claim about the code that the compiler disproved: `dv` typed non-nullable when
+  35 of the 66 nutrients have no daily value, `View` missing `"day"` when My day
+  is a third view, and the belief that typing a function's return annotates its
+  consumers' parameters, which TypeScript never does. Corrected in `c49091a`
+  rather than left to mislead the next reader.
+- **One flaw in the DOM helpers as designed**, found only because the suite
+  drives a real browser rather than a simulated one. `targetEl` narrows with
+  `instanceof HTMLElement`, `SVGElement` does not inherit from `HTMLElement`,
+  and this app's buttons contain inline SVG icons, so a click landing on an icon
+  was silently dropped. `targetAnyEl` floors at `Element` and is what every
+  delegated handler uses now.
+
+**The open list used to say the tests drive four globals. It is seventeen
+app-owned names, plus `DATA`**, which `build.mjs` declares in the page shell
+rather than in the app. That item is gone from the list now, so the correction
+lives here. The seventeen come through minification intact because esbuild does
+not mangle top-level names in a non-module script, which is a property of the
+output format rather than a setting anyone picked. It is also why the guard test
+is worth more than the pinned export list the old note proposed as the
+alternative: a list has to be kept in step with the file, and the test simply
+asks the built page. And it is why **`src/app.ts` must never gain an `import` or
+an `export`**, since either one switches esbuild to module output and takes all
+seventeen out of the global scope at once. The README says this at length.
+
+**Deliberately not done**, so nobody wonders whether it was forgotten:
+`styles.css` is not minified, `app.ts` is not split into modules, and
+`build.mjs`, `tools/*.mjs` and `test/smoke.mjs` are not type-checked. The module
+split is the one that would actively do harm, for the reason just given.
+
+Three minor things were left as they are:
+
+- **`GROUPS`'s `icon` is still `string | undefined`.** The clean fix was
+  narrowing the ambient `declare const I`, the icon blob `build.mjs` injects,
+  and that was outside this session's scope.
+- **`val()` is now called at module-evaluation time in two places**, so a typo in
+  a literal nutrient id there blanks the page rather than showing a wrong count.
+  That is the loud-over-silent trade this project wants, but the blast radius
+  moved and it is worth knowing before making the next edit near them.
+- **`npm install` prints an `allow-scripts` warning** for esbuild's postinstall
+  script. It does not block anything, including a clean `npm ci`.
+
 **`src/app.ts` type-checks clean under `strict`, with `noUncheckedIndexedAccess`
 and `exactOptionalPropertyTypes` on.** The last 86 errors were each a question
 about what a missing value meant, and two of them turned out to be bugs that
@@ -84,7 +158,7 @@ and the pinned food column, and `--raise-warm-deep` for the segmented control's
 groove and a hovered button. Buttons joined the shared panel-shadow rule, which
 had documented them as deliberately excluded; the comment was rewritten rather
 than left arguing with the code. And **no colour may be written into a rule any
-more** — a test walks every rule in the built page and fails on a literal
+more**, because a test walks every rule in the built page and fails on a literal
 outside `:root` and `[data-theme=dark]`. It caught five: white on the two green
 fills, the food swatch's hairline and highlight, and the dialog backdrop.
 
@@ -260,10 +334,13 @@ public, so pushing stays the owner's call.
 
 - **131 foods x 66 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
-- `npm test` runs 90 browser tests against the built page. All passing, and CI
-  runs them too, along with a check that `index.html` matches `src/`.
-- `npm run build` turns `src/` into a single self-contained `index.html`.
-  **Edit `src/`, never `index.html`.**
+- `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
+  103 browser tests against the result. All passing, and CI runs the same, along
+  with a check that `dist/app.js` matches `src/app.ts` and `index.html` matches
+  `src/`.
+- `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
+  self-contained `index.html`. **Edit `src/`, never `index.html` and never
+  `dist/app.js`.** Both are generated, and both are committed on purpose.
 - **The project is entirely within this directory.** Copies of the built page
   once lived in `~/Downloads`; they are abandoned and out of scope. `index.html`
   in the repo is the only build that matters, and nothing needs syncing to
@@ -344,20 +421,6 @@ dependencies and must keep none.
 
 ## Open, in rough order of value
 
-- **Convert `app.js` to TypeScript**, which then allows the output to be
-  minified and should turn up bugs on the way. Requested 2026-08-06, to be done
-  in its own session. Two things to settle before starting. The deliverable is
-  still one self-contained `index.html` with no build step at view time, so the
-  compiler output has to be inlined by `build.mjs` exactly as `app.js` is now,
-  and `build.mjs` itself has no dependencies by design — a `tsc` step is a
-  developer dependency in the same category as the `.accdb` reader in
-  `flavonoids.mjs`, and belongs behind the same line. And the 100 browser tests
-  drive the built page through globals (`S`, `DATA`, `dayTotals()`,
-  `proteinQuality()`), so minification must not rename them or the whole suite
-  goes dark at once; either the tests move off globals first, or those names are
-  pinned as exported. The dataset already has a shape worth typing: `v` arrays
-  positionally matched to the nutrient list is precisely the error the build
-  currently catches at runtime.
 - **Re-pull the whole fat group from the mapped rows.** This has grown since it
   was written. Six foods have existing MUFA totals that disagree with their USDA
   row, so their omega-9 and omega-7 are withheld; four more disagree on
@@ -403,9 +466,15 @@ dependencies and must keep none.
   it gets no amino acid score, which is correct rather than a gap to fill. The
   flavonoid columns extend this to partial measurements: an incomplete sum is
   withheld rather than shown looking like a complete one.
+- **A strict-null error is never resolved by substituting a value.** No `|| 0`
+  and no `?? 0` on a nutrition figure. It compiles, it passes the tests, and it
+  puts an invented number in front of a reader, which is the rule above broken
+  by the tool meant to enforce it. That is exactly how both bugs this session
+  found got there. Withhold the figure, propagate the null, or guard the call
+  site.
 - **Prose that describes the data derives from the data.** The amino acid gap
   list, the fortified food list and the flavonoid coverage count are all
-  computed in `app.js` and asserted in the tests, because each of them had or
+  computed in `app.ts` and asserted in the tests, because each of them had or
   would have drifted silently behind the table.
 - **`tools/usda.mjs pull` refuses to write a value that contradicts a total
   already in the table**, and `build.mjs` enforces the same constraint.

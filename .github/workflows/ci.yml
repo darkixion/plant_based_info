@@ -21,7 +21,11 @@ jobs:
       # build, so the runner needs one of the two installed.
       - run: npx playwright install --with-deps chromium
 
-      # Builds first, then drives the built page in a real browser.
+      # Runs inside npm test as well. Listed separately so a type error is
+      # reported as a type error rather than as a failed test run.
+      - run: npm run check
+
+      # Type-checks, builds, then drives the built page in a real browser.
       - run: npm test
 
       # dist/app.js is generated but committed, same reasoning as index.html
