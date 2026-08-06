@@ -19,11 +19,10 @@ public, so pushing stays the owner's call.
 - `npm test` runs 50 browser tests against the built page. All passing.
 - `npm run build` turns `src/` into a single self-contained `index.html`.
   **Edit `src/`, never `index.html`.**
-- `~/Downloads/vegan-nutrients.html` is a copy of the built page, **currently
-  stale**: it predates the last three batches of foods and the sticky group
-  labels. Re-copy it from `index.html` if it should stay current. The
-  pre-existing backup is at
-  `~/Downloads/vegan-nutrients.backup-20260805-161505.html`.
+- **The project is entirely within this directory.** Copies of the built page
+  once lived in `~/Downloads`; they are abandoned and out of scope. `index.html`
+  in the repo is the only build that matters, and nothing needs syncing to
+  anywhere outside the checkout.
 
 ## What changed
 
