@@ -1,3 +1,35 @@
+/* ---------- the data ----------
+   Shapes transcribed from src/data/nutrients.json as it actually is. Every
+   nutrient carries all seven fields and every food all five; `alt` is the only
+   genuinely optional key, on 41 of 131 foods.
+   `notes` is optional because build.mjs and this file both read it as
+   `data.notes || []`. The type describes what the code believes, not what
+   today's data file happens to contain. */
+type NutrientGroup = "macro" | "fats" | "amino" | "vitamin" | "mineral" | "plant";
+type Unit = "kcal" | "g" | "mg" | "µg";
+
+interface Nutrient {
+  id: string; label: string; group: NutrientGroup;
+  unit: Unit; dv: number | null; dp: number; why: string;
+}
+/* 35 of 66 nutrients have no daily value (sugars, water, most fatty acids,
+   all amino acids, most carotenoids and flavonoids). Every read must decide
+   what to do about that. */
+interface Food {
+  name: string; state: string; cat: string; colour: string;
+  alt?: string; v: readonly (number | null)[];
+}
+interface Note {
+  id: string; marker: string; short: string; text: string;
+  cells: Record<string, string[]>;
+}
+interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
+
+/* Both are declared by build.mjs ahead of this file, inside the same script.
+   They are not owned by this file and must not be redeclared here. */
+declare const DATA: Dataset;
+declare const I: Record<string, string>;
+
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
 const GROUPS = [
   { id: "macro",   label: "Macronutrients", icon: I.macro },
