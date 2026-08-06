@@ -3,7 +3,35 @@
 Written 2026-08-05, updated 2026-08-06. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-06 (second)
+## Latest session, 2026-08-06 (third)
+
+**Wheatgerm added**, by the documented route: an entry in
+`tools/food-additions.json`, then `node tools/usda.mjs add`. 131 foods, 90 tests,
+all passing.
+
+SR Legacy has two candidate rows and the choice between them is the whole of
+this change, so it is written down rather than left to be found again:
+
+- **`173896` "Cereals ready-to-eat, wheat germ, toasted, plain"** is what it maps
+  to. It fills all 63 SR Legacy columns, which only tomatoes has managed before,
+  including **vitamin E at 15.99 mg** and a full 18-amino-acid profile.
+- **`168892` "Wheat germ, crude"** is the raw row, and it fills 53. The gaps are
+  vitamin E, vitamin K, choline, sugars and all five carotenoids. Leaving the
+  table's richest vitamin E food showing "no data" in the vitamin E column is a
+  worse falsehood than the toasted state is, and the state is stated.
+- **The breakfast-cereal category is not fortification.** That was the thing to
+  check, given the yeast extract row. USDA records "Vitamin E, added 0",
+  "Vitamin B-12, added 0" and "Folic acid 0" for `173896`, so every figure in it
+  is native to the food. No fortification note was needed.
+
+Named **Wheatgerm** with "Wheat germ" as the alternative name, on the same
+footing as Adzuki/Aduki and Pak choi/Bok choy: search is a plain substring match
+over name, alt, state and category, so without the alt the two-word spelling
+finds nothing. Omega-3 and omega-6 both came from the undifferentiated ids and
+carry the "†" marker per cell. No flavonoid row, so those three columns stay
+empty; coverage is unchanged at 25, 36 and 39.
+
+## Earlier session, 2026-08-06 (second)
 
 **"My day" shipped.** A sidebar destination beside Foods and Favourites: list foods with
 quantities in grams, and every nutrient is totalled in its own units and as a
@@ -145,7 +173,7 @@ Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything is
 committed and pushed. The GitHub remote (`darkixion/plant_based_info`) is
 public, so pushing stays the owner's call.
 
-- **130 foods x 66 nutrients**, sourced from USDA SR Legacy plus the USDA
+- **131 foods x 66 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` runs 90 browser tests against the built page. All passing, and CI
   runs them too, along with a check that `index.html` matches `src/`.
@@ -198,8 +226,8 @@ Content of Selected Foods, Release 3.3. `tools/flavonoids.mjs` does the
 extraction, the join and the pull, and `README.md` explains every decision in
 it. The parts most likely to be re-litigated:
 
-- **52 of 130 foods have a flavonoid row at all**, and after the completeness
-  rule below the columns fill 25, 36 and 39 of 130. Sparse, and accepted as
+- **52 of 131 foods have a flavonoid row at all**, and after the completeness
+  rule below the columns fill 25, 36 and 39 of 131. Sparse, and accepted as
   such, because the alternative was worse.
 - **A subclass is shown only where the whole subclass was measured.** USDA
   published individual compounds, not totals, so each column is a sum, and

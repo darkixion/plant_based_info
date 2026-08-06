@@ -140,7 +140,7 @@ anything, and the reason to have it is that per 100 g cannot answer "am I
 getting enough".
 
 **The table rows gained no button for it.** A second icon beside the heart on
-130 rows reads as an extra column of furniture, and building a day is something
+131 rows reads as an extra column of furniture, and building a day is something
 people do by naming foods rather than by hunting for them in a table. The two
 ways in are the search at the top of the day view, which offers favourites
 first, and an "Add to my day" button in the detail panel. Favourites and the day
@@ -390,7 +390,7 @@ source at 261 mg, but only two of the five catechins were measured for it, so it
 shows no data. Minor compounds outside the required list (isorhamnetin,
 gallocatechin) are added to the sum when present but never required.
 
-**Coverage is 52 of 130 foods**, and per subclass: anthocyanidins 25, flavan-3-ols
+**Coverage is 52 of 131 foods**, and per subclass: anthocyanidins 25, flavan-3-ols
 36, flavonols 39. Sparse, and deliberately preferred to the alternative. USDA's
 *Expanded Flavonoid Database, Release 1.1* reaches 101 of these foods, but split
 by its own derivation codes its **analytical** counts are 26 and 47, slightly
