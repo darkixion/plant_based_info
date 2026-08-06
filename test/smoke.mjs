@@ -495,6 +495,54 @@ await test("foods sharing a name are told apart in the chart", async () => {
   });
 });
 
+await test("the chart withholds a figure USDA never measured", async () => {
+  await withPage(async page => {
+    // The chart draws the top 25 rows, and no column here is measured for fewer
+    // than 25 foods, so this is only reachable once the table has been narrowed.
+    // Six of the eight categories are smaller than that. Nuts and flavonols is
+    // the sharpest case: almonds have a figure and the other eleven do not, so
+    // one chart holds both kinds of row.
+    const nuts = await page.evaluate(() => {
+      const i = DATA.nutrients.findIndex(n => n.id === "flavonols");
+      const own = DATA.foods.filter(f => f.cat === "Nuts");
+      return { measured: own.filter(f => f.v[i] !== null).map(f => f.name),
+               blank: own.filter(f => f.v[i] === null).map(f => f.name) };
+    });
+    eq(nuts.measured.join(", "), "Almonds", "the only nut with a flavonol figure");
+    assert(nuts.blank.length > 1, `expected unmeasured nuts, got ${nuts.blank.length}`);
+
+    await page.click('#groupNav [data-grp="plant"]');
+    await page.click('#catNav [data-cat="Nuts"]');
+    await page.click("#vChart");
+    await page.selectOption("#chartNut", "flavonols");
+
+    const rows = await page.evaluate(() => [...document.querySelectorAll("#chartRows .crow")]
+      .map(r => ({
+        name: r.querySelector(".lbl span:last-child").textContent.trim(),
+        value: r.querySelector(".val").textContent.replace(/\s+/g, " ").trim(),
+        width: r.querySelector(".track i").style.width,
+      })));
+    eq(rows.length, nuts.measured.length + nuts.blank.length, "chart rows");
+
+    // A food nobody assayed is not a food with none of it. This read "0 mg" with
+    // an empty bar, indistinguishable from a measured zero beside it, while the
+    // aria-label of the same row said n/a.
+    const almonds = rows.find(r => r.name === "Almonds");
+    assert(almonds && almonds.value.startsWith("3.4"), `almonds read: ${almonds?.value}`);
+    assert(parseFloat(almonds.width) > 0, `almonds drew no bar: ${almonds.width}`);
+
+    for (const r of rows.filter(r => r.name !== "Almonds")) {
+      eq(r.value, "n/a", `${r.name} in the chart`);
+      eq(parseFloat(r.width), 0, `${r.name} drew a bar`);
+    }
+
+    // and the visible label and the screen-reader description agree, which is
+    // the pair that had been saying different things.
+    const aria = await page.locator("#chartRows").getAttribute("aria-label");
+    assert(/Walnuts n\/a/.test(aria), `aria-label: ${aria}`);
+  });
+});
+
 await test("the methodology names the amino acid gaps from the data", async () => {
   await withPage(async page => {
     // A hardcoded list would still name three foods long after there were five.
@@ -1122,6 +1170,43 @@ await test("energy is given in kilojoules as well as kilocalories", async () => 
     // thermochemical calorie, so it cannot drift away from what it converts.
     assert(txt.includes(`${Math.round(kcal * 4.184)} kJ`),
       `expected ${Math.round(kcal * 4.184)} kJ in the panel`);
+  });
+});
+
+await test("a macronutrient with no figure says so rather than reading zero", async () => {
+  await withPage(async page => {
+    // Saturated fat is the one macronutrient USDA leaves blank, for three of
+    // these foods. The Overview used to print 0.00 g there, while the same
+    // food's cell in the table said n/a and the tabs beside it said "not
+    // measured": three parts of the page and two answers.
+    const blank = await page.evaluate(() => {
+      const i = DATA.nutrients.findIndex(n => n.id === "satfat");
+      return DATA.foods.filter(f => f.v[i] === null).map(f => f.name);
+    });
+    assert(blank.includes("Dates"),
+      `expected Dates to carry no saturated fat figure; blank for: ${blank.join(", ")}`);
+
+    const panel = await selectFood(page, "dates", "Dates");
+    const row = await page.evaluate(() => {
+      const d = [...document.querySelectorAll("#detail .drow")]
+        .find(x => x.querySelector("dt")?.textContent.trim() === "Saturated fat");
+      return d ? d.querySelector("dd").textContent.replace(/\s+/g, " ").trim() : null;
+    });
+    eq(row, "not measured", "the saturated fat row of the Overview");
+    assert(!/0\.00/.test(panel), `a zero was printed for a figure nobody published: ${row}`);
+
+    // The table says the same thing about the same food, which is the agreement
+    // that had broken.
+    const cell = await page.evaluate(() => {
+      // The food's own header button comes first in both, so a column's index
+      // among the sort buttons is its index among the row's cells.
+      const heads = [...document.querySelectorAll("#thead .sortbtn")].map(b => b.dataset.sort);
+      const k = heads.indexOf("satfat");
+      const row = [...document.querySelectorAll("#tbody tr")]
+        .find(r => r.querySelector(".fname")?.dataset.name === "Dates");
+      return k === -1 || !row ? null : row.cells[k]?.textContent.trim();
+    });
+    eq(cell, "n/a", "the saturated fat cell in the table");
   });
 });
 

@@ -129,8 +129,11 @@ const foodBySlug = (slug: string): Food | undefined => {
   const i = BY_SLUG.get(slug);
   return i === undefined ? undefined : FOODS[i];
 };
-/* GROUPS lists all six NutrientGroup values and the `satisfies` on it holds it
-   to that, so this cannot miss for a nutrient's own group. */
+/* GROUPS lists all six NutrientGroup values today, which is why this cannot
+   miss for a nutrient's own group. The `satisfies` on it does not hold it to
+   that: it constrains each id to be a group, not the set to be complete, so
+   deleting a row would still type-check and would reach the throw below on the
+   detail render path. Throwing is the right answer if that ever happens. */
 const groupOf = (id: NutrientGroup) => {
   const g = GROUPS.find(x => x.id === id);
   if (!g) throw new Error(`unknown nutrient group: ${id}`);
@@ -296,7 +299,10 @@ function loadPrefs() {
 
   // Favourites: keep only slugs that still exist in the current dataset.
   if (Array.isArray(p.favs))
-    S.favs = new Set(p.favs.map(currentSlug).filter((s: string) => BY_SLUG.has(s)));
+    // The typeof is not ceremony: this is stored data, and currentSlug returns
+    // a number unchanged if a favourite was written as one.
+    S.favs = new Set(p.favs.map(currentSlug)
+      .filter((s: unknown): s is string => typeof s === "string" && BY_SLUG.has(s)));
 
   if (Array.isArray(p.groups)) {
     const g: NutrientGroup[] = p.groups.filter(isGroup);
@@ -1100,6 +1106,9 @@ function renderDetail() {
   const inDay = S.day.find(e => e.slug === slugAt(S.sel));
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
+  // The third element is destructured as `icon` rather than `ic` where these are
+  // rendered: `ic` is the module-level icon lookup, and a binding of that name
+  // would quietly shadow it for anything added inside that template.
   const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "amino", "plant"];
   const tabs = [["overview", "Overview", I.macro],
     ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon])];
@@ -1192,10 +1201,10 @@ function renderDetail() {
       ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
     </div>
     <div class="tabs" role="tablist" aria-label="Nutrient detail sections">
-      ${tabs.map(([id, label, ic]) => `
+      ${tabs.map(([id, label, icon]) => `
         <button type="button" role="tab" data-tab="${id}" id="tab-${id}"
           aria-selected="${S.tab === id}" aria-controls="tabp"
-          tabindex="${S.tab === id ? 0 : -1}">${ic}<span>${label}</span></button>`).join("")}
+          tabindex="${S.tab === id ? 0 : -1}">${icon}<span>${label}</span></button>`).join("")}
     </div>
     <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}${
       [...shownNotes].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>

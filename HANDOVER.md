@@ -13,16 +13,23 @@ mistake this project is built to refuse: **a missing figure substituted with a
 zero.**
 
 - **The chart printed `0` for a food USDA never assayed.** `renderChart` read
-  `val(f, n.id) ?? 0`, so a bar rendered "0 µg" beside foods with a measured
-  zero, while the aria-label on the very same row said "n/a". Reachable
-  wherever the chart is narrowed to fewer than 25 rows: search "seitan", switch
-  on plant compounds, chart lycopene. It now says `n/a` with no bar, and the
-  label and the aria-label agree.
-- **The detail panel's Overview printed `0.0 g` saturated fat for the three
+  `val(f, n.id) ?? 0`, so a bar rendered "0 mg" beside foods with a measured
+  zero, while the aria-label on the very same row said "n/a". Not reachable on
+  the unfiltered chart, which draws 25 rows and has no column measured for
+  fewer than 25 foods; it took narrowing, and six of the eight categories are
+  smaller than 25. One category click did it: Nuts, plant compounds, flavonols,
+  where almonds have a figure and the other eleven nuts do not. It now says
+  `n/a` with no bar, and the label and the aria-label agree.
+- **The detail panel's Overview printed `0.00 g` saturated fat for the three
   foods that have no figure for it** (Shiitake mushrooms, Teff, Dates), from
   `(g(id) ?? 0).toFixed(n.dp)`, while the same food's cell in the table said
   `n/a` and the group tabs beside it said "not measured". It now says "not
   measured" too.
+
+Both now have a regression test, named for the rule rather than for the fix:
+"the chart withholds a figure USDA never measured" and "a macronutrient with no
+figure says so rather than reading zero". Each was watched failing against the
+old code, with the substituted zero in the failure message.
 
 The two `?? 0`s that were *not* bugs were removed anyway, because each was one
 edit away from becoming one: the day's amino acid sum now carries a null
@@ -30,11 +37,12 @@ through rather than counting it as nothing, and `proteinQuality` checks each
 acid as it sums rather than in a pass of its own, so there is no longer a point
 in that function where a missing figure could reach the arithmetic.
 
-Three lookup helpers now carry the rule that used to be spread across thirty
-call sites: `nut`, `foodAt`, `slugAt`, `groupOf` and `totalOf` throw on an id or
-index the dataset does not have, the same as `val()` does, because that is a
-coding error rather than an unmeasured figure. `nutOpt` and `foodBySlug` return
-undefined for the two callers where a miss is genuinely possible.
+Seven lookup helpers now carry the rule that used to be spread across thirty
+call sites. Five of them throw on an id or index the dataset does not have, the
+same as `val()` does, because that is a coding error rather than an unmeasured
+figure: `nut`, `foodAt`, `slugAt`, `groupOf` and `totalOf`. The other two,
+`nutOpt` and `foodBySlug`, return undefined, for the callers where a miss is
+genuinely possible.
 
 ## Earlier session, 2026-08-06 (fourth)
 
