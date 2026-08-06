@@ -98,6 +98,55 @@ const slugify = (f: Food) => `${f.name} ${f.state || ""}`
 const SLUGS = FOODS.map(slugify);
 const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
 
+/* ---------- lookups ----------
+   The ways this file reaches into the dataset, each saying in its name what a
+   miss means. `nut`, `foodAt`, `slugAt` and `groupOf` throw, the same as val()
+   does and for the same reason: an id or an index the dataset does not carry is
+   a coding error rather than an unmeasured figure, and yielding undefined would
+   carry it into the page as the word "undefined" or as a zero. `nutOpt` and
+   `foodBySlug` are for the callers where a miss is a real possibility, such as
+   a slug read back from a saved day list. */
+const nutOpt = (id: string): Nutrient | undefined => {
+  const i = IDX.get(id);
+  return i === undefined ? undefined : NUTS[i];
+};
+const nut = (id: string): Nutrient => {
+  const n = nutOpt(id);
+  if (!n) throw new Error(`unknown nutrient id: ${id}`);
+  return n;
+};
+const foodAt = (i: number): Food => {
+  const f = FOODS[i];
+  if (!f) throw new Error(`no food at index ${i}`);
+  return f;
+};
+const slugAt = (i: number): string => {
+  const s = SLUGS[i];
+  if (s === undefined) throw new Error(`no food at index ${i}`);
+  return s;
+};
+const foodBySlug = (slug: string): Food | undefined => {
+  const i = BY_SLUG.get(slug);
+  return i === undefined ? undefined : FOODS[i];
+};
+/* GROUPS lists all six NutrientGroup values and the `satisfies` on it holds it
+   to that, so this cannot miss for a nutrient's own group. */
+const groupOf = (id: NutrientGroup) => {
+  const g = GROUPS.find(x => x.id === id);
+  if (!g) throw new Error(`unknown nutrient group: ${id}`);
+  return g;
+};
+const isGroup = (x: unknown): x is NutrientGroup => GROUPS.some(g => g.id === x);
+
+/* Icons are injected by build.mjs into the same artifact as this file, so a
+   name that is not there is a build error rather than a runtime condition, the
+   same as a missing element. */
+const ic = (name: string): string => {
+  const svg = I[name];
+  if (svg === undefined) throw new Error(`missing icon: ${name}`);
+  return svg;
+};
+
 /* Renaming a food changes its key, and anything stored under the old one is
    simply dropped on load: a favourite someone starred months ago vanishes with
    nothing to say it had gone. One line per rename carries them across, which is
@@ -116,7 +165,7 @@ const currentSlug = (s: string) => RENAMED[s] || s;
    milk's protein. Keyed by slug, so reordering the food list cannot repoint a
    note at the wrong row. */
 const NOTES = DATA.notes || [];
-const NOTE_AT = new Map();
+const NOTE_AT = new Map<string, Note>();
 for (const note of NOTES)
   for (const [slug, ids] of Object.entries(note.cells || {}))
     for (const id of ids) NOTE_AT.set(`${slug} ${id}`, note);
@@ -247,10 +296,10 @@ function loadPrefs() {
 
   // Favourites: keep only slugs that still exist in the current dataset.
   if (Array.isArray(p.favs))
-    S.favs = new Set(p.favs.map(currentSlug).filter((s: unknown) => BY_SLUG.has(s)));
+    S.favs = new Set(p.favs.map(currentSlug).filter((s: string) => BY_SLUG.has(s)));
 
   if (Array.isArray(p.groups)) {
-    const g = p.groups.filter((x: unknown) => GROUPS.some(G => G.id === x));
+    const g: NutrientGroup[] = p.groups.filter(isGroup);
     if (g.length) S.groups = new Set(g);
   }
   if (p.sort && (p.sort.id === "__name" || IDX.has(p.sort.id)))
@@ -267,8 +316,8 @@ function loadPrefs() {
   // allowed to put a NaN into every total.
   if (Array.isArray(p.day)) {
     S.day = p.day
-      .filter((e: { slug?: unknown; g?: unknown }) => e && e.slug)
-      .map((e: { slug?: unknown; g?: unknown }) => ({ slug: currentSlug(e.slug), g: clampG(e.g) }))
+      .filter((e: { slug?: unknown; g?: unknown }) => e && typeof e.slug === "string")
+      .map((e: { slug: string; g?: unknown }) => ({ slug: currentSlug(e.slug), g: clampG(e.g) }))
       .filter((e: DayEntry) => BY_SLUG.has(e.slug));
   }
   if (typeof p.kg === "number" && isFinite(p.kg)) S.kg = clampKg(p.kg);
@@ -276,11 +325,11 @@ function loadPrefs() {
 
   if (Array.isArray(p.custom)) {
     S.custom = p.custom
-      .filter((l: { id?: unknown; name?: unknown; ids?: unknown[]; why?: unknown }) =>
+      .filter((l: { id?: unknown; name?: unknown; ids?: unknown; why?: unknown }) =>
         l && typeof l.name === "string" && Array.isArray(l.ids))
-      .map((l: { id?: unknown; name?: unknown; ids?: unknown[]; why?: unknown }) => ({
+      .map((l: { id?: unknown; name: string; ids: unknown[]; why?: unknown }) => ({
         id: String(l.id || ""), name: l.name.slice(0, 40),
-        ids: l.ids.filter((x: unknown) => IDX.has(x)),
+        ids: l.ids.filter((x: unknown): x is string => typeof x === "string" && IDX.has(x)),
         ...(typeof l.why === "string" && l.why ? { why: l.why.slice(0, 240) } : {}) }))
       .filter((l: Lens) => l.id && l.ids.length);
   }
@@ -319,8 +368,12 @@ const targetInput = (e: Event): HTMLInputElement | null =>
 const targetAnyEl = (e: Event): Element | null =>
   e.target instanceof Element ? e.target : null;
 
-const esc = (s: unknown) => String(s).replace(/[&<>"']/g, (c: string) =>
-  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+/* The regex matches exactly the five keys of this table, so the fallback is
+   unreachable. It is there because a lookup by string key cannot prove that to
+   the compiler, not because a sixth character is expected. */
+const ESCAPES: Record<string, string> =
+  { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+const esc = (s: unknown) => String(s).replace(/[&<>"']/g, c => ESCAPES[c] ?? c);
 const say = (m: string) => { $("#live").textContent = m; };
 
 /* ---------- data helpers ---------- */
@@ -368,7 +421,7 @@ const basisLabel = () => S.basis === "kcal" ? "per 100 kcal" : "per 100 g";
  *  so the table, the sort order and the CSV cannot disagree about it. */
 function shown(f: Food, n: Nutrient) {
   const v = val(f, n.id);
-  if (S.basis === "g" || n.id === "kcal" || v === null || v === undefined) return v;
+  if (S.basis === "g" || n.id === "kcal" || v === null) return v;
   const k = val(f, "kcal");
   return k ? v / k * KCAL_BASIS : null;
 }
@@ -380,9 +433,9 @@ function shown(f: Food, n: Nutrient) {
 const NAME_COUNT = FOODS.reduce((m, f) => m.set(f.name, (m.get(f.name) || 0) + 1), new Map());
 const fullName = (f: Food) => NAME_COUNT.get(f.name) > 1 && f.state ? `${f.name}, ${f.state}` : f.name;
 
-const isFav = (i: number) => S.favs.has(SLUGS[i]);
+const isFav = (i: number) => S.favs.has(slugAt(i));
 function toggleFav(i: number) {
-  isFav(i) ? S.favs.delete(SLUGS[i]) : S.favs.add(SLUGS[i]);
+  isFav(i) ? S.favs.delete(slugAt(i)) : S.favs.add(slugAt(i));
   // Un-starring the last favourite while filtered to favourites would leave an
   // empty table with no obvious way back, so drop the filter with it.
   if (S.favsOnly && !S.favs.size) S.favsOnly = false;
@@ -391,16 +444,16 @@ function toggleFav(i: number) {
 
 /** Plain text, for aria-labels and anywhere markup would leak. "n/a" marks a
  *  nutrient nobody has published a figure for, which is not the same as zero. */
-function fmtText(v: number | null | undefined, n: Nutrient) {
-  if (v === null || v === undefined) return "n/a";
+function fmtText(v: number | null, n: Nutrient) {
+  if (v === null) return "n/a";
   if (S.dv && n.dv) return v === 0 ? "0%" : Math.round((v / n.dv) * 100) + "%";
   if (v === 0) return "0";
   return v.toFixed(n.dp);
 }
 
 /** Display form: same thing, with the "n/a" marked up so it can be greyed. */
-function fmt(v: number | null | undefined, n: Nutrient) {
-  return (v === null || v === undefined)
+function fmt(v: number | null, n: Nutrient) {
+  return v === null
     ? '<span class="na">n/a</span>'
     : fmtText(v, n);
 }
@@ -432,21 +485,28 @@ function proteinQuality(f: Pick<Food, "v">) {
 
   // An unmeasured amino acid is not a zero. Treating it as one would report a
   // score of 0% and name a limiting acid for a food nobody has ever assayed,
-  // which is a fabricated conclusion rather than a missing one.
-  if (FAO_PATTERN.some(p => p.ids.some(id => val(f, id) === null || val(f, id) === undefined)))
-    return null;
-
-  const scored = FAO_PATTERN.map(p => {
-    const mgPerG = p.ids.reduce((s, id) => s + val(f, id), 0) * 1000 / protein;
-    return { label: p.label, pc: (mgPerG / p.mg) * 100 };
-  });
+  // which is a fabricated conclusion rather than a missing one. Checked while
+  // summing rather than in a pass of its own, so there is no point at which a
+  // missing figure could reach the arithmetic below.
+  const scored: { label: string; pc: number }[] = [];
+  for (const p of FAO_PATTERN) {
+    let grams = 0;
+    for (const id of p.ids) {
+      const v = val(f, id);
+      if (v === null) return null;
+      grams += v;
+    }
+    const mgPerG = grams * 1000 / protein;
+    scored.push({ label: p.label, pc: (mgPerG / p.mg) * 100 });
+  }
   if (scored.some(s => !isFinite(s.pc))) return null;
 
   const limiting = scored.reduce((a, b) => (b.pc < a.pc ? b : a));
+  const kcal = val(f, "kcal");
   return {
     score: Math.round(limiting.pc),      // amino acid score = the limiting one
     limiting: limiting.label,
-    perKcal: (val(f, "kcal") ?? 0) > 0 ? protein / val(f, "kcal") * 100 : null,
+    perKcal: kcal !== null && kcal > 0 ? protein / kcal * 100 : null,
   };
 }
 
@@ -464,10 +524,12 @@ function omegaRatio(f: Pick<Food, "v">) {
 /** The day's entries, resolved to foods. An entry whose slug has left the
  *  dataset is dropped here as well as on load, so a stale one cannot survive
  *  a session in which prefs were never re-saved. */
-const dayEntries = () => S.day
-  .map(e => ({ ...e, i: BY_SLUG.get(e.slug) }))
-  .filter(e => e.i !== undefined)
-  .map(e => ({ ...e, f: FOODS[e.i] }));
+const dayEntries = () => S.day.flatMap(e => {
+  const i = BY_SLUG.get(e.slug);
+  if (i === undefined) return [];
+  const f = FOODS[i];
+  return f ? [{ ...e, i, f }] : [];
+});
 
 /** Entries that actually contribute. A food listed at 0 g adds nothing to any
  *  total, so counting it in the coverage below would report a gap it does not
@@ -498,7 +560,7 @@ function dayTotals(): DayTotal[] {
     const notes = new Set<Note>();
     for (const e of list) {
       const v = val(e.f, n.id);
-      if (v === null || v === undefined) continue;
+      if (v === null) continue;
       from++;
       total += v * e.g / 100;                 // every figure in the table is per 100 g
       const note = noteFor(e.i, n.id);
@@ -509,9 +571,15 @@ function dayTotals(): DayTotal[] {
   });
 }
 
-const totalOf = (totals: DayTotal[], id: string): DayTotal | undefined => {
+/* Reads a row of dayTotals() by nutrient id, which is indexed the same way NUTS
+   is. Throws on an id the dataset does not have, the same as val() and for the
+   same reason: every caller here names a nutrient it knows is in the table, so
+   a miss is a coding error rather than a figure nobody measured. */
+const totalOf = (totals: DayTotal[], id: string): DayTotal => {
   const i = IDX.get(id);
-  return i === undefined ? undefined : totals[i];
+  const t = i === undefined ? undefined : totals[i];
+  if (!t) throw new Error(`no day total for nutrient id: ${id}`);
+  return t;
 };
 
 /* ---------- amino acids across a day ----------
@@ -539,14 +607,19 @@ function dayAminoAcids(totals: DayTotal[]) {
   const list = dayContributors();
   if (!list.length) return [];
   return aaTargets(S.kg).map(t => {
-    const measured = list.every(e => t.ids.every(id => {
-      const v = val(e.f, id);
-      return v !== null && v !== undefined;
-    }));
+    const measured = list.every(e => t.ids.every(id => val(e.f, id) !== null));
+    // Summed only where every listed food carried every acid in the entry, so
+    // the totals behind it are complete ones. A null is carried through rather
+    // than counted as nothing, which would understate the entry.
     const got = measured
-      ? t.ids.reduce((s, id) => s + (totalOf(totals, id).total ?? 0), 0)
+      ? t.ids.reduce<number | null>((s, id) => {
+          const v = totalOf(totals, id).total;
+          return s === null || v === null ? null : s + v;
+        }, 0)
       : null;
-    return { ...t, got, pc: got === null ? null : got / t.target * 100 };
+    return got === null
+      ? { ...t, got: null, pc: null }
+      : { ...t, got, pc: got / t.target * 100 };
   });
 }
 
@@ -563,10 +636,7 @@ function dayProteinQuality(totals: DayTotal[]) {
   const list = dayContributors();
   if (!list.length) return null;
   const ids = FAO_PATTERN.flatMap(p => p.ids);
-  const complete = list.every(e => ids.every(id => {
-    const v = val(e.f, id);
-    return v !== null && v !== undefined;
-  }));
+  const complete = list.every(e => ids.every(id => val(e.f, id) !== null));
   if (!complete) return null;
   return proteinQuality({ v: totals.map(t => t.total) });
 }
@@ -583,7 +653,10 @@ const A_BUDGET = new Set(["kcal", "carbs", "fat", "satfat", "na"]);
  *  for is a fabricated conclusion, not a missing one. */
 function dayStanding(totals: DayTotal[]) {
   const scored = totals
-    .filter(t => t.n.dv && t.total !== null && !t.partial)
+    // A type predicate rather than a plain filter: the guard is the same one,
+    // but a plain filter does not carry it into the map below.
+    .filter((t): t is DayTotal & { n: Nutrient & { dv: number }; total: number } =>
+      t.n.dv !== null && t.n.dv > 0 && t.total !== null && !t.partial)
     .map(t => ({ id: t.n.id, label: t.n.label, pc: t.total / t.n.dv * 100,
                  budget: A_BUDGET.has(t.n.id) }));
   const by = (a: { pc: number }, b: { pc: number }) => a.pc - b.pc;
@@ -594,14 +667,19 @@ function dayStanding(totals: DayTotal[]) {
   };
 }
 
-function addToDay(slug: string, g: number = DEFAULT_G) {
-  if (!BY_SLUG.has(slug)) return;
+/** Returns the entry the day now holds for that slug, or null if the slug names
+ *  no food. The caller announces the quantity, and reading it back off the list
+ *  afterwards would be looking up something this already has. */
+function addToDay(slug: string, g: number = DEFAULT_G): DayEntry | null {
+  if (!BY_SLUG.has(slug)) return null;
   // Adding a food already listed tops up its quantity rather than making a
   // second row that would have to be totalled and edited separately.
   const at = S.day.find(e => e.slug === slug);
-  if (at) at.g = clampG(at.g + g);
-  else S.day.push({ slug, g: clampG(g) });
+  const entry = at || { slug, g: 0 };
+  entry.g = clampG(entry.g + g);
+  if (!at) S.day.push(entry);
   savePrefs();
+  return entry;
 }
 
 function setDayGrams(slug: string, g: number | string) {
@@ -629,7 +707,7 @@ function rows() {
     if (id === "__name") return dir * a.f.name.localeCompare(b.f.name);
     // Sorted on the shown figure, not the stored one: a column ordered by
     // something other than what it displays is a bug people report as one.
-    const n = NUTS[IDX.get(id)];
+    const n = nut(id);
     const x = shown(a.f, n), y = shown(b.f, n);
     if (x === y) return a.f.name.localeCompare(b.f.name);
     if (x === null) return 1;
@@ -691,13 +769,14 @@ function toggleGroup(id: NutrientGroup) {
   // fallback switches a group back on that nobody pressed, and that button was
   // left reading "off" while its nine columns sat there in the table. Setting
   // the attribute rather than re-rendering keeps focus on the button.
-  document.querySelectorAll<HTMLElement>("#groupNav [data-grp]").forEach(b =>
-    b.setAttribute("aria-pressed", String(S.groups.has(b.dataset.grp))));
+  document.querySelectorAll<HTMLElement>("#groupNav [data-grp]").forEach(b => {
+    const grp = b.dataset.grp;
+    b.setAttribute("aria-pressed", String(isGroup(grp) && S.groups.has(grp)));
+  });
 
-  const g = GROUPS.find(x => x.id === id);
   say(fellBack
     ? `The table needs at least one group, so macronutrients stay shown.`
-    : `${g.label} ${S.groups.has(id) ? "shown" : "hidden"}. ${cols().length} nutrient columns visible.`);
+    : `${groupOf(id).label} ${S.groups.has(id) ? "shown" : "hidden"}. ${cols().length} nutrient columns visible.`);
   savePrefs();
   render();
 }
@@ -720,7 +799,7 @@ function renderLensSelect() {
 function renderLensNote() {
   const l = lensById(S.lens), box = $("#lensNote");
   if (!l) { box.hidden = true; box.innerHTML = ""; return; }
-  const cols = l.ids.map(id => NUTS[IDX.get(id)]?.label).filter(Boolean);
+  const cols = l.ids.map(id => nutOpt(id)?.label).filter(label => label !== undefined);
   box.hidden = false;
   box.innerHTML =
     `<b>${esc(l.name)}</b>` +
@@ -734,13 +813,13 @@ function setLens(id: string) {
   S.lens = lensById(id) ? id : "";
   const l = lensById(S.lens);
   if (l) {
-    const needed = new Set(l.ids.map(x => NUTS[IDX.get(x)].group));
+    const needed = new Set(l.ids.map(x => nut(x).group));
     const added = [...needed].filter(g => !S.groups.has(g));
     added.forEach(g => S.groups.add(g));
     if (added.length) {
       renderGroups();
       say(`Highlighting ${l.name}. Also showing ${added
-        .map(g => GROUPS.find(G => G.id === g).label.toLowerCase()).join(" and ")}.`);
+        .map(g => groupOf(g).label.toLowerCase()).join(" and ")}.`);
     } else say(`Highlighting ${l.name}, ${l.ids.length} nutrients.`);
   } else say("Highlight cleared.");
   renderLensSelect();
@@ -762,7 +841,7 @@ let hoverNut: string | null = null;
    to explain, and the box is tall enough for the longest sentence either way. */
 function renderNutNote() {
   const id = hoverNut || (S.sort.id !== "__name" ? S.sort.id : null);
-  const n = id ? NUTS[IDX.get(id)] : null;
+  const n = id ? nutOpt(id) : null;
   $("#nutNote").innerHTML = n && n.why
     ? `<b>${esc(n.label)}</b> ${esc(n.why)}`
     : `Point at a column header, or tab onto one, to read what that nutrient
@@ -794,12 +873,15 @@ $("#thead").addEventListener("focusout", () => previewNut(null));
 function layout() {
   const c = cols(), L = lensIds();
   return c.map((n, k) => {
+    // The neighbours themselves rather than their indices: absent is exactly
+    // what "first column" and "last column" meant when this read k === 0.
+    const prev = c[k - 1], next = c[k + 1];
     const lens = L.has(n.id);
     return { ...n,
-      gstart: k === 0 || c[k - 1].group !== n.group,
+      gstart: !prev || prev.group !== n.group,
       lens,
-      lensL: lens && (k === 0 || !L.has(c[k - 1].id)),
-      lensR: lens && (k === c.length - 1 || !L.has(c[k + 1].id)),
+      lensL: lens && (!prev || !L.has(prev.id)),
+      lensR: lens && (!next || !L.has(next.id)),
       sorted: S.sort.id === n.id,
     };
   });
@@ -851,17 +933,21 @@ function renderTable(r: ReturnType<typeof rows>) {
 
   // Only the notes actually on show get a key beneath the table: a legend for a
   // marker nobody can see is just more to read.
-  const shownNotes = new Set();
-  $("#tbody").innerHTML = page.length ? page.map(({ f, i }) => `
+  const shownNotes = new Set<Note>();
+  $("#tbody").innerHTML = page.length ? page.map(({ f, i }) => {
+    // Null where the food has no energy figure to divide by, which is why it is
+    // read once here rather than tested and then read again.
+    const per100 = S.basis === "kcal" ? gramsPer100kcal(f) : null;
+    return `
     <tr data-i="${i}" ${S.sel === i ? 'aria-selected="true"' : ""}>
       <td class="food${nameSorted ? " sorted" : ""}"><div class="fcell">
         <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
         <button class="fname" type="button" data-pick="${i}" data-name="${esc(f.name)}">
           <b>${esc(f.name)}${f.alt ? ` <span class="alt">(${esc(f.alt)})</span>` : ""}</b>
           ${f.state ? `<span>${esc(f.state)}</span>` : ""}
-          ${S.basis === "kcal" && gramsPer100kcal(f) !== null
-            ? `<span class="per100">${Math.round(gramsPer100kcal(f))} g</span>
-               <span class="sr">makes 100 kcal</span>` : ""}
+          ${per100 === null ? ""
+            : `<span class="per100">${Math.round(per100)} g</span>
+               <span class="sr">makes 100 kcal</span>`}
           <span class="sr">, show full profile</span></button>
         <button class="fav" type="button" data-fav="${i}" aria-pressed="${isFav(i)}">
           ${isFav(i) ? I.heartFull : I.heart}
@@ -876,7 +962,8 @@ function renderTable(r: ReturnType<typeof rows>) {
         return `<td class="num${zero ? " low" : ""} ${colClass(n)}" data-g="${n.group}">${
           fmt(v, n)}${note ? noteMark(note) : ""}</td>`;
       }).join("")}
-    </tr>`).join("")
+    </tr>`;
+  }).join("")
     : `<tr><td class="empty" colspan="${c.length + 1}">${emptyState()}</td></tr>`;
 
   const lens = lensById(S.lens);
@@ -939,20 +1026,28 @@ function emptyState() {
 
 /* ---------- chart ---------- */
 function renderChart(all: ReturnType<typeof rows>) {
-  const n = NUTS[IDX.get(S.chartNut)];
+  const n = nut(S.chartNut);
+  // Unmeasured sorts below a measured zero, so the bars people came to compare
+  // are at the top and the foods nobody assayed fall to the bottom.
   const r = all.slice().sort((a, b) => (val(b.f, n.id) ?? -1) - (val(a.f, n.id) ?? -1));
-  const max = Math.max(...r.map(x => val(x.f, n.id) ?? 0), 0.0001);
+  const measured = r.map(x => val(x.f, n.id)).filter(v => v !== null);
+  const max = Math.max(...measured, 0.0001);
   $("#chartNut").innerHTML = GROUPS.filter(g => S.groups.has(g.id)).map(g =>
     `<optgroup label="${g.label}">` + NUTS.filter(x => x.group === g.id).map(x =>
       `<option value="${x.id}"${x.id === S.chartNut ? " selected" : ""}>${esc(x.label)}</option>`
     ).join("") + "</optgroup>").join("");
   $("#chartRows").innerHTML = r.slice(0, 25).map(({ f }) => {
-    const v = val(f, n.id) ?? 0;
+    // A food nobody assayed for this nutrient says so, the same as its cell in
+    // the table does. It used to read a substituted zero, which drew an empty
+    // bar labelled "0" against foods with a measured zero beside it, and said
+    // "n/a" in the aria-label of the very same row.
+    const v = val(f, n.id);
     return `<div class="crow">
       <span class="lbl"><span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
         <span title="${esc(fullName(f))}">${esc(fullName(f))}</span></span>
-      <span class="track"><i style="width:${(v / max * 100).toFixed(1)}%"></i></span>
-      <span class="val">${fmt(v, n)} <span class="unit">${S.dv && n.dv ? "" : n.unit}</span></span>
+      <span class="track"><i style="width:${v === null ? "0" : (v / max * 100).toFixed(1)}%"></i></span>
+      <span class="val">${fmt(v, n)} <span class="unit">${
+        v === null || (S.dv && n.dv) ? "" : n.unit}</span></span>
     </div>`;
   }).join("");
   $("#chartRows").setAttribute("role", "img");
@@ -1000,38 +1095,48 @@ function proteinQualityBlock(f: Food) {
 
 /* ---------- detail panel ---------- */
 function renderDetail() {
-  const f = FOODS[S.sel];
-  const g = (id: string) => shown(f, NUTS[IDX.get(id)]);
-  const inDay = S.day.find(e => e.slug === SLUGS[S.sel]);
+  const f = foodAt(S.sel);
+  const g = (id: string) => shown(f, nut(id));
+  const inDay = S.day.find(e => e.slug === slugAt(S.sel));
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
-  const DETAIL_TABS = ["vitamin", "mineral", "amino", "plant"];
-  const tabs = [["overview", "Overview", I.macro], ...DETAIL_TABS
-    .map(id => GROUPS.find(g => g.id === id))
-    .filter(Boolean)
-    .map(g => [g.id, g.label, g.icon])];
+  const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "amino", "plant"];
+  const tabs = [["overview", "Overview", I.macro],
+    ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon])];
 
   // The panel shows the same figures as the table, so it carries the same
   // markers, and explains them once at the foot rather than per row.
-  const shownNotes = new Set();
+  const shownNotes = new Set<Note>();
 
   let body;
   if (S.tab === "overview") {
     const macro = ["kcal", "protein", "carbs", "fiber", "fat", "satfat"];
-    const top = NUTS.filter(n => n.dv && n.group !== "macro")
-      .map(n => ({ n, pc: (g(n.id) ?? 0) / n.dv * 100 }))
+    // A type predicate rather than a plain filter: the same guard, but a plain
+    // filter does not carry it into the map. An unmeasured nutrient is dropped
+    // rather than scored, since a zero would rank it against real figures.
+    const top = NUTS
+      .filter((n): n is Nutrient & { dv: number } =>
+        n.dv !== null && n.dv > 0 && n.group !== "macro")
+      .flatMap(n => {
+        const v = g(n.id);
+        return v === null ? [] : [{ n, pc: v / n.dv * 100 }];
+      })
       .filter(x => x.pc > 0).sort((a, b) => b.pc - a.pc).slice(0, 6);
     body = `<h4>Macronutrients</h4><dl>` + macro.map(id => {
-      const n = NUTS[IDX.get(id)];
+      const n = nut(id), v = g(id);
       const sub = id === "fiber" || id === "satfat";
       // Energy twice over: the table sorts on kilocalories, but food labelling
       // outside the United States leads with kilojoules. Derived here from the
       // column already present, by the definition of the thermochemical
       // calorie, so it cannot drift away from the figure it converts.
-      const kj = id === "kcal" && g("kcal") !== null
-        ? ` <span class="pc">· ${Math.round(g("kcal") * 4.184)} kJ</span>` : "";
+      const kj = id === "kcal" && v !== null
+        ? ` <span class="pc">· ${Math.round(v * 4.184)} kJ</span>` : "";
+      // Saturated fat has no figure for three of these foods, and this row used
+      // to render that as 0.0 g while the same food's cell in the table said
+      // n/a. Unmeasured says so here too.
       return `<div class="drow${sub ? " sub" : ""}"><dt>${esc(n.label)}</dt>
-        <dd>${(g(id) ?? 0).toFixed(n.dp)} ${n.unit}${kj}</dd></div>`;
+        <dd>${v === null ? `<span class="nodata">not measured</span>`
+          : `${v.toFixed(n.dp)} ${n.unit}${kj}`}</dd></div>`;
     }).join("") + `</dl>`
       + proteinQualityBlock(f)
       + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => {
@@ -1042,15 +1147,16 @@ function renderDetail() {
       }).join("") + `</dl>`;
   } else {
     const list = NUTS.filter(n => n.group === S.tab);
-    const max = Math.max(...list.map(n => g(n.id) ?? 0), 0.0001);
+    const measured = list.map(n => g(n.id)).filter(v => v !== null);
+    const max = Math.max(...measured, 0.0001);
     const L = lensIds();
-    const unmeasured = list.filter(n => g(n.id) === null || g(n.id) === undefined).length;
+    const unmeasured = list.length - measured.length;
     body = `<h4>${esc(GROUPS.find(g => g.id === S.tab)?.label || S.tab)}</h4>
       <dl>` + list.map(n => {
         const v = g(n.id);
         // Distinguish "measured as none" from "never measured": rendering a
         // missing figure as 0.000 asserts an absence nobody established.
-        const none = v === null || v === undefined;
+        const none = v === null;
         const pc = !none && n.dv ? Math.round(v / n.dv * 100) : null;
         const note = none ? null : noteFor(S.sel, n.id);
         if (note) shownNotes.add(note);
@@ -1196,7 +1302,7 @@ function renderDayTotals(totals: DayTotal[]) {
   if (!list.length) { box.innerHTML = ""; return; }
 
   const aaRef = aminoRefsByNutrient(totals);
-  const shownNotes = new Set();
+  const shownNotes = new Set<Note>();
   const body = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
     const rows = totals.filter(t => t.n.group === g.id).map(t => {
       const { n, total, partial, from, of, notes } = t;
@@ -1208,7 +1314,7 @@ function renderDayTotals(totals: DayTotal[]) {
       const pc = n.dv && total !== null ? total / n.dv * 100 : aa ? aa.pc : null;
       const pairedWith = aa && aa.partners.length
         ? `<span class="qual">with ${aa.partners
-            .map(id => NUTS[IDX.get(id)].label.toLowerCase()).join(" and ")}</span>` : "";
+            .map(id => nut(id).label.toLowerCase()).join(" and ")}</span>` : "";
       notes.forEach(x => shownNotes.add(x));
       return `<div class="totrow${total === null ? " none" : ""}">
         <span class="totname">${esc(n.label)}${notes.map(noteMark).join("")}${pairedWith}</span>
@@ -1256,7 +1362,7 @@ function renderDayTotals(totals: DayTotal[]) {
 /** Always shown, whatever the totals say, because each of these is a wrong
  *  conclusion the totals actively invite. A list of what you are short of
  *  implies the list is complete, and it is not. */
-const DAY_NOTES = [
+const DAY_NOTES: [string, string][] = [
   ["B12", `The one figure to check, and the one this view can most easily mislead you
     about. Unfortified plant foods are not a source: seaweed's B12 is inactive analogues, and
     every microgram in the yeast and soy milk rows was added by the maker. A supplement or a
@@ -1286,8 +1392,10 @@ const aminoRows = (totals: DayTotal[]) => dayAminoAcids(totals).map(a =>
 function weightRow() {
   const unit = (id: string, label: string) =>
     `<button type="button" data-wunit="${id}" aria-pressed="${S.wUnit === id}">${label}</button>`;
-  const field = (id: string, val: number, unitLabel: string, max: number | null, name: string) =>
-    `<input type="number" inputmode="numeric" id="${id}" data-w value="${val}"
+  // Not `val`: that is the module-level reader of a nutrient figure, and a
+  // parameter of the same name would quietly shadow it for anything added here.
+  const field = (id: string, shownValue: number, unitLabel: string, max: number | null, name: string) =>
+    `<input type="number" inputmode="numeric" id="${id}" data-w value="${shownValue}"
        min="0"${max ? ` max="${max}"` : ""} step="1" aria-label="Body weight in ${name}">
      <span class="u">${unitLabel}</span>`;
 
@@ -1442,7 +1550,8 @@ function render() {
      place two parts of the page held different ideas of one piece of state. An
      empty result set has nothing to move to, so the panel keeps what it had. */
   const r = rows();
-  if (r.length && !r.some(x => x.i === S.sel)) S.sel = r[0].i;
+  const first = r[0];
+  if (first && !r.some(x => x.i === S.sel)) S.sel = first.i;
 
   renderTable(r);
   if (showChart) renderChart(r);
@@ -1460,14 +1569,17 @@ document.addEventListener("click", e => {
   const t = targetAnyEl(e)?.closest("button");
   if (!t) return;
 
-  if (t.dataset.grp) return toggleGroup(t.dataset.grp);
+  // Every data-grp on the page is written from GROUPS, so the check is a
+  // formality; it is here because reaching toggleGroup with anything else would
+  // put a group nothing renders into the saved preferences.
+  if (isGroup(t.dataset.grp)) return toggleGroup(t.dataset.grp);
   if (t.dataset.cat !== undefined) return setCat(t.dataset.cat);
 
   if (t.dataset.sort) {
     const id = t.dataset.sort;
     if (S.sort.id === id) S.sort.dir *= -1;
     else S.sort = { id, dir: id === "__name" ? 1 : -1 };
-    const label = id === "__name" ? "Food name" : NUTS[IDX.get(id)].label;
+    const label = id === "__name" ? "Food name" : nut(id).label;
     say(`Sorted by ${label}, ${S.sort.dir === 1 ? "ascending" : "descending"}.`);
     savePrefs();
     return render();
@@ -1475,14 +1587,14 @@ document.addEventListener("click", e => {
 
   if (t.dataset.pick !== undefined) {
     S.sel = +t.dataset.pick;
-    say(`${FOODS[S.sel].name} selected.`);
+    say(`${foodAt(S.sel).name} selected.`);
     return render();
   }
 
   if (t.dataset.fav !== undefined) {
     const i = +t.dataset.fav;
     toggleFav(i);
-    say(`${FOODS[i].name} ${isFav(i) ? "added to" : "removed from"} favourites.`);
+    say(`${foodAt(i).name} ${isFav(i) ? "added to" : "removed from"} favourites.`);
     return render();
   }
 
@@ -1507,34 +1619,39 @@ document.addEventListener("click", e => {
     say("Search and category cleared.");
     return render();
   }
-  if (t.dataset.dlg) return openDialog(t.dataset.dlg);
+  if (isDialogKey(t.dataset.dlg)) return openDialog(t.dataset.dlg);
 
   // ---- my day ----
   if (t.dataset.dayadd !== undefined) {
     const i = +t.dataset.dayadd;
     const fromSearch = !!t.closest("#daySug");
-    addToDay(SLUGS[i], DEFAULT_G);
-    const now = S.day.find(e => e.slug === SLUGS[i]);
-    say(`${FOODS[i].name} in your day at ${now.g} g.`);
+    const slug = slugAt(i);
+    // The entry the day now holds, from the call that made it, rather than
+    // looked up again afterwards.
+    const now = addToDay(slug, DEFAULT_G);
+    if (now) say(`${foodAt(i).name} in your day at ${now.g} g.`);
     // Adding from the detail panel leaves you where you were: the count on the
     // count in the sidebar says it landed, and being thrown into another view
     // mid-browse is not what pressing "add" asked for.
     if (fromSearch) { $<HTMLInputElement>("#dayQ").value = ""; $("#daySug").hidden = true; }
     render();
     // Straight to the quantity, which is the next thing anyone wants to change.
-    return fromSearch && $(`[data-dayg="${SLUGS[i]}"]`).focus();
+    return fromSearch && $(`[data-dayg="${slug}"]`).focus();
   }
   if (t.dataset.dayrm) {
-    const f = FOODS[BY_SLUG.get(t.dataset.dayrm)];
+    const f = foodBySlug(t.dataset.dayrm);
     removeFromDay(t.dataset.dayrm);
     say(`${f ? f.name : "Food"} removed from your day.`);
     return render();
   }
   if (t.dataset.daystep) {
-    const slug = t.dataset.daystep;
+    const slug = t.dataset.daystep, by = t.dataset.by;
     const at = S.day.find(x => x.slug === slug);
-    if (!at) return;
-    setDayGrams(slug, at.g + +t.dataset.by);
+    // Every data-daystep on the page is written with its data-by beside it. A
+    // missing one would read as NaN and clamp the quantity to nothing, so the
+    // step is left undone instead.
+    if (!at || by === undefined) return;
+    setDayGrams(slug, at.g + +by);
     return render();
   }
   if (t.dataset.wunit) {
@@ -1558,7 +1675,7 @@ document.addEventListener("click", e => {
      selenium is only useful next to the foods that have some, and this is the
      one click between them. */
   if (t.dataset.daysort) {
-    const id = t.dataset.daysort, n = NUTS[IDX.get(id)];
+    const id = t.dataset.daysort, n = nut(id);
     S.view = "table";
     S.sort = { id, dir: -1 };
     // Landing on a table sorted by a column you cannot see is the same problem
@@ -1569,7 +1686,7 @@ document.addEventListener("click", e => {
     render();
     $("#scroller").scrollIntoView({ block: "nearest" });
     return say(`Showing the table sorted by ${n.label}, highest first.` + (added
-      ? ` Also showing ${GROUPS.find(g => g.id === n.group).label.toLowerCase()}.` : ""));
+      ? ` Also showing ${groupOf(n.group).label.toLowerCase()}.` : ""));
   }
 });
 
@@ -1641,7 +1758,7 @@ $("#qClear").onclick = () => { S.q = ""; qInput.value = ""; $("#qClear").hidden 
 function applyTheme() {
   document.documentElement.dataset.theme = S.dark ? "dark" : "";
   $("#themeBtn").setAttribute("aria-pressed", String(S.dark));
-  $("#themeIc").innerHTML = S.dark ? I.sun : I.moon;
+  $("#themeIc").innerHTML = ic(S.dark ? "sun" : "moon");
   $("#themeTx").textContent = S.dark ? "Light mode" : "Dark mode";
 }
 $("#themeBtn").onclick = () => { S.dark = !S.dark; applyTheme(); savePrefs(); };
@@ -1673,7 +1790,7 @@ function renderDaySuggestions() {
   box.hidden = !list.length;
   $("#dayQ").setAttribute("aria-expanded", String(!!list.length));
   box.innerHTML = list.map(({ f, i }) => {
-    const already = S.day.some(e => e.slug === SLUGS[i]);
+    const already = S.day.some(e => e.slug === slugAt(i));
     return `<button type="button" role="option" aria-selected="false" data-dayadd="${i}">
       <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
       <span class="s-name"><b>${esc(f.name)}${f.alt ? ` <span class="alt">(${esc(f.alt)})</span>` : ""}</b>
@@ -1699,8 +1816,9 @@ $("#daySug").addEventListener("keydown", e => {
   const t = targetEl(e);
   const i = t ? opts.indexOf(t) : -1;
   if (i === -1) return;
-  if (e.key === "ArrowDown") { e.preventDefault(); opts[(i + 1) % opts.length].focus(); }
-  if (e.key === "ArrowUp") { e.preventDefault(); (i ? opts[i - 1] : $("#dayQ")).focus(); }
+  // i is an index into opts, so both of these land on an option that is there.
+  if (e.key === "ArrowDown") { e.preventDefault(); opts[(i + 1) % opts.length]?.focus(); }
+  if (e.key === "ArrowUp") { e.preventDefault(); (i ? opts[i - 1] : $("#dayQ"))?.focus(); }
   if (e.key === "Escape") { e.preventDefault(); $("#daySug").hidden = true; $("#dayQ").focus(); }
 });
 /* Clicking away closes it. Checking focus rather than the click target means
@@ -1765,8 +1883,12 @@ document.addEventListener("keydown", e => {
   if (e.key === "Home") j = 0;
   if (e.key === "End") j = t.length - 1;
   if (j === null) return;
+  // j is one of the indices of t, and every [role=tab] here is rendered with
+  // its data-tab, so this is the tab that was arrowed to.
+  const to = t[j]?.dataset.tab;
+  if (to === undefined) return;
   e.preventDefault();
-  S.tab = t[j].dataset.tab; renderDetail();
+  S.tab = to; renderDetail();
   $(`[data-tab="${S.tab}"]`).focus();
 });
 
@@ -1805,7 +1927,7 @@ function csvTable() {
  *  as well as on it. */
 function csvDay() {
   const c = cols(), totals = dayTotals(), list = dayContributors(), q = csvQuote;
-  const at = (id: string) => totals[IDX.get(id)];
+  const at = (id: string) => totalOf(totals, id);
   const head = ["Food", "State", "Grams", ...c.map(n => `${n.label} (${n.unit})`)];
   const lines = [head.map(q).join(",")];
 
@@ -1816,10 +1938,12 @@ function csvDay() {
     })].join(","));
 
   lines.push([q("Total"), q(""), dayGrams(),
-    ...c.map(n => at(n.id).total === null ? "" : +at(n.id).total.toFixed(6))].join(","));
+    ...c.map(n => { const v = at(n.id).total; return v === null ? "" : +v.toFixed(6); })].join(","));
   lines.push([q("% of daily value"), q(""), "",
-    ...c.map(n => n.dv && at(n.id).total !== null
-      ? Math.round(at(n.id).total / n.dv * 100) : "")].join(","));
+    ...c.map(n => {
+      const v = at(n.id).total;
+      return n.dv && v !== null ? Math.round(v / n.dv * 100) : "";
+    })].join(","));
   lines.push([q("Foods measured"), q(""), "",
     ...c.map(n => `${at(n.id).from} of ${at(n.id).of}`).map(q)].join(","));
 
@@ -1927,7 +2051,7 @@ const andList = (names: string[]) => names.slice().sort()
    itself, so adding a food to it cannot leave the prose describing two. */
 const FORTIFIED = NOTES.find(n => n.id === "fortified");
 const FORTIFIED_FOODS = Object.keys(FORTIFIED?.cells || {})
-  .map(s => FOODS[BY_SLUG.get(s)]).filter(Boolean);
+  .flatMap(s => foodBySlug(s) || []);
 
 /* And how far the flavonoid data reaches. Counted, not typed, for the same
    reason: the flavonoid columns are the sparsest in the table, so a number
@@ -2187,7 +2311,13 @@ const DLG = {
     managing a health condition, pregnant, or feeding a child, talk to a dietitian or your GP.
     One specific note: vitamin B12 is not reliably available from unfortified plant foods, and a
     supplement or reliably fortified food is standard advice on a vegan diet.</p>`],
-};
+} satisfies Record<string, [title: string, body: string]>;
+
+/* The data-dlg attributes in src/index.html are exactly these three keys. The
+   check is what makes the lookup in openDialog total rather than a promise. */
+const isDialogKey = (k: string | undefined): k is keyof typeof DLG =>
+  k !== undefined && Object.hasOwn(DLG, k);
+
 let lastFocus: HTMLElement | null = null;
 function openDialog(k: keyof typeof DLG) {
   const [t, b] = DLG[k];

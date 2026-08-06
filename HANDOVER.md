@@ -3,7 +3,40 @@
 Written 2026-08-05, updated 2026-08-06. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-06 (fourth)
+## Latest session, 2026-08-06 (fifth)
+
+**`src/app.ts` type-checks clean under `strict`, with `noUncheckedIndexedAccess`
+and `exactOptionalPropertyTypes` on.** The last 86 errors were each a question
+about what a missing value meant, and two of them turned out to be bugs that
+have been on the page for months. Both are the same mistake, and it is the one
+mistake this project is built to refuse: **a missing figure substituted with a
+zero.**
+
+- **The chart printed `0` for a food USDA never assayed.** `renderChart` read
+  `val(f, n.id) ?? 0`, so a bar rendered "0 µg" beside foods with a measured
+  zero, while the aria-label on the very same row said "n/a". Reachable
+  wherever the chart is narrowed to fewer than 25 rows: search "seitan", switch
+  on plant compounds, chart lycopene. It now says `n/a` with no bar, and the
+  label and the aria-label agree.
+- **The detail panel's Overview printed `0.0 g` saturated fat for the three
+  foods that have no figure for it** (Shiitake mushrooms, Teff, Dates), from
+  `(g(id) ?? 0).toFixed(n.dp)`, while the same food's cell in the table said
+  `n/a` and the group tabs beside it said "not measured". It now says "not
+  measured" too.
+
+The two `?? 0`s that were *not* bugs were removed anyway, because each was one
+edit away from becoming one: the day's amino acid sum now carries a null
+through rather than counting it as nothing, and `proteinQuality` checks each
+acid as it sums rather than in a pass of its own, so there is no longer a point
+in that function where a missing figure could reach the arithmetic.
+
+Three lookup helpers now carry the rule that used to be spread across thirty
+call sites: `nut`, `foodAt`, `slugAt`, `groupOf` and `totalOf` throw on an id or
+index the dataset does not have, the same as `val()` does, because that is a
+coding error rather than an unmeasured figure. `nutOpt` and `foodBySlug` return
+undefined for the two callers where a miss is genuinely possible.
+
+## Earlier session, 2026-08-06 (fourth)
 
 **A per-100-kcal basis shipped**, alongside per 100 g rather than replacing it.
 Designed in full at `docs/superpowers/specs/2026-08-06-per-calorie-basis-design.md`
