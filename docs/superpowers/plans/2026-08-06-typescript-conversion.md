@@ -241,8 +241,10 @@ Insert above the existing first line (`const NUTS = DATA.nutrients, FOODS = DATA
 ```ts
 /* ---------- the data ----------
    Shapes transcribed from src/data/nutrients.json as it actually is. Every
-   nutrient carries all seven fields and every food all five; `alt` is the only
+   nutrient carries all seven keys and every food all five; `alt` is the only
    genuinely optional key, on 41 of 131 foods.
+   A present key is not a usable value: `dv` is there on all 66 nutrients and
+   null on 35 of them, which is why it is typed nullable below.
    `notes` is optional because build.mjs and this file both read it as
    `data.notes || []`. The type describes what the code believes, not what
    today's data file happens to contain. */
@@ -251,7 +253,11 @@ type Unit = "kcal" | "g" | "mg" | "µg";
 
 interface Nutrient {
   id: string; label: string; group: NutrientGroup;
-  unit: Unit; dv: number; dp: number; why: string;
+  unit: Unit; dp: number; why: string;
+  /* Present on all 66 nutrients, but null on 35 of them: sugars, water, most
+     fatty acids, all amino acids and most carotenoids and flavonoids have no
+     published daily value. Every read has to decide what to do about that. */
+  dv: number | null;
 }
 interface Food {
   name: string; state: string; cat: string; colour: string;
@@ -310,7 +316,9 @@ Note `dist/app.js` and `index.html` are staged: adding a comment block changes t
 
 ### Task 3: The state object
 
-`S` is initialised with `day: []` and `custom: []`, which infer as `never[]`, producing 21 errors of the form "Property 'slug' does not exist on type 'never'". One interface fixes all of them, plus the 8 "Parameter 'totals' implicitly has an any type" errors once `dayTotals()` has a named return type.
+`S` is initialised with `day: []` and `custom: []`, which infer as `never[]`, producing 21 errors of the form "Property 'slug' does not exist on type 'never'". One interface fixes all of them.
+
+It does **not** fix the 8 "Parameter 'totals' implicitly has an any type" errors, despite an earlier draft of this plan claiming it would. TypeScript does not infer a function's parameter types from its call sites, so annotating what `dayTotals()` returns says nothing about the separately declared `totals` parameters of its consumers. Those need explicit annotations and belong to Task 5.
 
 **Files:**
 - Modify: `src/app.ts` (types block, and the `const S = {...}` declaration at what is currently line 88)
@@ -337,7 +345,9 @@ The string literals come from `loadPrefs()`, which is where the accepted set is 
    what a stored preference is allowed to be. */
 type Basis = "g" | "kcal";
 type WeightUnit = "kg" | "stlb";
-type View = "table" | "chart";
+/* Three, not two. "My day" is a view alongside the table and the chart:
+   S.view is assigned "day" directly, and compared against it in five places. */
+type View = "table" | "chart" | "day";
 
 interface Sort { id: string; dir: 1 | -1; }
 interface DayEntry { slug: string; g: number; }
@@ -394,7 +404,18 @@ and give `dayTotals()` its return type:
 function dayTotals(): DayTotal[] {
 ```
 
-Leave both bodies untouched.
+Leave both bodies untouched, with **one unavoidable exception**. Inside
+`dayTotals()`, `const notes = new Set();` infers as `Set<unknown>`, so
+`[...notes]` is `unknown[]` and the `DayTotal[]` annotation cannot hold. Give it
+its type argument:
+
+```ts
+const notes = new Set<Note>();
+```
+
+The set only ever receives `Note` values, from `noteFor()`. Do not instead
+weaken `DayTotal.notes` to `unknown[]`: that would make the type lie and push
+the problem into every consumer.
 
 - [ ] **Step 4: Confirm the count fell and the `never` errors are gone**
 
@@ -403,7 +424,13 @@ npm run check 2>&1 | grep -cE "error TS"
 npm run check 2>&1 | grep -c "type 'never'"
 ```
 
-The second must be `0`. The first should drop by roughly 29.
+The second must be `0`. That is the exact requirement.
+
+Treat the total as a soft figure. Fixing a `never` type exposes errors that were
+hidden beneath it, so the net fall is much smaller than the count of errors
+removed: measured at 9, against an earlier estimate of 29 that counted only
+removals. Judge the task on the `never` count and on whether the types are true,
+never on the total landing at a predicted number.
 
 - [ ] **Step 5: Run the suite**
 

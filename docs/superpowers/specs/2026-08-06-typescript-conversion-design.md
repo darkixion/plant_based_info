@@ -149,15 +149,23 @@ does, so there is no green checkpoint until the end.
 ## The data model
 
 Transcribed from `src/data/nutrients.json` as it actually is. Every nutrient
-carries all seven fields and every food all five; `alt` is the only genuinely
+carries all seven keys and every food all five; `alt` is the only genuinely
 optional key, on 41 of 131 foods.
+
+**A key being present is not the same as its value being usable, and this
+design originally got that wrong.** `dv` is present on all 66 nutrients but its
+value is `null` on 35 of them: sugars, water, most fatty acids, all amino acids,
+and most carotenoids and flavonoids simply have no published daily value. The
+first draft typed it `number`, because the check behind that claim counted keys
+and never looked at values. It is `number | null`, and it is the only field in
+the dataset where the two differ.
 
 ```ts
 type NutrientGroup = "macro" | "fats" | "amino" | "vitamin" | "mineral" | "plant";
 type Unit = "kcal" | "g" | "mg" | "µg";
 
 interface Nutrient { id: string; label: string; group: NutrientGroup;
-                     unit: Unit; dv: number; dp: number; why: string; }
+                     unit: Unit; dv: number | null; dp: number; why: string; }
 interface Food { name: string; state: string; cat: string; colour: string;
                  alt?: string; v: readonly (number | null)[]; }
 interface Note { id: string; marker: string; short: string; text: string;
@@ -183,6 +191,7 @@ accepted set is already written down as validation:
 ```ts
 type Basis = "g" | "kcal";
 type WeightUnit = "kg" | "stlb";
+type View = "table" | "chart" | "day";
 interface Sort { id: string; dir: 1 | -1; }
 interface DayEntry { slug: string; g: number; }
 interface Lens { id: string; name: string; ids: string[]; why?: string; }
@@ -194,7 +203,13 @@ authority on these, and reading it is how the second spelling was caught.
 `Lens.why` is optional because `loadPrefs()` builds custom lenses with a
 conditional spread that omits the key entirely when there is no text, which is
 the shape `exactOptionalPropertyTypes` is strict about. The remaining string
-fields on `S`, `view` and `tab` and `chartNut`, are pinned to literal unions
+`View` has three members, not two. "My day" is a view alongside the table and
+the chart: `S.view` is assigned `"day"` directly at `app.ts:1536` and compared
+against it in five places. An earlier draft of this design listed only `"table"`
+and `"chart"`, and the compiler caught it as five no-overlap comparisons.
+
+The remaining string
+fields on `S`, `tab` and `chartNut`, are pinned to literal unions
 during implementation from the code that reads them.
 
 ## What the types actually catch
