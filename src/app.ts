@@ -310,6 +310,13 @@ const targetEl = (e: Event): HTMLElement | null =>
 const targetInput = (e: Event): HTMLInputElement | null =>
   e.target instanceof HTMLInputElement ? e.target : null;
 
+/* Element, not HTMLElement, because a click can land on an inline SVG icon
+   inside a button and SVGElement does not inherit from HTMLElement.
+   Element is the right floor here: closest() and matches() are both
+   Element methods. */
+const targetAnyEl = (e: Event): Element | null =>
+  e.target instanceof Element ? e.target : null;
+
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const say = m => { $("#live").textContent = m; };
@@ -750,9 +757,11 @@ function renderNutNote() {
        does in the body. Sorting by a column leaves its explanation here.`;
 }
 
-/* Bound to #thead itself, which survives every re-render of its contents. */
-const nutOf = e => {
-  const id = e.target.closest?.("[data-sort]")?.dataset.sort;
+/* Bound to #thead itself, which survives every re-render of its contents.
+   targetAnyEl, not targetEl: the sort arrows are inline SVG, so hovering or
+   focusing one makes e.target an SVGElement. */
+const nutOf = (e: Event): string | null => {
+  const id = targetAnyEl(e)?.closest<HTMLElement>("[data-sort]")?.dataset.sort;
   return id && id !== "__name" ? id : null;
 };
 function previewNut(id) {
@@ -1434,10 +1443,10 @@ function render() {
 
 /* ---------- events ---------- */
 document.addEventListener("click", e => {
-  // Not targetEl: a click on a button's own SVG icon (the heart, an "x") makes
-  // e.target an SVGElement, which targetEl's HTMLElement check would drop. All
-  // Elements have closest(), so narrow that far and no further.
-  const t = (e.target instanceof Element ? e.target : null)?.closest("button");
+  // targetAnyEl, not targetEl: a click on a button's own SVG icon (the heart,
+  // an "x") makes e.target an SVGElement, which targetEl's HTMLElement check
+  // would drop.
+  const t = targetAnyEl(e)?.closest("button");
   if (!t) return;
 
   if (t.dataset.grp) return toggleGroup(t.dataset.grp);
@@ -1862,9 +1871,9 @@ $("#lensX").onclick = () => $<HTMLDialogElement>("#lensDlg").close();
 $("#nutPick").addEventListener("change", updateLensCount);
 
 $("#savedLenses").addEventListener("click", e => {
-  // Not targetEl: the delete button's content is an "x" SVG icon, so a click
-  // there lands on an SVGElement rather than an HTMLElement.
-  const b = (e.target instanceof Element ? e.target : null)?.closest<HTMLElement>("[data-rmlens]");
+  // targetAnyEl, not targetEl: the delete button's content is an "x" SVG icon,
+  // so a click there lands on an SVGElement rather than an HTMLElement.
+  const b = targetAnyEl(e)?.closest<HTMLElement>("[data-rmlens]");
   if (!b) return;
   const id = b.dataset.rmlens;
   const gone = S.custom.find(l => l.id === id);
