@@ -24,6 +24,19 @@ jobs:
       # Builds first, then drives the built page in a real browser.
       - run: npm test
 
+      # dist/app.js is generated but committed, same reasoning as index.html
+      # below. Checked first so a stale dist/app.js is reported as itself,
+      # not as a stale index.html, which would send the reader to the wrong
+      # command to fix it.
+      - name: dist/app.js is up to date with src/app.ts
+        run: |
+          npm run compile
+          if ! git diff --quiet -- dist/app.js; then
+            echo "::error::dist/app.js does not match src/app.ts. Run 'npm run compile' and commit the result."
+            git diff --stat -- dist/app.js
+            exit 1
+          fi
+
       # index.html is generated but committed, because the page is served
       # straight from the repo. A commit where it disagrees with src/ ships a
       # stale page to anyone loading it, and nobody reads a 180 kB generated

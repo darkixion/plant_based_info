@@ -48,6 +48,32 @@ await test("page loads with no console or page errors", async () => {
   assert(errors.length === 0, `errors: ${errors.join(" | ")}`);
 });
 
+await test("the app's own globals survive minification", async () => {
+  await withPage(async page => {
+    // Written as `typeof`, which yields "undefined" for a name that was never
+    // declared instead of throwing, so this reports every missing name at once
+    // rather than dying on the first.
+    const missing = await page.evaluate(() => {
+      const probes = {
+        S: typeof S, FOODS: typeof FOODS, GROUPS: typeof GROUPS,
+        SLUGS: typeof SLUGS, BY_SLUG: typeof BY_SLUG,
+        dayTotals: typeof dayTotals, proteinQuality: typeof proteinQuality,
+        omegaRatio: typeof omegaRatio, shown: typeof shown,
+        savePrefs: typeof savePrefs, render: typeof render,
+        addToDay: typeof addToDay, setDayGrams: typeof setDayGrams,
+        dayAminoAcids: typeof dayAminoAcids,
+        dayProteinQuality: typeof dayProteinQuality,
+        dayStanding: typeof dayStanding, toggleGroup: typeof toggleGroup,
+      };
+      return Object.entries(probes)
+        .filter(([, t]) => t === "undefined").map(([name]) => name);
+    });
+    assert(missing.length === 0,
+      `these globals vanished, which almost always means src/app.ts gained an ` +
+      `import and esbuild switched to module output: ${missing.join(", ")}`);
+  });
+});
+
 await test("table renders every food and the default column set", async () => {
   await withPage(async page => {
     // No pagination: the table lists everything it has in one scrolling box.

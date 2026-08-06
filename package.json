@@ -5,15 +5,19 @@
   "description": "Single-page plant-based nutrition reference. Builds to one self-contained HTML file.",
   "type": "module",
   "scripts": {
+    "check": "tsc --noEmit",
+    "compile": "esbuild src/app.ts --outfile=dist/app.js --minify --target=es2022 --charset=utf8 --legal-comments=none",
     "build": "node build.mjs",
-    "watch": "node build.mjs --watch",
-    "test": "node build.mjs && node test/smoke.mjs",
+    "test": "npm run compile && npm run build && node test/smoke.mjs",
+    "watch": "npm run compile && node build.mjs --watch",
     "serve": "node --run build && node -e \"import('node:http').then(({default:h})=>import('node:fs').then(({readFileSync})=>h.createServer((q,s)=>{s.setHeader('content-type','text/html');s.end(readFileSync('index.html'))}).listen(8080,()=>console.log('http://localhost:8080'))))\""
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
-    "playwright": "^1.62.1"
+    "esbuild": "0.28.1",
+    "playwright": "^1.62.1",
+    "typescript": "^7.0.2"
   }
 }

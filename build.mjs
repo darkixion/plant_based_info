@@ -18,7 +18,10 @@ const OUT = join(ROOT, "index.html");
 const SOURCES = {
   html: join(SRC, "index.html"),
   css: join(SRC, "styles.css"),
-  app: join(SRC, "app.js"),
+  // A separately compiled file, not read from src/. `npm run watch` only
+  // watches src/, so editing the app's source during a watch session needs
+  // a fresh `npm run compile` too, or this keeps inlining the stale build.
+  app: join(ROOT, "dist", "app.js"),
   data: join(SRC, "data", "nutrients.json"),
   icons: join(SRC, "data", "icons.json"),
 };
