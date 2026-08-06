@@ -1,6 +1,29 @@
 # A per-100-kcal basis, alongside per 100 g
 
-Status: **designed, not yet built**, 2026-08-06.
+Status: **built and shipped**, 2026-08-06. The durable parts now live in
+`README.md` under "Per 100 g and per 100 kcal"; this file is the reasoning
+behind them.
+
+## Where the build diverged from this design
+
+Three things, all decided while building:
+
+1. **The detail panel's body was still reading `val()`** after its header had
+   been changed to announce the basis, so the panel claimed per 100 kcal over
+   per-100-g figures. The first test missed it by asserting the header text
+   rather than a number, which is the weak-assertion trap this spec spent a
+   section warning about in a different place. The panel now runs through
+   `shown()` and the test reads the iron figure and the exempt energy row.
+2. **A local `shown` Set in `renderDetail()` and `renderDayTotals()`** shadowed
+   the new `shown()` helper. Harmless the day it was written, and a trap the
+   first time anyone reaches for the basis inside either function. Both are
+   `shownNotes` now, which is what the table render already called the same
+   thing.
+3. **CSV headings name the basis on every column, including per-100-g exports.**
+   The spec said only that the CSV should state the basis; making it
+   unconditional changes `"Protein (g)"` to `"Protein (g per 100 g)"` and broke
+   an existing test, which is how it came to be a decision rather than a
+   side effect.
 
 ## The problem
 

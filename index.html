@@ -10,7 +10,22 @@
   --green:#4E9226; --green-dark:#3F7A1E; --green-tint:#F5F9F3; --green-line:#CBDFC1;
   --ink:#16201A; --body:#3D4A3E; --muted:#6B7565; --faint:#8A9389;
   --line:#E7EAE4; --line-soft:#F0F2EE; --page:#FFFFFF; --panel:#FFFFFF;
-  --raise:#FAFBF9; --shadow:0 1px 2px rgba(20,32,22,.06),0 8px 24px -12px rgba(20,32,22,.10);
+  --raise:#FAFBF9;
+  /* A second raised surface, warm where --raise is cool. Buttons, the nutrient
+     note and the pinned food column share it, so they cannot drift apart the
+     way the group colours did while five of them were fixed hex. */
+  --raise-warm:#F5F1E7;
+  /* One step deeper than --raise-warm: the groove the segmented control sits
+     in, and what a button lands on when hovered. Both are the same idea, a
+     warm surface pressed slightly further back. */
+  --raise-warm-deep:#EAE1D1;
+  /* Ink that goes on a green fill, and the two colours the food swatch is
+     built from: a hairline edge so a pale swatch still has a boundary, and the
+     specular highlight mixed into its top left. */
+  --on-green:#FFFFFF; --sw-edge:rgba(0,0,0,.10); --sw-gloss:#FFFFFF;
+  /* The scrim behind an open dialog. Dark in both themes by design. */
+  --backdrop:rgba(16,22,15,.45);
+  --shadow:0 1px 2px rgba(20,32,22,.06),0 8px 24px -12px rgba(20,32,22,.10);
   --warn:#B4531B; --amber:#C08A16; --r:12px; --tap:44px;
   /* Every panel on the page draws this one shadow. Change it here and they all
      change; the list of what counts as a panel is the single rule near the foot
@@ -36,7 +51,8 @@
   --green:#7CC24A; --green-dark:#9BD668; --green-tint:#1A241A; --green-line:#33472B;
   --ink:#EDF1EA; --body:#C3CCC0; --muted:#98A395; --faint:#7C8879;
   --line:#28312A; --line-soft:#212A23; --page:#10160F; --panel:#161D16;
-  --raise:#1B231B; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  --raise:#1B231B; --raise-warm:#221E17; --raise-warm-deep:#2E2820;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
   --box-shadow-colour:rgba(0,0,0,.62);
   --warn:#F0A16A; --amber:#E5BE55;
   --t-macro:#141C14; --t-fats:#1F1712; --t-amino:#101D20; --t-vitamin:#1D1910; --t-mineral:#181426;
@@ -66,7 +82,7 @@ button,input,select{font:inherit; color:inherit}
 :where(button,[role=button]){cursor:pointer}
 .sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.skip{position:absolute;left:8px;top:-60px;z-index:99;background:var(--green);color:#fff;
+.skip{position:absolute;left:8px;top:-60px;z-index:99;background:var(--green);color:var(--on-green);
       padding:10px 16px;border-radius:8px;font-weight:600;transition:top .15s}
 .skip:focus{top:8px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -159,7 +175,7 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
 /* min-height fits the longest of the sentences at this width, so moving from
    one header to the next never resizes the box and never nudges the table. */
 .nutnote{margin:0 0 12px; padding:10px 14px; border-radius:10px; font-size:13.5px;
-  line-height:1.5; color:var(--muted); background:var(--raise); min-height:83px;
+  line-height:1.5; color:var(--muted); background:var(--raise-warm); min-height:83px;
   border:1px solid var(--line); border-left:3px solid var(--green-line); max-width:96ch}
 .nutnote b{color:var(--ink); font-weight:650}
 
@@ -187,17 +203,17 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
 
 /* ---------- toolbar ---------- */
 .bar{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:16px}
-.seg{display:inline-flex; background:var(--raise); border:1px solid var(--line);
+.seg{display:inline-flex; background:var(--raise-warm-deep); border:1px solid var(--line);
      border-radius:10px; padding:3px; gap:3px}
 .seg button{border:0; background:none; padding:8px 18px; border-radius:7px; font-size:14px;
   color:var(--muted); min-height:38px}
 .seg button[aria-pressed=true]{background:var(--panel); color:var(--ink); font-weight:600;
   box-shadow:var(--shadow)}
 .btn{display:inline-flex; gap:8px; align-items:center; padding:9px 15px; border-radius:9px;
-  border:1px solid var(--line); background:var(--panel); color:var(--body); font-size:14px;
+  border:1px solid var(--line); background:var(--raise-warm); color:var(--body); font-size:14px;
   min-height:40px}
-.btn:hover{background:var(--raise)}
-.btn.primary{background:var(--green); border-color:var(--green); color:#fff; font-weight:600}
+.btn:hover{background:var(--raise-warm-deep)}
+.btn.primary{background:var(--green); border-color:var(--green); color:var(--on-green); font-weight:600}
 .btn.primary:hover{background:var(--green-dark); border-color:var(--green-dark)}
 .push{margin-left:auto}
 select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
@@ -263,7 +279,7 @@ th[aria-sort] .ar{opacity:1; color:var(--green)}
 .unit{color:var(--faint); font-weight:400}
 th.food,td.food{position:sticky; left:0; background:var(--panel); z-index:2; text-align:left;
   border-right:1px solid var(--line); min-width:210px}
-thead th.food{z-index:4; background:var(--raise)}
+thead th.food{z-index:4; background:var(--raise-warm)}
 tbody tr:hover td{background:var(--green-tint)}
 tbody tr:hover td.food{background:var(--green-tint)}
 tbody tr[aria-selected=true] td{background:var(--green-tint); box-shadow:inset 0 -1px 0 var(--green-line)}
@@ -289,13 +305,20 @@ th.lensR,td.lensR{border-right:2px solid var(--lens-line)}
 thead tr:nth-child(2) th.lens{box-shadow:inset 0 3px 0 var(--lens-line)}
 thead tr:nth-child(2) th.lens.sorted{box-shadow:inset 0 3px 0 var(--lens-line),inset 0 -2px 0 var(--green)}
 .fcell{display:flex; gap:10px; align-items:center}
-.sw{width:30px; height:30px; border-radius:50%; flex:none; border:1px solid rgba(0,0,0,.10);
-    background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 62%,#fff),var(--c) 72%)}
+.sw{width:30px; height:30px; border-radius:50%; flex:none; border:1px solid var(--sw-edge);
+    background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 62%,var(--sw-gloss)),var(--c) 72%)}
 .fname{display:flex; flex-direction:column; align-items:flex-start; line-height:1.25; min-width:0; border:0; background:none; padding:2px 0; margin:0; text-align:left; border-radius:6px}
 .fname:hover b{color:var(--green-dark); text-decoration:underline}
 .fname b{font-weight:600; color:var(--ink); font-size:13.5px}
 .fname b .alt{font-weight:400; color:var(--faint)}
 .fname span{font-size:11.5px; color:var(--faint)}
+/* ---- what 100 kcal of this food weighs ----
+   Only on the per-calorie basis, and pinned to the name rather than made a
+   column, because it is what stops that basis reading as a recommendation:
+   watercress leads several columns per calorie, and 100 kcal of it is 909 g.
+   A column could be switched off from the sidebar; this cannot be. */
+.fname .per100{font-variant-numeric:tabular-nums; color:var(--green-dark);
+     background:var(--line-soft); border-radius:4px; padding:0 4px; margin-top:2px}
 .fav{border:0; background:none; padding:7px; border-radius:8px; color:var(--faint); line-height:0;
      margin-left:auto; min-width:34px; min-height:34px}
 .fav:hover{background:var(--line-soft); color:var(--green)}
@@ -526,11 +549,15 @@ dl{margin:0}
    a single declaration and adding a panel means adding a selector to this one
    list rather than inventing another shadow beside it.
 
-   Deliberately not here: buttons, segments, table cells and the sidebar nav.
-   They are controls rather than panels, and a 17px drop shadow on each of them
-   would bury the page. The segmented control keeps its own inset --shadow for
-   the pressed state, which says "raised", not "floating". */
-.tablewrap, .detail, .chart, .about, .sidecard, .search, .dayadd, .daysug,
+   Buttons are in the list by choice. The argument against was that a 17px drop
+   shadow on every control would bury the page; against that, a button is the one
+   thing on the page that should look liftable, and they now sit on the same warm
+   surface as the panels rather than on white.
+
+   Still deliberately not here: segments, table cells and the sidebar nav. The
+   segmented control keeps its own inset --shadow for the pressed state, which
+   says "raised", not "floating". */
+.btn, .tablewrap, .detail, .chart, .about, .sidecard, .search, .dayadd, .daysug,
 .daylist, .totgroup, .dayempty, .lensnote, .nutnote, dialog{
   box-shadow:var(--box-shadow);
 }
@@ -538,7 +565,7 @@ dl{margin:0}
 footer{padding:0 26px 40px; color:var(--faint); font-size:12.5px; max-width:80ch}
 dialog{border:1px solid var(--line); border-radius:var(--r); padding:0; max-width:640px;
   width:calc(100% - 32px); background:var(--panel); color:var(--body)}
-dialog::backdrop{background:rgba(16,22,15,.45)}
+dialog::backdrop{background:var(--backdrop)}
 .dlghead{display:flex; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line)}
 .dlgbody{padding:20px; max-height:64vh; overflow:auto}
 .dlgbody h4{margin:18px 0 6px} .dlgbody h4:first-child{margin-top:0}
@@ -646,7 +673,7 @@ dialog::backdrop{background:rgba(16,22,15,.45)}
   <h1>Explore the nutrition of <em>plant-based wholefoods</em></h1>
   <p>Browse <b id="totalFoods"></b> plant-based wholefoods: amino acids, vitamins,
      minerals, omega oils, carotenoids, flavonoids and
-     macronutrients. All figures per 100&nbsp;g.</p>
+     macronutrients. Every figure per 100&nbsp;g, or per 100&nbsp;kcal.</p>
 </header>
 
 <main class="sect" id="main" tabindex="-1">
@@ -664,6 +691,7 @@ dialog::backdrop{background:rgba(16,22,15,.45)}
       <select class="sel" id="lensSel"></select>
       <button class="btn" type="button" id="lensEdit">Custom…</button>
     </span>
+    <button class="btn" type="button" id="basisBtn" aria-pressed="false"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M3 8h6M15 8h6"/><circle cx="6" cy="14" r="3"/><circle cx="18" cy="14" r="3"/></svg> Show per 100 kcal</button>
     <button class="btn" type="button" id="dvBtn" aria-pressed="false"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5 5 19"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Show % daily value</button>
     <button class="btn" type="button" id="csvBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button>
     <button class="btn push" type="button" id="resetBtn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v6h6"/><path d="M3.5 13a9 9 0 1 0 2.1-6.4L3 9"/></svg> Reset columns</button>
@@ -884,7 +912,7 @@ const S = {
   sort: { id: "__name", dir: 1 },
   q: "", cat: "",
   sel: 0, favs: new Set(), favsOnly: false,
-  dv: false, view: "table", tab: "overview",
+  dv: false, basis: "g", view: "table", tab: "overview",
   chartNut: "protein", dark: false,
   lens: "", custom: [],
   day: [], kg: DEFAULT_KG, wUnit: "kg",
@@ -940,7 +968,7 @@ function savePrefs() {
   if (!storageOK) return;
   try {
     localStorage.setItem(LS_KEY, JSON.stringify({
-      favs: [...S.favs], groups: [...S.groups], sort: S.sort, dv: S.dv,
+      favs: [...S.favs], groups: [...S.groups], sort: S.sort, dv: S.dv, basis: S.basis,
       dark: S.dark, lens: S.lens, custom: S.custom,
       favsOnly: S.favsOnly, cat: S.cat, chartNut: S.chartNut,
       day: S.day, kg: S.kg, wUnit: S.wUnit,
@@ -970,6 +998,7 @@ function loadPrefs() {
   if (p.sort && (p.sort.id === "__name" || IDX.has(p.sort.id)))
     S.sort = { id: p.sort.id, dir: p.sort.dir === 1 ? 1 : -1 };
   if (typeof p.dv === "boolean") S.dv = p.dv;
+  if (p.basis === "g" || p.basis === "kcal") S.basis = p.basis;
   if (typeof p.dark === "boolean") S.dark = p.dark;
   if (CATS.includes(p.cat)) S.cat = p.cat;
   if (IDX.has(p.chartNut)) S.chartNut = p.chartNut;
@@ -1009,6 +1038,45 @@ const say = m => { $("#live").textContent = m; };
 /* ---------- data helpers ---------- */
 const cols = () => NUTS.map((n, i) => ({ ...n, i })).filter(n => S.groups.has(n.group));
 const val = (f, id) => f.v[IDX.get(id)];
+
+/* ---------- the display basis ----------
+   `val` is the stored figure per 100 g and must stay that way: dayTotals(),
+   proteinQuality() and omegaRatio() all read it. A day's totals are grams of
+   real food measured against real daily values, and the amino acid score and
+   the omega ratio are ratios, which are the same on any basis. Rescaling reads
+   at `val` would leave all three looking right and being wrong.
+
+   So the basis lives here instead, and only the table, the detail panel, the
+   sort comparator and the CSV read it. Per 100 kcal answers a question per
+   100 g cannot -- leafy greens are nothing per 100 g and lead most columns per
+   calorie -- but it is not the truer basis, only the opposite bias: it flatters
+   watery foods exactly as much as per 100 g flatters dry ones. Which is why it
+   is a toggle, and why gramsPer100kcal() is pinned beside every food name. */
+const GRAMS_PER = 100;
+const KCAL_BASIS = 100;
+
+/** Grams of a food that make 100 kcal. Null if it has no energy figure, since
+ *  the division below has nothing to divide by. */
+function gramsPer100kcal(f) {
+  const k = val(f, "kcal");
+  return k ? KCAL_BASIS / k * GRAMS_PER : null;
+}
+
+/** How every figure on the page is currently qualified. One source, because the
+ *  table caption, the column header, the detail panel and the CSV all say it
+ *  and a page that says two different things is worse than one that says none. */
+const basisLabel = () => S.basis === "kcal" ? "per 100 kcal" : "per 100 g";
+
+/** The figure to display for a food and nutrient, on the basis now selected.
+ *  Energy is exempt: energy per 100 kcal is 100 for every food, so the column
+ *  would say nothing. The exemption is here rather than at the four call sites
+ *  so the table, the sort order and the CSV cannot disagree about it. */
+function shown(f, n) {
+  const v = val(f, n.id);
+  if (S.basis === "g" || n.id === "kcal" || v === null || v === undefined) return v;
+  const k = val(f, "kcal");
+  return k ? v / k * KCAL_BASIS : null;
+}
 
 /* The table gives every row a state line under its name, so "Bell pepper" three
    times over is unambiguous there. The chart has one line per bar and would
@@ -1261,7 +1329,10 @@ function rows() {
   const { id, dir } = S.sort;
   r.sort((a, b) => {
     if (id === "__name") return dir * a.f.name.localeCompare(b.f.name);
-    const x = val(a.f, id), y = val(b.f, id);
+    // Sorted on the shown figure, not the stored one: a column ordered by
+    // something other than what it displays is a bug people report as one.
+    const n = NUTS[IDX.get(id)];
+    const x = shown(a.f, n), y = shown(b.f, n);
     if (x === y) return a.f.name.localeCompare(b.f.name);
     if (x === null) return 1;
     if (y === null) return -1;
@@ -1473,7 +1544,7 @@ function renderTable(r) {
     <tr>
       <th class="food${nameSorted ? " sorted" : ""}" rowspan="2" scope="col" aria-sort="${nameSorted ? (S.sort.dir === 1 ? "ascending" : "descending") : "none"}">
         <button class="sortbtn" type="button" data-sort="__name" style="justify-content:flex-start">
-          <span>Food <span class="unit">per 100 g</span></span>
+          <span>Food <span class="unit">${basisLabel()}</span></span>
           <span class="ar" aria-hidden="true">${nameSorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
         </button></th>
       ${groupHead}
@@ -1489,13 +1560,16 @@ function renderTable(r) {
         <button class="fname" type="button" data-pick="${i}" data-name="${esc(f.name)}">
           <b>${esc(f.name)}${f.alt ? ` <span class="alt">(${esc(f.alt)})</span>` : ""}</b>
           ${f.state ? `<span>${esc(f.state)}</span>` : ""}
+          ${S.basis === "kcal" && gramsPer100kcal(f) !== null
+            ? `<span class="per100">${Math.round(gramsPer100kcal(f))} g</span>
+               <span class="sr">makes 100 kcal</span>` : ""}
           <span class="sr">, show full profile</span></button>
         <button class="fav" type="button" data-fav="${i}" aria-pressed="${isFav(i)}">
           ${isFav(i) ? I.heartFull : I.heart}
           <span class="sr">${isFav(i) ? "Remove" : "Add"} ${esc(f.name)} ${isFav(i) ? "from" : "to"} favourites</span>
         </button></div></td>
       ${c.map(n => {
-        const v = val(f, n.id);
+        const v = shown(f, n);
         const zero = v === 0 || v === null;
         // A note explains where a figure came from, so there has to be one.
         const note = v === null ? null : noteFor(i, n.id);
@@ -1508,7 +1582,7 @@ function renderTable(r) {
 
   const lens = lensById(S.lens);
   $("#cap").textContent =
-    `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values per 100 g of food` +
+    `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values ${basisLabel()} of food` +
     (S.dv ? ", shown as % of adult daily value." : ".") +
     (lens ? ` ${lens.name} highlighted.` : "");
 
@@ -1628,7 +1702,7 @@ function proteinQualityBlock(f) {
 /* ---------- detail panel ---------- */
 function renderDetail() {
   const f = FOODS[S.sel];
-  const g = id => val(f, id);
+  const g = id => shown(f, NUTS[IDX.get(id)]);
   const inDay = S.day.find(e => e.slug === SLUGS[S.sel]);
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
@@ -1640,7 +1714,7 @@ function renderDetail() {
 
   // The panel shows the same figures as the table, so it carries the same
   // markers, and explains them once at the foot rather than per row.
-  const shown = new Set();
+  const shownNotes = new Set();
 
   let body;
   if (S.tab === "overview") {
@@ -1663,7 +1737,7 @@ function renderDetail() {
       + proteinQualityBlock(f)
       + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => {
         const note = noteFor(S.sel, n.id);
-        if (note) shown.add(note);
+        if (note) shownNotes.add(note);
         return `<div class="drow"><dt>${esc(n.label)}</dt>
           <dd class="pc">${Math.round(pc)}% DV${note ? noteMark(note) : ""}</dd></div>`;
       }).join("") + `</dl>`;
@@ -1680,7 +1754,7 @@ function renderDetail() {
         const none = v === null || v === undefined;
         const pc = !none && n.dv ? Math.round(v / n.dv * 100) : null;
         const note = none ? null : noteFor(S.sel, n.id);
-        if (note) shown.add(note);
+        if (note) shownNotes.add(note);
         return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <dt>${esc(n.label)}</dt>
@@ -1707,7 +1781,7 @@ function renderDetail() {
       <h3>${esc(f.name)}</h3>
       ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
       ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
-      <div class="per">${esc(f.cat)} · per 100 g</div>
+      <div class="per">${esc(f.cat)} · ${basisLabel()}</div>
       <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
         ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
       ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
@@ -1719,7 +1793,7 @@ function renderDetail() {
           tabindex="${S.tab === id ? 0 : -1}">${ic}<span>${label}</span></button>`).join("")}
     </div>
     <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}${
-      [...shown].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
+      [...shownNotes].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
         <b>${esc(n.short)}.</b> ${esc(n.text)}</p>`).join("")}</div>
     <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>`;
 }
@@ -1735,6 +1809,12 @@ function renderMeta(total) {
   $("#meta").innerHTML = `${I.info} Showing <b>${total}</b> of ${FOODS.length} foods ·
     <b>${c}</b> of ${NUTS.length} nutrients` +
     (S.favsOnly ? " · favourites only" : "") + (S.dv ? " · % daily value" : "") +
+    (S.basis === "kcal" ? " · per 100 kcal" : "") +
+    // The reason the two controls are separate rather than one three-way switch.
+    // A %DV per 100 kcal figure scales by 20 over a 2000 kcal day, so one number
+    // reads the whole table without anyone learning 60-odd daily values.
+    (S.dv && S.basis === "kcal"
+      ? ` · <span class="lenshint">5% here is a full day's worth</span> at 2000 kcal` : "") +
     (lens ? ` · <span class="lenshint">${esc(lens.name)}</span> highlighted` : "");
   $("#favCount").textContent = S.favs.size || "";
   // Counted from the entries that resolve to a food, not from the stored list.
@@ -1817,7 +1897,7 @@ function renderDayTotals(totals) {
   if (!list.length) { box.innerHTML = ""; return; }
 
   const aaRef = aminoRefsByNutrient(totals);
-  const shown = new Set();
+  const shownNotes = new Set();
   const body = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
     const rows = totals.filter(t => t.n.group === g.id).map(t => {
       const { n, total, partial, from, of, notes } = t;
@@ -1830,7 +1910,7 @@ function renderDayTotals(totals) {
       const pairedWith = aa && aa.partners.length
         ? `<span class="qual">with ${aa.partners
             .map(id => NUTS[IDX.get(id)].label.toLowerCase()).join(" and ")}</span>` : "";
-      notes.forEach(x => shown.add(x));
+      notes.forEach(x => shownNotes.add(x));
       return `<div class="totrow${total === null ? " none" : ""}">
         <span class="totname">${esc(n.label)}${notes.map(noteMark).join("")}${pairedWith}</span>
         <span class="totval">${total === null
@@ -1864,7 +1944,7 @@ function renderDayTotals(totals) {
   }).join("");
 
   box.innerHTML = `<div class="totals">${body}</div>` +
-    (shown.size ? `<div class="notekey">${[...shown].map(n =>
+    (shownNotes.size ? `<div class="notekey">${[...shownNotes].map(n =>
       `<span><sup class="fnote">${esc(n.marker)}</sup> <b>${esc(n.short)}.</b>
        ${esc(n.text)}</span>`).join("")}</div>` : "") +
     `<p class="nodatanote" style="margin-top:12px">Percentages use the same general adult
@@ -2207,6 +2287,15 @@ $("#navFoods").addEventListener("click", () => {
 });
 $("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); renderChart(rows()); };
 $("#lensSel").onchange = e => setLens(e.target.value);
+$("#basisBtn").onclick = e => {
+  S.basis = S.basis === "g" ? "kcal" : "g";
+  const perKcal = S.basis === "kcal";
+  e.currentTarget.setAttribute("aria-pressed", String(perKcal));
+  e.currentTarget.lastChild.textContent = perKcal ? " Show per 100 g" : " Show per 100 kcal";
+  say(perKcal ? "Showing figures per 100 kcal." : "Showing figures per 100 g.");
+  savePrefs();
+  render();
+};
 $("#dvBtn").onclick = e => {
   S.dv = !S.dv;
   e.currentTarget.setAttribute("aria-pressed", String(S.dv));
@@ -2223,6 +2312,8 @@ $("#resetBtn").onclick = () => {
   S.cat = "";
   S.dv = false; $("#dvBtn").setAttribute("aria-pressed", "false");
   $("#dvBtn").lastChild.textContent = " Show % daily value";
+  S.basis = "g"; $("#basisBtn").setAttribute("aria-pressed", "false");
+  $("#basisBtn").lastChild.textContent = " Show per 100 kcal";
   S.favsOnly = false; S.lens = "";
   savePrefs();
   renderGroups(); renderCats(); renderLensSelect(); render();
@@ -2382,11 +2473,15 @@ function download(lines, name) {
 
 function csvTable() {
   const c = cols(), r = rows(), q = csvQuote;
+  // The basis rides on every column heading rather than sitting in a note at
+  // the top: a rescaled figure under an unlabelled heading is a file nobody can
+  // interpret a month later, which is the failure the %DV suffix already avoids.
+  const per = basisLabel();
   const head = ["Food", "Also known as", "State", "Category",
-                ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit})`)];
+                ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit} ${per})`)];
   const lines = [head.map(q).join(",")].concat(r.map(({ f }) =>
     [q(f.name), q(f.alt || ""), q(f.state), q(f.cat), ...c.map(n => {
-      const v = val(f, n.id);
+      const v = shown(f, n);
       if (v === null) return "";
       return S.dv && n.dv ? Math.round(v / n.dv * 100) : v;
     })].join(",")));
@@ -2809,6 +2904,8 @@ loadPrefs();
 applyTheme();
 $("#dvBtn").setAttribute("aria-pressed", String(S.dv));
 if (S.dv) $("#dvBtn").lastChild.textContent = " Show raw amounts";
+$("#basisBtn").setAttribute("aria-pressed", String(S.basis === "kcal"));
+if (S.basis === "kcal") $("#basisBtn").lastChild.textContent = " Show per 100 g";
 
 renderGroups();
 renderCats();

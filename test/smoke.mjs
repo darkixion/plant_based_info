@@ -520,7 +520,10 @@ await test("export writes the visible columns and rows", async () => {
     const [head, ...rows] = text.replace(/^﻿/, "").trim().split("\r\n");
     eq(rows.length, 1, "exported rows should follow the filter");
     assert(/^"Food","Also known as","State","Category"/.test(head), `header: ${head}`);
-    assert(head.includes('"Protein (g)"'), `visible column missing: ${head}`);
+    // Every heading carries the basis, including the per-100-g one. An
+    // unqualified "Protein (g)" is the ambiguity the per-calorie basis made
+    // impossible to leave alone: the file outlives the toggle that produced it.
+    assert(head.includes('"Protein (g per 100 g)"'), `visible column missing: ${head}`);
     assert(!head.includes("Beta-carotene"), `hidden column exported: ${head}`);
     assert(rows[0].startsWith('"Kohlrabi","German turnip","cooked","Vegetables"'), rows[0]);
   });
@@ -1908,6 +1911,256 @@ await test("storage being unavailable does not break the page", async () => {
   assert(await page.locator("#tbody tr").count() > 0, "table still renders");
   eq(errors.length, 0, `no uncaught errors (${errors.join(" | ")})`);
   await ctx.close();
+});
+
+// ---------------------------------------------------------------- per 100 kcal
+
+/** Reads one rendered cell by food name and nutrient id, whatever the sort. */
+async function cellText(page, foodName, nutId) {
+  return page.evaluate(({ foodName, nutId }) => {
+    const row = [...document.querySelectorAll("#tbody tr")]
+      .find(tr => tr.querySelector(".fname")?.dataset.name === foodName);
+    if (!row) throw new Error(`no row for ${foodName}`);
+    const shown = [...document.querySelectorAll("#thead [data-sort]")].map(b => b.dataset.sort);
+    const at = shown.indexOf(nutId);
+    if (at < 0) throw new Error(`${nutId} is not a visible column`);
+    // shown[0] is the food column, and the food cell is td 0, so the offsets line up.
+    return row.querySelectorAll("td")[at].textContent.trim();
+  }, { foodName, nutId });
+}
+
+await test("the table can show every figure per 100 kcal", async () => {
+  await withPage(async page => {
+    await page.click("#basisBtn");
+    // Spinach: iron 2.71 mg per 100 g at 23 kcal, so 11.78 mg per 100 kcal.
+    // Chosen because it is the food the per-100-g basis most understates.
+    const want = await page.evaluate(() => {
+      const f = DATA.foods.find(x => x.name === "Spinach");
+      const i = DATA.nutrients.findIndex(n => n.id === "fe");
+      const k = DATA.nutrients.findIndex(n => n.id === "kcal");
+      return (f.v[i] / f.v[k] * 100).toFixed(DATA.nutrients[i].dp);
+    });
+    await page.evaluate(() => toggleGroup("mineral"));
+    eq(await cellText(page, "Spinach", "fe"), want, "iron per 100 kcal");
+  });
+});
+
+/* The basis is a display concern. My day totals grams of real food against real
+   daily values, and the amino acid score and the omega ratio are ratios, which
+   are the same on any basis. All three read val(), so the way this breaks is
+   someone applying the rescale there instead of in shown() -- at which point
+   every one of them still renders, still looks plausible, and is wrong. This
+   test was watched failing against exactly that mistake before it was kept. */
+await test("the basis moves the table and nothing derived from it", async () => {
+  await withPage(async page => {
+    await seedDay(page, [
+      { slug: "spinach-raw", g: 200 },        // 23 kcal/100 g
+      { slug: "sesame-seeds", g: 30 },        // 573 kcal/100 g, a 25x spread
+      { slug: "lentils-cooked", g: 150 },
+    ]);
+    // Kept per key rather than as one blob: a whole-payload diff of 131 foods
+    // reports the failure as forty kilobytes of JSON, which says that something
+    // moved but not what.
+    const derived = () => page.evaluate(() => ({
+      "day totals": JSON.stringify(dayTotals().map(t => [t.total, t.partial, t.from, t.of])),
+      "the day's protein score": JSON.stringify(dayProteinQuality(dayTotals())),
+      "the day's amino acids": JSON.stringify(dayAminoAcids(dayTotals())),
+      "per-food protein quality": JSON.stringify(FOODS.map(proteinQuality)),
+      "per-food omega ratio": JSON.stringify(FOODS.map(omegaRatio)),
+    }));
+
+    const before = await derived();
+    await page.click("#basisBtn");
+    eq(await page.evaluate(() => S.basis), "kcal", "the basis did change");
+    const after = await derived();
+    for (const k of Object.keys(before))
+      assert(before[k] === after[k], `${k} moved with the basis and must not`);
+  });
+});
+
+await test("sorting under the per-calorie basis orders by what is on screen", async () => {
+  await withPage(async page => {
+    await page.evaluate(() => toggleGroup("mineral"));
+    await page.click('[data-sort="fe"]');
+    const byWeight = await page.locator("#tbody .fname").first().evaluate(e => e.dataset.name);
+    eq(byWeight, "Spirulina", "richest iron per 100 g");
+
+    await page.click("#basisBtn");
+    const byEnergy = await page.locator("#tbody .fname").first().evaluate(e => e.dataset.name);
+    eq(byEnergy, "Spinach", "richest iron per 100 kcal");
+  });
+});
+
+/* The per-calorie basis flatters watery foods exactly as much as per 100 g
+   flatters dry ones: watercress leads calcium and protein per calorie because
+   100 kcal of it is 909 g. The grams figure is what stops that reading as a
+   recommendation, so it is pinned beside the name rather than being a column
+   that the sidebar can switch off. */
+await test("every row says how many grams make 100 kcal", async () => {
+  await withPage(async page => {
+    eq(await page.locator("#tbody .per100").count(), 0, "nothing pinned on the per-100-g basis");
+    await page.click("#basisBtn");
+
+    const rows = await page.locator("#tbody tr").count();
+    eq(await page.locator("#tbody .per100").count(), rows, "one per row");
+    const cress = await page.evaluate(() => [...document.querySelectorAll("#tbody tr")]
+      .find(tr => tr.querySelector(".fname")?.dataset.name === "Watercress")
+      .querySelector(".per100").textContent.trim());
+    eq(cress, "909 g", "grams of watercress in 100 kcal");
+  });
+});
+
+await test("the grams figure is not a column and cannot be switched off", async () => {
+  await withPage(async page => {
+    await page.click("#basisBtn");
+    // The table never has zero groups; it falls back to macronutrients. So the
+    // way the grams figure could vanish is by living in the macro group, which
+    // holds energy and is the group anyone comparing minerals turns off first.
+    await page.click("#groupNav [data-grp=mineral]");
+    await page.click("#groupNav [data-grp=macro]");
+    await page.click("#groupNav [data-grp=amino]");
+    const shown = await page.evaluate(() =>
+      [...new Set([...document.querySelectorAll("#thead th[data-g]")].map(th => th.dataset.g))]);
+    eq(shown.join(","), "mineral", "macronutrients are off, minerals are on");
+    assert(!(await page.locator('#thead [data-sort="kcal"]').count()), "energy column is gone");
+
+    const rows = await page.locator("#tbody tr").count();
+    eq(await page.locator("#tbody .per100").count(), rows, "grams figure still on every row");
+  });
+});
+
+await test("the basis persists, and reset columns clears it", async () => {
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+  await page.click("#basisBtn");
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+  eq(await page.evaluate(() => S.basis), "kcal", "basis after reload");
+  eq(await page.locator("#basisBtn").getAttribute("aria-pressed"), "true", "button state after reload");
+  await page.click("#resetBtn");
+  eq(await page.evaluate(() => S.basis), "g", "basis after reset");
+  await ctx.close();
+});
+
+/* The two controls are independent because the combination is the useful cell:
+   a % DV per 100 kcal figure scales by 20 over a 2000 kcal day, so 5% is
+   adequate for any nutrient without knowing a single daily value. */
+await test("percent daily value and the per-calorie basis combine", async () => {
+  await withPage(async page => {
+    await page.evaluate(() => toggleGroup("mineral"));
+    await page.click("#basisBtn");
+    await page.click("#dvBtn");
+    const want = await page.evaluate(() => {
+      const f = DATA.foods.find(x => x.name === "Spinach");
+      const n = DATA.nutrients.find(x => x.id === "fe");
+      const i = DATA.nutrients.indexOf(n);
+      const k = DATA.nutrients.findIndex(x => x.id === "kcal");
+      return Math.round(f.v[i] / f.v[k] * 100 / n.dv * 100) + "%";
+    });
+    eq(await cellText(page, "Spinach", "fe"), want, "iron as %DV per 100 kcal");
+    assert((await page.locator("#meta").textContent()).includes("5%"),
+      "the 5%-is-adequate line is stated where both are on");
+  });
+});
+
+await test("the basis is named in the CSV, the caption and the detail panel", async () => {
+  await withPage(async page => {
+    await page.click("#basisBtn");
+    assert((await page.locator("#cap").textContent()).includes("per 100 kcal"), "table caption");
+
+    await selectFood(page, "spinach", "Spinach");
+    assert((await page.locator("#detail .per").textContent()).includes("per 100 kcal"),
+      "detail panel header");
+    // The header saying one thing while the rows below it show another is worse
+    // than not having the basis at all, so the figures are checked, not the label.
+    await page.click("#detail [data-tab=mineral]");
+    const want = await page.evaluate(() => {
+      const f = DATA.foods.find(x => x.name === "Spinach");
+      const n = DATA.nutrients.find(x => x.id === "fe");
+      const i = DATA.nutrients.indexOf(n);
+      const k = DATA.nutrients.findIndex(x => x.id === "kcal");
+      return (f.v[i] / f.v[k] * 100).toFixed(n.dp);
+    });
+    const iron = await page.evaluate(() => [...document.querySelectorAll("#detail .drow")]
+      .find(d => d.querySelector("dt")?.textContent.trim() === "Iron")
+      .querySelector("dd").textContent.trim());
+    assert(iron.startsWith(want), `panel iron should be ${want} per 100 kcal, got ${iron}`);
+    // Energy is exempt: per 100 kcal it would read 100 for every food.
+    await page.click("#detail [data-tab=overview]");
+    const kcal = await page.evaluate(() => [...document.querySelectorAll("#detail .drow")]
+      .find(d => d.querySelector("dt")?.textContent.trim() === "Energy")
+      .querySelector("dd").textContent.trim());
+    assert(kcal.startsWith("23"), `energy stays per 100 g, got ${kcal}`);
+
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.click("#csvBtn"),
+    ]);
+    const text = await (await download.createReadStream()).toArray()
+      .then(cs => Buffer.concat(cs).toString("utf8"));
+    const head = text.replace(/^﻿/, "").trim().split("\r\n")[0];
+    assert(head.includes("per 100 kcal"), `CSV header should name the basis: ${head}`);
+  });
+});
+
+/* The buttons, the nutrient note and the pinned food header are one warm
+   surface. They were three declarations reaching for two different things, so
+   they could drift apart the way the group colours did before --g-* existed. */
+await test("the warm surfaces share one variable, in both themes", async () => {
+  await withPage(async page => {
+    const read = () => page.evaluate(() => [
+      ["button", "#dvBtn"],
+      ["nutrient note", ".nutnote"],
+      ["food header", "#thead th.food"],
+    ].map(([what, sel]) => {
+      const el = document.querySelector(sel);
+      return { what, bg: el && getComputedStyle(el).backgroundColor };
+    }));
+
+    const light = await read();
+    for (const { what, bg } of light) assert(bg, `${what} not found`);
+    eq(new Set(light.map(x => x.bg)).size, 1, `one light surface, got ${light.map(x => x.bg)}`);
+
+    await page.click("#themeBtn");
+    const dark = await read();
+    eq(new Set(dark.map(x => x.bg)).size, 1, `one dark surface, got ${dark.map(x => x.bg)}`);
+
+    const lum = c => { const [r, g, b] = c.match(/[\d.]+/g).map(Number);
+                       return .2126 * r + .7152 * g + .0722 * b; };
+    assert(lum(dark[0].bg) < 60,
+      `the warm surface must darken with the theme, got ${dark[0].bg}`);
+    assert(lum(light[0].bg) > 200, `and stay light in the light theme, got ${light[0].bg}`);
+  });
+});
+
+/* Colours are declared once at the top and referred to everywhere else. A hex
+   buried in a rule two hundred lines down is the thing that cannot be themed:
+   it looks right in the theme it was written in and wrong in the other, which
+   is exactly how five of the --g-* group colours ended up unreadable on black. */
+await test("no colour is written into a rule, only into a variable", async () => {
+  await withPage(async page => {
+    const offenders = await page.evaluate(() => {
+      const css = [...document.styleSheets]
+        .flatMap(s => { try { return [...s.cssRules]; } catch { return []; } })
+        .filter(r => r.style && r.selectorText)
+        // The two blocks that exist to hold colours are where colours belong.
+        .filter(r => !/^:root$|^\[data-theme=dark\]$/.test(r.selectorText));
+      const colour = /#[0-9a-f]{3,8}\b|\brgba?\s*\(|\bhsla?\s*\(|\b(white|black|lightgray|lightgrey|gray|grey)\b/i;
+      const out = [];
+      for (const r of css)
+        for (const prop of r.style) {
+          const v = r.style.getPropertyValue(prop);
+          // A declaration that assigns to a custom property is a definition,
+          // not a use, and those are allowed anywhere.
+          if (prop.startsWith("--")) continue;
+          if (colour.test(v)) out.push(`${r.selectorText} { ${prop}: ${v} }`);
+        }
+      return out;
+    });
+    eq(offenders.length, 0, `hardcoded colours:\n          ${offenders.join("\n          ")}`);
+  });
 });
 
 await browser.close();

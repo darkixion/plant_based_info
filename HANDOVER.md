@@ -3,7 +3,51 @@
 Written 2026-08-05, updated 2026-08-06. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-06 (third)
+## Latest session, 2026-08-06 (fourth)
+
+**A per-100-kcal basis shipped**, alongside per 100 g rather than replacing it.
+Designed in full at `docs/superpowers/specs/2026-08-06-per-calorie-basis-design.md`
+and written up durably in `README.md` under "Per 100 g and per 100 kcal".
+100 tests, all passing.
+
+The three things most likely to be re-litigated:
+
+- **It is a toggle because neither basis is the truer one.** Per 100 g rewards
+  dryness; per 100 kcal rewards water. Watercress leads calcium and protein per
+  calorie only because 100 kcal of it is 909 g, which is why every row carries
+  the grams figure, pinned beside the name where the sidebar cannot switch it
+  off.
+- **`val()` is the stored per-100-g figure and the basis lives in `shown()`.**
+  `dayTotals()`, `proteinQuality()` and `omegaRatio()` all read `val()`, and the
+  rescale applied there leaves all three rendering and wrong. There is a test
+  that flips the basis and asserts every derived figure is unchanged; it was
+  watched failing against exactly that mistake, which moved a day's protein from
+  24.6 g to 37.5 g and its amino acid score from 119 to 115.
+- **The two controls stay orthogonal** rather than becoming one three-way
+  switch, because % DV *per 100 kcal* is the useful combination: it scales by 20
+  over a 2000 kcal day, so 5% is adequate for anything.
+
+Found while building, neither in the spec: the detail panel's body read `val()`
+while its header had started claiming per 100 kcal, caught only after the first
+test proved too weak by asserting the header text rather than a figure; and a
+local `shown` Set in two functions shadowed the new `shown()` helper, harmless
+that day and a trap later, now `shownNotes` in both.
+
+**CSV headings now name the basis on every column**, including per-100-g
+exports: `"Protein (g per 100 g)"` where it used to be `"Protein (g)"`. An
+existing test caught the change, which is how it got decided rather than
+noticed. A file outlives the toggle that produced it.
+
+**Styling.** Two warm surfaces, `--raise-warm` for buttons, the nutrient note
+and the pinned food column, and `--raise-warm-deep` for the segmented control's
+groove and a hovered button. Buttons joined the shared panel-shadow rule, which
+had documented them as deliberately excluded; the comment was rewritten rather
+than left arguing with the code. And **no colour may be written into a rule any
+more** — a test walks every rule in the built page and fails on a literal
+outside `:root` and `[data-theme=dark]`. It caught five: white on the two green
+fills, the food swatch's hairline and highlight, and the dialog backdrop.
+
+## Earlier session, 2026-08-06 (third)
 
 **Wheatgerm added**, by the documented route: an entry in
 `tools/food-additions.json`, then `node tools/usda.mjs add`. 131 foods, 90 tests,
@@ -259,6 +303,20 @@ dependencies and must keep none.
 
 ## Open, in rough order of value
 
+- **Convert `app.js` to TypeScript**, which then allows the output to be
+  minified and should turn up bugs on the way. Requested 2026-08-06, to be done
+  in its own session. Two things to settle before starting. The deliverable is
+  still one self-contained `index.html` with no build step at view time, so the
+  compiler output has to be inlined by `build.mjs` exactly as `app.js` is now,
+  and `build.mjs` itself has no dependencies by design — a `tsc` step is a
+  developer dependency in the same category as the `.accdb` reader in
+  `flavonoids.mjs`, and belongs behind the same line. And the 100 browser tests
+  drive the built page through globals (`S`, `DATA`, `dayTotals()`,
+  `proteinQuality()`), so minification must not rename them or the whole suite
+  goes dark at once; either the tests move off globals first, or those names are
+  pinned as exported. The dataset already has a shape worth typing: `v` arrays
+  positionally matched to the nutrient list is precisely the error the build
+  currently catches at runtime.
 - **Re-pull the whole fat group from the mapped rows.** This has grown since it
   was written. Six foods have existing MUFA totals that disagree with their USDA
   row, so their omega-9 and omega-7 are withheld; four more disagree on

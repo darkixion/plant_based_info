@@ -1,8 +1,8 @@
 # plant_based_info
 
 A single-page nutrient reference for whole plant foods: amino acids, vitamins,
-minerals, omega oils, carotenoids and macronutrients, all per 100 g, sortable
-and filterable.
+minerals, omega oils, carotenoids, flavonoids and macronutrients, per 100 g or
+per 100 kcal, sortable and filterable.
 
 The deliverable is **one self-contained `index.html`**: no server, no build step
 at view time, no network calls. Open it from disk, email it, or serve it from
@@ -36,10 +36,18 @@ src/
   app.js              all behaviour
   data/nutrients.json the dataset: nutrient definitions + one value array per food
   data/icons.json     inline SVG icons
+  data/usda-map.json  the reviewed USDA row behind each of the original foods
 build.mjs             inlines the above into index.html, and validates the data
 test/smoke.mjs        browser tests for rendering and persistence
+tools/usda.mjs        pulls nutrient columns and adds foods from the USDA dataset
+tools/flavonoids.mjs  the three flavonoid columns, from a second USDA release
+tools/food-additions.json  foods to add, and what was looked for and not found
+docs/superpowers/specs/    design notes, written before the feature was built
 .github/workflows/    CI: tests, then checks index.html matches src/
 ```
+
+`tools/` and `docs/` are developer-side and reach nothing the page loads. The
+two tools carry dependencies of their own; `build.mjs` deliberately has none.
 
 ### The data shape
 
@@ -112,8 +120,23 @@ draws it. Adding a panel means adding it to that selector, not writing another
 shadow beside it. Only the *colour* is themed, as `--box-shadow-colour`, because
 a light shadow on the dark theme is a halo rather than a shadow; custom
 properties resolve where they are used, so the dark override reaches the one
-declaration without it being written twice. Buttons, segments and table cells
-are deliberately excluded: they are controls, not panels.
+declaration without it being written twice. Buttons are in that list by choice,
+being the one thing on the page that should look liftable; segments, table cells
+and the sidebar nav are still out, being controls rather than panels.
+
+**No colour is written into a rule, only into a variable.** `:root` and
+`[data-theme=dark]` are the two blocks that hold colours, and everything else
+refers to them. A hex buried two hundred lines down is the thing that cannot be
+themed: it looks right in the theme it was written in and wrong in the other,
+which is how five of the `--g-*` colours ended up unreadable on black. A test
+walks every rule in the built page and fails on a colour literal outside those
+two blocks, so this cannot drift back. It caught five when it was written: white
+on the two green fills, the food swatch's hairline and its highlight, and the
+dialog backdrop, now `--on-green`, `--sw-edge`, `--sw-gloss` and `--backdrop`.
+
+**Two warm surfaces.** `--raise-warm` carries the buttons, the nutrient note and
+the pinned food column; `--raise-warm-deep` is one step further back, used by the
+segmented control's groove and by a button under the cursor. Both are themed.
 
 **A nutrient group has one colour, defined once.** `--g-macro` through
 `--g-plant` in `styles.css` are drawn by the group label in the table header and
@@ -131,13 +154,52 @@ corners around a control that is rounded. Both now set the radius and the input
 inherits it. Worth remembering for any future wrapper that gains a border,
 background or shadow.
 
+## Per 100 g and per 100 kcal
+
+The table shows every figure on one of two bases, and the toolbar switches
+between them. Per 100 g is the only fair basis for "what is in this food", but
+it quietly rewards one property that has nothing to do with nutrition, which is
+dryness: a food with its water removed wins every column. Ranked both ways the
+top five for iron, calcium and protein are nearly disjoint lists, and per 100 g
+the leafy greens look like nothing.
+
+**It is a toggle rather than a replacement, because the per-calorie basis is
+exactly as biased in the other direction.** Watercress leads calcium and protein
+per calorie only because 100 kcal of it is 909 g. Neither basis is the truer
+one, so the page shows both and declares neither canonical, the same way it
+handles partial totals and withheld scores. **Every row carries the grams that
+make 100 kcal**, pinned beside the food name rather than placed in the
+macronutrient group: a column could be switched off from the sidebar, and the
+figure that keeps the ranking honest would be the first thing to go.
+
+**The basis and `% daily value` are independent controls, and the combination is
+the point.** A % DV per 100 kcal figure scales by 20 over a 2000 kcal day, so 5%
+is adequate for any nutrient — one number that reads the whole table without
+knowing sixty-odd daily values. The meta line says so whenever both are on.
+
+**`val()` stays the stored per-100-g figure and must.** `dayTotals()`,
+`proteinQuality()` and `omegaRatio()` all read it: a day's totals are grams of
+real food against real daily values, and the amino acid score and the omega
+ratio are ratios, which are the same on any basis. Applying the rescale at
+`val()` leaves all three rendering, looking plausible and being wrong. So the
+basis lives in `shown(f, n)`, read only by the table, the detail panel, the sort
+comparator and the CSV. There is a test that flips the basis and asserts every
+derived figure is byte-identical; it was watched failing against exactly that
+mistake, which moved a day's protein from 24.6 g to 37.5 g.
+
+Energy is exempt from the rescale, inside `shown()` rather than at its call
+sites, because energy per 100 kcal is 100 for every food. CSV headings name the
+basis on every column, including per-100-g exports, since the file outlives the
+toggle that produced it.
+
 ## My day
 
 Type a food into the box at the top, give it a quantity in grams,
 and all 66 nutrients are totalled across the list, in their own units and as a
 percentage of a daily value. This is the only basis on which a shortfall means
-anything, and the reason to have it is that per 100 g cannot answer "am I
-getting enough".
+anything, and the reason to have it is that neither table basis can answer "am I
+getting enough": per 100 g and per 100 kcal both describe a food, and this
+describes a day.
 
 **The table rows gained no button for it.** A second icon beside the heart on
 131 rows reads as an extra column of furniture, and building a day is something

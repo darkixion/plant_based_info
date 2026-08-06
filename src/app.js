@@ -90,7 +90,7 @@ const S = {
   sort: { id: "__name", dir: 1 },
   q: "", cat: "",
   sel: 0, favs: new Set(), favsOnly: false,
-  dv: false, view: "table", tab: "overview",
+  dv: false, basis: "g", view: "table", tab: "overview",
   chartNut: "protein", dark: false,
   lens: "", custom: [],
   day: [], kg: DEFAULT_KG, wUnit: "kg",
@@ -146,7 +146,7 @@ function savePrefs() {
   if (!storageOK) return;
   try {
     localStorage.setItem(LS_KEY, JSON.stringify({
-      favs: [...S.favs], groups: [...S.groups], sort: S.sort, dv: S.dv,
+      favs: [...S.favs], groups: [...S.groups], sort: S.sort, dv: S.dv, basis: S.basis,
       dark: S.dark, lens: S.lens, custom: S.custom,
       favsOnly: S.favsOnly, cat: S.cat, chartNut: S.chartNut,
       day: S.day, kg: S.kg, wUnit: S.wUnit,
@@ -176,6 +176,7 @@ function loadPrefs() {
   if (p.sort && (p.sort.id === "__name" || IDX.has(p.sort.id)))
     S.sort = { id: p.sort.id, dir: p.sort.dir === 1 ? 1 : -1 };
   if (typeof p.dv === "boolean") S.dv = p.dv;
+  if (p.basis === "g" || p.basis === "kcal") S.basis = p.basis;
   if (typeof p.dark === "boolean") S.dark = p.dark;
   if (CATS.includes(p.cat)) S.cat = p.cat;
   if (IDX.has(p.chartNut)) S.chartNut = p.chartNut;
@@ -215,6 +216,45 @@ const say = m => { $("#live").textContent = m; };
 /* ---------- data helpers ---------- */
 const cols = () => NUTS.map((n, i) => ({ ...n, i })).filter(n => S.groups.has(n.group));
 const val = (f, id) => f.v[IDX.get(id)];
+
+/* ---------- the display basis ----------
+   `val` is the stored figure per 100 g and must stay that way: dayTotals(),
+   proteinQuality() and omegaRatio() all read it. A day's totals are grams of
+   real food measured against real daily values, and the amino acid score and
+   the omega ratio are ratios, which are the same on any basis. Rescaling reads
+   at `val` would leave all three looking right and being wrong.
+
+   So the basis lives here instead, and only the table, the detail panel, the
+   sort comparator and the CSV read it. Per 100 kcal answers a question per
+   100 g cannot -- leafy greens are nothing per 100 g and lead most columns per
+   calorie -- but it is not the truer basis, only the opposite bias: it flatters
+   watery foods exactly as much as per 100 g flatters dry ones. Which is why it
+   is a toggle, and why gramsPer100kcal() is pinned beside every food name. */
+const GRAMS_PER = 100;
+const KCAL_BASIS = 100;
+
+/** Grams of a food that make 100 kcal. Null if it has no energy figure, since
+ *  the division below has nothing to divide by. */
+function gramsPer100kcal(f) {
+  const k = val(f, "kcal");
+  return k ? KCAL_BASIS / k * GRAMS_PER : null;
+}
+
+/** How every figure on the page is currently qualified. One source, because the
+ *  table caption, the column header, the detail panel and the CSV all say it
+ *  and a page that says two different things is worse than one that says none. */
+const basisLabel = () => S.basis === "kcal" ? "per 100 kcal" : "per 100 g";
+
+/** The figure to display for a food and nutrient, on the basis now selected.
+ *  Energy is exempt: energy per 100 kcal is 100 for every food, so the column
+ *  would say nothing. The exemption is here rather than at the four call sites
+ *  so the table, the sort order and the CSV cannot disagree about it. */
+function shown(f, n) {
+  const v = val(f, n.id);
+  if (S.basis === "g" || n.id === "kcal" || v === null || v === undefined) return v;
+  const k = val(f, "kcal");
+  return k ? v / k * KCAL_BASIS : null;
+}
 
 /* The table gives every row a state line under its name, so "Bell pepper" three
    times over is unambiguous there. The chart has one line per bar and would
@@ -467,7 +507,10 @@ function rows() {
   const { id, dir } = S.sort;
   r.sort((a, b) => {
     if (id === "__name") return dir * a.f.name.localeCompare(b.f.name);
-    const x = val(a.f, id), y = val(b.f, id);
+    // Sorted on the shown figure, not the stored one: a column ordered by
+    // something other than what it displays is a bug people report as one.
+    const n = NUTS[IDX.get(id)];
+    const x = shown(a.f, n), y = shown(b.f, n);
     if (x === y) return a.f.name.localeCompare(b.f.name);
     if (x === null) return 1;
     if (y === null) return -1;
@@ -679,7 +722,7 @@ function renderTable(r) {
     <tr>
       <th class="food${nameSorted ? " sorted" : ""}" rowspan="2" scope="col" aria-sort="${nameSorted ? (S.sort.dir === 1 ? "ascending" : "descending") : "none"}">
         <button class="sortbtn" type="button" data-sort="__name" style="justify-content:flex-start">
-          <span>Food <span class="unit">per 100 g</span></span>
+          <span>Food <span class="unit">${basisLabel()}</span></span>
           <span class="ar" aria-hidden="true">${nameSorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
         </button></th>
       ${groupHead}
@@ -695,13 +738,16 @@ function renderTable(r) {
         <button class="fname" type="button" data-pick="${i}" data-name="${esc(f.name)}">
           <b>${esc(f.name)}${f.alt ? ` <span class="alt">(${esc(f.alt)})</span>` : ""}</b>
           ${f.state ? `<span>${esc(f.state)}</span>` : ""}
+          ${S.basis === "kcal" && gramsPer100kcal(f) !== null
+            ? `<span class="per100">${Math.round(gramsPer100kcal(f))} g</span>
+               <span class="sr">makes 100 kcal</span>` : ""}
           <span class="sr">, show full profile</span></button>
         <button class="fav" type="button" data-fav="${i}" aria-pressed="${isFav(i)}">
           ${isFav(i) ? I.heartFull : I.heart}
           <span class="sr">${isFav(i) ? "Remove" : "Add"} ${esc(f.name)} ${isFav(i) ? "from" : "to"} favourites</span>
         </button></div></td>
       ${c.map(n => {
-        const v = val(f, n.id);
+        const v = shown(f, n);
         const zero = v === 0 || v === null;
         // A note explains where a figure came from, so there has to be one.
         const note = v === null ? null : noteFor(i, n.id);
@@ -714,7 +760,7 @@ function renderTable(r) {
 
   const lens = lensById(S.lens);
   $("#cap").textContent =
-    `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values per 100 g of food` +
+    `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values ${basisLabel()} of food` +
     (S.dv ? ", shown as % of adult daily value." : ".") +
     (lens ? ` ${lens.name} highlighted.` : "");
 
@@ -834,7 +880,7 @@ function proteinQualityBlock(f) {
 /* ---------- detail panel ---------- */
 function renderDetail() {
   const f = FOODS[S.sel];
-  const g = id => val(f, id);
+  const g = id => shown(f, NUTS[IDX.get(id)]);
   const inDay = S.day.find(e => e.slug === SLUGS[S.sel]);
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
@@ -846,7 +892,7 @@ function renderDetail() {
 
   // The panel shows the same figures as the table, so it carries the same
   // markers, and explains them once at the foot rather than per row.
-  const shown = new Set();
+  const shownNotes = new Set();
 
   let body;
   if (S.tab === "overview") {
@@ -869,7 +915,7 @@ function renderDetail() {
       + proteinQualityBlock(f)
       + `<h4 style="margin-top:18px">Top nutrients</h4><dl>` + top.map(({ n, pc }) => {
         const note = noteFor(S.sel, n.id);
-        if (note) shown.add(note);
+        if (note) shownNotes.add(note);
         return `<div class="drow"><dt>${esc(n.label)}</dt>
           <dd class="pc">${Math.round(pc)}% DV${note ? noteMark(note) : ""}</dd></div>`;
       }).join("") + `</dl>`;
@@ -886,7 +932,7 @@ function renderDetail() {
         const none = v === null || v === undefined;
         const pc = !none && n.dv ? Math.round(v / n.dv * 100) : null;
         const note = none ? null : noteFor(S.sel, n.id);
-        if (note) shown.add(note);
+        if (note) shownNotes.add(note);
         return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <dt>${esc(n.label)}</dt>
@@ -913,7 +959,7 @@ function renderDetail() {
       <h3>${esc(f.name)}</h3>
       ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
       ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
-      <div class="per">${esc(f.cat)} · per 100 g</div>
+      <div class="per">${esc(f.cat)} · ${basisLabel()}</div>
       <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
         ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
       ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
@@ -925,7 +971,7 @@ function renderDetail() {
           tabindex="${S.tab === id ? 0 : -1}">${ic}<span>${label}</span></button>`).join("")}
     </div>
     <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}${
-      [...shown].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
+      [...shownNotes].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
         <b>${esc(n.short)}.</b> ${esc(n.text)}</p>`).join("")}</div>
     <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>`;
 }
@@ -941,6 +987,12 @@ function renderMeta(total) {
   $("#meta").innerHTML = `${I.info} Showing <b>${total}</b> of ${FOODS.length} foods ·
     <b>${c}</b> of ${NUTS.length} nutrients` +
     (S.favsOnly ? " · favourites only" : "") + (S.dv ? " · % daily value" : "") +
+    (S.basis === "kcal" ? " · per 100 kcal" : "") +
+    // The reason the two controls are separate rather than one three-way switch.
+    // A %DV per 100 kcal figure scales by 20 over a 2000 kcal day, so one number
+    // reads the whole table without anyone learning 60-odd daily values.
+    (S.dv && S.basis === "kcal"
+      ? ` · <span class="lenshint">5% here is a full day's worth</span> at 2000 kcal` : "") +
     (lens ? ` · <span class="lenshint">${esc(lens.name)}</span> highlighted` : "");
   $("#favCount").textContent = S.favs.size || "";
   // Counted from the entries that resolve to a food, not from the stored list.
@@ -1023,7 +1075,7 @@ function renderDayTotals(totals) {
   if (!list.length) { box.innerHTML = ""; return; }
 
   const aaRef = aminoRefsByNutrient(totals);
-  const shown = new Set();
+  const shownNotes = new Set();
   const body = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
     const rows = totals.filter(t => t.n.group === g.id).map(t => {
       const { n, total, partial, from, of, notes } = t;
@@ -1036,7 +1088,7 @@ function renderDayTotals(totals) {
       const pairedWith = aa && aa.partners.length
         ? `<span class="qual">with ${aa.partners
             .map(id => NUTS[IDX.get(id)].label.toLowerCase()).join(" and ")}</span>` : "";
-      notes.forEach(x => shown.add(x));
+      notes.forEach(x => shownNotes.add(x));
       return `<div class="totrow${total === null ? " none" : ""}">
         <span class="totname">${esc(n.label)}${notes.map(noteMark).join("")}${pairedWith}</span>
         <span class="totval">${total === null
@@ -1070,7 +1122,7 @@ function renderDayTotals(totals) {
   }).join("");
 
   box.innerHTML = `<div class="totals">${body}</div>` +
-    (shown.size ? `<div class="notekey">${[...shown].map(n =>
+    (shownNotes.size ? `<div class="notekey">${[...shownNotes].map(n =>
       `<span><sup class="fnote">${esc(n.marker)}</sup> <b>${esc(n.short)}.</b>
        ${esc(n.text)}</span>`).join("")}</div>` : "") +
     `<p class="nodatanote" style="margin-top:12px">Percentages use the same general adult
@@ -1413,6 +1465,15 @@ $("#navFoods").addEventListener("click", () => {
 });
 $("#chartNut").onchange = e => { S.chartNut = e.target.value; savePrefs(); renderChart(rows()); };
 $("#lensSel").onchange = e => setLens(e.target.value);
+$("#basisBtn").onclick = e => {
+  S.basis = S.basis === "g" ? "kcal" : "g";
+  const perKcal = S.basis === "kcal";
+  e.currentTarget.setAttribute("aria-pressed", String(perKcal));
+  e.currentTarget.lastChild.textContent = perKcal ? " Show per 100 g" : " Show per 100 kcal";
+  say(perKcal ? "Showing figures per 100 kcal." : "Showing figures per 100 g.");
+  savePrefs();
+  render();
+};
 $("#dvBtn").onclick = e => {
   S.dv = !S.dv;
   e.currentTarget.setAttribute("aria-pressed", String(S.dv));
@@ -1429,6 +1490,8 @@ $("#resetBtn").onclick = () => {
   S.cat = "";
   S.dv = false; $("#dvBtn").setAttribute("aria-pressed", "false");
   $("#dvBtn").lastChild.textContent = " Show % daily value";
+  S.basis = "g"; $("#basisBtn").setAttribute("aria-pressed", "false");
+  $("#basisBtn").lastChild.textContent = " Show per 100 kcal";
   S.favsOnly = false; S.lens = "";
   savePrefs();
   renderGroups(); renderCats(); renderLensSelect(); render();
@@ -1588,11 +1651,15 @@ function download(lines, name) {
 
 function csvTable() {
   const c = cols(), r = rows(), q = csvQuote;
+  // The basis rides on every column heading rather than sitting in a note at
+  // the top: a rescaled figure under an unlabelled heading is a file nobody can
+  // interpret a month later, which is the failure the %DV suffix already avoids.
+  const per = basisLabel();
   const head = ["Food", "Also known as", "State", "Category",
-                ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit})`)];
+                ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit} ${per})`)];
   const lines = [head.map(q).join(",")].concat(r.map(({ f }) =>
     [q(f.name), q(f.alt || ""), q(f.state), q(f.cat), ...c.map(n => {
-      const v = val(f, n.id);
+      const v = shown(f, n);
       if (v === null) return "";
       return S.dv && n.dv ? Math.round(v / n.dv * 100) : v;
     })].join(",")));
@@ -2015,6 +2082,8 @@ loadPrefs();
 applyTheme();
 $("#dvBtn").setAttribute("aria-pressed", String(S.dv));
 if (S.dv) $("#dvBtn").lastChild.textContent = " Show raw amounts";
+$("#basisBtn").setAttribute("aria-pressed", String(S.basis === "kcal"));
+if (S.basis === "kcal") $("#basisBtn").lastChild.textContent = " Show per 100 g";
 
 renderGroups();
 renderCats();
