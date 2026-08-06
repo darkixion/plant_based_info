@@ -30,7 +30,8 @@ interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
    what a stored preference is allowed to be. */
 type Basis = "g" | "kcal";
 type WeightUnit = "kg" | "stlb";
-type View = "table" | "chart";
+/* My day is a third view alongside the table and the chart. */
+type View = "table" | "chart" | "day";
 
 interface Sort { id: string; dir: 1 | -1; }
 interface DayEntry { slug: string; g: number; }
@@ -457,7 +458,7 @@ function dayTotals(): DayTotal[] {
   const list = dayContributors();
   return NUTS.map(n => {
     let total = 0, from = 0;
-    const notes = new Set();
+    const notes = new Set<Note>();
     for (const e of list) {
       const v = val(e.f, n.id);
       if (v === null || v === undefined) continue;
