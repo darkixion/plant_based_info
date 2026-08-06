@@ -52,6 +52,11 @@ function validate(data) {
     ids.add(n.id);
     if (typeof n.dp !== "number") problems.push(`${n.id}: missing decimal-places (dp)`);
     if (!n.group) problems.push(`${n.id}: missing group`);
+    // The name every part of the page calls this nutrient by: the column header,
+    // the detail rows, the day totals, the highlight groups and the CSV. An
+    // empty one is not a missing column, it is a blank one everywhere at once,
+    // which reads as a rendering fault rather than as data.
+    if (!n.label) problems.push(`${n.id}: missing label, the name it is shown by`);
     // Every column header explains what its nutrient does. Required rather than
     // optional, because a column that quietly lacks one is a column whose header
     // silently stops doing something the others all do.
@@ -154,6 +159,12 @@ async function build() {
   out = inject(out, "/*{{STYLES}}*/", css.trim());
   out = inject(out, "//{{DATA}}", `const DATA = ${safeJSON(data)};`);
   out = inject(out, "//{{ICONS}}", `const I = ${safeJSON(icons)};`);
+  // The page carries "use strict" twice on purpose. esbuild emits one of its
+  // own because it reads tsconfig.json, where `strict` implies `alwaysStrict`;
+  // this one is prepended so the page's strictness does not depend on that
+  // staying true. A compiler setting is a thing someone edits, and losing strict
+  // mode would be silent. The duplicate costs two words in a 200 kB file, and
+  // neither copy is the redundant one to delete.
   out = inject(out, "//{{APP}}", `"use strict";\n${app.trim()}`);
 
   await writeFile(OUT, out);

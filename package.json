@@ -10,7 +10,7 @@
     "build": "node build.mjs",
     "test": "npm run check && npm run compile && npm run build && node test/smoke.mjs",
     "watch": "npm run compile && node build.mjs --watch",
-    "serve": "node --run build && node -e \"import('node:http').then(({default:h})=>import('node:fs').then(({readFileSync})=>h.createServer((q,s)=>{s.setHeader('content-type','text/html');s.end(readFileSync('index.html'))}).listen(8080,()=>console.log('http://localhost:8080'))))\""
+    "serve": "npm run compile && npm run build && node -e \"import('node:http').then(({default:h})=>import('node:fs').then(({readFileSync})=>h.createServer((q,s)=>{s.setHeader('content-type','text/html');s.end(readFileSync('index.html'))}).listen(8080,()=>console.log('http://localhost:8080'))))\""
   },
   "engines": {
     "node": ">=18"

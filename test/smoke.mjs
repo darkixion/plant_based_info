@@ -1415,6 +1415,45 @@ await test("a total over a food nobody measured says how many it covers", async 
   });
 });
 
+await test("the headline three say so when their sum covers only some of the day", async () => {
+  await withPage(async page => {
+    // The three figures at the top of the summary are the most prominent in the
+    // view, and energy, protein and fibre each have a figure for all 131 foods,
+    // so no seeded day can make one of them partial. The other partial-coverage
+    // tests reach for a food with a real gap; there is none to reach for here,
+    // so the gap is made by taking fibre out of the page's own copy of the
+    // dataset. That is the same thing as adding a food nobody assayed for it,
+    // which is precisely how the saturated fat gap arrived. The file on disk is
+    // untouched and each test gets a fresh page, so the edit dies with it.
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "seitan", g: 100 }]);
+    const headRows = () => page.locator("#daySum dl").first().locator(".drow")
+      .evaluateAll(els => els.map(e => e.textContent.replace(/\s+/g, " ").trim()));
+
+    const before = await headRows();
+    eq(before.length, 3, "rows in the headline");
+    for (const r of before)
+      assert(!/from \d+ of \d+/.test(r), `a complete total claims coverage: ${r}`);
+
+    const covered = await page.evaluate(() => {
+      const i = DATA.nutrients.findIndex(n => n.id === "fiber");
+      DATA.foods[BY_SLUG.get("seitan")].v[i] = null;
+      render();
+      const t = dayTotals()[i];
+      return `${t.from} of ${t.of}`;
+    });
+    eq(covered, "1 of 2", "foods with a fibre figure once one is taken out");
+
+    const after = await headRows();
+    const fibre = after.find(r => /^Fibre/.test(r)) || "";
+    assert(/from 1 of 2/.test(fibre),
+      `a partial headline total says what it covers, got: ${fibre}`);
+    // and the two that are still complete say nothing, so the marking means
+    // something where it appears.
+    for (const r of after.filter(r => !/^Fibre/.test(r)))
+      assert(!/from \d+ of \d+/.test(r), `a complete total claims coverage: ${r}`);
+  });
+});
+
 await test("a day's amino acid score is withheld when a food was never assayed", async () => {
   await withPage(async page => {
     // Kohlrabi has no tyrosine figure, so it gets no score of its own and it

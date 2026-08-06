@@ -76,7 +76,20 @@ interface DayTotal {
 /* Both are declared by build.mjs ahead of this file, inside the same script.
    They are not owned by this file and must not be redeclared here. */
 declare const DATA: Dataset;
-declare const I: Record<string, string>;
+/* Every key of src/data/icons.json, written out rather than described as
+   `Record<string, string>`. An index signature makes each read `string |
+   undefined` under noUncheckedIndexedAccess, and interpolating undefined into a
+   template is legal, so a key renamed in that file would put the literal word
+   "undefined" into the page at seventeen sites with nothing to report it.
+   Listed out, each read is a plain string and a rename that is not carried
+   across is a compile error at every site that reads it. This list has to be
+   kept level with icons.json, which is the one thing the compiler cannot check
+   here: the file is inlined by build.mjs rather than imported. */
+declare const I: Record<
+  "leaf" | "compare" | "heart" | "heartFull" | "help" | "book" | "info" | "dl" |
+  "moon" | "sun" | "search" | "x" | "pct" | "reset" | "grid" | "eye" |
+  "macro" | "fats" | "amino" | "vit" | "min" | "up" | "down" | "sortable" |
+  "right" | "plant" | "plus" | "minus", string>;
 
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
 const GROUPS = [
@@ -86,7 +99,7 @@ const GROUPS = [
   { id: "vitamin", label: "Vitamins",       icon: I.vit   },
   { id: "mineral", label: "Minerals",       icon: I.min   },
   { id: "plant",   label: "Plant compounds", icon: I.plant },
-] satisfies { id: NutrientGroup; label: string; icon: string | undefined }[];
+] satisfies { id: NutrientGroup; label: string; icon: string }[];
 const IDX = new Map(NUTS.map((n, i) => [n.id, i]));
 const CATS = [...new Set(FOODS.map(f => f.cat))].sort();
 
@@ -141,15 +154,6 @@ const groupOf = (id: NutrientGroup) => {
 };
 const isGroup = (x: unknown): x is NutrientGroup => GROUPS.some(g => g.id === x);
 
-/* Icons are injected by build.mjs into the same artifact as this file, so a
-   name that is not there is a build error rather than a runtime condition, the
-   same as a missing element. */
-const ic = (name: string): string => {
-  const svg = I[name];
-  if (svg === undefined) throw new Error(`missing icon: ${name}`);
-  return svg;
-};
-
 /* Renaming a food changes its key, and anything stored under the old one is
    simply dropped on load: a favourite someone starred months ago vanishes with
    nothing to say it had gone. One line per rename carries them across, which is
@@ -172,7 +176,7 @@ const NOTE_AT = new Map<string, Note>();
 for (const note of NOTES)
   for (const [slug, ids] of Object.entries(note.cells || {}))
     for (const id of ids) NOTE_AT.set(`${slug} ${id}`, note);
-const noteFor = (i: number, id: string) => NOTE_AT.get(`${SLUGS[i]} ${id}`) || null;
+const noteFor = (i: number, id: string) => NOTE_AT.get(`${slugAt(i)} ${id}`) || null;
 
 /** The visible marker, plus the same thing said in words for screen readers,
  *  since a lone asterisk announces as punctuation or not at all. */
@@ -436,8 +440,10 @@ function shown(f: Food, n: Nutrient) {
    times over is unambiguous there. The chart has one line per bar and would
    show three identical labels, so a name shared by more than one food takes its
    state with it. Only the ambiguous ones, to keep the label column short. */
-const NAME_COUNT = FOODS.reduce((m, f) => m.set(f.name, (m.get(f.name) || 0) + 1), new Map());
-const fullName = (f: Food) => NAME_COUNT.get(f.name) > 1 && f.state ? `${f.name}, ${f.state}` : f.name;
+const NAME_COUNT = FOODS.reduce(
+  (m, f) => m.set(f.name, (m.get(f.name) || 0) + 1), new Map<string, number>());
+const fullName = (f: Food) =>
+  (NAME_COUNT.get(f.name) ?? 0) > 1 && f.state ? `${f.name}, ${f.state}` : f.name;
 
 const isFav = (i: number) => S.favs.has(slugAt(i));
 function toggleFav(i: number) {
@@ -1106,9 +1112,6 @@ function renderDetail() {
   const inDay = S.day.find(e => e.slug === slugAt(S.sel));
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
-  // The third element is destructured as `icon` rather than `ic` where these are
-  // rendered: `ic` is the module-level icon lookup, and a binding of that name
-  // would quietly shadow it for anything added inside that template.
   const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "amino", "plant"];
   const tabs = [["overview", "Overview", I.macro],
     ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon])];
@@ -1447,8 +1450,16 @@ function renderDaySummary(totals: DayTotal[]) {
   const fibre = totalOf(totals, "fiber");
   const head = [kcal, protein, fibre].map(t => {
     const pc = t.n.dv && t.total !== null ? Math.round(t.total / t.n.dv * 100) : null;
+    /* The same rule and the same words as the totals list below, because this
+       is the most prominent figure in the view and a partial sum here reads as
+       a complete one with a percentage beside it. All three of these have a
+       figure for every food today, so this costs nothing until the day someone
+       adds a food that does not, which is exactly how the saturated fat gap
+       came about. */
+    const cov = t.partial
+      ? ` <span class="cov">from ${t.from} of ${t.of}</span>` : "";
     return `<div class="drow"><dt>${esc(t.n.label)}</dt>
-      <dd>${fmtTotal(t.total, t.n)}${pc === null ? "" : ` <span class="pc">· ${pc}%</span>`}</dd></div>`;
+      <dd>${fmtTotal(t.total, t.n)}${pc === null ? "" : ` <span class="pc">· ${pc}%</span>`}${cov}</dd></div>`;
   }).join("");
 
   const q = dayProteinQuality(totals);
@@ -1767,7 +1778,7 @@ $("#qClear").onclick = () => { S.q = ""; qInput.value = ""; $("#qClear").hidden 
 function applyTheme() {
   document.documentElement.dataset.theme = S.dark ? "dark" : "";
   $("#themeBtn").setAttribute("aria-pressed", String(S.dark));
-  $("#themeIc").innerHTML = ic(S.dark ? "sun" : "moon");
+  $("#themeIc").innerHTML = S.dark ? I.sun : I.moon;
   $("#themeTx").textContent = S.dark ? "Light mode" : "Dark mode";
 }
 $("#themeBtn").onclick = () => { S.dark = !S.dark; applyTheme(); savePrefs(); };
@@ -1964,7 +1975,7 @@ const csv = () => S.view === "day" ? csvDay() : csvTable();
 $("#csvBtn").onclick = csv;
 
 /* ---------- custom highlight groups ---------- */
-function renderNutPick(chosen = new Set()) {
+function renderNutPick(chosen: Set<string> = new Set()) {
   $("#nutPick").innerHTML = GROUPS.map(g => {
     const list = NUTS.filter(n => n.group === g.id);
     return `<div class="lensgroup"><h5>${esc(g.label)}</h5><div class="nutgrid">` +

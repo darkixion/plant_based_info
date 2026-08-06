@@ -359,6 +359,11 @@ td.num b{font-weight:600; color:var(--ink)}
 .drow.lensrow dt{color:var(--lens-ink); font-weight:600}
 .drow .pc{color:var(--green-dark); font-weight:600}
 .drow .nodata{color:var(--faint); font-weight:400; font-style:italic; font-size:12.5px}
+/* Same job and the same colour as .totcov under the totals list: a sum over
+   foods where some were never assayed never appears without saying so. Kept at
+   every width, unlike the grid column it mirrors, since there is nowhere else
+   in the summary for the coverage to be read. */
+.drow .cov{font-size:11px; color:var(--warn); font-weight:600}
 .nodatanote{font-size:11.5px; color:var(--faint); line-height:1.45; margin:8px 0 0}
 dl{margin:0}
 .bararea{margin-top:4px}
