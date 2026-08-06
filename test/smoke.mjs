@@ -1415,6 +1415,31 @@ await test("a total over a food nobody measured says how many it covers", async 
   });
 });
 
+await test("the coverage note still shows on a phone-width viewport", async () => {
+  await withPage(async page => {
+    // Same partial-fats day as the test above, but narrow enough to hit the
+    // totals grid's mobile breakpoint. A partial total that only says so
+    // above 700px looks complete on a phone, which is the one thing this
+    // view is not allowed to do.
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "seitan", g: 100 }]);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.click('#groupNav [data-grp="fats"]');
+
+    const info = await page.evaluate(() => {
+      const el = [...document.querySelectorAll(".totcov")].find(e => e.textContent.trim());
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { text: el.textContent.trim(), display: getComputedStyle(el).display,
+               w: r.width, h: r.height, right: r.right };
+    });
+    assert(info, "expected a partial total on this narrow-viewport day");
+    assert(/from \d+ of \d+/.test(info.text), `coverage reads as a count: ${info.text}`);
+    assert(info.display !== "none", "coverage note hidden below 700px");
+    assert(info.w > 0 && info.h > 0, `coverage note has no visible box: ${JSON.stringify(info)}`);
+    assert(info.right <= 390, `coverage note overflows the viewport: ${JSON.stringify(info)}`);
+  });
+});
+
 await test("the headline three say so when their sum covers only some of the day", async () => {
   await withPage(async page => {
     // The three figures at the top of the summary are the most prominent in the

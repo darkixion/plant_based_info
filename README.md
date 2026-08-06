@@ -108,9 +108,9 @@ goes in.
 `npm run compile`; otherwise the watcher keeps rebuilding the page around the
 compiled file it started with, and the edit appears to do nothing.
 
-**The size.** Minifying the script took the page from 77.2 kB to 66.2 kB
-gzipped, or 243,972 raw bytes to 208,288. The script alone went from 109,930
-bytes to 74,246, which is 36.7 kB down to 25.5 kB gzipped. Gzipped is the honest
+**The size.** Minifying the script took the page from 77.2 kB to 66.4 kB
+gzipped, or 243,972 raw bytes to 208,766. The script alone went from 109,930
+bytes to 74,239, which is 36.7 kB down to 25.5 kB gzipped. Gzipped is the honest
 figure to lead with, since that is what GitHub Pages serves. It is also close to
 the ceiling for minification alone: `nutrients.json` is most of what remains, and
 data does not minify.
