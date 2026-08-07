@@ -113,9 +113,10 @@ function validate(data, portions) {
   const at = id => nutrients.findIndex(n => n.id === id);
   // Each list is a subset of its total and never the whole of it, so the sum may
   // fall short but must never exceed. Polyunsaturated is deliberately absent:
-  // six foods have carried an ALA-plus-LA total slightly above their own
-  // polyunsaturated figure since long before either was checked, and those
-  // values are recorded in the README rather than deleted to satisfy a new rule.
+  // the pull already checks it, and adding it here too would be redundant
+  // rather than newly correct. The fat-group re-pull resolved the six foods
+  // that used to disagree, so the check would pass if it were moved; doing so
+  // is on the open list in HANDOVER.md rather than done here.
   const subsets = [
     { total: "mufa", parts: ["oleic", "palmitoleic"], label: "monounsaturated" },
     { total: "satfat", parts: ["lauric", "palmitic", "stearic"], label: "saturated fat" },

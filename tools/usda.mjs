@@ -117,11 +117,12 @@ const KNOWN = {
   // coverage as anthocyanidins, which shipped.
   //
   // The real limit is which 25. Sesame at 714 mg, sunflower at 534 and
-  // pistachios at 214 dominate it, while almonds, walnuts and avocado have no
-  // figure at all, and four whole categories have none: legumes, soy, grains
-  // and algae. Sorting by this column therefore ranks foods partly by who USDA
-  // assayed. That is true of the flavonoid columns too, and the answer is the
-  // same: ship the data and state the limit on the page rather than withhold it.
+  // pistachios at 214 dominate it, while almonds and walnuts are among fifteen
+  // nuts and seeds with no figure at all, and four whole categories have none:
+  // legumes, soy, grains and algae. Sorting by this column therefore ranks
+  // foods partly by who USDA assayed. That is true of the flavonoid columns
+  // too, and the answer is the same: ship the data and state the limit on the
+  // page rather than withhold it.
   //
   // No daily value exists for phytosterols at all, so dv is null rather than
   // omitted for a double-counting reason.
@@ -142,8 +143,8 @@ const KNOWN = {
    undifferentiated, and the Methodology dialog says so. The catch specific to
    18:3 is that undifferentiated bundles the omega-6 GLA in with the omega-3
    ALA. In these foods that only matters for hemp, which already has a
-   differentiated figure, as do flaxseed, chia and walnuts. Every food that
-   takes the fallback is one where GLA is negligible.
+   differentiated figure. Every food that takes the fallback is one where GLA
+   is negligible.
 
    Values that came this way are marked per cell rather than silently mixed in,
    because a column drawn from two derivations with no way to tell them apart is
@@ -368,10 +369,15 @@ async function cmdPull(args) {
      derived from a per-protein profile or an earlier source, and re-deriving
      them from the mapped row is a separate decision with its own consequences.
      Without this flag a gap-filling pull silently becomes a re-pull, and on
-     these foods it made things worse rather than better. Pistachios reconcile
-     today at 13.454 g of ALA plus LA against a 13.46 g polyunsaturated total;
-     the mapped row gives 14.38, which exceeds the total and would then be
-     withheld by the check below, losing a good figure to fill a gap elsewhere. */
+     these foods it made things worse rather than better. The example that made
+     the case for the flag has since been overtaken, and is kept here because it
+     shows what the flag guards against. Pistachios used to reconcile at 13.454 g
+     of ALA plus LA against a 13.46 g polyunsaturated total, while the mapped row
+     gave 14.38, which exceeded it and would have been withheld by the check
+     below, losing a good figure to fill a gap elsewhere. The fat-group re-pull
+     now takes the total from that same row too, so the pair reconciles exactly
+     and the flag matters for every column whose values still predate its
+     mapped row. */
   const fillGaps = args.includes("--fill-gaps");
   const ids = args.filter(a => /^\d+$/.test(a)).map(Number);
   if (!ids.length) throw new Error("give at least one USDA nutrient id, e.g. 1268 1275");

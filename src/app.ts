@@ -2132,18 +2132,18 @@ const FLAV_REACHED = FOODS.filter(f => FLAV_IDS.some(id => val(f, id) !== null))
 
 /* Foods carrying more gamma-tocopherol than alpha. Counted rather than typed
    for the reason the amino acid gap list is: the hand-written version of this
-   named four foods and the table holds eighteen, having quietly gone wrong as
-   foods were added. It could not derive from the data until gamma had a
-   column, which is most of why the column is worth having. */
+   named four foods and quietly went wrong as more were added. It could not
+   derive from the data until gamma had a column, which is most of why the
+   column is worth having. */
 const GAMMA_OVER_ALPHA = FOODS.filter(f => {
   const a = val(f, "vite"), g = val(f, "gammatoc");
   return a !== null && g !== null && g > a;
 });
 
-/* Categories with no phytosterol figure anywhere in them. The column reaches
-   25 of the 131 foods and the gaps are not scattered: four entire categories
-   are empty, which is a fairer statement of the limit than naming three foods
-   and a truer one than a coverage count on its own. */
+/* Categories with no phytosterol figure anywhere in them. The gaps in this
+   column are not scattered: whole categories are empty, which is a fairer
+   statement of the limit than naming a few foods and a truer one than a
+   coverage count on its own. */
 const STEROL_EMPTY_CATS = [...new Set(FOODS.map(f => f.cat))]
   .filter(c => FOODS.every(f => f.cat !== c || val(f, "phytosterols") === null));
 const STEROL_FOODS = FOODS.filter(f => val(f, "phytosterols") !== null);
@@ -2293,16 +2293,14 @@ const DLG = {
     would sum a different set of subclasses for each food, so two rows could not be compared. As
     for a single antioxidant number, USDA withdrew its own ORAC database in 2012, on the grounds
     that antioxidant capacity measured in a test tube predicts nothing useful in the body.</p>
-    <p>Phytosterols, phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. For
-    phytic acid, isoflavones and proanthocyanidins, SR Legacy carries no figures at all.
-    Phytosterols it does carry, for 24 of these foods, but the 24 are the wrong ones. Sesame,
-    sunflower seeds and pistachios tower over a long tail of fruit and vegetables at single-figure
-    milligrams, while almonds, walnuts and avocado, the foods most associated with phytosterols,
-    have no figure whatever. A column that ranks foods by which of them happened to be assayed
-    would say more about USDA's sampling than about the foods, which is worse than no column.
-    USDA's expanded flavonoid release would reach twice as many of these foods, but it gets there
-    by imputing values from other foods rather than measuring them, which is the one thing this
-    table will not do.</p>
+    <p>Phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. SR Legacy carries no
+    figures at all for any of the three. USDA's expanded flavonoid release would reach twice as
+    many of these foods, but it gets there by imputing values from other foods rather than
+    measuring them, which is the one thing this table will not do.</p>
+    <p>Phytosterols used to be grouped with those three as another compound left out, and that was
+    wrong: the coverage that ruled it out then is no better or worse than the flavonoid columns
+    above, which shipped anyway. Phytosterols has its own column now, past the flavonoids, with its
+    coverage caveat kept under "Known caveats" below rather than repeated here.</p>
     <h4>Amino acid score and the limiting amino acid</h4>
     <p>The protein quality figures are <em>derived</em> from the columns already in the table, not
     sourced separately, so they cannot disagree with the rest of the row. Each essential amino acid

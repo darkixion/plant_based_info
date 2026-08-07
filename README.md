@@ -768,13 +768,6 @@ reason than the carotenoids have.
   dialog now states in words rather than a column that would be blank 124 times
   over. The seaweeds are not an exception; the algae cultured for oil are
   different organisms from nori and kelp.
-- **Gamma-tocopherol**, though it is present for 42 of these foods and is the
-  dominant vitamin E form in most seeds: pumpkin seeds 35 mg, pecans 24,
-  walnuts 21, flaxseed 20, against a vitamin E column that counts only
-  alpha-tocopherol. A column would need its own daily value discussion, since
-  only alpha has one, so this is recorded as a caveat in the Methodology dialog
-  instead. It is the strongest remaining candidate if the vitamin group is ever
-  deepened.
 
 Every one of these carries its reason under `unavailable` in
 `tools/food-additions.json`. That list is the record of what was looked for and
