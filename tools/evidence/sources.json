@@ -1,0 +1,308 @@
+{
+ "_comment": "Provenance for every value in this directory. Each corpus file names its source by key. Nothing here is committed to the page: this is the evidence store that a future tool reads. Values were transcribed from primary files or primary text, never from a summarising model.",
+ "mext-2020": {
+  "title": "Standard Tables of Food Composition in Japan, 2020 (Eighth Revised Edition)",
+  "publisher": "Ministry of Education, Culture, Sports, Science and Technology (MEXT), Japan",
+  "year": 2020,
+  "updated": "2021-12-28",
+  "country": "Japan",
+  "url": "https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html",
+  "files": [
+   "20201225-mxt_kagsei-mext_01110_012.xlsx (main table)",
+   "20201225-mxt_kagsei-mext_01110_042.xlsx (carbohydrate: sugars, sugar alcohols)",
+   "20201225-mxt_kagsei-mext_01110_043.xlsx (carbohydrate 別表1: dietary fibre)",
+   "20201225-mxt_kagsei-mext_01110_044.xlsx (carbohydrate 別表2: organic acids)"
+  ],
+  "basis": "per 100 g edible portion",
+  "foods_total": 2478,
+  "plant_rows_extracted": 1125,
+  "components_used": {
+   "CR": "chromium, ug",
+   "MO": "molybdenum, ug",
+   "ID": "iodine, ug",
+   "SE": "selenium, ug",
+   "BIOT": "biotin, ug",
+   "FIBSOL": "soluble fibre, g (Prosky)",
+   "FIBINS": "insoluble fibre, g (Prosky)",
+   "FIBTG": "total fibre, g (Prosky)",
+   "FIB-SDFS": "low molecular weight soluble fibre, g (AOAC 2011.25)",
+   "FIB-SDFP": "high molecular weight soluble fibre, g (AOAC 2011.25)",
+   "FIB-IDF": "insoluble fibre, g (AOAC 2011.25)",
+   "STARES": "resistant starch, g",
+   "FIB-TDF": "total fibre, g (AOAC 2011.25)",
+   "STARCH": "starch, g",
+   "GLUS": "glucose, g",
+   "FRUS": "fructose, g",
+   "GALS": "galactose, g",
+   "SUCS": "sucrose, g",
+   "MALS": "maltose, g",
+   "SORTL": "sorbitol, g",
+   "MANTL": "mannitol, g",
+   "OXALAC": "oxalic acid, g",
+   "CITAC": "citric acid, g",
+   "MALAC": "malic acid, g",
+   "OA": "total organic acids, g"
+  },
+  "notation": {
+   "0": "analysed, none found (mapped to not-detected)",
+   "-": "not measured (mapped to state not-measured)",
+   "Tr": "trace",
+   "(n)": "estimated or calculated (mapped to estimated)"
+  },
+  "quality": "high",
+  "limitations": [
+   "Single figures with no n or SD published in the main table, so ranges cannot be derived from this source alone.",
+   "Japanese samples. Iodine, molybdenum and chromium in plants track soil, so these are not UK values.",
+   "Hijiki rows distinguish stainless steel from iron cooking vessels; other rows do not state vessel."
+  ]
+ },
+ "afcd-r3": {
+  "title": "Australian Food Composition Database, Release 3",
+  "publisher": "Food Standards Australia New Zealand (FSANZ)",
+  "year": 2025,
+  "country": "Australia",
+  "url": "https://www.foodstandards.gov.au/science-data/food-nutrient-databases/afcd/data-files",
+  "files": [
+   "AFCD Release 3 - Nutrient profiles.xlsx",
+   "AFCD Release 3 - Nutrient details.xlsx"
+  ],
+  "basis": "per 100 g",
+  "foods_total": 1588,
+  "plant_rows_extracted": 612,
+  "components_used": {
+   "inulin": "g",
+   "oligosaccharides": "g",
+   "raffinose": "g",
+   "stachyose": "g",
+   "resistant_starch": "g",
+   "oxalic_acid": "g",
+   "chromium": "ug",
+   "iodine": "ug",
+   "molybdenum": "ug",
+   "biotin": "ug",
+   "total_fibre": "g",
+   "citric": "g",
+   "malic": "g"
+  },
+  "quality": "high, except chromium",
+  "limitations": [
+   "FSANZ states of its own chromium data: 'Levels appear to be highly variable and values presented in this database should be used with caution.' Independent corroboration of the chromium contamination problem.",
+   "Oligosaccharides (undifferentiated) are reported for cereal bars and processed foods only, and are generally imputed or borrowed. Do not use as analytical values.",
+   "Blank and zero are not distinguished as cleanly as in MEXT: absence of a value is a blank cell, but a reported 0 may be an assumed zero.",
+   "No soluble/insoluble fibre split; total dietary fibre only."
+  ]
+ },
+ "ifct-2017": {
+  "title": "Indian Food Composition Tables 2017",
+  "authors": "Longvah T., Ananthan R., Bhaskarachary K., Venkaiah K.",
+  "publisher": "National Institute of Nutrition, Indian Council of Medical Research, Hyderabad",
+  "year": 2017,
+  "country": "India",
+  "url": "https://www.nin.res.in/ebooks/IFCT2017.pdf",
+  "basis": "per 100 g edible portion",
+  "foods_total": 528,
+  "tables_extracted": [
+   "Table 11: Oligosaccharides, Phytosterols, Saponins and Phytates (p.403), 304 rows",
+   "Table 9: Organic Acids (p.313), 312 rows, including oxalate reported as total, soluble AND insoluble"
+  ],
+  "rows_parsed": 304,
+  "note_oxalate": "Table 9 splits oxalate into soluble and insoluble. Only the soluble fraction binds calcium in the gut, and the split is large: sesame (gingelly) seeds carry 2156 mg total oxalate but only 78.6 mg soluble, while black cardamom carries 2472 mg total and 1471 mg soluble. A total-oxalate figure alone would misrepresent both. Blank cells in this table mean below detectable limit, per the table's own header note.",
+  "components_used": {
+   "raffinose_g": "g",
+   "stachyose_g": "g",
+   "verbascose_g": "g",
+   "ajugose_g": "g",
+   "campesterol_mg": "mg",
+   "stigmasterol_mg": "mg",
+   "beta_sitosterol_mg": "mg",
+   "phytate_mg": "mg",
+   "saponin_g": "g"
+  },
+  "reports": "mean with n and standard deviation, sampled compositely from six regions of India",
+  "quality": "high",
+  "limitations": [
+   "Values are for foods as purchased, generally dry or raw. This page's legumes are cooked, and the raffinose family leaches into cooking water, so these must not be applied to cooked rows without a stated conversion.",
+   "Indian cultivars and Indian soils.",
+   "Extracted from PDF text by column position. Anchors are read from each page's own header row because the layout shifts between pages; an early global-anchor version silently shifted phytosterols one column left and was discarded. Parsed rows were verified against the raw text for eight foods.",
+   "304 of 528 foods parsed. Rows whose names wrap awkwardly may still be missing.",
+   "Table 9 IS now extracted (312 rows). Table 1 (fibre fractions), Table 6 (starch and individual sugars) and Table 10 (polyphenols) are NOT yet extracted."
+  ]
+ },
+ "cofid-2021": {
+  "title": "McCance and Widdowson's The Composition of Foods Integrated Dataset (CoFID), 2021",
+  "publisher": "Public Health England / Food Standards Agency",
+  "year": 2021,
+  "country": "United Kingdom",
+  "url": "https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid",
+  "basis": "per 100 g",
+  "foods_total": 2887,
+  "components_used": {
+   "oligosaccharide_g": "g",
+   "biotin_ug": "ug"
+  },
+  "notation": {
+   "Tr": "trace",
+   "N": "not measured",
+   "": "no value"
+  },
+  "quality": "high",
+  "limitations": [
+   "Oligosaccharide is a lumped total with no breakdown into raffinose, stachyose or verbascose.",
+   "Oligosaccharide is populated for 363 of 2887 foods; biotin for 1925.",
+   "No chromium, molybdenum, boron, taurine, inulin, beta-glucan, pectin or soluble/insoluble fibre column exists in CoFID.",
+   "Foods join by UK food codes, so any link to this page's rows is a reviewed name match, never an id join."
+  ]
+ },
+ "usda-foundation-2025": {
+  "title": "USDA FoodData Central, Foundation Foods",
+  "publisher": "USDA Agricultural Research Service",
+  "release": "2025-04-24",
+  "country": "United States",
+  "url": "https://fdc.nal.usda.gov/download-datasets",
+  "basis": "per 100 g",
+  "foods_total": 340,
+  "measured_here": {
+   "beta-glucan (2058)": "23 foods",
+   "biotin (1176)": "100 foods",
+   "molybdenum (1102)": "68 foods",
+   "boron (1137)": "17 foods, all dry beans at 0% moisture",
+   "resistant starch (1071)": "17 foods",
+   "soluble fibre (1082) / insoluble (1084)": "10 foods each",
+   "raffinose/stachyose/verbascose": "2 foods each"
+  },
+  "quality": "high",
+  "limitations": [
+   "Boron values are all 'Beans, Dry, X (0% moisture)', a dry-matter basis that cannot be converted to a cooked row without assuming hydration and no leaching.",
+   "Chromium (1096), taurine (1234), inulin (1403) and pectin (1017) have ZERO rows.",
+   "Foundation Foods uses different FDC ids from SR Legacy and does not join to it by id."
+  ]
+ },
+ "usda-sr-legacy-2018": {
+  "title": "USDA FoodData Central, SR Legacy",
+  "release": "2018-04",
+  "country": "United States",
+  "note": "Measured this session: nutrient ids for chromium (1096), molybdenum (1102), boron (1137), biotin (1176), taurine (1234), inulin (1403), pectin (1017), beta-glucan (1068/2058), oligosaccharides (1069/2064), raffinose (1076), stachyose (1077), verbascose (2063), soluble fibre (1082) and insoluble fibre (1084) are all DEFINED but carry ZERO rows across all 7793 foods. Control counts: protein 7793, calcium 7708, vitamin E 5580, phytosterols 489.",
+  "quality": "n/a, empty for these components"
+ },
+ "cnf-2026": {
+  "title": "Canadian Nutrient File 2026",
+  "publisher": "Health Canada",
+  "country": "Canada",
+  "url": "https://open.canada.ca/data/en/dataset/1b6139bd-ed7e-4043-bc28-ff00e10f3109",
+  "assessed": "checked and largely rejected",
+  "note": "173 nutrients, 5690 foods. Of the components wanted here it carries only biotin (416, 116 rows) and 'Fructans (inulin)' (1001, 53 rows, mostly manufactured foods such as cookies and sandwiches). No iodine, chromium, molybdenum, boron, taurine, oxalate, phytate, and total dietary fibre only. Not extracted.",
+  "quality": "not useful for this work"
+ },
+ "thor-2011": {
+  "citation": "Thor M.Y., Harnack L., King D., Jasthi B., Pettit J. (2011). Evaluation of the comprehensiveness and reliability of the chromium composition of foods in the literature. Journal of Food Composition and Analysis 24(8):1147-1152.",
+  "pmid": "23066174",
+  "pmc": "PMC3467697",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3467697/",
+  "type": "compilation of 1382 values across 856 foods from 51 articles, 1980-2007",
+  "quality": "moderate as a compilation; values inherit the quality of their source studies",
+  "limitations": [
+   "The authors' own conclusion: 'assigning representative chromium values to foods in a food and nutrient database may not be appropriate in this context.'",
+   "Only 39% of NCC core foods could be assigned a chromium value.",
+   "Medians sit far below means, because means are dragged by contaminated outliers."
+  ]
+ },
+ "reczajska-2005": {
+  "citation": "Ręczajska W., Jędrzejczak R., Szteke B. (2005). Determination of chromium content of food and beverages of plant origin. Polish Journal of Food and Nutrition Sciences 14/55(2):183-188.",
+  "url": "https://journal.pan.olsztyn.pl/pdf-97872-30314?filename=30314.pdf",
+  "country": "Poland",
+  "sampled": 2001,
+  "method": "ZETAAS, electrothermal AAS with Zeeman background correction",
+  "qa": "CRM CTA-VTL-2 Virginia Tobacco Leaves; recovery 94-104%; RSD 1.2-3.7%",
+  "quality": "high",
+  "note": "Thor 2011 cites this paper with the author name misspelled as 'Raczajska'. The strawberry range prints in the PDF as '61-34' and is actually 6-134 ug/kg, confirmed against the paper's own Table 7 province ranges."
+ },
+ "laidlaw-1990": {
+  "citation": "Laidlaw S.A., Grosvenor M., Kopple J.D. (1990). The taurine content of common foodstuffs. Journal of Parenteral and Enteral Nutrition 14:183-188.",
+  "finding": "Taurine assayed in 48 plant foods and not detected in any. A finding of absence, not a gap.",
+  "quality": "moderate to high",
+  "caveat": "Red algae are the documented exception. Porphyra (nori) has been measured at about 4.11 mg/g dry matter, so 'plants contain no taurine' is wrong for the nori and kelp rows."
+ },
+ "van-loo-1995": {
+  "citation": "van Loo J., Coussement P., de Leenheer L., Hoebregs H., Smits G. (1995). On the presence of inulin and oligofructose as natural ingredients in the western diet. Critical Reviews in Food Science and Nutrition 35(6):525-552.",
+  "pmid": "8777017",
+  "type": "the canonical inulin and oligofructose food table",
+  "status": "NOT yet extracted. Superseded in usefulness for this page by AFCD, which publishes analytical inulin for 50 foods including this page's grains and legumes."
+ },
+ "usda-iodine-r4": {
+  "title": "USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods, Release 4.0",
+  "publisher": "USDA ARS / FDA / NIH Office of Dietary Supplements",
+  "year": 2024,
+  "country": "United States",
+  "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/iodine/",
+  "basis": "per 100 g",
+  "foods": 478,
+  "reports": "n, mean, SD, min, max, source and years analysed per food",
+  "join": "carries NDB / SR Legacy and Foundation Foods ids, so it joins to this page by id rather than by name. Same key tools/flavonoids.mjs already uses.",
+  "quality": "high",
+  "key_finding": "Resolves the oats iodine conflict. Cooked oatmeal 0.2 ug/100 g, n=10, max 1.1. Brown rice cooked 0 ug, n=28, min 0, max 0. With MEXT also reporting not-detected, AFCD's 74 ug for rolled oats and 9.8 for brown rice are outliers by two to three orders of magnitude, not geographic variation.",
+  "limitations": [
+   "US samples.",
+   "Iodised salt dominates several processed categories; pasta boiled in iodised salt reads 22.4 ug against 0 for whole wheat pasta cooked without."
+  ]
+ },
+ "frida-6.1": {
+  "title": "Frida, the Danish Food Composition Database, version 6.1",
+  "publisher": "DTU National Food Institute",
+  "country": "Denmark",
+  "url": "https://frida.fooddata.dk/",
+  "basis": "per 100 g",
+  "foods_with_target_params": 1240,
+  "reports": "value, min, max, median, number of determinations and source per value. The richest per-value provenance of any database here.",
+  "components_used": {
+   "biotin_ug": 873,
+   "chromium_ug": 920,
+   "molybdenum_ug": 650,
+   "boron_ug": 49,
+   "iodine_ug": 1210,
+   "raffinose_g": 51,
+   "insoluble_fibre_g": 187,
+   "soluble_fibre_hmw_g": 187,
+   "soluble_fibre_lmw_g": 182,
+   "oxalic_acid_g": 19,
+   "citric_acid_g": 36,
+   "organic_acids_g": 83
+  },
+  "quality": "high",
+  "key_finding": "Unblocks boron. Its 49 boron values are on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7), wheat bran 270 (n=10), buckwheat groats 530.",
+  "limitations": [
+   "Danish samples and Danish soils.",
+   "Copyright asserted on the dataset; check redistribution terms before committing any derived values to a public repository."
+  ]
+ },
+ "phenol-explorer": {
+  "title": "Phenol-Explorer, database on polyphenol content in foods",
+  "url": "http://phenol-explorer.eu/downloads",
+  "basis": "mg per 100 g or 100 ml",
+  "rows_stored": 6953,
+  "foods": 458,
+  "compounds": 508,
+  "compound_groups": [
+   "Flavonoids",
+   "Phenolic acids",
+   "Lignans",
+   "Stilbenes",
+   "Other polyphenols",
+   "Polyphenols, total"
+  ],
+  "reports": "mean, min, max, SD, n, number of publications, publication ids and PubMed ids per value. 5055 of the stored rows carry a PubMed id, the best provenance of any source here.",
+  "quality": "high",
+  "note": "Alcoholic beverages excluded on extraction. Adds lignans and stilbenes, neither of which the page carries. Also carries a total polyphenols figure; note the page deliberately has no total flavonoid column, and the reasoning there does not automatically transfer.",
+  "limitations": [
+   "A compilation of published analyses, so values span methods and decades; the method group is recorded per row and must be carried through."
+  ]
+ },
+ "assessed-lower-value": {
+  "_comment": "Downloaded and checked, little or nothing to add beyond what is already held.",
+  "ciqual-2025": "France, 3484 foods. Of the wanted components carries iodine and total organic acids only.",
+  "nevo-2025": "Netherlands. Of the wanted components carries iodine only. Has explicit conditions-of-use terms.",
+  "fineli-rel20": "Finland, 75 components. Carries chromium, iodine, molybdenum, insoluble fibre, organic acids and individual sugars. No biotin. Overlaps sources already held.",
+  "norway-all-foods": "Iodine only.",
+  "nz-foodfiles-concise-14": "Iodine only.",
+  "tbca-brazil": "Supplied as PDFs covering carbohydrate profile, glycaemic response, flavonoids and carotenoids. Not extracted; flavonoids and carotenoids overlap existing columns."
+ }
+}
