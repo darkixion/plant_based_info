@@ -22,7 +22,7 @@ measurement rather than argued from the spec:
 | `overflow-x:scroll; overflow-y:visible` | scroll/auto | -1935px |
 
 A sticky element sticks within its nearest scroll container. This box has to be
-one horizontally, because 68 columns are wider than any screen, and the visible
+one horizontally, because 70 columns are wider than any screen, and the visible
 axis computes to `auto` the moment the other is not visible. So there is no
 arrangement where the box scrolls sideways and the header sticks to the page.
 
@@ -77,7 +77,7 @@ Findings worth keeping:
   oxalate record quoted spinach from one paper and kale from another while
   naming only the first, so `cites` is an array. The check was written before
   the mistake and found it within a minute.
-- **Two selection rules, because 37 of 68 nutrients have no daily value.** That
+- **Two selection rules, because 39 of 70 nutrients have no daily value.** That
   is every carotenoid and every flavonoid, so a %DV threshold alone would have
   been structurally silent on carotenoids needing fat, which is one of the most
   useful facts in the topic. Rule 2 ranks within the column, top 10 of 131.
@@ -628,10 +628,10 @@ committed and nothing is pushed: `main` is ahead of `origin/main` by this
 session's work. The GitHub remote (`darkixion/plant_based_info`) is public, so
 pushing stays the owner's call.
 
-- **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
+- **131 foods x 70 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 132 browser tests against the result. All passing, and CI
+  3 tool tests and 133 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -786,6 +786,33 @@ dependencies and must keep none.
   measurements and for why a `max-height` and a width-matched copy were both
   rejected. The copy is the more promising of the two if it is picked up again.
   Do not start by trying `overflow-y:visible`; it computes to `auto`.
+- **What SR Legacy holds for these foods that has no column here**, swept
+  systematically rather than guessed at. Every nutrient id with at least 15 rows
+  for the 128 mapped foods, minus everything `COLUMN_TO_USDA` already consumes.
+  The list is short and the conclusion is that little is missing:
+
+  - **Defined by SR Legacy and published for none of these foods**, so they need
+    an outside source the way the flavonoids did: **inulin (1403) and every
+    other fibre fraction** (soluble 1082, insoluble 1084, beta-glucan, resistant
+    starch, oligosaccharides, pectin, raffinose, stachyose) at **0 rows each**;
+    **iodine (1100)** at 0; and proanthocyanidins, already on this list. That is
+    a pattern worth naming: SR Legacy defines a great many ids it never
+    populates for whole plant foods, so "the id exists" says nothing about
+    whether a pull can reach it.
+  - **Populated and genuinely unrepresented: betaine, 57 of 57 non-zero, max
+    102.6 mg.** The only real candidate the sweep turned up. It belongs beside
+    choline, since betaine spares choline in methylation and choline is already
+    the thinnest micronutrient here at 35% of a day from one unusual food.
+  - **Populated but already deliberately excluded**: beta and delta tocopherol,
+    the four tocotrienols, and the phytosterol fractions (campesterol,
+    beta-sitosterol, stigmasterol). All are recorded decisions, not oversights.
+  - **Populated but trivial or single-food**: the sugar fractions where a total
+    already exists, minor saturated and monounsaturated chain lengths, fluoride
+    at 26 foods, and caffeine and theobromine at one food each. Cocoa powder's
+    theobromine is 2057 mg, which is striking and still one food.
+
+  So: **inulin needs an external source, betaine is the one column worth
+  considering, and nothing else is missing.**
 - **Iodine: the data exists, and the finding is worth more than the column.**
   The **USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods**,
   release 4.0 of November 2024, covers 478 foods per 100 g, and it carries **NDB

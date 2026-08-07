@@ -276,7 +276,7 @@ const RANK_DEPTH = 10;
 /** The nutrients a food is a meaningful enough source of to be worth showing
  *  its absorption story, by the only two rules the data allows.
  *
- *  Two rules because **37 of the 68 nutrients have no daily value**, and that
+ *  Two rules because **39 of the 70 nutrients have no daily value**, and that
  *  includes every carotenoid and every flavonoid. A percent-of-daily-value
  *  threshold on its own would be structurally silent on carotenoids needing fat
  *  in the meal, which is one of the most useful facts here.
@@ -336,8 +336,11 @@ const BUILTIN_LENSES = [
     why: "Calcium is only half the story: vitamin D governs how much you absorb, vitamin K directs it into bone, and magnesium and phosphorus build the mineral itself." },
   { id: "methyl", name: "B12, folate & methylation", ids: ["b12","b9","b6","chol","met"],
     why: "The nutrients that keep homocysteine in check. B12 is the critical gap on a vegan diet, because unfortified plant foods are not a reliable source whatever these figures show." },
-  { id: "omega", name: "Omega balance", ids: ["ala","la"],
-    why: "The two fats the body cannot make. They compete for the same enzymes, so a diet heavy in omega-6 blunts conversion of omega-3 into the forms the body actually uses." },
+  /* EPA and DHA joined this the day they became columns. The sentence had
+     always ended on "the forms the body actually uses" while the table had no
+     way to show them, so the lens raised a question it could not answer. */
+  { id: "omega", name: "Omega balance", ids: ["ala","la","epa","dha"],
+    why: "The two fats the body cannot make, and the two it is meant to build from them. ALA and LA compete for the same enzymes, so a diet heavy in omega-6 blunts an already poor conversion. EPA and DHA are what that conversion is for, and both columns are all but empty across these foods, which is the point of showing them." },
   { id: "antiox", name: "Antioxidant vitamins", ids: ["vita","vitc","vite","se"],
     why: "Nutrients that limit oxidative damage, working in different compartments: vitamin C in water, vitamin E in fat, and selenium as part of the enzymes that recycle them." },
   { id: "electro", name: "Electrolytes", ids: ["na","k","mg","ca"],

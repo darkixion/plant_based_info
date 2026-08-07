@@ -2718,6 +2718,47 @@ await test("none of the narrow-screen work reaches the desktop layout", async ()
 
 // ---------------------------------------------------------------- bioavailability
 
+await test("EPA and DHA tell a measured zero apart from an unmeasured one", async () => {
+  // The whole justification for these two columns. 113 of the 131 foods were
+  // assayed for each and found to have essentially none, and that is a far
+  // stronger statement than having no column: it is the difference between
+  // "nobody looked" and "we looked and it is not there". A column that rendered
+  // both as 0, or both as n/a, would destroy the only thing it is here to say.
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const count = id => {
+        const i = at(id);
+        const v = DATA.foods.map(f => f.v[i]);
+        return { unmeasured: v.filter(x => x === null).length,
+                 zero: v.filter(x => x === 0).length,
+                 above: v.filter(x => x > 0).length };
+      };
+      // And what the table actually prints for one of each.
+      const cellFor = (foodName, id) => {
+        const row = [...document.querySelectorAll("#tbody tr")]
+          .find(tr => tr.querySelector(".fname b")?.textContent.startsWith(foodName));
+        const cols = layout();
+        const at = cols.findIndex(c => c.id === id);
+        return at === -1 ? null : row?.querySelectorAll("td.num")[at]?.textContent.trim();
+      };
+      return { epa: count("epa"), dha: count("dha"),
+               noriEpa: cellFor("Nori", "epa"), tofuEpa: cellFor("Tofu", "epa"),
+               appleEpa: cellFor("Apple", "epa") };
+    });
+    eq(r.dha.above, 1, "exactly one food has any DHA");
+    eq(r.epa.above, 4, "exactly four foods have any EPA");
+    assert(r.epa.unmeasured === 18 && r.dha.unmeasured === 18,
+      `18 foods were never assayed, got ${r.epa.unmeasured} and ${r.dha.unmeasured}`);
+    assert(r.epa.zero > 100, `most foods are a measured zero, got ${r.epa.zero}`);
+
+    // Rendered: a real figure, an unmeasured cell, and a measured zero.
+    assert(/0\.080/.test(r.noriEpa || ""), `nori should show its EPA figure, got ${r.noriEpa}`);
+    assert(/n\/a/.test(r.tofuEpa || ""), `tofu was never assayed and should say so, got ${r.tofuEpa}`);
+    eq(r.appleEpa, "0", "a measured zero prints as 0, not as n/a");
+  });
+});
+
 await test("the figures are never adjusted for absorption", async () => {
   // The structural guard on the whole feature. Interactions are explanation,
   // not arithmetic, and the way that stays true is a test rather than a

@@ -170,7 +170,7 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
    one header to the next never resizes the box and never nudges the table. */
 /* 126px, up from 83px, because the absorption line under the sentence made the
    tallest case taller. Measured rather than guessed: it is the largest height
-   any of the 68 nutrients produces at 1200px and above, which is Total fat,
+   any of the 70 nutrients produces at 1200px and above, which is Total fat,
    since fat is the agent on both the carotenoid record and the fat-soluble
    vitamin one. A test walks every nutrient and fails if the box ever changes
    height, so a new interaction record that overflows this is caught rather than
@@ -268,7 +268,7 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
 /* ---------- table ---------- */
 /* The box grows to its rows and the page scrolls, rather than the table being a
    scrollport of its own with the page still behind it. overflow:auto stays for
-   the horizontal axis, which is the one that always overflows: 68 columns are
+   the horizontal axis, which is the one that always overflows: 70 columns are
    wider than any screen.
 
    The consequence is that the two header rows below do not stick vertically,

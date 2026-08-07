@@ -43,6 +43,27 @@ const KNOWN = {
   1316: { id: "la", label: "Omega-6 (LA)", group: "fats", unit: "g", dv: 17, dp: 3, after: "ala",
     why: "The essential omega-6, plentiful in nuts, seeds and their oils. It competes with ALA for the same conversion enzymes, so a very high intake makes the little omega-3 conversion there is smaller still." },
 
+  // The two long-chain omega-3s ALA is supposed to convert into. They are here
+  // for the answer they give rather than the figures they carry: SR Legacy
+  // assayed 113 of these 128 foods for each, and found DHA above zero in one
+  // (quinoa, 0.015 g) and EPA in four (nori 0.08, sunflower seeds 0.014, kelp
+  // 0.004, edamame 0.003).
+  //
+  // That is the point of the columns. A measured zero is not missing data, and
+  // this table distinguishes the two everywhere: 113 foods were tested and
+  // found to have essentially none, which is a far stronger statement than
+  // having no column at all. Without them the page raises the conversion
+  // question in the ALA note above and cannot answer it.
+  //
+  // No daily value. There is no established DV for EPA or DHA, and the omega-3
+  // one belongs to ALA, which already has it. Giving these one would count the
+  // same requirement three times over in the "% daily value" view, the same
+  // double-counting the carotenoid and saturated-fat fraction columns avoid.
+  1278: { id: "epa", label: "EPA (20:5)", group: "fats", unit: "g", dv: null, dp: 3, after: "la",
+    why: "The long-chain omega-3 that ALA is meant to convert into, and one of the two the body actually uses. Conversion from ALA is poor, and it is close to absent from plant foods: of the foods here that USDA assayed, four carry any at all." },
+  1272: { id: "dha", label: "DHA (22:6)", group: "fats", unit: "g", dv: null, dp: 3, after: "epa",
+    why: "The omega-3 that makes up much of the brain and the retina. Plant foods essentially do not contain it: USDA assayed most of the foods here and found it above zero in one. Algal oil is the vegan source, since algae is where fish get it too." },
+
   // Named to match the existing "Omega-3 (ALA)" / "Omega-6 (LA)" columns.
   // 18:1 is undifferentiated in SR Legacy: it includes a little n-7 vaccenic
   // alongside the n-9 oleic, but in plant foods it is overwhelmingly oleic.
@@ -533,7 +554,8 @@ async function cmdPull(args) {
    no new methodology enters the table. */
 const COLUMN_TO_USDA = {
   kcal: 1008, protein: 1003, carbs: 1005, fiber: 1079, sugars: 2000, fat: 1004,
-  satfat: 1258, water: 1051, ala: 1404, la: 1316, palmitoleic: 1275, oleic: 1268,
+  satfat: 1258, water: 1051, ala: 1404, la: 1316, epa: 1278, dha: 1272,
+  palmitoleic: 1275, oleic: 1268,
   mufa: 1292, pufa: 1293, lauric: 1263, palmitic: 1265, stearic: 1266,
   his: 1221, ile: 1212, leu: 1213, lys: 1214, met: 1215,
   cys: 1216, phe: 1217, tyr: 1218, thr: 1211, trp: 1210, val: 1219, arg: 1220,

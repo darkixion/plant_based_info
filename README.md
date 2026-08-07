@@ -415,7 +415,7 @@ oversight.** The table is full length and the page scrolls.
 
 Worth writing down because it looks fixable and is not, at least not cheaply.
 A sticky element sticks within its nearest scroll container. `.tablewrap` must
-be one horizontally, since 68 columns are wider than any screen. CSS then makes
+be one horizontally, since 70 columns are wider than any screen. CSS then makes
 it one vertically too: **`overflow-x:auto` with `overflow-y:visible` is not
 expressible**, because the visible axis computes to `auto` as soon as the other
 is not visible. Measured in Chrome rather than taken from the spec: the computed
@@ -481,7 +481,7 @@ because of it.
 
 ### Which entries a food shows
 
-Two rules, because **37 of the 68 nutrients have no daily value**, including
+Two rules, because **39 of the 70 nutrients have no daily value**, including
 every carotenoid and every flavonoid:
 
 1. **Has a daily value:** shown when the food supplies at least 10% of it per
@@ -607,7 +607,7 @@ toggle that produced it.
 ## My day
 
 Type a food into the box at the top, give it a quantity in grams,
-and all 68 nutrients are totalled across the list, in their own units and as a
+and all 70 nutrients are totalled across the list, in their own units and as a
 percentage of a daily value. This is the only basis on which a shortfall means
 anything, and the reason to have it is that neither table basis can answer "am I
 getting enough": per 100 g and per 100 kcal both describe a food, and this
@@ -701,7 +701,7 @@ table. There is a test for exactly that.
 
 **Every nutrient group starts visible**, derived from `GROUPS` rather than
 listed, so a seventh group would show the day it was added. That makes the
-opening table 68 columns wide and horizontally scrollable; switching groups off
+opening table 70 columns wide and horizontally scrollable; switching groups off
 in the sidebar is how it narrows. Tests must therefore say which groups they
 want, via `showGroups()` in `test/smoke.mjs`, rather than clicking a sidebar
 button to "turn one on": a click means flip, and every one of those clicks
