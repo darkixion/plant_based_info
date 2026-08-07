@@ -17,7 +17,8 @@ column. It appears in no corpus in `tools/evidence/` and in no field of any of
 the eight databases held. SR Legacy defines ids 1068 and 2058 and publishes zero
 rows, which was already recorded; what is new is that nothing else carries it
 either. Beta-glucan is in the same position as pectin, which the parent design
-already excluded for exactly this reason. **So phase 2 is 31 columns, not 32.**
+already excluded for exactly this reason. That takes phase 2 from 32 columns to
+31, and unparking chromium below puts it back to 32.
 
 **Sixteen of the 31 are blocked on mappings, not on data.** Reviewed page
 mappings exist for MEXT, at 81 of the 131 foods, and for 15 hand-checked AFCD and
@@ -30,18 +31,47 @@ produces reviewed pairs. That is the same shape of work that produced
 
 The split:
 
-- **15 reachable through the existing MEXT mappings**, with no new mapping work.
+- **16 reachable through the existing MEXT mappings**, with no new mapping work.
 - **16 blocked on a mapping exercise**: AFCD for sulphur, fluoride, nickel and
   inulin; IFCT for phytate, saponins, the three phytosterols, the oxalate split
   and raffinose, stachyose and verbascose; CoFID for the oligosaccharides; Frida
   for boron.
 
-This design covers the 15. The 16 follow as phase 2b, one change per database.
+This design covers the first 16. The others follow as phase 2b, one change per
+database.
 
-## The 15 columns
+## Chromium is unparked, and the note that parked it was misleading
+
+The twelfth session parked chromium at the owner's request and recorded a
+finding to justify it. The finding is sound. The way it was summarised is not,
+and this design nearly carried the error forward.
+
+The note reads as "chromium data is unreliable". What the evidence shows is
+narrower and almost the opposite: **the two modern quality-controlled sources
+agree with each other, and it is the older Western compilation that is the
+outlier.** MEXT and Ręczajska 2005 put carrot at 1 and 0.4 µg. Thor 2011's
+compilation of 1,382 literature values puts it at 1.74, onion at 34.2 and apple
+at 3.25, and Thor's own authors concluded that assigning representative chromium
+values in a database "may not be appropriate". AFCD's highest analysed chromium
+figures are bread at 69.7, muesli at 61, sandwich biscuits at 49 and bran flakes
+at 37.4, which is the signature of stainless steel during processing rather than
+of the food, and `sources.json` already grades AFCD as "high, except chromium".
+
+So the case on file is a case against **AFCD's chromium and the 1980s
+literature**. It is not a case against MEXT's, which is the only source phase 2a
+would use, and which reaches 80 of the 81 mapped foods: 41 measured, 6 trace and
+33 assayed and found to contain none. That is better coverage than iodine and
+equal to molybdenum, at no mapping cost at all.
+
+**The lesson is worth more than the column.** A decision was recorded correctly,
+summarised loosely, and the loose summary was about to skip a nutrient with
+better coverage than most of this design. A note saying what was rejected must
+name which source was rejected, not the nutrient.
+
+## The 16 columns
 
 All from MEXT, all single-source, all joined on `jp_code` through the 81 reviewed
-mappings. The table goes from 73 columns to 88.
+mappings. The table goes from 73 columns to 89.
 
 "Informative" below counts the states that say something about the food:
 `measured`, `trace` and `not-detected`. It excludes `estimated`, which is stored
@@ -52,6 +82,7 @@ which says only that nobody looked.
 |---|---|---|---|---|---|---|
 | `mo` | Molybdenum | mineral | µg | 0 | `plant.mo` | 80 |
 | `iodine` | Iodine | mineral | µg | 0 | `plant.iodine` | 79 |
+| `cr` | Chromium | mineral | µg | 0 | `plant.cr` | 80 |
 | `resstarch` | Resistant starch | macro, after `insolfibre` | g | 1 | `fibre.resistant_starch` | 7 |
 | `starch` | Starch | carbdetail | g | 1 | `sugars.starch` | 55 |
 | `glucose` | Glucose | carbdetail | g | 1 | `sugars.glucose` | 59 |
@@ -106,6 +137,62 @@ refuses to write a value that contradicts a total already in the table, and
 cross releases, and evidence columns always cross releases. The point is made in
 the `why` sentences instead.
 
+## The estimated state, exercised for the first time
+
+The handover records that no `estimated` cell exists anywhere, so the state is
+"modelled and rendered but not yet exercised by a real value". The reason turns
+out to be a bug rather than an absence of data.
+
+**MEXT prints a calculated figure in parentheses, and the extractor never parsed
+one.** Every `estimated` cell in all four Japanese corpora carries `value: null`
+while its `raw` holds a real number, `"(40.1)"` for example. Phase 1's generator
+has a `derivation: "estimated"` branch that has been dead code since it shipped,
+because the value it would read is always null. Parsing the parentheses recovers
+**105 cells** across the new columns. The corpora are committed extraction output
+and the MEXT extractor is not in this repository, so the parsing belongs in
+`tools/evidence.mjs` rather than in the data.
+
+**What a parenthesis means.** MEXT's convention is that the value was not
+analysed for that food. It is inferred, usually from a closely related food or
+from the same food's raw material, and `(0)` and `(Tr)` mean presumed none and
+presumed trace. Neither MEXT nor the store records which inference route was
+used for a given cell, so the honest statement is that the figure is a
+calculation and we do not know from what.
+
+That matters unevenly, which is why it is shown and marked rather than dropped:
+
+| Calculated starch | Value | Risk |
+|---|---|---|
+| Strawberries, orange | 0 | None. A berry has no starch and MEXT did not spend an assay proving it |
+| Kale, watercress, avocado, courgette | 0.1 | Negligible |
+| Hazelnuts, macadamia | 0.7 to 1.0 | Small |
+| Cashews, sunflower seeds | 11.9, 12.7 | Substantive, and never assayed |
+| Lentils, cooked | 20.6 | Substantive, on an exact mapping |
+| Chestnuts, roasted | 34.4 | Large. A reader would take this for a measurement |
+
+Every cooked legume with an analysed figure was genuinely assayed, at 14.9 to
+17.4 g, so the two kinds sit side by side in one column and only the marker
+separates them. Rule 2 already governs the rest: an estimated value takes no part
+in choosing a value or forming a range, and `reconcile()` enforces it by
+filtering on `derivation === "analysed"` before anything else happens.
+
+### The marker collision, which this is what would expose
+
+`styles.css` marks a calculated cell with `td[data-ev=estimated]::after{content:"
+calc"}` and a proxy-matched cell with `td[data-match=proxy]::after{content:"
+~"}`. **An element has one `::after`.** The proxy rule is declared later, so it
+wins, and the "calc" marker silently disappears on every cell that is both.
+
+That is **24 of the 105**, and they are the worst cells on the page: a figure
+that was never assayed, on a food that is only a proxy for the one named.
+Chestnuts and cashews are exactly this. The two rules are replaced by one that
+composes the marker from both attributes, so a cell renders `34.4 calc ~`. Fixing
+the cause rather than the ordering also means a third mark added later cannot
+silently swallow a second one.
+
+This has been latent since phase 1 and has never been visible, because no
+estimated cell has ever existed to collide with a proxy one.
+
 ## Two new column groups
 
 ```
@@ -141,7 +228,7 @@ the chart nutrient picker, the comparison view, the group tints and
 ## The generator
 
 `tools/evidence.mjs` hard-codes its three components today: an inline pair for
-the fibres and a bespoke block for biotin. Eighteen components need a shape, so
+the fibres and a bespoke block for biotin. Nineteen components need a shape, so
 the uniform ones become a declaration:
 
 ```js
@@ -151,7 +238,7 @@ const COMPONENTS = [
   { id: "mo",        corpus: "plant",  field: "mo" },
   { id: "starch",    corpus: "sugars", field: "starch" },
   { id: "citric",    corpus: "acids",  field: "citric" },
-  // ... 17 rows
+  // ... 18 rows
 ];
 ```
 
@@ -170,7 +257,7 @@ real cases in hand.
 ## The cell loses four fields
 
 Every cell today repeats `unit`, `basis`, `prep` and `match`. At phase 1's 243
-cells that costs little. Phase 2a writes 954 more, for about 1,200 in total, and
+cells that costs little. Phase 2a writes 1,035 more, for about 1,280 in total, and
 the four fields minify to roughly 62 bytes each time. That is about 74 KB of pure
 repetition on a page that is currently 286 KB.
 
@@ -205,7 +292,7 @@ A cell keeps only what varies: `state`, `value` or the `low` and `high` bounds,
 `sources`, and where they apply `n` and `disputed`.
 
 This touches `ev()`, `evText()`, `checkEvidence()` and the detail panel. **It is
-far cheaper now at 18 columns than later at 34**, which is the reason for doing
+far cheaper now at 19 columns than later at 35**, which is the reason for doing
 it in this change rather than deferring it.
 
 ## Validation
@@ -254,7 +341,7 @@ Three new, each aimed at a failure that has actually happened in this repository
 
 The existing invariant test needs no change and gains reach for free. It empties
 `evidence.json` and asserts that no rendered figure, day total, amino acid score
-or "Short on" entry moves. That now covers 18 columns instead of 3.
+or "Short on" entry moves. That now covers 19 columns instead of 3.
 
 The existing per-state tests extend to the new columns, in particular that
 `not-detected` never renders as `0` and `no data` never renders as
@@ -319,7 +406,17 @@ evidence column is for.
   phytate rather than free, so the phytate column answers much of what a reader
   asking about inositol wants, and a free-inositol column would be the remainder
   rather than the whole.
-- **No chromium.** Still parked, and MEXT's 41 measured values stay unused.
+- **No chromium from AFCD or from the older literature.** The column is MEXT
+  only. AFCD's chromium is graded low by its own publisher and its top values are
+  bread and breakfast cereal, and Thor 2011's compilation runs ten to fifty times
+  above the two modern sources. Both stay rejected, and the rejection is now
+  recorded against those sources rather than against the nutrient.
+- **No trehalose or galactose column**, and this is a judgement about the ratio
+  of assay to inference rather than a coverage floor. Trehalose is 2 measured
+  against 37 calculated, galactose 0 against 12. A column that is overwhelmingly
+  inferred is inference presented as data, whatever its marker says. Both were
+  first dropped on counts taken before the parenthesised-figure bug was found,
+  and the recount does not change the answer.
 - **No selenium column from MEXT**, though it has 80 informative cells here. The
   page already has a selenium column from SR Legacy, and a second one from a
   different country would be two columns of the same nutrient.
