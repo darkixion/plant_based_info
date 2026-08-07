@@ -215,76 +215,21 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 2: Guard the table header against a group change
+### Task 2: DROPPED, the guard already exists
 
-Phase 1 put every group label from macronutrients rightwards over the wrong columns, and 148 tests missed it because every one of them asked the data rather than the rendered header. Task 3 adds two groups, which is exactly the change that would break it again. This test passes on today's page; it exists to fail on tomorrow's if the header and the columns disagree.
+Not to be implemented. Kept numbered so the later task numbers and their briefs stay stable.
 
-**Files:**
-- Test: `test/smoke.mjs`, in the evidence section
+This task was written to add a rendered-header regression guard, on the strength of the handover's note that phase 1's header break went unnoticed by 148 tests. That note is accurate about the moment the bug landed and misleading about now: **phase 1 added the guard when it fixed the bug.**
 
-**Interfaces:**
-- Consumes: nothing.
-- Produces: nothing other than the guard.
+`test/smoke.mjs:3304`, "every group label spans exactly its own columns", already asserts more than this task's test would have:
 
-- [ ] **Step 1: Write the test**
+- every group appears once in the column order, as one unbroken run
+- each label's `colspan` equals the run of columns beneath it, in the same order
+- one body cell per column, plus the food column
 
-```js
-await test("every group label sits over its own columns", async () => {
-  /* The failure this exists for: appending two macro columns and a vitamin
-     column after the plant group put every label from macronutrients rightwards
-     over the wrong columns, and 148 tests missed it because all of them asked
-     the data rather than the rendered header. */
-  await withPage(async page => {
-    const r = await page.evaluate(() => {
-      const groups = [...document.querySelectorAll("#thead th.grp")];
-      const cols = [...document.querySelectorAll("#thead [data-sort]")]
-        .map(b => b.closest("th").dataset.g);
-      let at = 0;
-      const wrong = [];
-      for (const g of groups) {
-        const span = Number(g.getAttribute("colspan"));
-        if (!(span > 0)) { wrong.push(`${g.dataset.g} has colspan ${span}`); continue; }
-        for (let i = 0; i < span; i++, at++)
-          if (cols[at] !== g.dataset.g)
-            wrong.push(`${g.dataset.g} covers a ${cols[at]} column at ${at}`);
-      }
-      return { wrong, covered: at, cols: cols.length,
-               groups: groups.map(g => g.dataset.g) };
-    });
-    eq(r.wrong.length, 0, `header groups over the wrong columns: ${r.wrong.join(", ")}`);
-    eq(r.covered, r.cols, "the group labels must cover every column exactly once");
-    // A group with no visible columns would render colspan="0", which spans the
-    // rest of the row rather than nothing.
-    eq(new Set(r.groups).size, r.groups.length, "a group must appear in the header once");
-  });
-});
-```
+It also filters `__name` out of the `[data-sort]` list, which this task's snippet did not, so the snippet counted the food-name button as a column and reported a false failure at every group boundary. A group rendering `colspan="0"` is caught too, since it would appear in the header spans and not in the counted runs.
 
-- [ ] **Step 2: Run it to confirm it passes on today's page**
-
-Run: `npm test`
-Expected: PASS on "every group label sits over its own columns". A regression guard that fails now would mean the header is already broken, which would be a finding of its own; investigate before continuing rather than editing the test.
-
-- [ ] **Step 3: Confirm it can fail**
-
-Temporarily change the `colspan` in `renderTable`'s `groupHead` at `src/app.ts:1354` from `${own.length}` to `${own.length + 1}`, then run `npm test`.
-Expected: FAIL on the new test. Revert the change and re-run to confirm PASS. A guard nobody has seen fail is a guard nobody knows works.
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add test/smoke.mjs
-git commit -m "Assert the header covers the columns, from the rendered page
-
-Phase 1 put every group label from macronutrients rightwards over the
-wrong columns and 148 tests missed it, because every one of them asked
-the data rather than the header. Adding a column group is the change
-that would do it again, so this lands before the two that follow.
-
-Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
-```
-
----
+Task 3 is therefore already protected. Writing a second test asserting the same thing would be duplication.
 
 ### Task 3: Add the two groups and the 16 column definitions
 
