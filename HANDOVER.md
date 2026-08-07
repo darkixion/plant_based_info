@@ -1,15 +1,66 @@
 # Handover: where things stand
 
-Written 2026-08-05, updated 2026-08-06. Read `README.md` first; it carries
+Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-06 (fifth)
+## Latest session, 2026-08-07 (sixth)
+
+**Portion weights shipped for My day.** A quantity can now come from a USDA
+portion instead of a typed number: 128 of 131 foods carry portions from SR
+Legacy's `food_portion.csv`, 324 of them, generated into the new
+`src/data/portions.json` by `tools/portions.mjs propose`. Designed in full at
+`docs/superpowers/specs/2026-08-06-portion-weights-design.md` and written up
+durably in `README.md` under "My day". 109 tests, all passing.
+
+**Choosing a portion writes grams and nothing else.** `S.day` still stores
+`{ slug, g }`; the select is derived from the stored quantity rather than
+remembered as a separate choice, so typing a number or using the steppers
+moves it too, and it reads "custom" the moment the quantity matches no
+portion. Every total, export and saved day stays exactly what typing that
+number would have produced.
+
+**`tools/portions.mjs` is a filter as much as a pull.** Of 364 SR Legacy
+portion rows for these foods, 40 were dropped, each printed with the rule
+that dropped it: 17 under a 5 g floor, 14 regulatory NLEA servings, 6
+purchase quantities like "1 pint as purchased", and 3 over a 500 g cap. None
+of those belong on the page, and the tool says so rather than silently
+including them. The three foods with no portion at all, Seitan, Soy milk and
+Nutritional yeast, are the same three that have no SR Legacy row.
+
+Two findings worth keeping, both the kind this note exists to preserve:
+
+- **The fdc ids live in two files, not one.** `src/data/usda-map.json` holds
+  the 44 original foods; `tools/food-additions.json` holds the other 87,
+  across its `requested` and `staples` arrays. The open item this session
+  closes claimed `usda.mjs` held the reviewed row for every food. The first
+  pass at the portion tool read only the map and silently covered a third of
+  the table.
+- **`clampG` rounds to whole grams**, so a sub-gram portion would store a
+  quantity that no longer matches the portion that set it, leaving the
+  control reading "custom" the instant after it was used. That is what the
+  5 g floor and matching on `clampG(p.g)` rather than the raw figure both
+  exist for. Without them the control would silently forget what it was
+  told.
+
+**Not in the spec, added anyway: `tools/csv.mjs`.** `usda.mjs` and
+`flavonoids.mjs` each carried an identical private RFC4180 reader, and the
+portion tool would have been a third copy. Extracted into a shared module
+first, and both existing tools refactored onto it, verified by diffing each
+tool's output before and after the change.
+
+**Deliberately not done**, so nobody wonders whether it was forgotten: no
+portion column in the CSV export, no representative "typical" default grams,
+and nothing added to the food table view. A portion is an input to a
+quantity, not a fact about a food, so it belongs only where a quantity is
+entered.
+
+## Earlier session, 2026-08-06 (fifth)
 
 **`src/app.js` is now `src/app.ts`.** esbuild compiles it to a minified
 `dist/app.js`, which `build.mjs` inlines exactly where it used to inline the
 hand-written file. Nothing about the deliverable moved: one self-contained
 `index.html`, no build step at view time, no network calls, and `build.mjs`
-still imports nothing but `node:*`. 103 tests, all passing.
+still imports nothing but `node:*`. 109 tests, all passing.
 
 **`npm test` now runs `tsc --noEmit` before it compiles anything**, and CI runs
 the same check as a step of its own so a type error is reported as a type error
@@ -335,7 +386,7 @@ public, so pushing stays the owner's call.
 - **131 foods x 66 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  103 browser tests against the result. All passing, and CI runs the same, along
+  109 browser tests against the result. All passing, and CI runs the same, along
   with a check that `dist/app.js` matches `src/app.ts` and `index.html` matches
   `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -442,11 +493,6 @@ dependencies and must keep none.
   dominate and almonds, walnuts and avocado have no figure at all, so the column
   would rank foods by who got assayed. Do not re-derive the 8 to 14; measure
   `1283` again if this is revisited.
-- **Portion weights for the day view.** Quantities are grams only, because
-  inventing "1 medium banana" is the one thing this dataset will not do. USDA
-  publishes real ones in SR Legacy's `food_portion.csv`, and `usda.mjs` already
-  holds the reviewed row for every food, so this is a pull rather than a
-  judgement call. It is the single change that would most improve the feature.
 - **Proanthocyanidins**, which Release 3.3 does not carry at all. USDA
   published them separately once; whether that release is still available was
   not checked.
