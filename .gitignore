@@ -2,12 +2,12 @@ node_modules/
 .DS_Store
 *.log
 
-# `dist/app.js` is generated, and is deliberately NOT ignored. It is committed
-# so that `node build.mjs` alone rebuilds the page on a fresh checkout with
-# nothing but Node, which is the property the build's zero-dependency rule
-# exists to protect. Adding it here would break that. CI byte-compares it
-# against a fresh `npm run compile`, so a stale copy is caught rather than
-# shipped.
+# `dist/app.js` and `dist/styles.css` are generated, and are deliberately NOT
+# ignored. Both are committed so that `node build.mjs` alone rebuilds the page
+# on a fresh checkout with nothing but Node, which is the property the build's
+# zero-dependency rule exists to protect. Adding either here would break that.
+# CI byte-compares both against a fresh `npm run compile`, so a stale copy is
+# caught rather than shipped.
 
 # Working copies of upstream food-composition datasets. They are large, and
 # redistributable only under their own terms, so they are fetched rather than

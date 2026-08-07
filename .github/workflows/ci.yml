@@ -28,16 +28,17 @@ jobs:
       # Type-checks, builds, then drives the built page in a real browser.
       - run: npm test
 
-      # dist/app.js is generated but committed, same reasoning as index.html
-      # below. Checked first so a stale dist/app.js is reported as itself,
-      # not as a stale index.html, which would send the reader to the wrong
-      # command to fix it.
-      - name: dist/app.js is up to date with src/app.ts
+      # dist/ is generated but committed, same reasoning as index.html below.
+      # Checked first so a stale compiled file is reported as itself, not as a
+      # stale index.html, which would send the reader to the wrong command to
+      # fix it. Both artefacts are covered: styles.css is minified through the
+      # same esbuild step as app.ts, so it goes stale the same way.
+      - name: dist/ is up to date with src/
         run: |
           npm run compile
-          if ! git diff --quiet -- dist/app.js; then
-            echo "::error::dist/app.js does not match src/app.ts. Run 'npm run compile' and commit the result."
-            git diff --stat -- dist/app.js
+          if ! git diff --quiet -- dist/; then
+            echo "::error::dist/ does not match src/. Run 'npm run compile' and commit the result."
+            git diff --stat -- dist/
             exit 1
           fi
 

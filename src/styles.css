@@ -168,17 +168,17 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
    is already there rather than a highlight the reader switched on. */
 /* min-height fits the longest of the sentences at this width, so moving from
    one header to the next never resizes the box and never nudges the table. */
-/* 126px, up from 83px, because the absorption line under the sentence made the
-   tallest case taller. Measured rather than guessed: it is the largest height
-   any of the 70 nutrients produces at 1200px and above, which is Total fat,
-   since fat is the agent on both the carotenoid record and the fat-soluble
-   vitamin one. A test walks every nutrient and fails if the box ever changes
-   height, so a new interaction record that overflows this is caught rather than
-   quietly reintroducing the nudge.
+/* 131px. It started at 83, went to 126 when the absorption line was added, and
+   to 131 when the gap warning joined it. Measured each time rather than
+   guessed: this is the largest height any of the 70 nutrients produces at
+   1200px, 1280px and 1440px alike, which is now Vitamin D, carrying both a long
+   sentence and the gap warning above the absorption line. A test walks every
+   nutrient and fails if the box ever changes height, so the next line anyone
+   adds under here is caught rather than quietly reintroducing the nudge.
    Below about 1100px the sentences wrap further and the box does vary again,
    which was true before this line existed too. */
 .nutnote{margin:0 0 12px; padding:10px 14px; border-radius:10px; font-size:13.5px;
-  line-height:1.5; color:var(--muted); background:var(--raise-warm); min-height:126px;
+  line-height:1.5; color:var(--muted); background:var(--raise-warm); min-height:131px;
   border:1px solid var(--line); border-left:3px solid var(--green-line); max-width:96ch}
 .nutnote b{color:var(--ink); font-weight:650}
 /* ---- what helps and hinders absorption ----
@@ -187,6 +187,16 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
    a paragraph. Absent entirely for the fifty-odd nutrients with no interaction
    on record, because a row of arrows with nothing beside them would read as
    "nothing affects this", which nobody has established. */
+/* Sits above the absorption line, for a column that is in the table and cannot
+   be relied on. Only six columns ever show it, so it stays an exception rather
+   than decoration. */
+.gapwarn{display:flex; flex-wrap:wrap; gap:6px 10px; align-items:baseline; margin-top:7px;
+  padding-top:7px; border-top:1px solid var(--line); font-size:12.5px; font-weight:600}
+.gapwarn-gap{color:var(--warn)} .gapwarn-plan{color:var(--amber)}
+.gapwarn b{font-weight:700}
+.gapwarn .absorbmore{margin-left:auto}
+/* When both lines are present the second does not need its own rule above it. */
+.gapwarn + .absorb{border-top:0; padding-top:0; margin-top:5px}
 .absorb{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline; margin-top:7px;
   padding-top:7px; border-top:1px solid var(--line); font-size:12.5px}
 .absorb .up{color:var(--g-plant)} .absorb .down{color:var(--warn)}
@@ -209,6 +219,34 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
 .biorow.up .bioarrow{color:var(--g-plant)} .biorow.down .bioarrow{color:var(--warn)}
 .biowhen{font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--faint);
   font-weight:650; border:1px solid var(--line); border-radius:5px; padding:1px 6px}
+/* ---- nutrient gaps ----
+   Three tiers, distinguished by the left edge rather than by colour alone,
+   because they are three different kinds of claim: something food will not
+   supply, something thin enough to plan around, and something this dataset
+   simply cannot show. */
+.gaphead{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint);
+  font-weight:650; margin:22px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line)}
+.gaprow{border-left:3px solid var(--line); padding:2px 0 2px 12px; margin:0 0 16px}
+.gaprow.gap{border-left-color:var(--warn)}
+.gaprow.plan{border-left-color:var(--amber)}
+.gaprow.unseen{border-left-color:var(--line)}
+.gaprow h4{margin:0 0 4px; font-size:14.5px}
+.gaprow.unseen h4{font-size:13.5px; color:var(--muted)}
+.gaprow p{margin:5px 0}
+.gaprole{color:var(--body)}
+.gapclose b{color:var(--ink)}
+.gaprow cite{display:block; font-size:11.5px; color:var(--faint); font-style:normal;
+  line-height:1.4; margin-top:5px}
+/* The numbers under a gap come off the table rather than out of the dataset, so
+   they say so. A derived figure and a quoted one are different kinds of claim
+   and the reader should not have to work out which is which. */
+.gapev{margin:7px 0; padding:8px 11px; list-style:none; background:var(--raise);
+  border:1px solid var(--line); border-radius:8px; font-size:12.5px; line-height:1.5}
+.gapev li{margin:0}
+.gapev .gapevhead{color:var(--faint); font-size:11px; letter-spacing:.06em;
+  text-transform:uppercase; font-weight:650; margin-bottom:3px}
+.gapev b{color:var(--ink)}
+
 .biorow p{margin:5px 0 4px}
 .biorow cite{display:block; font-size:11.5px; color:var(--faint); font-style:normal; line-height:1.4}
 /* A reviewed fact about this particular food, as against the generic entries

@@ -1597,20 +1597,28 @@ await test("a fortified figure is still marked once it has been totalled", async
 
 await test("the standing notes appear whether the day is empty or full", async () => {
   await withPage(async page => {
+    /* The gap names come off gaps.json rather than being listed here, because
+       the note itself is built that way: the separate B12 and iodine notes were
+       merged into one derived paragraph when that dataset arrived, and a test
+       naming the old headings would have to be edited again the next time a
+       gap is added. This one would not. */
     const has = async () => {
       const t = (await page.locator("#daySum").textContent()).replace(/\s+/g, " ");
-      return { b12: /B12/.test(t), iodine: /Iodine is not in this data/.test(t),
+      const names = await page.evaluate(() =>
+        G.gaps.filter(g => g.tier === "gap").map(g => g.label));
+      return { gaps: names.every(n => t.includes(n)),
+               missing: names.filter(n => !t.includes(n)),
                absorption: /Intake is not absorption/.test(t) };
     };
     await page.click("#vDay");
     // An empty day is exactly where someone might conclude the page has nothing
     // to say, and a list of what you lack implies the list is complete.
     let n = await has();
-    assert(n.b12 && n.iodine && n.absorption, `on an empty day: ${JSON.stringify(n)}`);
+    assert(n.gaps && n.absorption, `on an empty day: ${JSON.stringify(n)}`);
 
     await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
     n = await has();
-    assert(n.b12 && n.iodine && n.absorption, `on a full day: ${JSON.stringify(n)}`);
+    assert(n.gaps && n.absorption, `on a full day: ${JSON.stringify(n)}`);
   });
 });
 
@@ -3008,6 +3016,146 @@ await test("the day advice does not repeat what the interaction data says", asyn
       "the note should point at the one place the specifics live");
     assert(!/oxalate-rich greens/i.test(text),
       "the note is restating the dataset again rather than pointing at it");
+  });
+});
+
+// ---------------------------------------------------------------- nutrient gaps
+
+await test("a gap's evidence is measured from the table, not typed into it", async () => {
+  // The reason this feature does not rot. Every number under a gap entry is
+  // computed from the data at render time, so adding a food corrects the
+  // sentence. A typed one would quietly stop being true, which has happened
+  // three times in this project already.
+  await withPage(async page => {
+    await page.click('[data-dlg="gaps"]');
+    const r = await page.evaluate(() => {
+      const text = document.querySelector("#dlgB").textContent.replace(/\s+/g, " ");
+      // The same figures, straight from the dataset.
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const state = id => {
+        const i = at(id), v = DATA.foods.map(f => f.v[i]);
+        return { above: v.filter(x => x > 0).length, zero: v.filter(x => x === 0).length };
+      };
+      return { text, b12: state("b12"), dha: state("dha") };
+    });
+    // Rendered numbers must equal the data's numbers, not a remembered pair.
+    assert(r.text.includes(`${r.b12.above} of 131 foods have any at all`),
+      `B12's count should be ${r.b12.above}: ${r.text.slice(0, 400)}`);
+    assert(r.text.includes(`${r.b12.zero} were measured and found to contain none`),
+      `B12's measured-zero count should be ${r.b12.zero}`);
+    // The distinction the whole thing rests on: a finding of absence is not a
+    // gap in the data, and the copy has to say which it is.
+    assert(r.dha.zero > 100 && r.text.includes(`${r.dha.zero} were measured and found to contain none`),
+      "DHA should report its measured zeros rather than calling them missing");
+    assert(/measured from this table, not quoted/i.test(r.text),
+      "the evidence should say it is derived rather than cited");
+  });
+});
+
+await test("fortified figures never count as evidence against the gap", async () => {
+  // The three highest B12 figures in this table are nutritional yeast, soy milk
+  // and yeast extract, and every microgram of them was put there by a maker.
+  // Counting them as the best available would turn the strongest evidence for
+  // the gap into evidence against it.
+  await withPage(async page => {
+    await page.click('[data-dlg="gaps"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    assert(/the best unfortified is Tempeh/.test(text),
+      `the best unfortified B12 food is tempeh, got: ${text.slice(0, 500)}`);
+    assert(!/best unfortified is Nutritional yeast/i.test(text),
+      "a fortified food was reported as the best unfortified one");
+    assert(/3 of those are fortification rather than the food/.test(text),
+      "the fortified count should be stated");
+  });
+});
+
+await test("a gap entry asserts nothing about the world without a source", async () => {
+  await withPage(async page => {
+    const bad = await page.evaluate(() => {
+      const out = [];
+      for (const g of G.gaps) {
+        if (g.tier === "gap" && !(g.cites || []).length) out.push(`${g.id} has no source`);
+        for (const k of g.cites || []) if (!G.sources[k]) out.push(`${g.id} -> ${k}`);
+        for (const id of g.nutrients) if (!DATA.nutrients.some(n => n.id === id))
+          out.push(`${g.id} names nutrient ${id}`);
+      }
+      return out;
+    });
+    eq(bad.length, 0, `gap entries with source or nutrient problems: ${bad.join(", ")}`);
+
+    await page.click('[data-dlg="gaps"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    const cites = await page.evaluate(() => Object.values(G.sources));
+    for (const c of cites)
+      assert(text.includes(c.slice(0, 40)), `source missing from the dialog: ${c.slice(0, 60)}`);
+  });
+});
+
+await test("the gaps page names no dose and recommends no product", async () => {
+  // The line this feature does not cross. It describes foods; doses vary by
+  // country, age and pregnancy and are a clinical matter.
+  await withPage(async page => {
+    await page.click('[data-dlg="gaps"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    assert(/no doses, and no products/i.test(text), "the dialog must say so outright");
+    // A dose looks like a quantity per day. The daily-value percentages the
+    // evidence quotes are not doses, so the pattern is deliberately narrow.
+    const dose = text.match(/\b\d[\d.,]*\s*(µg|mcg|mg|g|iu)\s*(a|per)\s*day\b/i);
+    assert(!dose, `the page appears to state a dose: ${dose && dose[0]}`);
+    assert(!/\byou should take\b|\bwe recommend\b/i.test(text),
+      "the page should not tell the reader what to take");
+  });
+});
+
+await test("the day view points at the gaps rather than restating them", async () => {
+  await withPage(async page => {
+    await page.evaluate(() => { S.day = []; S.view = "day"; render(); });
+    const text = (await page.locator("#daySum").textContent()).replace(/\s+/g, " ");
+    // Derived: the names come from the dataset, so a fifth gap would appear here
+    // without anybody editing this note.
+    const names = await page.evaluate(() =>
+      G.gaps.filter(g => g.tier === "gap").map(g => g.label));
+    for (const n of names)
+      assert(text.includes(n), `the day note should name ${n}, got: ${text.slice(0, 400)}`);
+    assert(/no column at all/.test(text),
+      "the note should say which of them cannot be totalled");
+    assert(/under Nutrient gaps in the sidebar/i.test(text),
+      "the note should point at the one place the detail lives");
+    // The two hand-written paragraphs this replaced.
+    assert(!/seaweed's B12 is inactive analogues/i.test(text),
+      "the old hand-written B12 note is still there");
+  });
+});
+
+await test("the methodology no longer says all seaweed B12 is inactive", async () => {
+  // It said that flatly, and it is right about spirulina and wrong about nori,
+  // which carries genuinely active B12. Corrected rather than left standing,
+  // and asserted here so it cannot quietly come back.
+  await withPage(async page => {
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    assert(/spirulina/i.test(text), "the correction turns on naming spirulina specifically");
+    assert(/purple laver|nori/i.test(text), "and on naming the exception");
+    assert(!/Seaweed is not a B12 source/i.test(text),
+      "the flat claim is back, and it is not true of nori");
+  });
+});
+
+await test("only the columns with a gap on record carry a warning", async () => {
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const el = document.querySelector("#nutNote");
+      const warned = [];
+      for (const n of DATA.nutrients) {
+        hoverNut = n.id; renderNutNote();
+        if (el.querySelector(".gapwarn")) warned.push(n.id);
+      }
+      return { warned, expected: [...new Set(G.gaps.flatMap(g => g.nutrients))] };
+    });
+    eq(r.warned.slice().sort().join(","), r.expected.slice().sort().join(","),
+      "the warned columns should be exactly those with a gap entry");
+    assert(!r.warned.includes("fe"), "iron is an absorption problem, not a gap");
+    assert(!r.warned.includes("protein"), "protein is neither");
   });
 });
 

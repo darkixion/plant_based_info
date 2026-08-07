@@ -3,7 +3,58 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (tenth)
+## Latest session, 2026-08-07 (eleventh)
+
+**Nutrient gaps shipped**, plus EPA and DHA as columns. Designed at
+`docs/superpowers/specs/2026-08-07-nutrient-gaps-design.md` and written up
+durably in `README.md` under "Nutrient gaps".
+
+**The entries were derived, not listed.** Four were named from memory first,
+then every nutrient with a daily value was ranked by the best **unfortified**
+food in the table. Vitamin D and B12 sit at 3% of a day with nothing over 20%;
+the next entry is a macronutrient at 27%. All four guesses survived, and the
+check found three things memory had missed.
+
+Findings worth keeping:
+
+- **The vitamin D in these foods is D2, not D3.** USDA assayed cholecalciferol
+  three times and found zero every time, ergocalciferol three times and found it
+  every time. And the D2-versus-D3 story is weaker than it is usually told: D3
+  wins as a **single large dose**, and a meta-analysis of daily supplementation
+  found no difference. Checking that citation is what stopped the entry
+  overclaiming.
+- **A correction to existing copy.** Methodology said flatly that seaweed's B12
+  is inactive analogues. That is right about spirulina and **wrong about nori**,
+  which carries around 77.6 µg per 100 g of active B12 and has raised B12 status
+  in animals and one small human trial. Still not dependable, since toasting
+  halves it and drying can convert active forms to analogues, but the flat claim
+  was wrong and is now two stories rather than one. A test stops it returning.
+- **The evidence counts three states, not two.** A cell assayed and found empty
+  is a finding of absence; a cell nobody assayed is evidence of nothing. The
+  first draft collapsed them into "carries a figure" and threw away the best
+  line the data has: **123 of 131 foods were measured for B12 and found to
+  contain none.**
+- **Fortified figures can never be the best.** The three highest B12 figures are
+  nutritional yeast, soy milk and yeast extract. Counting them would turn the
+  strongest evidence for the gap into evidence against it.
+- **Choline is the next thinnest**, best food 35% per 100 g and only two over
+  20%, so it is a `plan` tier rather than a `gap`. Cites are required for `gap`
+  and optional below it, which is a rule about what kind of claim each tier
+  makes rather than about how much is known.
+
+**Inulin, answered properly.** SR Legacy defines inulin (1403), soluble and
+insoluble fibre, beta-glucan, resistant starch, pectin and the oligosaccharides,
+and publishes **zero rows** of any of them for these foods. Same for iodine
+(1100). That is a pattern: SR Legacy defines many ids it never populates for
+whole plant foods, so "the id exists" says nothing about whether a pull can
+reach it. A full sweep of its holdings against `COLUMN_TO_USDA` is in the open
+list; the only real candidate it turned up is betaine.
+
+**Deliberately not done**: no doses, no products, no brands, and tests for all
+three. No iodine or inulin columns, since there is nothing to pull. No betaine
+column yet. No selenium entry, for the reason on the open list.
+
+## Earlier session, 2026-08-07 (tenth)
 
 **A sticky table header was tried two ways and abandoned. Nothing shipped from
 it**, and the point of this note is that the next person does not spend the
@@ -361,6 +412,8 @@ seventeen out of the global scope at once. The README says this at length.
 `styles.css` is not minified, `app.ts` is not split into modules, and
 `build.mjs`, `tools/*.mjs` and `test/smoke.mjs` are not type-checked. The module
 split is the one that would actively do harm, for the reason just given.
+(The stylesheet **is** minified as of the eleventh session, through the same
+esbuild step. The rest of this paragraph still holds.)
 
 Three minor things were left as they are:
 
@@ -631,7 +684,7 @@ pushing stays the owner's call.
 - **131 foods x 70 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 133 browser tests against the result. All passing, and CI
+  3 tool tests and 140 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single

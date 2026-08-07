@@ -6,807 +6,7 @@
 <title>VeganNutrients: nutrition data for plant-based wholefoods</title>
 <meta name="description" content="Browse amino acids, vitamins, minerals, omega oils, carotenoids, flavonoids and macronutrients for 131 plant-based wholefoods. Sortable, filterable, per 100 g.">
 <style>
-:root{
-  --green:#4E9226; --green-dark:#3F7A1E; --green-tint:#F5F9F3; --green-line:#CBDFC1;
-  --ink:#16201A; --body:#3D4A3E; --muted:#6B7565; --faint:#8A9389;
-  --line:#E7EAE4; --line-soft:#F0F2EE; --page:#FFFFFF; --panel:#FFFFFF;
-  --raise:#FAFBF9;
-  /* A second raised surface, warm where --raise is cool. Buttons, the nutrient
-     note and the pinned food column share it, so they cannot drift apart the
-     way the group colours did while five of them were fixed hex. */
-  --raise-warm:#F5F1E7;
-  /* One step deeper than --raise-warm: the groove the segmented control sits
-     in, and what a button lands on when hovered. Both are the same idea, a
-     warm surface pressed slightly further back. */
-  --raise-warm-deep:#EAE1D1;
-  /* Ink that goes on a green fill, and the two colours the food swatch is
-     built from: a hairline edge so a pale swatch still has a boundary, and the
-     specular highlight mixed into its top left. */
-  --on-green:#FFFFFF; --sw-edge:rgba(0,0,0,.10); --sw-gloss:#FFFFFF;
-  /* The scrim behind an open dialog. Dark in both themes by design. */
-  --backdrop:rgba(16,22,15,.45);
-  --shadow:0 1px 2px rgba(20,32,22,.06),0 8px 24px -12px rgba(20,32,22,.10);
-  --warn:#B4531B; --amber:#C08A16; --r:12px; --tap:44px;
-  /* Every panel on the page draws this one shadow. Change it here and they all
-     change; the list of what counts as a panel is the single rule near the foot
-     of this file, so a new one is added in one place too.
-     Only the colour is split out, because a light shadow on the dark theme is a
-     white halo rather than a shadow. Custom properties resolve where they are
-     used, so the dark override below reaches this declaration without it
-     needing to be written twice. */
-  --box-shadow:10px 10px 17px var(--box-shadow-colour);
-  --box-shadow-colour:lightgray;
-  /* per-group column washes, sequenced so no two adjacent groups share a hue */
-  --t-macro:#F3F8EF; --t-fats:#FCF4EC; --t-amino:#EDF5F7; --t-vitamin:#FBF6E8; --t-mineral:#F4F1FA;
-  --t-plant:#EBF7F1;
-  /* ...and the ink that goes with each wash. One definition, used by the group
-     label in the table header and by the heading on the matching totals card,
-     so a group reads as the same colour wherever it appears. */
-  --g-macro:#3F7A1E; --g-fats:#A8623C; --g-amino:#2F7D8C; --g-vitamin:#8A6B12;
-  --g-mineral:#7A5AA8; --g-plant:#2F8C63;
-  /* lens highlight, deliberately off-palette so it never reads as a group tint */
-  --lens-bg:#FDEEF3; --lens-line:#C2477E; --lens-ink:#8E2F5B;
-}
-[data-theme=dark]{
-  --green:#7CC24A; --green-dark:#9BD668; --green-tint:#1A241A; --green-line:#33472B;
-  --ink:#EDF1EA; --body:#C3CCC0; --muted:#98A395; --faint:#7C8879;
-  --line:#28312A; --line-soft:#212A23; --page:#10160F; --panel:#161D16;
-  --raise:#1B231B; --raise-warm:#221E17; --raise-warm-deep:#2E2820;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
-  --box-shadow-colour:rgba(0,0,0,.62);
-  --warn:#F0A16A; --amber:#E5BE55;
-  --t-macro:#141C14; --t-fats:#1F1712; --t-amino:#101D20; --t-vitamin:#1D1910; --t-mineral:#181426;
-  --t-plant:#0E1F19;
-  /* Lightened for the dark theme. Only macronutrients ever adapted, because it
-     alone was written as a themed variable; the other five were fixed hex and
-     sat at poor contrast on a near-black panel, vitamins worst of all at a dark
-     gold. They carry more weight now that the totals cards use them too. */
-  --g-macro:#9BD668; --g-fats:#E8A075; --g-amino:#7FC8D8; --g-vitamin:#E0C25C;
-  --g-mineral:#B79CE0; --g-plant:#6FD1A2;
-  --lens-bg:#2E1520; --lens-line:#E081AE; --lens-ink:#F2AFCC;
-}
-*,*::before,*::after{box-sizing:border-box}
-/* Several things hidden by script carry a display of their own from a class
-   rule, which outranks the user-agent [hidden] rule and leaves them on screen. */
-[hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--page); color:var(--body);
-  font:400 15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-variant-numeric:tabular-nums;
-}
-h1,h2,h3,h4{color:var(--ink); margin:0; font-weight:650; letter-spacing:-.015em; line-height:1.2}
-a{color:var(--green-dark)}
-button,input,select{font:inherit; color:inherit}
-:focus-visible{outline:3px solid var(--green); outline-offset:2px; border-radius:6px}
-:where(button,[role=button]){cursor:pointer}
-.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-    clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.skip{position:absolute;left:8px;top:-60px;z-index:99;background:var(--green);color:var(--on-green);
-      padding:10px 16px;border-radius:8px;font-weight:600;transition:top .15s}
-.skip:focus{top:8px}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-/* ---------- shell ---------- */
-/* Wide enough that "Macronutrients" fits on one line beside its count and dot.
-   It is a single unbreakable word, so it cannot wrap and cannot shrink: given
-   less room it overflows and drags its count out of line with the rest. */
-.shell{display:grid; grid-template-columns:276px minmax(0,1fr); min-height:100vh}
-.side{border-right:1px solid var(--line); padding:22px 16px; position:sticky; top:0;
-      height:100vh; overflow-y:auto; background:var(--panel)}
-.brand{display:flex; gap:10px; align-items:center; padding:0 8px}
-.brand svg{flex:none}
-.brand b{font-size:19px; color:var(--ink); font-weight:680; letter-spacing:-.02em}
-.tagline{color:var(--muted); font-size:13px; padding:8px 8px 18px; line-height:1.4}
-.navlist{list-style:none; margin:0 0 6px; padding:0; display:flex; flex-direction:column; gap:2px}
-.navlist a,.navbtn{
-  display:flex; gap:11px; align-items:center; width:100%; text-align:left;
-  padding:9px 10px; border-radius:9px; border:1px solid transparent; background:none;
-  color:var(--body); text-decoration:none; font-size:14.5px; min-height:40px;
-}
-.navlist a:hover,.navbtn:hover{background:var(--raise)}
-/* Flex items shrink by default, and an SVG with no intrinsic minimum shrinks to
-   nothing. On the longest label the icon was collapsing to zero width, which is
-   both a missing icon and a row whose geometry matched no other. */
-.navlist a > svg,.navbtn > svg{flex:none}
-.navbtn[aria-pressed=true],.navlist a[aria-current]{
-  background:var(--green-tint); border-color:var(--green-line); color:var(--ink); font-weight:600}
-/* Only the count gets the auto margin. Two of them in one flex row splits the
-   free space between the pair, so the number floated at a position set by the
-   length of the label beside it and no two rows lined up. */
-.navbtn .dot{width:9px; height:9px; border-radius:50%; background:var(--line);
-             flex:none; border:1px solid var(--line)}
-.navbtn[aria-pressed=true] .dot{background:var(--green); border-color:var(--green)}
-/* Categories carry no icon of their own. Indent by exactly the icon column so
-   their labels line up with the labelled buttons above rather than sitting a
-   few pixels to the left of them. */
-.navbtn.sub{padding-left:38px}
-.grouptitle{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--faint);
-            font-weight:650; padding:20px 10px 8px}
-.sidecard{border:1px solid var(--line); border-radius:var(--r); padding:6px; margin-top:22px}
-/* Right-aligned in a column wide enough for the longest count in the list, so
-   1, 18 and 130 share an edge instead of each ending wherever it happens to. */
-.count{margin-left:auto; text-align:right; min-width:3ch; font-size:12px; color:var(--faint);
-       font-variant-numeric:tabular-nums; font-weight:400}
-.navbtn[aria-pressed=true] .count{color:var(--green-dark)}
-
-/* ---------- topbar + hero ---------- */
-/* The top bar carries no bottom padding: the hero's own padding is the only gap
-   between the links and the headline, so the two cannot compound into a band of
-   empty page above the first thing anybody came to read. */
-.top{display:flex; justify-content:flex-end; gap:4px; padding:8px 26px 0; flex-wrap:wrap}
-.tlink{display:inline-flex; gap:7px; align-items:center; padding:8px 12px; border-radius:8px;
-       background:none; border:1px solid transparent; color:var(--body); font-size:14px;
-       text-decoration:none; min-height:40px}
-.tlink:hover{background:var(--raise)}
-.hero{padding:10px 26px 20px; border-bottom:1px solid var(--line); position:relative; overflow:hidden}
-/* Search lives in the sidebar, alongside the other two ways of narrowing the
-   table. Sized to the sidebar rather than the hero it used to sit in. */
-.search{position:relative; margin:2px 0 16px; border-radius:10px}
-.search input{width:100%; padding:11px 36px 11px 34px; border:1px solid var(--line);
-  border-radius:inherit; background:var(--panel); font-size:14px;
-  appearance:none; -webkit-appearance:none}
-.search input::placeholder{color:var(--faint)}
-.search .ic{position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--faint);
-            pointer-events:none; display:flex}
-.search .clr{position:absolute; right:4px; top:50%; transform:translateY(-50%); border:0;
-  background:none; color:var(--muted); padding:7px; border-radius:6px; line-height:0}
-.hero h1{font-size:clamp(26px,3.1vw,36px); max-width:21ch; font-weight:600; letter-spacing:-.03em}
-.hero h1 em{font-style:normal; color:var(--green)}
-.hero p{max-width:52ch; margin:10px 0 0; color:var(--muted); font-size:15px}
-.herodeco{position:absolute; right:16px; top:50%; translate:0 -50%;
-  width:min(40%,400px); pointer-events:none; opacity:.9}
-@media (max-width:900px){.herodeco{display:none}}
-
-/* ---------- sections ---------- */
-.sect{padding:16px 26px 24px; border-bottom:1px solid var(--line)}
-.sectlabel{font-size:14.5px; color:var(--body); margin-bottom:14px; font-weight:500}
-/* ---------- lens (highlight) control ---------- */
-.lensgrp{display:inline-flex; align-items:center; gap:8px}
-.lensgrp .swatch{width:11px; height:11px; border-radius:3px; background:var(--lens-bg);
-  border:2px solid var(--lens-line); flex:none}
-select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px var(--lens-line)}
-.lensnote{margin:0 0 12px; padding:11px 14px; border-radius:10px; font-size:13.5px;
-  line-height:1.5; color:var(--body); background:var(--lens-bg);
-  border:1px solid var(--lens-line); border-left-width:3px; max-width:96ch}
-.lensnote b{color:var(--lens-ink); font-weight:650}
-.lensnote .cols{display:block; margin-top:6px; font-size:12px; color:var(--muted)}
-/* What a nutrient does. Shaped like the lens note so the two read as the same
-   kind of aside, but in the neutral palette: this one describes a column that
-   is already there rather than a highlight the reader switched on. */
-/* min-height fits the longest of the sentences at this width, so moving from
-   one header to the next never resizes the box and never nudges the table. */
-/* 126px, up from 83px, because the absorption line under the sentence made the
-   tallest case taller. Measured rather than guessed: it is the largest height
-   any of the 70 nutrients produces at 1200px and above, which is Total fat,
-   since fat is the agent on both the carotenoid record and the fat-soluble
-   vitamin one. A test walks every nutrient and fails if the box ever changes
-   height, so a new interaction record that overflows this is caught rather than
-   quietly reintroducing the nudge.
-   Below about 1100px the sentences wrap further and the box does vary again,
-   which was true before this line existed too. */
-.nutnote{margin:0 0 12px; padding:10px 14px; border-radius:10px; font-size:13.5px;
-  line-height:1.5; color:var(--muted); background:var(--raise-warm); min-height:126px;
-  border:1px solid var(--line); border-left:3px solid var(--green-line); max-width:96ch}
-.nutnote b{color:var(--ink); font-weight:650}
-/* ---- what helps and hinders absorption ----
-   One line under the sentence, names only. The mechanisms and the sources are
-   in the dialog the button at the end opens: this box has a line to spare, not
-   a paragraph. Absent entirely for the fifty-odd nutrients with no interaction
-   on record, because a row of arrows with nothing beside them would read as
-   "nothing affects this", which nobody has established. */
-.absorb{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline; margin-top:7px;
-  padding-top:7px; border-top:1px solid var(--line); font-size:12.5px}
-.absorb .up{color:var(--g-plant)} .absorb .down{color:var(--warn)}
-.absorb .does{color:var(--muted); font-style:italic}
-.absorb b{font-weight:700; font-size:13px}
-.absorbmore{margin-left:auto; border:1px solid var(--green-line); background:var(--green-tint);
-  color:var(--green-dark); border-radius:6px; padding:2px 8px; font-size:11.5px; font-weight:650;
-  min-height:24px}
-.absorbmore:hover{background:var(--panel)}
-
-/* ---- the absorption reference ----
-   One block per interaction inside the dialog. The direction is carried by
-   colour, an arrow and the words in the text, rather than by colour alone. */
-.biorow{border-left:3px solid var(--line); padding:2px 0 2px 12px; margin:0 0 14px}
-.biorow.up{border-left-color:var(--g-plant)}
-.biorow.down{border-left-color:var(--warn)}
-.biohead{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap}
-.biohead b{color:var(--ink); font-size:14px}
-.bioarrow{font-weight:700}
-.biorow.up .bioarrow{color:var(--g-plant)} .biorow.down .bioarrow{color:var(--warn)}
-.biowhen{font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--faint);
-  font-weight:650; border:1px solid var(--line); border-radius:5px; padding:1px 6px}
-.biorow p{margin:5px 0 4px}
-.biorow cite{display:block; font-size:11.5px; color:var(--faint); font-style:normal; line-height:1.4}
-/* A reviewed fact about this particular food, as against the generic entries
-   around it. Off the up/down axis on purpose: it is not a direction, it is the
-   reason the number beside it does not mean what it appears to. */
-.biorow.curated{border-left-color:var(--lens-line); background:var(--lens-bg);
-  border-radius:0 6px 6px 0; padding:8px 12px}
-.biorow.curated .biohead b{color:var(--lens-ink)}
-.biofor{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--faint);
-  font-weight:650; margin:16px 0 7px}
-.biofor:first-child{margin-top:4px}
-
-/* lens editor dialog */
-.lensform{display:flex; flex-direction:column; gap:14px}
-.lensname{padding:10px 12px; border:1px solid var(--line); border-radius:9px;
-  background:var(--panel); width:100%; min-height:42px}
-.nutgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:2px 14px}
-.nutgrid label{display:flex; gap:9px; align-items:center; padding:6px 8px; border-radius:7px;
-  font-size:13.5px; color:var(--body); min-height:34px; cursor:pointer}
-.nutgrid label:hover{background:var(--raise)}
-.nutgrid input{width:16px; height:16px; accent-color:var(--green); flex:none; margin:0}
-.lensgroup{margin-top:10px}
-.lensgroup:first-child{margin-top:0}
-.lensgroup > h5{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase;
-  color:var(--faint); font-weight:650; margin:0 0 4px; padding:0 8px}
-.lensfoot{display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-  padding:14px 20px; border-top:1px solid var(--line)}
-.savedlens{display:flex; gap:8px; align-items:center; padding:8px 10px; border:1px solid var(--line);
-  border-radius:9px; margin-bottom:6px; font-size:13.5px}
-.savedlens .rm{margin-left:auto; border:0; background:none; color:var(--muted); padding:6px;
-  border-radius:6px; line-height:0; min-width:32px; min-height:32px}
-.savedlens .rm:hover{background:var(--raise); color:var(--warn)}
-.lenscount{font-size:12.5px; color:var(--muted)}
-
-/* ---------- toolbar ---------- */
-.bar{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:16px}
-.seg{display:inline-flex; background:var(--raise-warm-deep); border:1px solid var(--line);
-     border-radius:10px; padding:3px; gap:3px}
-.seg button{border:0; background:none; padding:8px 18px; border-radius:7px; font-size:14px;
-  color:var(--muted); min-height:38px}
-.seg button[aria-pressed=true]{background:var(--panel); color:var(--ink); font-weight:600;
-  box-shadow:var(--shadow)}
-.btn{display:inline-flex; gap:8px; align-items:center; padding:9px 15px; border-radius:9px;
-  border:1px solid var(--line); background:var(--raise-warm); color:var(--body); font-size:14px;
-  min-height:40px}
-.btn:hover{background:var(--raise-warm-deep)}
-.btn.primary{background:var(--green); border-color:var(--green); color:var(--on-green); font-weight:600}
-.btn.primary:hover{background:var(--green-dark); border-color:var(--green-dark)}
-.push{margin-left:auto}
-select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
-  background:var(--panel); min-height:40px}
-
-/* ---------- layout of table + detail ---------- */
-.split{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:20px; align-items:start}
-@media (max-width:1160px){.split{grid-template-columns:minmax(0,1fr)}}
-
-/* ---------- table ---------- */
-/* The box grows to its rows and the page scrolls, rather than the table being a
-   scrollport of its own with the page still behind it. overflow:auto stays for
-   the horizontal axis, which is the one that always overflows: 70 columns are
-   wider than any screen.
-
-   The consequence is that the two header rows below do not stick vertically,
-   and that is a known and accepted cost rather than an oversight. A sticky
-   element sticks within its nearest scroll container; this box is one, because
-   it has to scroll sideways; and it never scrolls vertically, so `top:0` has
-   nothing to stick within. `overflow-x:auto` with `overflow-y:visible` is not a
-   way out either: the visible axis computes to `auto` the moment the other is
-   not visible, measured in Chrome as auto/auto rather than assumed from the
-   spec. Making the header stick therefore needs either a max-height here, which
-   turns the table into a nested scroller, or a second width-matched copy of the
-   header outside this box. Both were built and both were rejected as worse than
-   the problem. See HANDOVER.md before trying a third time.
-
-   position:relative is load-bearing and not a formatting convenience. An
-   overflow clip only applies to a descendant whose containing block is inside
-   the clipping box, and .sr is position:absolute. noteMark() puts one of those
-   in a numeric cell, and with nothing positioned between that cell and the root
-   its containing block was the initial one, so it escaped this box entirely and
-   sat at its static position ten thousand pixels out. That reached the document
-   and the whole page panned sideways onto blank white, at every width, desktop
-   included. It stayed invisible for so long because .sr is one pixel and
-   clipped to nothing: the overflow was real, and there was nothing to see in
-   it. Making this box the containing block is what brings them back inside. */
-.tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto;
-           position:relative; background:var(--panel)}
-.tablewrap:focus-visible{outline:3px solid var(--green); outline-offset:-3px}
-table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
-caption{text-align:left; padding:12px 14px; color:var(--muted); font-size:13px;
-        border-bottom:1px solid var(--line)}
-/* The caption box is as wide as the table, ten thousand pixels, so its text has
-   nowhere to wrap to and simply ran off the side of the screen: at 360px it
-   read "131 vegan foods, all 68 nutrient columns. Values p" and stopped. The
-   text follows the horizontal scroll instead, capped to what can actually be
-   seen, which is the same thing .grplabel does for the group labels and for the
-   same reason. The cap is a variable because the caption is the one part of the
-   table that has to know how wide the scrollport is; --scrollw is measured
-   after render, see syncHeadOffset(). */
-caption > span{position:sticky; left:0; display:inline-block;
-  max-width:calc(var(--scrollw,100%) - 28px)}
-th,td{padding:0; text-align:right; white-space:nowrap}
-thead th{position:sticky; background:var(--raise); z-index:3; font-weight:600; color:var(--ink);
-  border-bottom:1px solid var(--line); font-size:12.5px}
-thead tr:first-child th{top:0}
-/* --head1 and --foodw are measured from the rendered header, see syncHeadOffset().
-   The fallback is deliberately a pixel under the usual height: too small only
-   overlaps the row above, while too large leaves a gap for table rows to scroll
-   through, which is the visible bug this replaced. */
-thead tr:nth-child(2) th{top:var(--head1,36px)}
-th.grp{text-align:left; border-left:1px solid var(--line); padding:9px 12px;
-  font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
-/* A group label follows the horizontal scroll inside its own group, so a wide
-   group keeps its name on screen instead of losing it off the left edge, and
-   only gives way when the next group's label arrives to push it out. Sticking
-   point is the right edge of the food column plus the group cell's own 1px
-   border and 12px of padding, which is exactly where the label already sits at
-   scroll zero, so it slides into place with no jump. Both of those have to be
-   in the sum: leaving the border out puts the stuck label a pixel to the left
-   of its resting position, which is a visible twitch the moment it sticks.
-   --foodw is measured after render, see syncHeadOffset(). */
-.grplabel{display:inline-block; position:sticky; left:calc(var(--foodw,210px) + 13px)}
-th.grp[data-g=macro]{color:var(--g-macro)} th.grp[data-g=fats]{color:var(--g-fats)}
-th.grp[data-g=amino]{color:var(--g-amino)} th.grp[data-g=vitamin]{color:var(--g-vitamin)}
-th.grp[data-g=mineral]{color:var(--g-mineral)} th.grp[data-g=plant]{color:var(--g-plant)}
-/* ---- per-group column washes ----
-   Specificity is deliberate: these sit at (0,1,2) so the row hover and
-   selected rules at (0,1,3) below still win and row-tracking survives. */
-thead th[data-g=macro],  tbody td[data-g=macro]  {background:var(--t-macro)}
-thead th[data-g=fats],   tbody td[data-g=fats]   {background:var(--t-fats)}
-thead th[data-g=amino],  tbody td[data-g=amino]  {background:var(--t-amino)}
-thead th[data-g=vitamin],tbody td[data-g=vitamin]{background:var(--t-vitamin)}
-thead th[data-g=mineral],tbody td[data-g=mineral]{background:var(--t-mineral)}
-thead th[data-g=plant],  tbody td[data-g=plant]  {background:var(--t-plant)}
-/* a hairline where one group ends and the next begins */
-th.gstart,td.gstart{border-left:1px solid var(--line)}
-.sortbtn{width:100%; border:0; background:none; padding:10px 12px; display:flex; gap:6px;
-  align-items:center; justify-content:flex-end; color:inherit; font:inherit; font-weight:600;
-  font-size:12.5px; min-height:40px}
-.sortbtn:hover{background:var(--green-tint)}
-.sortbtn .ar{opacity:.3; flex:none; transition:opacity .12s}
-th[aria-sort] .ar{opacity:1; color:var(--green)}
-.unit{color:var(--faint); font-weight:400}
-th.food,td.food{position:sticky; left:0; background:var(--panel); z-index:2; text-align:left;
-  border-right:1px solid var(--line); min-width:210px}
-thead th.food{z-index:4; background:var(--raise-warm)}
-tbody tr:hover td{background:var(--green-tint)}
-tbody tr:hover td.food{background:var(--green-tint)}
-tbody tr[aria-selected=true] td{background:var(--green-tint); box-shadow:inset 0 -1px 0 var(--green-line)}
-tbody td{border-bottom:1px solid var(--line-soft); padding:0 12px; height:54px; color:var(--body)}
-tbody td.food{padding:0 10px}
-
-/* ---- sorted column ---- */
-tbody td.sorted{font-weight:650; color:var(--ink)}
-tbody td.num.low.sorted{color:var(--muted)}          /* zeros stay quiet even when bold */
-thead th.sorted .sortbtn{color:var(--ink)}
-thead th.sorted{box-shadow:inset 0 -2px 0 var(--green)}
-
-/* ---- lens highlight ----
-   Placed after hover/selected and matched at (0,1,3) so it wins on order:
-   a highlighted column must stay legible while the row underneath is hovered. */
-tbody tr td.lens{background:var(--lens-bg)}
-tbody tr td.lens.sorted{color:var(--lens-ink)}
-thead th.lens{background:var(--lens-bg)}
-thead th.lens .sortbtn{color:var(--lens-ink)}
-thead th.grp.lens{color:var(--lens-ink)}
-th.lensL,td.lensL{border-left:2px solid var(--lens-line)}
-th.lensR,td.lensR{border-right:2px solid var(--lens-line)}
-thead tr:nth-child(2) th.lens{box-shadow:inset 0 3px 0 var(--lens-line)}
-thead tr:nth-child(2) th.lens.sorted{box-shadow:inset 0 3px 0 var(--lens-line),inset 0 -2px 0 var(--green)}
-.fcell{display:flex; gap:10px; align-items:center}
-.sw{width:30px; height:30px; border-radius:50%; flex:none; border:1px solid var(--sw-edge);
-    background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 62%,var(--sw-gloss)),var(--c) 72%)}
-.fname{display:flex; flex-direction:column; align-items:flex-start; line-height:1.25; min-width:0; border:0; background:none; padding:2px 0; margin:0; text-align:left; border-radius:6px}
-.fname:hover b{color:var(--green-dark); text-decoration:underline}
-.fname b{font-weight:600; color:var(--ink); font-size:13.5px}
-.fname b .alt{font-weight:400; color:var(--faint)}
-.fname span{font-size:11.5px; color:var(--faint)}
-/* ---- what 100 kcal of this food weighs ----
-   Only on the per-calorie basis, and pinned to the name rather than made a
-   column, because it is what stops that basis reading as a recommendation:
-   watercress leads several columns per calorie, and 100 kcal of it is 909 g.
-   A column could be switched off from the sidebar; this cannot be. */
-.fname .per100{font-variant-numeric:tabular-nums; color:var(--green-dark);
-     background:var(--line-soft); border-radius:4px; padding:0 4px; margin-top:2px}
-.fav{border:0; background:none; padding:7px; border-radius:8px; color:var(--faint); line-height:0;
-     margin-left:auto; min-width:34px; min-height:34px}
-.fav:hover{background:var(--line-soft); color:var(--green)}
-.fav[aria-pressed=true]{color:var(--green)}
-/* ---- per-cell notes ----
-   Marks a figure whose source needs explaining, fortification being the case
-   that matters here. Warm rather than red: the number is not wrong, it just
-   does not mean what an unmarked number in the same column means. */
-sup.fnote{color:var(--warn); font-weight:700; font-size:10.5px; margin-left:1px}
-.notekey{display:flex; flex-direction:column; gap:7px; margin:10px 2px 0; font-size:12.5px;
-  color:var(--muted); line-height:1.45; max-width:100ch}
-.notekey b{color:var(--ink); font-weight:650}
-td.num.low{color:var(--faint)}
-/* "n/a" means nobody published a figure. Kept visually quieter than a real
-   number so it never reads as a measured value. */
-td.num .na{color:var(--faint); font-style:italic; font-size:12px}
-td.num b{font-weight:600; color:var(--ink)}
-.dv{display:block; font-size:10.5px; color:var(--green-dark); font-weight:600; line-height:1.1}
-.empty{padding:52px 20px; text-align:center; color:var(--muted)}
-.empty b{display:block; color:var(--ink); margin-bottom:6px; font-size:16px}
-
-/* ---------- detail panel ---------- */
-.detail{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
-        position:sticky; top:14px}
-.dhead{padding:20px 18px 14px; text-align:center; position:relative}
-.dhead .sw{width:96px; height:96px; margin:0 auto 12px}
-.dhead h3{font-size:19px}
-.dhead .st{color:var(--muted); font-size:13.5px}
-.dhead .per{color:var(--faint); font-size:12.5px; margin-top:6px}
-.dhead .fav{position:absolute; right:12px; top:12px; margin:0}
-/* Two rows of three rather than one row of six. The detail panel is a 300px
-   column at every width, not just on a phone, so this is not a narrow-screen
-   concern: six labels never fit on one line anywhere. Five already needed
-   "Plant compounds" to wrap. Adding the sixth without wrapping the row pushed
-   the panel 54px past its column and set the whole page scrolling sideways at
-   1440px, which the narrow-screen test caught.
-   Wrapping rather than scrolling the strip: a tab you cannot see is a tab you
-   do not know exists, and a horizontal scroller gives no sign there is more. */
-.tabs{display:flex; flex-wrap:wrap; border-block:1px solid var(--line); padding:0 6px}
-.tabs button{flex:1 1 30%; border:0; background:none; padding:11px 4px 9px; font-size:11.5px;
-  color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:5px;
-  border-bottom:2px solid transparent; min-height:56px}
-.tabs button[aria-selected=true]{color:var(--green-dark); border-bottom-color:var(--green);
-  font-weight:600}
-.dbody{padding:16px 18px 18px}
-.dbody h4{font-size:13.5px; margin-bottom:10px}
-.drow{display:flex; justify-content:space-between; gap:12px; padding:7px 0; font-size:13.5px;
-      border-bottom:1px solid var(--line-soft)}
-.drow:last-child{border-bottom:0}
-.drow dt{color:var(--body)} .drow dd{margin:0; color:var(--ink); font-weight:600}
-.drow.sub dt{padding-left:14px; color:var(--muted); font-size:12.5px}
-.drow.lensrow{background:var(--lens-bg); border-left:2px solid var(--lens-line);
-  margin-inline:-8px; padding-inline:8px; border-radius:0 4px 4px 0}
-.drow.lensrow dt{color:var(--lens-ink); font-weight:600}
-.drow .pc{color:var(--green-dark); font-weight:600}
-.drow .nodata{color:var(--faint); font-weight:400; font-style:italic; font-size:12.5px}
-/* Same job and the same colour as .totcov under the totals list: a sum over
-   foods where some were never assayed never appears without saying so. Kept
-   at every width, same as the grid column it mirrors, since there is nowhere
-   else in the summary for the coverage to be read. */
-.drow .cov{font-size:11px; color:var(--warn); font-weight:600}
-.nodatanote{font-size:11.5px; color:var(--faint); line-height:1.45; margin:8px 0 0}
-dl{margin:0}
-.bararea{margin-top:4px}
-.minibar{height:5px; border-radius:3px; background:var(--line-soft); overflow:hidden; margin-top:5px}
-.minibar i{display:block; height:100%; background:var(--green); border-radius:3px}
-.dfoot{padding:12px 18px 16px; border-top:1px solid var(--line); font-size:12px; color:var(--faint)}
-
-/* ---------- chart ---------- */
-.chart{border:1px solid var(--line); border-radius:var(--r); padding:18px; background:var(--panel)}
-.crow{display:grid; grid-template-columns:180px minmax(0,1fr) 92px; gap:12px; align-items:center;
-      padding:5px 0; font-size:13.5px}
-.crow .track{height:20px; background:var(--line-soft); border-radius:5px; overflow:hidden}
-.crow .track i{display:block; height:100%; background:var(--green); border-radius:5px}
-.crow .lbl{display:flex; gap:8px; align-items:center; min-width:0}
-.crow .lbl span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink)}
-.crow .val{text-align:right; font-weight:600; color:var(--ink)}
-.crow .sw{width:22px; height:22px}
-
-/* ---------- my day ---------- */
-/* Adding a food. The table rows deliberately gained no button for this, so this
-   search is the main way in and is sized and placed to look like one. */
-/* The wrapper carries the same radius as the input it wraps. It had none, so it
-   was a square box around a rounded control, and anything painted on it (the
-   panel shadow below, most visibly at the bottom-right) came out square while
-   the box you can actually see was rounded. */
-.dayadd{position:relative; margin-bottom:16px; border-radius:11px}
-.dayadd input{width:100%; padding:13px 14px 13px 40px; border:1px solid var(--line);
-  border-radius:inherit; background:var(--panel); font-size:15px;
-  appearance:none; -webkit-appearance:none}
-.dayadd input::placeholder{color:var(--faint)}
-.dayadd .ic{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--green);
-  pointer-events:none; display:flex}
-.daysug{position:absolute; z-index:8; left:0; right:0; top:calc(100% + 5px); background:var(--panel);
-  border:1px solid var(--line); border-radius:11px; padding:5px;
-  max-height:min(52vh,420px); overflow:auto}
-.daysug button{display:flex; gap:10px; align-items:center; width:100%; text-align:left; border:0;
-  background:none; padding:8px 10px; border-radius:8px; color:var(--body); min-height:46px}
-.daysug button:hover,.daysug button:focus-visible{background:var(--green-tint)}
-.daysug .sw{width:26px; height:26px}
-.daysug .s-name{display:flex; flex-direction:column; line-height:1.25; min-width:0}
-.daysug .s-name b{font-weight:600; color:var(--ink); font-size:13.5px}
-.daysug .s-name b .alt{font-weight:400; color:var(--faint)}
-.daysug .s-name > span{font-size:11.5px; color:var(--faint)}
-.daysug .s-fav{color:var(--green); line-height:0; margin-left:auto}
-.daysug .s-add{margin-left:auto; font-size:12px; color:var(--green-dark); font-weight:650;
-  border:1px solid var(--green-line); background:var(--green-tint); border-radius:6px;
-  padding:3px 7px; flex:none}
-.daysug .s-fav + .s-add{margin-left:0}
-
-.daylist{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
-  overflow:hidden}
-.dayrow{display:flex; gap:12px; align-items:center; padding:9px 12px;
-  border-bottom:1px solid var(--line-soft)}
-.dayrow:last-child{border-bottom:0}
-.dayrow .sw{width:32px; height:32px}
-.dayname{display:flex; flex-direction:column; line-height:1.25; min-width:0; flex:1}
-.dayname b{font-weight:600; color:var(--ink); font-size:14px}
-.dayname > span{font-size:11.5px; color:var(--faint)}
-.dayqty{display:flex; align-items:center; gap:2px; flex:none}
-.dayqty input{width:74px; text-align:right; padding:8px 6px; border:1px solid var(--line);
-  border-radius:8px; background:var(--panel); font-size:14px; min-height:38px;
-  font-variant-numeric:tabular-nums}
-/* The spinners duplicate the two buttons either side of the field. */
-.dayqty input::-webkit-outer-spin-button,.dayqty input::-webkit-inner-spin-button{
-  -webkit-appearance:none; margin:0}
-.dayqty input[type=number]{-moz-appearance:textfield; appearance:textfield}
-.dayqty .u{font-size:12.5px; color:var(--faint); width:14px}
-.dayqty .stp{border:1px solid var(--line); background:var(--panel); color:var(--muted);
-  border-radius:8px; padding:0; line-height:0; min-width:34px; min-height:34px;
-  display:grid; place-items:center}
-.dayqty .stp:hover:not(:disabled){background:var(--green-tint); color:var(--green-dark)}
-.dayqty .stp:disabled{opacity:.35; cursor:default}
-/* Sits inside .dayqty so it wraps with the quantity controls rather than
-   away from them, and ahead of them so that the stepper, field and unit are
-   what meets the row's fixed right edge. The select's width varies with its
-   longest option, so with it last every row's gram figure sat at a different
-   x. First, it absorbs that variation and the numbers line up down the column.
-   No colour literal: every value here is a variable, which the stylesheet
-   test enforces. */
-.dayqty select{border:1px solid var(--line); border-radius:8px; background:var(--panel);
-  color:var(--muted); font-size:12.5px; min-height:38px; padding:0 6px;
-  max-width:150px; margin-right:4px}
-.dayqty select:hover{border-color:var(--green-dark)}
-/* The stepper, field, unit and stepper are one thing and must break as one.
-   Without this the narrow-viewport wrap splits them at whatever point the row
-   happens to run out of width, which differed per row with the select's width,
-   so the figures no longer lined up and the controls broke mid-group. The only
-   wrap this leaves possible is between the select and this cluster. */
-.dayqty .qtyf{display:flex; align-items:center; gap:2px; flex:none}
-.dayrow .rm{border:0; background:none; color:var(--muted); padding:7px; border-radius:8px;
-  line-height:0; min-width:34px; min-height:34px; flex:none}
-.dayrow .rm:hover{background:var(--line-soft); color:var(--warn)}
-.dayfoot{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:12px 2px 0;
-  font-size:13px; color:var(--muted)}
-.dayfoot b{color:var(--ink)}
-.dayempty{border:1px dashed var(--line); border-radius:var(--r); padding:32px 24px;
-  text-align:center; color:var(--muted); background:var(--panel)}
-.dayempty b{display:block; color:var(--ink); font-size:16px; margin-bottom:8px}
-.dayempty p{margin:0 auto; max-width:52ch; font-size:13.5px}
-.dayempty p + p{margin-top:10px; color:var(--faint); font-size:12.5px}
-
-/* The totals. One row per nutrient rather than 66 columns: there is a single
-   row of data here, so the width belongs to the bar and the coverage note. */
-.totals{margin-top:22px; display:flex; flex-direction:column; gap:18px}
-.totgroup{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
-  padding:14px 16px 8px}
-/* The card heading takes its group's colour, the same one the group label
-   carries in the table header, so the two views agree about what colour a
-   group is. The icon follows through currentColor. */
-.totgroup h4{display:flex; gap:9px; align-items:center; font-size:13.5px; margin-bottom:8px;
-  padding-bottom:8px; border-bottom:1px solid var(--line-soft)}
-.totgroup[data-g=macro] h4{color:var(--g-macro)}
-.totgroup[data-g=fats] h4{color:var(--g-fats)}
-.totgroup[data-g=amino] h4{color:var(--g-amino)}
-.totgroup[data-g=vitamin] h4{color:var(--g-vitamin)}
-.totgroup[data-g=mineral] h4{color:var(--g-mineral)}
-.totgroup[data-g=plant] h4{color:var(--g-plant)}
-.totrow,.tothead{display:grid; grid-template-columns:minmax(120px,1.5fr) 110px minmax(60px,1fr) 66px 84px;
-  gap:12px; align-items:center; padding:7px 0; font-size:13.5px;
-  border-bottom:1px solid var(--line-soft)}
-.totrow:last-child{border-bottom:0}
-.tothead{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint);
-  font-weight:650; padding-bottom:5px}
-.tothead span:nth-child(2),.tothead span:nth-child(4){text-align:right}
-.totname{color:var(--body)}
-/* Methionine is scored with cysteine and phenylalanine with tyrosine, so those
-   four rows say whose requirement the percentage beside them belongs to. */
-.totname .qual{display:block; font-size:11px; color:var(--faint); line-height:1.3}
-.totval{text-align:right; color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
-.totval .u{color:var(--faint); font-weight:400; font-size:12px}
-.totbar{height:7px; border-radius:4px; background:var(--line-soft); overflow:hidden}
-.totbar i{display:block; height:100%; background:var(--green); border-radius:4px}
-.totbar i.full{background:var(--green-dark)}
-.totpc{text-align:right; color:var(--green-dark); font-weight:650;
-  font-variant-numeric:tabular-nums}
-/* A dash rather than the words: two thirds of the columns carry no daily value,
-   and "no reference" spelled out on every one of them wrapped to two lines and
-   doubled the height of the amino acid list. Screen readers get the words. */
-.totpc .noref{color:var(--faint); font-weight:400}
-/* A sum over foods where some were never assayed is a partial total that looks
-   exactly like a complete one, so it never appears without saying so. Kept at
-   every width, including below the 700px breakpoint where the bar is dropped:
-   the bar is a decorative proportion indicator, but this is the honest part. */
-.totcov{font-size:11px; color:var(--warn); font-weight:600; text-align:right}
-.totrow.none .totval{font-weight:400}
-.totrow .nodata{color:var(--faint); font-style:italic; font-size:12.5px}
-@media (max-width:700px){
-  .totrow,.tothead{grid-template-columns:minmax(0,1fr) 90px 46px 70px; }
-  .totbar{display:none}
-  .tothead span:nth-child(3){display:none}
-  /* flex:0 1 auto, not the brief's flex-wrap alone: .dayqty's base rule is
-     flex:none (shrink 0), so without also allowing it to shrink here,
-     flex-wrap never gets a container narrower than its content to wrap
-     within, and the row keeps overflowing. Verified with the narrow-viewport
-     script; the wrap-only version left the page scrolling horizontally. */
-  .dayqty{flex:0 1 auto; flex-wrap:wrap; justify-content:flex-end}
-  /* max-width:100% does not bite here: a flex item's percentage max-width is
-     treated as none when the browser works out the flex container's own
-     shrink-to-fit size, so .dayqty never shrinks and the select just grows to
-     fill it. A definite cap breaks that circularity. min-width:0 overrides
-     the select's automatic minimum size, which defaults to its content and
-     would otherwise refuse to shrink below the longest option's text. */
-  .dayqty select{margin-right:0; max-width:110px; min-width:0}
-}
-
-/* The summary column, sharing the detail panel's shape so the two read as the
-   same kind of aside. */
-.daysum .dhead{padding-bottom:16px}
-.dayadd-btn{margin-top:12px}
-.inday{margin-top:8px; font-size:12px; color:var(--green-dark); font-weight:600}
-/* The label and the unit control share the first line and the fields drop to
-   their own, because "Body weight", two numbers, two unit words and a two-way
-   switch will not sit in a 300px column on one line. */
-.kgrow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px;
-  font-size:13px; color:var(--muted)}
-.kgrow .wlbl{flex:1}
-.kgrow .wfields{flex-basis:100%; display:flex; gap:6px; align-items:center}
-.kgrow input{width:72px; text-align:right; padding:7px 8px; border:1px solid var(--line);
-  border-radius:8px; background:var(--panel); min-height:36px; font-variant-numeric:tabular-nums}
-.kgrow .u{color:var(--faint); font-size:12.5px; margin-right:6px}
-.kgrow .u:last-child{margin-right:0}
-/* The toolbar segment at the size this column can spare. */
-.seg.wunit{padding:2px; flex:none}
-.seg.wunit button{padding:4px 10px; min-height:28px; font-size:12.5px}
-.jumps{display:flex; flex-direction:column; gap:4px}
-.jump{display:flex; gap:8px; align-items:center; width:100%; text-align:left; border:1px solid var(--line);
-  background:var(--panel); border-radius:8px; padding:8px 10px; font-size:13px; color:var(--body);
-  min-height:38px}
-.jump:hover{background:var(--green-tint); border-color:var(--green-line)}
-.jump b{margin-left:auto; color:var(--ink); font-variant-numeric:tabular-nums}
-.jump .ar{color:var(--faint); line-height:0; flex:none}
-/* Shown whatever the numbers say. A view that lists what you are short of
-   implies the list is complete, and iodine alone is enough to make it not. */
-.dayadvice{margin-top:18px; display:flex; flex-direction:column; gap:10px}
-.dayadvice > div{font-size:12px; line-height:1.5; color:var(--muted); background:var(--raise);
-  border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:8px;
-  padding:9px 11px}
-.dayadvice b{color:var(--ink); display:block; margin-bottom:2px; font-size:12.5px}
-/* What today's list could interact with. Green rather than amber, because
-   unlike the three notes beneath it this one is mostly good news, and it is
-   about the foods actually listed rather than about nutrition in general. */
-.paircard{font-size:12px; line-height:1.5; color:var(--muted); background:var(--green-tint);
-  border:1px solid var(--green-line); border-left:3px solid var(--green); border-radius:8px;
-  padding:9px 11px}
-.paircard ul{margin:4px 0 0; padding:0; list-style:none; display:flex;
-  flex-direction:column; gap:3px}
-.paircard li.up > span{color:var(--g-plant); font-weight:700}
-.paircard li.down > span{color:var(--warn); font-weight:700}
-/* Not small print. It is the part that stops the list above being read as a
-   claim about what happened, so it gets the same size as the list. */
-.paircaveat{display:block; margin-top:6px; color:var(--faint)}
-
-/* ---------- about ---------- */
-.about{background:var(--green-tint); border:1px solid var(--green-line); border-radius:var(--r);
-       padding:22px; margin-top:22px}
-.about h2{font-size:19px; margin-bottom:16px}
-.cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px}
-.col h3{font-size:14px; margin-bottom:5px} .col p{margin:0; font-size:13.5px; color:var(--muted)}
-.col .ic{width:30px; height:30px; border-radius:8px; background:var(--panel);
-  border:1px solid var(--green-line); display:grid; place-items:center; margin-bottom:9px;
-  color:var(--green)}
-/* ---------- the panel shadow ----------
-   One rule, one value. Every box on the page that reads as a panel is listed
-   here and draws --box-shadow from :root, so changing the shadow means editing
-   a single declaration and adding a panel means adding a selector to this one
-   list rather than inventing another shadow beside it.
-
-   Buttons are in the list by choice. The argument against was that a 17px drop
-   shadow on every control would bury the page; against that, a button is the one
-   thing on the page that should look liftable, and they now sit on the same warm
-   surface as the panels rather than on white.
-
-   Still deliberately not here: segments, table cells and the sidebar nav. The
-   segmented control keeps its own inset --shadow for the pressed state, which
-   says "raised", not "floating". */
-.btn, .tablewrap, .detail, .chart, .about, .sidecard, .search, .dayadd, .daysug,
-.daylist, .totgroup, .dayempty, .lensnote, .nutnote, dialog{
-  box-shadow:var(--box-shadow);
-}
-
-footer{padding:0 26px 40px; color:var(--faint); font-size:12.5px; max-width:80ch}
-dialog{border:1px solid var(--line); border-radius:var(--r); padding:0; max-width:640px;
-  width:calc(100% - 32px); background:var(--panel); color:var(--body)}
-dialog::backdrop{background:var(--backdrop)}
-.dlghead{display:flex; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line)}
-.dlgbody{padding:20px; max-height:64vh; overflow:auto}
-.dlgbody h4{margin:18px 0 6px} .dlgbody h4:first-child{margin-top:0}
-.dlgbody p,.dlgbody li{font-size:14px; color:var(--muted)}
-.x{margin-left:auto; border:0; background:none; padding:8px; border-radius:8px; line-height:0;
-   color:var(--muted); min-width:36px; min-height:36px}
-.x:hover{background:var(--raise)}
-/* ---------- narrow viewports ----------
-   Two breakpoints, both of which already existed and already meant something,
-   rather than a third number to keep in step with the other four:
-
-     820px  the shell stops being two columns. The sidebar goes behind the menu
-            button here, because that is the width at which it stopped being a
-            column beside the table and became a wall in front of it.
-     700px  the totals grid already sheds its bar column here. The table
-            compacts at the same width.
-
-   Nothing above 820px is touched by any of this. The desktop layout is a
-   promise, and there is a test at 1440px holding it. */
-
-/* The menu button exists only where the sidebar is collapsible. Above 820px
-   the sidebar is always shown, so a control for showing it would be a control
-   that does nothing, and display:none keeps it out of the grid entirely rather
-   than leaving it holding a cell. */
-.menubtn{display:none}
-@media (max-width:820px){
-  .shell{grid-template-columns:1fr}
-  .side{position:static; height:auto; border-right:0; border-bottom:1px solid var(--line)}
-  .hero,.sect{padding-inline:16px} .top{padding-inline:16px}
-  /* The sidebar is shown by an attribute on the shell rather than by a class on
-     itself, and hidden by a rule that only exists inside this query. That is
-     the whole reason there is no resize listener: widen the window past 820px
-     and both rules stop applying, so the sidebar comes back whatever the
-     attribute says. A state left over from a narrow window cannot strand it. */
-  /* A bar rather than a button in a corner, and sticky, so the filters stay one
-     tap away from anywhere in a 131 row table instead of only from the top of
-     the page. It is the one thing on a narrow screen that has to be reachable
-     without scrolling, because it is the way back to everything else. */
-  .menubtn{display:flex; gap:10px; align-items:center; position:sticky; top:0; z-index:20;
-    width:100%; padding:11px 16px; min-height:46px; text-align:left; font-size:14.5px;
-    border:0; border-bottom:1px solid var(--line); background:var(--panel); color:var(--body)}
-  .menubtn > svg{flex:none}
-  .menubtn[aria-expanded=true]{background:var(--green-tint); color:var(--ink); font-weight:600}
-  .side{display:none}
-  .shell[data-nav=open] .side{display:block}
-}
-
-@media (max-width:700px){
-  /* The food column was 369px wide in a 360px viewport: wider than the screen
-     it had to fit on. Being sticky at left:0, it covered the scrollport whole
-     and the reader got a list of names and not one figure.
-
-     white-space:normal is the load-bearing half of this. Width alone does
-     nothing while the names cannot wrap, because the column then widens to the
-     longest one regardless of what it was asked for. */
-  th.food,td.food{width:150px; min-width:0; white-space:normal}
-  /* Top, not centre: beside a name that has wrapped to two lines, a centred
-     swatch sits against the second one and reads as belonging to it. */
-  td.food .fcell{gap:7px; align-items:flex-start}
-  td.food .sw{width:18px; height:18px; margin-top:2px}
-  tbody td.food{padding:8px}
-  /* Both of these are dropped rather than shrunk, and both are still reachable:
-     the detail panel carries its own heart, and it names the food's other name
-     under "also known as". An alt in a wrapping 110px column costs two or three
-     lines on the longest rows, which is a price paid by every row on screen to
-     serve the few that need it. display:none takes them out of the
-     accessibility tree too, which is right: a control that is not there should
-     not be announced as though it were. */
-  td.food .fav{display:none}
-  td.food .fname b .alt{display:none}
-  /* A header may wrap; a figure may not. "Vitamin B-12" over two lines is
-     narrower than the same words on one, and costs nothing. A wrapped number is
-     a misread number. */
-  thead th .sortbtn{white-space:normal; padding:8px; font-size:11.5px}
-  tbody td{padding:0 8px; font-size:13px}
-
-  /* A select takes its automatic minimum size from its longest option, and a
-     lens name is typed by whoever saved it, so this one refuses to shrink below
-     345px. `.shell`'s single column is `1fr`, which is minmax(auto,1fr), so that
-     minimum propagated out through the toolbar to the grid and made the whole
-     page 57px wider than the phone it was on. Every other element on the page
-     was then 377px wide in a 320px viewport, which is why this looked like a
-     page-level fault rather than one control.
-     min-width:0 alone does not do it. That releases the automatic minimum size
-     a flex item gets, but a select's *min-content contribution* stays at its
-     longest option whatever its minimum says, so the number still propagates. A
-     definite max-width is what caps the contribution, which is why the
-     `.dayqty select` rule above carries one too and why copying only half of it
-     left the page still 57px wide of the viewport. */
-  .lensgrp{min-width:0; max-width:100%}
-  .lensgrp select.sel{min-width:0; max-width:130px}
-
-  /* The detail panel's tabs are flex:1, but a label cannot shrink below its
-     longest word, so five of them plus their padding already came to five
-     pixels more than a 320px screen. Padding is what gives, not the labels:
-     "Plant compounds" ellipsised to "Plant com…" would save the same pixels and
-     cost the reader the word that says what the tab is.
-     The row already wraps at every width, see the .tabs rule above; here it
-     only needs the tighter padding. */
-  .tabs button{padding-inline:2px; min-height:52px}
-}
+:root{--green:#4E9226;--green-dark:#3F7A1E;--green-tint:#F5F9F3;--green-line:#CBDFC1;--ink:#16201A;--body:#3D4A3E;--muted:#6B7565;--faint:#8A9389;--line:#E7EAE4;--line-soft:#F0F2EE;--page:#FFFFFF;--panel:#FFFFFF;--raise:#FAFBF9;--raise-warm:#F5F1E7;--raise-warm-deep:#EAE1D1;--on-green:#FFFFFF;--sw-edge:rgba(0,0,0,.1);--sw-gloss:#FFFFFF;--backdrop:rgba(16,22,15,.45);--shadow:0 1px 2px rgba(20,32,22,.06),0 8px 24px -12px rgba(20,32,22,.1);--warn:#B4531B;--amber:#C08A16;--r:12px;--tap:44px;--box-shadow:10px 10px 17px var(--box-shadow-colour);--box-shadow-colour:lightgray;--t-macro:#F3F8EF;--t-fats:#FCF4EC;--t-amino:#EDF5F7;--t-vitamin:#FBF6E8;--t-mineral:#F4F1FA;--t-plant:#EBF7F1;--g-macro:#3F7A1E;--g-fats:#A8623C;--g-amino:#2F7D8C;--g-vitamin:#8A6B12;--g-mineral:#7A5AA8;--g-plant:#2F8C63;--lens-bg:#FDEEF3;--lens-line:#C2477E;--lens-ink:#8E2F5B}[data-theme=dark]{--green:#7CC24A;--green-dark:#9BD668;--green-tint:#1A241A;--green-line:#33472B;--ink:#EDF1EA;--body:#C3CCC0;--muted:#98A395;--faint:#7C8879;--line:#28312A;--line-soft:#212A23;--page:#10160F;--panel:#161D16;--raise:#1B231B;--raise-warm:#221E17;--raise-warm-deep:#2E2820;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);--box-shadow-colour:rgba(0,0,0,.62);--warn:#F0A16A;--amber:#E5BE55;--t-macro:#141C14;--t-fats:#1F1712;--t-amino:#101D20;--t-vitamin:#1D1910;--t-mineral:#181426;--t-plant:#0E1F19;--g-macro:#9BD668;--g-fats:#E8A075;--g-amino:#7FC8D8;--g-vitamin:#E0C25C;--g-mineral:#B79CE0;--g-plant:#6FD1A2;--lens-bg:#2E1520;--lens-line:#E081AE;--lens-ink:#F2AFCC}*,*:before,*:after{box-sizing:border-box}[hidden]{display:none!important}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--page);color:var(--body);font:400 15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;font-variant-numeric:tabular-nums}h1,h2,h3,h4{color:var(--ink);margin:0;font-weight:650;letter-spacing:-.015em;line-height:1.2}a{color:var(--green-dark)}button,input,select{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:6px}:where(button,[role=button]){cursor:pointer}.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}.skip{position:absolute;left:8px;top:-60px;z-index:99;background:var(--green);color:var(--on-green);padding:10px 16px;border-radius:8px;font-weight:600;transition:top .15s}.skip:focus{top:8px}@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}.shell{display:grid;grid-template-columns:276px minmax(0,1fr);min-height:100vh}.side{border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel)}.brand{display:flex;gap:10px;align-items:center;padding:0 8px}.brand svg{flex:none}.brand b{font-size:19px;color:var(--ink);font-weight:680;letter-spacing:-.02em}.tagline{color:var(--muted);font-size:13px;padding:8px 8px 18px;line-height:1.4}.navlist{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:2px}.navlist a,.navbtn{display:flex;gap:11px;align-items:center;width:100%;text-align:left;padding:9px 10px;border-radius:9px;border:1px solid transparent;background:none;color:var(--body);text-decoration:none;font-size:14.5px;min-height:40px}.navlist a:hover,.navbtn:hover{background:var(--raise)}.navlist a>svg,.navbtn>svg{flex:none}.navbtn[aria-pressed=true],.navlist a[aria-current]{background:var(--green-tint);border-color:var(--green-line);color:var(--ink);font-weight:600}.navbtn .dot{width:9px;height:9px;border-radius:50%;background:var(--line);flex:none;border:1px solid var(--line)}.navbtn[aria-pressed=true] .dot{background:var(--green);border-color:var(--green)}.navbtn.sub{padding-left:38px}.grouptitle{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:650;padding:20px 10px 8px}.sidecard{border:1px solid var(--line);border-radius:var(--r);padding:6px;margin-top:22px}.count{margin-left:auto;text-align:right;min-width:3ch;font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;font-weight:400}.navbtn[aria-pressed=true] .count{color:var(--green-dark)}.top{display:flex;justify-content:flex-end;gap:4px;padding:8px 26px 0;flex-wrap:wrap}.tlink{display:inline-flex;gap:7px;align-items:center;padding:8px 12px;border-radius:8px;background:none;border:1px solid transparent;color:var(--body);font-size:14px;text-decoration:none;min-height:40px}.tlink:hover{background:var(--raise)}.hero{padding:10px 26px 20px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}.search{position:relative;margin:2px 0 16px;border-radius:10px}.search input{width:100%;padding:11px 36px 11px 34px;border:1px solid var(--line);border-radius:inherit;background:var(--panel);font-size:14px;appearance:none;-webkit-appearance:none}.search input::placeholder{color:var(--faint)}.search .ic{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--faint);pointer-events:none;display:flex}.search .clr{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--muted);padding:7px;border-radius:6px;line-height:0}.hero h1{font-size:clamp(26px,3.1vw,36px);max-width:21ch;font-weight:600;letter-spacing:-.03em}.hero h1 em{font-style:normal;color:var(--green)}.hero p{max-width:52ch;margin:10px 0 0;color:var(--muted);font-size:15px}.herodeco{position:absolute;right:16px;top:50%;translate:0 -50%;width:min(40%,400px);pointer-events:none;opacity:.9}@media(max-width:900px){.herodeco{display:none}}.sect{padding:16px 26px 24px;border-bottom:1px solid var(--line)}.sectlabel{font-size:14.5px;color:var(--body);margin-bottom:14px;font-weight:500}.lensgrp{display:inline-flex;align-items:center;gap:8px}.lensgrp .swatch{width:11px;height:11px;border-radius:3px;background:var(--lens-bg);border:2px solid var(--lens-line);flex:none}select.sel.lensactive{border-color:var(--lens-line);box-shadow:inset 0 0 0 1px var(--lens-line)}.lensnote{margin:0 0 12px;padding:11px 14px;border-radius:10px;font-size:13.5px;line-height:1.5;color:var(--body);background:var(--lens-bg);border:1px solid var(--lens-line);border-left-width:3px;max-width:96ch}.lensnote b{color:var(--lens-ink);font-weight:650}.lensnote .cols{display:block;margin-top:6px;font-size:12px;color:var(--muted)}.nutnote{margin:0 0 12px;padding:10px 14px;border-radius:10px;font-size:13.5px;line-height:1.5;color:var(--muted);background:var(--raise-warm);min-height:131px;border:1px solid var(--line);border-left:3px solid var(--green-line);max-width:96ch}.nutnote b{color:var(--ink);font-weight:650}.gapwarn{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;margin-top:7px;padding-top:7px;border-top:1px solid var(--line);font-size:12.5px;font-weight:600}.gapwarn-gap{color:var(--warn)}.gapwarn-plan{color:var(--amber)}.gapwarn b{font-weight:700}.gapwarn .absorbmore{margin-left:auto}.gapwarn+.absorb{border-top:0;padding-top:0;margin-top:5px}.absorb{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-top:7px;padding-top:7px;border-top:1px solid var(--line);font-size:12.5px}.absorb .up{color:var(--g-plant)}.absorb .down{color:var(--warn)}.absorb .does{color:var(--muted);font-style:italic}.absorb b{font-weight:700;font-size:13px}.absorbmore{margin-left:auto;border:1px solid var(--green-line);background:var(--green-tint);color:var(--green-dark);border-radius:6px;padding:2px 8px;font-size:11.5px;font-weight:650;min-height:24px}.absorbmore:hover{background:var(--panel)}.biorow{border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:0 0 14px}.biorow.up{border-left-color:var(--g-plant)}.biorow.down{border-left-color:var(--warn)}.biohead{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.biohead b{color:var(--ink);font-size:14px}.bioarrow{font-weight:700}.biorow.up .bioarrow{color:var(--g-plant)}.biorow.down .bioarrow{color:var(--warn)}.biowhen{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:650;border:1px solid var(--line);border-radius:5px;padding:1px 6px}.gaphead{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}.gaprow{border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:0 0 16px}.gaprow.gap{border-left-color:var(--warn)}.gaprow.plan{border-left-color:var(--amber)}.gaprow.unseen{border-left-color:var(--line)}.gaprow h4{margin:0 0 4px;font-size:14.5px}.gaprow.unseen h4{font-size:13.5px;color:var(--muted)}.gaprow p{margin:5px 0}.gaprole{color:var(--body)}.gapclose b{color:var(--ink)}.gaprow cite{display:block;font-size:11.5px;color:var(--faint);font-style:normal;line-height:1.4;margin-top:5px}.gapev{margin:7px 0;padding:8px 11px;list-style:none;background:var(--raise);border:1px solid var(--line);border-radius:8px;font-size:12.5px;line-height:1.5}.gapev li{margin:0}.gapev .gapevhead{color:var(--faint);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:650;margin-bottom:3px}.gapev b{color:var(--ink)}.biorow p{margin:5px 0 4px}.biorow cite{display:block;font-size:11.5px;color:var(--faint);font-style:normal;line-height:1.4}.biorow.curated{border-left-color:var(--lens-line);background:var(--lens-bg);border-radius:0 6px 6px 0;padding:8px 12px}.biorow.curated .biohead b{color:var(--lens-ink)}.biofor{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:16px 0 7px}.biofor:first-child{margin-top:4px}.lensform{display:flex;flex-direction:column;gap:14px}.lensname{padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--panel);width:100%;min-height:42px}.nutgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2px 14px}.nutgrid label{display:flex;gap:9px;align-items:center;padding:6px 8px;border-radius:7px;font-size:13.5px;color:var(--body);min-height:34px;cursor:pointer}.nutgrid label:hover{background:var(--raise)}.nutgrid input{width:16px;height:16px;accent-color:var(--green);flex:none;margin:0}.lensgroup{margin-top:10px}.lensgroup:first-child{margin-top:0}.lensgroup>h5{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:0 0 4px;padding:0 8px}.lensfoot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px 20px;border-top:1px solid var(--line)}.savedlens{display:flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:6px;font-size:13.5px}.savedlens .rm{margin-left:auto;border:0;background:none;color:var(--muted);padding:6px;border-radius:6px;line-height:0;min-width:32px;min-height:32px}.savedlens .rm:hover{background:var(--raise);color:var(--warn)}.lenscount{font-size:12.5px;color:var(--muted)}.bar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.seg{display:inline-flex;background:var(--raise-warm-deep);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}.seg button{border:0;background:none;padding:8px 18px;border-radius:7px;font-size:14px;color:var(--muted);min-height:38px}.seg button[aria-pressed=true]{background:var(--panel);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}.btn{display:inline-flex;gap:8px;align-items:center;padding:9px 15px;border-radius:9px;border:1px solid var(--line);background:var(--raise-warm);color:var(--body);font-size:14px;min-height:40px}.btn:hover{background:var(--raise-warm-deep)}.btn.primary{background:var(--green);border-color:var(--green);color:var(--on-green);font-weight:600}.btn.primary:hover{background:var(--green-dark);border-color:var(--green-dark)}.push{margin-left:auto}select.sel{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-height:40px}.split{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}@media(max-width:1160px){.split{grid-template-columns:minmax(0,1fr)}}.tablewrap{border:1px solid var(--line);border-radius:var(--r);overflow:auto;position:relative;background:var(--panel)}.tablewrap:focus-visible{outline:3px solid var(--green);outline-offset:-3px}table{border-collapse:separate;border-spacing:0;width:100%;font-size:13.5px}caption{text-align:left;padding:12px 14px;color:var(--muted);font-size:13px;border-bottom:1px solid var(--line)}caption>span{position:sticky;left:0;display:inline-block;max-width:calc(var(--scrollw,100%) - 28px)}th,td{padding:0;text-align:right;white-space:nowrap}thead th{position:sticky;background:var(--raise);z-index:3;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line);font-size:12.5px}thead tr:first-child th{top:0}thead tr:nth-child(2) th{top:var(--head1,36px)}th.grp{text-align:left;border-left:1px solid var(--line);padding:9px 12px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.grplabel{display:inline-block;position:sticky;left:calc(var(--foodw,210px) + 13px)}th.grp[data-g=macro]{color:var(--g-macro)}th.grp[data-g=fats]{color:var(--g-fats)}th.grp[data-g=amino]{color:var(--g-amino)}th.grp[data-g=vitamin]{color:var(--g-vitamin)}th.grp[data-g=mineral]{color:var(--g-mineral)}th.grp[data-g=plant]{color:var(--g-plant)}thead th[data-g=macro],tbody td[data-g=macro]{background:var(--t-macro)}thead th[data-g=fats],tbody td[data-g=fats]{background:var(--t-fats)}thead th[data-g=amino],tbody td[data-g=amino]{background:var(--t-amino)}thead th[data-g=vitamin],tbody td[data-g=vitamin]{background:var(--t-vitamin)}thead th[data-g=mineral],tbody td[data-g=mineral]{background:var(--t-mineral)}thead th[data-g=plant],tbody td[data-g=plant]{background:var(--t-plant)}th.gstart,td.gstart{border-left:1px solid var(--line)}.sortbtn{width:100%;border:0;background:none;padding:10px 12px;display:flex;gap:6px;align-items:center;justify-content:flex-end;color:inherit;font:inherit;font-weight:600;font-size:12.5px;min-height:40px}.sortbtn:hover{background:var(--green-tint)}.sortbtn .ar{opacity:.3;flex:none;transition:opacity .12s}th[aria-sort] .ar{opacity:1;color:var(--green)}.unit{color:var(--faint);font-weight:400}th.food,td.food{position:sticky;left:0;background:var(--panel);z-index:2;text-align:left;border-right:1px solid var(--line);min-width:210px}thead th.food{z-index:4;background:var(--raise-warm)}tbody tr:hover td,tbody tr:hover td.food{background:var(--green-tint)}tbody tr[aria-selected=true] td{background:var(--green-tint);box-shadow:inset 0 -1px 0 var(--green-line)}tbody td{border-bottom:1px solid var(--line-soft);padding:0 12px;height:54px;color:var(--body)}tbody td.food{padding:0 10px}tbody td.sorted{font-weight:650;color:var(--ink)}tbody td.num.low.sorted{color:var(--muted)}thead th.sorted .sortbtn{color:var(--ink)}thead th.sorted{box-shadow:inset 0 -2px 0 var(--green)}tbody tr td.lens{background:var(--lens-bg)}tbody tr td.lens.sorted{color:var(--lens-ink)}thead th.lens{background:var(--lens-bg)}thead th.lens .sortbtn,thead th.grp.lens{color:var(--lens-ink)}th.lensL,td.lensL{border-left:2px solid var(--lens-line)}th.lensR,td.lensR{border-right:2px solid var(--lens-line)}thead tr:nth-child(2) th.lens{box-shadow:inset 0 3px 0 var(--lens-line)}thead tr:nth-child(2) th.lens.sorted{box-shadow:inset 0 3px 0 var(--lens-line),inset 0 -2px 0 var(--green)}.fcell{display:flex;gap:10px;align-items:center}.sw{width:30px;height:30px;border-radius:50%;flex:none;border:1px solid var(--sw-edge);background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 62%,var(--sw-gloss)),var(--c) 72%)}.fname{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25;min-width:0;border:0;background:none;padding:2px 0;margin:0;text-align:left;border-radius:6px}.fname:hover b{color:var(--green-dark);text-decoration:underline}.fname b{font-weight:600;color:var(--ink);font-size:13.5px}.fname b .alt{font-weight:400;color:var(--faint)}.fname span{font-size:11.5px;color:var(--faint)}.fname .per100{font-variant-numeric:tabular-nums;color:var(--green-dark);background:var(--line-soft);border-radius:4px;padding:0 4px;margin-top:2px}.fav{border:0;background:none;padding:7px;border-radius:8px;color:var(--faint);line-height:0;margin-left:auto;min-width:34px;min-height:34px}.fav:hover{background:var(--line-soft);color:var(--green)}.fav[aria-pressed=true]{color:var(--green)}sup.fnote{color:var(--warn);font-weight:700;font-size:10.5px;margin-left:1px}.notekey{display:flex;flex-direction:column;gap:7px;margin:10px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.45;max-width:100ch}.notekey b{color:var(--ink);font-weight:650}td.num.low{color:var(--faint)}td.num .na{color:var(--faint);font-style:italic;font-size:12px}td.num b{font-weight:600;color:var(--ink)}.dv{display:block;font-size:10.5px;color:var(--green-dark);font-weight:600;line-height:1.1}.empty{padding:52px 20px;text-align:center;color:var(--muted)}.empty b{display:block;color:var(--ink);margin-bottom:6px;font-size:16px}.detail{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);position:sticky;top:14px}.dhead{padding:20px 18px 14px;text-align:center;position:relative}.dhead .sw{width:96px;height:96px;margin:0 auto 12px}.dhead h3{font-size:19px}.dhead .st{color:var(--muted);font-size:13.5px}.dhead .per{color:var(--faint);font-size:12.5px;margin-top:6px}.dhead .fav{position:absolute;right:12px;top:12px;margin:0}.tabs{display:flex;flex-wrap:wrap;border-block:1px solid var(--line);padding:0 6px}.tabs button{flex:1 1 30%;border:0;background:none;padding:11px 4px 9px;font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:5px;border-bottom:2px solid transparent;min-height:56px}.tabs button[aria-selected=true]{color:var(--green-dark);border-bottom-color:var(--green);font-weight:600}.dbody{padding:16px 18px 18px}.dbody h4{font-size:13.5px;margin-bottom:10px}.drow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:13.5px;border-bottom:1px solid var(--line-soft)}.drow:last-child{border-bottom:0}.drow dt{color:var(--body)}.drow dd{margin:0;color:var(--ink);font-weight:600}.drow.sub dt{padding-left:14px;color:var(--muted);font-size:12.5px}.drow.lensrow{background:var(--lens-bg);border-left:2px solid var(--lens-line);margin-inline:-8px;padding-inline:8px;border-radius:0 4px 4px 0}.drow.lensrow dt{color:var(--lens-ink);font-weight:600}.drow .pc{color:var(--green-dark);font-weight:600}.drow .nodata{color:var(--faint);font-weight:400;font-style:italic;font-size:12.5px}.drow .cov{font-size:11px;color:var(--warn);font-weight:600}.nodatanote{font-size:11.5px;color:var(--faint);line-height:1.45;margin:8px 0 0}dl{margin:0}.bararea{margin-top:4px}.minibar{height:5px;border-radius:3px;background:var(--line-soft);overflow:hidden;margin-top:5px}.minibar i{display:block;height:100%;background:var(--green);border-radius:3px}.dfoot{padding:12px 18px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}.chart{border:1px solid var(--line);border-radius:var(--r);padding:18px;background:var(--panel)}.crow{display:grid;grid-template-columns:180px minmax(0,1fr) 92px;gap:12px;align-items:center;padding:5px 0;font-size:13.5px}.crow .track{height:20px;background:var(--line-soft);border-radius:5px;overflow:hidden}.crow .track i{display:block;height:100%;background:var(--green);border-radius:5px}.crow .lbl{display:flex;gap:8px;align-items:center;min-width:0}.crow .lbl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}.crow .val{text-align:right;font-weight:600;color:var(--ink)}.crow .sw{width:22px;height:22px}.dayadd{position:relative;margin-bottom:16px;border-radius:11px}.dayadd input{width:100%;padding:13px 14px 13px 40px;border:1px solid var(--line);border-radius:inherit;background:var(--panel);font-size:15px;appearance:none;-webkit-appearance:none}.dayadd input::placeholder{color:var(--faint)}.dayadd .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--green);pointer-events:none;display:flex}.daysug{position:absolute;z-index:8;left:0;right:0;top:calc(100% + 5px);background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:5px;max-height:min(52vh,420px);overflow:auto}.daysug button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px;color:var(--body);min-height:46px}.daysug button:hover,.daysug button:focus-visible{background:var(--green-tint)}.daysug .sw{width:26px;height:26px}.daysug .s-name{display:flex;flex-direction:column;line-height:1.25;min-width:0}.daysug .s-name b{font-weight:600;color:var(--ink);font-size:13.5px}.daysug .s-name b .alt{font-weight:400;color:var(--faint)}.daysug .s-name>span{font-size:11.5px;color:var(--faint)}.daysug .s-fav{color:var(--green);line-height:0;margin-left:auto}.daysug .s-add{margin-left:auto;font-size:12px;color:var(--green-dark);font-weight:650;border:1px solid var(--green-line);background:var(--green-tint);border-radius:6px;padding:3px 7px;flex:none}.daysug .s-fav+.s-add{margin-left:0}.daylist{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden}.dayrow{display:flex;gap:12px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line-soft)}.dayrow:last-child{border-bottom:0}.dayrow .sw{width:32px;height:32px}.dayname{display:flex;flex-direction:column;line-height:1.25;min-width:0;flex:1}.dayname b{font-weight:600;color:var(--ink);font-size:14px}.dayname>span{font-size:11.5px;color:var(--faint)}.dayqty{display:flex;align-items:center;gap:2px;flex:none}.dayqty input{width:74px;text-align:right;padding:8px 6px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:14px;min-height:38px;font-variant-numeric:tabular-nums}.dayqty input::-webkit-outer-spin-button,.dayqty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}.dayqty input[type=number]{-moz-appearance:textfield;appearance:textfield}.dayqty .u{font-size:12.5px;color:var(--faint);width:14px}.dayqty .stp{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:8px;padding:0;line-height:0;min-width:34px;min-height:34px;display:grid;place-items:center}.dayqty .stp:hover:not(:disabled){background:var(--green-tint);color:var(--green-dark)}.dayqty .stp:disabled{opacity:.35;cursor:default}.dayqty select{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--muted);font-size:12.5px;min-height:38px;padding:0 6px;max-width:150px;margin-right:4px}.dayqty select:hover{border-color:var(--green-dark)}.dayqty .qtyf{display:flex;align-items:center;gap:2px;flex:none}.dayrow .rm{border:0;background:none;color:var(--muted);padding:7px;border-radius:8px;line-height:0;min-width:34px;min-height:34px;flex:none}.dayrow .rm:hover{background:var(--line-soft);color:var(--warn)}.dayfoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 2px 0;font-size:13px;color:var(--muted)}.dayfoot b{color:var(--ink)}.dayempty{border:1px dashed var(--line);border-radius:var(--r);padding:32px 24px;text-align:center;color:var(--muted);background:var(--panel)}.dayempty b{display:block;color:var(--ink);font-size:16px;margin-bottom:8px}.dayempty p{margin:0 auto;max-width:52ch;font-size:13.5px}.dayempty p+p{margin-top:10px;color:var(--faint);font-size:12.5px}.totals{margin-top:22px;display:flex;flex-direction:column;gap:18px}.totgroup{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:14px 16px 8px}.totgroup h4{display:flex;gap:9px;align-items:center;font-size:13.5px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}.totgroup[data-g=macro] h4{color:var(--g-macro)}.totgroup[data-g=fats] h4{color:var(--g-fats)}.totgroup[data-g=amino] h4{color:var(--g-amino)}.totgroup[data-g=vitamin] h4{color:var(--g-vitamin)}.totgroup[data-g=mineral] h4{color:var(--g-mineral)}.totgroup[data-g=plant] h4{color:var(--g-plant)}.totrow,.tothead{display:grid;grid-template-columns:minmax(120px,1.5fr) 110px minmax(60px,1fr) 66px 84px;gap:12px;align-items:center;padding:7px 0;font-size:13.5px;border-bottom:1px solid var(--line-soft)}.totrow:last-child{border-bottom:0}.tothead{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:650;padding-bottom:5px}.tothead span:nth-child(2),.tothead span:nth-child(4){text-align:right}.totname{color:var(--body)}.totname .qual{display:block;font-size:11px;color:var(--faint);line-height:1.3}.totval{text-align:right;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}.totval .u{color:var(--faint);font-weight:400;font-size:12px}.totbar{height:7px;border-radius:4px;background:var(--line-soft);overflow:hidden}.totbar i{display:block;height:100%;background:var(--green);border-radius:4px}.totbar i.full{background:var(--green-dark)}.totpc{text-align:right;color:var(--green-dark);font-weight:650;font-variant-numeric:tabular-nums}.totpc .noref{color:var(--faint);font-weight:400}.totcov{font-size:11px;color:var(--warn);font-weight:600;text-align:right}.totrow.none .totval{font-weight:400}.totrow .nodata{color:var(--faint);font-style:italic;font-size:12.5px}@media(max-width:700px){.totrow,.tothead{grid-template-columns:minmax(0,1fr) 90px 46px 70px}.totbar{display:none}.tothead span:nth-child(3){display:none}.dayqty{flex:0 1 auto;flex-wrap:wrap;justify-content:flex-end}.dayqty select{margin-right:0;max-width:110px;min-width:0}}.daysum .dhead{padding-bottom:16px}.dayadd-btn{margin-top:12px}.inday{margin-top:8px;font-size:12px;color:var(--green-dark);font-weight:600}.kgrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;font-size:13px;color:var(--muted)}.kgrow .wlbl{flex:1}.kgrow .wfields{flex-basis:100%;display:flex;gap:6px;align-items:center}.kgrow input{width:72px;text-align:right;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-height:36px;font-variant-numeric:tabular-nums}.kgrow .u{color:var(--faint);font-size:12.5px;margin-right:6px}.kgrow .u:last-child{margin-right:0}.seg.wunit{padding:2px;flex:none}.seg.wunit button{padding:4px 10px;min-height:28px;font-size:12.5px}.jumps{display:flex;flex-direction:column;gap:4px}.jump{display:flex;gap:8px;align-items:center;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--body);min-height:38px}.jump:hover{background:var(--green-tint);border-color:var(--green-line)}.jump b{margin-left:auto;color:var(--ink);font-variant-numeric:tabular-nums}.jump .ar{color:var(--faint);line-height:0;flex:none}.dayadvice{margin-top:18px;display:flex;flex-direction:column;gap:10px}.dayadvice>div{font-size:12px;line-height:1.5;color:var(--muted);background:var(--raise);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:8px;padding:9px 11px}.dayadvice b{color:var(--ink);display:block;margin-bottom:2px;font-size:12.5px}.paircard{font-size:12px;line-height:1.5;color:var(--muted);background:var(--green-tint);border:1px solid var(--green-line);border-left:3px solid var(--green);border-radius:8px;padding:9px 11px}.paircard ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px}.paircard li.up>span{color:var(--g-plant);font-weight:700}.paircard li.down>span{color:var(--warn);font-weight:700}.paircaveat{display:block;margin-top:6px;color:var(--faint)}.about{background:var(--green-tint);border:1px solid var(--green-line);border-radius:var(--r);padding:22px;margin-top:22px}.about h2{font-size:19px;margin-bottom:16px}.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}.col h3{font-size:14px;margin-bottom:5px}.col p{margin:0;font-size:13.5px;color:var(--muted)}.col .ic{width:30px;height:30px;border-radius:8px;background:var(--panel);border:1px solid var(--green-line);display:grid;place-items:center;margin-bottom:9px;color:var(--green)}.btn,.tablewrap,.detail,.chart,.about,.sidecard,.search,.dayadd,.daysug,.daylist,.totgroup,.dayempty,.lensnote,.nutnote,dialog{box-shadow:var(--box-shadow)}footer{padding:0 26px 40px;color:var(--faint);font-size:12.5px;max-width:80ch}dialog{border:1px solid var(--line);border-radius:var(--r);padding:0;max-width:640px;width:calc(100% - 32px);background:var(--panel);color:var(--body)}dialog::backdrop{background:var(--backdrop)}.dlghead{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}.dlgbody{padding:20px;max-height:64vh;overflow:auto}.dlgbody h4{margin:18px 0 6px}.dlgbody h4:first-child{margin-top:0}.dlgbody p,.dlgbody li{font-size:14px;color:var(--muted)}.x{margin-left:auto;border:0;background:none;padding:8px;border-radius:8px;line-height:0;color:var(--muted);min-width:36px;min-height:36px}.x:hover{background:var(--raise)}.menubtn{display:none}@media(max-width:820px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}.hero,.sect,.top{padding-inline:16px}.menubtn{display:flex;gap:10px;align-items:center;position:sticky;top:0;z-index:20;width:100%;padding:11px 16px;min-height:46px;text-align:left;font-size:14.5px;border:0;border-bottom:1px solid var(--line);background:var(--panel);color:var(--body)}.menubtn>svg{flex:none}.menubtn[aria-expanded=true]{background:var(--green-tint);color:var(--ink);font-weight:600}.side{display:none}.shell[data-nav=open] .side{display:block}}@media(max-width:700px){th.food,td.food{width:150px;min-width:0;white-space:normal}td.food .fcell{gap:7px;align-items:flex-start}td.food .sw{width:18px;height:18px;margin-top:2px}tbody td.food{padding:8px}td.food .fav,td.food .fname b .alt{display:none}thead th .sortbtn{white-space:normal;padding:8px;font-size:11.5px}tbody td{padding:0 8px;font-size:13px}.lensgrp{min-width:0;max-width:100%}.lensgrp select.sel{min-width:0;max-width:130px}.tabs button{padding-inline:2px;min-height:52px}}
 </style>
 </head>
 <body>
@@ -860,6 +60,7 @@ dialog::backdrop{background:var(--backdrop)}
     <ul class="navlist">
       <li><button class="navbtn" type="button" data-dlg="how"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg> How to use</button></li>
       <li><button class="navbtn" type="button" data-dlg="bio"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6"/><path d="m9 6 3-3 3 3"/><path d="M5 12h14l-1.5 8a2 2 0 0 1-2 1.7h-7a2 2 0 0 1-2-1.7Z"/></svg> Absorption</button></li>
+      <li><button class="navbtn" type="button" data-dlg="gaps"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h5"/><path d="M16 12h5"/><path d="M12 3v5"/><path d="M12 16v5"/><circle cx="12" cy="12" r="2.5" stroke-dasharray="2 2"/></svg> Nutrient gaps</button></li>
       <li><button class="navbtn" type="button" data-dlg="meth"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h5.5A3.5 3.5 0 0 1 11 7.5V20a2.5 2.5 0 0 0-2.5-2.5H2Z"/><path d="M22 4h-5.5A3.5 3.5 0 0 0 13 7.5V20a2.5 2.5 0 0 1 2.5-2.5H22Z"/></svg> Methodology</button></li>
     </ul>
   </div>
@@ -1055,8 +256,10 @@ const DATA = {"nutrients":[{"id":"kcal","label":"Energy","group":"macro","unit":
 const I = {"leaf":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z\"/><path d=\"M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12\"/><\/svg>","compare":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20V10M10 20V4M16 20v-7M22 20V7\"/><\/svg>","heart":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z\"/><\/svg>","heartFull":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z\" fill=\"currentColor\"/><\/svg>","help":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3\"/><path d=\"M12 17h.01\"/><\/svg>","book":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 4h5.5A3.5 3.5 0 0 1 11 7.5V20a2.5 2.5 0 0 0-2.5-2.5H2Z\"/><path d=\"M22 4h-5.5A3.5 3.5 0 0 0 13 7.5V20a2.5 2.5 0 0 1 2.5-2.5H22Z\"/><\/svg>","info":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 16v-4M12 8h.01\"/><\/svg>","dl":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"M7 10l5 5 5-5M12 15V3\"/><\/svg>","moon":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z\"/><\/svg>","sun":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"4.2\"/><path d=\"M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4\"/><\/svg>","search":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-3.6-3.6\"/><\/svg>","x":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M18 6 6 18M6 6l12 12\"/><\/svg>","pct":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 5 5 19\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"2.5\"/><circle cx=\"16.5\" cy=\"16.5\" r=\"2.5\"/><\/svg>","grid":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><\/svg>","eye":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><\/svg>","macro":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3a9 9 0 1 0 9 9h-9Z\"/><path d=\"M15 3.5A9 9 0 0 1 20.5 9H15Z\"/><\/svg>","fats":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2.7S6 9.4 6 14a6 6 0 0 0 12 0c0-4.6-6-11.3-6-11.3Z\"/><\/svg>","amino":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6.5\" r=\"2.6\"/><circle cx=\"18\" cy=\"9\" r=\"2.6\"/><circle cx=\"9\" cy=\"18\" r=\"2.6\"/><path d=\"M8.3 8L15.6 8.2M7.2 9L8.2 15.5M16.4 11.2 10.7 16.4\"/><\/svg>","vit":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2.5 14 9l6.5 2-6.5 2-2 6.5-2-6.5L3.5 11 10 9Z\"/><\/svg>","min":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 3h12l3.5 6-9.5 12L2.5 9Z\"/><path d=\"M2.5 9h19M9 3l-2.5 6L12 21l5.5-12L15 3\"/><\/svg>","up":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 14l5-5 5 5\"/><\/svg>","down":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 10l5 5 5-5\"/><\/svg>","sortable":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 10l4-4 4 4M8 14l4 4 4-4\"/><\/svg>","right":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9.5 5 16 12l-6.5 7\"/><\/svg>","plant":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 21V9\"/><path d=\"M12 13c0-3 2-4.5 5-4.5 0 3-2 4.5-5 4.5Z\"/><path d=\"M12 10c0-3-2-4.5-5-4.5 0 3 2 4.5 5 4.5Z\"/><path d=\"M12 17c0-2.4 1.6-3.6 4-3.6 0 2.4-1.6 3.6-4 3.6Z\"/><\/svg>","plus":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/><\/svg>","minus":"<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><\/svg>"};
 const P = {"lentils-cooked":[{"label":"1 cup","g":198},{"label":"1 tbsp","g":12.3}],"chickpeas-cooked":[{"label":"1 cup","g":164}],"black-beans-cooked":[{"label":"1 cup","g":172}],"kidney-beans-cooked":[{"label":"1 cup","g":177},{"label":"1 tbsp","g":11}],"pinto-beans-cooked":[{"label":"1 cup","g":171},{"label":"1 tbsp","g":10.6}],"split-peas-cooked":[{"label":"1 cup","g":196},{"label":"1 tbsp","g":12.2}],"mung-beans-cooked":[{"label":"1 cup","g":202}],"green-peas-cooked":[{"label":"1 cup","g":160}],"edamame-cooked":[{"label":"1 cup","g":155}],"lupin-beans-cooked":[{"label":"1 cup","g":166}],"tofu-firm":[{"label":"1/2 cup","g":126},{"label":"1/4 block","g":81}],"tempeh":[{"label":"1 cup","g":166}],"natto":[{"label":"1 cup","g":175}],"tvp-dry":[{"label":"1 cup","g":105},{"label":"1 tbsp","g":6.6}],"oats-rolled-dry":[{"label":"1 cup","g":156}],"quinoa-cooked":[{"label":"1 cup","g":185}],"brown-rice-cooked":[{"label":"1 cup","g":202}],"buckwheat-cooked":[{"label":"1 cup","g":168}],"amaranth-cooked":[{"label":"1 cup","g":246}],"wholewheat-pasta-cooked":[{"label":"1 cup spaghetti not packed","g":117},{"label":"1 cup spaghetti packed","g":151},{"label":"1 cup penne","g":97},{"label":"1 cup shells","g":105},{"label":"1 cup lasagne","g":116},{"label":"1 cup rotini","g":107}],"almonds":[{"label":"1 cup, whole","g":143},{"label":"1 cup, sliced","g":92},{"label":"1 cup, slivered","g":108},{"label":"1 cup, ground","g":95},{"label":"1 oz","g":28.35}],"walnuts":[{"label":"1 cup, chopped","g":117},{"label":"1 cup, ground","g":80},{"label":"1 cup, in shell, edible yield","g":28},{"label":"1 cup shelled","g":100},{"label":"1 cup pieces or chips","g":120}],"cashews":[{"label":"1 oz","g":28.35}],"peanuts":[{"label":"1 oz","g":28.35},{"label":"1 cup","g":146}],"pistachios":[{"label":"1 cup","g":123},{"label":"1 oz","g":28.35}],"brazil-nuts":[{"label":"1 cup, whole","g":133},{"label":"1 kernel","g":5},{"label":"1 oz","g":28.35}],"hazelnuts":[{"label":"1 cup, chopped","g":115},{"label":"1 cup, ground","g":75},{"label":"1 cup, whole","g":135},{"label":"1 oz","g":28.35},{"label":"10 nuts","g":14}],"chia-seeds":[{"label":"1 oz","g":28.35}],"hemp-seeds-hulled":[{"label":"3 tbsp","g":30}],"flaxseed":[{"label":"1 tbsp, whole","g":10.3},{"label":"1 cup, whole","g":168},{"label":"1 tbsp, ground","g":7}],"pumpkin-seeds":[{"label":"1 cup","g":129},{"label":"1 oz","g":28.35}],"sunflower-seeds":[{"label":"1 cup, with hulls, edible yield","g":46},{"label":"1 cup","g":140}],"sesame-seeds":[{"label":"1 cup","g":144},{"label":"1 tbsp","g":9}],"broccoli-cooked":[{"label":"1/2 cup, chopped","g":78},{"label":"1 stalk, large","g":280},{"label":"1 stalk, medium","g":180},{"label":"1 stalk, small","g":140},{"label":"1 spear","g":37}],"spinach-raw":[{"label":"1 cup","g":30},{"label":"1 bunch","g":340},{"label":"1 leaf","g":10},{"label":"1 package","g":284}],"kale-raw":[{"label":"1 cup","g":21}],"sweet-potato-baked":[{"label":"1 cup","g":200},{"label":"1 large","g":180},{"label":"1 medium","g":114},{"label":"1 small","g":60}],"mushrooms-white-raw":[{"label":"1 cup, pieces or slices","g":70},{"label":"1 cup, whole","g":96},{"label":"1 large","g":23},{"label":"1 medium","g":18},{"label":"1 slice","g":6},{"label":"1 small","g":10},{"label":"1/2 cup pieces","g":35}],"spirulina-dried":[{"label":"1 cup","g":112},{"label":"1 tablespoon","g":7}],"avocado":[{"label":"1 cup, cubes","g":150},{"label":"1 cup, pureed","g":230},{"label":"1 cup, sliced","g":146}],"banana":[{"label":"1 cup, mashed","g":225},{"label":"1 cup, sliced","g":150},{"label":"1 extra small","g":81},{"label":"1 small","g":101},{"label":"1 medium","g":118},{"label":"1 large","g":136},{"label":"1 extra large","g":152}],"shiitake-mushrooms-raw":[{"label":"1 piece whole","g":19}],"oyster-mushrooms-raw":[{"label":"1 large","g":148},{"label":"1 small","g":15},{"label":"1 cup sliced","g":86}],"brussels-sprouts-cooked":[{"label":"1 sprout","g":21},{"label":"1/2 cup","g":78}],"couscous-cooked":[{"label":"1 cup, cooked","g":157}],"wild-rice-cooked":[{"label":"1 cup","g":164}],"asparagus-cooked":[{"label":"1/2 cup","g":90},{"label":"4 spears","g":60}],"artichokes-cooked":[{"label":"1 artichoke, medium","g":120},{"label":"1/2 cup hearts","g":84}],"jerusalem-artichokes-raw":[{"label":"1 cup slices","g":150}],"swiss-chard-raw":[{"label":"1 cup","g":36},{"label":"1 leaf","g":48}],"guava-raw":[{"label":"1 cup","g":165},{"label":"1 fruit, without refuse","g":55}],"blackberries-raw":[{"label":"1 cup","g":144}],"kiwi-raw":[{"label":"1 cup, sliced","g":180},{"label":"1 fruit","g":69}],"cannellini-beans-cooked":[{"label":"1 cup","g":179},{"label":"1 tbsp","g":11.2}],"butter-beans-cooked":[{"label":"1 cup","g":188},{"label":"1 tbsp","g":11.7}],"adzuki-beans-cooked":[{"label":"1 cup","g":230}],"black-eyed-peas-cooked":[{"label":"1 cup","g":171}],"nori-raw":[{"label":"10 sheets","g":26},{"label":"2 tbsp","g":10}],"kelp-raw":[{"label":"2 tbsp","g":10}],"tahini-from-roasted-kernels":[{"label":"1 tbsp","g":15},{"label":"1 oz","g":28.35}],"cocoa-powder-unsweetened":[{"label":"1 cup","g":86},{"label":"1 tbsp","g":5.4}],"millet-cooked":[{"label":"1 cup","g":174}],"pearl-barley-cooked":[{"label":"1 cup","g":157}],"bulgur-wheat-cooked":[{"label":"1 cup","g":182},{"label":"1 tbsp","g":8.4}],"teff-cooked":[{"label":"1 cup","g":252}],"broad-beans-cooked":[{"label":"1 cup","g":170}],"haricot-beans-cooked":[{"label":"1 cup","g":182}],"cauliflower-cooked":[{"label":"1/2 cup","g":62},{"label":"3 flowerets","g":54}],"pak-choi-raw":[{"label":"1 cup, shredded","g":70},{"label":"1 leaf","g":14}],"watercress-raw":[{"label":"1 cup, chopped","g":34},{"label":"10 sprigs","g":25}],"beetroot-cooked":[{"label":"1/2 cup slices","g":85},{"label":"2 beets","g":100}],"sweetcorn-cooked":[{"label":"1 ear small","g":89},{"label":"1 ear medium","g":103},{"label":"1 ear large","g":118},{"label":"1 cup cut","g":149},{"label":"1 baby ear","g":8}],"butternut-squash-baked":[{"label":"1 cup, cubes","g":205}],"potato-baked-with-skin":[{"label":"1 potato large","g":299},{"label":"1 potato medium","g":173},{"label":"1 potato small","g":138}],"sauerkraut-canned":[{"label":"1 cup","g":142},{"label":"1 cup, undrained","g":236}],"olives-ripe-canned":[{"label":"1 tbsp","g":8.4}],"coconut-raw":[{"label":"1 cup, shredded","g":80},{"label":"1 medium","g":397},{"label":"1 piece","g":45}],"pecans":[{"label":"1 cup, chopped","g":109},{"label":"1 cup, halves","g":99},{"label":"1 oz","g":28.35}],"macadamia-nuts-raw":[{"label":"1 cup, whole or halves","g":134},{"label":"1 oz","g":28.35}],"pine-nuts-dried":[{"label":"1 cup","g":135},{"label":"1 oz","g":28.35}],"chestnuts-roasted":[{"label":"1 cup","g":143},{"label":"1 oz","g":28.35},{"label":"10 kernels","g":84}],"orange-raw":[{"label":"1 cup, sections","g":180},{"label":"1 large","g":184},{"label":"1 small","g":96},{"label":"1 fruit","g":131}],"blueberries-raw":[{"label":"1 cup","g":148},{"label":"50 berries","g":68}],"strawberries-raw":[{"label":"1 cup, halves","g":152},{"label":"1 cup, pureed","g":232},{"label":"1 cup, sliced","g":166},{"label":"1 cup, whole","g":144},{"label":"1 extra large","g":27},{"label":"1 large","g":18},{"label":"1 medium","g":12},{"label":"1 small","g":7}],"dates":[{"label":"1 date, pitted","g":24}],"dried-figs-dried":[{"label":"1 cup","g":149},{"label":"1 fig","g":8.4}],"miso":[{"label":"1 tbsp","g":17},{"label":"1 cup","g":275}],"kohlrabi-cooked":[{"label":"1 cup slices","g":165}],"grapefruit-raw":[{"label":"1 cup sections, with juice","g":230},{"label":"1/2 large","g":166},{"label":"1/2 medium","g":128},{"label":"1/2 small","g":100}],"raspberries-raw":[{"label":"1 cup","g":123},{"label":"10 raspberries","g":19}],"lychees-raw":[{"label":"1 cup","g":190},{"label":"1 fruit without refuse","g":9.6}],"mango-raw":[{"label":"1 cup pieces","g":165},{"label":"1 fruit without refuse","g":336}],"apricots-raw":[{"label":"1 cup, halves","g":155},{"label":"1 cup, sliced","g":165},{"label":"1 apricot","g":35}],"apple-raw-with-skin":[{"label":"1 cup, quartered or chopped","g":125},{"label":"1 cup slices","g":109},{"label":"1 large","g":223},{"label":"1 medium","g":182},{"label":"1 small","g":149},{"label":"1 extra small","g":101}],"pear-raw":[{"label":"1 cup, slices","g":140},{"label":"1 cup, cubes","g":161},{"label":"1 small","g":148},{"label":"1 medium","g":178},{"label":"1 large","g":230}],"cherries-sweet-raw":[{"label":"1 cup, without pits","g":154},{"label":"1 cherry","g":8.2}],"pineapple-raw":[{"label":"1 cup, chunks","g":165},{"label":"1 slice (4-2/3\" dia x 3/4\" thick)","g":166},{"label":"1 slice (3-1/2\" dia x 3/4\" thick)","g":84},{"label":"1 slice, thin","g":56}],"watermelon-raw":[{"label":"1 cup, balls","g":154},{"label":"1 cup, diced","g":152},{"label":"1 wedge","g":286},{"label":"10 watermelon balls","g":122}],"radishes-raw":[{"label":"1 cup slices","g":116},{"label":"1 large","g":9},{"label":"1/2 cup slices","g":58}],"courgette-cooked":[{"label":"1 cup, sliced","g":180},{"label":"1/2 cup, mashed","g":120}],"aubergine-cooked":[{"label":"1 cup","g":99}],"bell-pepper-green-raw":[{"label":"1 cup, chopped","g":149},{"label":"1 cup, sliced","g":92},{"label":"1 tbsp","g":9.3},{"label":"1 large","g":164},{"label":"1 medium","g":119},{"label":"1 ring","g":10},{"label":"1 small","g":74},{"label":"10 strips","g":27}],"bell-pepper-red-raw":[{"label":"1 cup, chopped","g":149},{"label":"1 cup, sliced","g":92},{"label":"1 tablespoon","g":9.3},{"label":"1 large","g":164},{"label":"1 medium","g":119},{"label":"1 small","g":74},{"label":"1 ring","g":10}],"bell-pepper-yellow-raw":[{"label":"1 pepper, large","g":186},{"label":"10 strips","g":52}],"carrots-raw":[{"label":"1 cup chopped","g":128},{"label":"1 cup grated","g":110},{"label":"1 cup strips or slices","g":122},{"label":"1 large","g":72},{"label":"1 medium","g":61},{"label":"1 small","g":50},{"label":"1 strip large","g":7}],"parsnips-cooked":[{"label":"1/2 cup slices","g":78},{"label":"1 parsnip","g":160}],"leeks-cooked":[{"label":"1 leek","g":124},{"label":"1/4 cup, chopped or diced","g":26}],"shallots-raw":[{"label":"1 tbsp chopped","g":10}],"turnip-cooked":[{"label":"1 cup, cubes","g":156},{"label":"1 cup, mashed","g":230}],"swede-cooked":[{"label":"1 cup, cubes","g":170},{"label":"1 cup, mashed","g":240}],"onions-raw":[{"label":"1 cup, chopped","g":160},{"label":"1 cup, sliced","g":115},{"label":"1 tbsp chopped","g":10},{"label":"1 large","g":150},{"label":"1 slice, large","g":38},{"label":"1 medium","g":110},{"label":"1 slice, medium","g":14},{"label":"1 small","g":70},{"label":"1 slice, thin","g":9},{"label":"10 rings","g":60}],"celery-raw":[{"label":"1 cup chopped","g":101},{"label":"1 tbsp","g":7.5},{"label":"1 stalk, large","g":64},{"label":"1 stalk, medium","g":40},{"label":"1 stalk, small","g":17}],"spring-onions-raw":[{"label":"1 cup, chopped","g":100},{"label":"1 tbsp chopped","g":6},{"label":"1 large","g":25},{"label":"1 medium","g":15},{"label":"1 small","g":5}],"cucumber-raw-with-peel":[{"label":"1/2 cup slices","g":52},{"label":"1 cucumber","g":301}],"ginger-root-raw":[{"label":"1/4 cup slices","g":24},{"label":"5 slices","g":11}],"peaches-raw":[{"label":"1 cup slices","g":154},{"label":"1 small","g":130},{"label":"1 medium","g":150},{"label":"1 large","g":175},{"label":"1 extra large","g":224}],"grapes-raw":[{"label":"1 cup","g":151},{"label":"10 grapes","g":49}],"plums-raw":[{"label":"1 cup, sliced","g":165},{"label":"1 fruit","g":66}],"passion-fruit-raw":[{"label":"1 cup","g":236},{"label":"1 fruit without refuse","g":18}],"pomegranate-raw":[{"label":"1/2 cup arils","g":87},{"label":"1 pomegranate","g":282}],"alfalfa-sprouts-raw":[{"label":"1 cup","g":33}],"rocket-raw":[{"label":"1/2 cup","g":10}],"celeriac-raw":[{"label":"1 cup","g":156}],"pumpkin-cooked":[{"label":"1 cup, mashed","g":245}],"yeast-extract-spread":[{"label":"1 tsp","g":6}],"borlotti-beans-cooked":[{"label":"1 cup","g":177}],"tomatoes-raw":[{"label":"1 cup cherry tomatoes","g":149},{"label":"1 cup, chopped or sliced","g":180},{"label":"1 Italian tomato","g":62},{"label":"1 cherry","g":17},{"label":"1 large whole","g":182},{"label":"1 medium whole","g":123},{"label":"1 slice, medium","g":20},{"label":"1 small whole","g":91},{"label":"1 slice, thick/large","g":27},{"label":"1 wedge","g":31},{"label":"1 slice, thin/small","g":15}],"wheatgerm-toasted":[{"label":"1 oz","g":28.35},{"label":"1 cup","g":113}]};
 const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing here is ever applied to a figure. See docs/superpowers/specs/2026-08-07-bioavailability-design.md, and 'Bioavailability' in README.md. Every record cites a source key below, and build.mjs refuses one that does not resolve. The set is deliberately small: only claims the checked sources actually support are here, because a thin sourced list is worth more than a full unsourced one.","sources":{"hurrell2010":"Hurrell R, Egli I. Iron bioavailability and dietary reference values. Am J Clin Nutr. 2010;91(5):1461S-1467S.","hurrell1999":"Hurrell RF, Reddy M, Cook JD. Inhibition of non-haem iron absorption in man by polyphenolic-containing beverages. Br J Nutr. 1999;81(4):289-95.","hunt2003":"Hunt JR. Bioavailability of iron, zinc, and other trace minerals from vegetarian diets. Am J Clin Nutr. 2003;78(3 Suppl):633S-639S.","heaney1988":"Heaney RP, Weaver CM, Recker RR. Calcium absorbability from spinach. Am J Clin Nutr. 1988;47(4):707-9.","heaney1990":"Heaney RP, Weaver CM. Calcium absorption from kale. Am J Clin Nutr. 1990;51(4):656-7.","weaver1999":"Weaver CM, Proulx WR, Heaney R. Choices for achieving adequate dietary calcium with a vegetarian diet. Am J Clin Nutr. 1999;70(3 Suppl):543S-548S.","brown2004":"Brown MJ, Ferruzzi MG, Nguyen ML, et al. Carotenoid bioavailability is higher from salads ingested with full-fat than with fat-reduced salad dressings as measured with electrochemical detection. Am J Clin Nutr. 2004;80(2):396-403.","white2017":"White WS, Zhou Y, Crane A, Dixon P, Quadt F, Flendrig LM. Modeling the dose effects of soybean oil in salad dressing on carotenoid and fat-soluble vitamin bioavailability in salad vegetables. Am J Clin Nutr. 2017;106(4):1041-51."},"interactions":[{"id":"fe-vitc","affects":["fe"],"direction":"up","agent":{"kind":"nutrient","id":"vitc"},"short":"Vitamin C","when":"same meal","text":"Vitamin C keeps iron in the form the gut takes up, and holds it there against the phytate and polyphenols in the same plate. It is the single largest lever on plant iron. It has to be the same meal: the effect is on the food in front of you, not on the day's total.","cites":["hurrell2010"]},{"id":"fe-phytate","affects":["fe"],"direction":"down","agent":{"kind":"substance","label":"Phytate"},"short":"Phytate","when":"same meal","text":"Phytate in wholegrains, pulses, nuts and seeds binds iron before it can be absorbed, and is the main reason iron absorption runs at roughly 5 to 12 percent on a vegetarian diet against 14 to 18 percent on a mixed one. Those two ranges are what the dietary reference values are built on, which is why a plant-based intake target is higher rather than the same.","cites":["hurrell2010"]},{"id":"fe-polyphenols","affects":["fe"],"direction":"down","agent":{"kind":"substance","label":"Tea and coffee polyphenols"},"short":"Tea, coffee","when":"same meal","text":"Black tea cut iron absorption from a bread meal by 79 to 94 percent in the trial that measured it, peppermint tea by 84 percent, and coffee and other herb teas by less. Drinking them between meals rather than with them is the whole of the advice, and it costs nothing.","cites":["hurrell1999"]},{"id":"fe-calcium","affects":["fe"],"direction":"down","agent":{"kind":"nutrient","id":"ca"},"short":"Calcium","when":"same meal","text":"Calcium competes with iron within a single meal. This one is worth stating carefully: the single-meal effect is well established, and the effect on iron status across a whole diet is much less clear. It matters most for supplements taken together, and least for a varied diet.","cites":["hurrell2010"]},{"id":"minerals-preparation","affects":["fe","zn","ca"],"direction":"up","agent":{"kind":"practice","label":"Soaking, sprouting, fermenting"},"short":"Soaking, sprouting, fermenting","when":"preparation","text":"All three break phytate down before the food reaches you, so they raise iron, zinc and calcium absorption from the same unchanged figures in this table. This is the one entry here that changes what you get without changing what you eat.","cites":["hurrell2010"]},{"id":"fe-cocoa","affects":["fe"],"direction":"down","agent":{"kind":"food","slug":"cocoa-powder-unsweetened"},"short":"Cocoa","when":"same meal","text":"Cocoa was among the polyphenol-rich drinks tested for iron inhibition and behaved like the teas. Worth knowing precisely because cocoa powder is itself high in iron, so the food supplying it is also working against it.","cites":["hurrell1999"]},{"id":"zn-phytate","affects":["zn"],"direction":"down","agent":{"kind":"substance","label":"Phytate"},"short":"Phytate","when":"same meal","text":"Zinc is the mineral phytate binds hardest, and the ratio between them is what decides the outcome. Below a phytate to zinc molar ratio of 5, absorption runs 50 to 55 percent; above 15, which unrefined wholegrain diets reach, it falls to about 15 percent and the requirement rises by as much as half.","cites":["hunt2003"]},{"id":"ca-oxalate","affects":["ca"],"direction":"down","agent":{"kind":"substance","label":"Oxalate"},"short":"Oxalate","when":"same meal","text":"Oxalate binds calcium into a salt the gut cannot take up, and it is the reason a calcium figure for a leafy green can mean two completely different things. Spinach calcium was absorbed at 5.1 percent against 27.6 percent from milk in the same trial, with its oxalate in slight excess of its calcium, so effectively all of it was bound. Kale, low in oxalate, ran 40.9 percent in the matching study, higher than the milk it was compared against.","cites":["heaney1988","heaney1990"]},{"id":"ca-phytate","affects":["ca"],"direction":"down","agent":{"kind":"substance","label":"Phytate"},"short":"Phytate","when":"same meal","text":"Phytate binds calcium as well as iron and zinc, which is why beans deliver less of their calcium than their figure suggests. It is a smaller effect than oxalate's, and unlike oxalate it is largely undone by soaking and fermenting.","cites":["weaver1999"]},{"id":"carotenoids-fat","affects":["betacar","alphacar","cryptox","luteinzea","lycopene"],"direction":"up","agent":{"kind":"nutrient","id":"fat"},"short":"Fat in the meal","when":"same meal","text":"Carotenoids are fat-soluble and need fat in the same meal to be absorbed at all well. A salad eaten with fat-free dressing delivers strikingly less than the same salad with full-fat, and the response keeps climbing across the whole range tested up to about 32 g of oil. This is the entry that most changes how to read the plant compound columns: a carrot eaten alone is not the same as a carrot eaten with oil.","cites":["brown2004"]},{"id":"fatsoluble-fat","affects":["vita","vitd","vite","vitk"],"direction":"up","agent":{"kind":"nutrient","id":"fat"},"short":"Fat in the meal","when":"same meal","text":"The four fat-soluble vitamins follow the carotenoids: absorption of vitamin A and vitamin K rose with the fat in the meal across the full range tested, by the same mechanism. Individual response varied a great deal in that trial, and some people absorbed very little whatever the dose, which is worth knowing before treating any of this as a rule.","cites":["white2017"]}]};
+const G = {"_comment":"What a wholefood plant diet does not supply. Explanatory, like interactions.json: no figure on the page depends on anything here. Evidence for entries that name a column is computed from the table itself at render time, not typed here, so it corrects itself when a food is added. See docs/superpowers/specs/2026-08-07-nutrient-gaps-design.md and 'Nutrient gaps' in README.md. No doses, no brands, no imperatives.","sources":{"watanabe2014":"Watanabe F, Yabuta Y, Bito T, Teng F. Vitamin B12-containing plant food sources for vegetarians. Nutrients. 2014;6(5):1861-73.","tripkovic2012":"Tripkovic L, Lambert H, Hart K, et al. Comparison of vitamin D2 and vitamin D3 supplementation in raising serum 25-hydroxyvitamin D status: a systematic review and meta-analysis. Am J Clin Nutr. 2012;95(6):1357-64.","burdge2005":"Burdge GC, Calder PC. Conversion of alpha-linolenic acid to longer-chain polyunsaturated fatty acids in human adults. Reprod Nutr Dev. 2005;45(5):581-97.","ods2024":"USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods, Release 4.0. Beltsville MD: USDA Agricultural Research Service; 2024."},"gaps":[{"id":"b12","tier":"gap","nutrients":["b12"],"label":"Vitamin B12","role":"Needed to build red blood cells and to keep the myelin sheath around nerves intact. It is the one figure on this page to check rather than skim, because a shortage does its damage slowly and the neurological part of it does not fully reverse.","why":"No plant makes it. It is made by bacteria, and what little turns up in unfortified plant foods comes from fermentation or contamination rather than from the food. Nori is the one genuine exception and still not a dependable one: dried purple laver carries around 77.6 µg per 100 g of active B12, but toasting and seasoning roughly halve that, drying can turn active forms into inactive analogues, and the human evidence is thin. Spirulina is the opposite case and worth naming separately, because it is largely pseudovitamin B12, which is biologically inactive. A spirulina figure is not a B12 figure.","closing":"A supplement, or a food reliably fortified with it. Of everything on this page this is the one where that is settled advice rather than a suggestion, and it does not depend on how the rest of the diet looks.","cites":["watanabe2014"]},{"id":"vitd","tier":"gap","nutrients":["vitd"],"label":"Vitamin D","role":"Governs how much calcium you absorb and how bone is mineralised, and acts on muscle and immune function besides. Most people get most of theirs from sunlight on skin rather than from food, so latitude and season matter more than diet does.","why":"Plants essentially do not make it, and the trace in this table is a particular form: USDA assayed cholecalciferol, D3, in these foods and found zero every time, and ergocalciferol, D2, every time it looked. So the little that is here is mushroom D2. The form is worth knowing and matters less than it is usually made to: D3 raises blood levels more than D2 when both are given as a single large dose, but a meta-analysis of daily supplementation found no difference between them. At these amounts the argument is academic anyway.","closing":"Sunlight where the latitude and the season allow it, and otherwise a supplement. Vegan D3 made from lichen exists alongside the more common D2.","cites":["tripkovic2012"]},{"id":"iodine","tier":"gap","nutrients":[],"label":"Iodine","role":"The thyroid uses it to make the hormones that set metabolic rate. A shortage during pregnancy damages the developing brain, and it is one of the few nutrients where too much is its own problem.","why":"There is no column for it here, and that is not an oversight: SR Legacy defines iodine as nutrient 1100 and publishes a figure for none of these 131 foods. The separate USDA, FDA and ODS-NIH iodine database does reach plant foods, and finds close to nothing. Every plant wholefood in it falls between 0.0 and 6.0 µg per 100 g against a 150 µg daily requirement. Content tracks the soil and the irrigation water as much as the food, so figures gathered in one country do not transfer to another. Seaweed is the exception and an unruly one, varying by orders of magnitude between species and overshooting easily.","closing":"Iodised salt, where it is sold, or a supplement. Whether salt is iodised varies a great deal by country, so it is worth checking rather than assuming.","cites":["ods2024"]},{"id":"epadha","tier":"gap","nutrients":["epa","dha"],"label":"EPA and DHA","role":"The two long-chain omega-3s the body actually uses. DHA makes up a large share of the brain and the retina; EPA is where most of the anti-inflammatory case sits.","why":"Both columns are in the table and both are all but empty, which is why they were added. The body is supposed to build them from ALA, which plant foods do supply well, and that conversion is poor: tracer studies put ALA to EPA anywhere from 0.2% to about 10%, and ALA to DHA at roughly 0.05%. Raising ALA intake raises EPA in the blood and does not raise DHA, which can even fall at high intakes. So a large ALA figure is not the same thing as having enough of these.","closing":"Algal oil, which is where the fish get theirs. A good ALA intake from flaxseed, chia, hemp or walnuts is worth having on its own terms and is not a substitute for it.","cites":["burdge2005"]},{"id":"choline","tier":"plan","nutrients":["chol"],"label":"Choline","role":"Used to build cell membranes and acetylcholine, and part of the methylation cycle alongside folate and B12. The liver needs it to move fat out, which is where a shortage shows first.","why":"Present throughout this table rather than absent, and thin. The evidence below is measured from these foods rather than quoted: the best of them supplies about a third of a daily value per 100 g, and only two clear a fifth. Those two are TVP and wheatgerm, neither of which is an everyday staple, so reaching a day's worth is a matter of choosing rather than of eating normally. Eggs and liver are the dense sources elsewhere and neither is available here.","closing":"Not a supplement case, a plan-for-it case. Soy, wheatgerm, cruciferous vegetables, nuts and seeds carry most of what is available.","cites":[]},{"id":"k2","tier":"unseen","nutrients":[],"label":"Vitamin K2 (menaquinones)","role":"","why":"SR Legacy has no id at all for MK-7, the menaquinone natto carries, and it assayed MK-4 in eight of these foods and found zero every time. Natto is in this table and its K2 is invisible here. Whether K2 is a requirement separate from the K1 the vitamin K column already holds is contested, so this is a hole in the data rather than a known gap in the diet.","closing":"","cites":[]},{"id":"fibrefractions","tier":"unseen","nutrients":[],"label":"Inulin and the other fibre fractions","role":"","why":"SR Legacy defines inulin, soluble and insoluble fibre, beta-glucan, resistant starch, pectin and the oligosaccharides, and publishes none of them for any of these foods. The Fibre column here is a single total, so the prebiotic fractions are not separable from it. Reaching them would need a second database joined to this one, the way the flavonoid columns were.","closing":"","cites":[]},{"id":"traces","tier":"unseen","nutrients":[],"label":"Biotin, chromium, molybdenum, boron and taurine","role":"","why":"Checked and absent. SR Legacy holds no figures for any of the five for these foods. None of them is a recognised shortfall on a plant-based diet, so they are missing columns rather than missing nutrients, and they are named here so that their silence is not read as coverage.","closing":"","cites":[]}]};
 "use strict";
-"use strict";const NUTS=DATA.nutrients,FOODS=DATA.foods,GROUPS=[{id:"macro",label:"Macronutrients",icon:I.macro},{id:"fats",label:"Omega & fats",icon:I.fats},{id:"amino",label:"Amino acids",icon:I.amino},{id:"vitamin",label:"Vitamins",icon:I.vit},{id:"mineral",label:"Minerals",icon:I.min},{id:"plant",label:"Plant compounds",icon:I.plant}],IDX=new Map(NUTS.map((e,t)=>[e.id,t])),CATS=[...new Set(FOODS.map(e=>e.cat))].sort(),slugify=e=>`${e.name} ${e.state||""}`.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),SLUGS=FOODS.map(slugify),BY_SLUG=new Map(SLUGS.map((e,t)=>[e,t])),nutOpt=e=>{const t=IDX.get(e);return t===void 0?void 0:NUTS[t]},nut=e=>{const t=nutOpt(e);if(!t)throw new Error(`unknown nutrient id: ${e}`);return t},foodAt=e=>{const t=FOODS[e];if(!t)throw new Error(`no food at index ${e}`);return t},slugAt=e=>{const t=SLUGS[e];if(t===void 0)throw new Error(`no food at index ${e}`);return t},foodBySlug=e=>{const t=BY_SLUG.get(e);return t===void 0?void 0:FOODS[t]},groupOf=e=>{const t=GROUPS.find(n=>n.id===e);if(!t)throw new Error(`unknown nutrient group: ${e}`);return t},isGroup=e=>GROUPS.some(t=>t.id===e),RENAMED={"navy-beans-cooked":"haricot-beans-cooked"},currentSlug=e=>RENAMED[e]||e,NOTES=DATA.notes||[],NOTE_AT=new Map;for(const e of NOTES)for(const[t,n]of Object.entries(e.cells||{}))for(const a of n)NOTE_AT.set(`${t} ${a}`,e);const noteFor=(e,t)=>NOTE_AT.get(`${slugAt(e)} ${t}`)||null,ABSORB_NOTES=new Set(["oxalate-high","oxalate-low"]),noteMark=e=>`<sup class="fnote" aria-hidden="true">${esc(e.marker)}</sup><span class="sr">, ${esc(e.short)}</span>`,INTERACTIONS=X.interactions,AFFECTING=new Map;for(const e of INTERACTIONS)for(const t of e.affects)AFFECTING.set(t,[...AFFECTING.get(t)||[],e]);const ACTING=new Map;for(const e of INTERACTIONS)e.agent.kind==="nutrient"&&ACTING.set(e.agent.id,[...ACTING.get(e.agent.id)||[],e]);const affecting=e=>AFFECTING.get(e)||[],acting=e=>ACTING.get(e)||[],hasInteractions=e=>affecting(e).length>0||acting(e).length>0,affectedLabels=e=>e.affects.map(t=>nutOpt(t)?.label??t),RANK_DEPTH=10;function sourceOf(e){const t=[];for(const n of NUTS){if(!hasInteractions(n.id))continue;const a=val(e,n.id);if(!(a===null||a<=0))if(n.dv)a/n.dv>=.1&&t.push(n.id);else{const s=IDX.get(n.id);if(s===void 0)continue;let o=0;for(const i of FOODS){const l=i.v[s];if(typeof l=="number"&&l>a&&++o>=RANK_DEPTH)break}o<RANK_DEPTH&&t.push(n.id)}}return t}function agentLabel(e){return e.kind==="nutrient"?nutOpt(e.id)?.label??e.id:e.kind==="food"?foodBySlug(e.slug)?.name??e.slug:e.label}const BUILTIN_LENSES=[{id:"eaa",name:"Essential amino acids",ids:["his","ile","leu","lys","met","phe","thr","trp","val"],why:"The nine amino acids the body cannot make and must get from food. A protein is only as useful as its scarcest one, so the lowest of these caps the rest."},{id:"creatine",name:"Creatine precursors",ids:["gly","arg","met"],why:"Creatine is not present in plant foods, so vegans synthesise it from these three amino acids. Body stores tend to run lower on a plant-based diet."},{id:"bcaa",name:"Branched-chain (BCAA)",ids:["leu","ile","val"],why:"The three amino acids muscle burns directly rather than sending to the liver. Leucine is the one that triggers muscle protein synthesis."},{id:"sulphur",name:"Sulphur amino acids",ids:["met","cys"],why:"Methionine and cysteine are scored as a pair because cysteine spares methionine. Pulses are usually short on both, which is what grains make up for."},{id:"aromatic",name:"Aromatic amino acids",ids:["phe","tyr"],why:"Phenylalanine and tyrosine are scored as a pair, since the body makes tyrosine from phenylalanine. Both feed dopamine and thyroid hormone production."},{id:"iron",name:"Iron & absorption",ids:["fe","vitc"],why:"Plant iron is non-haem and poorly absorbed on its own. Vitamin C in the same meal can multiply uptake severalfold, so the two columns are worth reading together."},{id:"bone",name:"Bone health",ids:["ca","vitd","vitk","mg","p"],why:"Calcium is only half the story: vitamin D governs how much you absorb, vitamin K directs it into bone, and magnesium and phosphorus build the mineral itself."},{id:"methyl",name:"B12, folate & methylation",ids:["b12","b9","b6","chol","met"],why:"The nutrients that keep homocysteine in check. B12 is the critical gap on a vegan diet, because unfortified plant foods are not a reliable source whatever these figures show."},{id:"omega",name:"Omega balance",ids:["ala","la","epa","dha"],why:"The two fats the body cannot make, and the two it is meant to build from them. ALA and LA compete for the same enzymes, so a diet heavy in omega-6 blunts an already poor conversion. EPA and DHA are what that conversion is for, and both columns are all but empty across these foods, which is the point of showing them."},{id:"antiox",name:"Antioxidant vitamins",ids:["vita","vitc","vite","se"],why:"Nutrients that limit oxidative damage, working in different compartments: vitamin C in water, vitamin E in fat, and selenium as part of the enzymes that recycle them."},{id:"electro",name:"Electrolytes",ids:["na","k","mg","ca"],why:"The minerals governing fluid balance, nerve signalling and muscle contraction. Whole plant foods are naturally high in potassium and low in sodium, the opposite of most processed food."}],DAY_MAX_G=5e3,DEFAULT_G=100,DEFAULT_KG=70,S={groups:new Set(GROUPS.map(e=>e.id)),sort:{id:"__name",dir:1},q:"",cat:"",sel:0,favs:new Set,favsOnly:!1,dv:!1,basis:"g",view:"table",tab:"overview",chartNut:"protein",dark:!1,lens:"",custom:[],day:[],kg:DEFAULT_KG,wUnit:"kg"},clampG=e=>{const t=Math.round(Number(e));return isFinite(t)&&t>0?Math.min(t,DAY_MAX_G):0},clampKg=e=>{const t=Number(e);return!isFinite(t)||t<=0?DEFAULT_KG:Math.round(Math.min(Math.max(t,30),250)*10)/10},LB_PER_KG=2.2046226218,LB_PER_ST=14,kgToStLb=e=>{const t=Math.round(e*LB_PER_KG);return{st:Math.floor(t/LB_PER_ST),lb:t%LB_PER_ST}},stLbToKg=(e,t)=>(e*LB_PER_ST+t)/LB_PER_KG;function weightLabel(){if(S.wUnit!=="stlb")return`${+S.kg.toFixed(1)} kg`;const{st:e,lb:t}=kgToStLb(S.kg);return`${e} st ${t} lb`}const LS_KEY="vegan-nutrients:v1";let storageOK=!0;function savePrefs(){if(storageOK)try{localStorage.setItem(LS_KEY,JSON.stringify({favs:[...S.favs],groups:[...S.groups],sort:S.sort,dv:S.dv,basis:S.basis,dark:S.dark,lens:S.lens,custom:S.custom,favsOnly:S.favsOnly,cat:S.cat,chartNut:S.chartNut,day:S.day,kg:S.kg,wUnit:S.wUnit}))}catch{storageOK=!1}}const lensById=e=>e&&[...BUILTIN_LENSES,...S.custom].find(t=>t.id===e)||null,lensIds=()=>new Set(lensById(S.lens)?.ids||[]);function loadPrefs(){let e;try{e=JSON.parse(localStorage.getItem(LS_KEY)||"null")}catch{storageOK=!1;return}if(!(!e||typeof e!="object")){if(Array.isArray(e.favs)&&(S.favs=new Set(e.favs.map(currentSlug).filter(t=>typeof t=="string"&&BY_SLUG.has(t)))),Array.isArray(e.groups)){const t=e.groups.filter(isGroup);t.length&&(S.groups=new Set(t))}e.sort&&(e.sort.id==="__name"||IDX.has(e.sort.id))&&(S.sort={id:e.sort.id,dir:e.sort.dir===1?1:-1}),typeof e.dv=="boolean"&&(S.dv=e.dv),(e.basis==="g"||e.basis==="kcal")&&(S.basis=e.basis),typeof e.dark=="boolean"&&(S.dark=e.dark),CATS.includes(e.cat)&&(S.cat=e.cat),IDX.has(e.chartNut)&&(S.chartNut=e.chartNut),Array.isArray(e.day)&&(S.day=e.day.filter(t=>t&&typeof t.slug=="string").map(t=>({slug:currentSlug(t.slug),g:clampG(t.g)})).filter(t=>BY_SLUG.has(t.slug))),typeof e.kg=="number"&&isFinite(e.kg)&&(S.kg=clampKg(e.kg)),(e.wUnit==="kg"||e.wUnit==="stlb")&&(S.wUnit=e.wUnit),Array.isArray(e.custom)&&(S.custom=e.custom.filter(t=>t&&typeof t.name=="string"&&Array.isArray(t.ids)).map(t=>({id:String(t.id||""),name:t.name.slice(0,40),ids:t.ids.filter(n=>typeof n=="string"&&IDX.has(n)),...typeof t.why=="string"&&t.why?{why:t.why.slice(0,240)}:{}})).filter(t=>t.id&&t.ids.length)),typeof e.lens=="string"&&lensById(e.lens)&&(S.lens=e.lens),S.favsOnly=e.favsOnly===!0&&S.favs.size>0}}const $=e=>{const t=document.querySelector(e);if(!t)throw new Error(`missing element: ${e}`);return t},$opt=e=>document.querySelector(e),targetEl=e=>e.target instanceof HTMLElement?e.target:null,targetInput=e=>e.target instanceof HTMLInputElement?e.target:null,targetAnyEl=e=>e.target instanceof Element?e.target:null,ESCAPES={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},esc=e=>String(e).replace(/[&<>"']/g,t=>ESCAPES[t]??t),say=e=>{$("#live").textContent=e},cols=()=>NUTS.map((e,t)=>({...e,i:t})).filter(e=>S.groups.has(e.group)),val=(e,t)=>{const n=IDX.get(t);if(n===void 0)throw new Error(`unknown nutrient id: ${t}`);return e.v[n]??null},GRAMS_PER=100,KCAL_BASIS=100;function gramsPer100kcal(e){const t=val(e,"kcal");return t?KCAL_BASIS/t*GRAMS_PER:null}const basisLabel=()=>S.basis==="kcal"?"per 100 kcal":"per 100 g";function shown(e,t){const n=val(e,t.id);if(S.basis==="g"||t.id==="kcal"||n===null)return n;const a=val(e,"kcal");return a?n/a*KCAL_BASIS:null}const NAME_COUNT=FOODS.reduce((e,t)=>e.set(t.name,(e.get(t.name)||0)+1),new Map),fullName=e=>(NAME_COUNT.get(e.name)??0)>1&&e.state?`${e.name}, ${e.state}`:e.name,isFav=e=>S.favs.has(slugAt(e));function toggleFav(e){isFav(e)?S.favs.delete(slugAt(e)):S.favs.add(slugAt(e)),S.favsOnly&&!S.favs.size&&(S.favsOnly=!1),savePrefs()}function fmtText(e,t){return e===null?"n/a":S.dv&&t.dv?e===0?"0%":Math.round(e/t.dv*100)+"%":e===0?"0":e.toFixed(t.dp)}function fmt(e,t){return e===null?'<span class="na">n/a</span>':fmtText(e,t)}const FAO_PATTERN=[{label:"Histidine",ids:["his"],mg:15},{label:"Isoleucine",ids:["ile"],mg:30},{label:"Leucine",ids:["leu"],mg:59},{label:"Lysine",ids:["lys"],mg:45},{label:"Methionine + cysteine",ids:["met","cys"],mg:22},{label:"Phenylalanine + tyrosine",ids:["phe","tyr"],mg:38},{label:"Threonine",ids:["thr"],mg:23},{label:"Tryptophan",ids:["trp"],mg:6},{label:"Valine",ids:["val"],mg:39}];function proteinQuality(e){const t=val(e,"protein");if(!t||t<1)return null;const n=[];for(const o of FAO_PATTERN){let i=0;for(const c of o.ids){const r=val(e,c);if(r===null)return null;i+=r}const l=i*1e3/t;n.push({label:o.label,pc:l/o.mg*100})}if(n.some(o=>!isFinite(o.pc)))return null;const a=n.reduce((o,i)=>i.pc<o.pc?i:o),s=val(e,"kcal");return{score:Math.round(a.pc),limiting:a.label,perKcal:s!==null&&s>0?t/s*100:null}}function omegaRatio(e){const t=val(e,"la"),n=val(e,"ala");return!t||!n?null:t>=n?{a:t/n,flip:!1}:{a:n/t,flip:!0}}const dayEntries=()=>S.day.flatMap(e=>{const t=BY_SLUG.get(e.slug);if(t===void 0)return[];const n=FOODS[t];return n?[{...e,i:t,f:n}]:[]}),dayContributors=()=>dayEntries().filter(e=>e.g>0),dayGrams=()=>dayContributors().reduce((e,t)=>e+t.g,0);function dayTotals(){const e=dayContributors();return NUTS.map(t=>{let n=0,a=0;const s=new Set;for(const o of e){const i=val(o.f,t.id);if(i===null)continue;a++,n+=i*o.g/100;const l=noteFor(o.i,t.id);l&&s.add(l)}return{n:t,total:a?n:null,from:a,of:e.length,partial:a>0&&a<e.length,notes:[...s]}})}const totalOf=(e,t)=>{const n=IDX.get(t),a=n===void 0?void 0:e[n];if(!a)throw new Error(`no day total for nutrient id: ${t}`);return a},PROTEIN_G_PER_KG=.66,aaTargets=e=>FAO_PATTERN.map(t=>({label:t.label,ids:t.ids,target:t.mg*PROTEIN_G_PER_KG*e/1e3}));function dayAminoAcids(e){const t=dayContributors();return t.length?aaTargets(S.kg).map(n=>{const s=t.every(o=>n.ids.every(i=>val(o.f,i)!==null))?n.ids.reduce((o,i)=>{const l=totalOf(e,i).total;return o===null||l===null?null:o+l},0):null;return s===null?{...n,got:null,pc:null}:{...n,got:s,pc:s/n.target*100}}):[]}function dayProteinQuality(e){const t=dayContributors();if(!t.length)return null;const n=FAO_PATTERN.flatMap(s=>s.ids);return t.every(s=>n.every(o=>val(s.f,o)!==null))?proteinQuality({v:e.map(s=>s.total)}):null}const A_BUDGET=new Set(["kcal","carbs","fat","satfat","na"]);function dayStanding(e){const t=e.filter(a=>a.n.dv!==null&&a.n.dv>0&&a.total!==null&&!a.partial).map(a=>({id:a.n.id,label:a.n.label,pc:a.total/a.n.dv*100,budget:A_BUDGET.has(a.n.id)})),n=(a,s)=>a.pc-s.pc;return{short:t.filter(a=>!a.budget&&a.pc<50).sort(n),over:t.filter(a=>!a.budget&&a.pc>=100).sort((a,s)=>-n(a,s)),budget:t.filter(a=>a.budget&&a.pc>=100).sort((a,s)=>-n(a,s))}}function addToDay(e,t=DEFAULT_G){if(!BY_SLUG.has(e))return null;const n=S.day.find(s=>s.slug===e),a=n||{slug:e,g:0};return a.g=clampG(a.g+t),n||S.day.push(a),savePrefs(),a}function setDayGrams(e,t){const n=S.day.find(a=>a.slug===e);n&&(n.g=clampG(t),savePrefs())}function removeFromDay(e){S.day=S.day.filter(t=>t.slug!==e),savePrefs()}function rows(){const e=S.q.trim().toLowerCase();let t=FOODS.map((s,o)=>({f:s,i:o}));S.favsOnly&&(t=t.filter(s=>isFav(s.i))),S.cat&&(t=t.filter(s=>s.f.cat===S.cat)),e&&(t=t.filter(s=>(s.f.name+" "+(s.f.alt||"")+" "+s.f.state+" "+s.f.cat).toLowerCase().includes(e)));const{id:n,dir:a}=S.sort;return t.sort((s,o)=>{if(n==="__name")return a*s.f.name.localeCompare(o.f.name);const i=nut(n),l=shown(s.f,i),c=shown(o.f,i);return l===c?s.f.name.localeCompare(o.f.name):l===null?1:c===null?-1:a*(l-c)}),t}function renderGroups(){const e={};NUTS.forEach(t=>e[t.group]=(e[t.group]||0)+1),$("#groupNav").innerHTML=GROUPS.map(t=>`
+"use strict";const NUTS=DATA.nutrients,FOODS=DATA.foods,GROUPS=[{id:"macro",label:"Macronutrients",icon:I.macro},{id:"fats",label:"Omega & fats",icon:I.fats},{id:"amino",label:"Amino acids",icon:I.amino},{id:"vitamin",label:"Vitamins",icon:I.vit},{id:"mineral",label:"Minerals",icon:I.min},{id:"plant",label:"Plant compounds",icon:I.plant}],IDX=new Map(NUTS.map((e,t)=>[e.id,t])),CATS=[...new Set(FOODS.map(e=>e.cat))].sort(),slugify=e=>`${e.name} ${e.state||""}`.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),SLUGS=FOODS.map(slugify),BY_SLUG=new Map(SLUGS.map((e,t)=>[e,t])),nutOpt=e=>{const t=IDX.get(e);return t===void 0?void 0:NUTS[t]},nut=e=>{const t=nutOpt(e);if(!t)throw new Error(`unknown nutrient id: ${e}`);return t},foodAt=e=>{const t=FOODS[e];if(!t)throw new Error(`no food at index ${e}`);return t},slugAt=e=>{const t=SLUGS[e];if(t===void 0)throw new Error(`no food at index ${e}`);return t},foodBySlug=e=>{const t=BY_SLUG.get(e);return t===void 0?void 0:FOODS[t]},groupOf=e=>{const t=GROUPS.find(n=>n.id===e);if(!t)throw new Error(`unknown nutrient group: ${e}`);return t},isGroup=e=>GROUPS.some(t=>t.id===e),RENAMED={"navy-beans-cooked":"haricot-beans-cooked"},currentSlug=e=>RENAMED[e]||e,NOTES=DATA.notes||[],NOTE_AT=new Map;for(const e of NOTES)for(const[t,n]of Object.entries(e.cells||{}))for(const a of n)NOTE_AT.set(`${t} ${a}`,e);const noteFor=(e,t)=>NOTE_AT.get(`${slugAt(e)} ${t}`)||null,ABSORB_NOTES=new Set(["oxalate-high","oxalate-low"]),noteMark=e=>`<sup class="fnote" aria-hidden="true">${esc(e.marker)}</sup><span class="sr">, ${esc(e.short)}</span>`,INTERACTIONS=X.interactions,AFFECTING=new Map;for(const e of INTERACTIONS)for(const t of e.affects)AFFECTING.set(t,[...AFFECTING.get(t)||[],e]);const ACTING=new Map;for(const e of INTERACTIONS)e.agent.kind==="nutrient"&&ACTING.set(e.agent.id,[...ACTING.get(e.agent.id)||[],e]);const affecting=e=>AFFECTING.get(e)||[],acting=e=>ACTING.get(e)||[],hasInteractions=e=>affecting(e).length>0||acting(e).length>0,affectedLabels=e=>e.affects.map(t=>nutOpt(t)?.label??t),RANK_DEPTH=10;function sourceOf(e){const t=[];for(const n of NUTS){if(!hasInteractions(n.id))continue;const a=val(e,n.id);if(!(a===null||a<=0))if(n.dv)a/n.dv>=.1&&t.push(n.id);else{const s=IDX.get(n.id);if(s===void 0)continue;let o=0;for(const i of FOODS){const l=i.v[s];if(typeof l=="number"&&l>a&&++o>=RANK_DEPTH)break}o<RANK_DEPTH&&t.push(n.id)}}return t}function gapEvidence(e){const t=nutOpt(e);if(!t)return null;let n=0,a=0,s=0,o=0,i=null,l=null;return FOODS.forEach((c,r)=>{const d=val(c,e);if(d===null){s++;return}if(d===0){a++;return}if(n++,noteFor(r,e)?.id==="fortified"){o++;return}if(t.dv){const h=d/t.dv*100;(i===null||h>i)&&(i=h,l=c.name)}}),{above:n,zero:a,unassayed:s,of:FOODS.length,fortified:o,bestPc:i,bestFood:l}}function gapEvidenceText(e){const t=e.nutrients.map(n=>{const a=gapEvidence(n);if(!a)return"";const s=nutOpt(n)?.label??n,o=[`${a.above} of ${a.of} foods ${a.above===1?"has":"have"} any at all`];return a.fortified&&o.push(`${a.fortified} of those ${a.fortified===1?"is":"are"} fortification rather than the food`),a.zero&&o.push(`${a.zero} were measured and found to contain none`),a.unassayed&&o.push(`${a.unassayed} ${a.unassayed===1?"was":"were"} never assayed`),a.bestPc!==null&&a.bestFood&&o.push(`the best unfortified is ${esc(a.bestFood)}, at ${Math.round(a.bestPc)}% of a daily value per 100 g`),`<li><b>${esc(s)}:</b> ${o.join("; ")}.</li>`}).filter(Boolean);return t.length?`<ul class="gapev"><li class="gapevhead">Measured from this table,
+    not quoted:</li>${t.join("")}</ul>`:""}function agentLabel(e){return e.kind==="nutrient"?nutOpt(e.id)?.label??e.id:e.kind==="food"?foodBySlug(e.slug)?.name??e.slug:e.label}const BUILTIN_LENSES=[{id:"eaa",name:"Essential amino acids",ids:["his","ile","leu","lys","met","phe","thr","trp","val"],why:"The nine amino acids the body cannot make and must get from food. A protein is only as useful as its scarcest one, so the lowest of these caps the rest."},{id:"creatine",name:"Creatine precursors",ids:["gly","arg","met"],why:"Creatine is not present in plant foods, so vegans synthesise it from these three amino acids. Body stores tend to run lower on a plant-based diet."},{id:"bcaa",name:"Branched-chain (BCAA)",ids:["leu","ile","val"],why:"The three amino acids muscle burns directly rather than sending to the liver. Leucine is the one that triggers muscle protein synthesis."},{id:"sulphur",name:"Sulphur amino acids",ids:["met","cys"],why:"Methionine and cysteine are scored as a pair because cysteine spares methionine. Pulses are usually short on both, which is what grains make up for."},{id:"aromatic",name:"Aromatic amino acids",ids:["phe","tyr"],why:"Phenylalanine and tyrosine are scored as a pair, since the body makes tyrosine from phenylalanine. Both feed dopamine and thyroid hormone production."},{id:"iron",name:"Iron & absorption",ids:["fe","vitc"],why:"Plant iron is non-haem and poorly absorbed on its own. Vitamin C in the same meal can multiply uptake severalfold, so the two columns are worth reading together."},{id:"bone",name:"Bone health",ids:["ca","vitd","vitk","mg","p"],why:"Calcium is only half the story: vitamin D governs how much you absorb, vitamin K directs it into bone, and magnesium and phosphorus build the mineral itself."},{id:"methyl",name:"B12, folate & methylation",ids:["b12","b9","b6","chol","met"],why:"The nutrients that keep homocysteine in check. B12 is the critical gap on a vegan diet, because unfortified plant foods are not a reliable source whatever these figures show."},{id:"omega",name:"Omega balance",ids:["ala","la","epa","dha"],why:"The two fats the body cannot make, and the two it is meant to build from them. ALA and LA compete for the same enzymes, so a diet heavy in omega-6 blunts an already poor conversion. EPA and DHA are what that conversion is for, and both columns are all but empty across these foods, which is the point of showing them."},{id:"antiox",name:"Antioxidant vitamins",ids:["vita","vitc","vite","se"],why:"Nutrients that limit oxidative damage, working in different compartments: vitamin C in water, vitamin E in fat, and selenium as part of the enzymes that recycle them."},{id:"electro",name:"Electrolytes",ids:["na","k","mg","ca"],why:"The minerals governing fluid balance, nerve signalling and muscle contraction. Whole plant foods are naturally high in potassium and low in sodium, the opposite of most processed food."}],DAY_MAX_G=5e3,DEFAULT_G=100,DEFAULT_KG=70,S={groups:new Set(GROUPS.map(e=>e.id)),sort:{id:"__name",dir:1},q:"",cat:"",sel:0,favs:new Set,favsOnly:!1,dv:!1,basis:"g",view:"table",tab:"overview",chartNut:"protein",dark:!1,lens:"",custom:[],day:[],kg:DEFAULT_KG,wUnit:"kg"},clampG=e=>{const t=Math.round(Number(e));return isFinite(t)&&t>0?Math.min(t,DAY_MAX_G):0},clampKg=e=>{const t=Number(e);return!isFinite(t)||t<=0?DEFAULT_KG:Math.round(Math.min(Math.max(t,30),250)*10)/10},LB_PER_KG=2.2046226218,LB_PER_ST=14,kgToStLb=e=>{const t=Math.round(e*LB_PER_KG);return{st:Math.floor(t/LB_PER_ST),lb:t%LB_PER_ST}},stLbToKg=(e,t)=>(e*LB_PER_ST+t)/LB_PER_KG;function weightLabel(){if(S.wUnit!=="stlb")return`${+S.kg.toFixed(1)} kg`;const{st:e,lb:t}=kgToStLb(S.kg);return`${e} st ${t} lb`}const LS_KEY="vegan-nutrients:v1";let storageOK=!0;function savePrefs(){if(storageOK)try{localStorage.setItem(LS_KEY,JSON.stringify({favs:[...S.favs],groups:[...S.groups],sort:S.sort,dv:S.dv,basis:S.basis,dark:S.dark,lens:S.lens,custom:S.custom,favsOnly:S.favsOnly,cat:S.cat,chartNut:S.chartNut,day:S.day,kg:S.kg,wUnit:S.wUnit}))}catch{storageOK=!1}}const lensById=e=>e&&[...BUILTIN_LENSES,...S.custom].find(t=>t.id===e)||null,lensIds=()=>new Set(lensById(S.lens)?.ids||[]);function loadPrefs(){let e;try{e=JSON.parse(localStorage.getItem(LS_KEY)||"null")}catch{storageOK=!1;return}if(!(!e||typeof e!="object")){if(Array.isArray(e.favs)&&(S.favs=new Set(e.favs.map(currentSlug).filter(t=>typeof t=="string"&&BY_SLUG.has(t)))),Array.isArray(e.groups)){const t=e.groups.filter(isGroup);t.length&&(S.groups=new Set(t))}e.sort&&(e.sort.id==="__name"||IDX.has(e.sort.id))&&(S.sort={id:e.sort.id,dir:e.sort.dir===1?1:-1}),typeof e.dv=="boolean"&&(S.dv=e.dv),(e.basis==="g"||e.basis==="kcal")&&(S.basis=e.basis),typeof e.dark=="boolean"&&(S.dark=e.dark),CATS.includes(e.cat)&&(S.cat=e.cat),IDX.has(e.chartNut)&&(S.chartNut=e.chartNut),Array.isArray(e.day)&&(S.day=e.day.filter(t=>t&&typeof t.slug=="string").map(t=>({slug:currentSlug(t.slug),g:clampG(t.g)})).filter(t=>BY_SLUG.has(t.slug))),typeof e.kg=="number"&&isFinite(e.kg)&&(S.kg=clampKg(e.kg)),(e.wUnit==="kg"||e.wUnit==="stlb")&&(S.wUnit=e.wUnit),Array.isArray(e.custom)&&(S.custom=e.custom.filter(t=>t&&typeof t.name=="string"&&Array.isArray(t.ids)).map(t=>({id:String(t.id||""),name:t.name.slice(0,40),ids:t.ids.filter(n=>typeof n=="string"&&IDX.has(n)),...typeof t.why=="string"&&t.why?{why:t.why.slice(0,240)}:{}})).filter(t=>t.id&&t.ids.length)),typeof e.lens=="string"&&lensById(e.lens)&&(S.lens=e.lens),S.favsOnly=e.favsOnly===!0&&S.favs.size>0}}const $=e=>{const t=document.querySelector(e);if(!t)throw new Error(`missing element: ${e}`);return t},$opt=e=>document.querySelector(e),targetEl=e=>e.target instanceof HTMLElement?e.target:null,targetInput=e=>e.target instanceof HTMLInputElement?e.target:null,targetAnyEl=e=>e.target instanceof Element?e.target:null,ESCAPES={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},esc=e=>String(e).replace(/[&<>"']/g,t=>ESCAPES[t]??t),say=e=>{$("#live").textContent=e},cols=()=>NUTS.map((e,t)=>({...e,i:t})).filter(e=>S.groups.has(e.group)),val=(e,t)=>{const n=IDX.get(t);if(n===void 0)throw new Error(`unknown nutrient id: ${t}`);return e.v[n]??null},GRAMS_PER=100,KCAL_BASIS=100;function gramsPer100kcal(e){const t=val(e,"kcal");return t?KCAL_BASIS/t*GRAMS_PER:null}const basisLabel=()=>S.basis==="kcal"?"per 100 kcal":"per 100 g";function shown(e,t){const n=val(e,t.id);if(S.basis==="g"||t.id==="kcal"||n===null)return n;const a=val(e,"kcal");return a?n/a*KCAL_BASIS:null}const NAME_COUNT=FOODS.reduce((e,t)=>e.set(t.name,(e.get(t.name)||0)+1),new Map),fullName=e=>(NAME_COUNT.get(e.name)??0)>1&&e.state?`${e.name}, ${e.state}`:e.name,isFav=e=>S.favs.has(slugAt(e));function toggleFav(e){isFav(e)?S.favs.delete(slugAt(e)):S.favs.add(slugAt(e)),S.favsOnly&&!S.favs.size&&(S.favsOnly=!1),savePrefs()}function fmtText(e,t){return e===null?"n/a":S.dv&&t.dv?e===0?"0%":Math.round(e/t.dv*100)+"%":e===0?"0":e.toFixed(t.dp)}function fmt(e,t){return e===null?'<span class="na">n/a</span>':fmtText(e,t)}const FAO_PATTERN=[{label:"Histidine",ids:["his"],mg:15},{label:"Isoleucine",ids:["ile"],mg:30},{label:"Leucine",ids:["leu"],mg:59},{label:"Lysine",ids:["lys"],mg:45},{label:"Methionine + cysteine",ids:["met","cys"],mg:22},{label:"Phenylalanine + tyrosine",ids:["phe","tyr"],mg:38},{label:"Threonine",ids:["thr"],mg:23},{label:"Tryptophan",ids:["trp"],mg:6},{label:"Valine",ids:["val"],mg:39}];function proteinQuality(e){const t=val(e,"protein");if(!t||t<1)return null;const n=[];for(const o of FAO_PATTERN){let i=0;for(const c of o.ids){const r=val(e,c);if(r===null)return null;i+=r}const l=i*1e3/t;n.push({label:o.label,pc:l/o.mg*100})}if(n.some(o=>!isFinite(o.pc)))return null;const a=n.reduce((o,i)=>i.pc<o.pc?i:o),s=val(e,"kcal");return{score:Math.round(a.pc),limiting:a.label,perKcal:s!==null&&s>0?t/s*100:null}}function omegaRatio(e){const t=val(e,"la"),n=val(e,"ala");return!t||!n?null:t>=n?{a:t/n,flip:!1}:{a:n/t,flip:!0}}const dayEntries=()=>S.day.flatMap(e=>{const t=BY_SLUG.get(e.slug);if(t===void 0)return[];const n=FOODS[t];return n?[{...e,i:t,f:n}]:[]}),dayContributors=()=>dayEntries().filter(e=>e.g>0),dayGrams=()=>dayContributors().reduce((e,t)=>e+t.g,0);function dayTotals(){const e=dayContributors();return NUTS.map(t=>{let n=0,a=0;const s=new Set;for(const o of e){const i=val(o.f,t.id);if(i===null)continue;a++,n+=i*o.g/100;const l=noteFor(o.i,t.id);l&&s.add(l)}return{n:t,total:a?n:null,from:a,of:e.length,partial:a>0&&a<e.length,notes:[...s]}})}const totalOf=(e,t)=>{const n=IDX.get(t),a=n===void 0?void 0:e[n];if(!a)throw new Error(`no day total for nutrient id: ${t}`);return a},PROTEIN_G_PER_KG=.66,aaTargets=e=>FAO_PATTERN.map(t=>({label:t.label,ids:t.ids,target:t.mg*PROTEIN_G_PER_KG*e/1e3}));function dayAminoAcids(e){const t=dayContributors();return t.length?aaTargets(S.kg).map(n=>{const s=t.every(o=>n.ids.every(i=>val(o.f,i)!==null))?n.ids.reduce((o,i)=>{const l=totalOf(e,i).total;return o===null||l===null?null:o+l},0):null;return s===null?{...n,got:null,pc:null}:{...n,got:s,pc:s/n.target*100}}):[]}function dayProteinQuality(e){const t=dayContributors();if(!t.length)return null;const n=FAO_PATTERN.flatMap(s=>s.ids);return t.every(s=>n.every(o=>val(s.f,o)!==null))?proteinQuality({v:e.map(s=>s.total)}):null}const A_BUDGET=new Set(["kcal","carbs","fat","satfat","na"]);function dayStanding(e){const t=e.filter(a=>a.n.dv!==null&&a.n.dv>0&&a.total!==null&&!a.partial).map(a=>({id:a.n.id,label:a.n.label,pc:a.total/a.n.dv*100,budget:A_BUDGET.has(a.n.id)})),n=(a,s)=>a.pc-s.pc;return{short:t.filter(a=>!a.budget&&a.pc<50).sort(n),over:t.filter(a=>!a.budget&&a.pc>=100).sort((a,s)=>-n(a,s)),budget:t.filter(a=>a.budget&&a.pc>=100).sort((a,s)=>-n(a,s))}}function addToDay(e,t=DEFAULT_G){if(!BY_SLUG.has(e))return null;const n=S.day.find(s=>s.slug===e),a=n||{slug:e,g:0};return a.g=clampG(a.g+t),n||S.day.push(a),savePrefs(),a}function setDayGrams(e,t){const n=S.day.find(a=>a.slug===e);n&&(n.g=clampG(t),savePrefs())}function removeFromDay(e){S.day=S.day.filter(t=>t.slug!==e),savePrefs()}function rows(){const e=S.q.trim().toLowerCase();let t=FOODS.map((s,o)=>({f:s,i:o}));S.favsOnly&&(t=t.filter(s=>isFav(s.i))),S.cat&&(t=t.filter(s=>s.f.cat===S.cat)),e&&(t=t.filter(s=>(s.f.name+" "+(s.f.alt||"")+" "+s.f.state+" "+s.f.cat).toLowerCase().includes(e)));const{id:n,dir:a}=S.sort;return t.sort((s,o)=>{if(n==="__name")return a*s.f.name.localeCompare(o.f.name);const i=nut(n),l=shown(s.f,i),c=shown(o.f,i);return l===c?s.f.name.localeCompare(o.f.name):l===null?1:c===null?-1:a*(l-c)}),t}function renderGroups(){const e={};NUTS.forEach(t=>e[t.group]=(e[t.group]||0)+1),$("#groupNav").innerHTML=GROUPS.map(t=>`
     <li><button class="navbtn" type="button" data-grp="${t.id}"
         aria-pressed="${S.groups.has(t.id)}">
       ${t.icon}<span>${t.label}</span>
@@ -1064,8 +267,10 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
     <li><button class="navbtn sub" type="button" data-cat="${esc(n)}"
         aria-pressed="${S.cat===n}">
       <span>${esc(a)}</span>
-      <span class="count">${s}</span><span class="dot"></span></button></li>`).join("")}function setCat(e){S.cat=e===S.cat?"":e,renderCats(),say(S.cat?`Showing ${S.cat} only.`:"Showing all categories."),savePrefs(),render()}function toggleGroup(e){S.groups.has(e)?S.groups.delete(e):S.groups.add(e);const t=!S.groups.size;t&&S.groups.add("macro"),document.querySelectorAll("#groupNav [data-grp]").forEach(n=>{const a=n.dataset.grp;n.setAttribute("aria-pressed",String(isGroup(a)&&S.groups.has(a)))}),say(t?"The table needs at least one group, so macronutrients stay shown.":`${groupOf(e).label} ${S.groups.has(e)?"shown":"hidden"}. ${cols().length} nutrient columns visible.`),savePrefs(),render()}const LENS_ADD="__add";function renderLensSelect(){const e=t=>`<option value="${esc(t.id)}"${t.id===S.lens?" selected":""}${t.why?` title="${esc(t.why)}"`:""}>${esc(t.name)}</option>`;$("#lensSel").innerHTML=`<option value=""${S.lens?"":" selected"}>None</option><optgroup label="Built in">${BUILTIN_LENSES.map(e).join("")}</optgroup>`+(S.custom.length?`<optgroup label="Yours">${S.custom.map(e).join("")}</optgroup>`:"")+`<option value="${LENS_ADD}" title="Build your own highlight group from any nutrients.">Add…</option>`,$("#lensSel").classList.toggle("lensactive",!!S.lens),renderLensNote()}function renderLensNote(){const e=lensById(S.lens),t=$("#lensNote");if(!e){t.hidden=!0,t.innerHTML="";return}const n=e.ids.map(a=>nutOpt(a)?.label).filter(a=>a!==void 0);t.hidden=!1,t.innerHTML=`<b>${esc(e.name)}</b>`+(e.why?` ${esc(e.why)}`:` Highlighting ${n.length} nutrients.`)+`<span class="cols">${n.map(esc).join(" · ")}</span>`}function setLens(e){S.lens=lensById(e)?e:"";const t=lensById(S.lens);if(t){const a=[...new Set(t.ids.map(s=>nut(s).group))].filter(s=>!S.groups.has(s));a.forEach(s=>S.groups.add(s)),a.length?(renderGroups(),say(`Highlighting ${t.name}. Also showing ${a.map(s=>groupOf(s).label.toLowerCase()).join(" and ")}.`)):say(`Highlighting ${t.name}, ${t.ids.length} nutrients.`)}else say("Highlight cleared.");renderLensSelect(),savePrefs(),render()}let hoverNut=null;function renderNutNote(){const e=hoverNut||(S.sort.id!=="__name"?S.sort.id:null),t=e?nutOpt(e):null;$("#nutNote").innerHTML=t&&t.why?`<b>${esc(t.label)}</b> ${esc(t.why)}${absorptionLine(t.id)}`:`Point at a column header, or tab onto one, to read what that nutrient
-       does in the body. Sorting by a column leaves its explanation here.`}const cap3=e=>e.length<=3?e.join(", "):`${e.slice(0,3).join(", ")} and ${e.length-3} more`;function absorptionLine(e){const t=affecting(e).filter(i=>i.direction==="up"),n=affecting(e).filter(i=>i.direction==="down"),a=acting(e);if(!t.length&&!n.length&&!a.length)return"";const s=i=>i.map(l=>esc(l.short)).join(" · ");return`<span class="absorb">${[t.length?`<span class="up"><b aria-hidden="true">↑</b>
+      <span class="count">${s}</span><span class="dot"></span></button></li>`).join("")}function setCat(e){S.cat=e===S.cat?"":e,renderCats(),say(S.cat?`Showing ${S.cat} only.`:"Showing all categories."),savePrefs(),render()}function toggleGroup(e){S.groups.has(e)?S.groups.delete(e):S.groups.add(e);const t=!S.groups.size;t&&S.groups.add("macro"),document.querySelectorAll("#groupNav [data-grp]").forEach(n=>{const a=n.dataset.grp;n.setAttribute("aria-pressed",String(isGroup(a)&&S.groups.has(a)))}),say(t?"The table needs at least one group, so macronutrients stay shown.":`${groupOf(e).label} ${S.groups.has(e)?"shown":"hidden"}. ${cols().length} nutrient columns visible.`),savePrefs(),render()}const LENS_ADD="__add";function renderLensSelect(){const e=t=>`<option value="${esc(t.id)}"${t.id===S.lens?" selected":""}${t.why?` title="${esc(t.why)}"`:""}>${esc(t.name)}</option>`;$("#lensSel").innerHTML=`<option value=""${S.lens?"":" selected"}>None</option><optgroup label="Built in">${BUILTIN_LENSES.map(e).join("")}</optgroup>`+(S.custom.length?`<optgroup label="Yours">${S.custom.map(e).join("")}</optgroup>`:"")+`<option value="${LENS_ADD}" title="Build your own highlight group from any nutrients.">Add…</option>`,$("#lensSel").classList.toggle("lensactive",!!S.lens),renderLensNote()}function renderLensNote(){const e=lensById(S.lens),t=$("#lensNote");if(!e){t.hidden=!0,t.innerHTML="";return}const n=e.ids.map(a=>nutOpt(a)?.label).filter(a=>a!==void 0);t.hidden=!1,t.innerHTML=`<b>${esc(e.name)}</b>`+(e.why?` ${esc(e.why)}`:` Highlighting ${n.length} nutrients.`)+`<span class="cols">${n.map(esc).join(" · ")}</span>`}function setLens(e){S.lens=lensById(e)?e:"";const t=lensById(S.lens);if(t){const a=[...new Set(t.ids.map(s=>nut(s).group))].filter(s=>!S.groups.has(s));a.forEach(s=>S.groups.add(s)),a.length?(renderGroups(),say(`Highlighting ${t.name}. Also showing ${a.map(s=>groupOf(s).label.toLowerCase()).join(" and ")}.`)):say(`Highlighting ${t.name}, ${t.ids.length} nutrients.`)}else say("Highlight cleared.");renderLensSelect(),savePrefs(),render()}let hoverNut=null;function renderNutNote(){const e=hoverNut||(S.sort.id!=="__name"?S.sort.id:null),t=e?nutOpt(e):null;$("#nutNote").innerHTML=t&&t.why?`<b>${esc(t.label)}</b> ${esc(t.why)}${gapLine(t.id)}${absorptionLine(t.id)}`:`Point at a column header, or tab onto one, to read what that nutrient
+       does in the body. Sorting by a column leaves its explanation here.`}const GAP_BY_NUTRIENT=new Map;for(const e of G.gaps)for(const t of e.nutrients)GAP_BY_NUTRIENT.set(t,e);function gapLine(e){const t=GAP_BY_NUTRIENT.get(e);if(!t)return"";const n=t.tier==="gap"?"Food will not supply this":"Thin here, worth planning";return`<span class="gapwarn gapwarn-${t.tier}">
+    <b aria-hidden="true">!</b> ${esc(n)}.
+    <button class="absorbmore" type="button" data-dlg="gaps">Nutrient gaps</button></span>`}const cap3=e=>e.length<=3?e.join(", "):`${e.slice(0,3).join(", ")} and ${e.length-3} more`;function absorptionLine(e){const t=affecting(e).filter(i=>i.direction==="up"),n=affecting(e).filter(i=>i.direction==="down"),a=acting(e);if(!t.length&&!n.length&&!a.length)return"";const s=i=>i.map(l=>esc(l.short)).join(" · ");return`<span class="absorb">${[t.length?`<span class="up"><b aria-hidden="true">↑</b>
       <span class="sr">Absorption raised by </span>${s(t)}</span>`:"",n.length?`<span class="down"><b aria-hidden="true">↓</b>
       <span class="sr">Absorption lowered by </span>${s(n)}</span>`:"",a.length?`<span class="does">${a.map(i=>`${i.direction==="up"?"Raises":"Lowers"} ${esc(cap3(affectedLabels(i)))}`).join("; ")}</span>`:""].filter(Boolean).join("")}
     <button class="absorbmore" type="button" data-dlg="bio">Absorption</button></span>`}const nutOf=e=>{const t=targetAnyEl(e)?.closest("[data-sort]")?.dataset.sort;return t&&t!=="__name"?t:null};function previewNut(e){e!==hoverNut&&(hoverNut=e,renderNutNote())}$("#thead").addEventListener("mouseover",e=>previewNut(nutOf(e))),$("#thead").addEventListener("mouseleave",()=>previewNut(null)),$("#thead").addEventListener("focusin",e=>previewNut(nutOf(e))),$("#thead").addEventListener("focusout",()=>previewNut(null));function layout(){const e=cols(),t=lensIds();return e.map((n,a)=>{const s=e[a-1],o=e[a+1],i=t.has(n.id);return{...n,gstart:!s||s.group!==n.group,lens:i,lensL:i&&(!s||!t.has(s.id)),lensR:i&&(!o||!t.has(o.id)),sorted:S.sort.id===n.id}})}const colClass=e=>[e.gstart&&"gstart",e.lens&&"lens",e.lensL&&"lensL",e.lensR&&"lensR",e.sorted&&"sorted"].filter(Boolean).join(" ");function renderTable(e){const t=layout(),n=e,a=S.sort.id==="__name",s=GROUPS.filter(r=>S.groups.has(r.id)).map(r=>{const d=t.filter(u=>u.group===r.id);return`<th class="grp${d.some(u=>u.lens)?" lens":""}" data-g="${r.id}" colspan="${d.length}"
@@ -1096,7 +301,7 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
           ${isFav(d)?I.heartFull:I.heart}
           <span class="sr">${isFav(d)?"Remove":"Add"} ${esc(r.name)} ${isFav(d)?"from":"to"} favourites</span>
         </button></div></td>
-      ${t.map(u=>{const m=shown(r,u),b=m===0||m===null,g=m===null?null:noteFor(d,u.id);return g&&i.add(g),`<td class="num${b?" low":""} ${colClass(u)}" data-g="${u.group}">${fmt(m,u)}${g?noteMark(g):""}</td>`}).join("")}
+      ${t.map(u=>{const f=shown(r,u),b=f===0||f===null,m=f===null?null:noteFor(d,u.id);return m&&i.add(m),`<td class="num${b?" low":""} ${colClass(u)}" data-g="${u.group}">${fmt(f,u)}${m?noteMark(m):""}</td>`}).join("")}
     </tr>`}).join(""):`<tr><td class="empty" colspan="${t.length+1}">${emptyState()}</td></tr>`;const l=lensById(S.lens);$("#cap").textContent=(n.length===FOODS.length?`${FOODS.length} vegan foods`:`Showing ${n.length} of ${FOODS.length} vegan foods`)+(t.length===NUTS.length?`, all ${t.length} nutrient columns`:`, ${t.length} of ${NUTS.length} nutrient columns`)+`. Values ${basisLabel()} of food`+(S.dv?", shown as % of adult daily value.":".")+(S.favsOnly?" Favourites only.":"")+(l?` ${l.name} highlighted.`:"")+(S.dv&&S.basis==="kcal"?" 5% here is a full day's worth at 2000 kcal.":"");const c=$("#noteKey");c.hidden=!i.size,c.innerHTML=[...i].map(r=>`<span><sup class="fnote">${esc(r.marker)}</sup> <b>${esc(r.short)}.</b>
      ${esc(r.text)}</span>`).join(""),syncHeadOffset()}function syncHeadOffset(){const e=$("#thead").rows[0];if(!e)return;const t=e.getBoundingClientRect().height;t&&$("#grid").style.setProperty("--head1",`${Math.floor(t)}px`);const n=e.cells[0],a=n&&n.getBoundingClientRect().width;a&&$("#grid").style.setProperty("--foodw",`${a}px`);const s=$("#scroller").clientWidth;s&&$("#grid").style.setProperty("--scrollw",`${s}px`)}addEventListener("resize",syncHeadOffset);function emptyState(){return S.favsOnly&&!S.favs.size?`<b>No favourites yet</b>Star a food with the heart button to build a shortlist,
             then come back here.
@@ -1121,8 +326,8 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
         <dd>${esc(t.limiting)}</dd></div>`,t.perKcal!==null&&(s+=`<div class="drow"><dt>Protein per 100 kcal</dt>
         <dd>${t.perKcal.toFixed(1)} g</dd></div>`)}n&&(s+=`<div class="drow"><dt>Omega-6 : omega-3</dt>
       <dd>${n.flip?`1 : ${n.a.toFixed(1)}`:`${n.a.toFixed(1)} : 1`}</dd></div>`);const o=t?t.score>=100?"Meets the adult FAO/WHO pattern for every essential amino acid.":`Scored against the FAO/WHO adult pattern. ${esc(t.limiting)} caps the
-           score; pairing this food with one richer in it raises the total.`:"";return`<h4 style="margin-top:18px">Protein quality</h4><dl>${s}</dl>`+(o?`<p style="font-size:11.5px;color:var(--faint);margin:8px 0 0;line-height:1.4">${o}</p>`:"")}function renderDetail(){const e=foodAt(S.sel),t=l=>shown(e,nut(l)),n=S.day.find(l=>l.slug===slugAt(S.sel)),a=["vitamin","mineral","amino","plant"],s=[["overview","Overview",I.macro],...a.map(l=>groupOf(l)).map(l=>[l.id,l.label,l.icon]),["absorption","Absorption",I.eye]],o=new Set;let i;if(S.tab==="overview"){const l=["kcal","protein","carbs","fiber","fat","satfat"],c=NUTS.filter(r=>r.dv!==null&&r.dv>0&&r.group!=="macro").flatMap(r=>{const d=t(r.id);return d===null?[]:[{n:r,pc:d/r.dv*100}]}).filter(r=>r.pc>0).sort((r,d)=>d.pc-r.pc).slice(0,6);i="<h4>Macronutrients</h4><dl>"+l.map(r=>{const d=nut(r),h=t(r),u=r==="fiber"||r==="satfat",m=r==="kcal"&&h!==null?` <span class="pc">· ${Math.round(h*4.184)} kJ</span>`:"";return`<div class="drow${u?" sub":""}"><dt>${esc(d.label)}</dt>
-        <dd>${h===null?'<span class="nodata">not measured</span>':`${h.toFixed(d.dp)} ${d.unit}${m}`}</dd></div>`}).join("")+"</dl>"+proteinQualityBlock(e)+'<h4 style="margin-top:18px">Top nutrients</h4><dl>'+c.map(({n:r,pc:d})=>{const h=noteFor(S.sel,r.id);return h&&o.add(h),`<div class="drow"><dt>${esc(r.label)}</dt>
+           score; pairing this food with one richer in it raises the total.`:"";return`<h4 style="margin-top:18px">Protein quality</h4><dl>${s}</dl>`+(o?`<p style="font-size:11.5px;color:var(--faint);margin:8px 0 0;line-height:1.4">${o}</p>`:"")}function renderDetail(){const e=foodAt(S.sel),t=l=>shown(e,nut(l)),n=S.day.find(l=>l.slug===slugAt(S.sel)),a=["vitamin","mineral","amino","plant"],s=[["overview","Overview",I.macro],...a.map(l=>groupOf(l)).map(l=>[l.id,l.label,l.icon]),["absorption","Absorption",I.eye]],o=new Set;let i;if(S.tab==="overview"){const l=["kcal","protein","carbs","fiber","fat","satfat"],c=NUTS.filter(r=>r.dv!==null&&r.dv>0&&r.group!=="macro").flatMap(r=>{const d=t(r.id);return d===null?[]:[{n:r,pc:d/r.dv*100}]}).filter(r=>r.pc>0).sort((r,d)=>d.pc-r.pc).slice(0,6);i="<h4>Macronutrients</h4><dl>"+l.map(r=>{const d=nut(r),h=t(r),u=r==="fiber"||r==="satfat",f=r==="kcal"&&h!==null?` <span class="pc">· ${Math.round(h*4.184)} kJ</span>`:"";return`<div class="drow${u?" sub":""}"><dt>${esc(d.label)}</dt>
+        <dd>${h===null?'<span class="nodata">not measured</span>':`${h.toFixed(d.dp)} ${d.unit}${f}`}</dd></div>`}).join("")+"</dl>"+proteinQualityBlock(e)+'<h4 style="margin-top:18px">Top nutrients</h4><dl>'+c.map(({n:r,pc:d})=>{const h=noteFor(S.sel,r.id);return h&&o.add(h),`<div class="drow"><dt>${esc(r.label)}</dt>
           <dd class="pc">${Math.round(d)}% DV${h?noteMark(h):""}</dd></div>`}).join("")+"</dl>"}else if(S.tab==="absorption"){const l=sourceOf(e),c=NUTS.flatMap(r=>{const d=val(e,r.id)===null?null:noteFor(S.sel,r.id);return d&&ABSORB_NOTES.has(d.id)?[{n:r,note:d}]:[]});for(const{note:r}of c)o.add(r);i="<h4>Absorption</h4>"+(c.length?c.map(({n:r,note:d})=>`
         <div class="biorow curated">
           <div class="biohead"><b>${esc(r.label)}</b>
@@ -1141,12 +346,12 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
            not that its nutrients are absorbed whole.</p>`)+`<p class="nodatanote">These are general facts about the nutrients, shown because this
        food's own figures make it a meaningful source of them. Nothing above adjusts a figure.
        <button class="absorbmore" type="button" data-dlg="bio">Sources</button></p>`}else{const l=NUTS.filter(u=>u.group===S.tab),c=l.map(u=>t(u.id)).filter(u=>u!==null),r=Math.max(...c,1e-4),d=lensIds(),h=l.length-c.length;i=`<h4>${esc(GROUPS.find(u=>u.id===S.tab)?.label||S.tab)}</h4>
-      <dl>`+l.map(u=>{const m=t(u.id),b=m===null,g=!b&&u.dv?Math.round(m/u.dv*100):null,f=b?null:noteFor(S.sel,u.id);return f&&o.add(f),`<div class="drow${d.has(u.id)?" lensrow":""}" style="display:block">
+      <dl>`+l.map(u=>{const f=t(u.id),b=f===null,m=!b&&u.dv?Math.round(f/u.dv*100):null,g=b?null:noteFor(S.sel,u.id);return g&&o.add(g),`<div class="drow${d.has(u.id)?" lensrow":""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <dt>${esc(u.label)}</dt>
-            <dd>${b?'<span class="nodata">not measured</span>':`${m.toFixed(u.dp)} ${u.unit}${g!==null?` <span class="pc">· ${g}%</span>`:""}${f?noteMark(f):""}`}</dd>
+            <dd>${b?'<span class="nodata">not measured</span>':`${f.toFixed(u.dp)} ${u.unit}${m!==null?` <span class="pc">· ${m}%</span>`:""}${g?noteMark(g):""}`}</dd>
           </div>
-          ${b?"":`<div class="minibar" aria-hidden="true"><i style="width:${(m/r*100).toFixed(1)}%"></i></div>`}
+          ${b?"":`<div class="minibar" aria-hidden="true"><i style="width:${(f/r*100).toFixed(1)}%"></i></div>`}
         </div>`}).join("")+"</dl>"+(h?`<p class="nodatanote">${h===l.length?"USDA publishes no figures at all for this group in this food.":`USDA publishes no figure for ${h} of the ${l.length}.`}
         Unmeasured is not the same as none: nobody has analysed it, rather than
         having analysed it and found nothing.</p>`:"")}$("#detail").innerHTML=`
@@ -1206,13 +411,13 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
       <button class="btn" type="button" data-act="dayclear">${I.x} Clear the day</button>
       <span class="push">${e.length} food${e.length===1?"":"s"} ·
         <b>${dayGrams()} g</b> in total</span>
-    </div>`}const FAO_SCORED=new Set(FAO_PATTERN.flatMap(e=>e.ids)),NON_ESSENTIAL=NUTS.filter(e=>e.group==="amino"&&!FAO_SCORED.has(e.id)).length;function aminoRefsByNutrient(e){const t=new Map;for(const n of dayAminoAcids(e))for(const a of n.ids)t.set(a,{...n,partners:n.ids.filter(s=>s!==a)});return t}function renderDayTotals(e){const t=dayContributors(),n=$("#dayTotals");if(!t.length){n.innerHTML="";return}const a=aminoRefsByNutrient(e),s=new Set,o=GROUPS.filter(i=>S.groups.has(i.id)).map(i=>{const l=e.filter(r=>r.n.group===i.id).map(r=>{const{n:d,total:h,partial:u,from:m,of:b,notes:g}=r,f=a.get(d.id),p=d.dv&&h!==null?h/d.dv*100:f?f.pc:null,y=f&&f.partners.length?`<span class="qual">with ${f.partners.map(v=>nut(v).label.toLowerCase()).join(" and ")}</span>`:"";return g.forEach(v=>s.add(v)),`<div class="totrow${h===null?" none":""}">
-        <span class="totname">${esc(d.label)}${g.map(noteMark).join("")}${y}</span>
+    </div>`}const FAO_SCORED=new Set(FAO_PATTERN.flatMap(e=>e.ids)),NON_ESSENTIAL=NUTS.filter(e=>e.group==="amino"&&!FAO_SCORED.has(e.id)).length;function aminoRefsByNutrient(e){const t=new Map;for(const n of dayAminoAcids(e))for(const a of n.ids)t.set(a,{...n,partners:n.ids.filter(s=>s!==a)});return t}function renderDayTotals(e){const t=dayContributors(),n=$("#dayTotals");if(!t.length){n.innerHTML="";return}const a=aminoRefsByNutrient(e),s=new Set,o=GROUPS.filter(i=>S.groups.has(i.id)).map(i=>{const l=e.filter(r=>r.n.group===i.id).map(r=>{const{n:d,total:h,partial:u,from:f,of:b,notes:m}=r,g=a.get(d.id),p=d.dv&&h!==null?h/d.dv*100:g?g.pc:null,y=g&&g.partners.length?`<span class="qual">with ${g.partners.map(v=>nut(v).label.toLowerCase()).join(" and ")}</span>`:"";return m.forEach(v=>s.add(v)),`<div class="totrow${h===null?" none":""}">
+        <span class="totname">${esc(d.label)}${m.map(noteMark).join("")}${y}</span>
         <span class="totval">${h===null?'<span class="nodata">not measured</span>':`${h.toFixed(d.dp)} <span class="u">${esc(d.unit)}</span>`}</span>
         <span class="totbar" aria-hidden="true">${p===null?"":`<i class="${p>=100?"full":""}" style="width:${Math.min(p,100).toFixed(1)}%"></i>`}</span>
         <span class="totpc">${p===null?`<span class="noref" aria-hidden="true">&ndash;</span>
              <span class="sr">no ${d.group==="amino"?"published requirement":"daily value published"}</span>`:`${Math.round(p)}%`}</span>
-        <span class="totcov">${u?`from ${m} of ${b}`:""}</span>
+        <span class="totcov">${u?`from ${f} of ${b}`:""}</span>
       </div>`}).join(""),c=i.id==="amino";return`<div class="totgroup" data-g="${i.id}"><h4>${i.icon}${esc(i.label)}</h4>
       <div class="tothead" aria-hidden="true">
         <span>Nutrient</span><span>Total</span><span></span>
@@ -1227,12 +432,12 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
      reference values as the rest of the page, and the FAO/WHO requirement for your body
      weight where amino acids are concerned. Rows with no reference figure show a total
      only: the fat fractions and the carotenoids are already counted inside the totals above
-     them, so a percentage would show the same intake twice.</p>`}const DAY_NOTES=[["B12",`The one figure to check, and the one this view can most easily mislead you
-    about. Unfortified plant foods are not a source: seaweed's B12 is inactive analogues, and
-    every microgram in the yeast and soy milk rows was added by the maker. A supplement or a
-    reliably fortified food is standard advice whatever this total reads.`],["Iodine is not in this data",`USDA publishes no dependable per-food iodine figures for plant
-    foods, so there is no column and no total. It is a real requirement and a common gap on a
-    plant-based diet, and its absence here is not evidence that you have enough.`],["Intake is not absorption",`These totals are what you ate, not what you absorbed, and for
+     them, so a percentage would show the same intake twice.</p>`}const GAP_NAMES=G.gaps.filter(e=>e.tier==="gap"),gapList=e=>e.map(t=>t.label).join(", ").replace(/, ([^,]*)$/," and $1"),DAY_NOTES=[["What no total here can include",`${gapList(GAP_NAMES)} are the things a
+    plant-based diet does not reliably supply, and every one of them is either
+    absent from this table or close to zero across it. ${gapList(GAP_NAMES.filter(e=>!e.nutrients.length))} has no column at all,
+    so it is in no total on this page and its absence here says nothing about
+    whether you had enough. What each does, and the two ways people close the
+    gap, is under Nutrient gaps in the sidebar.`],["Intake is not absorption",`These totals are what you ate, not what you absorbed, and for
     several nutrients the gap is large. What is known about it is under Absorption in the
     sidebar. A total well over 100% can still leave you short.`]];function dayPairings(){const e=dayContributors();if(e.length<1)return[];const t=new Map;for(const a of e)for(const s of sourceOf(a.f))t.set(s,[...t.get(s)||[],a.f]);const n=[];for(const a of INTERACTIONS){if(a.when!=="same meal")continue;const s=a.agent,o=s.kind==="nutrient"?t.get(s.id)?.[0]:s.kind==="food"?e.find(i=>slugAt(i.i)===s.slug)?.f:void 0;if(o)for(const i of a.affects){const l=t.get(i)?.[0];!l||l===o||n.push({x:a,nutrient:nut(i),from:l,via:o})}}return n}const aminoRows=e=>dayAminoAcids(e).map(t=>`<div class="drow"><dt>${esc(t.label)}</dt>
     <dd>${t.got===null?'<span class="nodata">not measured</span>':`${t.got.toFixed(2)} g <span class="pc">· ${Math.round(t.pc)}%</span>`}</dd></div>`).join("");function weightRow(){const e=(o,i)=>`<button type="button" data-wunit="${o}" aria-pressed="${S.wUnit===o}">${i}</button>`,t=(o,i,l,c,r)=>`<input type="number" inputmode="numeric" id="${o}" data-w value="${i}"
@@ -1253,7 +458,7 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
       <div class="per">nothing added yet</div></div>
       <div class="dbody"><p class="nodatanote" style="margin-top:0">Add a food and its
       totals appear here, in units and as a percentage of a daily value.</p>${o}</div>`;return}const i=totalOf(e,"kcal"),l=totalOf(e,"protein"),c=totalOf(e,"fiber"),r=[i,l,c].map(p=>{const y=p.n.dv&&p.total!==null?Math.round(p.total/p.n.dv*100):null,v=p.partial?` <span class="cov">from ${p.from} of ${p.of}</span>`:"";return`<div class="drow"><dt>${esc(p.n.label)}</dt>
-      <dd>${fmtTotal(p.total,p.n)}${y===null?"":` <span class="pc">· ${y}%</span>`}${v}</dd></div>`}).join(""),d=dayProteinQuality(e),u=["ala","la"].every(p=>!totalOf(e,p).partial)?omegaRatio({v:e.map(p=>p.total)}):null,{short:m,over:b,budget:g}=dayStanding(e),f=p=>`<button class="jump" type="button" data-daysort="${esc(p.id)}">
+      <dd>${fmtTotal(p.total,p.n)}${y===null?"":` <span class="pc">· ${y}%</span>`}${v}</dd></div>`}).join(""),d=dayProteinQuality(e),u=["ala","la"].every(p=>!totalOf(e,p).partial)?omegaRatio({v:e.map(p=>p.total)}):null,{short:f,over:b,budget:m}=dayStanding(e),g=p=>`<button class="jump" type="button" data-daysort="${esc(p.id)}">
     <span>${esc(p.label)}</span><b>${Math.round(p.pc)}%</b>
     <span class="ar" aria-hidden="true">${I.right}</span>
     <span class="sr">, show the foods highest in it</span></button>`;n.innerHTML=`
@@ -1291,17 +496,17 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
         <div class="drow"><dt>Omega-6 : omega-3</dt>
           <dd>${u.flip?`1 : ${u.a.toFixed(1)}`:`${u.a.toFixed(1)} : 1`}</dd></div></dl>`:""}
 
-      ${m.length?`<h4 style="margin-top:18px">Short on</h4>
-        <div class="jumps">${m.slice(0,8).map(f).join("")}</div>
+      ${f.length?`<h4 style="margin-top:18px">Short on</h4>
+        <div class="jumps">${f.slice(0,8).map(g).join("")}</div>
         <p class="nodatanote">Under half a daily value. Pick one to see the foods richest in
         it. Nutrients where any food in your day was never assayed are left out rather than
         reported as a shortfall that might not be one.</p>`:""}
 
       ${b.length?`<h4 style="margin-top:18px">Comfortable</h4>
-        <div class="jumps">${b.slice(0,8).map(f).join("")}</div>`:""}
+        <div class="jumps">${b.slice(0,8).map(g).join("")}</div>`:""}
 
-      ${g.length?`<h4 style="margin-top:18px">Above the guideline</h4>
-        <div class="jumps">${g.map(f).join("")}</div>
+      ${m.length?`<h4 style="margin-top:18px">Above the guideline</h4>
+        <div class="jumps">${m.map(g).join("")}</div>
         <p class="nodatanote">These are the figures a daily value caps rather than sets, so
         they are listed here when a day goes over rather than under.</p>`:""}
 
@@ -1349,7 +554,33 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
     SR Legacy does not publish those figures, so the amounts in any particular food are not
     something this page knows.</p>
     <p>Nor is there any advice about supplements, doses or timing beyond meals. This page describes
-    foods.</p>`}const DLG={how:["How to use",`
+    foods.</p>`}function gapsDialog(){const e=n=>G.gaps.filter(a=>a.tier===n),t=n=>`
+    <div class="gaprow ${n.tier}">
+      <h4>${esc(n.label)}</h4>
+      ${n.role?`<p class="gaprole">${esc(n.role)}</p>`:""}
+      <p>${esc(n.why)}</p>
+      ${gapEvidenceText(n)}
+      ${n.closing?`<p class="gapclose"><b>Closing it.</b> ${esc(n.closing)}</p>`:""}
+      ${n.cites.map(a=>`<cite>${esc(G.sources[a]??a)}</cite>`).join("")}
+    </div>`;return`
+    <p>Most of this page is about what is in a food. This page is about the
+    handful of things that are not in any of them, or are there in amounts too
+    small to count on. It is the companion to <b>Absorption</b>: that one says you
+    get less of a figure than it looks, this one says the figure is not here.</p>
+    <p><b>No doses, and no products.</b> What each of these does, why the gap is
+    there, and the two ways people close it. Anything past that is a question for
+    a dietitian or a GP, and it changes with age, pregnancy and where you live.</p>
+
+    <h3 class="gaphead">Food will not supply these</h3>
+    ${e("gap").map(t).join("")}
+
+    <h3 class="gaphead">Worth planning for</h3>
+    ${e("plan").map(t).join("")}
+
+    <h3 class="gaphead">What this data cannot see</h3>
+    <p>Named so that their absence is not read as their being fine. Each was
+    checked against the source data rather than assumed.</p>
+    ${e("unseen").map(t).join("")}`}const DLG={how:["How to use",`
     <h4>Show the columns you want</h4>
     <p>The <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and
     off. Each group has its own background tint in the table, so you can tell at a glance where one
@@ -1570,14 +801,20 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
       maker, along with most of their thiamin, riboflavin, niacin and folate; the same goes for
       soy milk's B12, calcium and vitamin D. Iodine is not a column, so fortification with it is
       not shown anywhere.</li>
-      <li><b>Seaweed is not a B12 source.</b> Nori and kelp show zero here, which is the right
-      answer for the wrong-looking reason. They do contain corrinoids that some assays count as
-      B12, but they are inactive analogues the body cannot use, and there is evidence that they
-      compete with real B12 rather than substituting for it. A seaweed figure quoted elsewhere as
-      B12 is usually measuring those. The same caution applies to tempeh and miso, whose traces
-      come from bacteria on the surface and are too small and too variable to rely on. There is no
-      dependable unfortified plant source, which is why a supplement is the standard advice.</li>
-      <li><b>Iodine is not included</b>, as reliable per-food values are scarce for plant foods.</li>
+      <li><b>Seaweed and B12 is two different stories, not one.</b> This entry used to say
+      flatly that seaweed's B12 is inactive analogues, and that is right about spirulina and
+      wrong about nori. Spirulina is largely pseudovitamin B12, which the body cannot use and
+      which some assays count anyway, so a spirulina figure quoted as B12 is usually measuring
+      that. Dried purple laver is the genuine exception: it carries active B12, around 77.6 µg
+      per 100 g, and it has raised B12 status in animals and in one small human trial. It is
+      still not something to depend on, because toasting and seasoning roughly halve it, drying
+      can turn the active forms into analogues, and the human evidence is thin. Nori and kelp
+      show zero in this table because SR Legacy publishes zero, which is its own caveat. The
+      traces in tempeh and miso come from bacteria and are too small and too variable to count on.
+      See <b>Nutrient gaps</b> for the whole of it.</li>
+      <li><b>Iodine is not included.</b> SR Legacy defines a nutrient id for it and publishes a
+      figure for none of these foods, so there is nothing to pull rather than nothing worth
+      pulling. See <b>Nutrient gaps</b>.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for
       staples and often skipped for minor vegetables and fruit. ${andList(NO_AMINOS.map(fullName))}
@@ -1598,7 +835,7 @@ const X = {"_comment":"Bioavailability interactions. Explanatory only: nothing h
     <p>This is reference data, not a nutrition plan. If you are making significant dietary changes,
     managing a health condition, pregnant, or feeding a child, talk to a dietitian or your GP.
     One specific note: vitamin B12 is not reliably available from unfortified plant foods, and a
-    supplement or reliably fortified food is standard advice on a vegan diet.</p>`],bio:["Absorption and bioavailability",bioDialog()]},isDialogKey=e=>e!==void 0&&Object.hasOwn(DLG,e);let lastFocus=null;function openDialog(e){const[t,n]=DLG[e];lastFocus=document.activeElement instanceof HTMLElement?document.activeElement:null,$("#dlgT").textContent=t,$("#dlgB").innerHTML=n,$("#dlg").showModal()}$("#dlgX").onclick=()=>$("#dlg").close(),$("#dlg").addEventListener("close",()=>lastFocus?.focus()),$("#dlg").addEventListener("click",e=>{targetEl(e)?.id==="dlg"&&$("#dlg").close()}),$("#totalFoods").textContent=String(FOODS.length);const GROUP_BLURB={macro:"macronutrients",fats:"fat fractions",amino:"amino acids",vitamin:"vitamins",mineral:"minerals",plant:"plant compounds"};$("#compBlurb").textContent=`${NUTS.length} nutrients per food: `+GROUPS.map(e=>`${NUTS.filter(t=>t.group===e.id).length} ${GROUP_BLURB[e.id]}`).join(", ").replace(/, ([^,]*)$/," and $1")+".",S.dark=matchMedia("(prefers-color-scheme: dark)").matches,loadPrefs(),applyTheme(),dvBtn.setAttribute("aria-pressed",String(S.dv)),S.dv&&dvBtn.lastChild&&(dvBtn.lastChild.textContent=" Show raw amounts"),basisBtn.setAttribute("aria-pressed",String(S.basis==="kcal")),S.basis==="kcal"&&basisBtn.lastChild&&(basisBtn.lastChild.textContent=" Show per 100 g"),renderGroups(),renderCats(),renderLensSelect(),render(),S.favs.size&&say(`${S.favs.size} saved favourite${S.favs.size===1?"":"s"} restored.`);
+    supplement or reliably fortified food is standard advice on a vegan diet.</p>`],bio:["Absorption and bioavailability",bioDialog()],gaps:["What food alone will not supply",gapsDialog()]},isDialogKey=e=>e!==void 0&&Object.hasOwn(DLG,e);let lastFocus=null;function openDialog(e){const[t,n]=DLG[e];lastFocus=document.activeElement instanceof HTMLElement?document.activeElement:null,$("#dlgT").textContent=t,$("#dlgB").innerHTML=n,$("#dlg").showModal()}$("#dlgX").onclick=()=>$("#dlg").close(),$("#dlg").addEventListener("close",()=>lastFocus?.focus()),$("#dlg").addEventListener("click",e=>{targetEl(e)?.id==="dlg"&&$("#dlg").close()}),$("#totalFoods").textContent=String(FOODS.length);const GROUP_BLURB={macro:"macronutrients",fats:"fat fractions",amino:"amino acids",vitamin:"vitamins",mineral:"minerals",plant:"plant compounds"};$("#compBlurb").textContent=`${NUTS.length} nutrients per food: `+GROUPS.map(e=>`${NUTS.filter(t=>t.group===e.id).length} ${GROUP_BLURB[e.id]}`).join(", ").replace(/, ([^,]*)$/," and $1")+".",S.dark=matchMedia("(prefers-color-scheme: dark)").matches,loadPrefs(),applyTheme(),dvBtn.setAttribute("aria-pressed",String(S.dv)),S.dv&&dvBtn.lastChild&&(dvBtn.lastChild.textContent=" Show raw amounts"),basisBtn.setAttribute("aria-pressed",String(S.basis==="kcal")),S.basis==="kcal"&&basisBtn.lastChild&&(basisBtn.lastChild.textContent=" Show per 100 g"),renderGroups(),renderCats(),renderLensSelect(),render(),S.favs.size&&say(`${S.favs.size} saved favourite${S.favs.size===1?"":"s"} restored.`);
 </script>
 </body>
 </html>

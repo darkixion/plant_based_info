@@ -17,7 +17,12 @@ const OUT = join(ROOT, "index.html");
 
 const SOURCES = {
   html: join(SRC, "index.html"),
-  css: join(SRC, "styles.css"),
+  // Compiled and minified by esbuild, like dist/app.js and for the same
+  // reasons: build.mjs may import nothing but node:*, so the minifier runs as
+  // its own npm script and this only inlines the result. `npm run watch`
+  // watches src/, so editing styles.css during a watch session needs a fresh
+  // `npm run compile` too, or this keeps inlining the stale build.
+  css: join(ROOT, "dist", "styles.css"),
   // A separately compiled file, not read from src/. `npm run watch` only
   // watches src/, so editing the app's source during a watch session needs
   // a fresh `npm run compile` too, or this keeps inlining the stale build.
@@ -26,6 +31,7 @@ const SOURCES = {
   icons: join(SRC, "data", "icons.json"),
   portions: join(SRC, "data", "portions.json"),
   interactions: join(SRC, "data", "interactions.json"),
+  gaps: join(SRC, "data", "gaps.json"),
 };
 
 /** `</script>` inside an inlined string would close the tag early. `\/` is a
@@ -39,7 +45,7 @@ const inject = (src, token, value) => {
   return src.replace(token, () => value);
 };
 
-function validate(data, portions, inter) {
+function validate(data, portions, inter, gaps) {
   const problems = [];
   const { nutrients, foods } = data;
 
@@ -239,6 +245,42 @@ function validate(data, portions, inter) {
     if (!interactions.some(x => (x.cites || []).includes(key)))
       problems.push(`interactions: source "${key}" is cited by nothing`);
 
+  /* ---- nutrient gaps ----
+     Same shape of check as the interactions above, and the same reason: an
+     entry naming a nutrient that does not exist renders as an entry with no
+     evidence under it, which reads as a nutrient nothing is known about rather
+     than as a mistake. */
+  const gSources = gaps.sources || {}, gList = gaps.gaps || [];
+  const TIERS = new Set(["gap", "plan", "unseen"]);
+  if (!Array.isArray(gList) || !gList.length) problems.push("gaps: none");
+  const gSeen = new Set();
+  for (const g of Array.isArray(gList) ? gList : []) {
+    const at = `gaps: "${g.id || "(no id)"}"`;
+    if (!g.id) problems.push("gaps: an entry with no id");
+    else if (gSeen.has(g.id)) problems.push(`${at} is listed twice`);
+    gSeen.add(g.id);
+    if (!TIERS.has(g.tier))
+      problems.push(`${at} has tier "${g.tier}", not one of: ${[...TIERS].join(", ")}`);
+    if (!g.label) problems.push(`${at} has no label`);
+    if (!g.why || g.why.length < 40) problems.push(`${at} has no usable "why"`);
+    if (!Array.isArray(g.nutrients))
+      problems.push(`${at} has no nutrients array (use [] where there is no column)`);
+    else for (const id of g.nutrients)
+      if (!ids.has(id)) problems.push(`${at} names nutrient "${id}", which does not exist`);
+    /* Cites are required for a gap and optional below it, which is a rule about
+       what kind of claim each tier makes. A "gap" asserts something about the
+       world and needs a source. A "plan" entry describes this table, and its
+       evidence is computed from it at render time. An "unseen" entry says only
+       that the data does not contain something, which the data itself shows. */
+    if (g.tier === "gap" && (!Array.isArray(g.cites) || !g.cites.length))
+      problems.push(`${at} is a gap and cites no source`);
+    for (const key of g.cites || [])
+      if (!gSources[key]) problems.push(`${at} cites unknown source "${key}"`);
+  }
+  for (const key of Object.keys(gSources))
+    if (!gList.some(g => (g.cites || []).includes(key)))
+      problems.push(`gaps: source "${key}" is cited by nothing`);
+
   return problems;
 }
 
@@ -246,7 +288,7 @@ async function build() {
   for (const [name, path] of Object.entries(SOURCES))
     if (!existsSync(path)) throw new Error(`missing source: ${name} (${path})`);
 
-  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw] = await Promise.all(
+  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw, gapsRaw] = await Promise.all(
     Object.values(SOURCES).map(p => readFile(p, "utf8")));
 
   let data, icons;
@@ -262,7 +304,11 @@ async function build() {
   try { inter = JSON.parse(interRaw); }
   catch (e) { throw new Error(`interactions.json is not valid JSON: ${e.message}`); }
 
-  const problems = validate(data, portions, inter);
+  let gaps;
+  try { gaps = JSON.parse(gapsRaw); }
+  catch (e) { throw new Error(`gaps.json is not valid JSON: ${e.message}`); }
+
+  const problems = validate(data, portions, inter, gaps);
   if (problems.length)
     throw new Error(`data validation failed:\n  - ${problems.join("\n  - ")}`);
 
@@ -275,6 +321,7 @@ async function build() {
   out = inject(out, "//{{ICONS}}", `const I = ${safeJSON(icons)};`);
   out = inject(out, "//{{PORTIONS}}", `const P = ${safeJSON(portions)};`);
   out = inject(out, "//{{INTERACTIONS}}", `const X = ${safeJSON(inter)};`);
+  out = inject(out, "//{{GAPS}}", `const G = ${safeJSON(gaps)};`);
   // The page carries "use strict" twice on purpose. esbuild emits one of its
   // own because it reads tsconfig.json, where `strict` implies `alwaysStrict`;
   // this one is prepended so the page's strictness does not depend on that

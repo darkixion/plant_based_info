@@ -63,6 +63,34 @@ interface Interaction {
 }
 interface Interactions { sources: Record<string, string>; interactions: Interaction[]; }
 
+/* ---------- what food alone will not supply ----------
+   The companion to the interactions above. That data says you absorb less of a
+   figure than it looks; this says the figure is not here at all.
+
+   Three tiers, and they are different kinds of claim rather than degrees of the
+   same one:
+     gap     food will not supply this. Asserts something about the world, so
+             build.mjs requires a citation.
+     plan    present but thin. Describes this table, and its evidence is
+             computed from it rather than quoted.
+     unseen  the dataset cannot show this. Says only what is absent, which the
+             data itself demonstrates. */
+type GapTier = "gap" | "plan" | "unseen";
+interface Gap {
+  id: string;
+  tier: GapTier;
+  /* The columns this is about. Empty where there is none, which is the case
+     for iodine and for everything in the unseen tier, and is exactly why the
+     evidence below has to cope with having nothing to compute. */
+  nutrients: string[];
+  label: string;
+  role: string;
+  why: string;
+  closing: string;
+  cites: string[];
+}
+interface Gaps { sources: Record<string, string>; gaps: Gap[]; }
+
 /* ---------- state ----------
    The literal unions are taken from loadPrefs(), which is the authority on
    what a stored preference is allowed to be. */
@@ -137,6 +165,8 @@ declare const P: Record<string, Portion[]>;
    every record points at a nutrient and a food that exist and cites a source
    that resolves, so the reads below can be direct. */
 declare const X: Interactions;
+/* The nutrient gaps, injected the same way. */
+declare const G: Gaps;
 
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
 const GROUPS = [
@@ -307,6 +337,72 @@ function sourceOf(f: Food): string[] {
     }
   }
   return out;
+}
+
+/* ---------- the evidence under a gap ----------
+   Measured off this table rather than typed into gaps.json, for the same reason
+   the amino acid gap list and the flavonoid coverage count are computed: a
+   sentence with a number in it stops being true the day the data moves, and
+   nobody notices. Add a food tomorrow and these correct themselves.
+
+   `unfortified` is the load-bearing word. The three highest B12 figures in this
+   table are nutritional yeast, soy milk and yeast extract, and all three are
+   whatever the manufacturer added. Counting them would turn the strongest
+   evidence for the gap into evidence against it. */
+/* Three states, not two, and the middle one carries most of the weight. A cell
+   that was assayed and came back with nothing is a *finding of absence*; a cell
+   nobody assayed is not evidence of anything. Collapsing them into "carries a
+   figure" throws away the strongest thing this table has to say: 123 of these
+   131 foods were measured for B12 and found to contain none. */
+interface GapEvidence {
+  above: number; zero: number; unassayed: number; of: number;
+  fortified: number; bestPc: number | null; bestFood: string | null;
+}
+
+function gapEvidence(id: string): GapEvidence | null {
+  const n = nutOpt(id);
+  if (!n) return null;
+  let above = 0, zero = 0, unassayed = 0, fortified = 0;
+  let bestPc: number | null = null, bestFood: string | null = null;
+  FOODS.forEach((f, i) => {
+    const v = val(f, id);
+    if (v === null) { unassayed++; return; }
+    if (v === 0) { zero++; return; }
+    above++;
+    if (noteFor(i, id)?.id === "fortified") { fortified++; return; }
+    // Only an unfortified food can be the best of them, and only a nutrient
+    // with a daily value can be put as a share of one.
+    if (n.dv) {
+      const pc = v / n.dv * 100;
+      if (bestPc === null || pc > bestPc) { bestPc = pc; bestFood = f.name; }
+    }
+  });
+  return { above, zero, unassayed, of: FOODS.length, fortified, bestPc, bestFood };
+}
+
+/** The evidence as sentences, or "" where the entry names no column. */
+function gapEvidenceText(g: Gap): string {
+  const parts = g.nutrients.map(id => {
+    const e = gapEvidence(id);
+    if (!e) return "";
+    const nm = nutOpt(id)?.label ?? id;
+    const bits = [`${e.above} of ${e.of} foods ${
+      e.above === 1 ? "has" : "have"} any at all`];
+    if (e.fortified) bits.push(`${e.fortified} of those ${
+      e.fortified === 1 ? "is" : "are"} fortification rather than the food`);
+    // The finding of absence, which is the strongest part and the part a
+    // "no data" phrasing would have hidden.
+    if (e.zero) bits.push(`${e.zero} were measured and found to contain none`);
+    if (e.unassayed) bits.push(`${e.unassayed} ${
+      e.unassayed === 1 ? "was" : "were"} never assayed`);
+    if (e.bestPc !== null && e.bestFood)
+      bits.push(`the best unfortified is ${esc(e.bestFood)}, at ${
+        Math.round(e.bestPc)}% of a daily value per 100 g`);
+    return `<li><b>${esc(nm)}:</b> ${bits.join("; ")}.</li>`;
+  }).filter(Boolean);
+  if (!parts.length) return "";
+  return `<ul class="gapev"><li class="gapevhead">Measured from this table,
+    not quoted:</li>${parts.join("")}</ul>`;
 }
 
 /** How the agent is named in prose, whichever of the four kinds it is. */
@@ -999,7 +1095,7 @@ function renderNutNote() {
   const id = hoverNut || (S.sort.id !== "__name" ? S.sort.id : null);
   const n = id ? nutOpt(id) : null;
   $("#nutNote").innerHTML = n && n.why
-    ? `<b>${esc(n.label)}</b> ${esc(n.why)}${absorptionLine(n.id)}`
+    ? `<b>${esc(n.label)}</b> ${esc(n.why)}${gapLine(n.id)}${absorptionLine(n.id)}`
     : `Point at a column header, or tab onto one, to read what that nutrient
        does in the body. Sorting by a column leaves its explanation here.`;
 }
@@ -1011,6 +1107,23 @@ function renderNutNote() {
  *  Returns "" for the 50-odd nutrients with no interaction on record, which is
  *  most of them. An empty row of arrows would read as "nothing affects this",
  *  and nobody has established that. */
+/** A warning above the absorption line, for the columns that are in the table
+ *  but cannot be relied on. Nothing for the sixty-odd columns with no gap
+ *  entry, for the same reason absorptionLine() stays silent: an empty marker
+ *  would assert a reassurance nobody established. */
+const GAP_BY_NUTRIENT = new Map<string, Gap>();
+for (const g of G.gaps)
+  for (const id of g.nutrients) GAP_BY_NUTRIENT.set(id, g);
+
+function gapLine(id: string): string {
+  const g = GAP_BY_NUTRIENT.get(id);
+  if (!g) return "";
+  const word = g.tier === "gap" ? "Food will not supply this" : "Thin here, worth planning";
+  return `<span class="gapwarn gapwarn-${g.tier}">
+    <b aria-hidden="true">!</b> ${esc(word)}.
+    <button class="absorbmore" type="button" data-dlg="gaps">Nutrient gaps</button></span>`;
+}
+
 /** Up to three names, then a count. The full list is in the dialog. */
 const cap3 = (names: string[]) =>
   names.length <= 3 ? names.join(", ")
@@ -1636,14 +1749,26 @@ function renderDayTotals(totals: DayTotal[]) {
 /** Always shown, whatever the totals say, because each of these is a wrong
  *  conclusion the totals actively invite. A list of what you are short of
  *  implies the list is complete, and it is not. */
+/* The names of what a plant diet does not reliably supply, and which of them
+   this view cannot total at all because there is no column. Both come off
+   gaps.json rather than being typed here.
+   This replaced two hand-written notes, one for B12 and one for iodine, which
+   between them restated a good deal of that dataset in prose. Same cut-back
+   "Intake is not absorption" got when the interaction data arrived, and for the
+   same reason: two copies of a fact drift, and the prose copy is the one that
+   silently stops being true. */
+const GAP_NAMES = G.gaps.filter(g => g.tier === "gap");
+const gapList = (list: Gap[]) =>
+  list.map(g => g.label).join(", ").replace(/, ([^,]*)$/, " and $1");
+
 const DAY_NOTES: [string, string][] = [
-  ["B12", `The one figure to check, and the one this view can most easily mislead you
-    about. Unfortified plant foods are not a source: seaweed's B12 is inactive analogues, and
-    every microgram in the yeast and soy milk rows was added by the maker. A supplement or a
-    reliably fortified food is standard advice whatever this total reads.`],
-  ["Iodine is not in this data", `USDA publishes no dependable per-food iodine figures for plant
-    foods, so there is no column and no total. It is a real requirement and a common gap on a
-    plant-based diet, and its absence here is not evidence that you have enough.`],
+  ["What no total here can include", `${gapList(GAP_NAMES)} are the things a
+    plant-based diet does not reliably supply, and every one of them is either
+    absent from this table or close to zero across it. ${
+      gapList(GAP_NAMES.filter(g => !g.nutrients.length))} has no column at all,
+    so it is in no total on this page and its absence here says nothing about
+    whether you had enough. What each does, and the two ways people close the
+    gap, is under Nutrient gaps in the sidebar.`],
   /* Deliberately short now. It used to spell out the iron, calcium and zinc
      interactions here in prose, which was a second hand-written copy of what
      src/data/interactions.json says, and the two would have drifted the moment
@@ -2563,6 +2688,43 @@ function bioDialog(): string {
     foods.</p>`;
 }
 
+/* ---------- what food alone will not supply ----------
+   Built from src/data/gaps.json plus the table itself, for the reason the
+   Absorption dialog is: a hand-written copy of a dataset is a copy that stops
+   being true. */
+function gapsDialog(): string {
+  const tier = (t: GapTier) => G.gaps.filter(g => g.tier === t);
+  const block = (g: Gap) => `
+    <div class="gaprow ${g.tier}">
+      <h4>${esc(g.label)}</h4>
+      ${g.role ? `<p class="gaprole">${esc(g.role)}</p>` : ""}
+      <p>${esc(g.why)}</p>
+      ${gapEvidenceText(g)}
+      ${g.closing ? `<p class="gapclose"><b>Closing it.</b> ${esc(g.closing)}</p>` : ""}
+      ${g.cites.map(k => `<cite>${esc(G.sources[k] ?? k)}</cite>`).join("")}
+    </div>`;
+
+  return `
+    <p>Most of this page is about what is in a food. This page is about the
+    handful of things that are not in any of them, or are there in amounts too
+    small to count on. It is the companion to <b>Absorption</b>: that one says you
+    get less of a figure than it looks, this one says the figure is not here.</p>
+    <p><b>No doses, and no products.</b> What each of these does, why the gap is
+    there, and the two ways people close it. Anything past that is a question for
+    a dietitian or a GP, and it changes with age, pregnancy and where you live.</p>
+
+    <h3 class="gaphead">Food will not supply these</h3>
+    ${tier("gap").map(block).join("")}
+
+    <h3 class="gaphead">Worth planning for</h3>
+    ${tier("plan").map(block).join("")}
+
+    <h3 class="gaphead">What this data cannot see</h3>
+    <p>Named so that their absence is not read as their being fine. Each was
+    checked against the source data rather than assumed.</p>
+    ${tier("unseen").map(block).join("")}`;
+}
+
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
@@ -2786,14 +2948,20 @@ const DLG = {
       maker, along with most of their thiamin, riboflavin, niacin and folate; the same goes for
       soy milk's B12, calcium and vitamin D. Iodine is not a column, so fortification with it is
       not shown anywhere.</li>
-      <li><b>Seaweed is not a B12 source.</b> Nori and kelp show zero here, which is the right
-      answer for the wrong-looking reason. They do contain corrinoids that some assays count as
-      B12, but they are inactive analogues the body cannot use, and there is evidence that they
-      compete with real B12 rather than substituting for it. A seaweed figure quoted elsewhere as
-      B12 is usually measuring those. The same caution applies to tempeh and miso, whose traces
-      come from bacteria on the surface and are too small and too variable to rely on. There is no
-      dependable unfortified plant source, which is why a supplement is the standard advice.</li>
-      <li><b>Iodine is not included</b>, as reliable per-food values are scarce for plant foods.</li>
+      <li><b>Seaweed and B12 is two different stories, not one.</b> This entry used to say
+      flatly that seaweed's B12 is inactive analogues, and that is right about spirulina and
+      wrong about nori. Spirulina is largely pseudovitamin B12, which the body cannot use and
+      which some assays count anyway, so a spirulina figure quoted as B12 is usually measuring
+      that. Dried purple laver is the genuine exception: it carries active B12, around 77.6 µg
+      per 100 g, and it has raised B12 status in animals and in one small human trial. It is
+      still not something to depend on, because toasting and seasoning roughly halve it, drying
+      can turn the active forms into analogues, and the human evidence is thin. Nori and kelp
+      show zero in this table because SR Legacy publishes zero, which is its own caveat. The
+      traces in tempeh and miso come from bacteria and are too small and too variable to count on.
+      See <b>Nutrient gaps</b> for the whole of it.</li>
+      <li><b>Iodine is not included.</b> SR Legacy defines a nutrient id for it and publishes a
+      figure for none of these foods, so there is nothing to pull rather than nothing worth
+      pulling. See <b>Nutrient gaps</b>.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for
       staples and often skipped for minor vegetables and fruit. ${andList(NO_AMINOS.map(fullName))}
@@ -2818,6 +2986,7 @@ const DLG = {
     supplement or reliably fortified food is standard advice on a vegan diet.</p>`],
 
   bio: ["Absorption and bioavailability", bioDialog()],
+  gaps: ["What food alone will not supply", gapsDialog()],
 } satisfies Record<string, [title: string, body: string]>;
 
 /* The data-dlg attributes in src/index.html are exactly these three keys. The

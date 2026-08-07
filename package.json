@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "check": "tsc --noEmit",
-    "compile": "esbuild src/app.ts --outfile=dist/app.js --minify --target=es2022 --charset=utf8 --legal-comments=none",
+    "compile": "npm run compile:js && npm run compile:css",
+    "compile:js": "esbuild src/app.ts --outfile=dist/app.js --minify --target=es2022 --charset=utf8 --legal-comments=none",
+    "compile:css": "esbuild src/styles.css --outfile=dist/styles.css --minify --charset=utf8 --legal-comments=none",
     "build": "node build.mjs",
     "test": "npm run check && npm run compile && npm run build && node test/tools.mjs && node test/smoke.mjs",
     "watch": "npm run compile && node build.mjs --watch",
