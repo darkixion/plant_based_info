@@ -67,6 +67,20 @@ const KNOWN = {
   1266: { id: "stearic", label: "Stearic (18:0)", group: "fats", unit: "g", dv: null, dp: 3, after: "palmitic",
     why: "The 18-carbon saturated fat of cocoa butter and shea. The body converts much of it into oleic acid, so unlike the shorter saturated fats it leaves LDL cholesterol roughly where it found it." },
 
+  // The three totals the fractions above are checked against. They were in
+  // COLUMN_TO_USDA, so a newly added food got them, and absent from KNOWN, so
+  // `pull` could not touch them. That asymmetry is why re-pulling the fat group
+  // could not resolve the fraction-versus-total disagreements: the fractions
+  // came from the mapped row and the totals stayed as they were. Definitions
+  // copied from the committed columns in nutrients.json, unchanged.
+  // No `after`: all three columns already exist, so nothing is being placed.
+  1292: { id: "mufa", label: "Monounsaturated", group: "fats", unit: "g", dv: null, dp: 2,
+    why: "Fats with a single double bond, the omega-9 and omega-7 columns included. Stable enough to cook with, and the fraction Mediterranean diets are richest in." },
+  1293: { id: "pufa", label: "Polyunsaturated", group: "fats", unit: "g", dv: null, dp: 2,
+    why: "Fats with more than one double bond, including both of the essential fatty acids. They oxidise readily with heat and light, which is why cold-pressed seed oils need more careful handling." },
+  1258: { id: "satfat", label: "Saturated fat", group: "macro", unit: "g", dv: 20, dp: 2,
+    why: "The fraction with no double bonds, solid at room temperature. Plant foods are generally low in it, coconut and palm being the exceptions, and it is the fraction dietary guidance asks people to limit." },
+
   // Carotenoids. No daily value exists for any of them individually: only
   // vitamin A carries a DV, and it already counts the provitamin-A ones through
   // its own column, so giving them a dv here would double-count them in the

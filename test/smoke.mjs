@@ -564,6 +564,37 @@ await test("the methodology names the amino acid gaps from the data", async () =
   });
 });
 
+await test("every fat fraction reconciles against the total it belongs to", async () => {
+  await withPage(async page => {
+    // Each list is a subset of its total and never the whole of it, since the
+    // chain lengths left out have no column, so a sum may fall short of the
+    // total but must never exceed it. Six foods failed this before the fat
+    // group was re-pulled from the mapped rows, because fraction and total had
+    // been assembled from different sources at different times.
+    const bad = await page.evaluate(() => {
+      const SUBSET = { mufa: ["oleic", "palmitoleic"], pufa: ["ala", "la"],
+                       satfat: ["lauric", "palmitic", "stearic"] };
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const out = [];
+      for (const [total, parts] of Object.entries(SUBSET)) {
+        const ti = at(total);
+        for (const f of DATA.foods) {
+          const t = f.v[ti];
+          if (typeof t !== "number") continue;
+          const sum = parts.reduce((s, p) =>
+            s + (typeof f.v[at(p)] === "number" ? f.v[at(p)] : 0), 0);
+          // The same tolerance the pull uses: USDA's own figures are rounded,
+          // so an exact comparison flags rounding as a contradiction.
+          if (sum > t * 1.01 + 0.005)
+            out.push(`${f.name}: ${parts.join("+")} ${sum.toFixed(3)} vs ${total} ${t}`);
+        }
+      }
+      return out;
+    });
+    assert(bad.length === 0, `fat fractions exceed their total:\n          ${bad.join("\n          ")}`);
+  });
+});
+
 // ---------------------------------------------------------------- one control per state
 
 await test("export and favourites each have exactly one control", async () => {
@@ -814,11 +845,9 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
     });
     const expected = [
       "Adzuki beans (cooked)", "Amaranth (cooked)", "Bell pepper (yellow, raw)",
-      "Borlotti beans (cooked)", "Broccoli (cooked)", "Brown rice (cooked)", "Dates",
-      "Edamame (cooked)",
-      "Hemp seeds (hulled)", "Kale (raw)", "Leeks (cooked)", "Nutritional yeast",
-      "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)",
-      "Tempeh", "Wholewheat pasta (cooked)"];
+      "Borlotti beans (cooked)", "Dates",
+      "Hemp seeds (hulled)", "Leeks (cooked)", "Nutritional yeast",
+      "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)"];
     eq(missing.slice().sort().join(", "), expected.join(", "), "foods without omega figures");
   });
 });
@@ -903,11 +932,11 @@ await test("values taken from an undifferentiated id say so per cell", async () 
     const key = page.locator("#noteKey");
     assert(/undifferentiated/i.test(await key.textContent()), "the key should explain it");
 
-    // Walnuts do have a differentiated figure, so theirs must stay unmarked:
+    // Chia seeds do have a differentiated figure, so theirs must stay unmarked:
     // a marker on every cell would say nothing about where any of them came from.
-    await only("Walnuts");
-    const walnut = await omega3Cell("Walnuts");
-    eq(walnut.sup, undefined, "walnut omega-3 is measured directly and should carry no marker");
+    await only("Chia seeds");
+    const chia = await omega3Cell("Chia seeds");
+    eq(chia.sup, undefined, "chia seed omega-3 is measured directly and should carry no marker");
   });
 });
 
