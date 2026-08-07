@@ -24,6 +24,7 @@ const SOURCES = {
   app: join(ROOT, "dist", "app.js"),
   data: join(SRC, "data", "nutrients.json"),
   icons: join(SRC, "data", "icons.json"),
+  portions: join(SRC, "data", "portions.json"),
 };
 
 /** `</script>` inside an inlined string would close the tag early. `\/` is a
@@ -37,7 +38,7 @@ const inject = (src, token, value) => {
   return src.replace(token, () => value);
 };
 
-function validate(data) {
+function validate(data, portions) {
   const problems = [];
   const { nutrients, foods } = data;
 
@@ -132,6 +133,29 @@ function validate(data) {
         problems.push(`${f.name}: ${parts.join(" + ")} = ${sum.toFixed(3)} exceeds ${label} ${t}`);
     }
   }
+
+  // A portion pointing at a food that does not exist renders nothing at all and
+  // would sit in the data unnoticed, which is the same failure the per-cell
+  // notes checks above exist to refuse. Renaming a food should fail the build
+  // rather than silently drop its portions.
+  for (const [slug, list] of Object.entries(portions)) {
+    if (!slugs.has(slug)) problems.push(`portions: no food with key "${slug}"`);
+    if (!Array.isArray(list) || !list.length) {
+      problems.push(`portions: "${slug}" lists none`);
+      continue;
+    }
+    const labels = new Set();
+    for (const p of list) {
+      if (!p.label) problems.push(`portions: "${slug}" has a portion with no label`);
+      else if (labels.has(p.label))
+        problems.push(`portions: "${slug}" lists "${p.label}" twice`);
+      labels.add(p.label);
+      // Zero or negative would render a portion that sets a quantity of
+      // nothing, and above the cap is a purchase rather than a helping.
+      if (typeof p.g !== "number" || !(p.g > 0) || p.g > 500)
+        problems.push(`portions: "${slug}" portion "${p.label}" has an impossible weight ${p.g}`);
+    }
+  }
   return problems;
 }
 
@@ -139,7 +163,7 @@ async function build() {
   for (const [name, path] of Object.entries(SOURCES))
     if (!existsSync(path)) throw new Error(`missing source: ${name} (${path})`);
 
-  const [html, css, app, dataRaw, iconsRaw] = await Promise.all(
+  const [html, css, app, dataRaw, iconsRaw, portionsRaw] = await Promise.all(
     Object.values(SOURCES).map(p => readFile(p, "utf8")));
 
   let data, icons;
@@ -147,8 +171,11 @@ async function build() {
   catch (e) { throw new Error(`nutrients.json is not valid JSON: ${e.message}`); }
   try { icons = JSON.parse(iconsRaw); }
   catch (e) { throw new Error(`icons.json is not valid JSON: ${e.message}`); }
+  let portions;
+  try { portions = JSON.parse(portionsRaw); }
+  catch (e) { throw new Error(`portions.json is not valid JSON: ${e.message}`); }
 
-  const problems = validate(data);
+  const problems = validate(data, portions);
   if (problems.length)
     throw new Error(`data validation failed:\n  - ${problems.join("\n  - ")}`);
 
@@ -159,6 +186,7 @@ async function build() {
   out = inject(out, "/*{{STYLES}}*/", css.trim());
   out = inject(out, "//{{DATA}}", `const DATA = ${safeJSON(data)};`);
   out = inject(out, "//{{ICONS}}", `const I = ${safeJSON(icons)};`);
+  out = inject(out, "//{{PORTIONS}}", `const P = ${safeJSON(portions)};`);
   // The page carries "use strict" twice on purpose. esbuild emits one of its
   // own because it reads tsconfig.json, where `strict` implies `alwaysStrict`;
   // this one is prepended so the page's strictness does not depend on that
