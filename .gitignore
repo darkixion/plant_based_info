@@ -15,3 +15,8 @@ node_modules/
 # release that `tools/flavonoids.mjs` reads is downloaded by hand, as the README
 # describes.
 tools/cache/
+
+# Scratch space for the plan-execution tooling in docs/superpowers: ledgers,
+# task briefs and review packages, all of which describe work whose record is
+# the git history itself.
+.superpowers/
