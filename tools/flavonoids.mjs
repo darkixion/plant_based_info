@@ -28,6 +28,7 @@ import { createWriteStream } from "node:fs";
 import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { readCSV } from "./csv.mjs";
 
 const exec = promisify(execFile);
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -108,38 +109,6 @@ const column = ({ after, ...col }) => col;
 
 const slugify = f => `${f.name} ${f.state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-
-/* ---------- csv ---------- */
-/** Minimal RFC4180 reader, same as usda.mjs: the exported files quote any
- *  field containing a comma, and the food descriptions are full of them. */
-function* parseCSV(text) {
-  let i = 0, field = "", row = [], quoted = false;
-  while (i < text.length) {
-    const c = text[i];
-    if (quoted) {
-      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else quoted = false; }
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === ",") { row.push(field); field = ""; }
-    else if (c === "\n") { row.push(field); yield row; row = []; field = ""; }
-    else if (c !== "\r") field += c;
-    i++;
-  }
-  if (field || row.length) { row.push(field); yield row; }
-}
-
-async function readCSV(path) {
-  const it = parseCSV(await readFile(path, "utf8"));
-  const head = it.next().value;
-  const out = [];
-  for (const r of it) {
-    if (r.length === 1 && !r[0]) continue;
-    const o = {};
-    head.forEach((h, i) => { o[h] = r[i]; });
-    out.push(o);
-  }
-  return out;
-}
 
 /* ---------- extract ----------
    Release 3.3 is an .accdb, so getting at it needs a reader. This is a one-off
