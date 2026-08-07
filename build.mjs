@@ -117,6 +117,10 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
   if (problems.length) return problems;
 
   const ids = new Set();
+  // The evidence columns, kept separate from `ids`: they are nutrients for
+  // every purpose that concerns a column, and not nutrients for any purpose
+  // that concerns a figure in `v`. Several checks below need the distinction.
+  const evIds = new Set(nutrients.filter(n => n.evidence).map(n => n.id));
   for (const n of nutrients) {
     if (!n.id) problems.push(`nutrient with no id: ${JSON.stringify(n).slice(0, 60)}`);
     if (ids.has(n.id)) problems.push(`duplicate nutrient id: ${n.id}`);
@@ -168,8 +172,14 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
       if (!slugs.has(slug)) problems.push(`note ${note.id}: no food with key "${slug}"`);
       if (!Array.isArray(nutIds) || !nutIds.length)
         problems.push(`note ${note.id}: "${slug}" lists no nutrients`);
-      for (const n of nutIds || [])
+      for (const n of nutIds || []) {
         if (!ids.has(n)) problems.push(`note ${note.id}: "${slug}" names unknown nutrient "${n}"`);
+        // The page draws a note's marker beside a figure in `v`. An evidence
+        // cell carries its own provenance instead, as sources and a match
+        // grade, so a note aimed at one would never be rendered.
+        else if (evIds.has(n))
+          problems.push(`note ${note.id}: "${slug}" marks "${n}", which is an evidence column and carries its own sources`);
+      }
       // A note explains where a figure came from, so there has to be a figure.
       // The page only draws a marker next to a value, so an entry pointing at an
       // empty cell renders nothing at all and would sit in the data unnoticed.
@@ -276,8 +286,15 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
 
     if (!Array.isArray(x.affects) || !x.affects.length)
       problems.push(`${at} affects nothing`);
-    else for (const id of x.affects)
+    else for (const id of x.affects) {
       if (!ids.has(id)) problems.push(`${at} affects "${id}", which is not a nutrient`);
+      // An interaction is shown against a food whose own figures make it a
+      // meaningful source of the nutrient, which is a judgement about a figure
+      // in `v`. An evidence column has none there and no daily value to be a
+      // meaningful share of, so the page could never decide when to show it.
+      else if (evIds.has(id))
+        problems.push(`${at} affects "${id}", which is an evidence column and has no figure to rank`);
+    }
 
     if (!DIRECTIONS.has(x.direction))
       problems.push(`${at} has direction "${x.direction}", not up or down`);
@@ -334,8 +351,15 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
     if (!g.why || g.why.length < 40) problems.push(`${at} has no usable "why"`);
     if (!Array.isArray(g.nutrients))
       problems.push(`${at} has no nutrients array (use [] where there is no column)`);
-    else for (const id of g.nutrients)
+    else for (const id of g.nutrients) {
       if (!ids.has(id)) problems.push(`${at} names nutrient "${id}", which does not exist`);
+      // A gap's evidence is counted over `v`: how many foods carry any, how
+      // many were measured and found to contain none, how many were never
+      // assayed. An evidence column has no `v` to count, so the entry would
+      // render as a claim with nothing under it.
+      else if (evIds.has(id))
+        problems.push(`${at} names "${id}", which is an evidence column and has no figures to count`);
+    }
     /* Cites are required for a gap and optional below it, which is a rule about
        what kind of claim each tier makes. A "gap" asserts something about the
        world and needs a source. A "plan" entry describes this table, and its

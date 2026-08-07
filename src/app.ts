@@ -11,6 +11,11 @@ type Unit = "kcal" | "g" | "mg" | "µg";
 interface Nutrient {
   id: string; label: string; group: NutrientGroup;
   unit: Unit; dv: number | null; dp: number; why: string;
+  /* An evidence column. Its figures come from outside USDA and live in EV,
+     keyed by food slug, rather than in any food's `v`. Optional because the
+     other 70 columns do not carry it, and the absence is what makes them
+     ordinary. See the EvidenceCell block below. */
+  evidence?: true;
 }
 /* 35 of 66 nutrients have no daily value (sugars, water, most fatty acids,
    all amino acids, most carotenoids and flavonoids). Every read must decide
@@ -25,6 +30,30 @@ interface Note {
 }
 interface Portion { label: string; g: number; }
 interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
+
+/* ---------- evidence ----------
+   Components USDA defines an id for and publishes no value of, gathered from
+   national food composition tables instead. Six states, because "no number"
+   means six different things here and collapsing them throws away the most
+   useful thing the data says: a component assayed and found absent is a
+   finding, and a component nobody assayed is evidence of nothing. A food with
+   no entry at all is a seventh thing again, and is represented by absence.
+
+   `range` is not a failure to decide. Where sources disagree beyond 2x with no
+   one of them odd enough to drop, the breadth is the honest answer: kidney bean
+   biotin is 3.7 in Japan, 0.5 in the UK and 1.3 in Australia. `disputed` keeps
+   a dropped outlier named rather than deleting it. */
+type EvState = "measured" | "range" | "trace" | "not-detected" | "estimated" | "not-measured";
+interface EvidenceCell {
+  state: EvState;
+  value?: number; low?: number; high?: number;
+  unit: string; basis: string; prep: string;
+  sources?: string[]; match?: "exact" | "close" | "proxy";
+  n?: number; disputed?: { source: string; value: number }[];
+}
+interface EvSource {
+  title: string; publisher: string; country: string; url: string; quality: string;
+}
 
 /* ---------- bioavailability ----------
    What helps or hinders absorption of a nutrient. Explanation, never
@@ -167,6 +196,12 @@ declare const P: Record<string, Portion[]>;
 declare const X: Interactions;
 /* The nutrient gaps, injected the same way. */
 declare const G: Gaps;
+/* The evidence values, keyed by food slug then component id, and the sources
+   they cite. Injected the same way, and validated by build.mjs the same way:
+   every cell names a food and a component that exist, and every value names a
+   source that resolves. Reads below can be direct because of that. */
+declare const EV: Record<string, Record<string, EvidenceCell>>;
+declare const SRCS: Record<string, EvSource>;
 
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
 const GROUPS = [
@@ -177,7 +212,14 @@ const GROUPS = [
   { id: "mineral", label: "Minerals",       icon: I.min   },
   { id: "plant",   label: "Plant compounds", icon: I.plant },
 ] satisfies { id: NutrientGroup; label: string; icon: string }[];
-const IDX = new Map(NUTS.map((n, i) => [n.id, i]));
+/* Evidence columns are deliberately absent from IDX, so val() throws on one.
+   That is the point rather than an oversight: an evidence value is not a
+   per-100-g figure in `v` and must never reach dayTotals(), proteinQuality() or
+   a daily-value percentage. The throw turns a mistake into a loud failure on
+   the spot rather than into a wrong number nobody notices. build.mjs counts the
+   value arrays the same way, so the two cannot drift apart. */
+const VNUTS = NUTS.filter(n => !n.evidence);
+const IDX = new Map(VNUTS.map((n, i) => [n.id, i]));
 const CATS = [...new Set(FOODS.map(f => f.cat))].sort();
 
 /* Stable per-food keys. Favourites are stored by slug, never by array index,
@@ -196,10 +238,13 @@ const BY_SLUG = new Map(SLUGS.map((s, i) => [s, i]));
    carry it into the page as the word "undefined" or as a zero. `nutOpt` and
    `foodBySlug` are for the callers where a miss is a real possibility, such as
    a slug read back from a saved day list. */
-const nutOpt = (id: string): Nutrient | undefined => {
-  const i = IDX.get(id);
-  return i === undefined ? undefined : NUTS[i];
-};
+/* Every column, evidence included, which is why this is not IDX. IDX answers
+   "where in `v`", and an evidence column is nowhere in `v`; this answers "which
+   column", and an evidence column is one of those. Reading a nutrient through
+   IDX would make nut("biotin") throw in the sort comparator and the detail
+   panel, both of which have every right to ask about a column that exists. */
+const BY_ID = new Map(NUTS.map(n => [n.id, n]));
+const nutOpt = (id: string): Nutrient | undefined => BY_ID.get(id);
 const nut = (id: string): Nutrient => {
   const n = nutOpt(id);
   if (!n) throw new Error(`unknown nutrient id: ${id}`);
@@ -316,7 +361,12 @@ const RANK_DEPTH = 10;
  *  reader flips the display to per 100 kcal. */
 function sourceOf(f: Food): string[] {
   const out: string[] = [];
-  for (const n of NUTS) {
+  // VNUTS, and both rules below say why. Rule 1 divides by a daily value, which
+  // an evidence column has none of, and rule 2 ranks a food against the same
+  // column in the other 130, which means reading `v` at a position an evidence
+  // column does not occupy. build.mjs refuses an interaction naming one, so
+  // this is belt and braces rather than the only guard.
+  for (const n of VNUTS) {
     if (!hasInteractions(n.id)) continue;
     const v = val(f, n.id);
     if (v === null || v <= 0) continue;
@@ -361,7 +411,9 @@ interface GapEvidence {
 
 function gapEvidence(id: string): GapEvidence | null {
   const n = nutOpt(id);
-  if (!n) return null;
+  // Every count below is over `v`, and an evidence column is not in it.
+  // build.mjs refuses a gap naming one, so this is the second lock.
+  if (!n || n.evidence) return null;
   let above = 0, zero = 0, unassayed = 0, fortified = 0;
   let bestPc: number | null = null, bestFood: string | null = null;
   FOODS.forEach((f, i) => {
@@ -546,12 +598,18 @@ function loadPrefs() {
     const g: NutrientGroup[] = p.groups.filter(isGroup);
     if (g.length) S.groups = new Set(g);
   }
-  if (p.sort && (p.sort.id === "__name" || IDX.has(p.sort.id)))
+  // BY_ID rather than IDX: an evidence column sorts, on the midpoint of a range
+  // where it has one, so a saved sort on it has to survive a reload.
+  if (p.sort && (p.sort.id === "__name" || BY_ID.has(p.sort.id)))
     S.sort = { id: p.sort.id, dir: p.sort.dir === 1 ? 1 : -1 };
   if (typeof p.dv === "boolean") S.dv = p.dv;
   if (p.basis === "g" || p.basis === "kcal") S.basis = p.basis;
   if (typeof p.dark === "boolean") S.dark = p.dark;
   if (CATS.includes(p.cat)) S.cat = p.cat;
+  // IDX rather than BY_ID here, and deliberately: the chart scales bars against
+  // a maximum, which is arithmetic over a single figure, and a range is not
+  // one. Evidence columns are absent from the chart's own list for the same
+  // reason, so this refuses a saved choice the list can no longer offer.
   if (IDX.has(p.chartNut)) S.chartNut = p.chartNut;
 
   // The day list, cleaned the same way favourites are: an entry naming a food
@@ -573,7 +631,9 @@ function loadPrefs() {
         l && typeof l.name === "string" && Array.isArray(l.ids))
       .map((l: { id?: unknown; name: string; ids: unknown[]; why?: unknown }) => ({
         id: String(l.id || ""), name: l.name.slice(0, 40),
-        ids: l.ids.filter((x: unknown): x is string => typeof x === "string" && IDX.has(x)),
+        // BY_ID: a lens only highlights columns, so an evidence column belongs
+        // in one, and filtering on IDX would drop it silently on reload.
+        ids: l.ids.filter((x: unknown): x is string => typeof x === "string" && BY_ID.has(x)),
         ...(typeof l.why === "string" && l.why ? { why: l.why.slice(0, 240) } : {}) }))
       .filter((l: Lens) => l.id && l.ids.length);
   }
@@ -664,11 +724,51 @@ const basisLabel = () => S.basis === "kcal" ? "per 100 kcal" : "per 100 g";
  *  would say nothing. The exemption is here rather than at the four call sites
  *  so the table, the sort order and the CSV cannot disagree about it. */
 function shown(f: Food, n: Nutrient) {
+  /* An evidence column is not a per-100-g figure in `v` and has no basis to
+     rescale, so it never reaches val(), which would throw on it. Returning null
+     rather than throwing here keeps the four call sites honest without making
+     each one guard before it calls: a caller that forgets evidence gets a blank
+     cell it will notice, and one that remembers goes through ev() instead. */
+  if (n.evidence) return null;
   const v = val(f, n.id);
   if (S.basis === "g" || n.id === "kcal" || v === null) return v;
   const k = val(f, "kcal");
   return k ? v / k * KCAL_BASIS : null;
 }
+
+/* ---------- evidence values ----------
+   Undefined is a real answer here and means no data, so this is one of the few
+   helpers that returns undefined rather than throwing. The distinction the rest
+   of the page rests on: undefined is nobody has an entry for this food and this
+   component, while a cell reading `not-measured` is a source that carries the
+   food, carries the component, and says it did not assay this one. */
+const ev = (slug: string, id: string): EvidenceCell | undefined => EV[slug]?.[id];
+
+/* Six states and six renderings, with no default branch: the union is closed,
+   so a seventh state added to the data without being added here is a compile
+   error rather than a blank cell. */
+const evText = (c: EvidenceCell | undefined, dp: number): string => {
+  if (!c) return "no data";
+  switch (c.state) {
+    case "measured":  return c.value!.toFixed(dp);
+    case "range":     return `${c.low!.toFixed(dp)} to ${c.high!.toFixed(dp)}`;
+    case "estimated": return c.value!.toFixed(dp);
+    case "trace":         return "trace";
+    case "not-detected":  return "none detected";
+    case "not-measured":  return "not measured";
+  }
+};
+
+/* A range sorts by its midpoint, which is the only defensible single point on
+   it. Everything that is not a figure sorts as absent, which is where n/a
+   already sorts. */
+const evSortKey = (slug: string, id: string): number | null => {
+  const c = ev(slug, id);
+  if (!c) return null;
+  if (c.state === "measured" || c.state === "estimated") return c.value ?? null;
+  if (c.state === "range") return (c.low! + c.high!) / 2;
+  return null;
+};
 
 /* The table gives every row a state line under its name, so "Bell pepper" three
    times over is unambiguous there. The chart has one line per bar and would
@@ -801,7 +901,14 @@ const dayGrams = () => dayContributors().reduce((s, e) => s + e.g, 0);
  */
 function dayTotals(): DayTotal[] {
   const list = dayContributors();
-  return NUTS.map(n => {
+  /* VNUTS, so a day has no row for an evidence column at all. That is the
+     invariant made structural rather than remembered: there is no total to
+     show, no percentage to take of it and nothing for "Short on" to read. It
+     also keeps this array indexed exactly as IDX is, which totalOf() relies on.
+     If soluble fibre ever ought to be totalled, it has to become a column in
+     `v` first, with everything that implies about where its figures came
+     from. */
+  return VNUTS.map(n => {
     let total = 0, from = 0;
     const notes = new Set<Note>();
     for (const e of list) {
@@ -954,7 +1061,8 @@ function rows() {
     // Sorted on the shown figure, not the stored one: a column ordered by
     // something other than what it displays is a bug people report as one.
     const n = nut(id);
-    const x = shown(a.f, n), y = shown(b.f, n);
+    const x = n.evidence ? evSortKey(slugAt(a.i), n.id) : shown(a.f, n);
+    const y = n.evidence ? evSortKey(slugAt(b.i), n.id) : shown(b.f, n);
     if (x === y) return a.f.name.localeCompare(b.f.name);
     if (x === null) return 1;
     if (y === null) return -1;
@@ -1262,12 +1370,22 @@ function renderTable(r: ReturnType<typeof rows>) {
           <span class="sr">${isFav(i) ? "Remove" : "Add"} ${esc(f.name)} ${isFav(i) ? "from" : "to"} favourites</span>
         </button></div></td>
       ${c.map(n => {
+        // data-n on both branches deliberately: a selector that only works for
+        // the new columns is a selector that silently stops testing the old
+        // ones. data-ev carries the state so the stylesheet can tell a figure
+        // from prose without the script deciding how either one looks.
+        if (n.evidence) {
+          const cell = ev(slugAt(i), n.id);
+          const proxy = cell?.match === "proxy" ? ` data-match="proxy"` : "";
+          return `<td class="num ${colClass(n)}" data-g="${n.group}" data-n="${esc(n.id)}"` +
+                 ` data-ev="${cell ? cell.state : "none"}"${proxy}>${esc(evText(cell, n.dp))}</td>`;
+        }
         const v = shown(f, n);
         const zero = v === 0 || v === null;
         // A note explains where a figure came from, so there has to be one.
         const note = v === null ? null : noteFor(i, n.id);
         if (note) shownNotes.add(note);
-        return `<td class="num${zero ? " low" : ""} ${colClass(n)}" data-g="${n.group}">${
+        return `<td class="num${zero ? " low" : ""} ${colClass(n)}" data-g="${n.group}" data-n="${esc(n.id)}">${
           fmt(v, n)}${note ? noteMark(note) : ""}</td>`;
       }).join("")}
     </tr>`;
@@ -1362,8 +1480,11 @@ function renderChart(all: ReturnType<typeof rows>) {
   const r = all.slice().sort((a, b) => (val(b.f, n.id) ?? -1) - (val(a.f, n.id) ?? -1));
   const measured = r.map(x => val(x.f, n.id)).filter(v => v !== null);
   const max = Math.max(...measured, 0.0001);
+  // Evidence columns are not offered: a bar length is a figure divided by the
+  // largest figure, and a range has neither. They are in the table, where a
+  // range can be printed as one, and out of here, where it cannot be drawn.
   $("#chartNut").innerHTML = GROUPS.filter(g => S.groups.has(g.id)).map(g =>
-    `<optgroup label="${g.label}">` + NUTS.filter(x => x.group === g.id).map(x =>
+    `<optgroup label="${g.label}">` + NUTS.filter(x => x.group === g.id && !x.evidence).map(x =>
       `<option value="${x.id}"${x.id === S.chartNut ? " selected" : ""}>${esc(x.label)}</option>`
     ).join("") + "</optgroup>").join("");
   $("#chartRows").innerHTML = r.slice(0, 25).map(({ f }) => {
@@ -1427,6 +1548,11 @@ function proteinQualityBlock(f: Food) {
 function renderDetail() {
   const f = foodAt(S.sel);
   const g = (id: string) => shown(f, nut(id));
+  /* A sibling rather than a change to g(): g() returns a number and five places
+     format it, while an evidence cell has six renderings and no basis to
+     rescale. Keeping them apart is what stops a range being handed to
+     toFixed(). */
+  const gEv = (id: string) => evText(ev(slugAt(S.sel), id), nut(id).dp);
   const inDay = S.day.find(e => e.slug === slugAt(S.sel));
   // Overview first, then one tab per group that has its own detail list. Driven
   // off GROUPS so a new group cannot be added to the table and left out of here.
@@ -1441,7 +1567,10 @@ function renderDetail() {
 
   let body;
   if (S.tab === "overview") {
-    const macro = ["kcal", "protein", "carbs", "fiber", "fat", "satfat"];
+    // The two fibre fractions sit directly under the total they divide, which
+    // is the only place they mean anything: 3.2 g of soluble fibre is a
+    // statement about the 9.4 g above it.
+    const macro = ["kcal", "protein", "carbs", "fiber", "solfibre", "insolfibre", "fat", "satfat"];
     // A type predicate rather than a plain filter: the same guard, but a plain
     // filter does not carry it into the map. An unmeasured nutrient is dropped
     // rather than scored, since a zero would rank it against real figures.
@@ -1454,8 +1583,18 @@ function renderDetail() {
       })
       .filter(x => x.pc > 0).sort((a, b) => b.pc - a.pc).slice(0, 6);
     body = `<h4>Macronutrients</h4><dl>` + macro.map(id => {
-      const n = nut(id), v = g(id);
-      const sub = id === "fiber" || id === "satfat";
+      const n = nut(id);
+      const sub = id === "fiber" || id === "satfat" || !!n.evidence;
+      if (n.evidence) {
+        const c = ev(slugAt(S.sel), id);
+        // Only a figure takes a unit. "trace" and "not measured" are prose, and
+        // "trace g" would read as a quantity.
+        const figure = c && (c.state === "measured" || c.state === "range" || c.state === "estimated");
+        return `<div class="drow sub"><dt>${esc(n.label)}</dt>
+          <dd>${figure ? `${esc(gEv(id))} ${esc(n.unit)}`
+            : `<span class="nodata">${esc(gEv(id))}</span>`}</dd></div>`;
+      }
+      const v = g(id);
       // Energy twice over: the table sorts on kilocalories, but food labelling
       // outside the United States leads with kilojoules. Derived here from the
       // column already present, by the definition of the thermochemical
@@ -1484,7 +1623,10 @@ function renderDetail() {
        exception is the curated note, which is a reviewed food-specific fact and
        is marked as such. */
     const ids = sourceOf(f);
-    const curated = NUTS.flatMap(n => {
+    // VNUTS: a per-cell note explains where a figure in `v` came from, and
+    // val() throws on anything else. Evidence columns carry their provenance in
+    // the cell itself instead, as sources and a match grade.
+    const curated = VNUTS.flatMap(n => {
       const note = val(f, n.id) === null ? null : noteFor(S.sel, n.id);
       // Only the two absorption notes belong here. Fortification and the
       // undifferentiated marker are about where a figure came from, not about
@@ -1521,12 +1663,33 @@ function renderDetail() {
        <button class="absorbmore" type="button" data-dlg="bio">Sources</button></p>`;
   } else {
     const list = NUTS.filter(n => n.group === S.tab);
-    const measured = list.map(n => g(n.id)).filter(v => v !== null);
+    // Evidence columns are held apart from all three of these. The bar scale is
+    // arithmetic over comparable figures and biotin's micrograms are not
+    // comparable with vitamin C's milligrams anyway; and the count below is a
+    // statement about what USDA published, which an outside source neither
+    // helps nor hurts.
+    const usda = list.filter(n => !n.evidence);
+    const measured = usda.map(n => g(n.id)).filter(v => v !== null);
     const max = Math.max(...measured, 0.0001);
     const L = lensIds();
-    const unmeasured = list.length - measured.length;
+    const unmeasured = usda.length - measured.length;
     body = `<h4>${esc(GROUPS.find(g => g.id === S.tab)?.label || S.tab)}</h4>
       <dl>` + list.map(n => {
+        if (n.evidence) {
+          const c = ev(slugAt(S.sel), n.id);
+          const figure = c && (c.state === "measured" || c.state === "range" || c.state === "estimated");
+          // Named, because a reader comparing this against a figure they have
+          // seen elsewhere deserves to know which country's table it came from.
+          const from = c?.sources?.length
+            ? ` <span class="pc">· ${esc(c.sources.map(s => SRCS[s]?.country ?? s).join(", "))}</span>` : "";
+          return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
+            <div style="display:flex;justify-content:space-between;gap:10px">
+              <dt>${esc(n.label)}</dt>
+              <dd>${figure ? `${esc(evText(c, n.dp))} ${esc(n.unit)}${from}`
+                : `<span class="nodata">${esc(evText(c, n.dp))}</span>`}</dd>
+            </div>
+          </div>`;
+        }
         const v = g(n.id);
         // Distinguish "measured as none" from "never measured": rendering a
         // missing figure as 0.000 asserts an absence nobody established.
@@ -2432,10 +2595,19 @@ function csvTable() {
   // the top: a rescaled figure under an unlabelled heading is a file nobody can
   // interpret a month later, which is the failure the %DV suffix already avoids.
   const per = basisLabel();
+  // An evidence heading names neither the basis toggle nor %DV, because it obeys
+  // neither: the figure is always per 100 g and there is no daily value to take
+  // a percentage of. Saying "evidence" is what stops the column being read as
+  // one more USDA measurement a month later.
   const head = ["Food", "Also known as", "State", "Category",
-                ...c.map(n => `${n.label} (${S.dv && n.dv ? "%DV" : n.unit} ${per})`)];
-  const lines = [head.map(q).join(",")].concat(r.map(({ f }) =>
+                ...c.map(n => n.evidence
+                  ? `${n.label} (${n.unit} per 100 g, evidence)`
+                  : `${n.label} (${S.dv && n.dv ? "%DV" : n.unit} ${per})`)];
+  const lines = [head.map(q).join(",")].concat(r.map(({ f, i }) =>
     [q(f.name), q(f.alt || ""), q(f.state), q(f.cat), ...c.map(n => {
+      // Quoted, because a range is text: "0.5 to 3.7" has to survive the round
+      // trip as what it is rather than be rounded into a number it is not.
+      if (n.evidence) return q(evText(ev(slugAt(i), n.id), n.dp));
       const v = shown(f, n);
       if (v === null) return "";
       return S.dv && n.dv ? Math.round(v / n.dv * 100) : v;
@@ -2455,7 +2627,12 @@ function today() {
  *  then the coverage, so a partial sum stays labelled as one outside the page
  *  as well as on it. */
 function csvDay() {
-  const c = cols(), totals = dayTotals(), list = dayContributors(), q = csvQuote;
+  // Evidence columns are dropped from the day export rather than left blank in
+  // it, for the same reason the day view has no row for them: there is no total
+  // of an evidence value, so a column of empty cells under a heading promising
+  // one would be a question the file cannot answer.
+  const c = cols().filter(n => !n.evidence);
+  const totals = dayTotals(), list = dayContributors(), q = csvQuote;
   const at = (id: string) => totalOf(totals, id);
   // Read once rather than per row, so an export running over midnight cannot
   // file half a day under one date and half under the next. Every row carries

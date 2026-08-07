@@ -3,7 +3,72 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (twelfth)
+## Latest session, 2026-08-07 (thirteenth)
+
+**Phase 1 of the evidence columns shipped**, executed from the plan the twelfth
+session wrote. Soluble fibre, insoluble fibre and biotin are columns now: 73
+nutrients, 81 foods carrying 243 evidence cells. Written up durably in
+`README.md` under "Evidence columns".
+
+**The plan was right about the hard part and wrong about the reach.** Its own
+self-review had caught that every figure funnels through `shown()` into `val()`
+and named four call sites with line numbers, all four of which still pointed
+where it said. What it missed is that `val()` is reached from four *more*
+places that walk `NUTS` directly, and three of them broke the page:
+
+- `renderDetail`'s Absorption tab walks every nutrient looking for a curated
+  note, `sourceOf()` walks every nutrient looking for interactions, and
+  `gapEvidence()` counts every food's value for one. Each now walks `VNUTS`,
+  the non-evidence nutrients, which is the same list `IDX` and `dayTotals()`
+  are built from.
+- `dayTotals()` itself mapped all of `NUTS`, which would have thrown on the
+  first day view, and `csvDay()` exported a column with no total to put in it.
+
+**The lesson worth keeping: naming the call sites of one function is not the
+same as naming the reads of the data.** The plan searched for `shown(` and
+found four. The failure was in code that never calls `shown()` at all.
+
+**`nutOpt()` had to stop reading `IDX`.** `IDX` answers "where in `v`", which
+an evidence column has no answer to; reaching a *column* by id is a different
+question. `BY_ID` is that map, and without splitting them `nut("biotin")` threw
+in the sort comparator and the detail panel, both of which have every right to
+ask about a column that exists.
+
+**Where an evidence column deliberately does not appear**, each a judgement
+rather than an accident: the chart, because a bar length is a figure divided by
+the largest figure and a range is neither; a day's totals and the day CSV,
+because there is no total of an evidence value; and `%DV`, because `dv` is null
+on all three. `build.mjs` now also refuses an interaction, a gap entry or a
+per-cell note that names one, so the data cannot express what the page could
+not render.
+
+**Four locks on the invariant, and no single edit undoes them**: the value is
+not in `v`, `val()` throws on the id, `shown()` returns null before reaching
+`val()`, and `dayTotals()` never builds a row for it. There is a test asserting
+all four from one page evaluation.
+
+**The plan's own tests needed fixing before they were worth running.** Two of
+the four browser tests it specified asserted nothing: one carried a literal
+`|| true`, and the other compared two identical `page.evaluate` calls and
+declared them equal. They are replaced with real assertions, including the one
+that matters most, that no state which is not a figure renders a digit and
+every state which is one does.
+
+**`build.mjs` builds only when it is the process entry point now.** It called
+`await run()` at the top level, so `test/tools.mjs` importing `checkEvidence`
+would have rebuilt the page as a side effect of running the tests. Same
+`process.argv[1]` guard `tools/usda.mjs` has carried since the seventh session,
+and the same reason.
+
+**Deliberately not done**: the remaining 32 components, which is phase 2; no
+inulin, chromium, molybdenum or boron column yet; no source dialog listing the
+three databases, though `SRCS` is injected and the detail panel names their
+countries; and no `estimated` cell anywhere in the data, so that state is
+modelled and rendered but not yet exercised by a real value.
+
+**Licensing is the owner's separate manual task** and is not tracked here.
+
+## Earlier session, 2026-08-07 (twelfth)
 
 **Nothing shipped, and that is the point.** This session was research and
 design. No column was added, no figure moved, and `src/` is untouched apart from
@@ -775,17 +840,17 @@ the open list at the bottom instead.
 ## Current state
 
 Repo: `/home/thom/development/plant_based_info`. Everything is committed and
-nothing is pushed: `main` is ahead of `origin/main`, and the twelfth session's
-work sits on **`evidence-columns`**, one commit ahead of `main`. That branch adds
-`tools/evidence/`, a spec and a plan, and changes nothing under `src/`, so the
-built page on it is byte-identical to the one on `main`. The GitHub remote
-(`darkixion/plant_based_info`) is public, so pushing stays the owner's call, and
-see the licensing note in the twelfth session before pushing this one.
+nothing is pushed: `main` is ahead of `origin/main`, and the twelfth and
+thirteenth sessions' work sits on **`evidence-columns`**. That branch adds
+`tools/evidence/`, a spec, a plan, and phase 1 of the evidence columns. The
+GitHub remote (`darkixion/plant_based_info`) is public, so pushing stays the
+owner's call.
 
-- **131 foods x 70 nutrients**, sourced from USDA SR Legacy plus the USDA
-  flavonoid release for three of the plant compound columns.
+- **131 foods x 73 nutrients**, sourced from USDA SR Legacy plus the USDA
+  flavonoid release for three of the plant compound columns, plus three
+  evidence columns from Japan's MEXT, the UK's CoFID and Australia's AFCD.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 141 browser tests against the result. All passing, and CI
+  20 tool tests and 148 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
