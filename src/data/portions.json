@@ -1,0 +1,1554 @@
+{
+ "lentils-cooked": [
+  {
+   "label": "1 cup",
+   "g": 198
+  },
+  {
+   "label": "1 tbsp",
+   "g": 12.3
+  }
+ ],
+ "chickpeas-cooked": [
+  {
+   "label": "1 cup",
+   "g": 164
+  }
+ ],
+ "black-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 172
+  }
+ ],
+ "kidney-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 177
+  },
+  {
+   "label": "1 tbsp",
+   "g": 11
+  }
+ ],
+ "pinto-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 171
+  },
+  {
+   "label": "1 tbsp",
+   "g": 10.6
+  }
+ ],
+ "split-peas-cooked": [
+  {
+   "label": "1 cup",
+   "g": 196
+  },
+  {
+   "label": "1 tbsp",
+   "g": 12.2
+  }
+ ],
+ "mung-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 202
+  }
+ ],
+ "green-peas-cooked": [
+  {
+   "label": "1 cup",
+   "g": 160
+  }
+ ],
+ "edamame-cooked": [
+  {
+   "label": "1 cup",
+   "g": 155
+  }
+ ],
+ "lupin-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 166
+  }
+ ],
+ "tofu-firm": [
+  {
+   "label": "1/2 cup",
+   "g": 126
+  },
+  {
+   "label": "1/4 block",
+   "g": 81
+  }
+ ],
+ "tempeh": [
+  {
+   "label": "1 cup",
+   "g": 166
+  }
+ ],
+ "natto": [
+  {
+   "label": "1 cup",
+   "g": 175
+  }
+ ],
+ "tvp-dry": [
+  {
+   "label": "1 cup",
+   "g": 105
+  },
+  {
+   "label": "1 tbsp",
+   "g": 6.6
+  }
+ ],
+ "oats-rolled-dry": [
+  {
+   "label": "1 cup",
+   "g": 156
+  }
+ ],
+ "quinoa-cooked": [
+  {
+   "label": "1 cup",
+   "g": 185
+  }
+ ],
+ "brown-rice-cooked": [
+  {
+   "label": "1 cup",
+   "g": 202
+  }
+ ],
+ "buckwheat-cooked": [
+  {
+   "label": "1 cup",
+   "g": 168
+  }
+ ],
+ "amaranth-cooked": [
+  {
+   "label": "1 cup",
+   "g": 246
+  }
+ ],
+ "wholewheat-pasta-cooked": [
+  {
+   "label": "1 cup spaghetti not packed",
+   "g": 117
+  },
+  {
+   "label": "1 cup spaghetti packed",
+   "g": 151
+  },
+  {
+   "label": "1 cup elbows",
+   "g": 117
+  },
+  {
+   "label": "1 cup penne",
+   "g": 97
+  },
+  {
+   "label": "1 cup shells",
+   "g": 105
+  },
+  {
+   "label": "1 cup lasagne",
+   "g": 116
+  },
+  {
+   "label": "1 cup rotini",
+   "g": 107
+  },
+  {
+   "label": "1 cup farfalle",
+   "g": 107
+  }
+ ],
+ "almonds": [
+  {
+   "label": "1 cup, whole",
+   "g": 143
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 92
+  },
+  {
+   "label": "1 cup, slivered",
+   "g": 108
+  },
+  {
+   "label": "1 cup, ground",
+   "g": 95
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "walnuts": [
+  {
+   "label": "1 cup, chopped",
+   "g": 117
+  },
+  {
+   "label": "1 cup, ground",
+   "g": 80
+  },
+  {
+   "label": "1 cup, in shell, edible yield",
+   "g": 28
+  },
+  {
+   "label": "1 cup shelled",
+   "g": 100
+  },
+  {
+   "label": "1 cup pieces or chips",
+   "g": 120
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "cashews": [
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "peanuts": [
+  {
+   "label": "1 oz",
+   "g": 28.35
+  },
+  {
+   "label": "1 cup",
+   "g": 146
+  }
+ ],
+ "pistachios": [
+  {
+   "label": "1 cup",
+   "g": 123
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "brazil-nuts": [
+  {
+   "label": "1 cup, whole",
+   "g": 133
+  },
+  {
+   "label": "1 kernel",
+   "g": 5
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "hazelnuts": [
+  {
+   "label": "1 cup, chopped",
+   "g": 115
+  },
+  {
+   "label": "1 cup, ground",
+   "g": 75
+  },
+  {
+   "label": "1 cup, whole",
+   "g": 135
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  },
+  {
+   "label": "10 nuts",
+   "g": 14
+  }
+ ],
+ "chia-seeds": [
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "hemp-seeds-hulled": [
+  {
+   "label": "3 tbsp",
+   "g": 30
+  }
+ ],
+ "flaxseed": [
+  {
+   "label": "1 tbsp, whole",
+   "g": 10.3
+  },
+  {
+   "label": "1 cup, whole",
+   "g": 168
+  },
+  {
+   "label": "1 tbsp, ground",
+   "g": 7
+  }
+ ],
+ "pumpkin-seeds": [
+  {
+   "label": "1 cup",
+   "g": 129
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "sunflower-seeds": [
+  {
+   "label": "1 cup, with hulls, edible yield",
+   "g": 46
+  },
+  {
+   "label": "1 cup",
+   "g": 140
+  }
+ ],
+ "sesame-seeds": [
+  {
+   "label": "1 cup",
+   "g": 144
+  },
+  {
+   "label": "1 tbsp",
+   "g": 9
+  }
+ ],
+ "broccoli-cooked": [
+  {
+   "label": "1/2 cup, chopped",
+   "g": 78
+  },
+  {
+   "label": "1 stalk, large",
+   "g": 280
+  },
+  {
+   "label": "1 stalk, medium",
+   "g": 180
+  },
+  {
+   "label": "1 stalk, small",
+   "g": 140
+  },
+  {
+   "label": "1 spear",
+   "g": 37
+  }
+ ],
+ "spinach-raw": [
+  {
+   "label": "1 cup",
+   "g": 30
+  },
+  {
+   "label": "1 bunch",
+   "g": 340
+  },
+  {
+   "label": "1 leaf",
+   "g": 10
+  },
+  {
+   "label": "1 package",
+   "g": 284
+  }
+ ],
+ "kale-raw": [
+  {
+   "label": "1 cup",
+   "g": 21
+  }
+ ],
+ "sweet-potato-baked": [
+  {
+   "label": "1 cup",
+   "g": 200
+  },
+  {
+   "label": "1 large",
+   "g": 180
+  },
+  {
+   "label": "1 medium",
+   "g": 114
+  },
+  {
+   "label": "1 small",
+   "g": 60
+  }
+ ],
+ "mushrooms-white-raw": [
+  {
+   "label": "1 cup, pieces or slices",
+   "g": 70
+  },
+  {
+   "label": "1 cup, whole",
+   "g": 96
+  },
+  {
+   "label": "1 large",
+   "g": 23
+  },
+  {
+   "label": "1 medium",
+   "g": 18
+  },
+  {
+   "label": "1 slice",
+   "g": 6
+  },
+  {
+   "label": "1 small",
+   "g": 10
+  },
+  {
+   "label": "1/2 cup pieces",
+   "g": 35
+  }
+ ],
+ "spirulina-dried": [
+  {
+   "label": "1 cup",
+   "g": 112
+  },
+  {
+   "label": "1 tablespoon",
+   "g": 7
+  }
+ ],
+ "avocado": [
+  {
+   "label": "1 cup, cubes",
+   "g": 150
+  },
+  {
+   "label": "1 cup, pureed",
+   "g": 230
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 146
+  }
+ ],
+ "banana": [
+  {
+   "label": "1 cup, mashed",
+   "g": 225
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 150
+  },
+  {
+   "label": "1 extra small",
+   "g": 81
+  },
+  {
+   "label": "1 small",
+   "g": 101
+  },
+  {
+   "label": "1 medium",
+   "g": 118
+  },
+  {
+   "label": "1 large",
+   "g": 136
+  },
+  {
+   "label": "1 extra large",
+   "g": 152
+  }
+ ],
+ "shiitake-mushrooms-raw": [
+  {
+   "label": "1 piece whole",
+   "g": 19
+  }
+ ],
+ "oyster-mushrooms-raw": [
+  {
+   "label": "1 large",
+   "g": 148
+  },
+  {
+   "label": "1 small",
+   "g": 15
+  },
+  {
+   "label": "1 cup sliced",
+   "g": 86
+  }
+ ],
+ "brussels-sprouts-cooked": [
+  {
+   "label": "1 sprout",
+   "g": 21
+  },
+  {
+   "label": "1/2 cup",
+   "g": 78
+  }
+ ],
+ "couscous-cooked": [
+  {
+   "label": "1 cup, cooked",
+   "g": 157
+  }
+ ],
+ "wild-rice-cooked": [
+  {
+   "label": "1 cup",
+   "g": 164
+  }
+ ],
+ "asparagus-cooked": [
+  {
+   "label": "1/2 cup",
+   "g": 90
+  },
+  {
+   "label": "4 spears",
+   "g": 60
+  }
+ ],
+ "artichokes-cooked": [
+  {
+   "label": "1 artichoke, medium",
+   "g": 120
+  },
+  {
+   "label": "1/2 cup hearts",
+   "g": 84
+  }
+ ],
+ "jerusalem-artichokes-raw": [
+  {
+   "label": "1 cup slices",
+   "g": 150
+  }
+ ],
+ "swiss-chard-raw": [
+  {
+   "label": "1 cup",
+   "g": 36
+  },
+  {
+   "label": "1 leaf",
+   "g": 48
+  }
+ ],
+ "guava-raw": [
+  {
+   "label": "1 cup",
+   "g": 165
+  },
+  {
+   "label": "1 fruit, without refuse",
+   "g": 55
+  }
+ ],
+ "blackberries-raw": [
+  {
+   "label": "1 cup",
+   "g": 144
+  }
+ ],
+ "kiwi-raw": [
+  {
+   "label": "1 cup, sliced",
+   "g": 180
+  },
+  {
+   "label": "1 fruit",
+   "g": 69
+  }
+ ],
+ "cannellini-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 179
+  },
+  {
+   "label": "1 tbsp",
+   "g": 11.2
+  }
+ ],
+ "butter-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 188
+  },
+  {
+   "label": "1 tbsp",
+   "g": 11.7
+  }
+ ],
+ "adzuki-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 230
+  }
+ ],
+ "black-eyed-peas-cooked": [
+  {
+   "label": "1 cup",
+   "g": 171
+  }
+ ],
+ "nori-raw": [
+  {
+   "label": "10 sheets",
+   "g": 26
+  },
+  {
+   "label": "2 tbsp",
+   "g": 10
+  }
+ ],
+ "kelp-raw": [
+  {
+   "label": "2 tbsp",
+   "g": 10
+  }
+ ],
+ "tahini-from-roasted-kernels": [
+  {
+   "label": "1 tbsp",
+   "g": 15
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "cocoa-powder-unsweetened": [
+  {
+   "label": "1 cup",
+   "g": 86
+  },
+  {
+   "label": "1 tbsp",
+   "g": 5.4
+  }
+ ],
+ "millet-cooked": [
+  {
+   "label": "1 cup",
+   "g": 174
+  }
+ ],
+ "pearl-barley-cooked": [
+  {
+   "label": "1 cup",
+   "g": 157
+  }
+ ],
+ "bulgur-wheat-cooked": [
+  {
+   "label": "1 cup",
+   "g": 182
+  },
+  {
+   "label": "1 tbsp",
+   "g": 8.4
+  }
+ ],
+ "teff-cooked": [
+  {
+   "label": "1 cup",
+   "g": 252
+  }
+ ],
+ "broad-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 170
+  }
+ ],
+ "haricot-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 182
+  }
+ ],
+ "cauliflower-cooked": [
+  {
+   "label": "1/2 cup",
+   "g": 62
+  },
+  {
+   "label": "3 flowerets",
+   "g": 54
+  }
+ ],
+ "pak-choi-raw": [
+  {
+   "label": "1 cup, shredded",
+   "g": 70
+  },
+  {
+   "label": "1 leaf",
+   "g": 14
+  }
+ ],
+ "watercress-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 34
+  },
+  {
+   "label": "10 sprigs",
+   "g": 25
+  }
+ ],
+ "beetroot-cooked": [
+  {
+   "label": "1/2 cup slices",
+   "g": 85
+  },
+  {
+   "label": "2 beets",
+   "g": 100
+  }
+ ],
+ "sweetcorn-cooked": [
+  {
+   "label": "1 ear small",
+   "g": 89
+  },
+  {
+   "label": "1 ear medium",
+   "g": 103
+  },
+  {
+   "label": "1 ear large",
+   "g": 118
+  },
+  {
+   "label": "1 cup cut",
+   "g": 149
+  },
+  {
+   "label": "1 baby ear",
+   "g": 8
+  }
+ ],
+ "butternut-squash-baked": [
+  {
+   "label": "1 cup, cubes",
+   "g": 205
+  }
+ ],
+ "potato-baked-with-skin": [
+  {
+   "label": "1 potato large",
+   "g": 299
+  },
+  {
+   "label": "1 potato medium",
+   "g": 173
+  },
+  {
+   "label": "1 potato small",
+   "g": 138
+  }
+ ],
+ "sauerkraut-canned": [
+  {
+   "label": "1 cup",
+   "g": 142
+  },
+  {
+   "label": "1 cup, undrained",
+   "g": 236
+  }
+ ],
+ "olives-ripe-canned": [
+  {
+   "label": "1 tbsp",
+   "g": 8.4
+  }
+ ],
+ "coconut-raw": [
+  {
+   "label": "1 cup, shredded",
+   "g": 80
+  },
+  {
+   "label": "1 medium",
+   "g": 397
+  },
+  {
+   "label": "1 piece",
+   "g": 45
+  }
+ ],
+ "pecans": [
+  {
+   "label": "1 cup, chopped",
+   "g": 109
+  },
+  {
+   "label": "1 cup, halves",
+   "g": 99
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "macadamia-nuts-raw": [
+  {
+   "label": "1 cup, whole or halves",
+   "g": 134
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "pine-nuts-dried": [
+  {
+   "label": "1 cup",
+   "g": 135
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "chestnuts-roasted": [
+  {
+   "label": "1 cup",
+   "g": 143
+  },
+  {
+   "label": "1 oz",
+   "g": 28.35
+  },
+  {
+   "label": "10 kernels",
+   "g": 84
+  }
+ ],
+ "orange-raw": [
+  {
+   "label": "1 cup, sections",
+   "g": 180
+  },
+  {
+   "label": "1 large",
+   "g": 184
+  },
+  {
+   "label": "1 small",
+   "g": 96
+  },
+  {
+   "label": "1 fruit",
+   "g": 131
+  }
+ ],
+ "blueberries-raw": [
+  {
+   "label": "1 cup",
+   "g": 148
+  },
+  {
+   "label": "50 berries",
+   "g": 68
+  }
+ ],
+ "strawberries-raw": [
+  {
+   "label": "1 cup, halves",
+   "g": 152
+  },
+  {
+   "label": "1 cup, pureed",
+   "g": 232
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 166
+  },
+  {
+   "label": "1 cup, whole",
+   "g": 144
+  },
+  {
+   "label": "1 extra large",
+   "g": 27
+  },
+  {
+   "label": "1 large",
+   "g": 18
+  },
+  {
+   "label": "1 medium",
+   "g": 12
+  },
+  {
+   "label": "1 small",
+   "g": 7
+  }
+ ],
+ "dates": [
+  {
+   "label": "1 date, pitted",
+   "g": 24
+  }
+ ],
+ "dried-figs-dried": [
+  {
+   "label": "1 cup",
+   "g": 149
+  },
+  {
+   "label": "1 fig",
+   "g": 8.4
+  }
+ ],
+ "miso": [
+  {
+   "label": "1 tbsp",
+   "g": 17
+  },
+  {
+   "label": "1 cup",
+   "g": 275
+  }
+ ],
+ "kohlrabi-cooked": [
+  {
+   "label": "1 cup slices",
+   "g": 165
+  }
+ ],
+ "grapefruit-raw": [
+  {
+   "label": "1 cup sections, with juice",
+   "g": 230
+  },
+  {
+   "label": "1/2 large",
+   "g": 166
+  },
+  {
+   "label": "1/2 medium",
+   "g": 128
+  },
+  {
+   "label": "1/2 small",
+   "g": 100
+  }
+ ],
+ "raspberries-raw": [
+  {
+   "label": "1 cup",
+   "g": 123
+  },
+  {
+   "label": "10 raspberries",
+   "g": 19
+  }
+ ],
+ "lychees-raw": [
+  {
+   "label": "1 cup",
+   "g": 190
+  },
+  {
+   "label": "1 fruit without refuse",
+   "g": 9.6
+  }
+ ],
+ "mango-raw": [
+  {
+   "label": "1 cup pieces",
+   "g": 165
+  },
+  {
+   "label": "1 fruit without refuse",
+   "g": 336
+  }
+ ],
+ "apricots-raw": [
+  {
+   "label": "1 cup, halves",
+   "g": 155
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 165
+  },
+  {
+   "label": "1 apricot",
+   "g": 35
+  }
+ ],
+ "apple-raw-with-skin": [
+  {
+   "label": "1 cup, quartered or chopped",
+   "g": 125
+  },
+  {
+   "label": "1 cup slices",
+   "g": 109
+  },
+  {
+   "label": "1 large",
+   "g": 223
+  },
+  {
+   "label": "1 medium",
+   "g": 182
+  },
+  {
+   "label": "1 small",
+   "g": 149
+  },
+  {
+   "label": "1 extra small",
+   "g": 101
+  }
+ ],
+ "pear-raw": [
+  {
+   "label": "1 cup, slices",
+   "g": 140
+  },
+  {
+   "label": "1 cup, cubes",
+   "g": 161
+  },
+  {
+   "label": "1 small",
+   "g": 148
+  },
+  {
+   "label": "1 medium",
+   "g": 178
+  },
+  {
+   "label": "1 large",
+   "g": 230
+  }
+ ],
+ "cherries-sweet-raw": [
+  {
+   "label": "1 cup, without pits",
+   "g": 154
+  },
+  {
+   "label": "1 cherry",
+   "g": 8.2
+  }
+ ],
+ "pineapple-raw": [
+  {
+   "label": "1 cup, chunks",
+   "g": 165
+  },
+  {
+   "label": "1 slice (4-2/3\" dia x 3/4\" thick)",
+   "g": 166
+  },
+  {
+   "label": "1 slice (3-1/2\" dia x 3/4\" thick)",
+   "g": 84
+  },
+  {
+   "label": "1 slice, thin",
+   "g": 56
+  }
+ ],
+ "watermelon-raw": [
+  {
+   "label": "1 cup, balls",
+   "g": 154
+  },
+  {
+   "label": "1 cup, diced",
+   "g": 152
+  },
+  {
+   "label": "1 wedge",
+   "g": 286
+  },
+  {
+   "label": "10 watermelon balls",
+   "g": 122
+  }
+ ],
+ "radishes-raw": [
+  {
+   "label": "1 cup slices",
+   "g": 116
+  },
+  {
+   "label": "1 large",
+   "g": 9
+  },
+  {
+   "label": "1/2 cup slices",
+   "g": 58
+  }
+ ],
+ "courgette-cooked": [
+  {
+   "label": "1 cup, sliced",
+   "g": 180
+  },
+  {
+   "label": "1/2 cup, mashed",
+   "g": 120
+  }
+ ],
+ "aubergine-cooked": [
+  {
+   "label": "1 cup",
+   "g": 99
+  }
+ ],
+ "bell-pepper-green-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 149
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 92
+  },
+  {
+   "label": "1 tbsp",
+   "g": 9.3
+  },
+  {
+   "label": "1 large",
+   "g": 164
+  },
+  {
+   "label": "1 medium",
+   "g": 119
+  },
+  {
+   "label": "1 ring",
+   "g": 10
+  },
+  {
+   "label": "1 small",
+   "g": 74
+  },
+  {
+   "label": "10 strips",
+   "g": 27
+  }
+ ],
+ "bell-pepper-red-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 149
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 92
+  },
+  {
+   "label": "1 tablespoon",
+   "g": 9.3
+  },
+  {
+   "label": "1 large",
+   "g": 164
+  },
+  {
+   "label": "1 medium",
+   "g": 119
+  },
+  {
+   "label": "1 small",
+   "g": 74
+  },
+  {
+   "label": "1 ring",
+   "g": 10
+  }
+ ],
+ "bell-pepper-yellow-raw": [
+  {
+   "label": "1 pepper, large",
+   "g": 186
+  },
+  {
+   "label": "10 strips",
+   "g": 52
+  }
+ ],
+ "carrots-raw": [
+  {
+   "label": "1 cup chopped",
+   "g": 128
+  },
+  {
+   "label": "1 cup grated",
+   "g": 110
+  },
+  {
+   "label": "1 cup strips or slices",
+   "g": 122
+  },
+  {
+   "label": "1 large",
+   "g": 72
+  },
+  {
+   "label": "1 medium",
+   "g": 61
+  },
+  {
+   "label": "1 small",
+   "g": 50
+  },
+  {
+   "label": "1 strip large",
+   "g": 7
+  }
+ ],
+ "parsnips-cooked": [
+  {
+   "label": "1/2 cup slices",
+   "g": 78
+  },
+  {
+   "label": "1 parsnip",
+   "g": 160
+  }
+ ],
+ "leeks-cooked": [
+  {
+   "label": "1 leek",
+   "g": 124
+  },
+  {
+   "label": "1/4 cup, chopped or diced",
+   "g": 26
+  }
+ ],
+ "shallots-raw": [
+  {
+   "label": "1 tbsp chopped",
+   "g": 10
+  }
+ ],
+ "turnip-cooked": [
+  {
+   "label": "1 cup, cubes",
+   "g": 156
+  },
+  {
+   "label": "1 cup, mashed",
+   "g": 230
+  }
+ ],
+ "swede-cooked": [
+  {
+   "label": "1 cup, cubes",
+   "g": 170
+  },
+  {
+   "label": "1 cup, mashed",
+   "g": 240
+  }
+ ],
+ "onions-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 160
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 115
+  },
+  {
+   "label": "1 tbsp chopped",
+   "g": 10
+  },
+  {
+   "label": "1 large",
+   "g": 150
+  },
+  {
+   "label": "1 slice, large",
+   "g": 38
+  },
+  {
+   "label": "1 medium",
+   "g": 110
+  },
+  {
+   "label": "1 slice, medium",
+   "g": 14
+  },
+  {
+   "label": "1 small",
+   "g": 70
+  },
+  {
+   "label": "1 slice, thin",
+   "g": 9
+  },
+  {
+   "label": "10 rings",
+   "g": 60
+  }
+ ],
+ "celery-raw": [
+  {
+   "label": "1 cup chopped",
+   "g": 101
+  },
+  {
+   "label": "1 tbsp",
+   "g": 7.5
+  },
+  {
+   "label": "1 stalk, large",
+   "g": 64
+  },
+  {
+   "label": "1 stalk, medium",
+   "g": 40
+  },
+  {
+   "label": "1 stalk, small",
+   "g": 17
+  }
+ ],
+ "spring-onions-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 100
+  },
+  {
+   "label": "1 tbsp chopped",
+   "g": 6
+  },
+  {
+   "label": "1 large",
+   "g": 25
+  },
+  {
+   "label": "1 medium",
+   "g": 15
+  },
+  {
+   "label": "1 small",
+   "g": 5
+  }
+ ],
+ "cucumber-raw-with-peel": [
+  {
+   "label": "1/2 cup slices",
+   "g": 52
+  },
+  {
+   "label": "1 cucumber",
+   "g": 301
+  }
+ ],
+ "ginger-root-raw": [
+  {
+   "label": "1/4 cup slices",
+   "g": 24
+  },
+  {
+   "label": "5 slices",
+   "g": 11
+  }
+ ],
+ "peaches-raw": [
+  {
+   "label": "1 cup slices",
+   "g": 154
+  },
+  {
+   "label": "1 small",
+   "g": 130
+  },
+  {
+   "label": "1 medium",
+   "g": 150
+  },
+  {
+   "label": "1 large",
+   "g": 175
+  },
+  {
+   "label": "1 extra large",
+   "g": 224
+  }
+ ],
+ "grapes-raw": [
+  {
+   "label": "1 cup",
+   "g": 151
+  },
+  {
+   "label": "10 grapes",
+   "g": 49
+  }
+ ],
+ "plums-raw": [
+  {
+   "label": "1 cup, sliced",
+   "g": 165
+  },
+  {
+   "label": "1 fruit",
+   "g": 66
+  }
+ ],
+ "passion-fruit-raw": [
+  {
+   "label": "1 cup",
+   "g": 236
+  },
+  {
+   "label": "1 fruit without refuse",
+   "g": 18
+  }
+ ],
+ "pomegranate-raw": [
+  {
+   "label": "1/2 cup arils",
+   "g": 87
+  },
+  {
+   "label": "1 pomegranate",
+   "g": 282
+  }
+ ],
+ "alfalfa-sprouts-raw": [
+  {
+   "label": "1 cup",
+   "g": 33
+  }
+ ],
+ "rocket-raw": [
+  {
+   "label": "1/2 cup",
+   "g": 10
+  }
+ ],
+ "celeriac-raw": [
+  {
+   "label": "1 cup",
+   "g": 156
+  }
+ ],
+ "pumpkin-cooked": [
+  {
+   "label": "1 cup, mashed",
+   "g": 245
+  }
+ ],
+ "yeast-extract-spread": [
+  {
+   "label": "1 tsp",
+   "g": 6
+  }
+ ],
+ "borlotti-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 177
+  }
+ ],
+ "tomatoes-raw": [
+  {
+   "label": "1 cup cherry tomatoes",
+   "g": 149
+  },
+  {
+   "label": "1 cup, chopped or sliced",
+   "g": 180
+  },
+  {
+   "label": "1 Italian tomato",
+   "g": 62
+  },
+  {
+   "label": "1 cherry",
+   "g": 17
+  },
+  {
+   "label": "1 large whole",
+   "g": 182
+  },
+  {
+   "label": "1 medium whole",
+   "g": 123
+  },
+  {
+   "label": "1 slice, medium",
+   "g": 20
+  },
+  {
+   "label": "1 plum tomato",
+   "g": 62
+  },
+  {
+   "label": "1 small whole",
+   "g": 91
+  },
+  {
+   "label": "1 slice, thick/large",
+   "g": 27
+  },
+  {
+   "label": "1 wedge",
+   "g": 31
+  },
+  {
+   "label": "1 slice, thin/small",
+   "g": 15
+  }
+ ],
+ "wheatgerm-toasted": [
+  {
+   "label": "1 oz",
+   "g": 28.35
+  },
+  {
+   "label": "1 cup",
+   "g": 113
+  }
+ ]
+}
