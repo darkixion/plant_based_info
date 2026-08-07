@@ -2486,6 +2486,40 @@ await test("gamma-tocopherol withholds a figure USDA never measured", async () =
   });
 });
 
+await test("the phytosterol caveat names the categories it is silent on", async () => {
+  await withPage(async page => {
+    // 25 of 131, and the gaps are not scattered: four whole categories have no
+    // figure at all. Naming them from the data is the honest version of "this
+    // column ranks foods partly by who was assayed", and it cannot drift the
+    // way the hand-written vitamin E list did.
+    const { empty, filled, missingRich } = await page.evaluate(() => {
+      const at = DATA.nutrients.findIndex(n => n.id === "phytosterols");
+      const cats = [...new Set(DATA.foods.map(f => f.cat))];
+      return {
+        empty: cats.filter(c => DATA.foods.filter(f => f.cat === c)
+          .every(f => f.v[at] === null)),
+        filled: DATA.foods.filter(f => f.v[at] !== null).length,
+        missingRich: DATA.foods
+          .filter(f => (f.cat === "Nuts" || f.cat === "Seeds") && f.v[at] === null)
+          .map(f => f.name),
+      };
+    });
+    assert(empty.length >= 4, `expected at least four empty categories, got ${empty.join(", ")}`);
+    assert(filled === 25, `expected 25 foods with a figure, got ${filled}`);
+    // The two the old README singled out by hand. They must come out of the
+    // data here, not out of a literal in the prose.
+    assert(missingRich.includes("Almonds") && missingRich.includes("Walnuts"),
+      `expected almonds and walnuts among the unassayed nuts, got ${missingRich.join(", ")}`);
+
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    for (const c of empty) assert(text.includes(c), `category with no figure not named: ${c}`);
+    for (const n of missingRich) assert(text.includes(n), `unassayed nut or seed not named: ${n}`);
+    assert(text.includes(`${filled} of these foods`),
+      `expected the caveat to state the count ${filled}`);
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

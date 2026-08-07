@@ -110,6 +110,23 @@ const KNOWN = {
     why: "The two carotenoids that concentrate in the retina, where they filter blue light. Dark leaves are much the richest source, and USDA reports them as a single combined figure." },
   1122: { id: "lycopene", label: "Lycopene", group: "plant", unit: "µg", dv: null, dp: 0, after: "luteinzea",
     why: "The red pigment of tomatoes and watermelon. It makes no vitamin A at all, and unusually it becomes easier to absorb after cooking rather than harder." },
+
+  // Phytosterols. This reverses a recorded decision, so the reasoning is worth
+  // keeping: the objection on file was that SR Legacy reached "8 to 14" of
+  // these foods, which was wrong. It reaches 25, all non-zero, the same
+  // coverage as anthocyanidins, which shipped.
+  //
+  // The real limit is which 25. Sesame at 714 mg, sunflower at 534 and
+  // pistachios at 214 dominate it, while almonds, walnuts and avocado have no
+  // figure at all, and four whole categories have none: legumes, soy, grains
+  // and algae. Sorting by this column therefore ranks foods partly by who USDA
+  // assayed. That is true of the flavonoid columns too, and the answer is the
+  // same: ship the data and state the limit on the page rather than withhold it.
+  //
+  // No daily value exists for phytosterols at all, so dv is null rather than
+  // omitted for a double-counting reason.
+  1283: { id: "phytosterols", label: "Phytosterols", group: "plant", unit: "mg", dv: null, dp: 0, after: "flavonols",
+    why: "Plant cholesterol analogues that block some dietary cholesterol from being absorbed. Seeds and nuts carry by far the most, and USDA has assayed too few foods for this column to be read as a ranking." },
 };
 
 /* A second USDA id to fall back on when the first is absent.
@@ -519,6 +536,7 @@ const COLUMN_TO_USDA = {
   b5: 1170, b6: 1175, b9: 1177, b12: 1178, chol: 1180, ca: 1087, fe: 1089,
   mg: 1090, p: 1091, k: 1092, na: 1093, zn: 1095, cu: 1098, mn: 1101, se: 1103,
   betacar: 1107, alphacar: 1108, cryptox: 1120, luteinzea: 1123, lycopene: 1122,
+  phytosterols: 1283,
 };
 
 /* Columns SR Legacy cannot fill. It defines nutrient ids for the flavonoids but

@@ -2140,6 +2140,20 @@ const GAMMA_OVER_ALPHA = FOODS.filter(f => {
   return a !== null && g !== null && g > a;
 });
 
+/* Categories with no phytosterol figure anywhere in them. The column reaches
+   25 of the 131 foods and the gaps are not scattered: four entire categories
+   are empty, which is a fairer statement of the limit than naming three foods
+   and a truer one than a coverage count on its own. */
+const STEROL_EMPTY_CATS = [...new Set(FOODS.map(f => f.cat))]
+  .filter(c => FOODS.every(f => f.cat !== c || val(f, "phytosterols") === null));
+const STEROL_FOODS = FOODS.filter(f => val(f, "phytosterols") !== null);
+/* The unassayed nuts and seeds, named from the data rather than typed. The
+   README picked out almonds, walnuts and avocado by hand; the table holds
+   fifteen such nuts and seeds, and a hand-picked three is the same defect as
+   the vitamin E list two caveats up. */
+const STEROL_MISSING_RICH = FOODS.filter(f =>
+  (f.cat === "Nuts" || f.cat === "Seeds") && val(f, "phytosterols") === null);
+
 /* And how many omega figures are approximated from an undifferentiated total
    rather than measured as the named isomer. Counted from the note itself for
    the same reason as the rest: the number moves whenever a food is added or a
@@ -2353,6 +2367,13 @@ const DLG = {
       ${andList(GAMMA_OVER_ALPHA.map(fullName))}. None of that counts towards the vitamin E
       column, which is why gamma has a column of its own beside it. Read vitamin E as the amount
       your body will bank rather than as everything in the food with vitamin E activity.</li>
+      <li><b>Phytosterols are measured for a minority of these foods.</b> USDA has a figure for
+      ${STEROL_FOODS.length} of these foods and none at all for anything in
+      ${andList(STEROL_EMPTY_CATS)}. Even among the nuts and seeds, where phytosterols
+      concentrate, ${STEROL_MISSING_RICH.length} have no figure:
+      ${andList(STEROL_MISSING_RICH.map(fullName))}. Read the column as how much was found in
+      the foods that were tested, never as a ranking: sesame and sunflower seeds sit on top
+      partly because they are among the few that were assayed at all.</li>
       <li><b>Fortification is marked where it drives the figure.</b> Most rows are for the
       unfortified food, and a commercial packet of plant milk or cereal will beat them. A few are
       the other way round, because no unfortified version of the product is really sold:
