@@ -297,8 +297,8 @@ figure that keeps the ranking honest would be the first thing to go.
 **The basis and `% daily value` are independent controls, and the combination is
 the point.** A % DV per 100 kcal figure scales by 20 over a 2000 kcal day, so 5%
 is adequate for any nutrient. That is one number which reads the whole table
-without knowing sixty-odd daily values, and the meta line says so whenever both
-are on.
+without knowing sixty-odd daily values, and the table caption says so whenever
+both are on.
 
 **`val()` stays the stored per-100-g figure and must.** `dayTotals()`,
 `proteinQuality()` and `omegaRatio()` all read it: a day's totals are grams of
@@ -403,6 +403,20 @@ fallback switches a group on that nobody pressed.
 live in `BUILTIN_LENSES` in `app.ts`; users can save their own. Selecting a lens
 switches on whatever column groups it needs, since highlighting a hidden column
 would highlight nothing.
+
+**The last entry in that menu, `Add…`, is an action rather than a lens** and
+opens the editor. It carries the sentinel value `LENS_ADD`, and the change
+handler puts the menu back to whatever is highlighted *before* opening the
+dialog, so cancelling cannot leave the control reading "Add…" over an unchanged
+table. There is a test for exactly that.
+
+**Every nutrient group starts visible**, derived from `GROUPS` rather than
+listed, so a seventh group would show the day it was added. That makes the
+opening table 68 columns wide and horizontally scrollable; switching groups off
+in the sidebar is how it narrows. Tests must therefore say which groups they
+want, via `showGroups()` in `test/smoke.mjs`, rather than clicking a sidebar
+button to "turn one on": a click means flip, and every one of those clicks
+silently became a turn-off the day the default changed.
 
 **Quantities can come from a USDA portion.** 128 of the 131 foods carry portion
 weights from SR Legacy's `food_portion.csv`, so a banana can be "1 medium" at

@@ -88,7 +88,7 @@ declare const DATA: Dataset;
    here: the file is inlined by build.mjs rather than imported. */
 declare const I: Record<
   "leaf" | "compare" | "heart" | "heartFull" | "help" | "book" | "info" | "dl" |
-  "moon" | "sun" | "search" | "x" | "pct" | "reset" | "grid" | "eye" |
+  "moon" | "sun" | "search" | "x" | "pct" | "grid" | "eye" |
   "macro" | "fats" | "amino" | "vit" | "min" | "up" | "down" | "sortable" |
   "right" | "plant" | "plus" | "minus", string>;
 /* Portion weights, injected by build.mjs from src/data/portions.json the same
@@ -228,7 +228,10 @@ const DEFAULT_G = 100;
 const DEFAULT_KG = 70;
 
 const S: State = {
-  groups: new Set(["macro", "amino"]),
+  // Every group on by default, derived from GROUPS rather than listed, so a
+  // seventh group is shown the day it is added instead of being invisible
+  // until somebody remembers this line.
+  groups: new Set(GROUPS.map(g => g.id)),
   sort: { id: "__name", dir: 1 },
   q: "", cat: "",
   sel: 0, favs: new Set(), favsOnly: false,
@@ -800,6 +803,11 @@ function toggleGroup(id: NutrientGroup) {
 }
 
 /* ---------- highlight lens ---------- */
+/* The last entry in the menu is an action rather than a lens: choosing it opens
+   the editor. A value no lens id can collide with, since every built-in id is a
+   word and every custom one is "c" followed by a timestamp. */
+const LENS_ADD = "__add";
+
 function renderLensSelect() {
   // title= gives the native option tooltip on hover; the same sentence is shown
   // in full under the toolbar once a lens is selected, since option tooltips
@@ -809,7 +817,8 @@ function renderLensSelect() {
   $("#lensSel").innerHTML =
     `<option value=""${S.lens ? "" : " selected"}>None</option>` +
     `<optgroup label="Built in">${BUILTIN_LENSES.map(opt).join("")}</optgroup>` +
-    (S.custom.length ? `<optgroup label="Yours">${S.custom.map(opt).join("")}</optgroup>` : "");
+    (S.custom.length ? `<optgroup label="Yours">${S.custom.map(opt).join("")}</optgroup>` : "") +
+    `<option value="${LENS_ADD}" title="Build your own highlight group from any nutrients.">Add…</option>`;
   $("#lensSel").classList.toggle("lensactive", !!S.lens);
   renderLensNote();
 }
@@ -984,11 +993,26 @@ function renderTable(r: ReturnType<typeof rows>) {
   }).join("")
     : `<tr><td class="empty" colspan="${c.length + 1}">${emptyState()}</td></tr>`;
 
+  /* The caption is the only place that says what is on screen, so it has to say
+     how much of the data that is: a search leaves it showing three rows, and a
+     caption that still read "131 vegan foods" would be describing the dataset
+     rather than the table under it. */
   const lens = lensById(S.lens);
   $("#cap").textContent =
-    `${FOODS.length} vegan foods, ${c.length} nutrient columns. Values ${basisLabel()} of food` +
+    (page.length === FOODS.length
+      ? `${FOODS.length} vegan foods`
+      : `Showing ${page.length} of ${FOODS.length} vegan foods`) +
+    (c.length === NUTS.length
+      ? `, all ${c.length} nutrient columns`
+      : `, ${c.length} of ${NUTS.length} nutrient columns`) +
+    `. Values ${basisLabel()} of food` +
     (S.dv ? ", shown as % of adult daily value." : ".") +
-    (lens ? ` ${lens.name} highlighted.` : "");
+    (S.favsOnly ? " Favourites only." : "") +
+    (lens ? ` ${lens.name} highlighted.` : "") +
+    // The reason the two controls are separate rather than one three-way switch.
+    // A %DV per 100 kcal figure scales by 20 over a 2000 kcal day, so one number
+    // reads the whole table without anyone learning 60-odd daily values.
+    (S.dv && S.basis === "kcal" ? " 5% here is a full day's worth at 2000 kcal." : "");
 
   const key = $("#noteKey");
   key.hidden = !shownNotes.size;
@@ -1221,24 +1245,11 @@ function renderDetail() {
     <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>`;
 }
 
-/* ---------- meta ----------
-   The table lists every food it has, in one scrolling box. It used to paginate
-   at twenty rows, which meant sorting by a column and then paging to find where
-   your food had gone, and which put a second control on the page for something
-   the scrollbar already did. */
-function renderMeta(total: number) {
-  const c = cols().length;
-  const lens = lensById(S.lens);
-  $("#meta").innerHTML = `${I.info} Showing <b>${total}</b> of ${FOODS.length} foods ·
-    <b>${c}</b> of ${NUTS.length} nutrients` +
-    (S.favsOnly ? " · favourites only" : "") + (S.dv ? " · % daily value" : "") +
-    (S.basis === "kcal" ? " · per 100 kcal" : "") +
-    // The reason the two controls are separate rather than one three-way switch.
-    // A %DV per 100 kcal figure scales by 20 over a 2000 kcal day, so one number
-    // reads the whole table without anyone learning 60-odd daily values.
-    (S.dv && S.basis === "kcal"
-      ? ` · <span class="lenshint">5% here is a full day's worth</span> at 2000 kcal` : "") +
-    (lens ? ` · <span class="lenshint">${esc(lens.name)}</span> highlighted` : "");
+/* ---------- sidebar counts ----------
+   What is on screen is said once, in the table caption. This used to be a
+   second line above the table saying the same thing in different words, which
+   left two places to keep in step and one of them was always the stale one. */
+function renderCounts() {
   $("#favCount").textContent = S.favs.size ? String(S.favs.size) : "";
   // Counted from the entries that resolve to a food, not from the stored list.
   // An entry naming a food that has left the dataset draws no row, so counting
@@ -1591,7 +1602,7 @@ function render() {
   // aria-current="" reads as "not current", so remove it rather than blank it.
   if (showDay) $("#navFoods").removeAttribute("aria-current");
   else $("#navFoods").setAttribute("aria-current", "true");
-  for (const sel of ["#viewGrp", ".lensgrp", "#dvBtn", "#nutNote", "#meta"])
+  for (const sel of ["#viewGrp", ".lensgrp", "#dvBtn", "#nutNote"])
     $(sel).hidden = showDay;
   if (showDay) $("#lensNote").hidden = true; else renderLensNote();
 
@@ -1609,7 +1620,7 @@ function render() {
   if (showChart) renderChart(r);
   renderDetail();
   renderDay();
-  renderMeta(r.length);
+  renderCounts();
   renderNutNote();
 }
 
@@ -1760,7 +1771,13 @@ const chartSel = $<HTMLSelectElement>("#chartNut");
 chartSel.onchange = () => { S.chartNut = chartSel.value; savePrefs(); renderChart(rows()); };
 
 const lensSel = $<HTMLSelectElement>("#lensSel");
-lensSel.onchange = () => setLens(lensSel.value);
+lensSel.onchange = () => {
+  // "Add…" is an action, not a choice. Put the control back to whatever is
+  // highlighted now *before* opening the editor, so cancelling the dialog does
+  // not leave the menu reading "Add…" over an unchanged table.
+  if (lensSel.value === LENS_ADD) { renderLensSelect(); openLensEditor(); return; }
+  setLens(lensSel.value);
+};
 
 const basisBtn = $("#basisBtn");
 basisBtn.onclick = () => {
@@ -1781,22 +1798,6 @@ dvBtn.onclick = () => {
   savePrefs();
   render();
 };
-/* Resets the view, not the user's own data: favourites and saved highlight
-   groups took effort to create and are not what "reset columns" means. */
-$("#resetBtn").onclick = () => {
-  S.groups = new Set(["macro", "amino"]); S.sort = { id: "protein", dir: -1 };
-  S.q = ""; $<HTMLInputElement>("#q").value = ""; $("#qClear").hidden = true;
-  S.cat = "";
-  S.dv = false; dvBtn.setAttribute("aria-pressed", "false");
-  if (dvBtn.lastChild) dvBtn.lastChild.textContent = " Show % daily value";
-  S.basis = "g"; basisBtn.setAttribute("aria-pressed", "false");
-  if (basisBtn.lastChild) basisBtn.lastChild.textContent = " Show per 100 kcal";
-  S.favsOnly = false; S.lens = "";
-  savePrefs();
-  renderGroups(); renderCats(); renderLensSelect(); render();
-  say("Columns and filters reset. Favourites, your day and saved highlight groups kept.");
-};
-
 let qt: ReturnType<typeof setTimeout>;
 const qInput = $<HTMLInputElement>("#q");
 qInput.oninput = () => {
@@ -2070,7 +2071,6 @@ function openLensEditor() {
   $("#lensName").focus();
 }
 
-$("#lensEdit").onclick = openLensEditor;
 $("#lensCancel").onclick = () => $<HTMLDialogElement>("#lensDlg").close();
 $("#lensX").onclick = () => $<HTMLDialogElement>("#lensDlg").close();
 $("#nutPick").addEventListener("change", updateLensCount);
@@ -2166,8 +2166,8 @@ const DLG = {
     <h4>Show the columns you want</h4>
     <p>The <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and
     off. Each group has its own background tint in the table, so you can tell at a glance where one
-    ends and the next begins. Amino acids and macronutrients start visible; turn on vitamins,
-    minerals, omega oils and plant compounds as you need them.</p>
+    ends and the next begins. All ${GROUPS.length} start visible, which makes for a wide table;
+    switch off the ones you are not reading and the rest close up.</p>
     <h4>Sort by anything</h4>
     <p>Every column header is a button. One click sorts high to low, a second reverses it. The
     sorted column is shown in bold all the way down, so you can keep your place while scrolling
@@ -2176,8 +2176,9 @@ const DLG = {
     <p>The <b>Highlight</b> menu picks out a set of nutrients wherever they sit in the table:
     the nine essential amino acids, the three the body uses to make creatine, the pair that matter
     for iron absorption, and so on. Choosing one switches on any column group it needs.</p>
-    <p>Press <b>Custom…</b> to build your own from any combination of nutrients and give it a name.
-    Your groups are saved in this browser and appear in the same menu.</p>
+    <p>Choose <b>Add…</b>, the last entry in that menu, to build your own from any combination of
+    nutrients and give it a name. Your groups are saved in this browser and appear in the same
+    menu.</p>
     <h4>Compare like for like</h4>
     <p><b>Show % daily value</b> converts every column that has a reference value into a percentage,
     which makes a milligram of selenium and a gram of protein comparable at a glance.</p>
@@ -2210,8 +2211,7 @@ const DLG = {
     <p>Your favourites, the foods and quantities in your day, saved highlight groups, visible
     columns, sort order and light or dark mode are kept in this browser between visits. Nothing is
     sent anywhere. It is stored on your own machine, so it will not follow you to another device,
-    and clearing site data will clear it. <b>Reset columns</b> restores the default view but leaves
-    your favourites, your day and your saved groups alone.</p>
+    and clearing site data will clear it.</p>
     <h4>Keyboard</h4>
     <p>Everything is reachable by tab. The table region itself is focusable, so you can scroll it
     sideways with the arrow keys. The detail panel tabs move with left and right arrows.</p>`],

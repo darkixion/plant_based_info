@@ -123,12 +123,15 @@ button,input,select{font:inherit; color:inherit}
 .navbtn[aria-pressed=true] .count{color:var(--green-dark)}
 
 /* ---------- topbar + hero ---------- */
-.top{display:flex; justify-content:flex-end; gap:4px; padding:14px 26px; flex-wrap:wrap}
+/* The top bar carries no bottom padding: the hero's own padding is the only gap
+   between the links and the headline, so the two cannot compound into a band of
+   empty page above the first thing anybody came to read. */
+.top{display:flex; justify-content:flex-end; gap:4px; padding:8px 26px 0; flex-wrap:wrap}
 .tlink{display:inline-flex; gap:7px; align-items:center; padding:8px 12px; border-radius:8px;
        background:none; border:1px solid transparent; color:var(--body); font-size:14px;
        text-decoration:none; min-height:40px}
 .tlink:hover{background:var(--raise)}
-.hero{padding:16px 26px 30px; border-bottom:1px solid var(--line); position:relative; overflow:hidden}
+.hero{padding:10px 26px 20px; border-bottom:1px solid var(--line); position:relative; overflow:hidden}
 /* Search lives in the sidebar, alongside the other two ways of narrowing the
    table. Sized to the sidebar rather than the hero it used to sit in. */
 .search{position:relative; margin:2px 0 16px; border-radius:10px}
@@ -142,20 +145,19 @@ button,input,select{font:inherit; color:inherit}
   background:none; color:var(--muted); padding:7px; border-radius:6px; line-height:0}
 .hero h1{font-size:clamp(26px,3.1vw,36px); max-width:21ch; font-weight:600; letter-spacing:-.03em}
 .hero h1 em{font-style:normal; color:var(--green)}
-.hero p{max-width:52ch; margin:16px 0 0; color:var(--muted); font-size:15px}
+.hero p{max-width:52ch; margin:10px 0 0; color:var(--muted); font-size:15px}
 .herodeco{position:absolute; right:16px; top:50%; translate:0 -50%;
   width:min(40%,400px); pointer-events:none; opacity:.9}
 @media (max-width:900px){.herodeco{display:none}}
 
 /* ---------- sections ---------- */
-.sect{padding:24px 26px; border-bottom:1px solid var(--line)}
+.sect{padding:16px 26px 24px; border-bottom:1px solid var(--line)}
 .sectlabel{font-size:14.5px; color:var(--body); margin-bottom:14px; font-weight:500}
 /* ---------- lens (highlight) control ---------- */
 .lensgrp{display:inline-flex; align-items:center; gap:8px}
 .lensgrp .swatch{width:11px; height:11px; border-radius:3px; background:var(--lens-bg);
   border:2px solid var(--lens-line); flex:none}
 select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px var(--lens-line)}
-.lenshint{font-size:12.5px; color:var(--lens-ink); font-weight:600}
 .lensnote{margin:0 0 12px; padding:11px 14px; border-radius:10px; font-size:13.5px;
   line-height:1.5; color:var(--body); background:var(--lens-bg);
   border:1px solid var(--lens-line); border-left-width:3px; max-width:96ch}
@@ -210,19 +212,18 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
 .push{margin-left:auto}
 select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
   background:var(--panel); min-height:40px}
-.meta{font-size:13.5px; color:var(--muted); margin:0 0 12px; display:flex; gap:8px; align-items:center}
 
 /* ---------- layout of table + detail ---------- */
 .split{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:20px; align-items:start}
 @media (max-width:1160px){.split{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- table ---------- */
-/* Fill the screen rather than stopping short. dvh so mobile browser chrome
-   collapsing does not leave the box overshooting the viewport. It stays a
-   max-height, so a short result set still shrinks to its rows instead of
-   leaving a tall empty panel. */
+/* The box grows to its rows and the page scrolls, rather than the table being a
+   scrollport of its own with the page still behind it. overflow:auto stays for
+   the horizontal axis, which is the one that always overflows: 68 columns are
+   wider than any screen. */
 .tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto;
-           max-height:calc(100dvh - 32px); background:var(--panel)}
+           background:var(--panel)}
 .tablewrap:focus-visible{outline:3px solid var(--green); outline-offset:-3px}
 table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
 caption{text-align:left; padding:12px 14px; color:var(--muted); font-size:13px;

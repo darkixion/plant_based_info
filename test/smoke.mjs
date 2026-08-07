@@ -41,6 +41,13 @@ async function withPage(fn) {
   return errors;
 }
 
+/** Set the visible column groups outright. Clicking a sidebar button means
+ *  "flip this group", so a test that clicked to switch minerals *on* switched
+ *  them off the day every group started visible. Saying which groups the test
+ *  wants survives the default changing again. */
+const showGroups = (page, ...ids) =>
+  page.evaluate(ids => { S.groups = new Set(ids); renderGroups(); render(); }, ids);
+
 // ---------------------------------------------------------------- basics
 
 await test("page loads with no console or page errors", async () => {
@@ -82,9 +89,12 @@ await test("table renders every food and the default column set", async () => {
     // paging to find where your food had gone.
     const rows = await page.locator("#tbody tr").count();
     eq(rows, await page.evaluate(() => DATA.foods.length), "rows rendered");
-    // macro (8) + amino (18) = 26 nutrient columns, plus the food column
+    // Every group starts visible, so a row carries one cell per nutrient plus
+    // the food column. Counted from the data rather than typed out, so adding a
+    // nutrient cannot leave this asserting yesterday's table width.
+    const want = await page.evaluate(() => DATA.nutrients.length + 1);
     const cells = await page.locator("#tbody tr").first().locator("td").count();
-    eq(cells, 27, "cells in first row");
+    eq(cells, want, "cells in first row");
   });
 });
 
@@ -103,9 +113,6 @@ await test("the duplicated nutrient-group pills are gone", async () => {
 
 await test("each nutrient group gets a distinct background colour", async () => {
   await withPage(async page => {
-    // turn everything on so all five groups are present at once
-    for (const g of ["fats", "vitamin", "mineral"])
-      await page.click(`#groupNav [data-grp="${g}"]`);
     const bg = {};
     for (const g of ["macro", "fats", "amino", "vitamin", "mineral"]) {
       bg[g] = await page.locator(`#tbody tr:first-child td[data-g="${g}"]`).first()
@@ -163,7 +170,8 @@ await test("essential amino acids lens highlights exactly nine columns", async (
 
 await test("a lens switches on the column groups it needs", async () => {
   await withPage(async page => {
-    // minerals start hidden; the bone lens needs them
+    // the bone lens needs minerals, so start from a table without them
+    await showGroups(page, "macro", "amino");
     eq(await page.locator('#tbody td[data-g="mineral"]').count(), 0, "minerals hidden initially");
     await page.selectOption("#lensSel", "bone");
     assert(await page.locator('#tbody td[data-g="mineral"]').count() > 0, "minerals now shown");
@@ -185,7 +193,7 @@ await test("highlighting survives a row being hovered", async () => {
 
 await test("a custom highlight group can be created and is applied", async () => {
   await withPage(async page => {
-    await page.click("#lensEdit");
+    await page.selectOption("#lensSel", { label: "Add…" });
     await page.fill("#lensName", "My iron check");
     // clear anything pre-ticked, then choose two nutrients
     await page.locator("#nutPick input:checked").evaluateAll(
@@ -202,7 +210,7 @@ await test("a custom highlight group can be created and is applied", async () =>
 
 await test("a custom group with no nutrients is rejected, not saved", async () => {
   await withPage(async page => {
-    await page.click("#lensEdit");
+    await page.selectOption("#lensSel", { label: "Add…" });
     await page.fill("#lensName", "Empty group");
     await page.locator("#nutPick input:checked").evaluateAll(
       els => els.forEach(e => { e.checked = false; }));
@@ -213,11 +221,26 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
   });
 });
 
+/* "Add…" is the one entry in the menu that is an action rather than a lens, so
+   backing out of it has to leave the control reading what is actually
+   highlighted. Otherwise the menu says "Add…" over an unchanged table. */
+await test("cancelling Add leaves the highlight menu on the current lens", async () => {
+  await withPage(async page => {
+    await page.selectOption("#lensSel", "creatine");
+    await page.selectOption("#lensSel", { label: "Add…" });
+    await page.click("#lensCancel");
+    await page.waitForSelector("#lensDlg", { state: "hidden" });
+    eq(await page.locator("#lensSel").inputValue(), "creatine", "menu back on the lens");
+    eq(await page.evaluate(() => S.lens), "creatine", "highlight unchanged");
+  });
+});
+
 await test("switching off the last group says so on the button that comes back", async () => {
   await withPage(async page => {
     // The table falls back to macronutrients rather than rendering nothing.
     // Switching macro off first, then amino, used to leave the macro button
     // reading "off" with all nine of its columns still on screen.
+    await showGroups(page, "macro", "amino");
     await page.click("#groupNav [data-grp=macro]");
     await page.click("#groupNav [data-grp=amino]");
 
@@ -431,7 +454,7 @@ await test("the explanation has a visible home, not just a tooltip", async () =>
 
 await test("a custom highlight can carry its own explanation", async () => {
   await withPage(async page => {
-    await page.click("#lensEdit");
+    await page.selectOption("#lensSel", { label: "Add…" });
     await page.fill("#lensName", "Thyroid");
     await page.fill("#lensWhy", "Selenium and zinc both feed thyroid hormone production.");
     await page.locator("#nutPick input:checked").evaluateAll(
@@ -482,7 +505,7 @@ await test("foods sharing a name are told apart in the chart", async () => {
     assert(shared.length > 0, "expected at least one shared name in the data");
 
     // The chart only offers nutrients from the groups currently switched on.
-    await page.click('#groupNav [data-grp="vitamin"]');
+    await showGroups(page, "macro", "amino", "vitamin");
     await page.click("#vChart");
     await page.selectOption("#chartNut", "vitc");
     const labels = await page.locator("#chartRows .lbl span:last-child").allTextContents();
@@ -512,7 +535,7 @@ await test("the chart withholds a figure USDA never measured", async () => {
     eq(nuts.measured.join(", "), "Almonds", "the only nut with a flavonol figure");
     assert(nuts.blank.length > 1, `expected unmeasured nuts, got ${nuts.blank.length}`);
 
-    await page.click('#groupNav [data-grp="plant"]');
+    await showGroups(page, "macro", "amino", "plant");
     await page.click('#catNav [data-cat="Nuts"]');
     await page.click("#vChart");
     await page.selectOption("#chartNut", "flavonols");
@@ -615,6 +638,7 @@ await test("export and favourites each have exactly one control", async () => {
 
 await test("export writes the visible columns and rows", async () => {
   await withPage(async page => {
+    await showGroups(page, "macro", "amino");
     await page.fill("#q", "kohlrabi");
     await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
     const [download] = await Promise.all([
@@ -639,7 +663,7 @@ await test("export writes the visible columns and rows", async () => {
 
 await test("fortification-dependent figures are marked, and only those", async () => {
   await withPage(async page => {
-    await page.click("#groupNav [data-grp=vitamin]");
+    await showGroups(page, "macro", "amino", "vitamin");
     await page.fill("#q", "nutritional yeast");
     await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
 
@@ -707,7 +731,7 @@ await test("every cell a note names actually renders its marker", async () => {
 
 await test("the note key stays away when nothing on the page is marked", async () => {
   await withPage(async page => {
-    await page.click("#groupNav [data-grp=vitamin]");
+    await showGroups(page, "macro", "amino", "vitamin");
     await page.fill("#q", "lentils");
     await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
     eq(await page.locator("#tbody sup.fnote").count(), 0, "markers on an unfortified food");
@@ -717,7 +741,7 @@ await test("the note key stays away when nothing on the page is marked", async (
 
 await test("a marker is announced rather than left as bare punctuation", async () => {
   await withPage(async page => {
-    await page.click("#groupNav [data-grp=vitamin]");
+    await showGroups(page, "macro", "amino", "vitamin");
     await page.fill("#q", "soy milk");
     await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
     const cell = await page.evaluate(() => {
@@ -785,6 +809,9 @@ await test("the two sticky header rows meet with no gap to scroll through", asyn
 await test("a group label follows the scroll until the next group pushes it off", async () => {
   await withPage(async page => {
     await page.setViewportSize({ width: 1200, height: 900 });
+    // Two groups, so the one that takes over the slot is the one this test
+    // names. The scroll distances below are measured against that width.
+    await showGroups(page, "macro", "amino");
 
     // Where each label sits, and where the group and the food column are,
     // all in the scrollport's own coordinates.
@@ -825,7 +852,7 @@ await test("a group label follows the scroll until the next group pushes it off"
 
 await test("omega-7 and omega-9 columns are present and populated", async () => {
   await withPage(async page => {
-    await page.click('#groupNav [data-grp="fats"]');
+    await showGroups(page, "macro", "amino", "fats");
     const heads = await page.locator("#thead th .sortbtn").allTextContents();
     assert(heads.some(h => /Omega-9/.test(h)), `omega-9 column: ${heads.join(" | ")}`);
     assert(heads.some(h => /Omega-7/.test(h)), `omega-7 column: ${heads.join(" | ")}`);
@@ -868,7 +895,7 @@ await test("no food claims more omega-9 plus omega-7 than monounsaturated", asyn
 
 await test("the saturated fat breakdown is present and stays inside its total", async () => {
   await withPage(async page => {
-    await page.click('#groupNav [data-grp="fats"]');
+    await showGroups(page, "macro", "amino", "fats");
     const heads = await page.locator("#thead th .sortbtn").allTextContents();
     for (const h of ["Lauric", "Palmitic", "Stearic"])
       assert(heads.some(x => x.includes(h)), `${h} column: ${heads.join(" | ")}`);
@@ -898,7 +925,7 @@ await test("the saturated fat breakdown is present and stays inside its total", 
 
 await test("values taken from an undifferentiated id say so per cell", async () => {
   await withPage(async page => {
-    await page.click('#groupNav [data-grp="fats"]');
+    await showGroups(page, "macro", "amino", "fats");
     /* Wait on the row *content*, not the row count. The table lists every food,
        so searching for a second food leaves the count unchanged at one right
        across the search debounce, and the cell read during that window belongs
@@ -1100,7 +1127,7 @@ await test("every dialog renders without a gap where a number should be", async 
 
 await test("foods with no measurement say so rather than showing a zero", async () => {
   await withPage(async page => {
-    await page.click('#groupNav [data-grp="fats"]');
+    await showGroups(page, "macro", "amino", "fats");
     // Seitan is deliberately unmapped: USDA has no matching row for it.
     // Wait for the search to have actually narrowed, not merely for Seitan to
     // be somewhere on an unfiltered page.
@@ -1348,7 +1375,7 @@ await test("view preferences persist across a reload", async () => {
   await page.goto(PAGE);
   await page.waitForSelector("#tbody tr");
 
-  await page.click('#groupNav [data-grp="mineral"]');
+  await showGroups(page, "macro", "amino", "mineral");
   await page.selectOption("#lensSel", "creatine");
   await page.click("#dvBtn");
   await page.click("#themeBtn");
@@ -1361,26 +1388,6 @@ await test("view preferences persist across a reload", async () => {
   eq(await page.locator("#dvBtn").getAttribute("aria-pressed"), "true", "%DV after reload");
   eq(await page.evaluate(() => document.documentElement.dataset.theme), "dark", "theme after reload");
   await ctx.close();
-});
-
-await test("reset restores the view but keeps favourites and custom groups", async () => {
-  await withPage(async page => {
-    await page.locator("#tbody .fav").first().click();
-    await page.click("#lensEdit");
-    await page.fill("#lensName", "Keep me");
-    await page.locator("#nutPick input:checked").evaluateAll(
-      els => els.forEach(e => { e.checked = false; }));
-    await page.check('#nutPick input[value="fe"]');
-    await page.click("#lensSave");
-    await page.waitForSelector("#lensDlg", { state: "hidden" });
-
-    await page.click("#resetBtn");
-
-    eq(await page.locator("#favCount").textContent(), "1", "favourite kept");
-    const opts = await page.locator("#lensSel option").allTextContents();
-    assert(opts.includes("Keep me"), "custom group kept");
-    eq(await page.locator("#lensSel").inputValue(), "", "highlight cleared");
-  });
 });
 
 // ---------------------------------------------------------------- my day
@@ -1424,7 +1431,7 @@ await test("a total over a food nobody measured says how many it covers", async 
     // partial total that looks like a complete one is the single failure this
     // whole view has to avoid.
     await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "seitan", g: 100 }]);
-    await page.click('#groupNav [data-grp="fats"]');
+    await showGroups(page, "macro", "amino", "fats");
 
     const marked = await page.locator(".totcov").evaluateAll(els => els
       .filter(e => e.textContent.trim())
@@ -1453,7 +1460,7 @@ await test("the coverage note still shows on a phone-width viewport", async () =
     // view is not allowed to do.
     await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "seitan", g: 100 }]);
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.click('#groupNav [data-grp="fats"]');
+    await showGroups(page, "macro", "amino", "fats");
 
     const info = await page.evaluate(() => {
       const el = [...document.querySelectorAll(".totcov")].find(e => e.textContent.trim());
@@ -1572,7 +1579,7 @@ await test("a fortified figure is still marked once it has been totalled", async
     // total that quietly absorbs it would be the one place on the page where
     // that stops being said.
     await seedDay(page, [{ slug: "nutritional-yeast", g: 15 }]);
-    await page.click('#groupNav [data-grp="vitamin"]');
+    await showGroups(page, "macro", "amino", "vitamin");
     const row = await page.evaluate(() => {
       const r = [...document.querySelectorAll(".totrow")]
         .find(x => x.querySelector(".totname").textContent.includes("B12"));
@@ -1961,9 +1968,6 @@ await test("the view has one control, and the day is not a second favourites", a
     await page.click('[data-act="dayclear"]');
     eq(await page.evaluate(() => S.day.length), 0, "day cleared");
     eq(await page.evaluate(() => S.favs.size), 1, "favourites untouched");
-
-    await page.click("#resetBtn");
-    eq(await page.evaluate(() => S.favs.size), 1, "favourites survive a reset");
   });
 });
 
@@ -2223,7 +2227,7 @@ await test("the table can show every figure per 100 kcal", async () => {
       const k = DATA.nutrients.findIndex(n => n.id === "kcal");
       return (f.v[i] / f.v[k] * 100).toFixed(DATA.nutrients[i].dp);
     });
-    await page.evaluate(() => toggleGroup("mineral"));
+    await showGroups(page, "macro", "amino", "mineral");
     eq(await cellText(page, "Spinach", "fe"), want, "iron per 100 kcal");
   });
 });
@@ -2263,7 +2267,7 @@ await test("the basis moves the table and nothing derived from it", async () => 
 
 await test("sorting under the per-calorie basis orders by what is on screen", async () => {
   await withPage(async page => {
-    await page.evaluate(() => toggleGroup("mineral"));
+    await showGroups(page, "macro", "amino", "mineral");
     await page.click('[data-sort="fe"]');
     const byWeight = await page.locator("#tbody .fname").first().evaluate(e => e.dataset.name);
     eq(byWeight, "Spirulina", "richest iron per 100 g");
@@ -2299,9 +2303,7 @@ await test("the grams figure is not a column and cannot be switched off", async 
     // The table never has zero groups; it falls back to macronutrients. So the
     // way the grams figure could vanish is by living in the macro group, which
     // holds energy and is the group anyone comparing minerals turns off first.
-    await page.click("#groupNav [data-grp=mineral]");
-    await page.click("#groupNav [data-grp=macro]");
-    await page.click("#groupNav [data-grp=amino]");
+    await showGroups(page, "mineral");
     const shown = await page.evaluate(() =>
       [...new Set([...document.querySelectorAll("#thead th[data-g]")].map(th => th.dataset.g))]);
     eq(shown.join(","), "mineral", "macronutrients are off, minerals are on");
@@ -2322,8 +2324,6 @@ await test("the basis persists, and reset columns clears it", async () => {
   await page.waitForSelector("#tbody tr");
   eq(await page.evaluate(() => S.basis), "kcal", "basis after reload");
   eq(await page.locator("#basisBtn").getAttribute("aria-pressed"), "true", "button state after reload");
-  await page.click("#resetBtn");
-  eq(await page.evaluate(() => S.basis), "g", "basis after reset");
   await ctx.close();
 });
 
@@ -2332,7 +2332,7 @@ await test("the basis persists, and reset columns clears it", async () => {
    adequate for any nutrient without knowing a single daily value. */
 await test("percent daily value and the per-calorie basis combine", async () => {
   await withPage(async page => {
-    await page.evaluate(() => toggleGroup("mineral"));
+    await showGroups(page, "macro", "amino", "mineral");
     await page.click("#basisBtn");
     await page.click("#dvBtn");
     const want = await page.evaluate(() => {
@@ -2343,7 +2343,7 @@ await test("percent daily value and the per-calorie basis combine", async () => 
       return Math.round(f.v[i] / f.v[k] * 100 / n.dv * 100) + "%";
     });
     eq(await cellText(page, "Spinach", "fe"), want, "iron as %DV per 100 kcal");
-    assert((await page.locator("#meta").textContent()).includes("5%"),
+    assert((await page.locator("#cap").textContent()).includes("5%"),
       "the 5%-is-adequate line is stated where both are on");
   });
 });
