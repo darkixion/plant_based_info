@@ -697,11 +697,175 @@ Two things are deliberately **not** on that list:
   Naming it helps a reader check the figures; it is a citation, not jargon.
 - **Fatty-acid notation like `18:2`** is the field's own vocabulary, it is
   introduced where it is used ("a chain length without separating the isomers
-  within it"), and the column labels already carry it: Lauric (12:0), EPA
-  (20:5). Removing it would cost precision and buy nothing.
+  within it"), and the column labels carry it where it is the clearest thing to
+  say: Lauric (12:0), Palmitic (16:0), Stearic (18:0). Removing it would cost
+  precision and buy nothing. EPA and DHA are the exception, and the reason is
+  the useful part: they are omega-3s, and labelling them `EPA (20:5)` beside
+  `Omega-3 (ALA)` and `Omega-6 (LA)` hid the one thing a reader most needs to
+  know about them. They read `Omega-3 (EPA)` and `Omega-3 (DHA)` now, with the
+  chain length moved into the sentence that explains each. The three omega-3
+  columns also sit together, where omega-6 used to divide them.
 
 The distinction worth holding onto is between **vocabulary a reader can learn
 from the page** and **names that only mean anything inside the repository**.
+
+## Evidence columns
+
+Three columns come from outside USDA: **soluble fibre**, **insoluble fibre** and
+**biotin**. They are marked `"evidence": true` in `nutrients.json`, and
+everything else about them follows from that one flag.
+
+They exist because USDA *defines* a nutrient id for each of them and publishes a
+value for none. That was measured rather than assumed, with a control: the same
+parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and
+zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch,
+pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin.
+So "the id exists" says nothing about whether a pull can reach it, and these
+needed national food composition tables instead: Japan's MEXT 2020, the UK's
+CoFID 2021 and Australia's AFCD Release 3.
+
+### An evidence value is not in `v`, and that is the whole mechanism
+
+Every other figure on the page lives in a food's `v` array, positionally matched
+to the nutrient list. An evidence value lives in `evidence.json` instead, keyed
+by food slug and then by component id. Nothing about that is a storage
+convenience. It is what makes it **structurally impossible** for one of these
+figures to reach `dayTotals()`, `proteinQuality()`, a daily-value percentage or
+"Short on": there is no array position for it to be summed out of.
+
+Four locks, and the point of having four is that no single edit undoes them:
+
+1. `IDX` is built over the non-evidence nutrients, so **`val()` throws** on an
+   evidence id rather than returning null. A mistake here is loud on the spot
+   instead of quiet and wrong. `BY_ID` is the map to reach a *column* by id,
+   which is a different question and covers all 73.
+2. `shown()` returns null for an evidence column before it reaches `val()`, so
+   the four call sites that read it get a blank rather than an exception.
+3. `dv` is `null` on all three, so there is no percentage to take even if one
+   arrived somewhere it should not.
+4. `dayTotals()` maps the non-evidence nutrients, so a day has no row for one at
+   all, and `build.mjs` counts the value arrays the same way, so the two cannot
+   drift apart.
+
+The chart does not offer them either, and that is a judgement rather than a
+lock: a bar length is a figure divided by the largest figure, and a range is
+neither. Nor does the % daily value view, where all three show a dash and "no
+daily value published" rather than their raw figure. That last one is scoped to
+these three deliberately: the other 39 columns with no daily value keep showing
+their figures, because kale's 93 mg of flavonols is worth reading and no
+percentage will ever exist for it either.
+
+### Two orders in one file, and where they part
+
+`nutrients.json` carries both the storage order and the display order, and the
+evidence columns are the first thing to need them apart.
+
+**Array position is the position of the value** in every food's `v`. Nothing may
+be reordered there without moving all 131 value arrays with it, and a mismatch
+looks like plausible data rather than an error. An evidence column occupies no
+`v` position at all, so all three are appended at the end of the file, where
+they disturb no index. About two dozen places, in `build.mjs`, both pull tools
+and the test suite, still read a `v` index as `nutrients.findIndex(...)`, which
+is only correct while that stays true.
+
+**Display order is `COL_ORDER` in `app.ts`**: group order first, then an
+optional `after` naming the column a nutrient sits beside. Only the three
+evidence columns carry one. `build.mjs` checks that each `after` names a real
+column in the same group, because an unresolvable one leaves the column where
+it was and says nothing.
+
+That second list exists because leaving the evidence columns in file order broke
+the header outright. The label row draws one cell per group with a colspan, so
+a group appearing twice in the column order puts every label from there
+rightwards over the wrong columns. Soluble fibre now sits behind total fibre and
+biotin between B6 and B9, which is where a reader looks for them.
+
+### Six states, because "no number" means six different things
+
+| state | reads | means |
+|---|---|---|
+| `measured` | `3.2` | assayed, with a figure |
+| `range` | `0.5 to 3.7` | sources disagree beyond 2x and none is odd enough to drop |
+| `estimated` | `2.5 calc` | a recipe calculation or an imputation, not a measurement |
+| `trace` | trace | present below the limit of quantification |
+| `not-detected` | none detected | assayed and found absent, which is a finding |
+| `not-measured` | not measured | the source carries the food and did not assay this |
+| *no entry* | no data | no source carries this food at all |
+
+Collapsing any of these into "blank" throws away the best thing the data says.
+The nutrient gaps section above makes the same point about B12 and for the same
+reason: **123 of 131 foods were measured for B12 and found to contain none** is
+a sentence that only exists because absence and silence are stored apart.
+
+### The four reconciliation rules
+
+In `tools/reconcile.mjs`, as pure functions, tested in `test/tools.mjs` without
+a browser or a build. Each is a consequence of what cross-source comparison
+actually found.
+
+1. **A reviewed mapping, never a name match.** Every page-to-source pairing in
+   `tools/evidence.mjs` was checked by hand against both databases. This is the
+   same rule the USDA mappings follow, for the same reason: an early automated
+   match paired Black beans with "Black pudding, boiled".
+2. **Only a measurement reconciles.** AFCD publishes a per-food derivation and
+   only 490 of its 709 plant rows are `Analysed`; the rest are recipe
+   calculations, borrowed or imputed. Every large biotin gap against Japan
+   turned out to be a recipe calculation, and where both had actually assayed
+   the food they agreed within 20%. Grading by source alone would have shipped
+   219 calculations as measurements. An estimate is still shown, marked, but it
+   never moves a value.
+3. **Within 2x is agreement, beyond it is a range.** Molybdenum sits at 0.7 to
+   1.5x across sources and is plainly the same measurement twice. Kidney bean
+   biotin is 3.7 in Japan, 0.5 in the UK and 1.3 in Australia, and the breadth
+   is the honest answer rather than a failure to choose one.
+4. **An outlier is excluded rather than allowed to widen the range.** AFCD
+   reports rolled oats at 74 µg of iodine, analysed, twice, against Japan's not
+   detected. That looked like real geographic variation until a third source
+   settled it: USDA gives cooked oatmeal 0.2 µg at n=10 and brown rice 0 at
+   n=28. A rule that only knew how to widen would have published "0.2 to 74" and
+   called it honest. So a value 10x from the median, while the rest agree within
+   2x, is dropped from the value and kept as a named `disputed` entry rather
+   than deleted.
+
+**Rule 4 needs three sources.** Two disagreeing sources are just disagreement,
+with nothing to say which one is odd, so they yield a range. That is not a
+limitation to be worked around; it is what the oats case taught.
+
+### Coverage does not predict agreement
+
+This is the most reusable thing the research produced, and it cost the most to
+learn. Biotin has the best coverage of the nine components looked at, four
+sources and over 3,000 food rows, and the worst agreement: 29x on spinach, 9.3x
+on carrots, only 4 of 14 comparable foods within 2x. An assessment written
+before any values were compared called biotin the **safest** single value of the
+nine, because it counted rows. Count rows and you learn how much exists. Compare
+them and you learn whether it agrees.
+
+### Preparation is a sharper edge than sourcing
+
+`build.mjs` refuses a cell whose `prep` disagrees with its food's state, and
+that check earns its place. Red kidney bean oligosaccharides are 3.6 g raw and
+trace boiled; soya 5.5 raw and 1.1 boiled; chickpea inulin 1.7 dry and 0.6
+boiled. Every legume on this page is cooked and most outside sources report dry.
+**A right value against the wrong preparation is worse than none, because it
+looks right.**
+
+Cells also carry a `match` grade of `exact`, `close` or `proxy`, and a proxy
+match is marked with `~` in the table. The grade is a property of the mapping
+rather than of the measurement.
+
+### Regenerating
+
+```bash
+node tools/evidence.mjs      # rewrites src/data/evidence.json from tools/evidence/
+npm run build
+```
+
+`tools/evidence/` holds the corpora, one file per source, with `README.md` and
+`sources.json` as the way in. `src/data/sources.json` is the subset the page
+cites, and `build.mjs` fails on a source nothing cites as well as on a value
+citing a source that does not resolve, the same check from both ends that the
+interaction and gap sources get.
 
 ## Per 100 g and per 100 kcal
 

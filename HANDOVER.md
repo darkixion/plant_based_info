@@ -3,7 +3,181 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (eleventh)
+## Latest session, 2026-08-07 (thirteenth)
+
+**Phase 1 of the evidence columns shipped**, executed from the plan the twelfth
+session wrote. Soluble fibre, insoluble fibre and biotin are columns now: 73
+nutrients, 81 foods carrying 243 evidence cells. Written up durably in
+`README.md` under "Evidence columns".
+
+**The plan was right about the hard part and wrong about the reach.** Its own
+self-review had caught that every figure funnels through `shown()` into `val()`
+and named four call sites with line numbers, all four of which still pointed
+where it said. What it missed is that `val()` is reached from four *more*
+places that walk `NUTS` directly, and three of them broke the page:
+
+- `renderDetail`'s Absorption tab walks every nutrient looking for a curated
+  note, `sourceOf()` walks every nutrient looking for interactions, and
+  `gapEvidence()` counts every food's value for one. Each now walks `VNUTS`,
+  the non-evidence nutrients, which is the same list `IDX` and `dayTotals()`
+  are built from.
+- `dayTotals()` itself mapped all of `NUTS`, which would have thrown on the
+  first day view, and `csvDay()` exported a column with no total to put in it.
+
+**The lesson worth keeping: naming the call sites of one function is not the
+same as naming the reads of the data.** The plan searched for `shown(` and
+found four. The failure was in code that never calls `shown()` at all.
+
+**`nutOpt()` had to stop reading `IDX`.** `IDX` answers "where in `v`", which
+an evidence column has no answer to; reaching a *column* by id is a different
+question. `BY_ID` is that map, and without splitting them `nut("biotin")` threw
+in the sort comparator and the detail panel, both of which have every right to
+ask about a column that exists.
+
+**Where an evidence column deliberately does not appear**, each a judgement
+rather than an accident: the chart, because a bar length is a figure divided by
+the largest figure and a range is neither; a day's totals and the day CSV,
+because there is no total of an evidence value; and `%DV`, because `dv` is null
+on all three. `build.mjs` now also refuses an interaction, a gap entry or a
+per-cell note that names one, so the data cannot express what the page could
+not render.
+
+**Four locks on the invariant, and no single edit undoes them**: the value is
+not in `v`, `val()` throws on the id, `shown()` returns null before reaching
+`val()`, and `dayTotals()` never builds a row for it. There is a test asserting
+all four from one page evaluation.
+
+**The plan's own tests needed fixing before they were worth running.** Two of
+the four browser tests it specified asserted nothing: one carried a literal
+`|| true`, and the other compared two identical `page.evaluate` calls and
+declared them equal. They are replaced with real assertions, including the one
+that matters most, that no state which is not a figure renders a digit and
+every state which is one does.
+
+**`build.mjs` builds only when it is the process entry point now.** It called
+`await run()` at the top level, so `test/tools.mjs` importing `checkEvidence`
+would have rebuilt the page as a side effect of running the tests. Same
+`process.argv[1]` guard `tools/usda.mjs` has carried since the seventh session,
+and the same reason.
+
+**Four things came back from review, and the first was a real break.** Appending
+the evidence columns to the end of `nutrients.json` left two macro columns and
+one vitamin column sitting after the plant group, and the header draws one cell
+per group with a colspan, so **every group label from macronutrients rightwards
+sat over the wrong columns**. Nothing in 148 tests caught it, because every one
+of them asked the data rather than the rendered header.
+
+That forced the useful distinction: **`nutrients.json` now carries two orders.**
+Array position is the position of the value in each food's `v` and may never be
+reordered, which is why the evidence columns stay appended at the end. Display
+order is `COL_ORDER` in `app.ts`, group order plus an optional `after` naming
+the column a nutrient sits beside. Soluble fibre follows total fibre and biotin
+sits between B6 and B9. About two dozen sites still read a `v` index as
+`nutrients.findIndex(...)`, which is only correct while every evidence column
+stays at the end; that is the coupling to know about before adding a fourth.
+
+The other three: **EPA and DHA are `Omega-3 (EPA)` and `Omega-3 (DHA)`** rather
+than `EPA (20:5)`, since they sat beside `Omega-3 (ALA)` and `Omega-6 (LA)` and
+were the only two fatty acids in the group not named for the family they belong
+to; the chain notation moved into their sentences. **The three omega-3 columns
+now run together**, where omega-6 used to divide them, done by moving `la` in
+the file and moving the same position in all 131 `v` arrays, verified by
+asserting every food's value by id was unchanged. And **the % daily value view
+shows a dash** for the three evidence columns rather than a raw gram figure,
+scoped to those three by the owner's decision: the other 39 columns with no
+daily value keep showing their figures.
+
+**Deliberately not done**: the remaining 32 components, which is phase 2; no
+inulin, chromium, molybdenum or boron column yet; no source dialog listing the
+three databases, though `SRCS` is injected and the detail panel names their
+countries; and no `estimated` cell anywhere in the data, so that state is
+modelled and rendered but not yet exercised by a real value.
+
+**Licensing is the owner's separate manual task** and is not tracked here.
+
+## Earlier session, 2026-08-07 (twelfth)
+
+**Nothing shipped, and that is the point.** This session was research and
+design. No column was added, no figure moved, and `src/` is untouched apart from
+nothing at all. What exists is an evidence store, a spec and a plan, on branch
+**`evidence-columns`**, one commit ahead of `main`.
+
+**Start here next time**: the plan at
+`docs/superpowers/plans/2026-08-07-evidence-columns-phase-1.md`, which is written
+to be executed by someone with no memory of this session. Its design is at
+`docs/superpowers/specs/2026-08-07-evidence-columns-design.md`, and the data it
+consumes is in `tools/evidence/` with `README.md` and `sources.json` as the way
+in.
+
+**The question was whether nine compounds could be added with real provenance**:
+biotin, chromium, molybdenum, boron, taurine, inulin, beta-glucan, pectin and the
+oligosaccharides. The answer is yes for six, no for two, and one is parked.
+
+**SR Legacy publishes zero rows of every one of them.** It *defines* nutrient ids
+for all nine plus both fibre fractions, and carries a value for none across all
+7,793 foods. Measured with a control, not assumed: the same parser counts 7,793
+protein rows and 7,708 calcium. So this needed outside sources, and it took
+eight databases in five countries.
+
+Findings worth keeping, in rough order of how much they cost to learn:
+
+- **Coverage does not predict agreement.** Biotin has the best coverage here,
+  four sources and 3,000-plus food rows, and the worst agreement: 29x on
+  spinach, 9.3x on carrots, only 4 of 14 comparable foods within 2x. An
+  assessment written earlier in this same session called biotin the safest
+  single value of the nine. That was wrong, and it was wrong because it counted
+  rows before comparing any of them. **This is the most reusable lesson here.**
+- **Derivation outranks source.** AFCD publishes a per-food derivation and only
+  490 of its 709 plant rows are `Analysed`; the rest are recipe calculations,
+  borrowed or imputed. Every large biotin gap against Japan turned out to be a
+  recipe calculation, and where both had actually assayed the food they agreed
+  within 20%. Grading by source alone would have shipped 219 calculations as
+  measurements.
+- **An outlier is not a range.** AFCD reports rolled oats at 74 ug of iodine,
+  analysed, twice, against Japan's not-detected. That looked like real
+  geographic variation until a third source settled it: USDA gives cooked
+  oatmeal 0.2 ug at n=10, and brown rice 0 at n=28. A rule that only knew how to
+  widen would have published "0 to 74" and called it honest. Hence the outlier
+  rule, and hence the fact that **two sources cannot produce one**: it takes a
+  third to say which is odd.
+- **Preparation is a sharper edge than sourcing.** Red kidney bean
+  oligosaccharides are 3.6 g raw and trace boiled; soya 5.5 raw and 1.1 boiled;
+  chickpea inulin 1.7 dry and 0.6 boiled. Every legume on this page is cooked
+  and most outside sources report dry. A right value against the wrong
+  preparation is worse than none, because it looks right.
+- **Japan's tables are the single richest source** and were not on anyone's list
+  at the start. 2,478 foods per 100 g edible portion, with chromium, molybdenum,
+  iodine, selenium and biotin, plus separate volumes for fibre fractions, sugars
+  and organic acids. Its notation already distinguishes measured, trace, zero,
+  estimated and not-measured, which is where the six-state cell model came from.
+- **Two components moved from blocked to available late.** Boron, because Frida
+  reports it on a fresh-weight basis rather than the 0%-moisture dry beans that
+  made the USDA figures unusable. Inulin, because AFCD is the only database
+  anywhere with an inulin field, and its 50 foods are almost all on this page.
+- **Two parsing bugs were caught before they reached the store**, both the same
+  species: column drift in PDF extraction. The IFCT phytosterols shifted one
+  column left for rows with no oligosaccharide values, because the table
+  reprints its header every page and the layout moves. The tell was ajugose
+  appearing in 149 rows when it is rare; it is 4. Anchors are now read per page
+  and eight rows were checked against raw text by hand. A CoFID parse also
+  reported 2,780 oligosaccharide values when the truth is 363, because
+  self-closing empty cells shifted every column right. **Both were caught by a
+  count that looked wrong, not by a test.**
+
+**Deliberately not done**: no pectin column, because no database anywhere carries
+it for these foods and soluble fibre is the honest substitute; no taurine
+column, because it would be 131 cells of one finding and belongs in prose, with
+the red algae exception stated so it does not repeat the nori B12 error; no
+chromium, parked by the owner after the research was complete; no absorption
+arithmetic now that phytate and oxalate have figures; and no new foods.
+
+**One thing is unresolved and blocks committing `evidence.json` to a public
+repo**: licensing. USDA data is public domain, but Frida asserts copyright, NEVO
+ships conditions of use, and CoFID, AFCD, MEXT and IFCT each have their own
+terms. The owner deferred it deliberately. It is recorded in the spec under
+"Deliberately not done" and needs settling before phase 1 ships.
+
+## Earlier session, 2026-08-07 (eleventh)
 
 **Nutrient gaps shipped**, plus EPA and DHA as columns. Designed at
 `docs/superpowers/specs/2026-08-07-nutrient-gaps-design.md` and written up
@@ -692,15 +866,18 @@ the open list at the bottom instead.
 
 ## Current state
 
-Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything is
-committed and nothing is pushed: `main` is ahead of `origin/main` by this
-session's work. The GitHub remote (`darkixion/plant_based_info`) is public, so
-pushing stays the owner's call.
+Repo: `/home/thom/development/plant_based_info`. Everything is committed and
+nothing is pushed: `main` is ahead of `origin/main`, and the twelfth and
+thirteenth sessions' work sits on **`evidence-columns`**. That branch adds
+`tools/evidence/`, a spec, a plan, and phase 1 of the evidence columns. The
+GitHub remote (`darkixion/plant_based_info`) is public, so pushing stays the
+owner's call.
 
-- **131 foods x 70 nutrients**, sourced from USDA SR Legacy plus the USDA
-  flavonoid release for three of the plant compound columns.
+- **131 foods x 73 nutrients**, sourced from USDA SR Legacy plus the USDA
+  flavonoid release for three of the plant compound columns, plus three
+  evidence columns from Japan's MEXT, the UK's CoFID and Australia's AFCD.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 141 browser tests against the result. All passing, and CI
+  20 tool tests and 152 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single

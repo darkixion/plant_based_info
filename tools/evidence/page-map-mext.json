@@ -1,0 +1,2351 @@
+[
+ {
+  "page": "Lentils",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04094",
+  "jp_name": "レンズまめ　全粒　ゆで",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 57.9
+ },
+ {
+  "page": "Chickpeas",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04066",
+  "jp_name": "ひよこまめ　全粒　ゆで",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "56",
+   "state": "measured",
+   "value": 56
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "8.9",
+   "state": "measured",
+   "value": 8.9
+  },
+  "water_g": 59.6
+ },
+ {
+  "page": "Kidney beans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04008",
+  "jp_name": "いんげんまめ　全粒　ゆで",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "27",
+   "state": "measured",
+   "value": 27
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "3.7",
+   "state": "measured",
+   "value": 3.7
+  },
+  "water_g": 63.6
+ },
+ {
+  "page": "Split peas",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04013",
+  "jp_name": "えんどう　全粒　青えんどう　ゆで",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "63",
+   "state": "measured",
+   "value": 63
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "5.7",
+   "state": "measured",
+   "value": 5.7
+  },
+  "water_g": 63.8
+ },
+ {
+  "page": "Mung beans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04072",
+  "jp_name": "りょくとう　全粒　ゆで",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "140",
+   "state": "measured",
+   "value": 140
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "3.3",
+   "state": "measured",
+   "value": 3.3
+  },
+  "water_g": 66
+ },
+ {
+  "page": "Adzuki beans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04002",
+  "jp_name": "あずき　全粒　ゆで",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "90",
+   "state": "measured",
+   "value": 90
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "3.3",
+   "state": "measured",
+   "value": 3.3
+  },
+  "water_g": 63.9
+ },
+ {
+  "page": "Black-eyed peas",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04018",
+  "jp_name": "ささげ　全粒　ゆで",
+  "cr": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "mo": {
+   "raw": "150",
+   "state": "measured",
+   "value": 150
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "4.8",
+   "state": "measured",
+   "value": 4.8
+  },
+  "water_g": 63.9
+ },
+ {
+  "page": "Green peas",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06374",
+  "jp_name": "（えんどう類）　グリンピース　冷凍　ゆで",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "60",
+   "state": "measured",
+   "value": 60
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "5.2",
+   "state": "measured",
+   "value": 5.2
+  },
+  "water_g": 74.6
+ },
+ {
+  "page": "Edamame",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06015",
+  "jp_name": "えだまめ　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "240",
+   "state": "measured",
+   "value": 240
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "11.0",
+   "state": "measured",
+   "value": 11
+  },
+  "water_g": 71.7
+ },
+ {
+  "page": "Broad beans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06124",
+  "jp_name": "そらまめ　未熟豆　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "150",
+   "state": "measured",
+   "value": 150
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "6.9",
+   "state": "measured",
+   "value": 6.9
+  },
+  "water_g": 72.3
+ },
+ {
+  "page": "Tofu",
+  "page_state": "firm",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04032",
+  "jp_name": "だいず　［豆腐・油揚げ類］　木綿豆腐",
+  "cr": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "mo": {
+   "raw": "44",
+   "state": "measured",
+   "value": 44
+  },
+  "iodine": {
+   "raw": "6",
+   "state": "measured",
+   "value": 6
+  },
+  "biotin": {
+   "raw": "4.0999999999999996",
+   "state": "measured",
+   "value": 4.1
+  },
+  "water_g": 85.9
+ },
+ {
+  "page": "Tempeh",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04063",
+  "jp_name": "だいず　［その他］　テンペ",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "76",
+   "state": "measured",
+   "value": 76
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "20.0",
+   "state": "measured",
+   "value": 20
+  },
+  "water_g": 57.8
+ },
+ {
+  "page": "Natto",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04046",
+  "jp_name": "だいず　［納豆類］　糸引き納豆",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "290",
+   "state": "measured",
+   "value": 290
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "18.0",
+   "state": "measured",
+   "value": 18
+  },
+  "water_g": 59.5
+ },
+ {
+  "page": "Soy milk",
+  "page_state": "unsweetened",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04052",
+  "jp_name": "だいず　［その他］　豆乳　豆乳",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "54",
+   "state": "measured",
+   "value": 54
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "3.9",
+   "state": "measured",
+   "value": 3.9
+  },
+  "water_g": 90.8
+ },
+ {
+  "page": "Oats",
+  "page_state": "rolled, dry",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "01004",
+  "jp_name": "えんばく　オートミール",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "110",
+   "state": "measured",
+   "value": 110
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "22.0",
+   "state": "measured",
+   "value": 22
+  },
+  "water_g": 10
+ },
+ {
+  "page": "Quinoa",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "01167",
+  "jp_name": "キヌア　玄穀",
+  "cr": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "mo": {
+   "raw": "23",
+   "state": "measured",
+   "value": 23
+  },
+  "iodine": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "biotin": {
+   "raw": "23.0",
+   "state": "measured",
+   "value": 23
+  },
+  "water_g": 12.2
+ },
+ {
+  "page": "Amaranth",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "01001",
+  "jp_name": "アマランサス　玄穀",
+  "cr": {
+   "raw": "7",
+   "state": "measured",
+   "value": 7
+  },
+  "mo": {
+   "raw": "59",
+   "state": "measured",
+   "value": 59
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "16.0",
+   "state": "measured",
+   "value": 16
+  },
+  "water_g": 13.5
+ },
+ {
+  "page": "Brown rice",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "01085",
+  "jp_name": "こめ　［水稲めし］　玄米",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "34",
+   "state": "measured",
+   "value": 34
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "2.5",
+   "state": "measured",
+   "value": 2.5
+  },
+  "water_g": 60
+ },
+ {
+  "page": "Buckwheat",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "01122",
+  "jp_name": "そば　そば粉　全層粉",
+  "cr": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "mo": {
+   "raw": "47",
+   "state": "measured",
+   "value": 47
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "17.0",
+   "state": "measured",
+   "value": 17
+  },
+  "water_g": 13.5
+ },
+ {
+  "page": "Millet",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "01011",
+  "jp_name": "きび　精白粒",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "16",
+   "state": "measured",
+   "value": 16
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "7.9",
+   "state": "measured",
+   "value": 7.9
+  },
+  "water_g": 13.8
+ },
+ {
+  "page": "Sweetcorn",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06378",
+  "jp_name": "（とうもろこし類）　スイートコーン　未熟種子　カーネル　冷凍　ゆで",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "2.9",
+   "state": "measured",
+   "value": 2.9
+  },
+  "water_g": 76.5
+ },
+ {
+  "page": "Almonds",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "05002",
+  "jp_name": "アーモンド　フライ　味付け",
+  "cr": {
+   "raw": "6",
+   "state": "measured",
+   "value": 6
+  },
+  "mo": {
+   "raw": "32",
+   "state": "measured",
+   "value": 32
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "60.0",
+   "state": "measured",
+   "value": 60
+  },
+  "water_g": 1.8
+ },
+ {
+  "page": "Peanuts",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "05034",
+  "jp_name": "らっかせい　大粒種　乾",
+  "cr": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "mo": {
+   "raw": "88",
+   "state": "measured",
+   "value": 88
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "92.0",
+   "state": "measured",
+   "value": 92
+  },
+  "water_g": 6
+ },
+ {
+  "page": "Sunflower seeds",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "05027",
+  "jp_name": "ひまわり　フライ　味付け",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "28",
+   "state": "measured",
+   "value": 28
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "80.0",
+   "state": "measured",
+   "value": 80
+  },
+  "water_g": 2.6
+ },
+ {
+  "page": "Pumpkin seeds",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "05006",
+  "jp_name": "かぼちゃ　いり　味付け",
+  "cr": {
+   "raw": "13",
+   "state": "measured",
+   "value": 13
+  },
+  "mo": {
+   "raw": "42",
+   "state": "measured",
+   "value": 42
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "13.0",
+   "state": "measured",
+   "value": 13
+  },
+  "water_g": 4.5
+ },
+ {
+  "page": "Sesame seeds",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "05018",
+  "jp_name": "ごま　いり",
+  "cr": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "mo": {
+   "raw": "110",
+   "state": "measured",
+   "value": 110
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "15.0",
+   "state": "measured",
+   "value": 15
+  },
+  "water_g": 1.6
+ },
+ {
+  "page": "Chia seeds",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "05046",
+  "jp_name": "チアシード　乾",
+  "cr": {
+   "raw": "8",
+   "state": "measured",
+   "value": 8
+  },
+  "mo": {
+   "raw": "44",
+   "state": "measured",
+   "value": 44
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "24.0",
+   "state": "measured",
+   "value": 24
+  },
+  "water_g": 6.5
+ },
+ {
+  "page": "Flaxseed",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "05041",
+  "jp_name": "あまに　いり",
+  "cr": {
+   "raw": "25",
+   "state": "measured",
+   "value": 25
+  },
+  "mo": {
+   "raw": "13",
+   "state": "measured",
+   "value": 13
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "33.0",
+   "state": "measured",
+   "value": 33
+  },
+  "water_g": 0.8
+ },
+ {
+  "page": "Hemp seeds",
+  "page_state": "hulled",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "05003",
+  "jp_name": "あさ　乾",
+  "cr": {
+   "raw": "9",
+   "state": "measured",
+   "value": 9
+  },
+  "mo": {
+   "raw": "45",
+   "state": "measured",
+   "value": 45
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "28.0",
+   "state": "measured",
+   "value": 28
+  },
+  "water_g": 4.6
+ },
+ {
+  "page": "Cashews",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "05005",
+  "jp_name": "カシューナッツ　フライ　味付け",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "30",
+   "state": "measured",
+   "value": 30
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "19.0",
+   "state": "measured",
+   "value": 19
+  },
+  "water_g": 3.2
+ },
+ {
+  "page": "Hazelnuts",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "05029",
+  "jp_name": "ヘーゼルナッツ　フライ　味付け",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "6",
+   "state": "measured",
+   "value": 6
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "82.0",
+   "state": "measured",
+   "value": 82
+  },
+  "water_g": 1
+ },
+ {
+  "page": "Macadamia nuts",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "05031",
+  "jp_name": "マカダミアナッツ　いり　味付け",
+  "cr": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "mo": {
+   "raw": "5",
+   "state": "measured",
+   "value": 5
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "6.5",
+   "state": "measured",
+   "value": 6.5
+  },
+  "water_g": 1.3
+ },
+ {
+  "page": "Chestnuts",
+  "page_state": "roasted",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "05013",
+  "jp_name": "（くり類）　中国ぐり　甘ぐり",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "6.0",
+   "state": "measured",
+   "value": 6
+  },
+  "water_g": 44.4
+ },
+ {
+  "page": "Tahini",
+  "page_state": "from roasted kernels",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "05042",
+  "jp_name": "ごま　ねり",
+  "cr": {
+   "raw": "5",
+   "state": "measured",
+   "value": 5
+  },
+  "mo": {
+   "raw": "150",
+   "state": "measured",
+   "value": 150
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "13.0",
+   "state": "measured",
+   "value": 13
+  },
+  "water_g": 0.5
+ },
+ {
+  "page": "Spinach",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06267",
+  "jp_name": "ほうれんそう　葉　通年平均　生",
+  "cr": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "mo": {
+   "raw": "5",
+   "state": "measured",
+   "value": 5
+  },
+  "iodine": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "biotin": {
+   "raw": "2.9",
+   "state": "measured",
+   "value": 2.9
+  },
+  "water_g": 92.4
+ },
+ {
+  "page": "Kale",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06080",
+  "jp_name": "ケール　葉　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "38",
+   "state": "measured",
+   "value": 38
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "4.0",
+   "state": "measured",
+   "value": 4
+  },
+  "water_g": 90.2
+ },
+ {
+  "page": "Broccoli",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06264",
+  "jp_name": "ブロッコリー　花序　ゆで",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "7.1",
+   "state": "measured",
+   "value": 7.1
+  },
+  "water_g": 89.9
+ },
+ {
+  "page": "Cauliflower",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06054",
+  "jp_name": "カリフラワー　花序　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "8.5",
+   "state": "measured",
+   "value": 8.5
+  },
+  "water_g": 90.8
+ },
+ {
+  "page": "Pak choi",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06160",
+  "jp_name": "チンゲンサイ　葉　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "7",
+   "state": "measured",
+   "value": 7
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.3",
+   "state": "measured",
+   "value": 1.3
+  },
+  "water_g": 96
+ },
+ {
+  "page": "Watercress",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06077",
+  "jp_name": "クレソン　茎葉　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "20",
+   "state": "measured",
+   "value": 20
+  },
+  "iodine": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "biotin": {
+   "raw": "4.0",
+   "state": "measured",
+   "value": 4
+  },
+  "water_g": 94.1
+ },
+ {
+  "page": "Mushrooms",
+  "page_state": "white, raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "08031",
+  "jp_name": "マッシュルーム　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "11.0",
+   "state": "measured",
+   "value": 11
+  },
+  "water_g": 93.9
+ },
+ {
+  "page": "Shiitake mushrooms",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "08039",
+  "jp_name": "しいたけ　生しいたけ　菌床栽培　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "7.6",
+   "state": "measured",
+   "value": 7.6
+  },
+  "water_g": 89.6
+ },
+ {
+  "page": "Oyster mushrooms",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "08026",
+  "jp_name": "（ひらたけ類）　ひらたけ　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "12.0",
+   "state": "measured",
+   "value": 12
+  },
+  "water_g": 89.4
+ },
+ {
+  "page": "Sweet potato",
+  "page_state": "baked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "02046",
+  "jp_name": "＜いも類＞　（さつまいも類）　さつまいも　塊根　皮つき　蒸し",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "4.9000000000000004",
+   "state": "measured",
+   "value": 4.9
+  },
+  "water_g": 64.2
+ },
+ {
+  "page": "Potato",
+  "page_state": "baked, with skin",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "02064",
+  "jp_name": "＜いも類＞　じゃがいも　塊茎　皮つき　電子レンジ調理",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "0.6",
+   "state": "measured",
+   "value": 0.6
+  },
+  "water_g": 77.6
+ },
+ {
+  "page": "Asparagus",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06007",
+  "jp_name": "アスパラガス　若茎　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "1.8",
+   "state": "measured",
+   "value": 1.8
+  },
+  "water_g": 92.6
+ },
+ {
+  "page": "Avocado",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07006",
+  "jp_name": "アボカド　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "5.3",
+   "state": "measured",
+   "value": 5.3
+  },
+  "water_g": 71.3
+ },
+ {
+  "page": "Banana",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07107",
+  "jp_name": "バナナ　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "7",
+   "state": "measured",
+   "value": 7
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.4",
+   "state": "measured",
+   "value": 1.4
+  },
+  "water_g": 75.4
+ },
+ {
+  "page": "Carrots",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06214",
+  "jp_name": "（にんじん類）　にんじん　根　皮なし　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "2.8",
+   "state": "measured",
+   "value": 2.8
+  },
+  "water_g": 89.7
+ },
+ {
+  "page": "Celery",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06119",
+  "jp_name": "セロリ　葉柄　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "1.2",
+   "state": "measured",
+   "value": 1.2
+  },
+  "water_g": 94.7
+ },
+ {
+  "page": "Cucumber",
+  "page_state": "raw, with peel",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06065",
+  "jp_name": "きゅうり　果実　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "1.4",
+   "state": "measured",
+   "value": 1.4
+  },
+  "water_g": 95.4
+ },
+ {
+  "page": "Tomatoes",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06182",
+  "jp_name": "（トマト類）　赤色トマト　果実　生",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "2.2999999999999998",
+   "state": "measured",
+   "value": 2.3
+  },
+  "water_g": 94
+ },
+ {
+  "page": "Onions",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06153",
+  "jp_name": "（たまねぎ類）　たまねぎ　りん茎　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "0.6",
+   "state": "measured",
+   "value": 0.6
+  },
+  "water_g": 90.1
+ },
+ {
+  "page": "Courgette",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06116",
+  "jp_name": "ズッキーニ　果実　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "6",
+   "state": "measured",
+   "value": 6
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "2.7",
+   "state": "measured",
+   "value": 2.7
+  },
+  "water_g": 94.9
+ },
+ {
+  "page": "Aubergine",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06191",
+  "jp_name": "（なす類）　なす　果実　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "10",
+   "state": "measured",
+   "value": 10
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "2.2999999999999998",
+   "state": "measured",
+   "value": 2.3
+  },
+  "water_g": 93.2
+ },
+ {
+  "page": "Bell pepper",
+  "page_state": "green, raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06245",
+  "jp_name": "（ピーマン類）　青ピーマン　果実　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.6",
+   "state": "measured",
+   "value": 1.6
+  },
+  "water_g": 93.4
+ },
+ {
+  "page": "Ginger root",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06103",
+  "jp_name": "（しょうが類）　しょうが　根茎　皮なし　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "6",
+   "state": "measured",
+   "value": 6
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.7",
+   "state": "measured",
+   "value": 0.7
+  },
+  "water_g": 91.4
+ },
+ {
+  "page": "Spring onions",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06227",
+  "jp_name": "（ねぎ類）　葉ねぎ　葉　生",
+  "cr": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "1.7",
+   "state": "measured",
+   "value": 1.7
+  },
+  "water_g": 90.5
+ },
+ {
+  "page": "Leeks",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "06226",
+  "jp_name": "（ねぎ類）　根深ねぎ　葉　軟白　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.0",
+   "state": "measured",
+   "value": 1
+  },
+  "water_g": 89.6
+ },
+ {
+  "page": "Butternut squash",
+  "page_state": "baked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06048",
+  "jp_name": "（かぼちゃ類）　西洋かぼちゃ　果実　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "5",
+   "state": "measured",
+   "value": 5
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.7",
+   "state": "measured",
+   "value": 1.7
+  },
+  "water_g": 76.2
+ },
+ {
+  "page": "Pumpkin",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "06046",
+  "jp_name": "（かぼちゃ類）　日本かぼちゃ　果実　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.7",
+   "state": "measured",
+   "value": 1.7
+  },
+  "water_g": 86.7
+ },
+ {
+  "page": "Radishes",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "06134",
+  "jp_name": "（だいこん類）　だいこん　根　皮なし　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "biotin": {
+   "raw": "0.3",
+   "state": "measured",
+   "value": 0.3
+  },
+  "water_g": 94.6
+ },
+ {
+  "page": "Nori",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "09003",
+  "jp_name": "あまのり　ほしのり",
+  "cr": {
+   "raw": "5",
+   "state": "measured",
+   "value": 5
+  },
+  "mo": {
+   "raw": "93",
+   "state": "measured",
+   "value": 93
+  },
+  "iodine": {
+   "raw": "1400",
+   "state": "measured",
+   "value": 1400
+  },
+  "biotin": {
+   "raw": "41.0",
+   "state": "measured",
+   "value": 41
+  },
+  "water_g": 8.4
+ },
+ {
+  "page": "Kelp",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "09017",
+  "jp_name": "（こんぶ類）　まこんぶ　素干し　乾",
+  "cr": {
+   "raw": "14",
+   "state": "measured",
+   "value": 14
+  },
+  "mo": {
+   "raw": "11",
+   "state": "measured",
+   "value": 11
+  },
+  "iodine": {
+   "raw": "200000",
+   "state": "measured",
+   "value": 200000
+  },
+  "biotin": {
+   "raw": "9.6999999999999993",
+   "state": "measured",
+   "value": 9.7
+  },
+  "water_g": 9.5
+ },
+ {
+  "page": "Apple",
+  "page_state": "raw, with skin",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07176",
+  "jp_name": "りんご　皮つき　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.7",
+   "state": "measured",
+   "value": 0.7
+  },
+  "water_g": 83.1
+ },
+ {
+  "page": "Strawberries",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07012",
+  "jp_name": "いちご　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "9",
+   "state": "measured",
+   "value": 9
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "0.8",
+   "state": "measured",
+   "value": 0.8
+  },
+  "water_g": 90
+ },
+ {
+  "page": "Orange",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07041",
+  "jp_name": "（かんきつ類）　オレンジ　バレンシア　米国産　砂じょう　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.9",
+   "state": "measured",
+   "value": 0.9
+  },
+  "water_g": 88.7
+ },
+ {
+  "page": "Peaches",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07136",
+  "jp_name": "（もも類）　もも　白肉種　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.3",
+   "state": "measured",
+   "value": 0.3
+  },
+  "water_g": 88.7
+ },
+ {
+  "page": "Grapes",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07178",
+  "jp_name": "ぶどう　皮つき　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.0",
+   "state": "measured",
+   "value": 1
+  },
+  "water_g": 81.7
+ },
+ {
+  "page": "Kiwi",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07054",
+  "jp_name": "キウイフルーツ　緑肉種　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.4",
+   "state": "measured",
+   "value": 1.4
+  },
+  "water_g": 84.7
+ },
+ {
+  "page": "Blueberries",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07124",
+  "jp_name": "ブルーベリー　生",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.1000000000000001",
+   "state": "measured",
+   "value": 1.1
+  },
+  "water_g": 86.4
+ },
+ {
+  "page": "Mango",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07132",
+  "jp_name": "マンゴー　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.8",
+   "state": "measured",
+   "value": 0.8
+  },
+  "water_g": 82
+ },
+ {
+  "page": "Pineapple",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07097",
+  "jp_name": "パインアップル　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.2",
+   "state": "measured",
+   "value": 0.2
+  },
+  "water_g": 85.2
+ },
+ {
+  "page": "Watermelon",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07077",
+  "jp_name": "すいか　赤肉種　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.9",
+   "state": "measured",
+   "value": 0.9
+  },
+  "water_g": 89.6
+ },
+ {
+  "page": "Grapefruit",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07062",
+  "jp_name": "（かんきつ類）　グレープフルーツ　白肉種　砂じょう　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.5",
+   "state": "measured",
+   "value": 0.5
+  },
+  "water_g": 89
+ },
+ {
+  "page": "Apricots",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07007",
+  "jp_name": "あんず　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.5",
+   "state": "measured",
+   "value": 0.5
+  },
+  "water_g": 89.8
+ },
+ {
+  "page": "Pear",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07091",
+  "jp_name": "（なし類）　西洋なし　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.3",
+   "state": "measured",
+   "value": 0.3
+  },
+  "water_g": 84.9
+ },
+ {
+  "page": "Cherries",
+  "page_state": "sweet, raw",
+  "found_on_page": true,
+  "match": "close",
+  "jp_code": "07070",
+  "jp_name": "さくらんぼ　国産　生",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.7",
+   "state": "measured",
+   "value": 0.7
+  },
+  "water_g": 83.1
+ },
+ {
+  "page": "Jerusalem artichokes",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "02001",
+  "jp_name": "＜いも類＞　きくいも　塊茎　生",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "2",
+   "state": "measured",
+   "value": 2
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "3.7",
+   "state": "measured",
+   "value": 3.7
+  },
+  "water_g": 81.7
+ },
+ {
+  "page": "Alfalfa sprouts",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06286",
+  "jp_name": "（もやし類）　アルファルファもやし　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "16",
+   "state": "measured",
+   "value": 16
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "4.4000000000000004",
+   "state": "measured",
+   "value": 4.4
+  },
+  "water_g": 96
+ },
+ {
+  "page": "Dried figs",
+  "page_state": "dried",
+  "found_on_page": true,
+  "match": "proxy",
+  "jp_code": "07015",
+  "jp_name": "いちじく　生",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.4",
+   "state": "measured",
+   "value": 0.4
+  },
+  "water_g": 84.6
+ }
+]

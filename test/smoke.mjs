@@ -838,9 +838,23 @@ await test("a group label follows the scroll until the next group pushes it off"
     eq(Math.round(held.macro.label), Math.round(rest.macro.label), "label held in place");
     assert(held.macro.label > held.foodRight, "label must stay clear of the food column");
 
-    // Far enough over and the next group takes the spot, pushing the old label
-    // out rather than the two sitting on top of each other.
-    await scroll(1150);
+    /* Far enough over and the next group takes the spot, pushing the old label
+       out rather than the two sitting on top of each other.
+
+       Derived rather than typed. This used to be a measured 1150, which was the
+       macronutrient group's width at the time and stopped being it the day two
+       fibre-fraction columns joined that group. What the test means is "scroll
+       until the amino group has reached the label slot", so it asks where that
+       is: the group's own offset, less the width of the pinned food column the
+       label sits beside, plus enough to carry it past. */
+    const takeover = await page.evaluate(() => {
+      const sc = document.querySelector("#scroller");
+      const box = sc.getBoundingClientRect();
+      const th = document.querySelector('#thead th.grp[data-g="amino"]');
+      const food = document.querySelector("#thead th.food").getBoundingClientRect();
+      return th.getBoundingClientRect().left - box.left + sc.scrollLeft - (food.right - box.left) + 60;
+    });
+    await scroll(takeover);
     const pushed = await probe();
     eq(Math.round(pushed.amino.label), Math.round(rest.macro.label), "amino label takes over");
     assert(pushed.macro.label < pushed.amino.label,
@@ -3196,6 +3210,204 @@ await test("the page speaks to a reader, not about its own plumbing", async () =
 
     const found = FORBIDDEN.filter(t => text.includes(t));
     eq(found.length, 0, `internal names in reader-facing copy: ${found.join(", ")}`);
+  });
+});
+
+// ---------------------------------------------------------------- evidence
+
+await test("an evidence column shows a figure, and its own kind of blank", async () => {
+  await withPage(async page => {
+    // Four different blanks in one assertion, because collapsing them is the
+    // failure this whole column model exists to refuse. Oats has a figure.
+    // Chia was carried by the source and not assayed for fibre. Soy milk was
+    // assayed and found to have none. Black beans is in no source at all.
+    eq(await cellText(page, "Oats", "solfibre"), "3.2", "oats soluble fibre");
+    eq(await cellText(page, "Oats", "insolfibre"), "6.2", "oats insoluble fibre");
+    eq(await cellText(page, "Chia seeds", "solfibre"), "not measured",
+       "a component nobody assayed says so");
+    eq(await cellText(page, "Soy milk", "insolfibre"), "none detected",
+       "a component assayed and found absent is a finding, not a gap");
+    eq(await cellText(page, "Millet", "solfibre"), "trace", "trace is its own answer");
+    eq(await cellText(page, "Black beans", "solfibre"), "no data",
+       "a food no source carries has no data, which is none of the above");
+  });
+});
+
+await test("a cell with no figure never renders a number", async () => {
+  // The rule the whole project is built on, applied to the six states: every
+  // state that is not a figure must render without a digit in it, or it can be
+  // read as a measurement.
+  await withPage(async page => {
+    const cells = await page.$$eval("#tbody td[data-ev]",
+      tds => tds.map(t => [t.dataset.ev, t.textContent.trim()]));
+    assert(cells.length > 0, "no evidence cells rendered at all");
+    const figures = new Set(["measured", "range", "estimated"]);
+    const bad = cells.filter(([state, text]) => !figures.has(state) && /[0-9]/.test(text));
+    eq(bad.length, 0, `blank states rendering digits: ${bad.map(b => b.join("=")).join(", ")}`);
+    // And the other way round, so this cannot pass by rendering nothing at all.
+    const empty = cells.filter(([state, text]) => figures.has(state) && !/[0-9]/.test(text));
+    eq(empty.length, 0, `figures rendering no digits: ${empty.map(b => b.join("=")).join(", ")}`);
+  });
+});
+
+await test("a disagreeing figure shows a range rather than a single number", async () => {
+  await withPage(async page => {
+    // Japan 3.7, the UK 0.5, Australia 1.3. Seven-fold apart, and no one of the
+    // three far enough out to drop, so the breadth is the honest answer.
+    eq(await cellText(page, "Kidney beans", "biotin"), "0.5 to 3.7", "kidney bean biotin");
+    // Against a food where the sources agree, so the range is not simply what
+    // this column always does.
+    eq(await cellText(page, "Oats", "biotin"), "22.0", "oats biotin, one source, one figure");
+  });
+});
+
+await test("an evidence value reaches no total, no percentage and no score", async () => {
+  /* The invariant, and it is structural rather than conventional: an evidence
+     figure is not in any food's `v`, so there is no array for it to be summed
+     out of. Asserted anyway, from three directions, because the cheapest way to
+     lose it later is to fold a fibre fraction into the fibre total. */
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const ev = DATA.nutrients.filter(n => n.evidence).map(n => n.id);
+      const totals = dayTotals().map(t => t.n.id);
+      return {
+        ev,
+        vLen: [...new Set(DATA.foods.map(f => f.v.length))],
+        want: DATA.nutrients.filter(n => !n.evidence).length,
+        inTotals: totals.filter(id => ev.includes(id)),
+        withDv: DATA.nutrients.filter(n => n.evidence && n.dv !== null).map(n => n.id),
+        threw: (() => { try { val(FOODS[0], ev[0]); return false; } catch { return true; } })(),
+      };
+    });
+    eq(r.ev.length, 3, "three evidence columns");
+    eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
+    eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
+    eq(r.inTotals.length, 0, `evidence ids in day totals: ${r.inTotals.join(", ")}`);
+    eq(r.withDv.length, 0, `evidence columns with a daily value: ${r.withDv.join(", ")}`);
+    assert(r.threw, "val() must throw on an evidence id rather than return a figure");
+
+    // And the total fibre figure is what it was before the fractions existed.
+    eq(await cellText(page, "Oats", "fiber"), "10.1", "oats total fibre, untouched");
+  });
+});
+
+await test("a day with an evidence-rich food shows no evidence row", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "oats-rolled-dry", g: 100 }]);
+    const text = await page.$eval("#dayTotals", el => el.innerText);
+    for (const label of ["Soluble fibre", "Insoluble fibre", "Biotin"])
+      assert(!text.includes(label), `"${label}" must not appear in a day's totals`);
+    assert(text.includes("Fibre") || text.includes("fibre"), "the real fibre total is still there");
+  });
+});
+
+await test("every group label spans exactly its own columns", async () => {
+  /* The header draws one cell per group with a colspan, and the body draws
+     columns in whatever order cols() returns, so a group that appears twice in
+     that order puts every label from there rightwards over the wrong columns.
+     That is what appending the evidence columns to the end of nutrients.json
+     did: two macro columns and one vitamin column arrived after the plant
+     group. Asserted on the rendered table rather than on the data, because the
+     data was never wrong. */
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const grp = [...document.querySelectorAll("#thead th.grp")];
+      const order = [...document.querySelectorAll("#thead [data-sort]")]
+        .map(b => b.dataset.sort).filter(id => id !== "__name")
+        .map(id => DATA.nutrients.find(n => n.id === id).group);
+      return {
+        spans: grp.map(t => [t.dataset.g, t.colSpan]),
+        order,
+        cells: document.querySelector("#tbody tr").querySelectorAll("td").length,
+      };
+    });
+    // Each group appears once in the column order, as one unbroken run.
+    const runs = r.order.filter((g, i) => g !== r.order[i - 1]);
+    eq(runs.length, new Set(runs).size, `groups are broken into runs: ${runs.join(" ")}`);
+    // And each label's colspan matches the run beneath it, in the same order.
+    const counted = runs.map(g => [g, r.order.filter(x => x === g).length]);
+    eq(JSON.stringify(r.spans), JSON.stringify(counted),
+       "group labels must span exactly the columns under them");
+    eq(r.order.length + 1, r.cells, "one body cell per column, plus the food column");
+  });
+});
+
+await test("the omega-3 columns sit together, and say so", async () => {
+  // ALA, EPA and DHA are all omega-3, and omega-6 used to sit between them.
+  await withPage(async page => {
+    const labels = await page.evaluate(() =>
+      DATA.nutrients.filter(n => n.group === "fats").slice(0, 4).map(n => n.label));
+    eq(labels.join(" "), "Omega-3 (ALA) Omega-3 (EPA) Omega-3 (DHA) Omega-6 (LA)",
+       "the three omega-3 columns run together, then omega-6");
+  });
+});
+
+await test("a column stored at the end is still shown where it belongs", async () => {
+  /* The two orders in nutrients.json are separate on purpose: array position is
+     the position of the value in every food's `v`, and an evidence column has
+     none, so it is stored at the end and placed on screen by `after`. Asserted
+     on the rendered header, because the failure this catches is a column that
+     is correct in the data and in the wrong place on the page. */
+  await withPage(async page => {
+    const order = await page.evaluate(() =>
+      [...document.querySelectorAll("#thead [data-sort]")]
+        .map(b => b.dataset.sort).filter(id => id !== "__name"));
+    const at = id => order.indexOf(id);
+    eq(order[at("fiber") + 1], "solfibre", "soluble fibre follows total fibre");
+    eq(order[at("solfibre") + 1], "insolfibre", "insoluble fibre follows soluble");
+    eq(order[at("b6") + 1], "biotin", "biotin sits after B6");
+    eq(order[at("biotin") + 1], "b9", "and before B9");
+    // The stored order is untouched, which is what keeps every `v` index valid.
+    const stored = await page.evaluate(() => DATA.nutrients.map(n => n.id).slice(-3));
+    eq(stored.join(" "), "solfibre insolfibre biotin",
+       "the evidence columns stay at the end of the array they are stored in");
+  });
+});
+
+await test("an evidence column shows no percentage it does not have", async () => {
+  await withPage(async page => {
+    await page.click("#dvBtn");
+    for (const id of ["solfibre", "insolfibre", "biotin"]) {
+      const t = await cellText(page, "Oats", id);
+      assert(!/[0-9]/.test(t), `${id} must show no figure in the %DV view, got "${t}"`);
+      assert(/no daily value/i.test(t), `${id} must say why it is blank, got "${t}"`);
+    }
+    // Percentages still work beside them, and the 39 columns that have no
+    // daily value of their own are deliberately untouched by this.
+    assert(/%/.test(await cellText(page, "Oats", "protein")), "protein still shows a percentage");
+    eq(await cellText(page, "Kale", "flavonols"), "93.0",
+       "a pre-existing column with no daily value still shows its figure");
+  });
+});
+
+await test("the dropped components stay dropped", async () => {
+  /* Eight candidates were dropped with reasons in the design. Tocotrienols had
+     4 analysed foods, all breads and pasta, none of them on this page. Ajugose
+     appeared in 149 IFCT rows when the truth is 4, which was column drift in a
+     PDF parse rather than a finding. Cobalt and tartaric acid were dropped on
+     coverage. A column appearing for one of these means the reasoning was
+     drifted past rather than revisited, so fail and make someone reopen the
+     spec. */
+  await withPage(async page => {
+    // The column labels rather than the header's text. A header carries its
+    // nutrient's explanatory sentence as well as its name, and soluble fibre's
+    // says that pectin sits inside the figure, which is the sentence doing its
+    // job rather than a pectin column appearing.
+    const labels = await page.evaluate(() => DATA.nutrients.map(n => n.label.toLowerCase()));
+    for (const gone of ["tocotrienol", "cobalt", "ajugose", "tartaric", "taurine", "pectin"])
+      assert(!labels.some(l => l.includes(gone)), `${gone} should have no column`);
+  });
+});
+
+await test("an evidence column names its sources where a reader can reach them", async () => {
+  await withPage(async page => {
+    await selectFood(page, "Kidney beans", "Kidney beans");
+    const text = await page.evaluate(() => { S.tab = "vitamin"; renderDetail(); return $("#tabp").innerText; });
+    assert(/0\.5 to 3\.7/.test(text), `the panel should carry the range too, got: ${text.slice(0, 300)}`);
+    // The countries rather than the source keys: "mext-2020" is this
+    // repository's name for it, and the page does not name its own plumbing.
+    for (const country of ["Japan", "United Kingdom", "Australia"])
+      assert(text.includes(country), `${country} should be named beside the figure`);
   });
 });
 

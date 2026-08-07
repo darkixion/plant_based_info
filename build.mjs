@@ -32,6 +32,8 @@ const SOURCES = {
   portions: join(SRC, "data", "portions.json"),
   interactions: join(SRC, "data", "interactions.json"),
   gaps: join(SRC, "data", "gaps.json"),
+  evidence: join(SRC, "data", "evidence.json"),
+  sourceList: join(SRC, "data", "sources.json"),
 };
 
 /** `</script>` inside an inlined string would close the tag early. `\/` is a
@@ -45,7 +47,68 @@ const inject = (src, token, value) => {
   return src.replace(token, () => value);
 };
 
-function validate(data, portions, inter, gaps) {
+/* ---- evidence cells ----
+   The states an evidence cell may carry. Six, because "no number" means six
+   different things and collapsing them throws away the best thing this data
+   says: a component assayed and found absent is a finding, and a component
+   nobody assayed is evidence of nothing. A food with no entry at all has no
+   data, which is a seventh thing again and is represented by absence. */
+const EV_STATES = new Set(["measured", "range", "trace", "not-detected", "estimated", "not-measured"]);
+const EV_MATCH = new Set(["exact", "close", "proxy"]);
+
+/** Exported so test/tools.mjs can exercise it without a build. Every rule here
+ *  refuses a shape that would render as plausible data rather than as an error,
+ *  which is the same standard the notes and portions checks above are held to. */
+export function checkEvidence(evidence, nutrients, foods, sources) {
+  const problems = [];
+  const slug = f => `${f.name} ${f.state || ""}`.toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const bySlug = new Map(foods.map(f => [slug(f), f]));
+  const evIds = new Set(nutrients.filter(n => n.evidence).map(n => n.id));
+
+  for (const [foodSlug, cells] of Object.entries(evidence || {})) {
+    const food = bySlug.get(foodSlug);
+    if (!food) { problems.push(`evidence for unknown food "${foodSlug}"`); continue; }
+    for (const [id, c] of Object.entries(cells)) {
+      const at = `evidence ${foodSlug}.${id}`;
+      // Unknown covers both halves deliberately: a component with no column and
+      // a column that is not an evidence column are the same mistake, a figure
+      // put somewhere the page will not read it from.
+      if (!evIds.has(id)) { problems.push(`${at}: unknown component`); continue; }
+      if (!EV_STATES.has(c.state)) { problems.push(`${at}: unknown state "${c.state}"`); continue; }
+      if (c.match && !EV_MATCH.has(c.match)) problems.push(`${at}: unknown match grade "${c.match}"`);
+      if (!c.unit) problems.push(`${at}: missing unit`);
+      if (!c.basis) problems.push(`${at}: missing basis`);
+
+      // Preparation is the sharpest edge in this data. A correct value against
+      // the wrong preparation is worse than none, because it looks right.
+      const state = (food.state || "as listed").toLowerCase();
+      if (c.prep && c.prep.toLowerCase() !== state && c.prep.toLowerCase() !== "as listed")
+        problems.push(`${at}: prep "${c.prep}" disagrees with the food's state "${food.state || ""}"`);
+
+      const carries = c.state === "measured" || c.state === "range" || c.state === "estimated";
+      if (carries) {
+        if (!Array.isArray(c.sources) || !c.sources.length)
+          problems.push(`${at}: a value with no source`);
+        else for (const s of c.sources)
+          if (!sources[s]) problems.push(`${at}: unknown source "${s}"`);
+      }
+      if ((c.state === "measured" || c.state === "estimated") && typeof c.value !== "number")
+        problems.push(`${at}: ${c.state} with no value`);
+      if (c.state === "range") {
+        if (typeof c.low !== "number" || typeof c.high !== "number")
+          problems.push(`${at}: range with no bounds`);
+        else if (!(c.high > c.low))
+          problems.push(`${at}: range bounds are equal or inverted, which means reconciliation was skipped`);
+      }
+    }
+  }
+  return problems;
+}
+
+// `srcs` rather than `sources`, which the interactions block below already
+// declares from `inter`. A parameter and a const of one name is a syntax error.
+function validate(data, portions, inter, gaps, evidence, srcs) {
   const problems = [];
   const { nutrients, foods } = data;
 
@@ -54,6 +117,10 @@ function validate(data, portions, inter, gaps) {
   if (problems.length) return problems;
 
   const ids = new Set();
+  // The evidence columns, kept separate from `ids`: they are nutrients for
+  // every purpose that concerns a column, and not nutrients for any purpose
+  // that concerns a figure in `v`. Several checks below need the distinction.
+  const evIds = new Set(nutrients.filter(n => n.evidence).map(n => n.id));
   for (const n of nutrients) {
     if (!n.id) problems.push(`nutrient with no id: ${JSON.stringify(n).slice(0, 60)}`);
     if (ids.has(n.id)) problems.push(`duplicate nutrient id: ${n.id}`);
@@ -73,13 +140,34 @@ function validate(data, portions, inter, gaps) {
       problems.push(`${n.id}: "why" is too short to say anything useful`);
   }
 
+  /* `after` is where a column sits on screen, as the id of the one it follows.
+     A second pass, because it names a nutrient that may appear later in the
+     file. An unresolvable one would silently leave the column where it was,
+     which is the failure that put soluble fibre after the plant compounds. */
+  for (const n of nutrients) {
+    if (n.after === undefined) continue;
+    const anchor = nutrients.find(x => x.id === n.after);
+    if (!anchor) { problems.push(`${n.id}: sits after "${n.after}", which is not a nutrient`); continue; }
+    if (n.after === n.id) problems.push(`${n.id}: sits after itself`);
+    // A column can only be placed within its own group, since the header draws
+    // one cell per group and a column that left its group would break the span.
+    if (anchor.group !== n.group)
+      problems.push(`${n.id}: sits after "${n.after}", which is in group "${anchor.group}" not "${n.group}"`);
+  }
+
   // A short or long value array silently misaligns every column after the gap,
   // which looks like plausible data rather than an error. Always check.
+  //
+  // Counted over the non-evidence nutrients only, because an evidence column is
+  // deliberately absent from `v`. That absence is the whole mechanism: a figure
+  // that is not in `v` cannot reach dayTotals(), proteinQuality() or "Short on"
+  // by any route, whatever a later edit does. app.ts builds IDX the same way.
+  const vCount = nutrients.filter(n => !n.evidence).length;
   const slugs = new Set();
   for (const f of foods) {
     if (!Array.isArray(f.v)) { problems.push(`${f.name}: no values array`); continue; }
-    if (f.v.length !== nutrients.length)
-      problems.push(`${f.name}: ${f.v.length} values for ${nutrients.length} nutrients`);
+    if (f.v.length !== vCount)
+      problems.push(`${f.name}: ${f.v.length} values for ${vCount} nutrients`);
     const bad = f.v.findIndex(v => v !== null && typeof v !== "number");
     if (bad !== -1) problems.push(`${f.name}: non-numeric value at ${nutrients[bad]?.id ?? bad}`);
 
@@ -99,8 +187,14 @@ function validate(data, portions, inter, gaps) {
       if (!slugs.has(slug)) problems.push(`note ${note.id}: no food with key "${slug}"`);
       if (!Array.isArray(nutIds) || !nutIds.length)
         problems.push(`note ${note.id}: "${slug}" lists no nutrients`);
-      for (const n of nutIds || [])
+      for (const n of nutIds || []) {
         if (!ids.has(n)) problems.push(`note ${note.id}: "${slug}" names unknown nutrient "${n}"`);
+        // The page draws a note's marker beside a figure in `v`. An evidence
+        // cell carries its own provenance instead, as sources and a match
+        // grade, so a note aimed at one would never be rendered.
+        else if (evIds.has(n))
+          problems.push(`note ${note.id}: "${slug}" marks "${n}", which is an evidence column and carries its own sources`);
+      }
       // A note explains where a figure came from, so there has to be a figure.
       // The page only draws a marker next to a value, so an entry pointing at an
       // empty cell renders nothing at all and would sit in the data unnoticed.
@@ -207,8 +301,15 @@ function validate(data, portions, inter, gaps) {
 
     if (!Array.isArray(x.affects) || !x.affects.length)
       problems.push(`${at} affects nothing`);
-    else for (const id of x.affects)
+    else for (const id of x.affects) {
       if (!ids.has(id)) problems.push(`${at} affects "${id}", which is not a nutrient`);
+      // An interaction is shown against a food whose own figures make it a
+      // meaningful source of the nutrient, which is a judgement about a figure
+      // in `v`. An evidence column has none there and no daily value to be a
+      // meaningful share of, so the page could never decide when to show it.
+      else if (evIds.has(id))
+        problems.push(`${at} affects "${id}", which is an evidence column and has no figure to rank`);
+    }
 
     if (!DIRECTIONS.has(x.direction))
       problems.push(`${at} has direction "${x.direction}", not up or down`);
@@ -265,8 +366,15 @@ function validate(data, portions, inter, gaps) {
     if (!g.why || g.why.length < 40) problems.push(`${at} has no usable "why"`);
     if (!Array.isArray(g.nutrients))
       problems.push(`${at} has no nutrients array (use [] where there is no column)`);
-    else for (const id of g.nutrients)
+    else for (const id of g.nutrients) {
       if (!ids.has(id)) problems.push(`${at} names nutrient "${id}", which does not exist`);
+      // A gap's evidence is counted over `v`: how many foods carry any, how
+      // many were measured and found to contain none, how many were never
+      // assayed. An evidence column has no `v` to count, so the entry would
+      // render as a claim with nothing under it.
+      else if (evIds.has(id))
+        problems.push(`${at} names "${id}", which is an evidence column and has no figures to count`);
+    }
     /* Cites are required for a gap and optional below it, which is a rule about
        what kind of claim each tier makes. A "gap" asserts something about the
        world and needs a source. A "plan" entry describes this table, and its
@@ -281,6 +389,14 @@ function validate(data, portions, inter, gaps) {
     if (!gList.some(g => (g.cites || []).includes(key)))
       problems.push(`gaps: source "${key}" is cited by nothing`);
 
+  problems.push(...checkEvidence(evidence, nutrients, foods, srcs));
+  // A citation nobody uses is the same fault as an uncited claim, read from the
+  // other end, and the same check the interactions and gaps sources get.
+  for (const key of Object.keys(srcs || {}))
+    if (!Object.values(evidence || {}).some(cells =>
+        Object.values(cells).some(c => (c.sources || []).includes(key))))
+      problems.push(`sources: "${key}" is cited by no evidence cell`);
+
   return problems;
 }
 
@@ -288,7 +404,8 @@ async function build() {
   for (const [name, path] of Object.entries(SOURCES))
     if (!existsSync(path)) throw new Error(`missing source: ${name} (${path})`);
 
-  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw, gapsRaw] = await Promise.all(
+  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw, gapsRaw,
+         evidenceRaw, sourceRaw] = await Promise.all(
     Object.values(SOURCES).map(p => readFile(p, "utf8")));
 
   let data, icons;
@@ -308,7 +425,15 @@ async function build() {
   try { gaps = JSON.parse(gapsRaw); }
   catch (e) { throw new Error(`gaps.json is not valid JSON: ${e.message}`); }
 
-  const problems = validate(data, portions, inter, gaps);
+  let evidence;
+  try { evidence = JSON.parse(evidenceRaw); }
+  catch (e) { throw new Error(`evidence.json is not valid JSON: ${e.message}`); }
+
+  let srcs;
+  try { srcs = JSON.parse(sourceRaw); }
+  catch (e) { throw new Error(`sources.json is not valid JSON: ${e.message}`); }
+
+  const problems = validate(data, portions, inter, gaps, evidence, srcs);
   if (problems.length)
     throw new Error(`data validation failed:\n  - ${problems.join("\n  - ")}`);
 
@@ -322,6 +447,8 @@ async function build() {
   out = inject(out, "//{{PORTIONS}}", `const P = ${safeJSON(portions)};`);
   out = inject(out, "//{{INTERACTIONS}}", `const X = ${safeJSON(inter)};`);
   out = inject(out, "//{{GAPS}}", `const G = ${safeJSON(gaps)};`);
+  out = inject(out, "//{{EVIDENCE}}", `const EV = ${safeJSON(evidence)};`);
+  out = inject(out, "//{{SOURCES}}", `const SRCS = ${safeJSON(srcs)};`);
   // The page carries "use strict" twice on purpose. esbuild emits one of its
   // own because it reads tsconfig.json, where `strict` implies `alwaysStrict`;
   // this one is prepended so the page's strictness does not depend on that
@@ -341,13 +468,21 @@ const run = () => build().catch(err => {
   if (!process.argv.includes("--watch")) process.exitCode = 1;
 });
 
-await run();
+/* Only build when this file is the thing that was run. test/tools.mjs imports
+   checkEvidence to exercise the rules directly, and without this guard that
+   import would rebuild the page as a side effect of running the tests. Same
+   guard, and the same reason, as the CLI dispatch in tools/usda.mjs.
+   `process.argv[1]` rather than `import.meta.main`, which is Node 24 while CI
+   pins 20. */
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  await run();
 
-if (process.argv.includes("--watch")) {
-  console.log("watching src/, ctrl-c to stop");
-  let timer;
-  for await (const _ of watch(SRC, { recursive: true })) {
-    clearTimeout(timer);              // editors fire several events per save
-    timer = setTimeout(run, 60);
+  if (process.argv.includes("--watch")) {
+    console.log("watching src/, ctrl-c to stop");
+    let timer;
+    for await (const _ of watch(SRC, { recursive: true })) {
+      clearTimeout(timer);            // editors fire several events per save
+      timer = setTimeout(run, 60);
+    }
   }
 }

@@ -398,6 +398,28 @@ tbody tr[aria-selected=true] td{background:var(--green-tint); box-shadow:inset 0
 tbody td{border-bottom:1px solid var(--line-soft); padding:0 12px; height:54px; color:var(--body)}
 tbody td.food{padding:0 10px}
 
+/* ---- evidence cells ----
+   An evidence cell that is not a figure reads as prose, so it must not be
+   mistaken for a number at a glance: "trace" and "not measured" are answers,
+   and "no data" is the absence of one. Italic and quiet is the same treatment
+   .nodata gets in the detail panel, for the same reason.
+   The two suffixes are content rather than markup because they qualify a figure
+   without being part of it: a reader copying the cell wants 2.5, and the fact
+   that it is a calculation belongs to the cell rather than to the number. */
+tbody td[data-ev=none],
+tbody td[data-ev=trace],
+tbody td[data-ev=not-detected],
+tbody td[data-ev=not-measured]{font-style:italic; color:var(--muted)}
+tbody td[data-ev=estimated]::after{content:" calc"; font-size:.75em; color:var(--muted)}
+/* The % daily value view, where these three have no percentage to show. Quiet,
+   because the dash is an exemption rather than a finding about the food. */
+tbody td[data-ev=nodv] .noref{color:var(--faint)}
+tbody td[data-match=proxy]::after{content:" ~"; color:var(--muted)}
+/* A range is two numbers and a word, which is wider than any figure the column
+   was sized for, so it is allowed to set its own type size rather than push the
+   column out. */
+tbody td[data-ev=range]{font-size:12.5px; white-space:nowrap}
+
 /* ---- sorted column ---- */
 tbody td.sorted{font-weight:650; color:var(--ink)}
 tbody td.num.low.sorted{color:var(--muted)}          /* zeros stay quiet even when bold */
