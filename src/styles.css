@@ -168,10 +168,58 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
    is already there rather than a highlight the reader switched on. */
 /* min-height fits the longest of the sentences at this width, so moving from
    one header to the next never resizes the box and never nudges the table. */
+/* 126px, up from 83px, because the absorption line under the sentence made the
+   tallest case taller. Measured rather than guessed: it is the largest height
+   any of the 68 nutrients produces at 1200px and above, which is Total fat,
+   since fat is the agent on both the carotenoid record and the fat-soluble
+   vitamin one. A test walks every nutrient and fails if the box ever changes
+   height, so a new interaction record that overflows this is caught rather than
+   quietly reintroducing the nudge.
+   Below about 1100px the sentences wrap further and the box does vary again,
+   which was true before this line existed too. */
 .nutnote{margin:0 0 12px; padding:10px 14px; border-radius:10px; font-size:13.5px;
-  line-height:1.5; color:var(--muted); background:var(--raise-warm); min-height:83px;
+  line-height:1.5; color:var(--muted); background:var(--raise-warm); min-height:126px;
   border:1px solid var(--line); border-left:3px solid var(--green-line); max-width:96ch}
 .nutnote b{color:var(--ink); font-weight:650}
+/* ---- what helps and hinders absorption ----
+   One line under the sentence, names only. The mechanisms and the sources are
+   in the dialog the button at the end opens: this box has a line to spare, not
+   a paragraph. Absent entirely for the fifty-odd nutrients with no interaction
+   on record, because a row of arrows with nothing beside them would read as
+   "nothing affects this", which nobody has established. */
+.absorb{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline; margin-top:7px;
+  padding-top:7px; border-top:1px solid var(--line); font-size:12.5px}
+.absorb .up{color:var(--g-plant)} .absorb .down{color:var(--warn)}
+.absorb .does{color:var(--muted); font-style:italic}
+.absorb b{font-weight:700; font-size:13px}
+.absorbmore{margin-left:auto; border:1px solid var(--green-line); background:var(--green-tint);
+  color:var(--green-dark); border-radius:6px; padding:2px 8px; font-size:11.5px; font-weight:650;
+  min-height:24px}
+.absorbmore:hover{background:var(--panel)}
+
+/* ---- the absorption reference ----
+   One block per interaction inside the dialog. The direction is carried by
+   colour, an arrow and the words in the text, rather than by colour alone. */
+.biorow{border-left:3px solid var(--line); padding:2px 0 2px 12px; margin:0 0 14px}
+.biorow.up{border-left-color:var(--g-plant)}
+.biorow.down{border-left-color:var(--warn)}
+.biohead{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap}
+.biohead b{color:var(--ink); font-size:14px}
+.bioarrow{font-weight:700}
+.biorow.up .bioarrow{color:var(--g-plant)} .biorow.down .bioarrow{color:var(--warn)}
+.biowhen{font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--faint);
+  font-weight:650; border:1px solid var(--line); border-radius:5px; padding:1px 6px}
+.biorow p{margin:5px 0 4px}
+.biorow cite{display:block; font-size:11.5px; color:var(--faint); font-style:normal; line-height:1.4}
+/* A reviewed fact about this particular food, as against the generic entries
+   around it. Off the up/down axis on purpose: it is not a direction, it is the
+   reason the number beside it does not mean what it appears to. */
+.biorow.curated{border-left-color:var(--lens-line); background:var(--lens-bg);
+  border-radius:0 6px 6px 0; padding:8px 12px}
+.biorow.curated .biohead b{color:var(--lens-ink)}
+.biofor{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--faint);
+  font-weight:650; margin:16px 0 7px}
+.biofor:first-child{margin-top:4px}
 
 /* lens editor dialog */
 .lensform{display:flex; flex-direction:column; gap:14px}
@@ -363,8 +411,16 @@ td.num b{font-weight:600; color:var(--ink)}
 .dhead .st{color:var(--muted); font-size:13.5px}
 .dhead .per{color:var(--faint); font-size:12.5px; margin-top:6px}
 .dhead .fav{position:absolute; right:12px; top:12px; margin:0}
-.tabs{display:flex; border-block:1px solid var(--line); padding:0 6px}
-.tabs button{flex:1; border:0; background:none; padding:11px 4px 9px; font-size:11.5px;
+/* Two rows of three rather than one row of six. The detail panel is a 300px
+   column at every width, not just on a phone, so this is not a narrow-screen
+   concern: six labels never fit on one line anywhere. Five already needed
+   "Plant compounds" to wrap. Adding the sixth without wrapping the row pushed
+   the panel 54px past its column and set the whole page scrolling sideways at
+   1440px, which the narrow-screen test caught.
+   Wrapping rather than scrolling the strip: a tab you cannot see is a tab you
+   do not know exists, and a horizontal scroller gives no sign there is more. */
+.tabs{display:flex; flex-wrap:wrap; border-block:1px solid var(--line); padding:0 6px}
+.tabs button{flex:1 1 30%; border:0; background:none; padding:11px 4px 9px; font-size:11.5px;
   color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:5px;
   border-bottom:2px solid transparent; min-height:56px}
 .tabs button[aria-selected=true]{color:var(--green-dark); border-bottom-color:var(--green);
@@ -584,6 +640,19 @@ dl{margin:0}
   border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:8px;
   padding:9px 11px}
 .dayadvice b{color:var(--ink); display:block; margin-bottom:2px; font-size:12.5px}
+/* What today's list could interact with. Green rather than amber, because
+   unlike the three notes beneath it this one is mostly good news, and it is
+   about the foods actually listed rather than about nutrition in general. */
+.paircard{font-size:12px; line-height:1.5; color:var(--muted); background:var(--green-tint);
+  border:1px solid var(--green-line); border-left:3px solid var(--green); border-radius:8px;
+  padding:9px 11px}
+.paircard ul{margin:4px 0 0; padding:0; list-style:none; display:flex;
+  flex-direction:column; gap:3px}
+.paircard li.up > span{color:var(--g-plant); font-weight:700}
+.paircard li.down > span{color:var(--warn); font-weight:700}
+/* Not small print. It is the part that stops the list above being read as a
+   claim about what happened, so it gets the same size as the list. */
+.paircaveat{display:block; margin-top:6px; color:var(--faint)}
 
 /* ---------- about ---------- */
 .about{background:var(--green-tint); border:1px solid var(--green-line); border-radius:var(--r);
@@ -709,10 +778,12 @@ dialog::backdrop{background:var(--backdrop)}
   .lensgrp{min-width:0; max-width:100%}
   .lensgrp select.sel{min-width:0; max-width:130px}
 
-  /* The detail panel's five tabs are flex:1, but a label cannot shrink below
-     its longest word, so the five of them plus their padding came to five
+  /* The detail panel's tabs are flex:1, but a label cannot shrink below its
+     longest word, so five of them plus their padding already came to five
      pixels more than a 320px screen. Padding is what gives, not the labels:
      "Plant compounds" ellipsised to "Plant com…" would save the same pixels and
-     cost the reader the word that says what the tab is. */
-  .tabs button{padding-inline:2px}
+     cost the reader the word that says what the tab is.
+     The row already wraps at every width, see the .tabs rule above; here it
+     only needs the tighter padding. */
+  .tabs button{padding-inline:2px; min-height:52px}
 }

@@ -1,0 +1,127 @@
+{
+  "_comment": "Bioavailability interactions. Explanatory only: nothing here is ever applied to a figure. See docs/superpowers/specs/2026-08-07-bioavailability-design.md, and 'Bioavailability' in README.md. Every record cites a source key below, and build.mjs refuses one that does not resolve. The set is deliberately small: only claims the checked sources actually support are here, because a thin sourced list is worth more than a full unsourced one.",
+
+  "sources": {
+    "hurrell2010": "Hurrell R, Egli I. Iron bioavailability and dietary reference values. Am J Clin Nutr. 2010;91(5):1461S-1467S.",
+    "hurrell1999": "Hurrell RF, Reddy M, Cook JD. Inhibition of non-haem iron absorption in man by polyphenolic-containing beverages. Br J Nutr. 1999;81(4):289-95.",
+    "hunt2003": "Hunt JR. Bioavailability of iron, zinc, and other trace minerals from vegetarian diets. Am J Clin Nutr. 2003;78(3 Suppl):633S-639S.",
+    "heaney1988": "Heaney RP, Weaver CM, Recker RR. Calcium absorbability from spinach. Am J Clin Nutr. 1988;47(4):707-9.",
+    "heaney1990": "Heaney RP, Weaver CM. Calcium absorption from kale. Am J Clin Nutr. 1990;51(4):656-7.",
+    "weaver1999": "Weaver CM, Proulx WR, Heaney R. Choices for achieving adequate dietary calcium with a vegetarian diet. Am J Clin Nutr. 1999;70(3 Suppl):543S-548S.",
+    "brown2004": "Brown MJ, Ferruzzi MG, Nguyen ML, et al. Carotenoid bioavailability is higher from salads ingested with full-fat than with fat-reduced salad dressings as measured with electrochemical detection. Am J Clin Nutr. 2004;80(2):396-403.",
+    "white2017": "White WS, Zhou Y, Crane A, Dixon P, Quadt F, Flendrig LM. Modeling the dose effects of soybean oil in salad dressing on carotenoid and fat-soluble vitamin bioavailability in salad vegetables. Am J Clin Nutr. 2017;106(4):1041-51."
+  },
+
+  "interactions": [
+    {
+      "id": "fe-vitc",
+      "affects": ["fe"],
+      "direction": "up",
+      "agent": { "kind": "nutrient", "id": "vitc" },
+      "short": "Vitamin C",
+      "when": "same meal",
+      "text": "Vitamin C keeps iron in the form the gut takes up, and holds it there against the phytate and polyphenols in the same plate. It is the single largest lever on plant iron. It has to be the same meal: the effect is on the food in front of you, not on the day's total.",
+      "cites": ["hurrell2010"]
+    },
+    {
+      "id": "fe-phytate",
+      "affects": ["fe"],
+      "direction": "down",
+      "agent": { "kind": "substance", "label": "Phytate" },
+      "short": "Phytate",
+      "when": "same meal",
+      "text": "Phytate in wholegrains, pulses, nuts and seeds binds iron before it can be absorbed, and is the main reason iron absorption runs at roughly 5 to 12 percent on a vegetarian diet against 14 to 18 percent on a mixed one. Those two ranges are what the dietary reference values are built on, which is why a plant-based intake target is higher rather than the same.",
+      "cites": ["hurrell2010"]
+    },
+    {
+      "id": "fe-polyphenols",
+      "affects": ["fe"],
+      "direction": "down",
+      "agent": { "kind": "substance", "label": "Tea and coffee polyphenols" },
+      "short": "Tea, coffee",
+      "when": "same meal",
+      "text": "Black tea cut iron absorption from a bread meal by 79 to 94 percent in the trial that measured it, peppermint tea by 84 percent, and coffee and other herb teas by less. Drinking them between meals rather than with them is the whole of the advice, and it costs nothing.",
+      "cites": ["hurrell1999"]
+    },
+    {
+      "id": "fe-calcium",
+      "affects": ["fe"],
+      "direction": "down",
+      "agent": { "kind": "nutrient", "id": "ca" },
+      "short": "Calcium",
+      "when": "same meal",
+      "text": "Calcium competes with iron within a single meal. This one is worth stating carefully: the single-meal effect is well established, and the effect on iron status across a whole diet is much less clear. It matters most for supplements taken together, and least for a varied diet.",
+      "cites": ["hurrell2010"]
+    },
+    {
+      "id": "minerals-preparation",
+      "affects": ["fe", "zn", "ca"],
+      "direction": "up",
+      "agent": { "kind": "practice", "label": "Soaking, sprouting, fermenting" },
+      "short": "Soaking, sprouting, fermenting",
+      "when": "preparation",
+      "text": "All three break phytate down before the food reaches you, so they raise iron, zinc and calcium absorption from the same unchanged figures in this table. This is the one entry here that changes what you get without changing what you eat.",
+      "cites": ["hurrell2010"]
+    },
+    {
+      "id": "fe-cocoa",
+      "affects": ["fe"],
+      "direction": "down",
+      "agent": { "kind": "food", "slug": "cocoa-powder-unsweetened" },
+      "short": "Cocoa",
+      "when": "same meal",
+      "text": "Cocoa was among the polyphenol-rich drinks tested for iron inhibition and behaved like the teas. Worth knowing precisely because cocoa powder is itself high in iron, so the food supplying it is also working against it.",
+      "cites": ["hurrell1999"]
+    },
+    {
+      "id": "zn-phytate",
+      "affects": ["zn"],
+      "direction": "down",
+      "agent": { "kind": "substance", "label": "Phytate" },
+      "short": "Phytate",
+      "when": "same meal",
+      "text": "Zinc is the mineral phytate binds hardest, and the ratio between them is what decides the outcome. Below a phytate to zinc molar ratio of 5, absorption runs 50 to 55 percent; above 15, which unrefined wholegrain diets reach, it falls to about 15 percent and the requirement rises by as much as half.",
+      "cites": ["hunt2003"]
+    },
+    {
+      "id": "ca-oxalate",
+      "affects": ["ca"],
+      "direction": "down",
+      "agent": { "kind": "substance", "label": "Oxalate" },
+      "short": "Oxalate",
+      "when": "same meal",
+      "text": "Oxalate binds calcium into a salt the gut cannot take up, and it is the reason a calcium figure for a leafy green can mean two completely different things. Spinach calcium was absorbed at 5.1 percent against 27.6 percent from milk in the same trial, with its oxalate in slight excess of its calcium, so effectively all of it was bound. Kale, low in oxalate, ran 40.9 percent in the matching study, higher than the milk it was compared against.",
+      "cites": ["heaney1988", "heaney1990"]
+    },
+    {
+      "id": "ca-phytate",
+      "affects": ["ca"],
+      "direction": "down",
+      "agent": { "kind": "substance", "label": "Phytate" },
+      "short": "Phytate",
+      "when": "same meal",
+      "text": "Phytate binds calcium as well as iron and zinc, which is why beans deliver less of their calcium than their figure suggests. It is a smaller effect than oxalate's, and unlike oxalate it is largely undone by soaking and fermenting.",
+      "cites": ["weaver1999"]
+    },
+    {
+      "id": "carotenoids-fat",
+      "affects": ["betacar", "alphacar", "cryptox", "luteinzea", "lycopene"],
+      "direction": "up",
+      "agent": { "kind": "nutrient", "id": "fat" },
+      "short": "Fat in the meal",
+      "when": "same meal",
+      "text": "Carotenoids are fat-soluble and need fat in the same meal to be absorbed at all well. A salad eaten with fat-free dressing delivers strikingly less than the same salad with full-fat, and the response keeps climbing across the whole range tested up to about 32 g of oil. This is the entry that most changes how to read the plant compound columns: a carrot eaten alone is not the same as a carrot eaten with oil.",
+      "cites": ["brown2004"]
+    },
+    {
+      "id": "fatsoluble-fat",
+      "affects": ["vita", "vitd", "vite", "vitk"],
+      "direction": "up",
+      "agent": { "kind": "nutrient", "id": "fat" },
+      "short": "Fat in the meal",
+      "when": "same meal",
+      "text": "The four fat-soluble vitamins follow the carotenoids: absorption of vitamin A and vitamin K rose with the fat in the meal across the full range tested, by the same mechanism. Individual response varied a great deal in that trial, and some people absorbed very little whatever the dose, which is worth knowing before treating any of this as a rule.",
+      "cites": ["white2017"]
+    }
+  ]
+}

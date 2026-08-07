@@ -1,6 +1,7 @@
 # Bioavailability: what helps and hinders absorption
 
-Written 2026-08-07. Design only. Nothing here is built yet.
+Written 2026-08-07, and built the same day. See "What building it changed" at
+the foot for where the design turned out to be wrong.
 
 ## Why this one is harder than it looks
 
@@ -283,6 +284,41 @@ So nobody wonders whether it was forgotten:
 - **No advice on supplements, doses or timing beyond meals**, and no
   recommendations. The page describes foods.
 - **No interactions involving drugs.**
+
+## What building it changed
+
+Corrected rather than left to mislead the next reader.
+
+- **`source` became `cites`, an array.** The oxalate record quotes spinach from
+  Heaney 1988 and kale from Heaney 1990, and a single-key field could name only
+  one of them. Found by the "a source nothing cites" check within a minute of
+  it being written, which is the best argument for that check there is.
+- **The dialog groups by the affected *set*, not by one nutrient.** Grouping per
+  nutrient printed the shared fat record four times word for word under vitamins
+  A, D, E and K, and the carotenoid one five times. Keying on `affects.join()`
+  prints each record once under a heading naming everything it covers.
+- **The tab strip wraps at every width, not below 700px as this spec said.** The
+  detail panel is a 300px column at all widths, so six tabs never fit one row
+  anywhere. Scoping the wrap to phones left the desktop panel overflowing its
+  column by 54px and the whole page panning sideways at 1440px. The narrow
+  screen test from the previous session caught it.
+- **The nutrient note's `min-height` went to 126px, not a recalculation of 83.**
+  Measured across all 68 nutrients at 1200px and above. The agent-side list is
+  capped at three names for the same reason: fat is the agent on both the
+  carotenoid and fat-soluble vitamin records, so spelled out in full it listed
+  nine nutrients and made that one box half as tall again as any other.
+- **The set of interactions is 11 records from 8 sources, smaller than this spec
+  implied.** Copper against zinc, oxalate against iron and cooking against
+  lycopene were dropped because their sources were not checked. A thin sourced
+  list is worth more than a full unsourced one, and the dialog states that a
+  nutrient with no entry means nothing recorded rather than nothing to record.
+- **The curated notes cover calcium only, not calcium and iron.** Oxalate's
+  effect on calcium is what the checked sources establish; its effect on iron is
+  weaker in the literature and was not claimed.
+- **The hand-written "Intake is not absorption" day note was cut back.** It
+  spelled out the iron, calcium and zinc interactions in prose, which became a
+  second copy of the dataset the moment the dataset existed. It now points at
+  the dialog.
 
 ## Open, after this ships
 

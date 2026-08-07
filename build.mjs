@@ -25,6 +25,7 @@ const SOURCES = {
   data: join(SRC, "data", "nutrients.json"),
   icons: join(SRC, "data", "icons.json"),
   portions: join(SRC, "data", "portions.json"),
+  interactions: join(SRC, "data", "interactions.json"),
 };
 
 /** `</script>` inside an inlined string would close the tag early. `\/` is a
@@ -38,7 +39,7 @@ const inject = (src, token, value) => {
   return src.replace(token, () => value);
 };
 
-function validate(data, portions) {
+function validate(data, portions, inter) {
   const problems = [];
   const { nutrients, foods } = data;
 
@@ -174,6 +175,70 @@ function validate(data, portions) {
       else clamped.set(g, p.label);
     }
   }
+
+  /* ---- bioavailability interactions ----
+     These are explanation rather than measurement, so nothing here is ever
+     applied to a figure. What the build can still enforce is that every record
+     points at something real and carries its source: a record naming a nutrient
+     that does not exist renders as nothing at all, which reads as a nutrient
+     with no interactions rather than as an error, and a claim about absorption
+     with no citation is exactly the kind of assertion this project refuses
+     everywhere else. */
+  const { sources = {}, interactions = [] } = inter;
+  if (!Object.keys(sources).length) problems.push("interactions: no sources");
+  if (!Array.isArray(interactions) || !interactions.length)
+    problems.push("interactions: none");
+
+  const seen = new Set();
+  const DIRECTIONS = new Set(["up", "down"]);
+  const WHENS = new Set(["same meal", "same day", "preparation"]);
+  const KINDS = new Set(["nutrient", "substance", "food", "practice"]);
+  for (const x of Array.isArray(interactions) ? interactions : []) {
+    const at = `interactions: "${x.id || "(no id)"}"`;
+    if (!x.id) problems.push("interactions: a record with no id");
+    else if (seen.has(x.id)) problems.push(`${at} is listed twice`);
+    seen.add(x.id);
+
+    if (!Array.isArray(x.affects) || !x.affects.length)
+      problems.push(`${at} affects nothing`);
+    else for (const id of x.affects)
+      if (!ids.has(id)) problems.push(`${at} affects "${id}", which is not a nutrient`);
+
+    if (!DIRECTIONS.has(x.direction))
+      problems.push(`${at} has direction "${x.direction}", not up or down`);
+    if (!WHENS.has(x.when))
+      problems.push(`${at} has when "${x.when}", which is not one of: ${[...WHENS].join(", ")}`);
+    if (!x.short) problems.push(`${at} has no short label`);
+    // The full sentence is what the dialog and the panel print. A stub would
+    // render an entry that takes up space and says nothing.
+    if (!x.text || x.text.length < 40) problems.push(`${at} has no usable text`);
+
+    const a = x.agent || {};
+    if (!KINDS.has(a.kind))
+      problems.push(`${at} has agent kind "${a.kind}", which is not one of: ${[...KINDS].join(", ")}`);
+    // The agent is the half of an interaction most likely to rot, because two
+    // of its four kinds point into data that moves underneath it.
+    if (a.kind === "nutrient" && !ids.has(a.id))
+      problems.push(`${at} names nutrient "${a.id}" as its agent, which does not exist`);
+    if (a.kind === "food" && !slugs.has(a.slug))
+      problems.push(`${at} names food "${a.slug}" as its agent, which does not exist`);
+    if ((a.kind === "substance" || a.kind === "practice") && !a.label)
+      problems.push(`${at} has a ${a.kind} agent with no label`);
+
+    // An array rather than one key: a record may rest on more than one paper,
+    // and the first version of this data had a text quoting two studies while
+    // naming only one of them. The check below is what found that.
+    if (!Array.isArray(x.cites) || !x.cites.length) problems.push(`${at} cites no source`);
+    else for (const key of x.cites)
+      if (!sources[key]) problems.push(`${at} cites unknown source "${key}"`);
+  }
+  // A source nobody cites is a citation that has quietly lost the claim it was
+  // supporting, which is worth knowing about before it misleads a reader of
+  // the dialog's reference list.
+  for (const key of Object.keys(sources))
+    if (!interactions.some(x => (x.cites || []).includes(key)))
+      problems.push(`interactions: source "${key}" is cited by nothing`);
+
   return problems;
 }
 
@@ -181,7 +246,7 @@ async function build() {
   for (const [name, path] of Object.entries(SOURCES))
     if (!existsSync(path)) throw new Error(`missing source: ${name} (${path})`);
 
-  const [html, css, app, dataRaw, iconsRaw, portionsRaw] = await Promise.all(
+  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw] = await Promise.all(
     Object.values(SOURCES).map(p => readFile(p, "utf8")));
 
   let data, icons;
@@ -193,7 +258,11 @@ async function build() {
   try { portions = JSON.parse(portionsRaw); }
   catch (e) { throw new Error(`portions.json is not valid JSON: ${e.message}`); }
 
-  const problems = validate(data, portions);
+  let inter;
+  try { inter = JSON.parse(interRaw); }
+  catch (e) { throw new Error(`interactions.json is not valid JSON: ${e.message}`); }
+
+  const problems = validate(data, portions, inter);
   if (problems.length)
     throw new Error(`data validation failed:\n  - ${problems.join("\n  - ")}`);
 
@@ -205,6 +274,7 @@ async function build() {
   out = inject(out, "//{{DATA}}", `const DATA = ${safeJSON(data)};`);
   out = inject(out, "//{{ICONS}}", `const I = ${safeJSON(icons)};`);
   out = inject(out, "//{{PORTIONS}}", `const P = ${safeJSON(portions)};`);
+  out = inject(out, "//{{INTERACTIONS}}", `const X = ${safeJSON(inter)};`);
   // The page carries "use strict" twice on purpose. esbuild emits one of its
   // own because it reads tsconfig.json, where `strict` implies `alwaysStrict`;
   // this one is prepended so the page's strictness does not depend on that

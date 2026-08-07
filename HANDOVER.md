@@ -3,7 +3,70 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (eighth)
+## Latest session, 2026-08-07 (ninth)
+
+**Bioavailability shipped, in three phases, and not one figure moved.** A
+dataset of sourced interactions, a line under the nutrient note, an Absorption
+dialog, a sixth detail panel tab, and a pairing hint in My day. Designed at
+`docs/superpowers/specs/2026-08-07-bioavailability-design.md` and written up
+durably in `README.md` under "Bioavailability". 135 tests, all passing.
+
+**The rule the whole thing is built on is enforced by a test, not by a
+comment.** Every rendered figure with `interactions.json` present must equal the
+figure with it emptied. Absorption is explanation here; the moment it becomes
+arithmetic that test fails. It is the single most important thing in this
+feature and the cheapest to lose.
+
+**One record per interaction, read from both ends.** Iron's view names vitamin
+C, vitamin C's view says it raises iron, one record. `affects` is an array so
+the one "carotenoids need fat" entry serves all five carotenoids. The agent may
+be a nutrient, a substance, a food or a practice, which is the part that earns
+its keep: phytate, oxalate and tannins have no columns, and soaking is not a
+substance at all.
+
+Findings worth keeping:
+
+- **`build.mjs` refusing a source that nothing cites caught a real error.** The
+  oxalate record quoted spinach from one paper and kale from another while
+  naming only the first, so `cites` is an array. The check was written before
+  the mistake and found it within a minute.
+- **Two selection rules, because 37 of 68 nutrients have no daily value.** That
+  is every carotenoid and every flavonoid, so a %DV threshold alone would have
+  been structurally silent on carotenoids needing fat, which is one of the most
+  useful facts in the topic. Rule 2 ranks within the column, top 10 of 131.
+- **The sixth tab broke the desktop layout, not the phone.** The detail panel is
+  a 300px column at every width, so six tabs never fit one row anywhere. It
+  pushed the panel 54px past its column and set the page panning sideways at
+  **1440px**. The narrow-screen test written the session before is what caught
+  it, at the width nobody would have thought to check by hand.
+- **`sourceOf()` reads `val()`, not `shown()`**, so flipping to per 100 kcal
+  cannot rewrite a food's absorption tab. Whether a food is a good source of
+  iron is a fact about the food. There is a test that flips the basis and
+  asserts the selection is unchanged, in the same spirit as the one guarding
+  `dayTotals()`.
+
+**Eight sources, every one checked against the literature** rather than written
+from memory, which is the same standard the project already applies to FDC ids.
+Spinach calcium 5.1% against milk's 27.6%, kale 40.9% against 32.1%, black tea
+cutting iron absorption 79 to 94%, phytate:zinc above 15 dropping zinc
+absorption to about 15%. Those figures are in the page because they were looked
+up, not recalled.
+
+**The curated notes are the reason this is not purely derived.** A generic
+"oxalate can bind calcium" against spinach's 99 mg leaves a reader thinking
+spinach is a fair calcium source. Two notes, markers `‡` and `§`, on three
+high-oxalate and three low-oxalate foods, stated as named exceptions rather than
+coverage. That debt is real and recorded: nothing distinguishes "checked,
+nothing to say" from "never checked".
+
+**Deliberately not done**: no absorption percentages applied to anything, no
+phytate or oxalate columns (they would need a source outside SR Legacy, a
+separate project of the shape `flavonoids.mjs` is), no meal grouping in My day,
+and no interactions this session's sources did not actually support. Copper
+against zinc, oxalate against iron and lycopene against cooking were all
+considered and dropped for that reason.
+
+## Earlier session, 2026-08-07 (eighth)
 
 **The page is usable on a phone.** The food table compacts below 700px and the
 sidebar goes behind a menu button below 820px, both scoped so nothing above
@@ -520,7 +583,7 @@ pushing stays the owner's call.
 - **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 120 browser tests against the result. All passing, and CI
+  3 tool tests and 132 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -649,6 +712,24 @@ dependencies and must keep none.
   sidebar, so the menu has to be opened to find a food by name. Moving it out to
   sit above the table would fix it and would change the desktop layout, which is
   why it was left; see "Narrow screens" in `README.md`.
+- **Dialogs are opened by script where HTML now has an attribute for it.**
+  Every `data-dlg` button goes through the delegated click handler into
+  `openDialog()`, which calls `showModal()`. Invoker commands,
+  `<button command="show-modal" commandfor="dlg">`, would do the opening
+  natively. The catch is that `openDialog()` does two things: it opens the
+  dialog and it fills `#dlgT` and `#dlgB` from `DLG`, so the attribute replaces
+  half the job and the bodies still need writing on open. Worth doing, and worth
+  checking support before relying on it.
+- **The interaction set is short, and the gaps are known ones.** Copper against
+  zinc, oxalate against iron, and cooking against lycopene were all considered
+  and left out because their sources were not checked. Each is a plausible
+  addition; each needs a citation verified first, and `build.mjs` will refuse it
+  without one.
+- **Nine `why` sentences still carry bioavailability facts of their own**, and
+  now say some of what `interactions.json` says. Iron's names vitamin C and tea,
+  zinc's names phytate, calcium's names oxalate. That is the drift risk the
+  interaction records were shaped to avoid, so it is worth deciding whether the
+  sentences should be trimmed now the dialog exists.
 
 ## Conventions worth preserving
 

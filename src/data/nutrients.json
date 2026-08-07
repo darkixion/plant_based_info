@@ -615,6 +615,40 @@
  ],
  "notes": [
   {
+   "id": "oxalate-high",
+   "marker": "‡",
+   "short": "Oxalate-bound, poorly absorbed",
+   "text": "Oxalate in this food binds its calcium into a salt the gut cannot take up, so the figure beside this mark is what is present rather than what reaches you. Spinach calcium was absorbed at 5.1 percent against 27.6 percent from milk in the trial that measured it, with its oxalate in slight excess of its calcium, meaning effectively all of it was bound. This is a named exception rather than a survey: a green without this mark has not necessarily been tested.",
+   "cells": {
+    "spinach-raw": [
+     "ca"
+    ],
+    "swiss-chard-raw": [
+     "ca"
+    ],
+    "beetroot-cooked": [
+     "ca"
+    ]
+   }
+  },
+  {
+   "id": "oxalate-low",
+   "marker": "§",
+   "short": "Low in oxalate, well absorbed",
+   "text": "A low-oxalate brassica, so unusually little of this calcium is bound and an unusually large share of it reaches you. Kale calcium was absorbed at 40.9 percent in the trial that measured it, against 32.1 percent from the milk it was compared with. It is here as the counterpart to the oxalate mark: leafy green is not one category where calcium is concerned, and the two ends of it differ by roughly eightfold.",
+   "cells": {
+    "kale-raw": [
+     "ca"
+    ],
+    "pak-choi-raw": [
+     "ca"
+    ],
+    "broccoli-cooked": [
+     "ca"
+    ]
+   }
+  },
+  {
    "id": "fortified",
    "marker": "*",
    "short": "Depends on fortification",

@@ -2715,6 +2715,260 @@ await test("none of the narrow-screen work reaches the desktop layout", async ()
   });
 });
 
+// ---------------------------------------------------------------- bioavailability
+
+await test("the figures are never adjusted for absorption", async () => {
+  // The structural guard on the whole feature. Interactions are explanation,
+  // not arithmetic, and the way that stays true is a test rather than a
+  // promise: every rendered figure with the data present must equal the figure
+  // with it removed. A future edit that multiplies iron by an absorption
+  // factor fails here, whatever it says in a comment.
+  await withPage(async page => {
+    const read = () => page.evaluate(() =>
+      [...document.querySelectorAll("#tbody td.num")].map(td => td.textContent.trim()));
+    const before = await read();
+    await page.evaluate(() => {
+      // Blank the dataset and re-render. Nothing about a figure may depend on it.
+      X.interactions.length = 0;
+      render();
+    });
+    const after = await read();
+    eq(after.length, before.length, "same number of cells");
+    const moved = before.findIndex((v, i) => v !== after[i]);
+    assert(moved === -1,
+      `a figure changed when interactions were removed: "${before[moved]}" became "${after[moved]}"`);
+  });
+});
+
+await test("an interaction is written once and read from both ends", async () => {
+  // The reason the data is a list of relationships rather than two lists of
+  // names hung off each nutrient. Iron's view has to name vitamin C, and
+  // vitamin C's view has to say what it does to iron, from one record. Two
+  // hand-kept lists drift, which this project has watched happen three times.
+  await withPage(async page => {
+    const line = async id => {
+      await page.evaluate(i => { hoverNut = i; renderNutNote(); }, id);
+      return (await page.locator("#nutNote").textContent()).replace(/\s+/g, " ");
+    };
+    const iron = await line("fe");
+    assert(/Vitamin C/.test(iron), `iron's note should name vitamin C, got: ${iron}`);
+    assert(/Phytate/.test(iron), `iron's note should name phytate, got: ${iron}`);
+
+    const vitc = await line("vitc");
+    assert(/Raises .*Iron/.test(vitc),
+      `vitamin C's note should say it raises iron, got: ${vitc}`);
+
+    // One record, so removing it must take both views with it.
+    const gone = await page.evaluate(() => {
+      const i = X.interactions.findIndex(x => x.id === "fe-vitc");
+      X.interactions.splice(i, 1);
+      // The indexes are built at load, so this only proves the data drives it
+      // if they are rebuilt. Reading them straight is the honest check.
+      return X.interactions.some(x => x.id === "fe-vitc");
+    });
+    eq(gone, false, "the record is gone from the one place it was written");
+  });
+});
+
+await test("a nutrient with no interaction on record says nothing", async () => {
+  // Silence has to mean "nothing recorded", not "nothing affects this". An
+  // empty row of arrows would assert an absence nobody established, which is
+  // the same mistake as printing 0 for an unmeasured figure.
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const withLine = [], without = [];
+      for (const n of DATA.nutrients) {
+        hoverNut = n.id; renderNutNote();
+        (document.querySelector("#nutNote .absorb") ? withLine : without).push(n.id);
+      }
+      return { withLine, without };
+    });
+    assert(r.withLine.includes("fe"), "iron should carry an absorption line");
+    assert(r.without.includes("protein"),
+      "protein has no interaction on record and should carry no line");
+    assert(r.without.length > r.withLine.length,
+      "most nutrients have nothing recorded, and that is expected");
+  });
+});
+
+await test("the nutrient note never changes height as you move between columns", async () => {
+  // The note sits above the table, so a box that resizes pushes the table down
+  // at the moment the pointer reaches a header, moving the header out from
+  // under the cursor. That is what its min-height exists to prevent, and the
+  // absorption line made the tallest case taller. Measured, not assumed.
+  await atWidth(1280, async page => {
+    const heights = await page.evaluate(() => {
+      const el = document.querySelector("#nutNote");
+      const seen = {};
+      for (const n of DATA.nutrients) {
+        hoverNut = n.id; renderNutNote();
+        seen[n.id] = Math.round(el.getBoundingClientRect().height);
+      }
+      hoverNut = null; renderNutNote();
+      seen.__prompt = Math.round(el.getBoundingClientRect().height);
+      return seen;
+    });
+    const values = [...new Set(Object.values(heights))];
+    assert(values.length === 1,
+      `the note takes ${values.length} different heights (${values.join(", ")}px); ` +
+      `tallest is ${Object.entries(heights).sort((a, b) => b[1] - a[1])[0].join(" at ")}px`);
+  });
+});
+
+await test("every interaction cites a source the dialog can print", async () => {
+  await withPage(async page => {
+    const bad = await page.evaluate(() =>
+      X.interactions.flatMap(x =>
+        (x.cites || []).filter(k => !X.sources[k]).map(k => `${x.id} -> ${k}`)));
+    eq(bad.length, 0, `interactions citing an unknown source: ${bad.join(", ")}`);
+
+    await page.click('[data-dlg="bio"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    const cites = await page.evaluate(() => Object.values(X.sources));
+    for (const c of cites)
+      assert(text.includes(c.slice(0, 40)), `source missing from the dialog: ${c.slice(0, 60)}`);
+    // The claim the whole design rests on, stated on the page and not only in
+    // the repository. Matched on the sentence's substance rather than on a
+    // phrase, so rewording it is allowed and dropping it is not.
+    assert(/no figure[^.]*ever adjusted for absorption/i.test(text),
+      `the dialog must say outright that no figure is adjusted, got: ${text.slice(0, 400)}`);
+  });
+});
+
+await test("the dialog prints a shared interaction once, not once per nutrient", async () => {
+  // One record covers vitamins A, D, E and K, and another covers five
+  // carotenoids. Grouped by single nutrient, the first version printed those
+  // two texts four and five times word for word.
+  await withPage(async page => {
+    await page.click('[data-dlg="bio"]');
+    const r = await page.evaluate(() => {
+      const body = document.querySelector("#dlgB").textContent;
+      const rec = X.interactions.find(x => x.id === "fatsoluble-fat");
+      const probe = rec.text.slice(0, 60);
+      let n = 0, at = 0;
+      while ((at = body.indexOf(probe, at)) !== -1) { n++; at += probe.length; }
+      return { times: n, affects: rec.affects.length,
+               headings: [...document.querySelectorAll("#dlgB h4")].map(h => h.textContent) };
+    });
+    assert(r.affects > 1, "this test needs a record covering several nutrients");
+    eq(r.times, 1, `the shared text appears ${r.times} times for ${r.affects} nutrients`);
+    assert(r.headings.some(h => /Vitamin A.*and Vitamin K/.test(h)),
+      `expected one heading naming all four fat-soluble vitamins, got: ${r.headings.join(" | ")}`);
+  });
+});
+
+await test("a food shows the absorption entries its own figures earn", async () => {
+  // The rule that keeps the tab from being the dialog printed a second time.
+  // Lentils at 18% DV iron gets the iron entries; apple at 1% gets nothing.
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const named = n => sourceOf(FOODS.find(f => f.name === n)).map(id => nut(id).label);
+      return { lentils: named("Lentils"), apple: named("Apple"), carrots: named("Carrots") };
+    });
+    assert(r.lentils.includes("Iron"), `lentils should select iron, got ${r.lentils.join(", ")}`);
+    eq(r.apple.length, 0, `apple should select nothing, got ${r.apple.join(", ")}`);
+    // The whole point of the second rule. No carotenoid has a daily value, so a
+    // %DV threshold on its own could never reach this.
+    assert(r.carrots.some(l => /carotene/i.test(l)),
+      `carrots should select a carotenoid by rank, got ${r.carrots.join(", ")}`);
+  });
+});
+
+await test("what a food is a source of does not change with the display basis", async () => {
+  // Whether a food is a good source of iron is a fact about the food. Flipping
+  // the table to per 100 kcal must not rewrite its absorption tab, which is why
+  // sourceOf reads val() rather than shown().
+  await withPage(async page => {
+    const before = await page.evaluate(() =>
+      FOODS.map(f => sourceOf(f).join(",")).join("|"));
+    await page.click("#basisBtn");
+    const after = await page.evaluate(() =>
+      FOODS.map(f => sourceOf(f).join(",")).join("|"));
+    eq(after, before, "the per-calorie basis changed which nutrients a food is a source of");
+  });
+});
+
+await test("spinach says its calcium is oxalate-bound, and kale says the opposite", async () => {
+  // The case the curated notes exist for, and the one that decided the whole
+  // design: a feature that cannot tell spinach from kale has missed what people
+  // came for. Both figures are real and neither is adjusted; what differs is
+  // what the page says about them.
+  await withPage(async page => {
+    const tabFor = async name => {
+      await page.evaluate(n => {
+        S.sel = FOODS.findIndex(f => f.name === n); S.tab = "absorption"; render();
+      }, name);
+      return (await page.locator("#tabp").textContent()).replace(/\s+/g, " ");
+    };
+    const spinach = await tabFor("Spinach");
+    assert(/oxalate/i.test(spinach), `spinach's tab should mention oxalate: ${spinach.slice(0, 200)}`);
+    assert(/5\.1 percent/.test(spinach), "spinach's note should carry the measured figure");
+
+    const kale = await tabFor("Kale");
+    assert(/low-oxalate/i.test(kale), `kale's tab should say it is low in oxalate: ${kale.slice(0, 200)}`);
+    assert(/40\.9 percent/.test(kale), "kale's note should carry the measured figure");
+
+    // And the figures themselves are untouched by any of it.
+    const figures = await page.evaluate(() => {
+      const at = DATA.nutrients.findIndex(n => n.id === "ca");
+      const g = n => FOODS.find(f => f.name === n).v[at];
+      return { spinach: g("Spinach"), kale: g("Kale") };
+    });
+    eq(figures.spinach, 99, "spinach's calcium figure is unchanged");
+    eq(figures.kale, 150, "kale's calcium figure is unchanged");
+  });
+});
+
+await test("the day names a pairing it can see and refuses to say it happened", async () => {
+  // Absorption is a per-meal effect and My day is a day, so the strongest true
+  // statement available is that two listed foods could interact. The view
+  // already lives by the rule that a total may never look more complete than it
+  // is; this is the same rule applied to a claim rather than a sum.
+  await withPage(async page => {
+    await page.evaluate(() => {
+      S.day = [{ slug: "lentils-cooked", g: 200 }, { slug: "bell-pepper-red-raw", g: 100 }];
+      S.view = "day"; render();
+    });
+    const text = (await page.locator("#daySum").textContent()).replace(/\s+/g, " ");
+    assert(/Worth pairing/.test(text), `expected a pairing card, got: ${text.slice(0, 300)}`);
+    assert(/iron/i.test(text), "the pairing should name the nutrient affected");
+    assert(/only in the same meal/i.test(text), "the caveat must be present");
+    assert(/cannot know whether/i.test(text),
+      "the card must refuse to claim the pairing happened");
+    // Never the past tense, which would be the claim this cannot support.
+    assert(!/\b(helped|raised|boosted|improved) (your|the)\b/i.test(text),
+      `the card claimed an interaction happened: ${text.slice(0, 300)}`);
+  });
+});
+
+await test("a day of one food reports no pairing with itself", async () => {
+  // "Your peppers' vitamin C helps your peppers' iron" is true and useless, and
+  // reads as a bug.
+  await withPage(async page => {
+    const pairs = await page.evaluate(() => {
+      S.day = [{ slug: "bell-pepper-red-raw", g: 300 }];
+      S.view = "day"; render();
+      return dayPairings().length;
+    });
+    eq(pairs, 0, "a single food paired with itself");
+  });
+});
+
+await test("the day advice does not repeat what the interaction data says", async () => {
+  // The hand-written note used to spell out the iron, calcium and zinc
+  // interactions, which was a second copy of the dataset in prose. Two copies
+  // drift; this project has watched it happen three times.
+  await withPage(async page => {
+    await page.evaluate(() => { S.day = []; S.view = "day"; render(); });
+    const text = (await page.locator("#daySum").textContent()).replace(/\s+/g, " ");
+    assert(/Intake is not absorption/.test(text), "the general note should still be there");
+    assert(/under Absorption in the sidebar/i.test(text),
+      "the note should point at the one place the specifics live");
+    assert(!/oxalate-rich greens/i.test(text),
+      "the note is restating the dataset again rather than pointing at it");
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

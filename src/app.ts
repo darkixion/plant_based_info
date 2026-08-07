@@ -26,6 +26,43 @@ interface Note {
 interface Portion { label: string; g: number; }
 interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
 
+/* ---------- bioavailability ----------
+   What helps or hinders absorption of a nutrient. Explanation, never
+   arithmetic: nothing in here is ever applied to a figure, because every
+   absorption factor is a range that depends on the meal, the person and their
+   iron status, and a single number would be invented data wearing a
+   measurement's clothes.
+
+   The agent is the half worth looking at. The other side of an interaction is
+   frequently not a column: phytate, oxalate and tannins are substances the
+   table has no figure for, and soaking, sprouting and fermenting are not
+   substances at all. A model that only related nutrient ids to nutrient ids
+   could not have carried most of what matters here. */
+type InteractionAgent =
+  | { kind: "nutrient"; id: string }
+  | { kind: "food"; slug: string }
+  | { kind: "substance"; label: string }
+  | { kind: "practice"; label: string };
+interface Interaction {
+  id: string;
+  /* An array, so one record serves every nutrient it is true of. The five
+     carotenoids share one fat entry rather than five copies that could drift. */
+  affects: string[];
+  direction: "up" | "down";
+  agent: InteractionAgent;
+  short: string;
+  /* What the My day hint needs in order to stay honest. A "same meal" record
+     can never be reported as having happened, because a day is not a meal. */
+  when: "same meal" | "same day" | "preparation";
+  text: string;
+  /* An array, because a record may rest on more than one study. The oxalate
+     entry quotes spinach from one paper and kale from another, and an earlier
+     single-source field let it name only the first. build.mjs now refuses both
+     a citation that does not resolve and a source nothing cites. */
+  cites: string[];
+}
+interface Interactions { sources: Record<string, string>; interactions: Interaction[]; }
+
 /* ---------- state ----------
    The literal unions are taken from loadPrefs(), which is the authority on
    what a stored preference is allowed to be. */
@@ -96,6 +133,10 @@ declare const I: Record<
    have no USDA row at all, so an index read is genuinely optional here rather
    than a missing measurement being papered over. */
 declare const P: Record<string, Portion[]>;
+/* Bioavailability interactions, injected the same way. build.mjs validates that
+   every record points at a nutrient and a food that exist and cites a source
+   that resolves, so the reads below can be direct. */
+declare const X: Interactions;
 
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
 const GROUPS = [
@@ -184,11 +225,96 @@ for (const note of NOTES)
     for (const id of ids) NOTE_AT.set(`${slug} ${id}`, note);
 const noteFor = (i: number, id: string) => NOTE_AT.get(`${slugAt(i)} ${id}`) || null;
 
+/* The notes that belong to the Absorption tab rather than to the figure itself.
+   Fortification and the undifferentiated marker both explain where a number
+   came from; these two explain what happens to it after you eat it, which is a
+   different question and a different tab. Listed by id rather than detected,
+   because the distinction is editorial and not visible in the data. */
+const ABSORB_NOTES = new Set(["oxalate-high", "oxalate-low"]);
+
 /** The visible marker, plus the same thing said in words for screen readers,
  *  since a lone asterisk announces as punctuation or not at all. */
 const noteMark = (note: Note) =>
   `<sup class="fnote" aria-hidden="true">${esc(note.marker)}</sup>` +
   `<span class="sr">, ${esc(note.short)}</span>`;
+
+/* ---------- bioavailability lookups ----------
+   Two indexes over one list, so an interaction is written once and read from
+   either end. Iron's view lists vitamin C as an enhancer; vitamin C's view says
+   it raises iron absorption. Both come out of the same record, which is the
+   whole reason the data is a list of relationships rather than two lists of
+   names hung off each nutrient. Two lists drift, and this project has watched
+   prose drift behind data three times already. */
+const INTERACTIONS = X.interactions;
+
+/** Interactions on this nutrient's own absorption. What helps or hinders it. */
+const AFFECTING = new Map<string, Interaction[]>();
+for (const x of INTERACTIONS)
+  for (const id of x.affects)
+    AFFECTING.set(id, [...(AFFECTING.get(id) || []), x]);
+
+/** Interactions where this nutrient is the agent. What it does to others. */
+const ACTING = new Map<string, Interaction[]>();
+for (const x of INTERACTIONS)
+  if (x.agent.kind === "nutrient")
+    ACTING.set(x.agent.id, [...(ACTING.get(x.agent.id) || []), x]);
+
+const affecting = (id: string) => AFFECTING.get(id) || [];
+const acting = (id: string) => ACTING.get(id) || [];
+const hasInteractions = (id: string) => affecting(id).length > 0 || acting(id).length > 0;
+
+/** The nutrients an interaction's agent side names, for rendering "raises
+ *  absorption of iron" on vitamin C's own view. */
+const affectedLabels = (x: Interaction) =>
+  x.affects.map(id => nutOpt(id)?.label ?? id);
+
+/* How many foods deep a column counts as "a meaningful source" when the
+   nutrient has no daily value to measure against. 10 of 131. A judgement rather
+   than a measurement, which is why it is named and in one place. */
+const RANK_DEPTH = 10;
+
+/** The nutrients a food is a meaningful enough source of to be worth showing
+ *  its absorption story, by the only two rules the data allows.
+ *
+ *  Two rules because **37 of the 68 nutrients have no daily value**, and that
+ *  includes every carotenoid and every flavonoid. A percent-of-daily-value
+ *  threshold on its own would be structurally silent on carotenoids needing fat
+ *  in the meal, which is one of the most useful facts here.
+ *
+ *  Reads val() rather than shown(), deliberately: whether a food is a good
+ *  source of iron is a fact about the food, and it must not change when the
+ *  reader flips the display to per 100 kcal. */
+function sourceOf(f: Food): string[] {
+  const out: string[] = [];
+  for (const n of NUTS) {
+    if (!hasInteractions(n.id)) continue;
+    const v = val(f, n.id);
+    if (v === null || v <= 0) continue;
+    if (n.dv) {
+      // Rule 1: a meaningful share of a day's reference intake.
+      if (v / n.dv >= 0.1) out.push(n.id);
+    } else {
+      // Rule 2: no reference intake exists, so rank against the other foods.
+      // Counting how many beat it is cheaper than sorting all 131.
+      const at = IDX.get(n.id);
+      if (at === undefined) continue;
+      let above = 0;
+      for (const other of FOODS) {
+        const w = other.v[at];
+        if (typeof w === "number" && w > v && ++above >= RANK_DEPTH) break;
+      }
+      if (above < RANK_DEPTH) out.push(n.id);
+    }
+  }
+  return out;
+}
+
+/** How the agent is named in prose, whichever of the four kinds it is. */
+function agentLabel(a: InteractionAgent): string {
+  if (a.kind === "nutrient") return nutOpt(a.id)?.label ?? a.id;
+  if (a.kind === "food") return foodBySlug(a.slug)?.name ?? a.slug;
+  return a.label;
+}
 
 /* ---------- highlight lenses ----------
    A lens is a named set of nutrients that cuts across the column groups.
@@ -870,9 +996,48 @@ function renderNutNote() {
   const id = hoverNut || (S.sort.id !== "__name" ? S.sort.id : null);
   const n = id ? nutOpt(id) : null;
   $("#nutNote").innerHTML = n && n.why
-    ? `<b>${esc(n.label)}</b> ${esc(n.why)}`
+    ? `<b>${esc(n.label)}</b> ${esc(n.why)}${absorptionLine(n.id)}`
     : `Point at a column header, or tab onto one, to read what that nutrient
        does in the body. Sorting by a column leaves its explanation here.`;
+}
+
+/** The compressed absorption view for one nutrient: what raises it, what lowers
+ *  it, and what it does to others. Names only, since this box has one line to
+ *  spare; the dialog carries the mechanisms and the sources.
+ *
+ *  Returns "" for the 50-odd nutrients with no interaction on record, which is
+ *  most of them. An empty row of arrows would read as "nothing affects this",
+ *  and nobody has established that. */
+/** Up to three names, then a count. The full list is in the dialog. */
+const cap3 = (names: string[]) =>
+  names.length <= 3 ? names.join(", ")
+    : `${names.slice(0, 3).join(", ")} and ${names.length - 3} more`;
+
+function absorptionLine(id: string): string {
+  const up = affecting(id).filter(x => x.direction === "up");
+  const down = affecting(id).filter(x => x.direction === "down");
+  const does = acting(id);
+  if (!up.length && !down.length && !does.length) return "";
+
+  const names = (list: Interaction[]) =>
+    list.map(x => esc(x.short)).join(" · ");
+  const parts = [
+    up.length ? `<span class="up"><b aria-hidden="true">↑</b>
+      <span class="sr">Absorption raised by </span>${names(up)}</span>` : "",
+    down.length ? `<span class="down"><b aria-hidden="true">↓</b>
+      <span class="sr">Absorption lowered by </span>${names(down)}</span>` : "",
+    // The agent side of the same records, which is what makes vitamin C's own
+    // column say something useful rather than nothing. Capped at three names:
+    // fat is the agent for both the carotenoid record and the fat-soluble
+    // vitamin one, so spelled out in full it listed nine nutrients and made
+    // this box half as tall again as any other column's.
+    does.length ? `<span class="does">${does.map(x =>
+      `${x.direction === "up" ? "Raises" : "Lowers"} ${esc(cap3(affectedLabels(x)))}`)
+      .join("; ")}</span>` : "",
+  ].filter(Boolean);
+
+  return `<span class="absorb">${parts.join("")}
+    <button class="absorbmore" type="button" data-dlg="bio">Absorption</button></span>`;
 }
 
 /* Bound to #thead itself, which survives every re-render of its contents.
@@ -1151,7 +1316,8 @@ function renderDetail() {
   // off GROUPS so a new group cannot be added to the table and left out of here.
   const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "amino", "plant"];
   const tabs = [["overview", "Overview", I.macro],
-    ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon])];
+    ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon]),
+    ["absorption", "Absorption", I.eye]];
 
   // The panel shows the same figures as the table, so it carries the same
   // markers, and explains them once at the foot rather than per row.
@@ -1194,6 +1360,49 @@ function renderDetail() {
         return `<div class="drow"><dt>${esc(n.label)}</dt>
           <dd class="pc">${Math.round(pc)}% DV${note ? noteMark(note) : ""}</dd></div>`;
       }).join("") + `</dl>`;
+  } else if (S.tab === "absorption") {
+    /* What is known about getting this food's nutrients out of it.
+       The entries are chosen by sourceOf(), from the food's own figures, and
+       the text of each is nutrient-level and generic: nothing here claims
+       anything about this food that its own numbers did not establish. The one
+       exception is the curated note, which is a reviewed food-specific fact and
+       is marked as such. */
+    const ids = sourceOf(f);
+    const curated = NUTS.flatMap(n => {
+      const note = val(f, n.id) === null ? null : noteFor(S.sel, n.id);
+      // Only the two absorption notes belong here. Fortification and the
+      // undifferentiated marker are about where a figure came from, not about
+      // what happens to it after you eat it, and they have their own homes.
+      return note && ABSORB_NOTES.has(note.id) ? [{ n, note }] : [];
+    });
+    for (const { note } of curated) shownNotes.add(note);
+
+    body = `<h4>Absorption</h4>` +
+      (curated.length ? curated.map(({ n, note }) => `
+        <div class="biorow curated">
+          <div class="biohead"><b>${esc(n.label)}</b>
+            <span class="biowhen">this food</span></div>
+          <p>${esc(note.text)}</p>
+        </div>`).join("") : "") +
+      (ids.length ? ids.map(id => {
+        const n = nut(id);
+        const rows = affecting(id).map(x => `
+          <div class="biorow ${x.direction}">
+            <div class="biohead">
+              <span class="bioarrow" aria-hidden="true">${x.direction === "up" ? "↑" : "↓"}</span>
+              <b>${esc(agentLabel(x.agent))}</b>
+              <span class="biowhen">${esc(x.when)}</span>
+            </div>
+            <p>${esc(x.text)}</p>
+          </div>`).join("");
+        return `<h5 class="biofor">${esc(n.label)}</h5>${rows}`;
+      }).join("")
+        : `<p class="nodatanote">Nothing on record applies to this food. That means no
+           interaction has been recorded for the nutrients it is a meaningful source of,
+           not that its nutrients are absorbed whole.</p>`) +
+      `<p class="nodatanote">These are general facts about the nutrients, shown because this
+       food's own figures make it a meaningful source of them. Nothing above adjusts a figure.
+       <button class="absorbmore" type="button" data-dlg="bio">Sources</button></p>`;
   } else {
     const list = NUTS.filter(n => n.group === S.tab);
     const measured = list.map(n => g(n.id)).filter(v => v !== null);
@@ -1432,11 +1641,61 @@ const DAY_NOTES: [string, string][] = [
   ["Iodine is not in this data", `USDA publishes no dependable per-food iodine figures for plant
     foods, so there is no column and no total. It is a real requirement and a common gap on a
     plant-based diet, and its absence here is not evidence that you have enough.`],
-  ["Intake is not absorption", `Plant iron is non-haem and absorbed poorly on its own, though
-    vitamin C in the same meal multiplies it. Calcium from oxalate-rich greens is largely
-    unavailable, and phytates in wholegrains and pulses hold back zinc and iron. A total well
-    over 100% can still leave you short.`],
+  /* Deliberately short now. It used to spell out the iron, calcium and zinc
+     interactions here in prose, which was a second hand-written copy of what
+     src/data/interactions.json says, and the two would have drifted the moment
+     either changed. The specifics live in one place and this points at it. */
+  ["Intake is not absorption", `These totals are what you ate, not what you absorbed, and for
+    several nutrients the gap is large. What is known about it is under Absorption in the
+    sidebar. A total well over 100% can still leave you short.`],
 ];
+
+/* ---------- pairings across the day's list ----------
+   Which recorded interactions both halves of are actually sitting in today's
+   list. This is the one place the interaction data touches the day view, and
+   the honesty constraint runs the whole way through it: **absorption is a
+   per-meal effect and a day is not a meal.** So this can say two foods here can
+   interact, and it can never say they did. `when` is a field rather than a
+   sentence precisely so that this function can filter on it rather than a
+   reader having to notice a caveat.
+
+   Only agents that are themselves in the table can be found: a nutrient column
+   or a named food. Phytate and oxalate have no column, so a day full of
+   wholegrains cannot be detected here and is not claimed to be. */
+interface Pairing { x: Interaction; nutrient: Nutrient; from: Food; via: Food; }
+
+function dayPairings(): Pairing[] {
+  const list = dayContributors();
+  if (list.length < 1) return [];
+  // A food counts as supplying a nutrient on the same rule the detail panel
+  // uses, so the two views cannot disagree about what "a source of" means.
+  const supplies = new Map<string, Food[]>();
+  for (const e of list)
+    for (const id of sourceOf(e.f))
+      supplies.set(id, [...(supplies.get(id) || []), e.f]);
+
+  const out: Pairing[] = [];
+  for (const x of INTERACTIONS) {
+    // "preparation" is about what you do to a food, not about what else is on
+    // the plate, so it has no pairing to report.
+    if (x.when !== "same meal") continue;
+    // Bound to a local so the discriminant narrows. Narrowing does not survive
+    // a repeated `x.agent.kind` check across the arms of a conditional.
+    const a = x.agent;
+    const via = a.kind === "nutrient" ? supplies.get(a.id)?.[0]
+      : a.kind === "food" ? list.find(e => slugAt(e.i) === a.slug)?.f
+      : undefined;
+    if (!via) continue;
+    for (const id of x.affects) {
+      const from = supplies.get(id)?.[0];
+      // Not the same food on both sides: "your peppers' vitamin C helps your
+      // peppers' iron" is true and useless, and reads as a mistake.
+      if (!from || from === via) continue;
+      out.push({ x, nutrient: nut(id), from, via });
+    }
+  }
+  return out;
+}
 
 /** The nine FAO entries, kept paired: methionine is spared by cysteine and
  *  phenylalanine by tyrosine, so a percentage on either alone would report a
@@ -1485,7 +1744,24 @@ function readWeight() {
 function renderDaySummary(totals: DayTotal[]) {
   const list = dayContributors();
   const box = $("#daySum");
-  const notes = `<div class="dayadvice">` + DAY_NOTES.map(([h, p]) =>
+  /* Pairings first, because they are about today's list rather than about
+     nutrition in general, and the general notes below are the same three every
+     time. Each says what could interact and refuses to say that it did: a day
+     is not a meal, and this view has no idea which of these were eaten
+     together. That is the same rule the totals already live by, where a sum
+     over foods some of which were never assayed says so rather than looking
+     complete. */
+  const pairs = dayPairings();
+  const pairCard = pairs.length ? `<div class="paircard">
+    <b>Worth pairing</b>
+    <ul>${pairs.map(({ x, nutrient, from, via }) => `<li class="${x.direction}">
+      <span aria-hidden="true">${x.direction === "up" ? "↑" : "↓"}</span>
+      ${esc(via.name)} ${x.direction === "up" ? "could help" : "could hold back"}
+      the ${esc(nutrient.label.toLowerCase())} in ${esc(from.name)}</li>`).join("")}</ul>
+    <span class="paircaveat">Only in the same meal. This list is a day, so it cannot know
+    whether any of these were eaten together.</span></div>` : "";
+
+  const notes = `<div class="dayadvice">` + pairCard + DAY_NOTES.map(([h, p]) =>
     `<div><b>${esc(h)}</b> ${esc(p.replace(/\s+/g, " "))}</div>`).join("") + `</div>`;
 
   if (!list.length) {
@@ -2220,6 +2496,70 @@ const STEROL_MISSING_RICH = FOODS.filter(f =>
 const UNDIFF = NOTES.find(n => n.id === "undifferentiated");
 const UNDIFF_CELLS = Object.values(UNDIFF?.cells || {}).flat().length;
 
+/* ---------- the bioavailability reference ----------
+   Built from src/data/interactions.json rather than written out, for the same
+   reason the amino acid gap list and the fortified food list are computed: a
+   hand-written copy of a dataset is a copy that stops being true. Add a record
+   and it appears here, in the nutrient note and in the detail panel together,
+   or in none of them. */
+function bioDialog(): string {
+  /* Grouped by the nutrient whose absorption changes, because that is the
+     question somebody arrives with: not "what does phytate do" but "why is the
+     iron figure not the whole story".
+
+     Grouped by the whole affected *set* rather than one nutrient at a time,
+     which matters because a record may name several. The first version walked
+     NUTS and printed each nutrient's records under its own heading, so the one
+     fat entry shared by vitamins A, D, E and K appeared four times word for
+     word, and the carotenoid one five times. Keying on the set prints each
+     record once, under a heading naming everything it covers. */
+  const groups = new Map<string, Interaction[]>();
+  for (const x of INTERACTIONS) {
+    const key = x.affects.join("+");
+    groups.set(key, [...(groups.get(key) || []), x]);
+  }
+  // Table order, taken from the first nutrient of each set, so the dialog runs
+  // in the same sequence as the columns rather than in dataset order.
+  const at = (key: string) => IDX.get(key.split("+")[0] ?? "") ?? 999;
+  const byNutrient = [...groups.entries()]
+    .sort((a, b) => at(a[0]) - at(b[0]))
+    .map(([key, list]) => {
+      const heading = key.split("+")
+        .map(id => nutOpt(id)?.label ?? id)
+        .join(", ").replace(/, ([^,]*)$/, " and $1");
+      const rows = list.map(x => `
+        <div class="biorow ${x.direction}">
+          <div class="biohead">
+            <span class="bioarrow" aria-hidden="true">${x.direction === "up" ? "↑" : "↓"}</span>
+            <b>${esc(agentLabel(x.agent))}</b>
+            <span class="biowhen">${esc(x.when)}</span>
+          </div>
+          <p>${esc(x.text)}</p>
+          ${x.cites.map(k => `<cite>${esc(X.sources[k] ?? k)}</cite>`).join("")}
+        </div>`).join("");
+      return `<h4>${esc(heading)}</h4>${rows}`;
+    }).join("");
+
+  return `
+    <p>Every figure in this table is a measurement of what is <em>in</em> a food. How much of it
+    reaches you is a different question, and for some nutrients the gap between the two is
+    large enough to change what the number means. This page is what is known about that gap.</p>
+    <p><b>No figure on this page is ever adjusted for absorption.</b> Iron reads 3.30 mg because
+    3.30 mg is what was measured. Absorption depends on the rest of the meal, on the person, and
+    on how much of the nutrient they already have, so any single "absorbable" number would be an
+    invention dressed as a measurement. What is offered instead is the reasoning, with its
+    sources, so you can apply it yourself.</p>
+    ${byNutrient}
+    <h4>What is not here</h4>
+    <p>This list is deliberately short. It holds the interactions that are well enough established
+    to cite, and no others, so a nutrient with no entry means nothing has been recorded here rather
+    than that nothing affects it. There is no phytate or oxalate column in the table either: USDA's
+    SR Legacy does not publish those figures, so the amounts in any particular food are not
+    something this page knows.</p>
+    <p>Nor is there any advice about supplements, doses or timing beyond meals. This page describes
+    foods.</p>`;
+}
+
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
@@ -2473,6 +2813,8 @@ const DLG = {
     managing a health condition, pregnant, or feeding a child, talk to a dietitian or your GP.
     One specific note: vitamin B12 is not reliably available from unfortified plant foods, and a
     supplement or reliably fortified food is standard advice on a vegan diet.</p>`],
+
+  bio: ["Absorption and bioavailability", bioDialog()],
 } satisfies Record<string, [title: string, body: string]>;
 
 /* The data-dlg attributes in src/index.html are exactly these three keys. The
