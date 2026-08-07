@@ -449,10 +449,10 @@ the open list at the bottom instead.
 
 ## Current state
 
-Repo: `/home/thom/development/plant_based_info`, branch
-`fat-repull-and-two-columns`, not yet merged to `main` and not pushed. The
-GitHub remote (`darkixion/plant_based_info`) is public, so pushing stays the
-owner's call.
+Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything is
+committed and nothing is pushed: `main` is ahead of `origin/main` by this
+session's work. The GitHub remote (`darkixion/plant_based_info`) is public, so
+pushing stays the owner's call.
 
 - **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
