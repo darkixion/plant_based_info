@@ -630,7 +630,7 @@ Also add `P` to the globals probe in the existing test `"the app's own globals s
 
 Run: `npm test`
 
-Expected: the four new tests FAIL. The first three fail on a missing `[data-dayportion]` element, the fourth on the same, and the globals probe fails reporting `P: undefined`. Read the failure messages and confirm they say that, rather than something unrelated.
+Expected: the four new tests FAIL, all on the missing `[data-dayportion]` element. The globals probe **passes**, because Task 3 already inlined `P` into the page: it is defined before any app code reads it. Read the failure messages and confirm they name the missing element rather than something unrelated. If any of the four passes at this point, stop: a test that passes before the feature exists is asserting nothing.
 
 - [ ] **Step 3: Declare the type and the data**
 
