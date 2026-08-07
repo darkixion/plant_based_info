@@ -2576,12 +2576,8 @@ await test("the table still scrolls sideways, and its left edge stays stuck", as
   // scrolling the table actually needs, nor the sticky left column and header
   // that make that scrolling readable.
   //
-  // Only the horizontal axis is asserted, because only the horizontal axis
-  // sticks. .tablewrap has no vertical overflow of its own since the box grows
-  // to its rows and the page scrolls instead, so top:0 on the header rows has
-  // nothing to stick within and the header scrolls off with the page. That is
-  // pre-existing and out of scope here; it is written down so the next reader
-  // does not add the assertion this comment replaced.
+  // The vertical axis has its own test below, now that the box has a
+  // max-height again and the header rows have something to stick within.
   await atWidth(390, async page => {
     const r = await page.evaluate(async () => {
       const wrap = document.querySelector(".tablewrap");
@@ -2594,6 +2590,66 @@ await test("the table still scrolls sideways, and its left edge stays stuck", as
     assert(r.scrolled > 300, `table should scroll horizontally, scrollLeft was ${r.scrolled}`);
     assert(r.bodyFood <= 2, `food column should stay stuck to the left edge, was ${r.bodyFood}px in`);
     assert(r.headFood <= 2, `food header should stay stuck to the left edge, was ${r.headFood}px in`);
+  });
+});
+
+await test("the column headings stay on screen while the rows scroll", async () => {
+  // Worth stating why this needs a max-height at all, because it looks like an
+  // arbitrary cap. A sticky element sticks within its nearest scroll container,
+  // and .tablewrap must be one horizontally since 68 columns are wider than any
+  // screen. CSS then computes overflow-y to auto as well, so the box is a
+  // vertical scroll container whether or not it can scroll. Without a ceiling
+  // it never does, top:0 has nothing to stick within, and the header scrolls
+  // off the page. It did, for two sessions.
+  //
+  // 320px because that is where it matters most: 131 rows go past, and without
+  // headings the figures are unlabelled the moment the first screen is gone.
+  for (const w of [320, 1440]) {
+    await atWidth(w, async page => {
+      const r = await page.evaluate(async () => {
+        const wrap = document.querySelector(".tablewrap");
+        wrap.scrollTop = 1500;
+        await new Promise(res => requestAnimationFrame(res));
+        const top = wrap.getBoundingClientRect().top;
+        const rows = document.querySelector("#thead").rows;
+        const off = el => Math.round(el.getBoundingClientRect().top - top);
+        return {
+          scrolled: wrap.scrollTop,
+          group: off(rows[0].querySelector("th.grp")),
+          groupH: Math.round(rows[0].querySelector("th.grp").getBoundingClientRect().height),
+          nutrient: off(rows[1].cells[0]),
+          // Proof the rows really did move underneath: the first body row is
+          // far above the box by now.
+          firstBodyRow: off(document.querySelector("#tbody tr")),
+        };
+      });
+      assert(r.scrolled > 1000, `the box should scroll vertically, got ${r.scrolled}`);
+      assert(r.firstBodyRow < -500,
+        `rows should have scrolled past, first row is at ${r.firstBodyRow}`);
+      assert(r.group <= 2, `group row should stick to the top, sits at ${r.group}px`);
+      // The second row sits directly under the first, measured rather than
+      // hardcoded, and floored so any fraction is an overlap not a gap.
+      assert(Math.abs(r.nutrient - r.groupH) <= 2,
+        `nutrient row should sit under the group row (${r.groupH}px), sits at ${r.nutrient}px`);
+    });
+  }
+});
+
+await test("a short result set still shrinks to its rows", async () => {
+  // max-height is a ceiling, not a height. Searching down to a few foods must
+  // not leave a screen-tall box with three rows in it and empty space below.
+  await atWidth(1440, async page => {
+    const r = await page.evaluate(async () => {
+      S.q = "lentils"; render();
+      await new Promise(res => requestAnimationFrame(res));
+      const wrap = document.querySelector(".tablewrap");
+      return { rows: document.querySelectorAll("#tbody tr").length,
+               height: Math.round(wrap.getBoundingClientRect().height),
+               viewport: innerHeight };
+    });
+    assert(r.rows >= 1 && r.rows <= 5, `expected a short result set, got ${r.rows} rows`);
+    assert(r.height < r.viewport / 2,
+      `box should shrink to ${r.rows} rows, but is ${r.height}px of a ${r.viewport}px viewport`);
   });
 });
 

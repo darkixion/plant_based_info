@@ -274,10 +274,24 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
 @media (max-width:1160px){.split{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- table ---------- */
-/* The box grows to its rows and the page scrolls, rather than the table being a
-   scrollport of its own with the page still behind it. overflow:auto stays for
-   the horizontal axis, which is the one that always overflows: 68 columns are
-   wider than any screen.
+/* The box is a scrollport in both axes, and the max-height is what makes the
+   header rows stick.
+
+   That is not a preference, it is the only arrangement CSS allows. A sticky
+   element sticks within its nearest scroll container, and this box has to be
+   one for the horizontal axis because 68 columns are wider than any screen.
+   Setting `overflow-x:auto` with `overflow-y:visible` does not give a
+   page-scrolling table: the spec computes the `visible` axis to `auto` as soon
+   as the other is not visible, so the box is a scroll container either way.
+   With no max-height it simply never scrolls vertically, `top:0` has nothing to
+   stick within, and the header scrolls off the page with everything else. It
+   did, for two sessions.
+
+   So the box grows to its rows up to a screenful and then scrolls, which is the
+   trade this makes: a nested scroller, in exchange for column headings that are
+   there when you are 90 rows down. A filtered result set shorter than the cap
+   still shrinks to its rows, because max-height sets a ceiling and not a
+   height.
 
    position:relative is load-bearing and not a formatting convenience. An
    overflow clip only applies to a descendant whose containing block is inside
@@ -290,7 +304,7 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
    clipped to nothing: the overflow was real, and there was nothing to see in
    it. Making this box the containing block is what brings them back inside. */
 .tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto;
-           position:relative; background:var(--panel)}
+           max-height:calc(100dvh - 32px); position:relative; background:var(--panel)}
 .tablewrap:focus-visible{outline:3px solid var(--green); outline-offset:-3px}
 table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
 caption{text-align:left; padding:12px 14px; color:var(--muted); font-size:13px;

@@ -3,7 +3,33 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (ninth)
+## Latest session, 2026-08-07 (tenth)
+
+**The table header sticks again**, which cost `.tablewrap` its `max-height`
+back: `calc(100dvh - 32px)`, the value commit `6157a35` removed.
+
+**That is not a preference, it is the only arrangement CSS allows**, and it is
+worth knowing before anybody tries to have both. A sticky element sticks within
+its nearest scroll container. This box has to be one horizontally, because 68
+columns are wider than any screen. And **`overflow-x:auto` with
+`overflow-y:visible` is not expressible**: the spec computes the `visible` axis
+to `auto` the moment the other is not visible. So the box is a vertical scroll
+container either way, and with no ceiling it simply never scrolls, `top:0` has
+nothing to stick within, and the header leaves with the page. A horizontally
+scrolling table with a page-sticky header cannot be written. The trade is a
+nested scroller for headings that survive ninety rows, which matters most on a
+phone where a screenful is eleven rows.
+
+Two tests, because a ceiling has two failure modes: the header sticks at 320px
+and 1440px after scrolling the box 1500px, and a search filtered down to a few
+rows still shrinks the box rather than leaving a screen-tall panel with three
+rows in it.
+
+**Iodine was researched and the answer is that the data exists and would make a
+column of near-zeros.** See the open list; the finding is more useful than the
+column would be.
+
+## Earlier session, 2026-08-07 (ninth)
 
 **Bioavailability shipped, in three phases, and not one figure moved.** A
 dataset of sourced interactions, a line under the nutrient note, an Absorption
@@ -117,11 +143,9 @@ Three findings worth keeping, all of the kind this note exists for:
   the phone. A definite `max-width` is what caps it. `.dayqty select` already
   carried both halves; copying only one of them cost an extra round.
 
-**The header rows are no longer sticky vertically**, and this session did not
-break it. `.tablewrap` has no vertical overflow since the box grows to its rows
-and the page scrolls instead, so `top:0` has nothing to stick within. It predates
-this work. It is called out because the obvious test to write beside the
-horizontal one asserts something that is not true, and a draft of that test did.
+**The header rows were not sticky vertically at the time of this session**, and
+it did not break them. They stick again as of the tenth session below, which
+records why the fix is a `max-height` rather than something cleverer.
 
 **Deliberately not done**, so nobody wonders: no card or list view replacing the
 table on narrow screens, no column chooser for phones, no touch gesture
@@ -583,7 +607,7 @@ pushing stays the owner's call.
 - **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 132 browser tests against the result. All passing, and CI
+  3 tool tests and 134 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -701,13 +725,6 @@ dependencies and must keep none.
   overflowed at 320 px, the narrowest common phone viewport, while a check
   written against 380 px would have shown clean. Verify the narrowest width
   that matters, not just the one a spec happens to name.
-- **The table's header rows are not sticky vertically.** `.tablewrap` has no
-  vertical overflow since the box grows to its rows and the page scrolls
-  instead, so `top:0` has nothing to stick within and the header scrolls off
-  with the page. Measured at -524px above the viewport. It costs most on a
-  phone, where 131 rows go by with no column names. Fixing it means giving the
-  box a height and its own vertical scroll, which is the thing commit `6157a35`
-  deliberately undid, so it is a decision to reopen rather than a bug to patch.
 - **Search is unreachable on a phone while the menu is closed.** It lives in the
   sidebar, so the menu has to be opened to find a food by name. Moving it out to
   sit above the table would fix it and would change the desktop layout, which is
@@ -739,6 +756,41 @@ dependencies and must keep none.
 
   Worth revisiting once iOS Safari 26 is unremarkable. Supporting both paths at
   once is the option to refuse: it is more code than the one it replaces.
+- **Iodine: the data exists, and the finding is worth more than the column.**
+  The **USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods**,
+  release 4.0 of November 2024, covers 478 foods per 100 g, and it carries **NDB
+  numbers**, which is the same join key `flavonoids.mjs` already uses to reach
+  SR Legacy. So the mechanism is proven and the tool would be a third copy of
+  one that exists.
+
+  What stops it being an obvious yes is the values. Release 1's plant sections
+  were read directly, and **every plant wholefood in it sits between 0.0 and 6.0
+  mcg per 100 g against a 150 mcg daily requirement.** Spinach raw is the
+  highest at 6.0, which is 4% of a day. Legumes run 0.0 to 1.2, the three nuts
+  and seeds 0.3 to 1.0, cooked grains 0.1 to 1.1. **Nori is 2320.**
+
+  So the column would be 130 near-zeros and one enormous outlier. That is not an
+  argument against it: it is exactly what the page already asserts in prose
+  under "Iodine is not in this data", and this project's own convention is that
+  prose describing the data should derive from the data. A column would turn a
+  claim into a measurement. Two things to weigh first:
+
+  - **Iodine in plants tracks soil and irrigation**, so these are US figures and
+    a UK reader's spinach is a different number. The variation is larger than
+    the values.
+  - **Seaweed is the same trap as its B12.** Species vary by orders of
+    magnitude, and the page already warns that seaweed B12 is inactive
+    analogues. A 2320 in a column invites exactly the reading the methodology
+    dialog spends a paragraph refusing.
+
+  The UK alternative, **McCance and Widdowson's CoFID**, is downloadable as a
+  spreadsheet from gov.uk and carries iodine, but it joins by UK food codes
+  rather than FDC ids, so matching it to these rows means matching on names.
+  That is the thing this project refuses outright, on the strength of an early
+  automated match pairing Black beans with "Black pudding, boiled".
+- **Phytate and oxalate have no equivalent USDA release**, which is the gap that
+  keeps the bioavailability notes hand-curated. Worth a search of its own if the
+  oxalate exception list ever needs to stop being a list of exceptions.
 - **The interaction set is short, and the gaps are known ones.** Copper against
   zinc, oxalate against iron, and cooking against lycopene were all considered
   and left out because their sources were not checked. Each is a plausible

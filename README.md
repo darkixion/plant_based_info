@@ -410,12 +410,23 @@ the lesson, from a session where a check written at 380px passed while 320px
 overflowed: a layout verification that names one viewport width will pass while
 a narrower common one breaks.
 
-**The header rows are no longer sticky vertically.** `.tablewrap` has no
-vertical overflow of its own since the box grows to its rows and the page
-scrolls instead, so `top:0` on the header has nothing to stick within and it
-scrolls off with the page. That is a side effect of letting the page scroll, it
-predates this work, and it is written down here because the obvious test to add
-alongside the horizontal one would assert something that is not true.
+**The header rows stick, and that is why `.tablewrap` has a `max-height`.**
+
+It looks like an arbitrary cap and it is not. A sticky element sticks within its
+nearest scroll container, and this box must be one horizontally, since 68
+columns are wider than any screen. CSS then makes it one vertically too:
+**`overflow-x:auto` with `overflow-y:visible` is not expressible**, because the
+spec computes the `visible` axis to `auto` as soon as the other is not visible.
+So a horizontally scrolling table with a page-sticky header cannot be written.
+Without a ceiling the box simply never scrolls vertically, `top:0` has nothing
+to stick within, and the header scrolls off the page with everything else. It
+did for two sessions, after the max-height was removed to let the page scroll.
+
+The trade is a nested scroller in exchange for column headings that are still
+there ninety rows down, which matters most on a phone where a screenful is
+eleven rows. A filtered result shorter than the cap still shrinks to its rows,
+because `max-height` is a ceiling and not a height, and there is a test for
+that as well as for the sticking.
 
 ## Bioavailability
 
