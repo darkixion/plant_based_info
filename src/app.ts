@@ -1045,6 +1045,13 @@ function syncHeadOffset() {
   const food = row.cells[0];
   const w = food && food.getBoundingClientRect().width;
   if (w) $("#grid").style.setProperty("--foodw", `${w}px`);
+
+  /* How much of the table can be seen at once. The caption is the one part of
+     the table that has to know: its own box is as wide as the table, so without
+     a cap its text runs off the side of the screen rather than wrapping. See
+     the `caption > span` rule. */
+  const seen = $("#scroller").clientWidth;
+  if (seen) $("#grid").style.setProperty("--scrollw", `${seen}px`);
 }
 addEventListener("resize", syncHeadOffset);
 
@@ -1766,6 +1773,46 @@ $("#navFoods").addEventListener("click", () => {
   if (S.view !== "day") return;
   S.view = "table";
   render();
+});
+
+/* ---------- the sidebar on a narrow screen ----------
+   Whether the sidebar is showing is one attribute on the shell, and the rules
+   that read it live inside a max-width query. Widen the window past it and both
+   the hiding rule and this one stop applying, so the sidebar comes back
+   whatever the attribute says. That is why there is no resize listener here and
+   no width for this code to know: a state left over from a narrow window cannot
+   strand the sidebar off screen on a wide one.
+   Not persisted, on purpose. Which foods you are looking at is worth
+   remembering between visits; whether a menu happened to be open is not. */
+const shellEl = $("#shell"), navToggle = $("#navToggle");
+function setNav(open: boolean) {
+  if (open) shellEl.dataset.nav = "open";
+  else delete shellEl.dataset.nav;
+  navToggle.setAttribute("aria-expanded", String(open));
+  $("#navToggleTx").textContent = open ? "Close" : "Menu";
+}
+navToggle.onclick = () => {
+  const open = shellEl.dataset.nav !== "open";
+  setNav(open);
+  say(open ? "Menu open." : "Menu closed.");
+};
+
+/* Choosing a category or a destination closes the menu, because what you chose
+   is in the table behind it. Toggling a nutrient group does not: that is a
+   multi-select somebody works through several at a time, and closing on the
+   first one would make the other seven cost a reopen each. Search does not
+   either, for the same reason.
+   Focus goes back to the button, because the control that was just clicked is
+   about to be display:none and focus on a hidden element lands on the body.
+   #navFoods is the exception: it is a link to #main and moves focus itself. */
+$("#side").addEventListener("click", e => {
+  // targetAnyEl, not targetEl: these rows carry inline SVG icons, so a click on
+  // an icon makes e.target an SVGElement.
+  const t = targetAnyEl(e)?.closest("a,button");
+  if (!t || !t.matches("[data-cat],#navFoods,#vFavs,#vDay")) return;
+  if (shellEl.dataset.nav !== "open") return;
+  setNav(false);
+  if (t.id !== "navFoods") navToggle.focus();
 });
 const chartSel = $<HTMLSelectElement>("#chartNut");
 chartSel.onchange = () => { S.chartNut = chartSel.value; savePrefs(); renderChart(rows()); };

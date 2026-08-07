@@ -3,7 +3,70 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (seventh)
+## Latest session, 2026-08-07 (eighth)
+
+**The page is usable on a phone.** The food table compacts below 700px and the
+sidebar goes behind a menu button below 820px, both scoped so nothing above
+820px moves. Designed at
+`docs/superpowers/specs/2026-08-07-mobile-layout-design.md` and written up
+durably in `README.md` under "Narrow screens". 123 tests, all passing.
+
+**The food column was 369px wide in a 360px viewport**, wider than the screen it
+had to fit on, and sticky at `left:0`, so it covered the scrollport whole. A
+phone showed a list of food names and not one figure. It is 144px as measured
+now, one full figure and most of a second at 320px and two from 360px up, and
+the table starts 694px down the page rather than 1874px.
+
+**The load-bearing rule is `white-space:normal`, not the width.** While the names
+cannot wrap the column widens to the longest one whatever width it is asked for,
+so setting a width alone would have changed nothing.
+
+**144px is a floor rather than a choice, and the rule asks for 150.** A table
+cell will not shrink below its content's min-content width, which here is the
+longest single word in a food name. Asking for 128 or 118 gives 144 too;
+measured, not assumed. Going under it needs mid-word breaking, which buys one
+more column at 320px and costs every name on screen. Do not spend time tuning
+the 150.
+
+**The whole page panned sideways into blank space, and it was never about the
+table.** `.sr` is `position:absolute`, `noteMark()` puts one in a numeric cell,
+and an overflow clip only reaches a descendant whose containing block is inside
+the clipping box. Nothing between those cells and the root was positioned, so
+`.tablewrap`'s `overflow:auto` never applied to them and they sat ten thousand
+pixels out. `position:relative` on `.tablewrap` is the fix.
+
+Three findings worth keeping, all of the kind this note exists for:
+
+- **This was not a mobile bug.** At 1440px the document was 7680px wide and a
+  screenshot at x=3000 was blank white. It had been shipped that way for
+  months. Fixing it changes desktop, which is why it was raised as a scope
+  question rather than folded in quietly.
+- **`scrollWidth` is the wrong thing to measure**, and measuring it sent the
+  first four fix attempts nowhere. It reports content extent whether or not the
+  box can scroll, so `overflow-x:clip` on `html` looked like it had failed when
+  the metric simply could not see it. Assert `scrollWidth - clientWidth` on the
+  scrolling element, which is what actually pans. (Those four still did fail;
+  the point is that the evidence could not have told either way.)
+- **`min-width:0` does not release a `<select>`'s intrinsic minimum.** It
+  releases the automatic minimum size a flex item gets, but the min-content
+  *contribution* stays at the longest option, and `.shell`'s `1fr` column is
+  `minmax(auto,1fr)`, so the lens control made the whole page 57px wider than
+  the phone. A definite `max-width` is what caps it. `.dayqty select` already
+  carried both halves; copying only one of them cost an extra round.
+
+**The header rows are no longer sticky vertically**, and this session did not
+break it. `.tablewrap` has no vertical overflow since the box grows to its rows
+and the page scrolls instead, so `top:0` has nothing to stick within. It predates
+this work. It is called out because the obvious test to write beside the
+horizontal one asserts something that is not true, and a draft of that test did.
+
+**Deliberately not done**, so nobody wonders: no card or list view replacing the
+table on narrow screens, no column chooser for phones, no touch gesture
+handling, and search did not move out of the sidebar, so with the menu closed
+there is no search box on screen. The reasoning for the last one is in the
+README.
+
+## Earlier session, 2026-08-07 (seventh)
 
 **Three open items closed, and they turned out to be one piece of work.** Each
 was a `KNOWN` entry in `tools/usda.mjs` followed by a `pull`, and each ran into
@@ -457,7 +520,7 @@ pushing stays the owner's call.
 - **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 114 browser tests against the result. All passing, and CI
+  3 tool tests and 120 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -575,6 +638,17 @@ dependencies and must keep none.
   overflowed at 320 px, the narrowest common phone viewport, while a check
   written against 380 px would have shown clean. Verify the narrowest width
   that matters, not just the one a spec happens to name.
+- **The table's header rows are not sticky vertically.** `.tablewrap` has no
+  vertical overflow since the box grows to its rows and the page scrolls
+  instead, so `top:0` has nothing to stick within and the header scrolls off
+  with the page. Measured at -524px above the viewport. It costs most on a
+  phone, where 131 rows go by with no column names. Fixing it means giving the
+  box a height and its own vertical scroll, which is the thing commit `6157a35`
+  deliberately undid, so it is a decision to reopen rather than a bug to patch.
+- **Search is unreachable on a phone while the menu is closed.** It lives in the
+  sidebar, so the menu has to be opened to find a food by name. Moving it out to
+  sit above the table would fix it and would change the desktop layout, which is
+  why it was left; see "Narrow screens" in `README.md`.
 
 ## Conventions worth preserving
 

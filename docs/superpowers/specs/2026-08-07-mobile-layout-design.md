@@ -176,6 +176,40 @@ not at the 360px or 390px this spec quotes measurements from.
   is what holds the "desktop is untouched" promise to something a test run can
   disprove.
 
+## What building it changed, and what was wrong here
+
+Corrected rather than left to mislead the next reader.
+
+- **"Food column 144px, two figures on screen at 360px" was measured under the
+  bug.** While the page still overflowed, `.tablewrap` was 377px wide in a 360px
+  viewport, so it fitted more than it had any right to. With the overflow fixed
+  the scrollport is a true 328px at 360 and 288px at 320, which is one full
+  figure and most of a second at 320, and two from 360 up. The tests assert both
+  widths for that reason.
+- **150px is not what sets the column; 144px is a floor.** A table cell will not
+  shrink below its content's min-content width, which here is the longest single
+  word in a food name plus the swatch and the padding. Asking for 128px or 118px
+  measures 144px too. Going under it needs mid-word breaking, which buys one
+  column at 320px and costs every name on screen.
+- **The menu button could not live in the top bar.** The sidebar comes before
+  the content in source order, so a button in `.top` would have been pushed off
+  screen by the sidebar it had just revealed. It is the first child of `.shell`
+  instead, and sticky, so the filters stay one tap from anywhere in the table.
+- **The pan had two more causes underneath the first**, both invisible until the
+  big one was gone: a `<select>`'s min-content contribution propagating out
+  through `.shell`'s `minmax(auto,1fr)` column (57px), and the detail panel's
+  five tab labels (5px). Part 3 said the mechanism was unknown; it was `.sr`
+  being `position:absolute` with no positioned ancestor, and `.tablewrap` gaining
+  `position:relative` is the fix.
+- **`scrollWidth` was the wrong metric** and is why four `overflow-x:clip`
+  candidates looked identical. It reports content extent whether or not the box
+  can scroll. The tests measure `scrollWidth - clientWidth` on the scrolling
+  element.
+- **One test in part 4 asserted something untrue.** The header rows are not
+  sticky vertically: `.tablewrap` has no vertical overflow of its own, so
+  `top:0` has nothing to stick within. Pre-existing, out of scope, and now
+  recorded in the open list rather than asserted.
+
 ## Deliberately not done
 
 So nobody wonders whether it was forgotten:

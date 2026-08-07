@@ -221,13 +221,34 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
 /* The box grows to its rows and the page scrolls, rather than the table being a
    scrollport of its own with the page still behind it. overflow:auto stays for
    the horizontal axis, which is the one that always overflows: 68 columns are
-   wider than any screen. */
+   wider than any screen.
+
+   position:relative is load-bearing and not a formatting convenience. An
+   overflow clip only applies to a descendant whose containing block is inside
+   the clipping box, and .sr is position:absolute. noteMark() puts one of those
+   in a numeric cell, and with nothing positioned between that cell and the root
+   its containing block was the initial one, so it escaped this box entirely and
+   sat at its static position ten thousand pixels out. That reached the document
+   and the whole page panned sideways onto blank white, at every width, desktop
+   included. It stayed invisible for so long because .sr is one pixel and
+   clipped to nothing: the overflow was real, and there was nothing to see in
+   it. Making this box the containing block is what brings them back inside. */
 .tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto;
-           background:var(--panel)}
+           position:relative; background:var(--panel)}
 .tablewrap:focus-visible{outline:3px solid var(--green); outline-offset:-3px}
 table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
 caption{text-align:left; padding:12px 14px; color:var(--muted); font-size:13px;
         border-bottom:1px solid var(--line)}
+/* The caption box is as wide as the table, ten thousand pixels, so its text has
+   nowhere to wrap to and simply ran off the side of the screen: at 360px it
+   read "131 vegan foods, all 68 nutrient columns. Values p" and stopped. The
+   text follows the horizontal scroll instead, capped to what can actually be
+   seen, which is the same thing .grplabel does for the group labels and for the
+   same reason. The cap is a variable because the caption is the one part of the
+   table that has to know how wide the scrollport is; --scrollw is measured
+   after render, see syncHeadOffset(). */
+caption > span{position:sticky; left:0; display:inline-block;
+  max-width:calc(var(--scrollw,100%) - 28px)}
 th,td{padding:0; text-align:right; white-space:nowrap}
 thead th{position:sticky; background:var(--raise); z-index:3; font-weight:600; color:var(--ink);
   border-bottom:1px solid var(--line); font-size:12.5px}
@@ -603,8 +624,95 @@ dialog::backdrop{background:var(--backdrop)}
 .x{margin-left:auto; border:0; background:none; padding:8px; border-radius:8px; line-height:0;
    color:var(--muted); min-width:36px; min-height:36px}
 .x:hover{background:var(--raise)}
+/* ---------- narrow viewports ----------
+   Two breakpoints, both of which already existed and already meant something,
+   rather than a third number to keep in step with the other four:
+
+     820px  the shell stops being two columns. The sidebar goes behind the menu
+            button here, because that is the width at which it stopped being a
+            column beside the table and became a wall in front of it.
+     700px  the totals grid already sheds its bar column here. The table
+            compacts at the same width.
+
+   Nothing above 820px is touched by any of this. The desktop layout is a
+   promise, and there is a test at 1440px holding it. */
+
+/* The menu button exists only where the sidebar is collapsible. Above 820px
+   the sidebar is always shown, so a control for showing it would be a control
+   that does nothing, and display:none keeps it out of the grid entirely rather
+   than leaving it holding a cell. */
+.menubtn{display:none}
 @media (max-width:820px){
   .shell{grid-template-columns:1fr}
   .side{position:static; height:auto; border-right:0; border-bottom:1px solid var(--line)}
   .hero,.sect{padding-inline:16px} .top{padding-inline:16px}
+  /* The sidebar is shown by an attribute on the shell rather than by a class on
+     itself, and hidden by a rule that only exists inside this query. That is
+     the whole reason there is no resize listener: widen the window past 820px
+     and both rules stop applying, so the sidebar comes back whatever the
+     attribute says. A state left over from a narrow window cannot strand it. */
+  /* A bar rather than a button in a corner, and sticky, so the filters stay one
+     tap away from anywhere in a 131 row table instead of only from the top of
+     the page. It is the one thing on a narrow screen that has to be reachable
+     without scrolling, because it is the way back to everything else. */
+  .menubtn{display:flex; gap:10px; align-items:center; position:sticky; top:0; z-index:20;
+    width:100%; padding:11px 16px; min-height:46px; text-align:left; font-size:14.5px;
+    border:0; border-bottom:1px solid var(--line); background:var(--panel); color:var(--body)}
+  .menubtn > svg{flex:none}
+  .menubtn[aria-expanded=true]{background:var(--green-tint); color:var(--ink); font-weight:600}
+  .side{display:none}
+  .shell[data-nav=open] .side{display:block}
+}
+
+@media (max-width:700px){
+  /* The food column was 369px wide in a 360px viewport: wider than the screen
+     it had to fit on. Being sticky at left:0, it covered the scrollport whole
+     and the reader got a list of names and not one figure.
+
+     white-space:normal is the load-bearing half of this. Width alone does
+     nothing while the names cannot wrap, because the column then widens to the
+     longest one regardless of what it was asked for. */
+  th.food,td.food{width:150px; min-width:0; white-space:normal}
+  /* Top, not centre: beside a name that has wrapped to two lines, a centred
+     swatch sits against the second one and reads as belonging to it. */
+  td.food .fcell{gap:7px; align-items:flex-start}
+  td.food .sw{width:18px; height:18px; margin-top:2px}
+  tbody td.food{padding:8px}
+  /* Both of these are dropped rather than shrunk, and both are still reachable:
+     the detail panel carries its own heart, and it names the food's other name
+     under "also known as". An alt in a wrapping 110px column costs two or three
+     lines on the longest rows, which is a price paid by every row on screen to
+     serve the few that need it. display:none takes them out of the
+     accessibility tree too, which is right: a control that is not there should
+     not be announced as though it were. */
+  td.food .fav{display:none}
+  td.food .fname b .alt{display:none}
+  /* A header may wrap; a figure may not. "Vitamin B-12" over two lines is
+     narrower than the same words on one, and costs nothing. A wrapped number is
+     a misread number. */
+  thead th .sortbtn{white-space:normal; padding:8px; font-size:11.5px}
+  tbody td{padding:0 8px; font-size:13px}
+
+  /* A select takes its automatic minimum size from its longest option, and a
+     lens name is typed by whoever saved it, so this one refuses to shrink below
+     345px. `.shell`'s single column is `1fr`, which is minmax(auto,1fr), so that
+     minimum propagated out through the toolbar to the grid and made the whole
+     page 57px wider than the phone it was on. Every other element on the page
+     was then 377px wide in a 320px viewport, which is why this looked like a
+     page-level fault rather than one control.
+     min-width:0 alone does not do it. That releases the automatic minimum size
+     a flex item gets, but a select's *min-content contribution* stays at its
+     longest option whatever its minimum says, so the number still propagates. A
+     definite max-width is what caps the contribution, which is why the
+     `.dayqty select` rule above carries one too and why copying only half of it
+     left the page still 57px wide of the viewport. */
+  .lensgrp{min-width:0; max-width:100%}
+  .lensgrp select.sel{min-width:0; max-width:130px}
+
+  /* The detail panel's five tabs are flex:1, but a label cannot shrink below
+     its longest word, so the five of them plus their padding came to five
+     pixels more than a 320px screen. Padding is what gives, not the labels:
+     "Plant compounds" ellipsised to "Plant com…" would save the same pixels and
+     cost the reader the word that says what the tab is. */
+  .tabs button{padding-inline:2px}
 }

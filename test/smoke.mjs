@@ -2529,6 +2529,192 @@ await test("the phytosterol caveat names the categories it is silent on", async 
   });
 });
 
+// ---------------------------------------------------------------- mobile layout
+
+/** Like withPage, but at a stated viewport. Every test below names its own
+ *  width, because the whole point of them is that width is the variable.
+ *  320px is deliberate: it is the narrowest common phone, and the open list in
+ *  HANDOVER.md records the session where a check written at 380px passed while
+ *  320px overflowed. Verify the narrowest width that matters. */
+async function atWidth(width, fn, height = 780) {
+  const ctx = await browser.newContext({ viewport: { width, height } });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+  try { await fn(page, errors); } finally { await ctx.close(); }
+}
+
+/** How far the page itself can be scrolled sideways. The table scrolls
+ *  horizontally by design; the page must not. */
+const pannable = page => page.evaluate(() => {
+  const se = document.scrollingElement;
+  return se.scrollWidth - se.clientWidth;
+});
+
+await test("the page does not scroll sideways, at any width", async () => {
+  // The table is ten thousand pixels wide inside a scrollport a few hundred
+  // wide, and for a long time that width reached the document: the page panned
+  // to x=3000 onto blank white, on a phone and on a desktop alike. The cause
+  // was not the table. `.sr` spans are position:absolute, noteMark() puts one
+  // in a numeric cell, and an absolutely positioned box is only clipped by an
+  // ancestor's overflow when that ancestor is its containing block. Nothing
+  // between those cells and the root was positioned, so their containing block
+  // was the initial one and the clip never applied. They are 1px and clipped to
+  // nothing, which is why the overflow was invisible and survived this long.
+  for (const w of [320, 390, 820, 1440]) {
+    await atWidth(w, async page => {
+      eq(await pannable(page), 0, `page pans sideways at ${w}px`);
+    });
+  }
+});
+
+await test("the table still scrolls sideways, and its left edge stays stuck", async () => {
+  // The other half of the rule above: containing the overflow must not cost the
+  // scrolling the table actually needs, nor the sticky left column and header
+  // that make that scrolling readable.
+  //
+  // Only the horizontal axis is asserted, because only the horizontal axis
+  // sticks. .tablewrap has no vertical overflow of its own since the box grows
+  // to its rows and the page scrolls instead, so top:0 on the header rows has
+  // nothing to stick within and the header scrolls off with the page. That is
+  // pre-existing and out of scope here; it is written down so the next reader
+  // does not add the assertion this comment replaced.
+  await atWidth(390, async page => {
+    const r = await page.evaluate(async () => {
+      const wrap = document.querySelector(".tablewrap");
+      wrap.scrollLeft = 400;
+      await new Promise(res => requestAnimationFrame(res));
+      const box = wrap.getBoundingClientRect();
+      const at = sel => Math.round(document.querySelector(sel).getBoundingClientRect().left - box.left);
+      return { scrolled: wrap.scrollLeft, bodyFood: at("#tbody td.food"), headFood: at("thead th.food") };
+    });
+    assert(r.scrolled > 300, `table should scroll horizontally, scrollLeft was ${r.scrolled}`);
+    assert(r.bodyFood <= 2, `food column should stay stuck to the left edge, was ${r.bodyFood}px in`);
+    assert(r.headFood <= 2, `food header should stay stuck to the left edge, was ${r.headFood}px in`);
+  });
+});
+
+await test("the food column leaves room for figures on a phone", async () => {
+  // The fault this whole breakpoint exists for: the food column rendered 369px
+  // wide in a 360px viewport. Sticky at left:0, it covered the scrollport whole,
+  // so the reader got a list of names and not one number. Asserting "narrower
+  // than the viewport" alone would pass at 319px and still show nothing, so what
+  // is actually asserted is that figures are on screen.
+  //
+  // One at 320 and two from 360 up, because 144px is a floor rather than a
+  // choice: a table cell will not shrink below its content's min-content width,
+  // and that is the longest single word in a food name. Going under it would
+  // mean breaking words mid-way, which buys one more column at the cost of
+  // every name on screen. The two widths are both asserted so that a change
+  // which quietly costs the second figure on an ordinary phone still fails.
+  const measure = page => page.evaluate(() => {
+    const box = document.querySelector(".tablewrap").getBoundingClientRect();
+    const inside = [...document.querySelectorAll("#tbody tr:first-child td.num")]
+      .filter(td => {
+        const c = td.getBoundingClientRect();
+        return c.left >= box.left - 1 && c.right <= box.right + 1;
+      });
+    return {
+      food: Math.round(document.querySelector("#tbody td.food").getBoundingClientRect().width),
+      figures: inside.length,
+      firstFigure: inside[0]?.textContent.trim(),
+    };
+  });
+
+  await atWidth(320, async page => {
+    const r = await measure(page);
+    assert(r.food <= 150, `food column should fit a 320px screen, was ${r.food}px`);
+    assert(r.figures >= 1, `expected a figure on screen at 320px, got ${r.figures}`);
+    assert(r.firstFigure, "the visible figure should carry text");
+  });
+
+  await atWidth(360, async page => {
+    const r = await measure(page);
+    assert(r.figures >= 2, `expected two figures on screen at 360px, got ${r.figures}`);
+  });
+});
+
+await test("the caption stays inside the part of the table you can see", async () => {
+  // The caption's own box is as wide as the table, so its text had nowhere to
+  // wrap and ran off the screen mid-sentence: "...all 68 nutrient columns.
+  // Values p". It is the only thing that says what is on screen, so a reader
+  // who cannot finish it cannot tell a filtered table from the whole dataset.
+  await atWidth(320, async page => {
+    const r = await page.evaluate(() => {
+      const box = document.querySelector(".tablewrap").getBoundingClientRect();
+      const cap = document.querySelector("#cap");
+      return { capRight: Math.round(cap.getBoundingClientRect().right),
+               wrapRight: Math.round(box.right), text: cap.textContent };
+    });
+    assert(r.capRight <= r.wrapRight,
+      `caption runs ${r.capRight - r.wrapRight}px past the visible table`);
+    // The end of the sentence, so a cap that silently truncated would fail too.
+    assert(/of food\.?$|daily value\.$|highlighted\.$|2000 kcal\.$/.test(r.text.trim()),
+      `caption looks truncated: ${JSON.stringify(r.text)}`);
+  });
+});
+
+await test("the menu shows the sidebar on a phone, and gets out of the way", async () => {
+  await atWidth(320, async page => {
+    const shown = () => page.evaluate(() =>
+      getComputedStyle(document.querySelector("#side")).display !== "none");
+    const expanded = () => page.evaluate(() =>
+      document.querySelector("#navToggle").getAttribute("aria-expanded"));
+
+    eq(await shown(), false, "sidebar starts collapsed on a phone");
+    eq(await expanded(), "false", "the button says so");
+
+    await page.click("#navToggle");
+    eq(await shown(), true, "sidebar opens");
+    eq(await expanded(), "true", "the button says it is open");
+
+    // A nutrient group is a multi-select, so the menu stays put: closing on the
+    // first of eight would charge a reopen for each of the other seven.
+    await page.click("#groupNav [data-grp=vitamin]");
+    eq(await shown(), true, "toggling a nutrient group leaves the menu open");
+
+    // A category is a single choice, and its result is in the table behind the
+    // menu, so there is nothing left to do in here.
+    await page.click("#catNav [data-cat]");
+    eq(await shown(), false, "choosing a category closes the menu");
+    eq(await expanded(), "false", "and the button says so");
+    // Focus must not be left on a display:none element, where it falls to body.
+    eq(await page.evaluate(() => document.activeElement?.id), "navToggle",
+      "focus returns to the menu button");
+  });
+});
+
+await test("none of the narrow-screen work reaches the desktop layout", async () => {
+  // The promise this change was made under. Everything above is scoped to a
+  // max-width query, and the way that stays true is a test that would fail if
+  // any of it leaked upwards.
+  await atWidth(1440, async page => {
+    const r = await page.evaluate(() => {
+      const cell = document.querySelector("#tbody td.food");
+      const sw = cell.querySelector(".sw");
+      return {
+        width: Math.round(cell.getBoundingClientRect().width),
+        swatch: Math.round(sw.getBoundingClientRect().width),
+        heart: !!cell.querySelector(".fav") &&
+          getComputedStyle(cell.querySelector(".fav")).display !== "none",
+        alt: [...document.querySelectorAll("#tbody .fname b .alt")]
+          .some(e => getComputedStyle(e).display !== "none"),
+        menu: getComputedStyle(document.querySelector("#navToggle")).display,
+        side: getComputedStyle(document.querySelector("#side")).display,
+      };
+    });
+    assert(r.width >= 210, `food column keeps its 210px minimum, was ${r.width}px`);
+    eq(r.swatch, 30, "swatch keeps its desktop size");
+    assert(r.heart, "the heart stays in every row on desktop");
+    assert(r.alt, "alternative names stay on desktop");
+    eq(r.menu, "none", "no menu button on desktop");
+    assert(r.side !== "none", "the sidebar is a column, not a menu, on desktop");
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

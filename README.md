@@ -276,6 +276,146 @@ corners around a control that is rounded. Both now set the radius and the input
 inherits it. Worth remembering for any future wrapper that gains a border,
 background or shadow.
 
+## Narrow screens
+
+The page has four breakpoints and no more: **1160**, where the detail panel
+stops sitting beside the table; **900**, where the hero illustration goes;
+**820**, where the shell stops being two columns and the sidebar goes behind a
+menu button; and **700**, where the totals grid sheds its bar column and the
+food table compacts. Each already meant something before it was reused, and a
+fifth number would be a fifth thing to keep in step.
+
+**Nothing above 820px is affected by any of it**, and there is a test at 1440px
+asserting exactly that: the food column keeps its 210px minimum, the swatch is
+30px, and the heart and the alternative name are both still there. The desktop
+layout is a promise, and that test is what holds it to something a run can
+disprove.
+
+### The food column, below 700px
+
+It rendered **369px wide in a 360px viewport**. Being sticky at `left:0` it
+covered the scrollport whole, so a phone showed a list of food names and not one
+figure. It is 144px as measured now: one full figure and most of a second at
+320px, two from 360px up.
+
+`white-space:normal` is the load-bearing half of that, not the width. While the
+names cannot wrap, the column widens to the longest one whatever width it is
+given. The swatch shrinks to 18px and aligns to the top of a wrapped name rather
+than centring against its second line.
+
+**144px is a floor, not a choice.** The rule asks for 150px and gets 144, and it
+would get 144 from any smaller number too: a table cell will not shrink below
+its content's min-content width, which here is the longest single word in a food
+name plus the swatch and the padding. Going under it means breaking words
+mid-way, which buys one more column at 320px and costs every name on screen. Do
+not spend time tuning the 150.
+
+**The heart and the alternative name are dropped rather than shrunk**, and both
+are still reachable: the detail panel carries its own heart and names the food's
+other name under "also known as". An alt in a wrapping 110px column costs two or
+three lines on the longest rows, a price every row on screen would pay to serve
+the few that need it. `display:none` takes them out of the accessibility tree
+too, which is right: a control that is not there should not be announced as
+though it were.
+
+**A header may wrap; a figure may not.** "Vitamin B-12" over two lines is
+narrower than the same words on one and costs nothing. A wrapped number is a
+misread number.
+
+### The caption had to become sticky
+
+A `<caption>`'s box is as wide as its table, which here is ten thousand pixels,
+so its text had nowhere to wrap to and simply ran off the screen: at 360px it
+read "131 vegan foods, all 68 nutrient columns. Values p" and stopped. It is the
+only thing on the page that says what is currently on screen, so a reader who
+cannot finish it cannot tell a filtered table from the whole dataset.
+
+Its text now sits in a `<span>` that is `position:sticky; left:0`, capped to
+`--scrollw`, which `syncHeadOffset()` measures alongside `--head1` and
+`--foodw`. Same mechanism as `.grplabel`, for the same reason.
+
+### The sidebar behind a menu button, below 820px
+
+Whether it shows is one attribute, `data-nav` on `.shell`, and the rules that
+read it live **inside** the `max-width:820px` query. Widen past the breakpoint
+and both the hiding rule and the showing rule stop applying, so the sidebar
+comes back whatever the attribute says. That is why there is no resize listener
+and no width for `app.ts` to know: a state left over from a narrow window cannot
+strand the sidebar off screen on a wide one. It is not persisted, on purpose.
+Which foods you were looking at is worth remembering between visits; whether a
+menu happened to be open is not.
+
+**The button is the first child of `.shell`, and that placement is the point.**
+The sidebar comes before the content in source order, so a button anywhere in
+the content, including the top bar where it started, would be shoved off screen
+by the very thing it had just revealed. It is also `position:sticky` at the top,
+so the filters stay one tap from anywhere in a 131 row table rather than only
+from the top of the page.
+
+**Choosing a category or a destination closes it; toggling a nutrient group does
+not.** A category is a single choice whose result is in the table behind the
+menu. Groups are a multi-select somebody works through several at a time, and
+closing on the first of eight would charge a reopen for each of the other seven.
+Focus returns to the button on close, because the control just clicked is about
+to be `display:none` and focus on a hidden element falls to the body.
+
+**Search stays inside the menu**, so with the menu closed there is no search box
+on screen. That is a real cost, weighed and accepted: moving it out would change
+the desktop layout, which this work was committed to leaving alone. Recorded so
+the next reader knows it was decided rather than missed.
+
+### The page used to scroll sideways into blank space
+
+Not a phone problem, though that is where it was noticed. At **1440px** the
+document was 7680px wide, and a screenshot panned to x=3000 was blank white.
+
+The cause was not the table. **`.sr` is `position:absolute`, and `noteMark()`
+puts one inside a numeric cell.** An overflow clip only applies to a descendant
+whose containing block is inside the clipping box, and nothing between those
+cells and the root was positioned, so their containing block was the initial one
+and `.tablewrap`'s `overflow:auto` never reached them. They sat at their static
+position ten thousand pixels out, and that reached the document. It stayed
+invisible for so long because `.sr` is one pixel and clipped to nothing: the
+overflow was real and there was nothing in it to see.
+
+`position:relative` on `.tablewrap` is the fix, making it the containing block
+those spans resolve against. Note what did **not** work, so it is not tried
+again: `overflow-x:clip` on `.split`, on `.sect`, on `html` and on `html, body`
+all left the page panning exactly as far. Note also that `scrollWidth` is the
+wrong thing to measure, since it reports content extent whether or not the box
+can scroll; the test asserts `scrollWidth - clientWidth` on the scrolling
+element, which is what actually pans.
+
+**Two intrinsic minimums also had to be released**, both found by the same
+bisect and both invisible until the big leak was gone:
+
+- **A `<select>` contributes its longest option to min-content**, and `.shell`'s
+  single column is `1fr`, which is `minmax(auto,1fr)`. So the lens control's
+  select made the whole page 57px wider than the 320px phone it was on, and
+  every element on it 377px wide. `min-width:0` alone does **not** fix this: it
+  releases the automatic minimum a flex item gets, but the min-content
+  contribution stays at the longest option regardless. A definite `max-width` is
+  what caps it, which is why `.dayqty select` above carries one too.
+- **The detail panel's five tabs** are `flex:1`, and a label cannot shrink below
+  its longest word, leaving them 5px over a 320px screen. Their inline padding
+  gives way rather than the labels: "Plant compounds" ellipsised to "Plant com…"
+  would save the same pixels and cost the reader the word that says what the tab
+  is.
+
+### Verify the narrowest width that matters
+
+The tests run at **320px**, not at 360 or 390. The open list already recorded
+the lesson, from a session where a check written at 380px passed while 320px
+overflowed: a layout verification that names one viewport width will pass while
+a narrower common one breaks.
+
+**The header rows are no longer sticky vertically.** `.tablewrap` has no
+vertical overflow of its own since the box grows to its rows and the page
+scrolls instead, so `top:0` on the header has nothing to stick within and it
+scrolls off with the page. That is a side effect of letting the page scroll, it
+predates this work, and it is written down here because the obvious test to add
+alongside the horizontal one would assert something that is not true.
+
 ## Per 100 g and per 100 kcal
 
 The table shows every figure on one of two bases, and the toolbar switches

@@ -12,9 +12,14 @@
 <body>
 <a class="skip" href="#main">Skip to nutrient table</a>
 
-<div class="shell">
+<div class="shell" id="shell">
+<!-- The control that shows the sidebar on a narrow screen. It is the first
+     child of the shell, and that placement is the point: the sidebar comes
+     before the content in source order, so a button anywhere in the content
+     would be pushed off screen by the very thing it had just revealed. -->
+<button class="menubtn" type="button" id="navToggle" aria-expanded="false" aria-controls="side"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg> <span id="navToggleTx">Menu</span></button>
 <!-- ============ sidebar ============ -->
-<aside class="side">
+<aside class="side" id="side">
   <div class="brand">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M4 20c0-9 6-15 16-16 0 11-6 16-16 16Z" fill="#4E9226"/>
@@ -134,7 +139,7 @@
         <div class="tablewrap" id="scroller" tabindex="0" role="region"
              aria-label="Nutrient table, scrollable horizontally">
           <table id="grid">
-            <caption id="cap"></caption>
+            <caption><span id="cap"></span></caption>
             <thead id="thead"></thead>
             <tbody id="tbody"></tbody>
           </table>
