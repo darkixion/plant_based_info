@@ -410,23 +410,36 @@ the lesson, from a session where a check written at 380px passed while 320px
 overflowed: a layout verification that names one viewport width will pass while
 a narrower common one breaks.
 
-**The header rows stick, and that is why `.tablewrap` has a `max-height`.**
+**The header rows do not stick vertically, and that is a decision rather than an
+oversight.** The table is full length and the page scrolls.
 
-It looks like an arbitrary cap and it is not. A sticky element sticks within its
-nearest scroll container, and this box must be one horizontally, since 68
-columns are wider than any screen. CSS then makes it one vertically too:
-**`overflow-x:auto` with `overflow-y:visible` is not expressible**, because the
-spec computes the `visible` axis to `auto` as soon as the other is not visible.
-So a horizontally scrolling table with a page-sticky header cannot be written.
-Without a ceiling the box simply never scrolls vertically, `top:0` has nothing
-to stick within, and the header scrolls off the page with everything else. It
-did for two sessions, after the max-height was removed to let the page scroll.
+Worth writing down because it looks fixable and is not, at least not cheaply.
+A sticky element sticks within its nearest scroll container. `.tablewrap` must
+be one horizontally, since 68 columns are wider than any screen. CSS then makes
+it one vertically too: **`overflow-x:auto` with `overflow-y:visible` is not
+expressible**, because the visible axis computes to `auto` as soon as the other
+is not visible. Measured in Chrome rather than taken from the spec: the computed
+value is `auto/auto`, and with `overflow-y:clip` it is `auto/hidden`. In every
+full-length variant the header ends up nearly two thousand pixels above the
+viewport. So a horizontally scrolling table with a page-sticky header cannot be
+written as one element.
 
-The trade is a nested scroller in exchange for column headings that are still
-there ninety rows down, which matters most on a phone where a screenful is
-eleven rows. A filtered result shorter than the cap still shrinks to its rows,
-because `max-height` is a ceiling and not a height, and there is a test for
-that as well as for the sticking.
+Two ways round it were built and both were rejected:
+
+- **A `max-height` on `.tablewrap`**, which restores vertical scrolling inside
+  the box so the header has something to stick within. It works, and it turns
+  the table into a nested scroller inside a scrolling page, which is worse than
+  the problem.
+- **A second copy of the header outside the box**, sticky to the page,
+  width-matched to the real one and scroll-synced with it. This is the technique
+  the CSS-Tricks comment threads land on. It needs a colgroup rebuilt from
+  measured widths on every render, ids stripped to avoid duplicates, buttons
+  taken out of the tab order to keep a focusable element out of an
+  `aria-hidden` subtree, and a visibility toggle so two headers are never on
+  screen at once. Too much machinery for the gain.
+
+The cost is real on a phone, where a screenful is eleven rows. It is recorded in
+the open list rather than pretended away.
 
 ## Bioavailability
 

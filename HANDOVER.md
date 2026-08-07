@@ -5,29 +5,50 @@ everything durable that a handover note should not be holding.
 
 ## Latest session, 2026-08-07 (tenth)
 
-**The table header sticks again**, which cost `.tablewrap` its `max-height`
-back: `calc(100dvh - 32px)`, the value commit `6157a35` removed.
+**A sticky table header was tried two ways and abandoned. Nothing shipped from
+it**, and the point of this note is that the next person does not spend the
+afternoon finding out the same things.
 
-**That is not a preference, it is the only arrangement CSS allows**, and it is
-worth knowing before anybody tries to have both. A sticky element sticks within
-its nearest scroll container. This box has to be one horizontally, because 68
-columns are wider than any screen. And **`overflow-x:auto` with
-`overflow-y:visible` is not expressible**: the spec computes the `visible` axis
-to `auto` the moment the other is not visible. So the box is a vertical scroll
-container either way, and with no ceiling it simply never scrolls, `top:0` has
-nothing to stick within, and the header leaves with the page. A horizontally
-scrolling table with a page-sticky header cannot be written. The trade is a
-nested scroller for headings that survive ninety rows, which matters most on a
-phone where a screenful is eleven rows.
+**The table is full length, the page scrolls, and the header does not stick.**
+That combination cannot be written as one element, which was established by
+measurement rather than argued from the spec:
 
-Two tests, because a ceiling has two failure modes: the header sticks at 320px
-and 1440px after scrolling the box 1500px, and a search filtered down to a few
-rows still shrinks the box rather than leaving a screen-tall panel with three
-rows in it.
+| `.tablewrap` overflow | computed | header top, page scrolled to 2500 |
+|---|---|---|
+| `auto` + `max-height` | auto/auto | sticks |
+| `auto`, no max-height | auto/auto | -1935px |
+| `overflow-x:auto; overflow-y:visible` | **auto/auto** | -1935px |
+| `overflow-x:auto; overflow-y:clip` | **auto/hidden** | -1935px |
+| `overflow-x:scroll; overflow-y:visible` | scroll/auto | -1935px |
 
-**Iodine was researched and the answer is that the data exists and would make a
-column of near-zeros.** See the open list; the finding is more useful than the
-column would be.
+A sticky element sticks within its nearest scroll container. This box has to be
+one horizontally, because 68 columns are wider than any screen, and the visible
+axis computes to `auto` the moment the other is not visible. So there is no
+arrangement where the box scrolls sideways and the header sticks to the page.
+
+The two ways round it, both built and both rejected:
+
+- **`max-height:calc(100dvh - 32px)`**, restoring what `6157a35` removed. Works
+  perfectly, header sticks at every width, two tests passed. Rejected because it
+  makes the table a nested scroller inside a scrolling page, and the full-length
+  table was itself an explicit ask.
+- **A width-matched copy of the header outside the box**, sticky to the page and
+  scroll-synced to the table. This is where the CSS-Tricks comment threads land
+  too, and the article itself does not cover horizontally scrolling tables. It
+  needs a colgroup rebuilt from measured widths on every render, ids stripped so
+  the document does not carry two of each, buttons pulled out of the tab order
+  so an `aria-hidden` subtree holds nothing focusable, and a visibility toggle
+  so both headers are never on screen together. Abandoned mid-build as more
+  machinery than the gain justifies.
+
+**So the cost stands and it is real**: on a phone a screenful is eleven rows,
+and the figures below the first screen are unlabelled. If it is picked up again,
+the copy is the more promising of the two, and the honest estimate is a day with
+tests rather than an afternoon.
+
+**Iodine was researched and the data exists.** See the open list. The short
+version is that it would make a column of near-zeros with one enormous outlier,
+which is itself the useful finding.
 
 ## Earlier session, 2026-08-07 (ninth)
 
@@ -143,9 +164,12 @@ Three findings worth keeping, all of the kind this note exists for:
   the phone. A definite `max-width` is what caps it. `.dayqty select` already
   carried both halves; copying only one of them cost an extra round.
 
-**The header rows were not sticky vertically at the time of this session**, and
-it did not break them. They stick again as of the tenth session below, which
-records why the fix is a `max-height` rather than something cleverer.
+**The header rows are not sticky vertically**, and this session did not break
+it. `.tablewrap` has no vertical overflow since the box grows to its rows and
+the page scrolls instead, so `top:0` has nothing to stick within. It is called
+out because the obvious test to write beside the horizontal one asserts
+something that is not true, and a draft of that test did. The tenth session
+below tried twice to fix it and shipped neither.
 
 **Deliberately not done**, so nobody wonders: no card or list view replacing the
 table on narrow screens, no column chooser for phones, no touch gesture
@@ -607,7 +631,7 @@ pushing stays the owner's call.
 - **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 134 browser tests against the result. All passing, and CI
+  3 tool tests and 132 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -756,6 +780,12 @@ dependencies and must keep none.
 
   Worth revisiting once iOS Safari 26 is unremarkable. Supporting both paths at
   once is the option to refuse: it is more code than the one it replaces.
+- **The table's header rows do not stick vertically**, so on a phone, where a
+  screenful is eleven rows, everything below the first screen is unlabelled.
+  Tried twice in the tenth session and shipped neither: see that note for the
+  measurements and for why a `max-height` and a width-matched copy were both
+  rejected. The copy is the more promising of the two if it is picked up again.
+  Do not start by trying `overflow-y:visible`; it computes to `auto`.
 - **Iodine: the data exists, and the finding is worth more than the column.**
   The **USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods**,
   release 4.0 of November 2024, covers 478 foods per 100 g, and it carries **NDB
