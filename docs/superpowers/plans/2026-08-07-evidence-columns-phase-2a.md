@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add the 15 evidence columns the existing 81 reviewed MEXT mappings already reach, in two new column groups, and repair the prose those columns falsify.
+**Goal:** Add the 16 evidence columns the existing 81 reviewed MEXT mappings already reach, in two new column groups, and repair the prose those columns falsify.
 
 **Architecture:** Evidence values live in `src/data/evidence.json`, keyed by food slug, and never enter any food's `v` array. That separation is the invariant the whole feature rests on and no task may weaken it. `tools/evidence.mjs` generates the file from the corpora in `tools/evidence/`; `build.mjs` validates and injects it; `src/app.ts` renders it through `ev()` and `evText()`. This plan reshapes the cell first while only three columns exist, then adds the columns, then repairs the prose.
 
@@ -15,14 +15,14 @@
 - **`build.mjs` has no dependencies and must keep none.**
 - **Array position in `nutrients.json` is the position of the value in each food's `v` and may never be reordered.** Every new column is appended at the end of the array. Display order is `COL_ORDER` in `app.ts`.
 - **An evidence value must never reach a total, a daily-value percentage, an amino acid score or "Short on."** It is not in `v`, `val()` throws on its id, `shown()` returns null before reaching `val()`, and `dayTotals()` builds no row for it. All four locks stay.
-- **Automated name matching is refused.** No task here adds a mapping; all 15 columns use the reviewed pairs already in `tools/evidence/page-map-mext.json`.
+- **Automated name matching is refused.** No task here adds a mapping; all 16 columns use the reviewed pairs already in `tools/evidence/page-map-mext.json`.
 - Run the full suite with `npm test`. It runs `tsc --noEmit`, compiles, builds, then `node test/tools.mjs` and `node test/smoke.mjs`. There is no single-test filter; find your test by its name in the PASS/FAIL list.
 
 ---
 
 ### Task 1: Reshape the evidence cell
 
-Do this first, while only three columns exist and the file holds 243 cells. After Task 4 it holds about 1,200 and the same change costs four times as much to verify.
+Do this first, while only three columns exist and the file holds 243 cells. After Task 4 it holds about 1,280 and the same change costs four times as much to verify.
 
 `unit`, `basis`, `prep` and `match` repeat on every cell. `app.ts` reads none of the first three (verified: no `c.unit`, `c.basis` or `c.prep` anywhere), and reads `match` at exactly one site. `basis` is the constant `"per 100 g"`. `unit` duplicates the column definition in `nutrients.json` and can drift from it. `prep` and `match` are properties of the food's mapping, identical across every cell of one food.
 
@@ -208,7 +208,7 @@ with. prep and match belong to the food's mapping, so they move up one
 level and are stored once.
 
 Done now rather than after phase 2a's columns land, when the same change
-would have to be verified against 1,200 cells instead of 243.
+would have to be verified against 1,280 cells instead of 243.
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 ```
@@ -286,19 +286,19 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 3: Add the two groups and the 15 column definitions
+### Task 3: Add the two groups and the 16 column definitions
 
 After this task every new column renders `no data` in all 131 rows, because `evidence.json` holds no cells for them yet. That is the point: it proves the plumbing, the header, the groups and the absence rendering before any value exists to confuse the picture.
 
 **Files:**
-- Modify: `src/data/nutrients.json` (append 15 entries to the end of `nutrients`)
+- Modify: `src/data/nutrients.json` (append 16 entries to the end of `nutrients`)
 - Modify: `src/data/icons.json` (two new icons)
 - Modify: `src/app.ts:8` (`NutrientGroup`), `src/app.ts:211-218` (`GROUPS`), `src/app.ts:1606` (`DETAIL_TABS`), `src/app.ts:3235` (`GROUP_BLURB`)
 - Test: `test/smoke.mjs`
 
 **Interfaces:**
 - Consumes: `EvidenceFood` and `evFood` from Task 1.
-- Produces: the column ids `mo`, `iodine`, `resstarch`, `starch`, `glucose`, `fructose`, `sucrose`, `maltose`, `sorbitol`, `mannitol`, `organicacids`, `citric`, `malic`, `quinic`, `oxalate`, and the group ids `carbdetail` and `acids`. Task 4 writes cells keyed by these exact ids.
+- Produces: the column ids `mo`, `iodine`, `cr`, `resstarch`, `starch`, `glucose`, `fructose`, `sucrose`, `maltose`, `sorbitol`, `mannitol`, `organicacids`, `citric`, `malic`, `quinic`, `oxalate`, and the group ids `carbdetail` and `acids`. Task 4 writes cells keyed by these exact ids.
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -323,7 +323,7 @@ await test("the new columns exist, in their groups, with no daily value", async 
   await withPage(async page => {
     const r = await page.evaluate(() => {
       const want = {
-        mo: "mineral", iodine: "mineral", resstarch: "macro",
+        mo: "mineral", iodine: "mineral", cr: "mineral", resstarch: "macro",
         starch: "carbdetail", glucose: "carbdetail", fructose: "carbdetail",
         sucrose: "carbdetail", maltose: "carbdetail", sorbitol: "carbdetail",
         mannitol: "carbdetail", organicacids: "acids", citric: "acids",
@@ -343,7 +343,7 @@ await test("the new columns exist, in their groups, with no daily value", async 
                want: DATA.nutrients.filter(n => !n.evidence).length };
     });
     eq(r.bad.length, 0, r.bad.join("; "));
-    // The invariant, restated where it is cheapest to break: 15 new columns and
+    // The invariant, restated where it is cheapest to break: 16 new columns and
     // not one new position in any food's value array.
     eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
     eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
@@ -351,7 +351,7 @@ await test("the new columns exist, in their groups, with no daily value", async 
 });
 ```
 
-Replace the `eq(r.ev.length, 3, "three evidence columns")` assertion in the existing test "an evidence value reaches no total, no percentage and no score" with `eq(r.ev.length, 18, "eighteen evidence columns")`.
+Replace the `eq(r.ev.length, 3, "three evidence columns")` assertion in the existing test "an evidence value reaches no total, no percentage and no score" with `eq(r.ev.length, 19, "nineteen evidence columns")`.
 
 - [ ] **Step 2: Run to verify they fail**
 
@@ -401,17 +401,19 @@ In `src/data/icons.json`, add `carb` and `acid` matching the shape of the existi
   "acid": "<svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 3h4\"/><path d=\"M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3\"/><path d=\"M7.5 15h9\"/></svg>"
 ```
 
-- [ ] **Step 5: Append the 15 column definitions**
+- [ ] **Step 5: Append the 16 column definitions**
 
 Append these to the **end** of the `nutrients` array in `src/data/nutrients.json`, in this order, after the existing `biotin` entry. Order matters twice: array position must stay at the end so no `v` index moves, and file order within a group is display order, which is why the seven carbohydrate columns are listed in the order a reader should meet them.
 
-`mo` and `iodine` need no `after`: they are appended last, so a stable sort by group already places them at the end of the minerals. `resstarch` does need one, because without it the sort leaves it after `water` rather than beside the other two fibre fractions.
+`mo`, `iodine` and `cr` need no `after`: they are appended last, so a stable sort by group already places them at the end of the minerals. `resstarch` does need one, because without it the sort leaves it after `water` rather than beside the other two fibre fractions.
 
 ```json
 { "id": "mo", "label": "Molybdenum", "group": "mineral", "unit": "µg", "dv": null, "dp": 0, "evidence": true,
   "why": "A trace element that a handful of enzymes use to break down sulphites and purines. The requirement is tiny, deficiency is effectively unknown outside rare genetic disorders, and legumes and grains carry it in quantity." },
 { "id": "iodine", "label": "Iodine", "group": "mineral", "unit": "µg", "dv": null, "dp": 0, "evidence": true,
   "why": "Needed to make thyroid hormones, and the widest-spanning figure on this page: seaweed carries thousands of times what any other plant food does, while most were assayed and found to contain none at all. These are Japanese figures, and iodine tracks the soil and the irrigation water as much as the food, so they do not transfer between countries." },
+{ "id": "cr", "label": "Chromium", "group": "mineral", "unit": "µg", "dv": null, "dp": 0, "evidence": true,
+  "why": "A trace element once believed essential to the way insulin works. The evidence weakened rather than strengthened, and European authorities no longer set an intake for it. These are Japanese figures; older Western ones run ten to fifty times higher, which is contamination from stainless steel during sampling rather than a richer soil." },
 { "id": "resstarch", "label": "Resistant starch", "group": "macro", "unit": "g", "dv": null, "dp": 1, "evidence": true, "after": "insolfibre",
   "why": "Starch that survives the small intestine and ferments in the colon, behaving like fibre rather than like carbohydrate. Cooking a starchy food and then cooling it raises the figure, which no composition table can capture." },
 { "id": "starch", "label": "Starch", "group": "carbdetail", "unit": "g", "dv": null, "dp": 1, "evidence": true,
@@ -449,7 +451,7 @@ Expected: PASS on both new tests and on the amended 18-column assertion. The two
 
 ```bash
 git add src/app.ts src/data/nutrients.json src/data/icons.json test/smoke.mjs
-git commit -m "Add two column groups and the fifteen columns that fill them
+git commit -m "Add two column groups and the sixteen columns that fill them
 
 Carbohydrate detail and Organic acids, because seven sugars and five
 acids do not belong in a group about calories and protein. Molybdenum
@@ -473,11 +475,12 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 **Files:**
 - Modify: `tools/evidence.mjs`
+- Modify: `src/styles.css:413` and `src/styles.css:417` (the two competing `::after` rules)
 - Test: `test/smoke.mjs`
 
 **Interfaces:**
 - Consumes: the column ids from Task 3 and the `{ prep, match, cells }` shape from Task 1.
-- Produces: `src/data/evidence.json` with about 1,200 cells over 81 foods.
+- Produces: `src/data/evidence.json` with about 1,280 cells over 81 foods.
 
 **A finding this task must act on.** The MEXT extractor never parsed a value out of a parenthesised figure. Every `estimated` cell in all four corpora carries `value: null` while its `raw` holds a real number, `"(40.1)"` for example. MEXT's parentheses mean the figure was calculated rather than assayed, which is exactly what `state: "estimated"` is for. Phase 1's `derivation: "estimated"` branch has therefore been dead code since it shipped, and the handover records the consequence: no `estimated` cell exists anywhere, so that state is modelled and rendered but never exercised. Parsing the parentheses in the generator recovers 105 cells across the new columns and exercises the sixth state for the first time. The corpora are committed extraction output and the MEXT extractor is not in this repository, so the parsing belongs here rather than in the data.
 
@@ -504,12 +507,12 @@ await test("a calculated figure is shown as one, not as a measurement", async ()
   });
 });
 
-await test("the fifteen new columns carry the evidence they should", async () => {
+await test("the sixteen new columns carry the evidence they should", async () => {
   await withPage(async page => {
     const r = await page.evaluate(() => {
-      const ids = ["mo", "iodine", "resstarch", "starch", "glucose", "fructose", "sucrose",
-                   "maltose", "sorbitol", "mannitol", "organicacids", "citric", "malic",
-                   "quinic", "oxalate"];
+      const ids = ["mo", "iodine", "cr", "resstarch", "starch", "glucose", "fructose",
+                   "sucrose", "maltose", "sorbitol", "mannitol", "organicacids", "citric",
+                   "malic", "quinic", "oxalate"];
       const out = {};
       for (const id of ids) out[id] = 0;
       for (const f of Object.values(EV))
@@ -522,9 +525,27 @@ await test("the fifteen new columns carry the evidence they should", async () =>
     // The two best-covered, as a check that the join actually joined.
     assert(r.mo >= 79, `molybdenum reached ${r.mo} foods, expected at least 79`);
     assert(r.iodine >= 79, `iodine reached ${r.iodine} foods, expected at least 79`);
+    assert(r.cr >= 79, `chromium reached ${r.cr} foods, expected at least 79`);
     // The organic acid corpus carries only 33 of the 81 mapped foods at all, so
     // this column is capped by the source rather than by the mapping.
     assert(r.organicacids <= 33, `organic acids reached ${r.organicacids}, expected at most 33`);
+  });
+});
+
+await test("a figure that is both calculated and a proxy shows both marks", async () => {
+  /* An element has one ::after. The estimated rule sets " calc" and the proxy
+     rule sets " ~", the proxy rule is declared later, so it won and the calc
+     marker silently vanished on exactly the least certain cells on the page:
+     a figure never assayed, for a food that is only a proxy for the one named.
+     Latent since phase 1 and invisible until an estimated cell existed. */
+  await withPage(async page => {
+    const marks = await page.$$eval('#tbody td[data-ev="estimated"][data-match="proxy"]',
+      tds => tds.map(t => getComputedStyle(t, "::after").content));
+    assert(marks.length > 0, "no cell is both calculated and a proxy match");
+    const lost = marks.filter(m => !m.includes("calc"));
+    eq(lost.length, 0, `cells that dropped the calc marker: ${lost.length} of ${marks.length}`);
+    const noProxy = marks.filter(m => !m.includes("~"));
+    eq(noProxy.length, 0, `cells that dropped the proxy marker: ${noProxy.length} of ${marks.length}`);
   });
 });
 
@@ -543,7 +564,7 @@ await test("iodine says what it was measured to say", async () => {
 - [ ] **Step 2: Run to verify they fail**
 
 Run: `npm test`
-Expected: FAIL on all three. `EV` holds no cells for any of the 15 ids, so `columns with no cell at all` lists all fifteen.
+Expected: FAIL on all three. `EV` holds no cells for any of the 16 ids, so `columns with no cell at all` lists all sixteen.
 
 - [ ] **Step 3: Rewrite the generator's component handling**
 
@@ -571,6 +592,7 @@ const COMPONENTS = [
   { id: "resstarch",    corpus: "fibre",  field: "resistant_starch" },
   { id: "mo",           corpus: "plant",  field: "mo" },
   { id: "iodine",       corpus: "plant",  field: "iodine" },
+  { id: "cr",           corpus: "plant",  field: "cr" },
   { id: "starch",       corpus: "sugars", field: "starch" },
   { id: "glucose",      corpus: "sugars", field: "glucose" },
   { id: "fructose",     corpus: "sugars", field: "fructose" },
@@ -623,21 +645,39 @@ Replace the fibre pair inside the `for (const p of map)` loop with the component
 
 Rename the `cells` counter variable already in the file to `cellCount` so it does not collide with the per-food `cells` object, and update the closing `console.log` to match.
 
-- [ ] **Step 4: Run the generator and read its output**
+- [ ] **Step 4: Fix the marker collision**
+
+In `src/styles.css`, delete the two competing rules at lines 413 and 417 and replace them with one that composes the marker from both attributes. Fixing the cause rather than the declaration order also means a third mark added later cannot silently swallow a second one.
+
+```css
+/* One ::after per element, so the marks compose here rather than competing.
+   Two separate rules meant the later one won outright, and the cells that
+   carry both are the least certain figures on the page: a value never
+   assayed, for a food that is only a proxy for the one named. */
+tbody td[data-ev=estimated]::after,
+tbody td[data-match=proxy]::after{font-size:.75em; color:var(--muted)}
+tbody td[data-ev=estimated]:not([data-match=proxy])::after{content:" calc"}
+tbody td[data-match=proxy]:not([data-ev=estimated])::after{content:" ~"}
+tbody td[data-ev=estimated][data-match=proxy]::after{content:" calc ~"}
+```
+
+The proxy marker keeps its own colour and loses nothing: it was previously `color:var(--muted)` with no size change, and inheriting `.75em` alongside the calc marker is the intended appearance for both.
+
+- [ ] **Step 5: Run the generator and read its output**
 
 Run: `node tools/evidence.mjs`
-Expected: roughly `81 foods, 1197 cells, ...`, up from 243. If the cell count is near 1,092 rather than 1,197, the parenthesised figures are still being dropped and `figureOf` is not being reached.
+Expected: roughly `81 foods, 1278 cells, ...`, up from 243. If the cell count is near 1,173 rather than 1,278, the parenthesised figures are still being dropped and `figureOf` is not being reached.
 
-- [ ] **Step 5: Run the tests**
+- [ ] **Step 6: Run the tests**
 
 Run: `npm test`
-Expected: PASS throughout, including the three new tests. The existing invariant test must still pass unchanged: 15 more columns and still no evidence id in any day total, no daily value on any of them, and `val()` still throwing on an evidence id.
+Expected: PASS throughout, including the four new tests. The existing invariant test must still pass unchanged: 16 more columns and still no evidence id in any day total, no daily value on any of them, and `val()` still throwing on an evidence id.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
-git add tools/evidence.mjs src/data/evidence.json test/smoke.mjs
-git commit -m "Fill the fifteen columns from Japan's tables
+git add tools/evidence.mjs src/data/evidence.json src/styles.css test/smoke.mjs
+git commit -m "Fill the sixteen columns from Japan's tables
 
 The uniform components become a declaration and one loop, since all four
 Japanese corpora key on the same food code. Biotin stays hand-written:
@@ -649,6 +689,13 @@ calculated figure in parentheses and the extractor kept the string
 without parsing it, so every estimated cell arrived with a null value
 and was skipped. That is why the sixth state had never once been
 exercised by real data.
+
+Which in turn exposed a marker collision latent since phase 1. An
+element has one ::after, the estimated and proxy rules each set one, and
+the proxy rule was declared later, so it won and the calc marker
+disappeared on the 24 cells that are both. Those are the least certain
+figures on the page: a value never assayed, for a food that is only a
+proxy for the one named. The marks compose now rather than compete.
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 ```
@@ -718,19 +765,21 @@ In `build.mjs`, lift the gaps block out of `validate` into an exported function 
 In `src/data/gaps.json`, replace the `why` of `fibrefractions` and add its `absent` array:
 
 ```json
-"absent": ["betaglucan", "pectin", "inulin", "oligosaccharides"],
-"why": "Soluble fibre, insoluble fibre and resistant starch each have a column here now, taken from Japan's tables because USDA measures all three and publishes none of them for any of these foods. The rest of the family is still missing. Inulin and the oligosaccharides need a database this page does not yet join to, and beta-glucan and pectin are carried by none of the eight sources gathered for this work, so neither can be shown at all."
+"absent": ["betaglucan", "pectin", "inulin", "oligosaccharides", "inositol"],
+"why": "Soluble fibre, insoluble fibre and resistant starch each have a column here now, taken from Japan's tables because USDA measures all three and publishes none of them for any of these foods. The rest of the family is still missing. Inulin and the oligosaccharides need a database this page does not yet join to. Beta-glucan, pectin and free inositol are carried by none of the eight sources gathered for this work, so none of the three can be shown at all. Most of the inositol in a plant food is bound up as phytate rather than free, which is a different figure and one this page may yet reach."
 ```
 
 And for `traces`:
 
 ```json
-"absent": ["chromium", "boron", "taurine"],
-"label": "Chromium, boron and taurine",
-"why": "Biotin and molybdenum have columns here now, taken from Japan's tables rather than from USDA, which publishes neither for any of these foods. The other three are still absent. Chromium was gathered and set aside, because the two modern quality-controlled sources agree with each other and sit ten to fifty times below the older compilations, which is the signature of contaminated samples rather than of real variation. Boron needs a database this page does not yet join to. Taurine was assayed across 48 plant foods and detected in none, so a column would be one finding repeated 131 times."
+"absent": ["boron", "taurine"],
+"label": "Boron and taurine",
+"why": "Biotin, molybdenum and chromium have columns here now, taken from Japan's tables rather than from USDA, which publishes none of the three for any of these foods. Two of the original five are still absent. Boron is measured by a Danish database this page does not yet join to. Taurine was assayed across 48 plant foods and detected in none, so a column would be one finding repeated 131 times, and the exception worth stating in words is red algae: nori and kelp are not zero."
 ```
 
-The `traces` label changes because it named five things and two of them are now columns.
+The `traces` label changes because it named five things and three of them are columns now.
+
+**A limitation to record rather than solve.** An id in `absent` is checked against the columns that exist, so a typo like `"betaglukan"` names nothing, matches nothing, and passes forever. Guarding that would need a vocabulary of every component this project has considered, which is more machinery than the risk deserves. Note it in `README.md` when Task 7 documents the field.
 
 - [ ] **Step 5: Run the tests**
 
@@ -870,7 +919,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 - [ ] **Step 1: Update `README.md`**
 
-Extend "Evidence columns" with: the 15 new columns and their group placement; that all 15 are single-source and therefore never a range until phase 2b; the cell shape and why `unit`, `basis`, `prep` and `match` left it; the parenthesised-figure finding and the 105 cells it recovered; the `absent` field and what it is for. Correct the iodine line near 1369, which says reliable per-food values are scarce, to say the column exists and what it rests on. Check any sentence counting groups or columns, since both numbers changed.
+Extend "Evidence columns" with: the 16 new columns and their group placement; that all 16 are single-source and therefore never a range until phase 2b; the cell shape and why `unit`, `basis`, `prep` and `match` left it; the parenthesised-figure finding and the 105 cells it recovered; the marker collision and why the marks compose rather than compete; the `absent` field, what it is for, and that a typo in it names nothing and passes. Correct the iodine line near 1369, which says reliable per-food values are scarce, to say the column exists and what it rests on. Record that chromium is unparked from MEXT only, and that AFCD's chromium and Thor 2011 stay rejected. Check any sentence counting groups or columns, since both numbers changed.
 
 - [ ] **Step 2: Update `tools/evidence/README.md`**
 
@@ -878,7 +927,15 @@ Its second paragraph says "Nothing in this directory is on the page. No column h
 
 - [ ] **Step 3: Add the handover section**
 
-At the top of `HANDOVER.md`, under a new heading for this session, record: that phase 2a shipped 15 columns and two groups; that beta-glucan and free inositol have no source anywhere, measured rather than assumed; that 16 components remain and are blocked on reviewed mappings for AFCD, IFCT, CoFID and Frida, which is phase 2b; the parenthesised-figure bug and the lesson, that a state modelled but never exercised is a state nobody has tested; and that the two gap entries went false the day phase 1 shipped, which is why the `absent` check exists.
+At the top of `HANDOVER.md`, under a new heading for this session, record:
+
+- Phase 2a shipped 16 columns and two groups, taking the table to 89 columns.
+- Beta-glucan and free inositol have no source anywhere, measured rather than assumed, so they join pectin. Inositol phosphate is phytate and is due in phase 2b.
+- 16 components remain, blocked on reviewed mappings for AFCD, IFCT, CoFID and Frida. That is phase 2b, and the mapping is the slow part rather than the columns.
+- **The parenthesised-figure bug, and its lesson: a state that is modelled and rendered but never exercised is a state nobody has tested.** The `estimated` branch was dead code for a whole phase and the marker for it had never once been drawn.
+- **The marker collision, and its lesson: two `::after` rules on one element is one rule.** It was invisible until the first estimated cell met the first proxy food.
+- **The chromium note, and the sharpest lesson here: a note recording what was rejected must name the source it rejected, not the nutrient.** "Chromium is parked" nearly skipped a column with better coverage than most of phase 2a, because the rejection was of AFCD's chromium and the 1980s literature and the note did not say so.
+- The two gap entries went false the day phase 1 shipped, which is why the `absent` check exists, and that a typo in an `absent` list still names nothing and passes.
 
 - [ ] **Step 4: Verify and commit**
 
@@ -896,12 +953,12 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ## Self-review
 
-**Spec coverage.** Every section of the design has a task. The 15 columns and their units, groups and precision (Task 3, with the values written out rather than described). The two new groups and all four hand edits the design lists, including the `DETAIL_TABS` trap (Task 3). The declarative generator with biotin left hand-written (Task 4). The cell losing four fields (Task 1). The `absent` check and the two stale entries (Task 5). The iodine prose and the other three sites (Task 6). All three new tests: the header guard (Task 2), the detail-tab test (Task 3), and the dropped list, which is the `absent` array in Task 5 carrying beta-glucan and pectin. The parts-fit-the-whole check is deliberately absent and no task adds one.
+**Spec coverage.** Every section of the design has a task. The 16 columns and their units, groups and precision, chromium included (Task 3, with the values written out rather than described). The two new groups and all four hand edits the design lists, including the `DETAIL_TABS` trap (Task 3). The declarative generator with biotin left hand-written, and the parenthesised-figure recovery (Task 4). The marker collision (Task 4). The cell losing four fields (Task 1). The `absent` check and the two stale entries (Task 5). The iodine prose and the other three sites (Task 6). All the new tests: the header guard (Task 2), the detail-tab test (Task 3), the estimated-state and double-marker tests (Task 4), and the dropped list, which is the `absent` array in Task 5 carrying beta-glucan, pectin and free inositol. The parts-fit-the-whole check is deliberately absent and no task adds one, and neither trehalose nor galactose gets a column.
 
 **Two items from the design are deliberately not tasks.** The free-inositol entry belongs in the same `absent` arrays Task 5 writes, and is folded into `fibrefractions` rather than given a task of its own. The note that MEXT reports oxalate in grams while IFCT reports it in milligrams is a phase 2b concern and is recorded in the design and the handover rather than implemented here.
 
 **Placeholder scan.** No TBD, no "add error handling", no "similar to Task N". Every code step carries the code. Two steps name a judgement rather than a literal: Task 3's icon paths may be redrawn if they read badly at 17 px, and Task 7's prose is described by what it must say rather than written out, because it is documentation rather than code. Task 6's dialog ids and Task 5's fixture sources are flagged inline as things to check against the file rather than assume.
 
-**Type consistency.** `EvidenceFood` and `evFood` are defined in Task 1 and used in Tasks 1 and 3. `checkEvidence` keeps its four-argument signature throughout. `checkGaps` is introduced in Task 5 with the signature its test uses, `(gaps, nutrients) => string[]`. The 15 column ids are written identically in Tasks 3 and 4, and `COMPONENTS` in Task 4 uses the same ids as `nutrients.json` in Task 3. `figureOf` and `bracketed` are defined once, in Task 4, and used only there.
+**Type consistency.** `EvidenceFood` and `evFood` are defined in Task 1 and used in Tasks 1 and 3. `checkEvidence` keeps its four-argument signature throughout. `checkGaps` is introduced in Task 5 with the signature its test uses, `(gaps, nutrients) => string[]`. The 16 column ids are written identically in Tasks 3 and 4, and `COMPONENTS` in Task 4 uses the same ids as `nutrients.json` in Task 3. `figureOf` and `bracketed` are defined once, in Task 4, and used only there.
 
-**Ordering.** Task 1 before Task 4, so the cell reshape is verified against 243 cells rather than 1,197. Task 2 before Task 3, so the header guard exists before the change that could break it. Task 3 before Task 4, so the columns render `no data` once before they render values. Tasks 5 and 6 after Task 3, because both depend on columns existing.
+**Ordering.** Task 1 before Task 4, so the cell reshape is verified against 243 cells rather than 1,280. Task 2 before Task 3, so the header guard exists before the change that could break it. Task 3 before Task 4, so the columns render `no data` once before they render values. Tasks 5 and 6 after Task 3, because both depend on columns existing.
