@@ -1993,29 +1993,41 @@ function csvTable() {
   say(`Exported ${r.length} foods and ${c.length} nutrients as CSV.`);
 }
 
+/** Today as YYYY-MM-DD, from the local calendar. `toISOString()` is UTC, which
+ *  files an evening export west of Greenwich under tomorrow's date. */
+function today() {
+  const d = new Date(), p = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
 /** One row per food with its quantity, then the totals, then the percentages,
  *  then the coverage, so a partial sum stays labelled as one outside the page
  *  as well as on it. */
 function csvDay() {
   const c = cols(), totals = dayTotals(), list = dayContributors(), q = csvQuote;
   const at = (id: string) => totalOf(totals, id);
-  const head = ["Food", "State", "Grams", ...c.map(n => `${n.label} (${n.unit})`)];
+  // Read once rather than per row, so an export running over midnight cannot
+  // file half a day under one date and half under the next. Every row carries
+  // it, including the summary rows, so several days concatenate into one sheet
+  // that can still be grouped by day.
+  const date = q(today());
+  const head = ["Date", "Food", "State", "Grams", ...c.map(n => `${n.label} (${n.unit})`)];
   const lines = [head.map(q).join(",")];
 
   for (const { f, g } of list)
-    lines.push([q(f.name), q(f.state || ""), g, ...c.map(n => {
+    lines.push([date, q(f.name), q(f.state || ""), g, ...c.map(n => {
       const v = val(f, n.id);
       return v === null ? "" : +(v * g / 100).toFixed(6);
     })].join(","));
 
-  lines.push([q("Total"), q(""), dayGrams(),
+  lines.push([date, q("Total"), q(""), dayGrams(),
     ...c.map(n => { const v = at(n.id).total; return v === null ? "" : +v.toFixed(6); })].join(","));
-  lines.push([q("% of daily value"), q(""), "",
+  lines.push([date, q("% of daily value"), q(""), "",
     ...c.map(n => {
       const v = at(n.id).total;
       return n.dv && v !== null ? Math.round(v / n.dv * 100) : "";
     })].join(","));
-  lines.push([q("Foods measured"), q(""), "",
+  lines.push([date, q("Foods measured"), q(""), "",
     ...c.map(n => `${at(n.id).from} of ${at(n.id).of}`).map(q)].join(","));
 
   download(lines, "my-day.csv");
@@ -2212,6 +2224,9 @@ const DLG = {
     columns, sort order and light or dark mode are kept in this browser between visits. Nothing is
     sent anywhere. It is stored on your own machine, so it will not follow you to another device,
     and clearing site data will clear it.</p>
+    <p>Nothing here sets an expiry date, so it is kept until something clears it. Safari is the
+    exception worth knowing about: it deletes stored data for a site you have not used in seven
+    days, which is a rule of the browser rather than of this page.</p>
     <h4>Keyboard</h4>
     <p>Everything is reachable by tab. The table region itself is focusable, so you can scroll it
     sideways with the arrow keys. The detail panel tabs move with left and right arrows.</p>`],

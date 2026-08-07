@@ -1914,13 +1914,22 @@ await test("the day view exports the day rather than the table", async () => {
     const text = await (await download.createReadStream()).toArray()
       .then(cs => Buffer.concat(cs).toString("utf8"));
     const lines = text.replace(/^﻿/, "").trim().split("\r\n");
-    assert(/^"Food","State","Grams"/.test(lines[0]), `header: ${lines[0]}`);
-    assert(lines[1].startsWith('"Lentils","cooked",200'), lines[1]);
-    assert(lines.some(l => l.startsWith('"Total"')), "a totals row");
-    assert(lines.some(l => l.startsWith('"% of daily value"')), "a percentage row");
+    assert(/^"Date","Food","State","Grams"/.test(lines[0]), `header: ${lines[0]}`);
+    // Every row carries the date, summary rows included, so several days
+    // concatenate into one sheet that can still be grouped by day. Local
+    // calendar date, not UTC: an evening export must not file itself under
+    // tomorrow.
+    const d = new Date();
+    const want = `"${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-` +
+      `${String(d.getDate()).padStart(2, "0")}"`;
+    for (const l of lines.slice(1))
+      assert(l.startsWith(want + ","), `row not dated ${want}: ${l.slice(0, 60)}`);
+    assert(lines[1].startsWith(`${want},"Lentils","cooked",200`), lines[1]);
+    assert(lines.some(l => l.includes('"Total"')), "a totals row");
+    assert(lines.some(l => l.includes('"% of daily value"')), "a percentage row");
     // The coverage travels with the numbers, so a partial sum stays labelled as
     // one outside the page as well as on it.
-    assert(lines.some(l => l.startsWith('"Foods measured"')), "a coverage row");
+    assert(lines.some(l => l.includes('"Foods measured"')), "a coverage row");
   });
 });
 
