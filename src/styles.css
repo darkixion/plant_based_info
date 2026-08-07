@@ -30,12 +30,12 @@
   --box-shadow-colour:lightgray;
   /* per-group column washes, sequenced so no two adjacent groups share a hue */
   --t-macro:#F3F8EF; --t-fats:#FCF4EC; --t-amino:#EDF5F7; --t-vitamin:#FBF6E8; --t-mineral:#F4F1FA;
-  --t-plant:#EBF7F1;
+  --t-carbdetail:#F8F1F8; --t-acids:#F8F1F2; --t-plant:#EBF7F1;
   /* ...and the ink that goes with each wash. One definition, used by the group
      label in the table header and by the heading on the matching totals card,
      so a group reads as the same colour wherever it appears. */
   --g-macro:#3F7A1E; --g-fats:#A8623C; --g-amino:#2F7D8C; --g-vitamin:#8A6B12;
-  --g-mineral:#7A5AA8; --g-plant:#2F8C63;
+  --g-mineral:#7A5AA8; --g-carbdetail:#8A2E8A; --g-acids:#913041; --g-plant:#2F8C63;
   /* lens highlight, deliberately off-palette so it never reads as a group tint */
   --lens-bg:#FDEEF3; --lens-line:#C2477E; --lens-ink:#8E2F5B;
 }
@@ -48,13 +48,13 @@
   --box-shadow-colour:rgba(0,0,0,.62);
   --warn:#F0A16A; --amber:#E5BE55;
   --t-macro:#141C14; --t-fats:#1F1712; --t-amino:#101D20; --t-vitamin:#1D1910; --t-mineral:#181426;
-  --t-plant:#0E1F19;
+  --t-carbdetail:#261226; --t-acids:#261216; --t-plant:#0E1F19;
   /* Lightened for the dark theme. Only macronutrients ever adapted, because it
      alone was written as a themed variable; the other five were fixed hex and
      sat at poor contrast on a near-black panel, vitamins worst of all at a dark
      gold. They carry more weight now that the totals cards use them too. */
   --g-macro:#9BD668; --g-fats:#E8A075; --g-amino:#7FC8D8; --g-vitamin:#E0C25C;
-  --g-mineral:#B79CE0; --g-plant:#6FD1A2;
+  --g-mineral:#B79CE0; --g-carbdetail:#D47DD4; --g-acids:#D68592; --g-plant:#6FD1A2;
   --lens-bg:#2E1520; --lens-line:#E081AE; --lens-ink:#F2AFCC;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -370,7 +370,8 @@ th.grp{text-align:left; border-left:1px solid var(--line); padding:9px 12px;
 .grplabel{display:inline-block; position:sticky; left:calc(var(--foodw,210px) + 13px)}
 th.grp[data-g=macro]{color:var(--g-macro)} th.grp[data-g=fats]{color:var(--g-fats)}
 th.grp[data-g=amino]{color:var(--g-amino)} th.grp[data-g=vitamin]{color:var(--g-vitamin)}
-th.grp[data-g=mineral]{color:var(--g-mineral)} th.grp[data-g=plant]{color:var(--g-plant)}
+th.grp[data-g=mineral]{color:var(--g-mineral)} th.grp[data-g=carbdetail]{color:var(--g-carbdetail)}
+th.grp[data-g=acids]{color:var(--g-acids)} th.grp[data-g=plant]{color:var(--g-plant)}
 /* ---- per-group column washes ----
    Specificity is deliberate: these sit at (0,1,2) so the row hover and
    selected rules at (0,1,3) below still win and row-tracking survives. */
@@ -379,6 +380,8 @@ thead th[data-g=fats],   tbody td[data-g=fats]   {background:var(--t-fats)}
 thead th[data-g=amino],  tbody td[data-g=amino]  {background:var(--t-amino)}
 thead th[data-g=vitamin],tbody td[data-g=vitamin]{background:var(--t-vitamin)}
 thead th[data-g=mineral],tbody td[data-g=mineral]{background:var(--t-mineral)}
+thead th[data-g=carbdetail],tbody td[data-g=carbdetail]{background:var(--t-carbdetail)}
+thead th[data-g=acids],  tbody td[data-g=acids]  {background:var(--t-acids)}
 thead th[data-g=plant],  tbody td[data-g=plant]  {background:var(--t-plant)}
 /* a hairline where one group ends and the next begins */
 th.gstart,td.gstart{border-left:1px solid var(--line)}
@@ -630,6 +633,8 @@ dl{margin:0}
 .totgroup[data-g=amino] h4{color:var(--g-amino)}
 .totgroup[data-g=vitamin] h4{color:var(--g-vitamin)}
 .totgroup[data-g=mineral] h4{color:var(--g-mineral)}
+.totgroup[data-g=carbdetail] h4{color:var(--g-carbdetail)}
+.totgroup[data-g=acids] h4{color:var(--g-acids)}
 .totgroup[data-g=plant] h4{color:var(--g-plant)}
 .totrow,.tothead{display:grid; grid-template-columns:minmax(120px,1.5fr) 110px minmax(60px,1fr) 66px 84px;
   gap:12px; align-items:center; padding:7px 0; font-size:13.5px;

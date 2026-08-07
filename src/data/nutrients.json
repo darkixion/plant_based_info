@@ -662,6 +662,167 @@
    "evidence": true,
    "why": "A B vitamin used in fat and glucose metabolism, made partly by gut bacteria. Sources disagree about it more than about any other figure here, so several foods show a range rather than a number.",
    "after": "b6"
+  },
+  {
+   "id": "mo",
+   "label": "Molybdenum",
+   "group": "mineral",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "evidence": true,
+   "why": "A trace element that a handful of enzymes use to break down sulphites and purines. The requirement is tiny, deficiency is effectively unknown outside rare genetic disorders, and legumes and grains carry it in quantity."
+  },
+  {
+   "id": "iodine",
+   "label": "Iodine",
+   "group": "mineral",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "evidence": true,
+   "why": "Needed to make thyroid hormones, and the widest-spanning figure on this page: seaweed carries thousands of times what any other plant food does, while most were assayed and found to contain none at all. These are Japanese figures, and iodine tracks the soil and the irrigation water as much as the food, so they do not transfer between countries."
+  },
+  {
+   "id": "cr",
+   "label": "Chromium",
+   "group": "mineral",
+   "unit": "µg",
+   "dv": null,
+   "dp": 0,
+   "evidence": true,
+   "why": "A trace element once believed essential to the way insulin works. The evidence weakened rather than strengthened, and European authorities no longer set an intake for it. These are Japanese figures; older Western ones run ten to fifty times higher, which is contamination from stainless steel during sampling rather than a richer soil."
+  },
+  {
+   "id": "resstarch",
+   "label": "Resistant starch",
+   "group": "macro",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "Starch that survives the small intestine and ferments in the colon, behaving like fibre rather than like carbohydrate. Cooking a starchy food and then cooling it raises the figure, which no composition table can capture.",
+   "after": "insolfibre"
+  },
+  {
+   "id": "starch",
+   "label": "Starch",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The bulk of the carbohydrate in grains, legumes and tubers, as distinct from the sugars beside it. These are Japanese figures and the Carbohydrate column is American, so the parts here will not add up to that total."
+  },
+  {
+   "id": "glucose",
+   "label": "Glucose",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "Free glucose, already in the form the blood carries, as distinct from the far larger amount locked up in starch and sucrose."
+  },
+  {
+   "id": "fructose",
+   "label": "Fructose",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The sweetest of the common sugars and the one fruit holds most of. It is absorbed more slowly than glucose and handled almost entirely by the liver."
+  },
+  {
+   "id": "sucrose",
+   "label": "Sucrose",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "Table sugar: one glucose and one fructose bonded together. In these foods it is what the plant stored rather than anything added, and root vegetables and fruit carry the most."
+  },
+  {
+   "id": "maltose",
+   "label": "Maltose",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "Two glucose units bonded together, formed when starch is broken down by sprouting, malting or cooking. Most whole plant foods were assayed and found to contain none, which is what this column mostly shows."
+  },
+  {
+   "id": "sorbitol",
+   "label": "Sorbitol",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "A sugar alcohol found in stone fruit and some berries. It is absorbed slowly and incompletely, which is why a large amount of it loosens the bowels."
+  },
+  {
+   "id": "mannitol",
+   "label": "Mannitol",
+   "group": "carbdetail",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "A sugar alcohol, poorly absorbed, so it yields less energy than its weight suggests. Only a few foods here carry a measured figure for it."
+  },
+  {
+   "id": "organicacids",
+   "label": "Organic acids, total",
+   "group": "acids",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The acids that make fruit and fermented foods taste sharp, added together. They carry a little energy and a great deal of flavour, and the columns beside this one are the largest of them."
+  },
+  {
+   "id": "citric",
+   "label": "Citric acid",
+   "group": "acids",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The dominant acid of citrus fruit and a minor one almost everywhere else. It is what makes a lemon sharp rather than what makes it nourishing."
+  },
+  {
+   "id": "malic",
+   "label": "Malic acid",
+   "group": "acids",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The acid of apples and stone fruit, and named for them. It tastes sharper than citric acid at the same concentration."
+  },
+  {
+   "id": "quinic",
+   "label": "Quinic acid",
+   "group": "acids",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "An acid of cranberries, coffee and some stone fruit, and the building block a plant starts from when it makes its polyphenols."
+  },
+  {
+   "id": "oxalate",
+   "label": "Oxalate, total",
+   "group": "acids",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The compound that binds calcium into a form the gut cannot take up, which is why spinach delivers far less calcium than its figure suggests. This is a total, and only the soluble part binds; separating the two needs a source this page does not yet carry."
   }
  ],
  "notes": [

@@ -3261,6 +3261,72 @@ await test("a disagreeing figure shows a range rather than a single number", asy
   });
 });
 
+await test("every group holding evidence columns has a detail tab", async () => {
+  /* DETAIL_TABS is a hand-written literal whose comment claimed it was derived
+     from GROUPS. It was not, so a new group could be added to the table and
+     left out of the detail panel silently. This makes the comment true.
+     The brief this test was written from called openDetail(0) and read
+     [role="tab"], .dtab; neither exists in this codebase. The detail panel is
+     #detail, kept current by render(), and its tabs are the [role="tab"]
+     buttons inside it, so this asserts the same fact against real markup.
+     macro is the one deliberate exception: its evidence columns (soluble and
+     insoluble fibre, resistant starch) are shown in the overview tab, beside
+     the totals they divide, rather than in a tab of their own. That is what
+     the comment above DETAIL_TABS in app.ts means by "macro and fats are
+     shown in the overview instead". */
+  await withPage(async page => {
+    const missing = await page.evaluate(() => {
+      const need = new Set(DATA.nutrients.filter(n => n.evidence).map(n => n.group));
+      need.delete("macro");
+      S.sel = 0;
+      renderDetail();
+      const tabs = new Set([...document.querySelectorAll('#detail [role="tab"]')]
+        .map(t => t.dataset.tab));
+      return [...need].filter(g => !tabs.has(g));
+    });
+    eq(missing.length, 0, `groups with evidence columns and no detail tab: ${missing.join(", ")}`);
+
+    // The exception above is only honest if macro's evidence columns really
+    // do appear in the overview rather than nowhere at all.
+    const overviewText = await page.evaluate(() => { S.tab = "overview"; renderDetail(); return $("#tabp").innerText; });
+    const macroEv = await page.evaluate(() =>
+      DATA.nutrients.filter(n => n.evidence && n.group === "macro").map(n => n.label));
+    for (const label of macroEv)
+      assert(overviewText.includes(label), `${label} should appear in the overview tab`);
+  });
+});
+
+await test("the new columns exist, in their groups, with no daily value", async () => {
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const want = {
+        mo: "mineral", iodine: "mineral", cr: "mineral", resstarch: "macro",
+        starch: "carbdetail", glucose: "carbdetail", fructose: "carbdetail",
+        sucrose: "carbdetail", maltose: "carbdetail", sorbitol: "carbdetail",
+        mannitol: "carbdetail", organicacids: "acids", citric: "acids",
+        malic: "acids", quinic: "acids", oxalate: "acids",
+      };
+      const by = Object.fromEntries(DATA.nutrients.map(n => [n.id, n]));
+      const bad = [];
+      for (const [id, group] of Object.entries(want)) {
+        const n = by[id];
+        if (!n) { bad.push(`${id} missing`); continue; }
+        if (n.group !== group) bad.push(`${id} in ${n.group}, wanted ${group}`);
+        if (!n.evidence) bad.push(`${id} is not an evidence column`);
+        if (n.dv !== null) bad.push(`${id} has a daily value`);
+        if (!n.why || n.why.length < 40) bad.push(`${id} has no usable why`);
+      }
+      return { bad, vLen: [...new Set(DATA.foods.map(f => f.v.length))],
+               want: DATA.nutrients.filter(n => !n.evidence).length };
+    });
+    eq(r.bad.length, 0, r.bad.join("; "));
+    // The invariant, restated where it is cheapest to break: 16 new columns and
+    // not one new position in any food's value array.
+    eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
+    eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
+  });
+});
+
 await test("an evidence value reaches no total, no percentage and no score", async () => {
   /* The invariant, and it is structural rather than conventional: an evidence
      figure is not in any food's `v`, so there is no array for it to be summed
@@ -3279,7 +3345,7 @@ await test("an evidence value reaches no total, no percentage and no score", asy
         threw: (() => { try { val(FOODS[0], ev[0]); return false; } catch { return true; } })(),
       };
     });
-    eq(r.ev.length, 3, "three evidence columns");
+    eq(r.ev.length, 19, "nineteen evidence columns");
     eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
     eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
     eq(r.inTotals.length, 0, `evidence ids in day totals: ${r.inTotals.join(", ")}`);
@@ -3355,11 +3421,15 @@ await test("a column stored at the end is still shown where it belongs", async (
     const at = id => order.indexOf(id);
     eq(order[at("fiber") + 1], "solfibre", "soluble fibre follows total fibre");
     eq(order[at("solfibre") + 1], "insolfibre", "insoluble fibre follows soluble");
+    eq(order[at("insolfibre") + 1], "resstarch", "resistant starch follows insoluble fibre");
     eq(order[at("b6") + 1], "biotin", "biotin sits after B6");
     eq(order[at("biotin") + 1], "b9", "and before B9");
     // The stored order is untouched, which is what keeps every `v` index valid.
+    // The tail grew when the sixteen columns from evidence-columns phase 2a
+    // were appended after biotin, so the last three are now the last three of
+    // that append rather than the three evidence columns that existed before it.
     const stored = await page.evaluate(() => DATA.nutrients.map(n => n.id).slice(-3));
-    eq(stored.join(" "), "solfibre insolfibre biotin",
+    eq(stored.join(" "), "malic quinic oxalate",
        "the evidence columns stay at the end of the array they are stored in");
   });
 });

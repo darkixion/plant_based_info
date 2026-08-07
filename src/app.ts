@@ -5,7 +5,7 @@
    `notes` is optional because build.mjs and this file both read it as
    `data.notes || []`. The type describes what the code believes, not what
    today's data file happens to contain. */
-type NutrientGroup = "macro" | "fats" | "amino" | "vitamin" | "mineral" | "plant";
+type NutrientGroup = "macro" | "fats" | "amino" | "vitamin" | "mineral" | "carbdetail" | "acids" | "plant";
 type Unit = "kcal" | "g" | "mg" | "µg";
 
 interface Nutrient {
@@ -199,7 +199,7 @@ declare const DATA: Dataset;
 declare const I: Record<
   "leaf" | "compare" | "heart" | "heartFull" | "help" | "book" | "info" | "dl" |
   "moon" | "sun" | "search" | "x" | "pct" | "grid" | "eye" |
-  "macro" | "fats" | "amino" | "vit" | "min" | "up" | "down" | "sortable" |
+  "macro" | "fats" | "amino" | "vit" | "min" | "carb" | "acid" | "up" | "down" | "sortable" |
   "right" | "plant" | "plus" | "minus", string>;
 /* Portion weights, injected by build.mjs from src/data/portions.json the same
    way DATA is. 128 of the 131 foods have at least one; the three that do not
@@ -226,6 +226,8 @@ const GROUPS = [
   { id: "amino",   label: "Amino acids",    icon: I.amino },
   { id: "vitamin", label: "Vitamins",       icon: I.vit   },
   { id: "mineral", label: "Minerals",       icon: I.min   },
+  { id: "carbdetail", label: "Carbohydrate detail", icon: I.carb },
+  { id: "acids",   label: "Organic acids",  icon: I.acid },
   { id: "plant",   label: "Plant compounds", icon: I.plant },
 ] satisfies { id: NutrientGroup; label: string; icon: string }[];
 /* Evidence columns are deliberately absent from IDX, so val() throws on one.
@@ -280,7 +282,7 @@ const foodBySlug = (slug: string): Food | undefined => {
   const i = BY_SLUG.get(slug);
   return i === undefined ? undefined : FOODS[i];
 };
-/* GROUPS lists all six NutrientGroup values today, which is why this cannot
+/* GROUPS lists all eight NutrientGroup values today, which is why this cannot
    miss for a nutrient's own group. The `satisfies` on it does not hold it to
    that: it constrains each id to be a group, not the set to be complete, so
    deleting a row would still type-check and would reach the throw below on the
@@ -1616,9 +1618,12 @@ function renderDetail() {
      toFixed(). */
   const gEv = (id: string) => evText(ev(slugAt(S.sel), id), nut(id).dp);
   const inDay = S.day.find(e => e.slug === slugAt(S.sel));
-  // Overview first, then one tab per group that has its own detail list. Driven
-  // off GROUPS so a new group cannot be added to the table and left out of here.
-  const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "amino", "plant"];
+  // Overview first, then one tab per group that has its own detail list. A
+  // hand-written list rather than GROUPS, because macro and fats are shown in
+  // the overview instead. A test asserts every group holding evidence columns
+  // appears here, since those cells carry sources the panel is the only place
+  // to show.
+  const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "carbdetail", "acids", "amino", "plant"];
   const tabs = [["overview", "Overview", I.macro],
     ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon]),
     ["absorption", "Absorption", I.eye]];
@@ -1632,7 +1637,7 @@ function renderDetail() {
     // The two fibre fractions sit directly under the total they divide, which
     // is the only place they mean anything: 3.2 g of soluble fibre is a
     // statement about the 9.4 g above it.
-    const macro = ["kcal", "protein", "carbs", "fiber", "solfibre", "insolfibre", "fat", "satfat"];
+    const macro = ["kcal", "protein", "carbs", "fiber", "solfibre", "insolfibre", "resstarch", "fat", "satfat"];
     // A type predicate rather than a plain filter: the same guard, but a plain
     // filter does not carry it into the map. An unmeasured nutrient is dropped
     // rather than scored, since a zero would rank it against real figures.
@@ -3249,7 +3254,8 @@ $("#totalFoods").textContent = String(FOODS.length);
 
 // Derived from the data so adding a column cannot leave the prose behind.
 const GROUP_BLURB: Record<NutrientGroup, string> = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
-                      vitamin: "vitamins", mineral: "minerals", plant: "plant compounds" };
+                      vitamin: "vitamins", mineral: "minerals", carbdetail: "sugars and starches",
+                      acids: "organic acids", plant: "plant compounds" };
 $("#compBlurb").textContent = `${NUTS.length} nutrients per food: ` +
   GROUPS.map(g => `${NUTS.filter(n => n.group === g.id).length} ${GROUP_BLURB[g.id]}`)
     .join(", ").replace(/, ([^,]*)$/, " and $1") + ".";
