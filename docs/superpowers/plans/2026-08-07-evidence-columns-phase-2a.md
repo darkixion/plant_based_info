@@ -722,7 +722,7 @@ Add to `test/tools.mjs`. `checkGaps` does not exist yet; Step 3 creates and expo
 ```js
 test("a claim that something is absent fails once it is present", () => {
   const nutrients = [{ id: "biotin", evidence: true }, { id: "fiber" }];
-  const sources = { s1: "A citation." };
+  const sources = {};
   const entry = { id: "traces", tier: "unseen", nutrients: [], label: "Traces",
                   role: "r", why: "x".repeat(50), closing: "c", cites: [] };
 
@@ -736,7 +736,7 @@ test("a claim that something is absent fails once it is present", () => {
 });
 ```
 
-The `sources`/`cites` pairing above would trip the existing "cited by nothing" rule, so give the fixture `sources: {}` and `cites: []` if that check is inside `checkGaps`. Keep the fixture minimal and adjust once Step 3 fixes the boundary.
+Use `sources: {}` in the fixture, not `{ s1: "A citation." }`. `checkGaps` carries the whole gaps block including the "source cited by nothing" rule, and a source no entry cites would add a problem the assertions do not expect. With `sources: {}` that loop has nothing to iterate and the `tier: "unseen"` entry needs no cites, so the fixture validates clean.
 
 - [ ] **Step 2: Run to verify it fails**
 
@@ -828,9 +828,16 @@ await test("the page does not say iodine has no column", async () => {
   /* It has one. Four sentences said otherwise, and a page that contradicts its
      own table is worse than one that shows less. */
   await withPage(async page => {
+    /* openDialog replaces #dlgB each time, so the text has to be collected per
+       dialog rather than read from the body once at the end. The five ids are
+       DLG's own keys; "gaps" is the one that renders gaps.json. */
     const text = await page.evaluate(() => {
-      for (const id of ["how", "method", "bio", "about"]) openDialog(id);
-      return document.body.innerText;
+      let all = "";
+      for (const id of ["how", "meth", "about", "bio", "gaps"]) {
+        openDialog(id);
+        all += document.querySelector("#dlgB").innerText + "\n";
+      }
+      return all;
     });
     for (const claim of ["Iodine has no column", "Iodine is not a column",
                          "Iodine is not included", "no column for it here"])
@@ -839,7 +846,7 @@ await test("the page does not say iodine has no column", async () => {
 });
 ```
 
-If `openDialog` takes different ids, read `DLG`'s keys in `src/app.ts` and use those. The assertion is on the wording, not on the dialog mechanism.
+`DLG`'s keys are exactly `how`, `meth`, `about`, `bio` and `gaps`, verified against `src/app.ts`. `openDialog` is typed `(k: keyof typeof DLG)`, so a wrong id is a compile error rather than a silent miss.
 
 - [ ] **Step 2: Run to verify it fails**
 
