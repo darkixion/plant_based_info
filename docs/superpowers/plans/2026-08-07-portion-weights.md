@@ -167,7 +167,7 @@ Then confirm the page still builds, since the tools feed the data it inlines:
 npm test
 ```
 
-Expected: all 103 tests pass.
+Expected: all 105 tests pass.
 
 - [ ] **Step 6: Commit**
 
@@ -364,7 +364,19 @@ Expected, exactly:
 ```
 128 of 131 foods have at least one portion, 324 portions in total
 ```
-and in the drop report, 40 rows in total: 17 under the 5 g floor, 14 NLEA servings, 6 purchase quantities, 3 over the 500 g cap. One collision, `pineapple-raw`.
+and in the drop report, 40 rows in total: 17 under the 5 g floor, 14 NLEA servings, 6 purchase quantities, 3 over the 500 g cap.
+
+The collision report ends with **two lines, both `pineapple-raw`**:
+
+```
+label collisions, both kept with their full description (2):
+  pineapple-raw: "1 slice" -> "1 slice (4-2/3" dia x 3/4" thick)" at 166 g
+  pineapple-raw: "1 slice" -> "1 slice (3-1/2" dia x 3/4" thick)" at 84 g
+```
+
+That is one colliding label across two rows, and the count is of rows reverted
+rather than of labels, because every row involved has to revert for the pair to
+stay distinguishable. Two lines here is correct.
 
 If any of these differ, stop and work out why before writing the file. These figures come from the design's own measurement of the source.
 
@@ -732,7 +744,7 @@ In `src/styles.css`, after the `.dayqty .stp:disabled` rule (line 438) add:
 
 Run: `npm test`
 
-Expected: all tests pass, 107 of them, up from 103.
+Expected: all tests pass, 109 of them, up from 105.
 
 - [ ] **Step 8: Check the row at a narrow viewport**
 
@@ -817,11 +829,19 @@ first pass at the portion tool read only the map and silently covered a third
 of the table.
 ```
 
-- [ ] **Step 3: Close the open item in the handover**
+- [ ] **Step 3: Correct the test count**
+
+`HANDOVER.md:12` says "103 tests, all passing". The suite actually has 105, and
+had 105 before this branch started: Task 1 counted them and touched no test
+file. Correct that number to the count `npm test` reports after Task 4, and do
+not simply trust this plan's arithmetic for it. Run the suite and read the
+figure.
+
+- [ ] **Step 4: Close the open item in the handover**
 
 In `HANDOVER.md`, delete the "Portion weights for the day view" bullet from the open list, and add a session entry at the top describing what shipped, following the shape of the existing entries: what was built, the two findings worth keeping (the two id sources, and the rounding trap that set the 5 g floor), and what was deliberately left out (no CSV column, no representative default, nothing in the table view).
 
-- [ ] **Step 4: Verify the docs match the build**
+- [ ] **Step 5: Verify the docs match the build**
 
 Run: `npm test`
 
@@ -835,7 +855,7 @@ git diff main -- README.md HANDOVER.md | grep -n '^+.*\xe2\x80\x94'
 
 Expected: no output. This greps only added lines, so em dashes already in those files from earlier work do not mask a new one.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add README.md HANDOVER.md
