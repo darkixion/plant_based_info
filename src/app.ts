@@ -1296,15 +1296,17 @@ function renderDayList() {
         <b>${esc(f.name)}</b>
         <span>${f.state ? `${esc(f.state)} · ` : ""}${esc(f.cat)}</span></span>
       <span class="dayqty">
-        <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="-10"
-          ${g <= 0 ? "disabled" : ""}>${I.minus}<span class="sr">Less ${esc(f.name)}</span></button>
-        <input type="number" inputmode="numeric" data-dayg="${esc(slug)}" value="${g}"
-          min="0" max="${DAY_MAX_G}" step="10"
-          aria-label="Grams of ${esc(f.name)}${f.state ? `, ${esc(f.state)}` : ""}">
-        <span class="u">g</span>
-        <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="10"
-          ${g >= DAY_MAX_G ? "disabled" : ""}>${I.plus}<span class="sr">More ${esc(f.name)}</span></button>
         ${portionSelect(slug, f, g)}
+        <span class="qtyf">
+          <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="-10"
+            ${g <= 0 ? "disabled" : ""}>${I.minus}<span class="sr">Less ${esc(f.name)}</span></button>
+          <input type="number" inputmode="numeric" data-dayg="${esc(slug)}" value="${g}"
+            min="0" max="${DAY_MAX_G}" step="10"
+            aria-label="Grams of ${esc(f.name)}${f.state ? `, ${esc(f.state)}` : ""}">
+          <span class="u">g</span>
+          <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="10"
+            ${g >= DAY_MAX_G ? "disabled" : ""}>${I.plus}<span class="sr">More ${esc(f.name)}</span></button>
+        </span>
       </span>
       <button class="rm" type="button" data-dayrm="${esc(slug)}">${I.x}
         <span class="sr">Remove ${esc(f.name)} from your day</span></button>

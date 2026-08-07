@@ -110,15 +110,17 @@
         <b>${esc(a.name)}</b>
         <span>${a.state?`${esc(a.state)} · `:""}${esc(a.cat)}</span></span>
       <span class="dayqty">
-        <button class="stp" type="button" data-daystep="${esc(s)}" data-by="-10"
-          ${n<=0?"disabled":""}>${I.minus}<span class="sr">Less ${esc(a.name)}</span></button>
-        <input type="number" inputmode="numeric" data-dayg="${esc(s)}" value="${n}"
-          min="0" max="${DAY_MAX_G}" step="10"
-          aria-label="Grams of ${esc(a.name)}${a.state?`, ${esc(a.state)}`:""}">
-        <span class="u">g</span>
-        <button class="stp" type="button" data-daystep="${esc(s)}" data-by="10"
-          ${n>=DAY_MAX_G?"disabled":""}>${I.plus}<span class="sr">More ${esc(a.name)}</span></button>
         ${portionSelect(s,a,n)}
+        <span class="qtyf">
+          <button class="stp" type="button" data-daystep="${esc(s)}" data-by="-10"
+            ${n<=0?"disabled":""}>${I.minus}<span class="sr">Less ${esc(a.name)}</span></button>
+          <input type="number" inputmode="numeric" data-dayg="${esc(s)}" value="${n}"
+            min="0" max="${DAY_MAX_G}" step="10"
+            aria-label="Grams of ${esc(a.name)}${a.state?`, ${esc(a.state)}`:""}">
+          <span class="u">g</span>
+          <button class="stp" type="button" data-daystep="${esc(s)}" data-by="10"
+            ${n>=DAY_MAX_G?"disabled":""}>${I.plus}<span class="sr">More ${esc(a.name)}</span></button>
+        </span>
       </span>
       <button class="rm" type="button" data-dayrm="${esc(s)}">${I.x}
         <span class="sr">Remove ${esc(a.name)} from your day</span></button>

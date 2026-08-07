@@ -445,12 +445,22 @@ dl{margin:0}
 .dayqty .stp:hover:not(:disabled){background:var(--green-tint); color:var(--green-dark)}
 .dayqty .stp:disabled{opacity:.35; cursor:default}
 /* Sits inside .dayqty so it wraps with the quantity controls rather than
-   away from them. No colour literal: every value here is a variable, which
-   the stylesheet test enforces. */
+   away from them, and ahead of them so that the stepper, field and unit are
+   what meets the row's fixed right edge. The select's width varies with its
+   longest option, so with it last every row's gram figure sat at a different
+   x. First, it absorbs that variation and the numbers line up down the column.
+   No colour literal: every value here is a variable, which the stylesheet
+   test enforces. */
 .dayqty select{border:1px solid var(--line); border-radius:8px; background:var(--panel);
   color:var(--muted); font-size:12.5px; min-height:38px; padding:0 6px;
-  max-width:150px; margin-left:4px}
+  max-width:150px; margin-right:4px}
 .dayqty select:hover{border-color:var(--green-dark)}
+/* The stepper, field, unit and stepper are one thing and must break as one.
+   Without this the narrow-viewport wrap splits them at whatever point the row
+   happens to run out of width, which differed per row with the select's width,
+   so the figures no longer lined up and the controls broke mid-group. The only
+   wrap this leaves possible is between the select and this cluster. */
+.dayqty .qtyf{display:flex; align-items:center; gap:2px; flex:none}
 .dayrow .rm{border:0; background:none; color:var(--muted); padding:7px; border-radius:8px;
   line-height:0; min-width:34px; min-height:34px; flex:none}
 .dayrow .rm:hover{background:var(--line-soft); color:var(--warn)}
@@ -524,7 +534,7 @@ dl{margin:0}
      fill it. A definite cap breaks that circularity. min-width:0 overrides
      the select's automatic minimum size, which defaults to its content and
      would otherwise refuse to shrink below the longest option's text. */
-  .dayqty select{margin-left:0; max-width:110px; min-width:0}
+  .dayqty select{margin-right:0; max-width:110px; min-width:0}
 }
 
 /* The summary column, sharing the detail panel's shape so the two read as the
@@ -960,15 +970,17 @@ const P = {"lentils-cooked":[{"label":"1 cup","g":198},{"label":"1 tbsp","g":12.
         <b>${esc(a.name)}</b>
         <span>${a.state?`${esc(a.state)} · `:""}${esc(a.cat)}</span></span>
       <span class="dayqty">
-        <button class="stp" type="button" data-daystep="${esc(s)}" data-by="-10"
-          ${n<=0?"disabled":""}>${I.minus}<span class="sr">Less ${esc(a.name)}</span></button>
-        <input type="number" inputmode="numeric" data-dayg="${esc(s)}" value="${n}"
-          min="0" max="${DAY_MAX_G}" step="10"
-          aria-label="Grams of ${esc(a.name)}${a.state?`, ${esc(a.state)}`:""}">
-        <span class="u">g</span>
-        <button class="stp" type="button" data-daystep="${esc(s)}" data-by="10"
-          ${n>=DAY_MAX_G?"disabled":""}>${I.plus}<span class="sr">More ${esc(a.name)}</span></button>
         ${portionSelect(s,a,n)}
+        <span class="qtyf">
+          <button class="stp" type="button" data-daystep="${esc(s)}" data-by="-10"
+            ${n<=0?"disabled":""}>${I.minus}<span class="sr">Less ${esc(a.name)}</span></button>
+          <input type="number" inputmode="numeric" data-dayg="${esc(s)}" value="${n}"
+            min="0" max="${DAY_MAX_G}" step="10"
+            aria-label="Grams of ${esc(a.name)}${a.state?`, ${esc(a.state)}`:""}">
+          <span class="u">g</span>
+          <button class="stp" type="button" data-daystep="${esc(s)}" data-by="10"
+            ${n>=DAY_MAX_G?"disabled":""}>${I.plus}<span class="sr">More ${esc(a.name)}</span></button>
+        </span>
       </span>
       <button class="rm" type="button" data-dayrm="${esc(s)}">${I.x}
         <span class="sr">Remove ${esc(a.name)} from your day</span></button>
