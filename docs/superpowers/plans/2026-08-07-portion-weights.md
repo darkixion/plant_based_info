@@ -753,9 +753,17 @@ Run: `npm run serve`, open `http://localhost:8080`, go to My day, add a banana, 
 The `.dayrow` is a flex row and `.dayqty` is `flex:none`, so the select can push the row wider than the viewport. If it does, add this to `src/styles.css` inside the existing narrow-viewport media query, and rerun `npm test` afterwards:
 
 ```css
-  .dayqty{flex-wrap:wrap; justify-content:flex-end}
+  .dayqty{flex:0 1 auto; flex-wrap:wrap; justify-content:flex-end}
   .dayqty select{margin-left:0; max-width:100%}
 ```
+
+**`flex:0 1 auto` is load-bearing and `flex-wrap` alone is not enough.** This
+plan originally gave the wrap rule without it, which does nothing: `.dayqty`'s
+base rule at `src/styles.css:425` is `flex:none`, so the container never shrinks
+below its content width and `flex-wrap` has nothing to wrap within. Measured at
+380 px, the wrap-only version left the page scrolling horizontally at 462 px
+against a 380 px viewport, slightly worse than before. Allowing it to shrink is
+what makes the wrap fire.
 
 If the row already fits, change nothing and say so in the commit message.
 
