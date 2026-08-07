@@ -25,19 +25,178 @@ Every task's requirements implicitly include these.
 
 ---
 
-### Task 1: The propose tool and the portion data
+### Task 1: One CSV reader for all three tools
+
+`usda.mjs` and `flavonoids.mjs` each carry their own copy of the same RFC4180
+reader. The two `parseCSV` bodies are identical apart from one hoisted
+`text.length`; the two `readCSV` wrappers differ only in that `usda.mjs` takes a
+name relative to its `CSV_DIR` while `flavonoids.mjs` takes a full path. A third
+copy is about to be written for portions, so extract one before that happens.
+
+This task changes no behaviour. It is verified by capturing both tools' output
+before and after and diffing.
+
+**Files:**
+- Create: `tools/csv.mjs`
+- Modify: `tools/usda.mjs:155-186`
+- Modify: `tools/flavonoids.mjs:114-142`
+
+**Interfaces:**
+- Consumes: nothing from earlier tasks.
+- Produces: `tools/csv.mjs`, exporting `parseCSV(text)`, a generator yielding one
+  `string[]` per row, and `readCSV(path)`, async, taking a **full path** and
+  returning `Record<string, string>[]` keyed by the header row.
+
+- [ ] **Step 1: Capture the baseline**
+
+Both commands write nothing. The second takes a couple of minutes.
+
+```bash
+mkdir -p .superpowers/sdd/2026-08-07-portion-weights
+node tools/flavonoids.mjs coverage > .superpowers/sdd/2026-08-07-portion-weights/before-flav.txt 2>&1
+node tools/usda.mjs pull --dry-run 1268 1275 > .superpowers/sdd/2026-08-07-portion-weights/before-usda.txt 2>&1
+git status --short
+```
+
+Expected: `git status --short` shows nothing under `tools/` or `src/data/`. If
+either command wrote a file, stop: the baseline is not a dry run and the
+comparison in Step 5 would be meaningless.
+
+- [ ] **Step 2: Write the shared reader**
+
+Create `tools/csv.mjs`. The comment is merged from the two it replaces, both of
+which explained the same thing about USDA's quoting.
+
+```js
+/**
+ * The CSV reader the USDA tools share.
+ *
+ * Minimal RFC4180: a quoted field can contain a comma, and the USDA food
+ * descriptions are full of them. Extracted from usda.mjs and flavonoids.mjs,
+ * which each carried an identical copy before portions.mjs would have made a
+ * third.
+ *
+ * `readCSV` takes a full path rather than a name, because the three tools read
+ * from three different directories.
+ */
+import { readFile } from "node:fs/promises";
+
+export function* parseCSV(text) {
+  let i = 0, field = "", row = [], quoted = false;
+  while (i < text.length) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else quoted = false; }
+      else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ",") { row.push(field); field = ""; }
+    else if (c === "\n") { row.push(field); yield row; row = []; field = ""; }
+    else if (c !== "\r") field += c;
+    i++;
+  }
+  if (field || row.length) { row.push(field); yield row; }
+}
+
+export async function readCSV(path) {
+  const it = parseCSV(await readFile(path, "utf8"));
+  const head = it.next().value;
+  const out = [];
+  for (const r of it) {
+    if (r.length === 1 && !r[0]) continue;
+    const o = {};
+    head.forEach((h, i) => { o[h] = r[i]; });
+    out.push(o);
+  }
+  return out;
+}
+```
+
+- [ ] **Step 3: Refactor usda.mjs**
+
+Delete the `parseCSV` and `readCSV` definitions at `tools/usda.mjs:155-186`,
+including the `/* ---------- csv ---------- */` banner comment above them, and
+add to the imports at the top of the file:
+
+```js
+import { parseCSV, readCSV as readCSVAt } from "./csv.mjs";
+```
+
+Then, where the deleted block was, put the one line that keeps every existing
+call site working unchanged:
+
+```js
+/* Every CSV this tool reads lives in CSV_DIR, so the call sites name a file
+   rather than a path. */
+const readCSV = name => readCSVAt(join(CSV_DIR, name));
+```
+
+`usda.mjs` also calls `parseCSV` directly when streaming `food_nutrient.csv`,
+which is why it is imported as well as `readCSV`.
+
+- [ ] **Step 4: Refactor flavonoids.mjs**
+
+Delete the `parseCSV` and `readCSV` definitions at `tools/flavonoids.mjs:114-142`
+and add to the imports at the top:
+
+```js
+import { parseCSV, readCSV } from "./csv.mjs";
+```
+
+Its `readCSV(path)` signature already matches the shared one, so no call site
+changes. Check whether `parseCSV` is actually called anywhere in this file after
+the deletion; if it is not, import only `readCSV`, because an unused import is
+a lie about what the file needs.
+
+- [ ] **Step 5: Verify nothing changed**
+
+```bash
+node tools/flavonoids.mjs coverage > .superpowers/sdd/2026-08-07-portion-weights/after-flav.txt 2>&1
+node tools/usda.mjs pull --dry-run 1268 1275 > .superpowers/sdd/2026-08-07-portion-weights/after-usda.txt 2>&1
+diff .superpowers/sdd/2026-08-07-portion-weights/before-flav.txt .superpowers/sdd/2026-08-07-portion-weights/after-flav.txt
+diff .superpowers/sdd/2026-08-07-portion-weights/before-usda.txt .superpowers/sdd/2026-08-07-portion-weights/after-usda.txt
+git status --short
+```
+
+Expected: both diffs produce no output, and `git status --short` shows only
+`tools/csv.mjs`, `tools/usda.mjs` and `tools/flavonoids.mjs`. A refactor that
+changes output is not a refactor.
+
+Then confirm the page still builds, since the tools feed the data it inlines:
+
+```bash
+npm test
+```
+
+Expected: all 103 tests pass.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add tools/csv.mjs tools/usda.mjs tools/flavonoids.mjs
+git commit -m "Extract the CSV reader the USDA tools both carry
+
+Two identical copies were about to become three. Verified by diffing both
+tools' output before and after: flavonoids coverage and a usda dry-run pull
+are byte for byte unchanged.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+```
+
+---
+
+### Task 2: The propose tool and the portion data
 
 **Files:**
 - Create: `tools/portions.mjs`
 - Create: `src/data/portions.json` (generated by the tool, then committed)
 
 **Interfaces:**
-- Consumes: nothing from earlier tasks.
+- Consumes: `parseCSV` and `readCSV` from `tools/csv.mjs` (Task 1).
 - Produces: `src/data/portions.json`, shaped `Record<string, { label: string, g: number }[]>`, keyed by the food slug that `build.mjs` and `app.ts` both compute as `` `${name} ${state}` `` lowercased, non-alphanumerics collapsed to `-`, leading and trailing `-` stripped.
 
 - [ ] **Step 1: Write the tool**
 
-Create `tools/portions.mjs`. The CSV reader is lifted from `tools/usda.mjs:156-186` deliberately: `build.mjs` has no dependencies and the tools share none between themselves either.
+Create `tools/portions.mjs`, reading CSV through the shared module Task 1 created.
 
 ```js
 #!/usr/bin/env node
@@ -61,6 +220,7 @@ Create `tools/portions.mjs`. The CSV reader is lifted from `tools/usda.mjs:156-1
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { readCSV as readCSVAt } from "./csv.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const CSV_DIR = join(ROOT, "tools", "cache", "FoodData_Central_sr_legacy_food_csv_2018-04");
@@ -75,35 +235,9 @@ const OUT = join(ROOT, "src", "data", "portions.json");
 const MAX_G = 500;
 const MIN_G = 5;
 
-/** Minimal RFC4180 reader; the USDA files quote fields containing commas. */
-function* parseCSV(text) {
-  let i = 0, field = "", row = [], quoted = false;
-  while (i < text.length) {
-    const c = text[i];
-    if (quoted) {
-      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else quoted = false; }
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === ",") { row.push(field); field = ""; }
-    else if (c === "\n") { row.push(field); yield row; row = []; field = ""; }
-    else if (c !== "\r") field += c;
-    i++;
-  }
-  if (field || row.length) { row.push(field); yield row; }
-}
-
-async function readCSV(name) {
-  const it = parseCSV(await readFile(join(CSV_DIR, name), "utf8"));
-  const head = it.next().value;
-  const out = [];
-  for (const r of it) {
-    if (r.length === 1 && !r[0]) continue;
-    const o = {};
-    head.forEach((h, i) => { o[h] = r[i]; });
-    out.push(o);
-  }
-  return out;
-}
+/* Every CSV this tool reads lives in CSV_DIR, so the call site names a file
+   rather than a path, the same shorthand usda.mjs keeps. */
+const readCSV = name => readCSVAt(join(CSV_DIR, name));
 
 const slugify = (name, state) => `${name} ${state || ""}`.toLowerCase().trim()
   .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -273,14 +407,14 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 2: Inline and validate the portions in the build
+### Task 3: Inline and validate the portions in the build
 
 **Files:**
 - Modify: `build.mjs:18-27` (SOURCES), `build.mjs:40-136` (validate), `build.mjs:142-168` (build)
 - Modify: `src/index.html:249-251` (the injection tokens)
 
 **Interfaces:**
-- Consumes: `src/data/portions.json` from Task 1.
+- Consumes: `src/data/portions.json` from Task 2.
 - Produces: a global `const P` in the built page, shaped `Record<string, { label: string, g: number }[]>`, declared in the page shell exactly as `DATA` and `I` are.
 
 - [ ] **Step 1: Add the source and the token**
@@ -397,7 +531,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 3: The portion select in the day row
+### Task 4: The portion select in the day row
 
 **Files:**
 - Modify: `src/app.ts:78-92` (ambient declares), `src/app.ts:1263-1286` (`renderDayList`), `src/app.ts:1865-1867` (the `#dayList` change listener)
@@ -405,7 +539,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 - Test: `test/smoke.mjs`
 
 **Interfaces:**
-- Consumes: the global `P` from Task 2.
+- Consumes: the global `P` from Task 3.
 - Produces: `interface Portion { label: string; g: number }`, `declare const P: Record<string, Portion[]>`, and `portionsFor(slug: string): Portion[]`. Nothing later in this plan depends on them.
 
 - [ ] **Step 1: Write the four failing tests**
@@ -629,7 +763,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 ---
 
-### Task 4: The documentation this leaves behind
+### Task 5: The documentation this leaves behind
 
 **Files:**
 - Modify: `README.md` (the "My day" section around line 316, and the layout listing around line 44)
@@ -720,7 +854,7 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 Checked against the spec:
 
-- **Spec coverage.** Tool and filter, Task 1. Rounding trap, Task 1 (`MIN_G`) and Task 3 (`clampG` matching), with the reasoning recorded in comments at both sites. Data shape and build validation, Task 2. The app and the derived select, Task 3. Testing, Task 3 Step 1. Documentation, Task 4.
+- **Spec coverage.** Tool and filter, Task 2. Rounding trap, Task 2 (`MIN_G`) and Task 4 (`clampG` matching), with the reasoning recorded in comments at both sites. Data shape and build validation, Task 3. The app and the derived select, Task 4. Testing, Task 4 Step 1. Documentation, Task 5. Task 1 is a refactor the spec does not mention, added because the user chose one shared CSV reader over a third copy.
 - **The spec's "deliberately not done" list needs no task**, which is the point of it: no CSV column, no representative default, nothing in the table view, no portions for the three unmapped foods, and no parsing of typed input. None of the tasks above adds any of them.
 - **One thing the spec left implicit and this plan settles:** collisions revert to the full description automatically rather than waiting on a hand edit. The spec said `propose` reports them and leaves the decision to review; deciding it in the tool is deterministic, keeps both rows, and still prints what it did. Pineapple is the only affected food.
-- **Types are consistent across tasks:** `Portion` is declared once in Task 3 Step 3 and used by `portionsFor` and `portionSelect` in Step 4. `P` is produced in Task 2 and consumed in Task 3. The slug rule is stated identically in Task 1 and enforced in Task 2.
+- **Types are consistent across tasks:** `Portion` is declared once in Task 4 Step 3 and used by `portionsFor` and `portionSelect` in Step 4. `P` is produced in Task 3 and consumed in Task 4. The slug rule is stated identically in Task 2 and enforced in Task 3.
