@@ -60,6 +60,33 @@ would have rebuilt the page as a side effect of running the tests. Same
 `process.argv[1]` guard `tools/usda.mjs` has carried since the seventh session,
 and the same reason.
 
+**Four things came back from review, and the first was a real break.** Appending
+the evidence columns to the end of `nutrients.json` left two macro columns and
+one vitamin column sitting after the plant group, and the header draws one cell
+per group with a colspan, so **every group label from macronutrients rightwards
+sat over the wrong columns**. Nothing in 148 tests caught it, because every one
+of them asked the data rather than the rendered header.
+
+That forced the useful distinction: **`nutrients.json` now carries two orders.**
+Array position is the position of the value in each food's `v` and may never be
+reordered, which is why the evidence columns stay appended at the end. Display
+order is `COL_ORDER` in `app.ts`, group order plus an optional `after` naming
+the column a nutrient sits beside. Soluble fibre follows total fibre and biotin
+sits between B6 and B9. About two dozen sites still read a `v` index as
+`nutrients.findIndex(...)`, which is only correct while every evidence column
+stays at the end; that is the coupling to know about before adding a fourth.
+
+The other three: **EPA and DHA are `Omega-3 (EPA)` and `Omega-3 (DHA)`** rather
+than `EPA (20:5)`, since they sat beside `Omega-3 (ALA)` and `Omega-6 (LA)` and
+were the only two fatty acids in the group not named for the family they belong
+to; the chain notation moved into their sentences. **The three omega-3 columns
+now run together**, where omega-6 used to divide them, done by moving `la` in
+the file and moving the same position in all 131 `v` arrays, verified by
+asserting every food's value by id was unchanged. And **the % daily value view
+shows a dash** for the three evidence columns rather than a raw gram figure,
+scoped to those three by the owner's decision: the other 39 columns with no
+daily value keep showing their figures.
+
 **Deliberately not done**: the remaining 32 components, which is phase 2; no
 inulin, chromium, molybdenum or boron column yet; no source dialog listing the
 three databases, though `SRCS` is injected and the detail panel names their
@@ -850,7 +877,7 @@ owner's call.
   flavonoid release for three of the plant compound columns, plus three
   evidence columns from Japan's MEXT, the UK's CoFID and Australia's AFCD.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  20 tool tests and 148 browser tests against the result. All passing, and CI
+  20 tool tests and 152 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single

@@ -140,6 +140,21 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
       problems.push(`${n.id}: "why" is too short to say anything useful`);
   }
 
+  /* `after` is where a column sits on screen, as the id of the one it follows.
+     A second pass, because it names a nutrient that may appear later in the
+     file. An unresolvable one would silently leave the column where it was,
+     which is the failure that put soluble fibre after the plant compounds. */
+  for (const n of nutrients) {
+    if (n.after === undefined) continue;
+    const anchor = nutrients.find(x => x.id === n.after);
+    if (!anchor) { problems.push(`${n.id}: sits after "${n.after}", which is not a nutrient`); continue; }
+    if (n.after === n.id) problems.push(`${n.id}: sits after itself`);
+    // A column can only be placed within its own group, since the header draws
+    // one cell per group and a column that left its group would break the span.
+    if (anchor.group !== n.group)
+      problems.push(`${n.id}: sits after "${n.after}", which is in group "${anchor.group}" not "${n.group}"`);
+  }
+
   // A short or long value array silently misaligns every column after the gap,
   // which looks like plausible data rather than an error. Always check.
   //

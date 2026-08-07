@@ -697,8 +697,14 @@ Two things are deliberately **not** on that list:
   Naming it helps a reader check the figures; it is a citation, not jargon.
 - **Fatty-acid notation like `18:2`** is the field's own vocabulary, it is
   introduced where it is used ("a chain length without separating the isomers
-  within it"), and the column labels already carry it: Lauric (12:0), EPA
-  (20:5). Removing it would cost precision and buy nothing.
+  within it"), and the column labels carry it where it is the clearest thing to
+  say: Lauric (12:0), Palmitic (16:0), Stearic (18:0). Removing it would cost
+  precision and buy nothing. EPA and DHA are the exception, and the reason is
+  the useful part: they are omega-3s, and labelling them `EPA (20:5)` beside
+  `Omega-3 (ALA)` and `Omega-6 (LA)` hid the one thing a reader most needs to
+  know about them. They read `Omega-3 (EPA)` and `Omega-3 (DHA)` now, with the
+  chain length moved into the sentence that explains each. The three omega-3
+  columns also sit together, where omega-6 used to divide them.
 
 The distinction worth holding onto is between **vocabulary a reader can learn
 from the page** and **names that only mean anything inside the repository**.
@@ -743,7 +749,36 @@ Four locks, and the point of having four is that no single edit undoes them:
 
 The chart does not offer them either, and that is a judgement rather than a
 lock: a bar length is a figure divided by the largest figure, and a range is
-neither.
+neither. Nor does the % daily value view, where all three show a dash and "no
+daily value published" rather than their raw figure. That last one is scoped to
+these three deliberately: the other 39 columns with no daily value keep showing
+their figures, because kale's 93 mg of flavonols is worth reading and no
+percentage will ever exist for it either.
+
+### Two orders in one file, and where they part
+
+`nutrients.json` carries both the storage order and the display order, and the
+evidence columns are the first thing to need them apart.
+
+**Array position is the position of the value** in every food's `v`. Nothing may
+be reordered there without moving all 131 value arrays with it, and a mismatch
+looks like plausible data rather than an error. An evidence column occupies no
+`v` position at all, so all three are appended at the end of the file, where
+they disturb no index. About two dozen places, in `build.mjs`, both pull tools
+and the test suite, still read a `v` index as `nutrients.findIndex(...)`, which
+is only correct while that stays true.
+
+**Display order is `COL_ORDER` in `app.ts`**: group order first, then an
+optional `after` naming the column a nutrient sits beside. Only the three
+evidence columns carry one. `build.mjs` checks that each `after` names a real
+column in the same group, because an unresolvable one leaves the column where
+it was and says nothing.
+
+That second list exists because leaving the evidence columns in file order broke
+the header outright. The label row draws one cell per group with a colspan, so
+a group appearing twice in the column order puts every label from there
+rightwards over the wrong columns. Soluble fibre now sits behind total fibre and
+biotin between B6 and B9, which is where a reader looks for them.
 
 ### Six states, because "no number" means six different things
 

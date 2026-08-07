@@ -3301,6 +3301,85 @@ await test("a day with an evidence-rich food shows no evidence row", async () =>
   });
 });
 
+await test("every group label spans exactly its own columns", async () => {
+  /* The header draws one cell per group with a colspan, and the body draws
+     columns in whatever order cols() returns, so a group that appears twice in
+     that order puts every label from there rightwards over the wrong columns.
+     That is what appending the evidence columns to the end of nutrients.json
+     did: two macro columns and one vitamin column arrived after the plant
+     group. Asserted on the rendered table rather than on the data, because the
+     data was never wrong. */
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const grp = [...document.querySelectorAll("#thead th.grp")];
+      const order = [...document.querySelectorAll("#thead [data-sort]")]
+        .map(b => b.dataset.sort).filter(id => id !== "__name")
+        .map(id => DATA.nutrients.find(n => n.id === id).group);
+      return {
+        spans: grp.map(t => [t.dataset.g, t.colSpan]),
+        order,
+        cells: document.querySelector("#tbody tr").querySelectorAll("td").length,
+      };
+    });
+    // Each group appears once in the column order, as one unbroken run.
+    const runs = r.order.filter((g, i) => g !== r.order[i - 1]);
+    eq(runs.length, new Set(runs).size, `groups are broken into runs: ${runs.join(" ")}`);
+    // And each label's colspan matches the run beneath it, in the same order.
+    const counted = runs.map(g => [g, r.order.filter(x => x === g).length]);
+    eq(JSON.stringify(r.spans), JSON.stringify(counted),
+       "group labels must span exactly the columns under them");
+    eq(r.order.length + 1, r.cells, "one body cell per column, plus the food column");
+  });
+});
+
+await test("the omega-3 columns sit together, and say so", async () => {
+  // ALA, EPA and DHA are all omega-3, and omega-6 used to sit between them.
+  await withPage(async page => {
+    const labels = await page.evaluate(() =>
+      DATA.nutrients.filter(n => n.group === "fats").slice(0, 4).map(n => n.label));
+    eq(labels.join(" "), "Omega-3 (ALA) Omega-3 (EPA) Omega-3 (DHA) Omega-6 (LA)",
+       "the three omega-3 columns run together, then omega-6");
+  });
+});
+
+await test("a column stored at the end is still shown where it belongs", async () => {
+  /* The two orders in nutrients.json are separate on purpose: array position is
+     the position of the value in every food's `v`, and an evidence column has
+     none, so it is stored at the end and placed on screen by `after`. Asserted
+     on the rendered header, because the failure this catches is a column that
+     is correct in the data and in the wrong place on the page. */
+  await withPage(async page => {
+    const order = await page.evaluate(() =>
+      [...document.querySelectorAll("#thead [data-sort]")]
+        .map(b => b.dataset.sort).filter(id => id !== "__name"));
+    const at = id => order.indexOf(id);
+    eq(order[at("fiber") + 1], "solfibre", "soluble fibre follows total fibre");
+    eq(order[at("solfibre") + 1], "insolfibre", "insoluble fibre follows soluble");
+    eq(order[at("b6") + 1], "biotin", "biotin sits after B6");
+    eq(order[at("biotin") + 1], "b9", "and before B9");
+    // The stored order is untouched, which is what keeps every `v` index valid.
+    const stored = await page.evaluate(() => DATA.nutrients.map(n => n.id).slice(-3));
+    eq(stored.join(" "), "solfibre insolfibre biotin",
+       "the evidence columns stay at the end of the array they are stored in");
+  });
+});
+
+await test("an evidence column shows no percentage it does not have", async () => {
+  await withPage(async page => {
+    await page.click("#dvBtn");
+    for (const id of ["solfibre", "insolfibre", "biotin"]) {
+      const t = await cellText(page, "Oats", id);
+      assert(!/[0-9]/.test(t), `${id} must show no figure in the %DV view, got "${t}"`);
+      assert(/no daily value/i.test(t), `${id} must say why it is blank, got "${t}"`);
+    }
+    // Percentages still work beside them, and the 39 columns that have no
+    // daily value of their own are deliberately untouched by this.
+    assert(/%/.test(await cellText(page, "Oats", "protein")), "protein still shows a percentage");
+    eq(await cellText(page, "Kale", "flavonols"), "93.0",
+       "a pre-existing column with no daily value still shows its figure");
+  });
+});
+
 await test("the dropped components stay dropped", async () => {
   /* Eight candidates were dropped with reasons in the design. Tocotrienols had
      4 analysed foods, all breads and pasta, none of them on this page. Ajugose

@@ -16,6 +16,10 @@ interface Nutrient {
      other 70 columns do not carry it, and the absence is what makes them
      ordinary. See the EvidenceCell block below. */
   evidence?: true;
+  /* Where this column sits on screen, as the id of the one it follows. Only an
+     evidence column needs it, because only an evidence column is stored
+     somewhere other than where it is shown. See COL_ORDER. */
+  after?: string;
 }
 /* 35 of 66 nutrients have no daily value (sugars, water, most fatty acids,
    all amino acids, most carotenoids and flavonoids). Every read must decide
@@ -681,7 +685,39 @@ const esc = (s: unknown) => String(s).replace(/[&<>"']/g, c => ESCAPES[c] ?? c);
 const say = (m: string) => { $("#live").textContent = m; };
 
 /* ---------- data helpers ---------- */
-const cols = () => NUTS.map((n, i) => ({ ...n, i })).filter(n => S.groups.has(n.group));
+/* ---------- column order ----------
+   Two different sequences live in nutrients.json and this is where they part.
+
+   **Position in the array is the position of the value** in every food's `v`,
+   which is why nothing may be reordered there: moving one entry silently
+   repoints 131 rows, and the result looks like plausible data rather than an
+   error. An evidence column occupies no `v` position at all, so it is appended
+   at the end of the file where it disturbs no index.
+
+   **Order on screen is this list.** Left as file order it put two macro columns
+   and one vitamin column after the plant group, which broke the header outright:
+   the label row draws one cell per group with a colspan, so a group appearing
+   twice puts every label from there rightwards over the wrong columns.
+
+   So: group order first, then an optional `after` naming the column a nutrient
+   belongs beside. Only the three evidence columns carry one, and build.mjs
+   checks that each names a real column in the same group. Computed once,
+   because none of it depends on state. */
+const GROUP_AT = new Map(GROUPS.map((g, i) => [g.id, i]));
+const COL_ORDER = (() => {
+  const out = NUTS.map((n, i) => ({ ...n, i }))
+    .sort((a, b) => (GROUP_AT.get(a.group) ?? 0) - (GROUP_AT.get(b.group) ?? 0));
+  /* In file order, so a chain resolves: insoluble fibre sits after soluble
+     fibre, which has already been moved into place behind total fibre. */
+  for (const n of out.filter(x => x.after)) {
+    const anchor = out.findIndex(x => x.id === n.after);
+    if (anchor === -1) continue;               // build.mjs refuses this case
+    out.splice(out.indexOf(n), 1);
+    out.splice(out.findIndex(x => x.id === n.after) + 1, 0, n);
+  }
+  return out;
+})();
+const cols = () => COL_ORDER.filter(n => S.groups.has(n.group));
 /* Takes Pick<Food, "v"> rather than Food because it reads nothing but the
    value vector. That is also why the day view can hand it a day's totals
    wrapped as { v: [...] } rather than a real food. */
@@ -1375,6 +1411,17 @@ function renderTable(r: ReturnType<typeof rows>) {
         // ones. data-ev carries the state so the stylesheet can tell a figure
         // from prose without the script deciding how either one looks.
         if (n.evidence) {
+          /* In the % daily value view there is no percentage to show, because
+             no daily value is published for any of these three. Printing the
+             gram figure instead would put a number under a caption promising
+             percentages, and next to eight macronutrient columns that all did
+             flip, which reads as a figure rather than as an exemption. Same
+             dash and same accessible wording the day totals already use for a
+             nutrient with no reference intake. */
+          if (S.dv) return `<td class="num ${colClass(n)}" data-g="${n.group}"` +
+            ` data-n="${esc(n.id)}" data-ev="nodv">` +
+            `<span class="noref" aria-hidden="true">&ndash;</span>` +
+            `<span class="sr">no daily value published</span></td>`;
           const cell = ev(slugAt(i), n.id);
           const proxy = cell?.match === "proxy" ? ` data-match="proxy"` : "";
           return `<td class="num ${colClass(n)}" data-g="${n.group}" data-n="${esc(n.id)}"` +
