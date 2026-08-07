@@ -1898,8 +1898,11 @@ $("#dayList").addEventListener("change", e => {
   const slug = t.dataset.dayportion;
   if (slug !== undefined) {
     // Choosing goes through setDayGrams like every other route to a quantity,
-    // so clamping, saving and the totals all behave identically.
-    const p = t instanceof HTMLSelectElement ? portionsFor(slug)[+t.value] : undefined;
+    // so clamping, saving and the totals all behave identically. The empty
+    // value is the disabled "custom" option: guard on it explicitly, since
+    // +"" is 0 and would otherwise read as the first real portion.
+    const p = t instanceof HTMLSelectElement && t.value !== ""
+      ? portionsFor(slug)[+t.value] : undefined;
     if (p) setDayGrams(slug, p.g);
     return render();
   }
