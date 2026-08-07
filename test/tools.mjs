@@ -9,6 +9,10 @@
  */
 import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, reconcile } from "../tools/reconcile.mjs";
+// build.mjs only builds when it is the process entry point, the same guard
+// tools/usda.mjs carries. Importing it here must check its rules, not rebuild
+// the page as a side effect of running the tests.
+import { checkEvidence } from "../build.mjs";
 
 let passed = 0, failed = 0;
 const results = [];
@@ -19,6 +23,12 @@ function test(name, fn) {
 }
 const eq = (a, b, msg) => {
   if (!Object.is(a, b)) throw new Error(`${msg}, expected ${b}, got ${a}`);
+};
+/** A validator is only useful if it says which rule caught the data, so assert
+ *  on the wording rather than on the count. */
+const assertHas = (problems, needle) => {
+  if (!problems.some(p => p.toLowerCase().includes(needle.toLowerCase())))
+    throw new Error(`expected a problem mentioning "${needle}", got: ${problems.join("; ") || "none"}`);
 };
 
 // ---------------------------------------------------------------- pull rules
@@ -128,6 +138,79 @@ test("estimates take no part in choosing a value", () => {
   eq(c.state, "measured", "one analysed value stands alone");
   eq(c.value, 8.9, "and the estimate does not move it");
   eq(c.sources.length, 1, "only the analysed source is credited");
+});
+
+// ------------------------------------------------------------ evidence checks
+
+const NUTS = [{ id: "solfibre", evidence: true }, { id: "protein" }];
+const FOODS = [{ name: "Oats", state: "rolled, dry" }];
+const SRC = { "mext-2020": { title: "x", quality: "high", method: "ZETAAS" } };
+/** One well-formed cell, so each test below varies exactly one thing. */
+const cell = (over) => ({ "oats-rolled-dry": { solfibre: {
+  state: "measured", value: 3.2, unit: "g", basis: "per 100 g",
+  prep: "rolled, dry", match: "exact", sources: ["mext-2020"], ...over } } });
+
+test("a value with no resolvable source is refused", () => {
+  assertHas(checkEvidence(cell({ sources: ["nope"] }), NUTS, FOODS, SRC), "unknown source");
+  assertHas(checkEvidence(cell({ sources: [] }), NUTS, FOODS, SRC), "no source");
+});
+
+test("a cell whose prep disagrees with its food is refused", () => {
+  // The trap that would otherwise put dry-bean figures on cooked rows. A right
+  // value against the wrong preparation is worse than none, because it looks
+  // right: red kidney bean oligosaccharides are 3.6 g raw and trace boiled.
+  assertHas(checkEvidence(cell({ prep: "canned" }), NUTS, FOODS, SRC), "prep");
+});
+
+test("an unknown state is refused", () => {
+  assertHas(checkEvidence(cell({ state: "probably" }), NUTS, FOODS, SRC), "state");
+});
+
+test("a range whose bounds are equal is refused", () => {
+  // Equal bounds mean reconciliation was skipped rather than that the sources
+  // agreed: agreement produces a single value, not a range of width zero.
+  assertHas(checkEvidence(cell({ state: "range", value: undefined, low: 3.2, high: 3.2 }),
+    NUTS, FOODS, SRC), "range");
+  assertHas(checkEvidence(cell({ state: "range", value: undefined, low: 3.7, high: 0.5 }),
+    NUTS, FOODS, SRC), "range");
+  assertHas(checkEvidence(cell({ state: "range", value: undefined }), NUTS, FOODS, SRC), "range");
+});
+
+test("a measured cell with no figure is refused", () => {
+  assertHas(checkEvidence(cell({ value: undefined }), NUTS, FOODS, SRC), "no value");
+});
+
+test("an unknown match grade is refused", () => {
+  assertHas(checkEvidence(cell({ match: "roughly" }), NUTS, FOODS, SRC), "match");
+});
+
+test("a cell against an unknown food or component is refused", () => {
+  const p1 = checkEvidence({ "no-such-food": { solfibre:
+    { state: "measured", value: 1, unit: "g", basis: "per 100 g", prep: "x", match: "exact", sources: ["mext-2020"] } } }, NUTS, FOODS, SRC);
+  assertHas(p1, "unknown food");
+  const p2 = checkEvidence({ "oats-rolled-dry": { nosuch:
+    { state: "measured", value: 1, unit: "g", basis: "per 100 g", prep: "rolled, dry", match: "exact", sources: ["mext-2020"] } } }, NUTS, FOODS, SRC);
+  assertHas(p2, "unknown component");
+});
+
+test("a column not declared as evidence may not carry evidence", () => {
+  // The lock in the other direction. A cell against `protein` would be a figure
+  // living in two places at once, one of them outside every total.
+  const p = checkEvidence({ "oats-rolled-dry": { protein:
+    { state: "measured", value: 13, unit: "g", basis: "per 100 g", prep: "rolled, dry", match: "exact", sources: ["mext-2020"] } } }, NUTS, FOODS, SRC);
+  assertHas(p, "unknown component");
+});
+
+test("a state that carries no figure needs no source", () => {
+  // Absence is a finding here, not a gap, and nobody has to be cited for it.
+  const p = checkEvidence(cell({ state: "not-measured", value: undefined, sources: undefined }),
+    NUTS, FOODS, SRC);
+  eq(p.length, 0, `expected no problems, got ${p.join("; ")}`);
+});
+
+test("a well-formed cell passes", () => {
+  const p = checkEvidence(cell({}), NUTS, FOODS, SRC);
+  eq(p.length, 0, `expected no problems, got ${p.join("; ")}`);
 });
 
 console.log(results.join("\n"));

@@ -629,6 +629,36 @@
    "dv": null,
    "dp": 0,
    "why": "Plant cholesterol analogues that block some dietary cholesterol from being absorbed. Seeds and nuts carry by far the most, and USDA has assayed too few foods for this column to be read as a ranking."
+  },
+  {
+   "id": "solfibre",
+   "label": "Soluble fibre",
+   "group": "macro",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The fibre fraction that dissolves and forms a gel, slowing glucose absorption and feeding gut bacteria. Pectin and beta-glucan both sit inside this figure rather than beside it."
+  },
+  {
+   "id": "insolfibre",
+   "label": "Insoluble fibre",
+   "group": "macro",
+   "unit": "g",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "The fibre fraction that passes through largely intact, adding bulk and speeding transit. It is usually the larger half of the total fibre figure in whole plant foods."
+  },
+  {
+   "id": "biotin",
+   "label": "Biotin (B7)",
+   "group": "vitamin",
+   "unit": "µg",
+   "dv": null,
+   "dp": 1,
+   "evidence": true,
+   "why": "A B vitamin used in fat and glucose metabolism, made partly by gut bacteria. Sources disagree about it more than about any other figure here, so several foods show a range rather than a number."
   }
  ],
  "notes": [

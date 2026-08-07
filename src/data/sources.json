@@ -1,0 +1,23 @@
+{
+ "mext-2020": {
+  "title": "Standard Tables of Food Composition in Japan, 2020 (Eighth Revised Edition)",
+  "publisher": "Ministry of Education, Culture, Sports, Science and Technology (MEXT), Japan",
+  "country": "Japan",
+  "url": "https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html",
+  "quality": "high"
+ },
+ "cofid-2021": {
+  "title": "McCance and Widdowson's The Composition of Foods Integrated Dataset (CoFID), 2021",
+  "publisher": "Public Health England / Food Standards Agency",
+  "country": "United Kingdom",
+  "url": "https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid",
+  "quality": "high"
+ },
+ "afcd-r3": {
+  "title": "Australian Food Composition Database, Release 3",
+  "publisher": "Food Standards Australia New Zealand (FSANZ)",
+  "country": "Australia",
+  "url": "https://www.foodstandards.gov.au/science-data/food-nutrient-databases/afcd/data-files",
+  "quality": "high, except chromium"
+ }
+}
