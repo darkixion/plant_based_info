@@ -712,14 +712,33 @@ dependencies and must keep none.
   sidebar, so the menu has to be opened to find a food by name. Moving it out to
   sit above the table would fix it and would change the desktop layout, which is
   why it was left; see "Narrow screens" in `README.md`.
-- **Dialogs are opened by script where HTML now has an attribute for it.**
-  Every `data-dlg` button goes through the delegated click handler into
-  `openDialog()`, which calls `showModal()`. Invoker commands,
-  `<button command="show-modal" commandfor="dlg">`, would do the opening
-  natively. The catch is that `openDialog()` does two things: it opens the
-  dialog and it fills `#dlgT` and `#dlgB` from `DLG`, so the attribute replaces
-  half the job and the bodies still need writing on open. Worth doing, and worth
-  checking support before relying on it.
+- **Dialogs are opened by script where HTML now has an attribute for it, and
+  the support floor is the reason it was not switched.** Every `data-dlg` button
+  goes through the delegated click handler into `openDialog()`, which calls
+  `showModal()`. Invoker commands would do it natively:
+  `<button command="show-modal" commandfor="dlg">`, with `command="close"` on
+  the close button, and native focus return replacing the hand-rolled
+  `lastFocus`. That is a genuine simplification of four or five lines.
+
+  Two things argue against doing it yet, and both were checked rather than
+  assumed:
+
+  1. **It is Baseline 2025**: Chrome and Edge 135, Firefox 144, Safari and iOS
+     Safari 26.2. iOS Safari is the one that matters here. On anything older,
+     every dialog silently stops opening, and that takes How to use,
+     Methodology, Absorption and About with it. Those four are where this page
+     explains what its numbers do and do not mean, so failing quietly is worse
+     than the four lines are worth.
+  2. **`openDialog()` does two jobs**, opening the dialog and filling `#dlgT`
+     and `#dlgB` from `DLG`. The attribute replaces only the first. The bodies
+     cannot be pre-rendered into the HTML instead, because several are computed
+     from the data on purpose: `bioDialog()`, the amino acid gap list, the
+     fortified food list and the flavonoid coverage count. So the JS does not
+     go away, it moves into a `command` event listener on the dialog reading
+     `e.source`.
+
+  Worth revisiting once iOS Safari 26 is unremarkable. Supporting both paths at
+  once is the option to refuse: it is more code than the one it replaces.
 - **The interaction set is short, and the gaps are known ones.** Copper against
   zinc, oxalate against iron, and cooking against lycopene were all considered
   and left out because their sources were not checked. Each is a plausible
