@@ -318,7 +318,7 @@ toggle that produced it.
 ## My day
 
 Type a food into the box at the top, give it a quantity in grams,
-and all 66 nutrients are totalled across the list, in their own units and as a
+and all 68 nutrients are totalled across the list, in their own units and as a
 percentage of a daily value. This is the only basis on which a shortfall means
 anything, and the reason to have it is that neither table basis can answer "am I
 getting enough": per 100 g and per 100 kcal both describe a food, and this
@@ -483,11 +483,20 @@ first pass at the portion tool read only the map and silently covered a third
 of the table.
 
 Adding a nutrient means an entry in `KNOWN` (the column definition, with `after`
-to place it) and in `COLUMN_TO_USDA` (so `add` can fill it for new foods). A new
-*group* additionally needs a `GROUPS` entry and icon in `app.ts`, a `--t-<group>`
-tint pair and a `th.grp[data-g=…]` colour in `styles.css`, and a `GROUP_BLURB`
-line. The first nutrient in a new group must anchor its `after` to an existing
-column, since `pull` has no group to append to yet.
+to place it) **and** in `COLUMN_TO_USDA` (so `add` can fill it for new foods).
+Both, always. Gamma-tocopherol and phytosterols were each added with only the
+first, and the symptom is not a missing figure: `node tools/usda.mjs add` throws
+`no USDA id mapped for column(s): <id>` and refuses to add any food at all. The
+check is deliberately strict, since a column silently left out of `add` would
+give every future food a permanent gap, but nothing exercises `add` in `npm
+test`, so the break waits until the next food is added. This paragraph has said
+"and in `COLUMN_TO_USDA`" all along and it was still missed twice, which is
+worth knowing about the failure rather than about the reader.
+
+A new *group* additionally needs a `GROUPS` entry and icon in `app.ts`, a
+`--t-<group>` tint pair and a `th.grp[data-g=…]` colour in `styles.css`, and a
+`GROUP_BLURB` line. The first nutrient in a new group must anchor its `after` to
+an existing column, since `pull` has no group to append to yet.
 
 **Mappings are reviewed by a human and committed** to `src/data/usda-map.json`.
 This is not ceremony. An early fingerprint-only run paired *Black beans* with
@@ -495,36 +504,59 @@ This is not ceremony. An early fingerprint-only run paired *Black beans* with
 are deliberately unmapped with the reason recorded: seitan, soy milk and
 nutritional yeast have no suitable SR Legacy row.
 
-**The tool will not write a value that contradicts a total already in the
-table.** Six foods have existing MUFA figures that disagree with the USDA row
-they map to. Edamame's own fat fractions do not sum to its total fat before
-USDA is involved at all. Their omega-9 and omega-7 are left as "no data"
-rather than shown exceeding the monounsaturated column above them. Re-pulling
-the whole fat group from the mapped rows would resolve this, at the cost of
-changing values that are currently displayed. The build enforces the same
-constraint, so this cannot regress silently.
+**A pull may never replace a figure with nothing.** `nextValue()` in `usda.mjs`
+is the whole rule: an incoming figure wins, and where there is none the existing
+figure stands. Before it, `cmdPull` wrote `null` into any cell whose mapped row
+lacked the id, which is right for a fresh column, where `null` means "USDA has
+no figure", and destroys data on a re-pull, where the cell may already hold a
+figure from a source the map does not record. Four foods depend on it. Amaranth
+is the instructive one: it is mapped, reviewed and correct, to `170683`
+"Amaranth grain, cooked", and that row carries 33 nutrient ids and **not one of
+the 12 fatty acid ids**. A silent row is not evidence of absence. Soy milk,
+seitan and nutritional yeast are the other three, deliberately unmapped. The run
+reports preserved figures separately from missing ones, because "kept a figure
+this run could not reproduce" and "USDA has no figure" are different facts about
+a cell. `test/tools.mjs` holds the rule, and is the only test here that does not
+drive a browser.
 
-**It withholds only what it wrote.** A disagreement between two values that
-were already in the table is real, but it is not the pull's to resolve, and
-deleting a figure the tool did not put there loses data on the way to filling a
-gap somewhere else. So a conflict involving nothing from this run is reported
-and left alone. Six foods are in that state today: mung beans, edamame, lupin
-beans, natto, buckwheat and wholewheat pasta each carry an ALA-plus-LA total
-slightly above their own polyunsaturated figure, because the fractions and the
-total came from different derivations. That is why `pufa` is checked by the pull
-but deliberately *not* by the build: adding it there would fail on six rows that
-have been that way all along, and the fix is a fat-group re-pull rather than
-six deletions.
+**The tool will not write a value that contradicts a total already in the
+table.** Each fraction is checked against the total it belongs to, and since no
+list is the whole of its total the sum may fall short but must never exceed it.
+A value this run wrote that breaks that is withheld as "no data" rather than
+shown exceeding the column above it. The build enforces the same constraint, so
+it cannot regress silently.
+
+**It withholds only what it wrote.** A disagreement between two values that were
+already in the table is real, but it is not the pull's to resolve, and deleting
+a figure the tool did not put there loses data on the way to filling a gap
+somewhere else. So a conflict involving nothing from this run is reported and
+left alone.
+
+Six foods were in that state for months: mung beans, edamame, lupin beans,
+natto, buckwheat and wholewheat pasta each carried an ALA-plus-LA total slightly
+above their own polyunsaturated figure, because the fractions and the total came
+from different derivations. **The fat-group re-pull resolved all six**, by
+taking fraction and total from the same reviewed row, and no food in the table
+now exceeds any of the three totals. `pufa` is still checked by the pull and not
+by the build, but the reason recorded here (that adding it to the build would
+fail on six long-standing rows) no longer applies, and moving it is on the open
+list in `HANDOVER.md`.
 
 **`--fill-gaps` writes only where the table has no figure.** Adding a column is
 a clean slate, but filling holes in a column that is already populated is not:
 the values already there were derived from a per-protein profile or an earlier
 source, and re-deriving them from the mapped row is a separate decision with its
 own consequences. Without the flag a gap-filling pull silently becomes a
-re-pull, and on these foods that made things worse. Pistachios reconcile today
-at 13.454 g of ALA plus LA against a 13.46 g polyunsaturated total; the mapped
-row gives 14.38, which exceeds the total, so the check would then withhold both,
-losing a good figure in order to fill a gap elsewhere.
+re-pull.
+
+The example that made the case for the flag has since been overtaken, and is
+kept because it shows what the flag is guarding against. Pistachios used to
+reconcile at 13.454 g of ALA plus LA against a 13.46 g polyunsaturated total,
+while the mapped row gave 14.38, which exceeded it; a gap-filling pull would
+have written the 14.38 and then had it withheld, losing a good figure to fill a
+gap elsewhere. After the re-pull the polyunsaturated total comes from that same
+row and reads 14.38 too, so the pair now reconciles exactly. The flag still
+matters for every column whose values predate its mapped row.
 
 ### The omega-3 and omega-6 columns, and the undifferentiated fallback
 
@@ -541,9 +573,25 @@ missing.
 This is the convention the omega-9 column has always used: 1268 is 18:1
 undifferentiated, and the Methodology dialog says so. The catch specific to 18:3
 is that it bundles the omega-6 GLA in with the omega-3 ALA. Among these foods
-that only matters for hemp, which already has a differentiated figure, as do
-flaxseed, chia and walnuts, so every food that takes the fallback is one where
-GLA is negligible.
+that only matters for hemp, which has a differentiated figure, so every food
+that takes the fallback is one where GLA is negligible.
+
+**This paragraph used to name flaxseed, chia and walnuts alongside hemp as
+carrying differentiated figures, and two of those three were wrong.** Checked
+against the rows they map to: hemp (`170148`) and chia (`170554`) carry 1404 and
+1316; walnuts (`170187`) and flaxseed (`169414`) carry neither, only the
+undifferentiated 1270 and 1269. The argument above survives the correction,
+since it turns on hemp alone, but the list was doing quiet damage: a test
+asserted that walnuts' omega-3 carried no fallback marker, and it passed because
+the marker was *missing*, not because the figure was differentiated. Walnuts'
+ALA read 9.08 before the re-pull and 9.08 after. Only its provenance changed.
+
+**The re-pull raised the marker count from 163 cells across 83 foods to 225
+across 115.** Those 62 cells were always undifferentiated figures; they simply
+predated the mechanism that records it, so the page showed them as though they
+were direct measurements. This is the single largest honesty gain of that
+change, and it is invisible in the figures themselves, every one of which stayed
+put.
 
 **Values that came this way are marked per cell**, under the `undifferentiated`
 note, rather than mixed in silently. A column drawn from two derivations with no
@@ -624,6 +672,57 @@ Because these columns have no SR Legacy id, `usda.mjs` lists them in
 data" for them until `flavonoids.mjs pull` runs, which is usually the correct
 answer anyway.
 
+### Gamma-tocopherol, beside vitamin E rather than inside it
+
+The vitamin E column is alpha-tocopherol alone (1109). That is the form carrying
+a daily value and the one the body retains, and it is also a poor description of
+what is in a seed. **Gamma-tocopherol (1126) reaches 57 of the 131 foods, 43 of
+them non-zero**, and in 18 it exceeds alpha, often by a lot: pumpkin seeds are
+35.1 mg gamma against 2.18 alpha, pecans 24.44 against 1.4, walnuts 20.83
+against 0.7. Every food with a gamma figure already has alpha, so the column
+never appears beside an empty vitamin E cell. The 14 measured zeros are figures
+rather than gaps and display as such.
+
+**It carries no daily value, and that is not an omission.** Only alpha has one,
+and the "% daily value" view sums what it is given, so a daily value here would
+count gamma milligrams against a target defined for alpha alone. The carotenoid
+columns are `dv: null` for the same reason.
+
+The column also repaired a piece of prose. The Methodology dialog had said "most
+nuts and seeds contain more gamma-tocopherol than alpha, pumpkin seeds, pecans,
+walnuts and flaxseed especially", naming four foods where the table holds
+eighteen, and omitting pistachios at 20.41 against 2.86. It had gone quietly
+wrong as foods were added, exactly as this project's convention about derived
+prose predicts. It could not derive from the data before, because the figure was
+not in the table. It does now, and a test asserts the computed list rather than
+the wording.
+
+### Phytosterols, and the decision this reverses
+
+**This file used to list phytosterols under what is deliberately left out, and
+the reason it gave was wrong twice.** First that SR Legacy "reaches only 8 to 14
+of these foods", then 24. Measured against the mapped rows it reaches **25,
+every one non-zero**, the same coverage anthocyanidins has.
+
+The objection was never really coverage. It is *which* 25. Sesame at 714 mg,
+sunflower seeds at 534 and pistachios at 214 tower over a long tail of fruit and
+vegetables at 2 to 18 mg. **Four whole categories have no figure at all**:
+legumes, soy, grains, and algae and yeast. **Fifteen of the nuts and seeds have
+none**, almonds and walnuts among them, which are the foods most associated with
+phytosterols. Sorting by this column ranks foods partly by which of them USDA
+happened to assay.
+
+That is all true, and it turned out not to be a reason to withhold the data,
+because it is equally true of the flavonoid columns, which shipped. It is a
+reason to say so on the page, which the Methodology dialog now does, counting the
+empty categories and the unassayed nuts from the table rather than naming them by
+hand. Withholding a measured figure because its neighbours are missing is not
+something this project does anywhere else, and doing it here was the
+inconsistency rather than the caution.
+
+No daily value exists for phytosterols at all, so `dv` is null for a simpler
+reason than the carotenoids have.
+
 ### What is deliberately not in the data
 
 - **A total flavonoid column, or any single antioxidant score.** A total would
@@ -632,21 +731,24 @@ answer anyway.
   in 2012 because antioxidant capacity measured in a test tube predicts nothing
   useful in the body, and that withdrawal is the reason not to invent a
   replacement.
-- **Phytic acid, isoflavones and proanthocyanidins.** SR Legacy has no figures at
-  all for them. Isoflavones are in the expanded flavonoid release, but its
-  analytical values cover the soy foods so patchily that miso would be the only
-  soy row with a figure.
-- **Phytosterols**, but not for the reason recorded here until now. This file and
-  the handover both said SR Legacy "reaches only 8 to 14 of these foods". It
-  reaches **24**, every one of them non-zero, which is exactly the coverage
-  anthocyanidins has, and anthocyanidins shipped. So that argument does not hold
-  and has been replaced. The real objection is *which* 24: sesame at 714 mg,
-  sunflower seeds at 534 and pistachios at 214 tower over a long tail of fruit
-  and vegetables at 2 to 18 mg, while almonds, walnuts and avocado, the foods
-  most associated with phytosterols, have no figure at all. A column that ranks
-  foods by which of them happened to be assayed says more about USDA's sampling
-  than about the foods. Measure it again with `1283` before revisiting this;
-  do not re-derive the 8 to 14.
+- **Phytic acid and isoflavones.** SR Legacy has no figures at all for either.
+  Isoflavones are in the expanded flavonoid release, but its analytical values
+  cover the soy foods so patchily that miso would be the only soy row with a
+  figure.
+- **Proanthocyanidins**, and the reason is now measured rather than assumed. SR
+  Legacy *defines* seven proanthocyanidin ids, 1350 to 1356, and carries a value
+  for **none of these 131 foods**, so no pull can reach them however it is
+  written. USDA published them separately, as the *Database for the
+  Proanthocyanidin Content of Selected Foods, Release 2 (2015)*, 283 foods in an
+  `.accdb` of the same shape `flavonoids.mjs` already reads. That is the only
+  route, and whether its coverage of these foods justifies a column is unmeasured.
+- **Beta and delta tocopherol, and the four tocotrienols.** SR Legacy carries all
+  six for these foods. Gamma earned a column because it is the dominant form in
+  seeds and routinely exceeds alpha; the others do neither, and six more sparse
+  columns would bury the one that matters.
+- **The phytosterol fractions**, beta-sitosterol (1288), campesterol (1286) and
+  stigmasterol (1285), which SR Legacy also carries. The total is the figure with
+  a dietary meaning and the fractions are sparser still.
 - **Foods with no SR Legacy row at all**, among them romanesco, freekeh, cavolo
   nero, runner beans and dragon fruit. Each could only be approximated from a
   near relative already in the table, which would be an estimate rather than a

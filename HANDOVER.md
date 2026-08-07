@@ -3,7 +3,68 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (sixth)
+## Latest session, 2026-08-07 (seventh)
+
+**Three open items closed, and they turned out to be one piece of work.** Each
+was a `KNOWN` entry in `tools/usda.mjs` followed by a `pull`, and each ran into
+the same property of the tool. 68 nutrients now, 131 foods, and 117 tests, 3 of
+them the first here that do not drive a browser. All passing. Designed at
+`docs/superpowers/specs/2026-08-07-fat-repull-and-two-columns-design.md`.
+
+**The rule that unblocked all three: a pull may never replace a figure with
+nothing.** `cmdPull` wrote `null` into any cell whose mapped row lacked the id,
+which is right for a fresh column and destroys data on a re-pull. That is why
+the fat re-pull sat open for so long: running it would have blanked 20 real
+values. `nextValue()` in `usda.mjs` is the whole fix, and `test/tools.mjs` holds
+it, the first test here that does not drive a browser. Adding it meant guarding
+the CLI dispatch so importing the module does not run a command, with
+`process.argv[1]` rather than `import.meta.main`, which is Node 24 while CI pins
+20.
+
+**Amaranth is the food that makes the rule concrete.** It is mapped, reviewed
+and correct, to `170683` "Amaranth grain, cooked", and that row carries 33
+nutrient ids and not one of the 12 fatty acid ids. A silent row is not evidence
+of absence. Soy milk, seitan and nutritional yeast are the other three, all
+deliberately unmapped.
+
+**The fat group re-pull resolved all six standing disagreements**, mung beans,
+edamame, lupin beans, natto, buckwheat and wholewheat pasta, by taking fraction
+and total from the same reviewed row. Measured: 1030 identical, 164 changed, 24
+gaps filled, 0 blanked, 20 preserved. `mufa`, `pufa` and `satfat` had to enter
+`KNOWN` first; they were in `COLUMN_TO_USDA` and not `KNOWN`, so `pull` could
+not touch them, which is why re-pulling only the fractions could never have
+worked.
+
+**The quiet part of that change is provenance, not figures.** Undifferentiated
+markers went from 163 cells across 83 foods to 225 across 115. Those 62 cells
+were always undifferentiated; they predated the mechanism that records it, so
+the page had been showing them as direct measurements. Walnuts is the case that
+exposed it: a test asserted its omega-3 carried no fallback marker and passed
+because the marker was **missing**. Its ALA read 9.08 before and 9.08 after.
+
+Three findings worth keeping:
+
+- **`README.md` claimed flaxseed, chia and walnuts carry differentiated omega
+  figures alongside hemp. Two of the three were wrong.** Hemp (`170148`) and
+  chia (`170554`) carry 1404 and 1316; walnuts (`170187`) and flaxseed
+  (`169414`) carry neither. The argument the sentence was making survives, since
+  it turns on hemp alone, but the list was propping up a test that passed for
+  the wrong reason.
+- **Adding a column needs an entry in `KNOWN` *and* in `COLUMN_TO_USDA`.** Miss
+  the second and `usda.mjs add` throws and refuses to add any food. This was hit
+  twice in one session, on gamma-tocopherol and again on phytosterols, despite
+  the README having said so all along. Nothing in `npm test` exercises `add`, so
+  the break waits for the next food.
+- **The recorded phytosterol coverage was wrong twice**, "8 to 14" and then 24.
+  It is 25. That correction is what made the column worth reconsidering, and it
+  shipped, so the README now records the reversal rather than letting the column
+  look like it had always been intended.
+
+**Deliberately not done**, so nobody wonders: no beta or delta tocopherol and no
+tocotrienols, no phytosterol fractions, no estimated rows for romanesco, freekeh
+or cavolo nero, and no CSV or export changes beyond the two columns appearing.
+
+## Earlier session, 2026-08-07 (sixth)
 
 **Portion weights shipped for My day.** A quantity can now come from a USDA
 portion instead of a typed number: 128 of 131 foods carry portions from SR
@@ -388,16 +449,17 @@ the open list at the bottom instead.
 
 ## Current state
 
-Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything is
-committed and pushed. The GitHub remote (`darkixion/plant_based_info`) is
-public, so pushing stays the owner's call.
+Repo: `/home/thom/development/plant_based_info`, branch
+`fat-repull-and-two-columns`, not yet merged to `main` and not pushed. The
+GitHub remote (`darkixion/plant_based_info`) is public, so pushing stays the
+owner's call.
 
-- **131 foods x 66 nutrients**, sourced from USDA SR Legacy plus the USDA
+- **131 foods x 68 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  110 browser tests against the result. All passing, and CI runs the same, along
-  with a check that `dist/app.js` matches `src/app.ts` and `index.html` matches
-  `src/`.
+  3 tool tests and 114 browser tests against the result. All passing, and CI
+  runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
+  `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
   self-contained `index.html`. **Edit `src/`, never `index.html` and never
   `dist/app.js`.** Both are generated, and both are committed on purpose.
@@ -481,30 +543,22 @@ dependencies and must keep none.
 
 ## Open, in rough order of value
 
-- **Re-pull the whole fat group from the mapped rows.** This has grown since it
-  was written. Six foods have existing MUFA totals that disagree with their USDA
-  row, so their omega-9 and omega-7 are withheld; four more disagree on
-  saturated fat, so their lauric, palmitic and stearic are withheld; and six
-  carry an ALA-plus-LA total slightly above their own polyunsaturated figure,
-  which nothing withholds because the values predate the check. One re-pull
-  resolves all three sets, at the cost of changing values currently displayed.
-  Still an open offer, not a decision anyone has made, and `--fill-gaps` exists
-  precisely so that gap-filling no longer forces the question.
-- **Gamma-tocopherol** is now the strongest candidate for deepening a group.
-  It covers 42 of these foods and is the dominant vitamin E form in most seeds,
-  which the alpha-only vitamin E column does not count. Currently a caveat in
-  the Methodology dialog rather than a column, because only alpha carries a
-  daily value and a column would have to say something about that.
-- **Phytosterols are still a no, but the recorded reason was wrong.** This note
-  and the README both said SR Legacy reaches "8 to 14" of these foods. Measured
-  against the mapped rows it reaches 24, all non-zero, the same coverage as
-  anthocyanidins, which shipped. The real objection is which 24: three seeds
-  dominate and almonds, walnuts and avocado have no figure at all, so the column
-  would rank foods by who got assayed. Do not re-derive the 8 to 14; measure
-  `1283` again if this is revisited.
-- **Proanthocyanidins**, which Release 3.3 does not carry at all. USDA
-  published them separately once; whether that release is still available was
-  not checked.
+- **Proanthocyanidins**, and the groundwork is now done. SR Legacy *defines*
+  seven ids, 1350 to 1356, and carries a value for none of these 131 foods, so
+  no pull can reach them. The separate *Database for the Proanthocyanidin
+  Content of Selected Foods, Release 2 (2015)* does still exist, 283 foods in an
+  `.accdb` of the shape `flavonoids.mjs` already reads. Download it, join it,
+  and let the coverage number decide, the way Release 1.1 was measured and
+  rejected. This is the next spec.
+- **Move the `pufa` check into `build.mjs`.** The pull checks it and the build
+  does not, and the reason recorded in `README.md` was that adding it would fail
+  on six long-standing rows. The fat re-pull resolved all six, so the objection
+  is gone and the check would now pass. Small, and it closes the gap where a
+  hand edit could reintroduce what the re-pull just fixed.
+- **Nothing exercises `usda.mjs add` in `npm test`.** Both new columns broke it
+  by omitting `COLUMN_TO_USDA`, and both times it was found by hand rather than
+  by the suite. An `add --dry-run` in `test/tools.mjs` would have caught each
+  immediately, and `test/tools.mjs` now exists to put it in.
 - **Estimated rows.** Romanesco and freekeh could be approximated from
   cauliflower and durum wheat, but only behind a visible "estimated" marker.
   The table carries no provenance concept yet; the per-cell `notes` mechanism
