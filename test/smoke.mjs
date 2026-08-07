@@ -2446,6 +2446,46 @@ await test("no colour is written into a rule, only into a variable", async () =>
   });
 });
 
+await test("the methodology names the gamma-over-alpha foods from the data", async () => {
+  await withPage(async page => {
+    // The hand-written version of this caveat named four foods and the data
+    // says eighteen. It omitted pistachios at 20.41 mg gamma against 2.86 mg
+    // alpha, which is not a marginal case. Prose describing the data derives
+    // from the data, and this one could not until the column existed.
+    const names = await page.evaluate(() => {
+      const at = id => DATA.nutrients.findIndex(n => n.id === id);
+      const a = at("vite"), g = at("gammatoc");
+      return DATA.foods
+        .filter(f => typeof f.v[a] === "number" && typeof f.v[g] === "number" && f.v[g] > f.v[a])
+        .map(f => f.name);
+    });
+    assert(names.length > 4, `expected more than the four the old prose named, got ${names.length}`);
+    assert(names.includes("Pistachios"), "pistachios must be in the computed list");
+
+    await page.click('[data-dlg="meth"]');
+    const text = (await page.locator("#dlgB").textContent()).replace(/\s+/g, " ");
+    for (const n of names) assert(text.includes(n), `food with more gamma than alpha not named: ${n}`);
+    // The count is stated, and stated from the data rather than as a literal.
+    assert(text.includes(`${names.length} of these foods`),
+      `expected the caveat to state the count ${names.length}`);
+  });
+});
+
+await test("gamma-tocopherol withholds a figure USDA never measured", async () => {
+  await withPage(async page => {
+    // Same rule as every other column: a food with no measurement reads n/a
+    // rather than 0.00, which would be indistinguishable from the 14 foods
+    // whose measured gamma really is zero.
+    const { unmeasured, measuredZero } = await page.evaluate(() => {
+      const g = DATA.nutrients.findIndex(n => n.id === "gammatoc");
+      return { unmeasured: DATA.foods.filter(f => f.v[g] === null).length,
+               measuredZero: DATA.foods.filter(f => f.v[g] === 0).length };
+    });
+    assert(unmeasured > 0 && measuredZero > 0,
+      `expected both kinds, got ${unmeasured} unmeasured and ${measuredZero} measured zeros`);
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

@@ -2130,6 +2130,16 @@ const FORTIFIED_FOODS = Object.keys(FORTIFIED?.cells || {})
 const FLAV_IDS = ["anthocyanidins", "flavan3ols", "flavonols"];
 const FLAV_REACHED = FOODS.filter(f => FLAV_IDS.some(id => val(f, id) !== null)).length;
 
+/* Foods carrying more gamma-tocopherol than alpha. Counted rather than typed
+   for the reason the amino acid gap list is: the hand-written version of this
+   named four foods and the table holds eighteen, having quietly gone wrong as
+   foods were added. It could not derive from the data until gamma had a
+   column, which is most of why the column is worth having. */
+const GAMMA_OVER_ALPHA = FOODS.filter(f => {
+  const a = val(f, "vite"), g = val(f, "gammatoc");
+  return a !== null && g !== null && g > a;
+});
+
 /* And how many omega figures are approximated from an undifferentiated total
    rather than measured as the named isomer. Counted from the note itself for
    the same reason as the rest: the number moves whenever a food is added or a
@@ -2338,10 +2348,11 @@ const DLG = {
       <li><b>Selenium tracks the soil, not the seed.</b> The Brazil nut figure is a typical value and
       real nuts vary by more than an order of magnitude.</li>
       <li><b>Vitamin E here is alpha-tocopherol alone.</b> It is the form that carries a daily value
-      and the one the body holds on to, but it is not the only one in food. Most nuts and seeds
-      contain more gamma-tocopherol than alpha, pumpkin seeds, pecans, walnuts and flaxseed
-      especially, and none of that is counted in this column. Read it as the vitamin E your body
-      will bank rather than as everything in the food with vitamin E activity.</li>
+      and the one the body holds on to, but it is not the only one in food.
+      ${GAMMA_OVER_ALPHA.length} of these foods contain more gamma-tocopherol than alpha:
+      ${andList(GAMMA_OVER_ALPHA.map(fullName))}. None of that counts towards the vitamin E
+      column, which is why gamma has a column of its own beside it. Read vitamin E as the amount
+      your body will bank rather than as everything in the food with vitamin E activity.</li>
       <li><b>Fortification is marked where it drives the figure.</b> Most rows are for the
       unfortified food, and a commercial packet of plant milk or cereal will beat them. A few are
       the other way round, because no unfortified version of the product is really sold:
