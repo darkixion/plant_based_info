@@ -3,7 +3,89 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (eleventh)
+## Latest session, 2026-08-07 (twelfth)
+
+**Nothing shipped, and that is the point.** This session was research and
+design. No column was added, no figure moved, and `src/` is untouched apart from
+nothing at all. What exists is an evidence store, a spec and a plan, on branch
+**`evidence-columns`**, one commit ahead of `main`.
+
+**Start here next time**: the plan at
+`docs/superpowers/plans/2026-08-07-evidence-columns-phase-1.md`, which is written
+to be executed by someone with no memory of this session. Its design is at
+`docs/superpowers/specs/2026-08-07-evidence-columns-design.md`, and the data it
+consumes is in `tools/evidence/` with `README.md` and `sources.json` as the way
+in.
+
+**The question was whether nine compounds could be added with real provenance**:
+biotin, chromium, molybdenum, boron, taurine, inulin, beta-glucan, pectin and the
+oligosaccharides. The answer is yes for six, no for two, and one is parked.
+
+**SR Legacy publishes zero rows of every one of them.** It *defines* nutrient ids
+for all nine plus both fibre fractions, and carries a value for none across all
+7,793 foods. Measured with a control, not assumed: the same parser counts 7,793
+protein rows and 7,708 calcium. So this needed outside sources, and it took
+eight databases in five countries.
+
+Findings worth keeping, in rough order of how much they cost to learn:
+
+- **Coverage does not predict agreement.** Biotin has the best coverage here,
+  four sources and 3,000-plus food rows, and the worst agreement: 29x on
+  spinach, 9.3x on carrots, only 4 of 14 comparable foods within 2x. An
+  assessment written earlier in this same session called biotin the safest
+  single value of the nine. That was wrong, and it was wrong because it counted
+  rows before comparing any of them. **This is the most reusable lesson here.**
+- **Derivation outranks source.** AFCD publishes a per-food derivation and only
+  490 of its 709 plant rows are `Analysed`; the rest are recipe calculations,
+  borrowed or imputed. Every large biotin gap against Japan turned out to be a
+  recipe calculation, and where both had actually assayed the food they agreed
+  within 20%. Grading by source alone would have shipped 219 calculations as
+  measurements.
+- **An outlier is not a range.** AFCD reports rolled oats at 74 ug of iodine,
+  analysed, twice, against Japan's not-detected. That looked like real
+  geographic variation until a third source settled it: USDA gives cooked
+  oatmeal 0.2 ug at n=10, and brown rice 0 at n=28. A rule that only knew how to
+  widen would have published "0 to 74" and called it honest. Hence the outlier
+  rule, and hence the fact that **two sources cannot produce one**: it takes a
+  third to say which is odd.
+- **Preparation is a sharper edge than sourcing.** Red kidney bean
+  oligosaccharides are 3.6 g raw and trace boiled; soya 5.5 raw and 1.1 boiled;
+  chickpea inulin 1.7 dry and 0.6 boiled. Every legume on this page is cooked
+  and most outside sources report dry. A right value against the wrong
+  preparation is worse than none, because it looks right.
+- **Japan's tables are the single richest source** and were not on anyone's list
+  at the start. 2,478 foods per 100 g edible portion, with chromium, molybdenum,
+  iodine, selenium and biotin, plus separate volumes for fibre fractions, sugars
+  and organic acids. Its notation already distinguishes measured, trace, zero,
+  estimated and not-measured, which is where the six-state cell model came from.
+- **Two components moved from blocked to available late.** Boron, because Frida
+  reports it on a fresh-weight basis rather than the 0%-moisture dry beans that
+  made the USDA figures unusable. Inulin, because AFCD is the only database
+  anywhere with an inulin field, and its 50 foods are almost all on this page.
+- **Two parsing bugs were caught before they reached the store**, both the same
+  species: column drift in PDF extraction. The IFCT phytosterols shifted one
+  column left for rows with no oligosaccharide values, because the table
+  reprints its header every page and the layout moves. The tell was ajugose
+  appearing in 149 rows when it is rare; it is 4. Anchors are now read per page
+  and eight rows were checked against raw text by hand. A CoFID parse also
+  reported 2,780 oligosaccharide values when the truth is 363, because
+  self-closing empty cells shifted every column right. **Both were caught by a
+  count that looked wrong, not by a test.**
+
+**Deliberately not done**: no pectin column, because no database anywhere carries
+it for these foods and soluble fibre is the honest substitute; no taurine
+column, because it would be 131 cells of one finding and belongs in prose, with
+the red algae exception stated so it does not repeat the nori B12 error; no
+chromium, parked by the owner after the research was complete; no absorption
+arithmetic now that phytate and oxalate have figures; and no new foods.
+
+**One thing is unresolved and blocks committing `evidence.json` to a public
+repo**: licensing. USDA data is public domain, but Frida asserts copyright, NEVO
+ships conditions of use, and CoFID, AFCD, MEXT and IFCT each have their own
+terms. The owner deferred it deliberately. It is recorded in the spec under
+"Deliberately not done" and needs settling before phase 1 ships.
+
+## Earlier session, 2026-08-07 (eleventh)
 
 **Nutrient gaps shipped**, plus EPA and DHA as columns. Designed at
 `docs/superpowers/specs/2026-08-07-nutrient-gaps-design.md` and written up
@@ -692,10 +774,13 @@ the open list at the bottom instead.
 
 ## Current state
 
-Repo: `/home/thom/development/plant_based_info`, branch `main`. Everything is
-committed and nothing is pushed: `main` is ahead of `origin/main` by this
-session's work. The GitHub remote (`darkixion/plant_based_info`) is public, so
-pushing stays the owner's call.
+Repo: `/home/thom/development/plant_based_info`. Everything is committed and
+nothing is pushed: `main` is ahead of `origin/main`, and the twelfth session's
+work sits on **`evidence-columns`**, one commit ahead of `main`. That branch adds
+`tools/evidence/`, a spec and a plan, and changes nothing under `src/`, so the
+built page on it is byte-identical to the one on `main`. The GitHub remote
+(`darkixion/plant_based_info`) is public, so pushing stays the owner's call, and
+see the licensing note in the twelfth session before pushing this one.
 
 - **131 foods x 70 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
