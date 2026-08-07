@@ -633,17 +633,17 @@ Replace the fibre pair inside the `for (const p of map)` loop with the component
     const c = row && row[comp.field];
     if (!c) continue;                        // no entry at all, which is no data
     const through = passthrough(c.state);
-    if (through) { cells[comp.id] = { state: through, sources: ["mext-2020"] }; cellCount++; continue; }
+    if (through) { cells[comp.id] = { state: through, sources: ["mext-2020"] }; nCells++; continue; }
     if (c.state !== "measured" && c.state !== "estimated") continue;
     const value = figureOf(c);
     if (value === null) continue;            // a state that carries no figure
     cells[comp.id] = reconcile([{ source: "mext-2020", value,
       derivation: c.state === "estimated" ? "estimated" : "analysed" }]);
-    cellCount++;
+    nCells++;
   }
 ```
 
-Rename the `cells` counter variable already in the file to `cellCount` so it does not collide with the per-food `cells` object, and update the closing `console.log` to match.
+Task 1 already renamed the outer counter to `nCells` so it does not collide with the per-food `cells` object. Use `nCells` and leave the closing `console.log` alone.
 
 - [ ] **Step 4: Fix the marker collision**
 
