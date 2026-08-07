@@ -231,7 +231,8 @@ fired. The prose was hand-written and nothing could check it.
 
 So each gap entry gains an optional **`absent`** array naming the component ids
 it claims are missing, and the build fails if any id in it has a column. That
-turns "beta-glucan and pectin are not here" from a sentence into an assertion.
+turns "beta-glucan, pectin and free inositol are not here" from a sentence into
+an assertion.
 It is this project's own convention, that prose describing the data derives from
 the data, applied to the one place it was not.
 
@@ -301,6 +302,23 @@ evidence column is for.
   phase 1 added. That is phase 2b.
 - **No beta-glucan or pectin column, ever, on current sources.** Neither is
   carried by any of the eight databases, and the `absent` check now enforces it.
+- **No free inositol column**, for the same reason and measured the same way. SR
+  Legacy defines id 1181 and publishes zero rows across all 7,793 foods, against
+  controls of 7,793 for protein and 7,708 for calcium, and the string does not
+  appear in any of the fourteen corpus files. It joins beta-glucan and pectin in
+  the `absent` list.
+
+  **Inositol phosphate is a different matter and is already due.** Phytate is
+  inositol hexaphosphate, IFCT table 11 carries it at 298 of 304 rows, and it is
+  one of the 16 components phase 2b unlocks. SR Legacy defines phytic acid as
+  1042 and inositol phosphate as 1182 and publishes zero rows of either. No held
+  source breaks phytate down into IP3 through IP6, so the column is the total.
+
+  The two are not independent, which is worth recording so the question is not
+  reopened from scratch: in most plant foods the bulk of inositol is bound as
+  phytate rather than free, so the phytate column answers much of what a reader
+  asking about inositol wants, and a free-inositol column would be the remainder
+  rather than the whole.
 - **No chromium.** Still parked, and MEXT's 41 measured values stay unused.
 - **No selenium column from MEXT**, though it has 80 informative cells here. The
   page already has a selenium column from SR Legacy, and a second one from a
