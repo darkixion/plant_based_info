@@ -291,7 +291,7 @@
     <p>This list is deliberately short. It holds the interactions that are well enough established
     to cite, and no others, so a nutrient with no entry means nothing has been recorded here rather
     than that nothing affects it. There is no phytate or oxalate column in the table either: USDA's
-    SR Legacy does not publish those figures, so the amounts in any particular food are not
+    USDA does not publish those figures, so the amounts in any particular food are not
     something this page knows.</p>
     <p>Nor is there any advice about supplements, doses or timing beyond meals. This page describes
     foods.</p>`}function gapsDialog(){const e=n=>G.gaps.filter(a=>a.tier===n),t=n=>`
@@ -453,7 +453,7 @@
     would sum a different set of subclasses for each food, so two rows could not be compared. As
     for a single antioxidant number, USDA withdrew its own ORAC database in 2012, on the grounds
     that antioxidant capacity measured in a test tube predicts nothing useful in the body.</p>
-    <p>Phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. SR Legacy carries no
+    <p>Phytic acid, isoflavones and proanthocyanidins are <em>not</em> here. USDA publishes no
     figures at all for any of the three. USDA's expanded flavonoid release would reach twice as
     many of these foods, but it gets there by imputing values from other foods rather than
     measuring them, which is the one thing this table will not do.</p>
@@ -549,12 +549,12 @@
       per 100 g, and it has raised B12 status in animals and in one small human trial. It is
       still not something to depend on, because toasting and seasoning roughly halve it, drying
       can turn the active forms into analogues, and the human evidence is thin. Nori and kelp
-      show zero in this table because SR Legacy publishes zero, which is its own caveat. The
+      show zero in this table because USDA publishes zero for them, which is its own caveat. The
       traces in tempeh and miso come from bacteria and are too small and too variable to count on.
       See <b>Nutrient gaps</b> for the whole of it.</li>
-      <li><b>Iodine is not included.</b> SR Legacy defines a nutrient id for it and publishes a
-      figure for none of these foods, so there is nothing to pull rather than nothing worth
-      pulling. See <b>Nutrient gaps</b>.</li>
+      <li><b>Iodine is not included.</b> USDA measures it in plenty of other foods and publishes a
+      figure for none of these, so there is nothing to show rather than something held back. See
+      <b>Nutrient gaps</b>.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for
       staples and often skipped for minor vegetables and fruit. ${andList(NO_AMINOS.map(fullName))}

@@ -50,6 +50,22 @@ whole plant foods, so "the id exists" says nothing about whether a pull can
 reach it. A full sweep of its holdings against `COLUMN_TO_USDA` is in the open
 list; the only real candidate it turned up is betaine.
 
+**The page stopped naming its own plumbing.** "SR Legacy" had reached eight
+places in the copy, and only four were from this session: the other four had
+been shipping for a long time. It is the internal name of the USDA release
+behind the table, and every sentence using it said something plainer once
+rewritten, usually "USDA publishes no figure for it". A test now walks the whole
+rendered page, every dialog, every nutrient note and every detail tab, and fails
+on file names and internal identifiers.
+
+Two things are deliberately not on that forbidden list, and the distinction is
+the useful part: **`FoodData Central`** stays because it is the public database
+a reader can search, so naming it is a citation rather than jargon; and
+**fatty-acid notation like `18:2`** stays because it is the field's own
+vocabulary, it is introduced where it is used, and the column labels already
+carry it. The line is between vocabulary a reader can learn from the page and
+names that only mean something inside this repository.
+
 **Deliberately not done**: no doses, no products, no brands, and tests for all
 three. No iodine or inulin columns, since there is nothing to pull. No betaine
 column yet. No selenium entry, for the reason on the open list.
@@ -684,7 +700,7 @@ pushing stays the owner's call.
 - **131 foods x 70 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  3 tool tests and 140 browser tests against the result. All passing, and CI
+  3 tool tests and 141 browser tests against the result. All passing, and CI
   runs the same, along with a check that `dist/app.js` matches `src/app.ts` and
   `index.html` matches `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single

@@ -681,6 +681,28 @@ foods and supplements are the two routes. That is the wording the page already
 used for B12, extended rather than invented. Dose guidance varies by country,
 age and pregnancy and is a clinical matter.
 
+### The page does not name its own plumbing
+
+**"SR Legacy" had reached eight places in the copy**, four of them long before
+the work that noticed. It is the internal name of the USDA release this table is
+built from, and a reader neither knows it nor needs to. Every one of those
+sentences said something plainer once rewritten: *USDA publishes no figure for
+it* is the same fact in words that mean something.
+
+A test walks the whole rendered page, every dialog, every nutrient note and
+every detail tab, and fails on a list of file names and internal identifiers.
+Two things are deliberately **not** on that list:
+
+- **`FoodData Central`** is the public USDA database anyone can go and search.
+  Naming it helps a reader check the figures; it is a citation, not jargon.
+- **Fatty-acid notation like `18:2`** is the field's own vocabulary, it is
+  introduced where it is used ("a chain length without separating the isomers
+  within it"), and the column labels already carry it: Lauric (12:0), EPA
+  (20:5). Removing it would cost precision and buy nothing.
+
+The distinction worth holding onto is between **vocabulary a reader can learn
+from the page** and **names that only mean anything inside the repository**.
+
 ## Per 100 g and per 100 kcal
 
 The table shows every figure on one of two bases, and the toolbar switches

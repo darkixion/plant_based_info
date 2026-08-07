@@ -35,7 +35,7 @@
       "nutrients": [],
       "label": "Iodine",
       "role": "The thyroid uses it to make the hormones that set metabolic rate. A shortage during pregnancy damages the developing brain, and it is one of the few nutrients where too much is its own problem.",
-      "why": "There is no column for it here, and that is not an oversight: SR Legacy defines iodine as nutrient 1100 and publishes a figure for none of these 131 foods. The separate USDA, FDA and ODS-NIH iodine database does reach plant foods, and finds close to nothing. Every plant wholefood in it falls between 0.0 and 6.0 µg per 100 g against a 150 µg daily requirement. Content tracks the soil and the irrigation water as much as the food, so figures gathered in one country do not transfer to another. Seaweed is the exception and an unruly one, varying by orders of magnitude between species and overshooting easily.",
+      "why": "There is no column for it here, and that is not an oversight. USDA measures iodine in plenty of other foods and publishes a figure for none of these 131, so there is nothing to show rather than something held back. A separate government iodine database does cover plant foods, and finds close to nothing in them. Every plant wholefood in it falls between 0.0 and 6.0 µg per 100 g against a 150 µg daily requirement. Content tracks the soil and the irrigation water as much as the food, so figures gathered in one country do not transfer to another. Seaweed is the exception and an unruly one, varying by orders of magnitude between species and overshooting easily.",
       "closing": "Iodised salt, where it is sold, or a supplement. Whether salt is iodised varies a great deal by country, so it is worth checking rather than assuming.",
       "cites": ["ods2024"]
     },
@@ -65,7 +65,7 @@
       "nutrients": [],
       "label": "Vitamin K2 (menaquinones)",
       "role": "",
-      "why": "SR Legacy has no id at all for MK-7, the menaquinone natto carries, and it assayed MK-4 in eight of these foods and found zero every time. Natto is in this table and its K2 is invisible here. Whether K2 is a requirement separate from the K1 the vitamin K column already holds is contested, so this is a hole in the data rather than a known gap in the diet.",
+      "why": "USDA does not measure the form of K2 that natto carries at all. It measured a different form in eight of these foods and found none of it every time. So natto is in this table and its K2 cannot be shown. Whether K2 is a requirement separate from the K1 the vitamin K column already holds is contested, so this is a hole in the data rather than a known gap in the diet.",
       "closing": "",
       "cites": []
     },
@@ -75,7 +75,7 @@
       "nutrients": [],
       "label": "Inulin and the other fibre fractions",
       "role": "",
-      "why": "SR Legacy defines inulin, soluble and insoluble fibre, beta-glucan, resistant starch, pectin and the oligosaccharides, and publishes none of them for any of these foods. The Fibre column here is a single total, so the prebiotic fractions are not separable from it. Reaching them would need a second database joined to this one, the way the flavonoid columns were.",
+      "why": "USDA measures inulin, soluble and insoluble fibre, beta-glucan, resistant starch, pectin and the oligosaccharides in some foods, and publishes none of them for any of these. The Fibre column here is a single total, so the prebiotic fractions cannot be separated out of it. Reaching them would need a second database joined to this one, the way the flavonoid columns were.",
       "closing": "",
       "cites": []
     },
@@ -85,7 +85,7 @@
       "nutrients": [],
       "label": "Biotin, chromium, molybdenum, boron and taurine",
       "role": "",
-      "why": "Checked and absent. SR Legacy holds no figures for any of the five for these foods. None of them is a recognised shortfall on a plant-based diet, so they are missing columns rather than missing nutrients, and they are named here so that their silence is not read as coverage.",
+      "why": "Checked and absent. USDA publishes no figures for any of the five in these foods. None of them is a recognised shortfall on a plant-based diet, so they are missing columns rather than missing nutrients, and they are named here so that their silence is not read as coverage.",
       "closing": "",
       "cites": []
     }

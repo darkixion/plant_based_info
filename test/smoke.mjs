@@ -3159,6 +3159,46 @@ await test("only the columns with a gap on record carry a warning", async () => 
   });
 });
 
+await test("the page speaks to a reader, not about its own plumbing", async () => {
+  /* "SR Legacy" is the internal name of the USDA release this table is built
+     from. It had reached eight places in the copy, four of them long before the
+     dataset that prompted this check. A reader does not know what it is and does
+     not need to: the page already says "USDA publishes no figure for it", which
+     is the same fact in words that mean something.
+
+     The list below is names of files, identifiers and internals. It deliberately
+     does not include "FoodData Central", which is the public USDA database a
+     reader can actually go and look at, nor fatty-acid notation like 18:2, which
+     is the field's own vocabulary and is introduced where it is used. */
+  const FORBIDDEN = [
+    "SR Legacy", "fdc_id", "COLUMN_TO_USDA", "build.mjs", "usda.mjs",
+    "flavonoids.mjs", "portions.mjs", "nutrients.json", "gaps.json",
+    "interactions.json", "portions.json", "app.ts", "styles.css",
+  ];
+  await withPage(async page => {
+    let text = await page.evaluate(() => document.body.innerText);
+    // Every dialog, since most of the prose lives in them.
+    for (const k of ["how", "bio", "gaps", "meth", "about"]) {
+      await page.evaluate(key => openDialog(key), k);
+      text += "\n" + await page.evaluate(() => document.querySelector("#dlgB").innerText);
+      await page.evaluate(() => document.querySelector("#dlg").close());
+    }
+    // And the surfaces that only exist once something is selected.
+    text += "\n" + await page.evaluate(() => {
+      let s = "";
+      for (const n of DATA.nutrients) { hoverNut = n.id; renderNutNote();
+        s += "\n" + document.querySelector("#nutNote").innerText; }
+      for (const t of ["overview", "vitamin", "mineral", "amino", "plant", "absorption"]) {
+        S.tab = t; renderDetail(); s += "\n" + document.querySelector("#tabp").innerText; }
+      S.view = "day"; render();
+      return s + "\n" + document.querySelector("#daySum").innerText;
+    });
+
+    const found = FORBIDDEN.filter(t => text.includes(t));
+    eq(found.length, 0, `internal names in reader-facing copy: ${found.join(", ")}`);
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));
