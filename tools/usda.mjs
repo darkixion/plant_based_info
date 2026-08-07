@@ -296,6 +296,25 @@ async function sourceRows() {
   return rows;
 }
 
+/* ---------- the rule a pull may not break ----------
+   A pull may overwrite a figure with a figure, and may fill a gap. It may
+   never replace a figure with nothing.
+
+   Writing null wherever the mapped row lacks an id is right for a fresh
+   column, where every cell starts empty and null means "USDA has no figure".
+   It is wrong for a re-pull. Four foods hold fat values whose mapped row
+   carries no fatty acid id at all: Amaranth, whose row 170683 simply has no
+   fatty acid analysis, and Soy milk, Seitan and Nutritional yeast, which are
+   deliberately unmapped. Their figures came from a source the map does not
+   record, and a silent row is not evidence of absence.
+
+   Exported so the rule can be tested as a property of the tool rather than as
+   a fact about those four foods. */
+export function nextValue(current, incoming) {
+  if (incoming !== undefined && incoming !== null) return incoming;
+  return typeof current === "number" ? current : null;
+}
+
 /* ---------- pull ---------- */
 async function cmdPull(args) {
   const dry = args.includes("--dry-run");
@@ -353,7 +372,7 @@ async function cmdPull(args) {
   }
 
   const IDX = new Map(data.nutrients.map((n, i) => [n.id, i]));
-  let filled = 0, held = 0, missing = [], viaFallback = [];
+  let filled = 0, held = 0, missing = [], preserved = [], viaFallback = [];
   // Which cells this run actually wrote, so the check below can tell a value it
   // is responsible for from one that was already in the table.
   const wrote = new Set();
@@ -370,9 +389,16 @@ async function cmdPull(args) {
         v = row?.[String(FALLBACK[id])];
         fell = v !== undefined && v !== null;
       }
-      if (v === undefined || v === null) { f.v[col] = null; missing.push(`${f.name}/${KNOWN[id].id}`); }
-      else {
-        f.v[col] = v; filled++;
+      const before = f.v[col];
+      f.v[col] = nextValue(before, v);
+      if (v === undefined || v === null) {
+        // Preserved rather than missing: the cell keeps a figure this run could
+        // not reproduce, which is a different thing from "USDA has no figure"
+        // and is worth counting separately.
+        if (typeof before === "number") preserved.push(`${f.name}/${KNOWN[id].id}`);
+        else missing.push(`${f.name}/${KNOWN[id].id}`);
+      } else {
+        filled++;
         wrote.add(`${slug} ${col}`);
         if (fell) viaFallback.push([slug, KNOWN[id].id]);
       }
@@ -425,6 +451,11 @@ async function cmdPull(args) {
   console.log(`\n${filled} values filled, ${missing.length} left as "no data"` +
     (held ? `, ${held} existing values left untouched (--fill-gaps)` : ""));
   if (missing.length) console.log(`  ${missing.join(", ")}`);
+  if (preserved.length) {
+    console.log(`\n${preserved.length} existing figure(s) kept: the mapped row has no value ` +
+      `for them.\n  A pull never replaces a figure with nothing, so these were left as they are.`);
+    preserved.forEach(p => console.log(`  ${p}`));
+  }
   if (kept.length)
     console.log(`\n${kept.length} came from an undifferentiated id and are marked ` +
       `"${UNDIFF_NOTE.marker}" per cell.`);
@@ -552,13 +583,18 @@ async function cmdAdd(args) {
   console.log(`\nwrote ${DATA}, run 'npm test' to verify`);
 }
 
-const [cmd, ...rest] = process.argv.slice(2);
-try {
-  if (cmd === "match") await cmdMatch();
-  else if (cmd === "pull") await cmdPull(rest);
-  else if (cmd === "add") await cmdAdd(rest);
-  else {
-    console.error("usage: usda.mjs match | pull <nutrientId>... [--fill-gaps] [--dry-run] | add [--dry-run]");
-    process.exit(1);
-  }
-} catch (e) { console.error(`\n${e.message}\n`); process.exit(1); }
+/* Only dispatch when run as a script. Importing this module, which the tool
+   tests do, must not execute a command. `import.meta.main` would say this more
+   directly but landed in Node 24, and CI pins Node 20. */
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const [cmd, ...rest] = process.argv.slice(2);
+  try {
+    if (cmd === "match") await cmdMatch();
+    else if (cmd === "pull") await cmdPull(rest);
+    else if (cmd === "add") await cmdAdd(rest);
+    else {
+      console.error("usage: usda.mjs match | pull <nutrientId>... [--fill-gaps] [--dry-run] | add [--dry-run]");
+      process.exit(1);
+    }
+  } catch (e) { console.error(`\n${e.message}\n`); process.exit(1); }
+}
