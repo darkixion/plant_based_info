@@ -436,6 +436,13 @@ dl{margin:0}
   display:grid; place-items:center}
 .dayqty .stp:hover:not(:disabled){background:var(--green-tint); color:var(--green-dark)}
 .dayqty .stp:disabled{opacity:.35; cursor:default}
+/* Sits inside .dayqty so it wraps with the quantity controls rather than
+   away from them. No colour literal: every value here is a variable, which
+   the stylesheet test enforces. */
+.dayqty select{border:1px solid var(--line); border-radius:8px; background:var(--panel);
+  color:var(--muted); font-size:12.5px; min-height:38px; padding:0 6px;
+  max-width:150px; margin-left:4px}
+.dayqty select:hover{border-color:var(--green-dark)}
 .dayrow .rm{border:0; background:none; color:var(--muted); padding:7px; border-radius:8px;
   line-height:0; min-width:34px; min-height:34px; flex:none}
 .dayrow .rm:hover{background:var(--line-soft); color:var(--warn)}
@@ -497,6 +504,13 @@ dl{margin:0}
   .totrow,.tothead{grid-template-columns:minmax(0,1fr) 90px 46px 70px; }
   .totbar{display:none}
   .tothead span:nth-child(3){display:none}
+  /* flex:0 1 auto, not the brief's flex-wrap alone: .dayqty's base rule is
+     flex:none (shrink 0), so without also allowing it to shrink here,
+     flex-wrap never gets a container narrower than its content to wrap
+     within, and the row keeps overflowing. Verified with the narrow-viewport
+     script; the wrap-only version left the page scrolling horizontally. */
+  .dayqty{flex:0 1 auto; flex-wrap:wrap; justify-content:flex-end}
+  .dayqty select{margin-left:0; max-width:100%}
 }
 
 /* The summary column, sharing the detail panel's shape so the two read as the

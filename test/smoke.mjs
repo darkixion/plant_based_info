@@ -56,6 +56,7 @@ await test("the app's own globals survive minification", async () => {
     const missing = await page.evaluate(() => {
       const probes = {
         S: typeof S, FOODS: typeof FOODS, GROUPS: typeof GROUPS,
+        P: typeof P,
         SLUGS: typeof SLUGS, BY_SLUG: typeof BY_SLUG,
         dayTotals: typeof dayTotals, proteinQuality: typeof proteinQuality,
         omegaRatio: typeof omegaRatio, shown: typeof shown,
@@ -1617,6 +1618,66 @@ await test("a nonsense quantity cannot put a NaN into a total", async () => {
     // And a typed extra zero is a typo rather than a meal.
     await page.evaluate(() => { setDayGrams("lentils-cooked", 99999); render(); });
     eq(await page.evaluate(() => S.day[0].g), 5000, "quantity clamped");
+  });
+});
+
+// ---------------------------------------------------------------- portions
+
+/** The index of a portion by its label, looked up in the page rather than
+ *  hardcoded, so reordering the data file cannot quietly make these tests
+ *  assert something else. Throws in the browser if the label is gone, which
+ *  is the failure we want rather than a silent pass. */
+const portionIndex = (page, slug, label) => page.evaluate(([s, l]) => {
+  const i = P[s].findIndex(p => p.label === l);
+  if (i === -1) throw new Error(`no portion "${l}" for ${s}`);
+  return String(i);
+}, [slug, label]);
+
+await test("a portion sets the grams it says it does", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "banana", g: 100 }]);
+    await page.selectOption('[data-dayportion="banana"]',
+      await portionIndex(page, "banana", "1 medium"));
+
+    eq(await page.evaluate(() => S.day[0].g), 118, "quantity after choosing 1 medium");
+    eq(await page.locator('[data-dayg="banana"]').inputValue(), "118", "the quantity field");
+  });
+});
+
+await test("typing a quantity no portion matches says custom", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "banana", g: 118 }]);
+    eq(await page.locator('[data-dayportion="banana"]').inputValue(),
+      await portionIndex(page, "banana", "1 medium"), "the select at 118 g");
+
+    await page.fill('[data-dayg="banana"]', "137");
+    await page.locator('[data-dayg="banana"]').blur();
+    eq(await page.locator('[data-dayportion="banana"]').inputValue(), "",
+      "the select at a quantity no portion matches");
+  });
+});
+
+await test("a food USDA published no portion for offers no portion control", async () => {
+  await withPage(async page => {
+    // Seitan is one of the three foods with no SR Legacy row at all, so there
+    // is nothing to offer and nothing may be invented to fill the gap.
+    await seedDay(page, [{ slug: "seitan", g: 100 }, { slug: "banana", g: 100 }]);
+    eq(await page.locator('[data-dayportion="seitan"]').count(), 0, "controls for seitan");
+    eq(await page.locator('[data-dayportion="banana"]').count(), 1, "controls for banana");
+  });
+});
+
+await test("a portion changes nothing that typing the same quantity would not", async () => {
+  await withPage(async page => {
+    await seedDay(page, [{ slug: "banana", g: 100 }]);
+    await page.selectOption('[data-dayportion="banana"]',
+      await portionIndex(page, "banana", "1 medium"));
+    const chosen = await page.evaluate(() => JSON.stringify(dayTotals().map(t => t.total)));
+
+    await page.evaluate(() => { S.day = [{ slug: "banana", g: 118 }]; savePrefs(); render(); });
+    const typed = await page.evaluate(() => JSON.stringify(dayTotals().map(t => t.total)));
+
+    eq(chosen, typed, "totals reached by portion against by quantity");
   });
 });
 

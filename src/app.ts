@@ -23,6 +23,7 @@ interface Note {
   id: string; marker: string; short: string; text: string;
   cells: Record<string, string[]>;
 }
+interface Portion { label: string; g: number; }
 interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
 
 /* ---------- state ----------
@@ -90,6 +91,11 @@ declare const I: Record<
   "moon" | "sun" | "search" | "x" | "pct" | "reset" | "grid" | "eye" |
   "macro" | "fats" | "amino" | "vit" | "min" | "up" | "down" | "sortable" |
   "right" | "plant" | "plus" | "minus", string>;
+/* Portion weights, injected by build.mjs from src/data/portions.json the same
+   way DATA is. 128 of the 131 foods have at least one; the three that do not
+   have no USDA row at all, so an index read is genuinely optional here rather
+   than a missing measurement being papered over. */
+declare const P: Record<string, Portion[]>;
 
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
 const GROUPS = [
@@ -1246,6 +1252,29 @@ function renderMeta(total: number) {
  *  same as every other figure on the page. */
 const fmtTotal = (v: number | null, n: Nutrient) => v === null ? "not measured" : `${v.toFixed(n.dp)} ${n.unit}`;
 
+/* `?? []` is not the substitution the no-invented-data rule forbids: an absent
+   key means USDA published no portion for that food, and an empty list is
+   exactly what that means. No nutrition figure passes through here. */
+const portionsFor = (slug: string): Portion[] => P[slug] ?? [];
+
+/** The select is derived from the stored grams rather than from a stored
+ *  choice, so typing a quantity or using the steppers moves it with no extra
+ *  wiring. Matching on clampG() is what makes that work: the stored quantity
+ *  is always a whole number, and a tablespoon of lentils weighs 12.3 g, so
+ *  comparing against the raw figure would never match and the control would
+ *  read "custom" the instant after it was used. */
+function portionSelect(slug: string, f: Food, g: number): string {
+  const ps = portionsFor(slug);
+  if (!ps.length) return "";
+  const at = ps.findIndex(p => clampG(p.g) === g);
+  return `<select data-dayportion="${esc(slug)}"
+      aria-label="Portion of ${esc(f.name)}${f.state ? `, ${esc(f.state)}` : ""}">
+      <option value="" disabled${at === -1 ? " selected" : ""}>custom</option>` +
+    ps.map((p, i) =>
+      `<option value="${i}"${i === at ? " selected" : ""}>${esc(p.label)} · ${p.g} g</option>`)
+      .join("") + `</select>`;
+}
+
 function renderDayList() {
   const list = dayEntries();
   const box = $("#dayList");
@@ -1275,6 +1304,7 @@ function renderDayList() {
         <span class="u">g</span>
         <button class="stp" type="button" data-daystep="${esc(slug)}" data-by="10"
           ${g >= DAY_MAX_G ? "disabled" : ""}>${I.plus}<span class="sr">More ${esc(f.name)}</span></button>
+        ${portionSelect(slug, f, g)}
       </span>
       <button class="rm" type="button" data-dayrm="${esc(slug)}">${I.x}
         <span class="sr">Remove ${esc(f.name)} from your day</span></button>
@@ -1863,7 +1893,17 @@ $("#dayList").addEventListener("input", e => {
 /* Blur is where the clamped value goes back into the field: showing 5000 the
    moment somebody types the first digit of 500 would be worse than waiting. */
 $("#dayList").addEventListener("change", e => {
-  if (targetEl(e)?.dataset.dayg) render();
+  const t = targetEl(e);
+  if (!t) return;
+  const slug = t.dataset.dayportion;
+  if (slug !== undefined) {
+    // Choosing goes through setDayGrams like every other route to a quantity,
+    // so clamping, saving and the totals all behave identically.
+    const p = t instanceof HTMLSelectElement ? portionsFor(slug)[+t.value] : undefined;
+    if (p) setDayGrams(slug, p.g);
+    return render();
+  }
+  if (t.dataset.dayg) render();
 });
 
 /* Same reasoning as the quantity fields: redraw the figures the weight feeds,
