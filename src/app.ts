@@ -1904,7 +1904,12 @@ $("#dayList").addEventListener("change", e => {
     const p = t instanceof HTMLSelectElement && t.value !== ""
       ? portionsFor(slug)[+t.value] : undefined;
     if (p) setDayGrams(slug, p.g);
-    return render();
+    render();
+    // render() rebuilds #dayList and throws focus to <body>. Chrome and
+    // Firefox fire change on every arrow press on a closed select, so without
+    // this a keyboard user could never reach a later option: each press would
+    // apply, lose focus, and need a tab back before the next arrow did anything.
+    return $opt(`[data-dayportion="${slug}"]`)?.focus();
   }
   if (t.dataset.dayg) render();
 });

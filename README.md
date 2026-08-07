@@ -412,6 +412,13 @@ total, export and saved day is exactly what typing that number would produce.
 The select shows "custom" whenever the quantity matches no portion, which is
 derived from the quantity rather than remembered, so the steppers move it too.
 
+**Gram weights are copied from USDA exactly, so 30 of the 320 portions carry a
+fractional gram.** The option itself shows the real figure, "1 tbsp · 12.3 g",
+but the quantity field always holds a whole number, so choosing it leaves the
+field reading 12. That is the quantity field's own rounding, not a second
+figure invented for the occasion: the stored 12 is what every total, export
+and saved day already worked from before portions existed.
+
 The three foods without portions are Seitan, Soy milk and Nutritional yeast,
 the same three with no SR Legacy row at all.
 
@@ -421,7 +428,10 @@ judgement in this feature: USDA publishes regulatory NLEA servings, purchase
 quantities like "1 pint as purchased", and its own disambiguation notes, none
 of which belong on the page. Portions under 5 g are dropped too, since stored
 quantities are whole grams and a 0.7 g pistachio kernel could never match the
-portion that set it.
+portion that set it. The same rounding cuts the other way for two portions in
+one food that round to the same whole gram, such as walnuts' "1 cup, in
+shell" at 28 g and "1 oz" at 28.35 g: the control could never tell the second
+one apart from the first, so it is dropped too, 4 pairs in all.
 
 ## Data source
 
@@ -644,11 +654,6 @@ answer anyway.
   *Phaseolus vulgaris* while the runner bean is *P. coccineus*.
 - **Varieties USDA does not separate**, such as orange sweet peppers, and white
   and red onions. There is one generic onion row, which is in the table.
-- **Portion weights.** Quantities in **My day** are grams only, because the
-  dataset carries no portion weights and "1 medium banana" would have to be
-  invented. USDA publishes them in SR Legacy's `food_portion.csv` and
-  `usda.mjs` already holds the reviewed row for every food, so sourcing them
-  properly is the obvious next step rather than a blocker.
 - **Upper limits.** Nothing in the data carries one, so the day view names the
   single case worth knowing unaided, selenium, in words rather than inventing a
   ceiling for 31 columns.

@@ -1667,6 +1667,24 @@ await test("a food USDA published no portion for offers no portion control", asy
   });
 });
 
+await test("a fractional portion still shows as selected once rounded", async () => {
+  await withPage(async page => {
+    // Lentils' "1 tbsp" is 12.3 g, one of the 31 portions carrying a
+    // fractional gram weight. The match has to go through clampG(), the same
+    // rounding the quantity field itself applies, or a fractional portion can
+    // never appear selected: matching the raw 12.3 against a stored 12 would
+    // always miss.
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.selectOption('[data-dayportion="lentils-cooked"]',
+      await portionIndex(page, "lentils-cooked", "1 tbsp"));
+
+    eq(await page.evaluate(() => S.day[0].g), 12, "quantity after choosing 1 tbsp");
+    eq(await page.locator('[data-dayg="lentils-cooked"]').inputValue(), "12", "the quantity field");
+    eq(await page.locator('[data-dayportion="lentils-cooked"]').inputValue(),
+      await portionIndex(page, "lentils-cooked", "1 tbsp"), "the select still showing 1 tbsp");
+  });
+});
+
 await test("a portion changes nothing that typing the same quantity would not", async () => {
   await withPage(async page => {
     await seedDay(page, [{ slug: "banana", g: 100 }]);

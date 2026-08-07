@@ -7,10 +7,10 @@ everything durable that a handover note should not be holding.
 
 **Portion weights shipped for My day.** A quantity can now come from a USDA
 portion instead of a typed number: 128 of 131 foods carry portions from SR
-Legacy's `food_portion.csv`, 324 of them, generated into the new
+Legacy's `food_portion.csv`, 320 of them, generated into the new
 `src/data/portions.json` by `tools/portions.mjs propose`. Designed in full at
 `docs/superpowers/specs/2026-08-06-portion-weights-design.md` and written up
-durably in `README.md` under "My day". 109 tests, all passing.
+durably in `README.md` under "My day". 110 tests, all passing.
 
 **Choosing a portion writes grams and nothing else.** `S.day` still stores
 `{ slug, g }`; the select is derived from the stored quantity rather than
@@ -20,14 +20,15 @@ portion. Every total, export and saved day stays exactly what typing that
 number would have produced.
 
 **`tools/portions.mjs` is a filter as much as a pull.** Of 364 SR Legacy
-portion rows for these foods, 40 were dropped, each printed with the rule
+portion rows for these foods, 44 were dropped, each printed with the rule
 that dropped it: 17 under a 5 g floor, 14 regulatory NLEA servings, 6
-purchase quantities like "1 pint as purchased", and 3 over a 500 g cap. None
-of those belong on the page, and the tool says so rather than silently
+purchase quantities like "1 pint as purchased", 3 over a 500 g cap, and 4
+that round to the same whole gram as a portion already kept for that food.
+None of those belong on the page, and the tool says so rather than silently
 including them. The three foods with no portion at all, Seitan, Soy milk and
 Nutritional yeast, are the same three that have no SR Legacy row.
 
-Two findings worth keeping, both the kind this note exists to preserve:
+Three findings worth keeping, all the kind this note exists to preserve:
 
 - **The fdc ids live in two files, not one.** `src/data/usda-map.json` holds
   the 44 original foods; `tools/food-additions.json` holds the other 87,
@@ -41,6 +42,14 @@ Two findings worth keeping, both the kind this note exists to preserve:
   5 g floor and matching on `clampG(p.g)` rather than the raw figure both
   exist for. Without them the control would silently forget what it was
   told.
+- **The same rounding also creates false matches, not only missed ones.**
+  Two portions of one food that round to the same whole gram, such as
+  walnuts' "1 cup, in shell" at 28 g and "1 oz" at 28.35 g, are
+  indistinguishable to `clampG(p.g)` by construction, so the second could
+  never appear selected. Caught in the final review and fixed in the data:
+  `tools/portions.mjs` now drops the second of any such pair rather than
+  leaving the control to pick one arbitrarily, and `build.mjs`'s `validate()`
+  refuses a hand edit that reintroduces it.
 
 **Not in the spec, added anyway: `tools/csv.mjs`.** `usda.mjs` and
 `flavonoids.mjs` each carried an identical private RFC4180 reader, and the
@@ -60,7 +69,7 @@ entered.
 `dist/app.js`, which `build.mjs` inlines exactly where it used to inline the
 hand-written file. Nothing about the deliverable moved: one self-contained
 `index.html`, no build step at view time, no network calls, and `build.mjs`
-still imports nothing but `node:*`. 109 tests, all passing.
+still imports nothing but `node:*`. 105 tests, all passing.
 
 **`npm test` now runs `tsc --noEmit` before it compiles anything**, and CI runs
 the same check as a step of its own so a type error is reported as a type error
@@ -386,7 +395,7 @@ public, so pushing stays the owner's call.
 - **131 foods x 66 nutrients**, sourced from USDA SR Legacy plus the USDA
   flavonoid release for three of the plant compound columns.
 - `npm test` type-checks `src/app.ts`, compiles it, builds the page, then runs
-  109 browser tests against the result. All passing, and CI runs the same, along
+  110 browser tests against the result. All passing, and CI runs the same, along
   with a check that `dist/app.js` matches `src/app.ts` and `index.html` matches
   `src/`.
 - `npm run build` turns `src/` plus the compiled `dist/app.js` into a single
@@ -503,6 +512,15 @@ dependencies and must keep none.
 - **The sidebar now scrolls** on a short viewport, which puts "How to use" and
   "Methodology" below the fold. Both are reachable from the top bar, so this is
   a nuisance rather than a fault.
+- **`slugify` is now written in five places**: `app.ts`, `build.mjs`, and the
+  three tools (`portions.mjs`, `usda.mjs`, `flavonoids.mjs`). The three tools
+  could share one the way `tools/csv.mjs` is shared; `app.ts` and `build.mjs`
+  cannot, since neither may gain an import.
+- **A layout verification that names one viewport width will pass while a
+  narrower common one breaks.** That is what happened here: the day row
+  overflowed at 320 px, the narrowest common phone viewport, while a check
+  written against 380 px would have shown clean. Verify the narrowest width
+  that matters, not just the one a spec happens to name.
 
 ## Conventions worth preserving
 

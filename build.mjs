@@ -145,15 +145,32 @@ function validate(data, portions) {
       continue;
     }
     const labels = new Set();
+    // slug -> clamped gram -> the label already holding it, so a hand edit
+    // that reintroduces the collision issue 1 removed from the data is
+    // caught here rather than shipping a portion nothing can ever select.
+    const clamped = new Map();
     for (const p of list) {
       if (!p.label) problems.push(`portions: "${slug}" has a portion with no label`);
       else if (labels.has(p.label))
         problems.push(`portions: "${slug}" lists "${p.label}" twice`);
       labels.add(p.label);
+      // 5 and 500 are forced duplicates of MIN_G and MAX_G in
+      // tools/portions.mjs: build.mjs may import nothing but node:*, so the
+      // literals cannot be shared and must not quietly become an import.
       // Zero or negative would render a portion that sets a quantity of
-      // nothing, and above the cap is a purchase rather than a helping.
-      if (typeof p.g !== "number" || !(p.g > 0) || p.g > 500)
+      // nothing, under the floor is precision clampG would round away, and
+      // above the cap is a purchase rather than a helping.
+      if (typeof p.g !== "number" || !(p.g > 0) || p.g < 5 || p.g > 500) {
         problems.push(`portions: "${slug}" portion "${p.label}" has an impossible weight ${p.g}`);
+        continue;
+      }
+      // Mirrors the app's clampG(), which is Math.round(): two portions that
+      // round to the same whole gram are indistinguishable to the control by
+      // construction, since the stored quantity is always a whole number.
+      const g = Math.round(p.g);
+      if (clamped.has(g))
+        problems.push(`portions: "${slug}" "${p.label}" and "${clamped.get(g)}" both round to ${g} g`);
+      else clamped.set(g, p.label);
     }
   }
   return problems;

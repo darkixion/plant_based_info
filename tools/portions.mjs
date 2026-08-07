@@ -63,6 +63,13 @@ const strip = s => s.replace(/\s*\([^)]*\)/g, "").replace(/\s+/g, " ")
 const AMOUNT = { "0.5": "1/2", "0.25": "1/4" };
 const label = (amount, desc) => `${AMOUNT[amount] ?? amount} ${desc}`.trim();
 
+/* Mirrors the app's clampG(), which is Math.round(): a stored quantity is
+   always a whole number, so two portions that round to the same whole gram
+   are indistinguishable to the control by construction. Named separately
+   from the app's version so it is obvious this is the one place that has to
+   agree with it, not a coincidence of two functions doing the same thing. */
+const clampG = g => Math.round(g);
+
 async function load() {
   const [portions, map, additions, data] = await Promise.all([
     readCSV("food_portion.csv"),
@@ -105,6 +112,15 @@ function compute({ data, fdcBySlug, byFdc }) {
       if (!reason && !(g > 0)) reason = "no gram weight";
       if (!reason && g > MAX_G) reason = `${g} g, over the ${MAX_G} g cap`;
       if (!reason && g < MIN_G) reason = `${g} g, under the ${MIN_G} g floor`;
+      // Two portions of one food that round to the same whole gram cannot be
+      // told apart by clampG(), so the app could only ever show one of them
+      // as selected. This is a data constraint, so it is enforced here rather
+      // than in the control: the first in source order is kept, exactly as
+      // every other drop rule above keeps source order.
+      if (!reason) {
+        const dupe = out.find(o => clampG(o.g) === clampG(g));
+        if (dupe) reason = `rounds to ${clampG(g)} g, same as "${dupe.full}" already kept`;
+      }
       if (reason) { drops.push({ slug, text: label(p.amount, desc), reason }); continue; }
       out.push({ label: label(p.amount, strip(desc)), g, full: label(p.amount, desc) });
     }

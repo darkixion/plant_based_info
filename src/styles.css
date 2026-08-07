@@ -510,7 +510,13 @@ dl{margin:0}
      within, and the row keeps overflowing. Verified with the narrow-viewport
      script; the wrap-only version left the page scrolling horizontally. */
   .dayqty{flex:0 1 auto; flex-wrap:wrap; justify-content:flex-end}
-  .dayqty select{margin-left:0; max-width:100%}
+  /* max-width:100% does not bite here: a flex item's percentage max-width is
+     treated as none when the browser works out the flex container's own
+     shrink-to-fit size, so .dayqty never shrinks and the select just grows to
+     fill it. A definite cap breaks that circularity. min-width:0 overrides
+     the select's automatic minimum size, which defaults to its content and
+     would otherwise refuse to shrink below the longest option's text. */
+  .dayqty select{margin-left:0; max-width:110px; min-width:0}
 }
 
 /* The summary column, sharing the detail panel's shape so the two read as the
