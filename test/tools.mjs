@@ -145,10 +145,13 @@ test("estimates take no part in choosing a value", () => {
 const NUTS = [{ id: "solfibre", evidence: true }, { id: "protein" }];
 const FOODS = [{ name: "Oats", state: "rolled, dry" }];
 const SRC = { "mext-2020": { title: "x", quality: "high", method: "ZETAAS" } };
-/** One well-formed cell, so each test below varies exactly one thing. */
-const cell = (over) => ({ "oats-rolled-dry": { solfibre: {
-  state: "measured", value: 3.2, unit: "g", basis: "per 100 g",
-  prep: "rolled, dry", match: "exact", sources: ["mext-2020"], ...over } } });
+/** One well-formed food mapping with one cell, so each test below varies
+ *  exactly one thing. `prep` and `match` belong to the food; everything else
+ *  belongs to the cell. */
+const cell = ({ prep = "rolled, dry", match = "exact", ...over } = {}) => ({
+  "oats-rolled-dry": { prep, match, cells: { solfibre: {
+    state: "measured", value: 3.2, sources: ["mext-2020"], ...over } } },
+});
 
 test("a value with no resolvable source is refused", () => {
   assertHas(checkEvidence(cell({ sources: ["nope"] }), NUTS, FOODS, SRC), "unknown source");
@@ -185,19 +188,19 @@ test("an unknown match grade is refused", () => {
 });
 
 test("a cell against an unknown food or component is refused", () => {
-  const p1 = checkEvidence({ "no-such-food": { solfibre:
-    { state: "measured", value: 1, unit: "g", basis: "per 100 g", prep: "x", match: "exact", sources: ["mext-2020"] } } }, NUTS, FOODS, SRC);
+  const p1 = checkEvidence({ "no-such-food": { prep: "x", match: "exact", cells: { solfibre:
+    { state: "measured", value: 1, sources: ["mext-2020"] } } } }, NUTS, FOODS, SRC);
   assertHas(p1, "unknown food");
-  const p2 = checkEvidence({ "oats-rolled-dry": { nosuch:
-    { state: "measured", value: 1, unit: "g", basis: "per 100 g", prep: "rolled, dry", match: "exact", sources: ["mext-2020"] } } }, NUTS, FOODS, SRC);
+  const p2 = checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", match: "exact", cells: { nosuch:
+    { state: "measured", value: 1, sources: ["mext-2020"] } } } }, NUTS, FOODS, SRC);
   assertHas(p2, "unknown component");
 });
 
 test("a column not declared as evidence may not carry evidence", () => {
   // The lock in the other direction. A cell against `protein` would be a figure
   // living in two places at once, one of them outside every total.
-  const p = checkEvidence({ "oats-rolled-dry": { protein:
-    { state: "measured", value: 13, unit: "g", basis: "per 100 g", prep: "rolled, dry", match: "exact", sources: ["mext-2020"] } } }, NUTS, FOODS, SRC);
+  const p = checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", match: "exact", cells: { protein:
+    { state: "measured", value: 13, sources: ["mext-2020"] } } } }, NUTS, FOODS, SRC);
   assertHas(p, "unknown component");
 });
 
@@ -211,6 +214,36 @@ test("a state that carries no figure needs no source", () => {
 test("a well-formed cell passes", () => {
   const p = checkEvidence(cell({}), NUTS, FOODS, SRC);
   eq(p.length, 0, `expected no problems, got ${p.join("; ")}`);
+});
+
+test("a food's mapping is stored once, not on every cell", () => {
+  const nutrients = [{ id: "solfibre", evidence: true, unit: "g" }];
+  const foods = [{ name: "Oats", state: "rolled, dry", v: [] }];
+  const sources = { "mext-2020": { title: "t", quality: "high" } };
+
+  // The shape the generator now writes: prep and match on the food, cells under
+  // their own key, and no unit or basis anywhere.
+  const good = {
+    "oats-rolled-dry": {
+      prep: "rolled, dry", match: "exact",
+      cells: { solfibre: { state: "measured", value: 3.2, sources: ["mext-2020"] } },
+    },
+  };
+  eq(checkEvidence(good, nutrients, foods, sources).length, 0,
+     "the new shape must validate clean");
+
+  // A food with no match grade is a mapping nobody graded, which is the thing
+  // the reviewed-mapping rule exists to prevent.
+  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", cells: {} } },
+    nutrients, foods, sources), "no match grade");
+
+  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", match: "guessed", cells: {} } },
+    nutrients, foods, sources), "unknown match grade");
+
+  // Preparation is still the sharpest edge in this data, and the check moves up
+  // a level with the field rather than disappearing.
+  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "boiled", match: "exact", cells: {} } },
+    nutrients, foods, sources), "disagrees with the food's state");
 });
 
 console.log(results.join("\n"));

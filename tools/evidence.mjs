@@ -64,24 +64,25 @@ function passthrough(state) {
 }
 
 const out = {};
-let cells = 0, ranges = 0, disputes = 0;
+// Named apart from the per-food `cells` object below, which needs the name
+// the loop body reads and writes at every step.
+let nCells = 0, ranges = 0, disputes = 0;
 
 for (const p of map) {
   const slug = slugify(p.page, p.page_state);
   const alt = ALT[`${slugify(p.page, "")} ${p.page_state}`.trim()] || {};
-  const food = {};
-  const common = { basis: "per 100 g", prep: p.page_state || "as listed", match: p.match };
+  const cells = {};
 
   const fib = fibreBy[p.jp_code];
   for (const [id, field] of [["solfibre", "sol_prosky"], ["insolfibre", "insol_prosky"]]) {
     const c = fib && fib[field];
     if (!c) continue;
     const through = passthrough(c.state);
-    if (through) { food[id] = { state: through, unit: "g", ...common, sources: ["mext-2020"] }; cells++; continue; }
+    if (through) { cells[id] = { state: through, sources: ["mext-2020"] }; nCells++; continue; }
     if (c.state !== "measured" && c.state !== "estimated") continue;
     const cell = reconcile([{ source: "mext-2020", value: c.value, derivation: c.state === "estimated" ? "estimated" : "analysed" }]);
-    food[id] = { ...cell, unit: "g", ...common };
-    cells++;
+    cells[id] = cell;
+    nCells++;
   }
 
   // biotin, from up to three sources
@@ -94,17 +95,18 @@ for (const p of map) {
 
   if (cands.length) {
     const cell = reconcile(cands);
-    food.biotin = { ...cell, unit: "µg", ...common };
-    cells++;
+    cells.biotin = cell;
+    nCells++;
     if (cell.state === "range") ranges++;
     if (cell.disputed) disputes++;
   } else {
     const through = passthrough(p.biotin.state);
-    if (through) { food.biotin = { state: through, unit: "µg", ...common, sources: ["mext-2020"] }; cells++; }
+    if (through) { cells.biotin = { state: through, sources: ["mext-2020"] }; nCells++; }
   }
 
-  if (Object.keys(food).length) out[slug] = food;
+  if (Object.keys(cells).length)
+    out[slug] = { prep: p.page_state || "as listed", match: p.match, cells };
 }
 
 writeFileSync(join(ROOT, "src", "data", "evidence.json"), JSON.stringify(out, null, 1) + "\n");
-console.log(`${Object.keys(out).length} foods, ${cells} cells, ${ranges} ranges, ${disputes} with a disputed source`);
+console.log(`${Object.keys(out).length} foods, ${nCells} cells, ${ranges} ranges, ${disputes} with a disputed source`);

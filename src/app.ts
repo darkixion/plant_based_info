@@ -48,12 +48,24 @@ interface Dataset { nutrients: Nutrient[]; foods: Food[]; notes?: Note[]; }
    biotin is 3.7 in Japan, 0.5 in the UK and 1.3 in Australia. `disputed` keeps
    a dropped outlier named rather than deleting it. */
 type EvState = "measured" | "range" | "trace" | "not-detected" | "estimated" | "not-measured";
+/* A cell carries only what varies between components of one food. The unit is
+   on the column definition in nutrients.json, the basis is "per 100 g" for
+   every cell in the file, and the preparation and match grade belong to the
+   food's mapping rather than to any one component. Holding a unit here as well
+   would let the two disagree; not holding it makes that unrepresentable. */
 interface EvidenceCell {
   state: EvState;
   value?: number; low?: number; high?: number;
-  unit: string; basis: string; prep: string;
-  sources?: string[]; match?: "exact" | "close" | "proxy";
+  sources?: string[];
   n?: number; disputed?: { source: string; value: number }[];
+}
+/* One reviewed mapping from this page's food to a source's row, and the cells
+   that mapping made reachable. `match` is graded by a human and `proxy` must
+   stay visible to a reader wherever its values appear. */
+interface EvidenceFood {
+  prep: string;
+  match: "exact" | "close" | "proxy";
+  cells: Record<string, EvidenceCell>;
 }
 interface EvSource {
   title: string; publisher: string; country: string; url: string; quality: string;
@@ -204,7 +216,7 @@ declare const G: Gaps;
    they cite. Injected the same way, and validated by build.mjs the same way:
    every cell names a food and a component that exist, and every value names a
    source that resolves. Reads below can be direct because of that. */
-declare const EV: Record<string, Record<string, EvidenceCell>>;
+declare const EV: Record<string, EvidenceFood>;
 declare const SRCS: Record<string, EvSource>;
 
 const NUTS = DATA.nutrients, FOODS = DATA.foods;
@@ -778,7 +790,10 @@ function shown(f: Food, n: Nutrient) {
    of the page rests on: undefined is nobody has an entry for this food and this
    component, while a cell reading `not-measured` is a source that carries the
    food, carries the component, and says it did not assay this one. */
-const ev = (slug: string, id: string): EvidenceCell | undefined => EV[slug]?.[id];
+const ev = (slug: string, id: string): EvidenceCell | undefined => EV[slug]?.cells[id];
+/* The mapping behind a food's cells. Separate from ev() because a reader needs
+   the match grade even where they are looking at one component. */
+const evFood = (slug: string): EvidenceFood | undefined => EV[slug];
 
 /* Six states and six renderings, with no default branch: the union is closed,
    so a seventh state added to the data without being added here is a compile
@@ -1423,7 +1438,7 @@ function renderTable(r: ReturnType<typeof rows>) {
             `<span class="noref" aria-hidden="true">&ndash;</span>` +
             `<span class="sr">no daily value published</span></td>`;
           const cell = ev(slugAt(i), n.id);
-          const proxy = cell?.match === "proxy" ? ` data-match="proxy"` : "";
+          const proxy = cell && evFood(slugAt(i))?.match === "proxy" ? ` data-match="proxy"` : "";
           return `<td class="num ${colClass(n)}" data-g="${n.group}" data-n="${esc(n.id)}"` +
                  ` data-ev="${cell ? cell.state : "none"}"${proxy}>${esc(evText(cell, n.dp))}</td>`;
         }

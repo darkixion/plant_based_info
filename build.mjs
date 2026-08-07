@@ -66,25 +66,27 @@ export function checkEvidence(evidence, nutrients, foods, sources) {
   const bySlug = new Map(foods.map(f => [slug(f), f]));
   const evIds = new Set(nutrients.filter(n => n.evidence).map(n => n.id));
 
-  for (const [foodSlug, cells] of Object.entries(evidence || {})) {
+  for (const [foodSlug, entry] of Object.entries(evidence || {})) {
     const food = bySlug.get(foodSlug);
     if (!food) { problems.push(`evidence for unknown food "${foodSlug}"`); continue; }
-    for (const [id, c] of Object.entries(cells)) {
+
+    /* The mapping, checked once per food rather than once per cell. Preparation
+       is the sharpest edge in this data: a correct value against the wrong
+       preparation is worse than none, because it looks right. */
+    if (!entry.match) problems.push(`evidence ${foodSlug}: no match grade`);
+    else if (!EV_MATCH.has(entry.match))
+      problems.push(`evidence ${foodSlug}: unknown match grade "${entry.match}"`);
+    const state = (food.state || "as listed").toLowerCase();
+    if (entry.prep && entry.prep.toLowerCase() !== state && entry.prep.toLowerCase() !== "as listed")
+      problems.push(`evidence ${foodSlug}: prep "${entry.prep}" disagrees with the food's state "${food.state || ""}"`);
+
+    for (const [id, c] of Object.entries(entry.cells || {})) {
       const at = `evidence ${foodSlug}.${id}`;
       // Unknown covers both halves deliberately: a component with no column and
       // a column that is not an evidence column are the same mistake, a figure
       // put somewhere the page will not read it from.
       if (!evIds.has(id)) { problems.push(`${at}: unknown component`); continue; }
       if (!EV_STATES.has(c.state)) { problems.push(`${at}: unknown state "${c.state}"`); continue; }
-      if (c.match && !EV_MATCH.has(c.match)) problems.push(`${at}: unknown match grade "${c.match}"`);
-      if (!c.unit) problems.push(`${at}: missing unit`);
-      if (!c.basis) problems.push(`${at}: missing basis`);
-
-      // Preparation is the sharpest edge in this data. A correct value against
-      // the wrong preparation is worse than none, because it looks right.
-      const state = (food.state || "as listed").toLowerCase();
-      if (c.prep && c.prep.toLowerCase() !== state && c.prep.toLowerCase() !== "as listed")
-        problems.push(`${at}: prep "${c.prep}" disagrees with the food's state "${food.state || ""}"`);
 
       const carries = c.state === "measured" || c.state === "range" || c.state === "estimated";
       if (carries) {
@@ -393,8 +395,8 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
   // A citation nobody uses is the same fault as an uncited claim, read from the
   // other end, and the same check the interactions and gaps sources get.
   for (const key of Object.keys(srcs || {}))
-    if (!Object.values(evidence || {}).some(cells =>
-        Object.values(cells).some(c => (c.sources || []).includes(key))))
+    if (!Object.values(evidence || {}).some(entry =>
+        Object.values(entry.cells || {}).some(c => (c.sources || []).includes(key))))
       problems.push(`sources: "${key}" is cited by no evidence cell`);
 
   return problems;
