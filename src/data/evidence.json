@@ -1,0 +1,2851 @@
+{
+ "lentils-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 8.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "chickpeas-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 11.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 8.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "kidney-beans-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 12,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 0.5,
+   "high": 3.7,
+   "sources": [
+    "mext-2020",
+    "cofid-2021",
+    "afcd-r3"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "split-peas-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 7.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 2.3,
+   "high": 5.7,
+   "sources": [
+    "mext-2020",
+    "afcd-r3"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "mung-beans-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 4.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 0.9,
+   "high": 3.3,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "adzuki-beans-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 11.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 3.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "black-eyed-peas-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 9.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 5.9,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "green-peas-cooked": {
+  "solfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 5.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "edamame-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 4.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 11,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "broad-beans-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 1.5,
+   "high": 6.9,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "tofu-firm": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "firm",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "firm",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 4.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "firm",
+   "match": "exact"
+  }
+ },
+ "tempeh": {
+  "solfibre": {
+   "state": "measured",
+   "value": 2.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 8.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 20,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  }
+ },
+ "natto": {
+  "solfibre": {
+   "state": "measured",
+   "value": 2.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 4.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 18,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  }
+ },
+ "soy-milk-unsweetened": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "unsweetened",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "not-detected",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "unsweetened",
+   "match": "exact",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 3.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "unsweetened",
+   "match": "exact"
+  }
+ },
+ "oats-rolled-dry": {
+  "solfibre": {
+   "state": "measured",
+   "value": 3.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "rolled, dry",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 6.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "rolled, dry",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 22,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "rolled, dry",
+   "match": "exact"
+  }
+ },
+ "quinoa-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 4.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 23,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  }
+ },
+ "amaranth-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 6.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 16,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  }
+ },
+ "brown-rice-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 1,
+   "high": 2.9,
+   "sources": [
+    "mext-2020",
+    "cofid-2021",
+    "afcd-r3"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "buckwheat-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 3.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 17,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  }
+ },
+ "millet-cooked": {
+  "solfibre": {
+   "state": "trace",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 7.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  }
+ },
+ "sweetcorn-cooked": {
+  "solfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 2.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "almonds": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 60,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  }
+ },
+ "peanuts": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 92,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  }
+ },
+ "sunflower-seeds": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 6.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 80,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  }
+ },
+ "pumpkin-seeds": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 5.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 13,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  }
+ },
+ "sesame-seeds": {
+  "solfibre": {
+   "state": "measured",
+   "value": 2.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 10.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 15,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  }
+ },
+ "chia-seeds": {
+  "solfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 24,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  }
+ },
+ "flaxseed": {
+  "solfibre": {
+   "state": "measured",
+   "value": 9.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 14.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 33,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "close"
+  }
+ },
+ "hemp-seeds-hulled": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "hulled",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 21.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "hulled",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 28,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "hulled",
+   "match": "close"
+  }
+ },
+ "cashews": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 5.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 19,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  }
+ },
+ "hazelnuts": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 6.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 82,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "proxy"
+  }
+ },
+ "macadamia-nuts-raw": {
+  "solfibre": {
+   "state": "trace",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 6.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 6.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  }
+ },
+ "chestnuts-roasted": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "roasted",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 7.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "roasted",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "roasted",
+   "match": "close"
+  }
+ },
+ "tahini-from-roasted-kernels": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "from roasted kernels",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 9.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "from roasted kernels",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 13,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "from roasted kernels",
+   "match": "exact"
+  }
+ },
+ "spinach-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 2.7,
+   "sources": [
+    "mext-2020",
+    "afcd-r3"
+   ],
+   "disputed": [
+    {
+     "source": "cofid-2021",
+     "value": 0.1
+    }
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "kale-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 3.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "broccoli-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 3.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 3.5,
+   "high": 7.1,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "exact"
+  }
+ },
+ "cauliflower-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 8.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "pak-choi-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "watercress-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "mushrooms-white-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "white, raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "white, raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 11,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "white, raw",
+   "match": "exact"
+  }
+ },
+ "shiitake-mushrooms-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 4.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 7.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "oyster-mushrooms-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 12,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "sweet-potato-baked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "baked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "baked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 4.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "baked",
+   "match": "close"
+  }
+ },
+ "potato-baked-with-skin": {
+  "solfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "baked, with skin",
+   "match": "close",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "baked, with skin",
+   "match": "close",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.45,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "baked, with skin",
+   "match": "close"
+  }
+ },
+ "asparagus-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "avocado": {
+  "solfibre": {
+   "state": "measured",
+   "value": 1.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 3.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 2.4,
+   "high": 5.3,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  }
+ },
+ "banana": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.95,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "as listed",
+   "match": "exact"
+  }
+ },
+ "carrots-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "range",
+   "low": 0.3,
+   "high": 2.8,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "celery-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "cucumber-raw-with-peel": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw, with peel",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw, with peel",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw, with peel",
+   "match": "exact"
+  }
+ },
+ "tomatoes-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 2.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "onions-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020",
+    "cofid-2021"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "courgette-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 2.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "aubergine-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 2.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "bell-pepper-green-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "green, raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "green, raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "green, raw",
+   "match": "exact"
+  }
+ },
+ "ginger-root-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "spring-onions-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "leeks-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "proxy"
+  }
+ },
+ "butternut-squash-baked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "baked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "baked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "baked",
+   "match": "close"
+  }
+ },
+ "pumpkin-cooked": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "cooked",
+   "match": "close"
+  }
+ },
+ "radishes-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  }
+ },
+ "nori-raw": {
+  "solfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 41,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  }
+ },
+ "kelp-raw": {
+  "solfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "insolfibre": {
+   "state": "not-measured",
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy",
+   "sources": [
+    "mext-2020"
+   ]
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 9.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "proxy"
+  }
+ },
+ "apple-raw-with-skin": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw, with skin",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw, with skin",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw, with skin",
+   "match": "exact"
+  }
+ },
+ "strawberries-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "orange-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "peaches-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "grapes-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "kiwi-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "blueberries-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 2.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 1.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "mango-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.8,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "pineapple-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "watermelon-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.9,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "grapefruit-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "apricots-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.6,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "pear-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "cherries-sweet-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "sweet, raw",
+   "match": "close"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "sweet, raw",
+   "match": "close"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "sweet, raw",
+   "match": "close"
+  }
+ },
+ "jerusalem-artichokes-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.5,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 3.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "alfalfa-sprouts-raw": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.1,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.3,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 4.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "raw",
+   "match": "exact"
+  }
+ },
+ "dried-figs-dried": {
+  "solfibre": {
+   "state": "measured",
+   "value": 0.7,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "dried",
+   "match": "proxy"
+  },
+  "insolfibre": {
+   "state": "measured",
+   "value": 1.2,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "g",
+   "basis": "per 100 g",
+   "prep": "dried",
+   "match": "proxy"
+  },
+  "biotin": {
+   "state": "measured",
+   "value": 0.4,
+   "sources": [
+    "mext-2020"
+   ],
+   "unit": "µg",
+   "basis": "per 100 g",
+   "prep": "dried",
+   "match": "proxy"
+  }
+ }
+}
