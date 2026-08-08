@@ -871,7 +871,12 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 
 - [ ] **Step 1: Update `README.md`**
 
-Extend "Evidence columns" with: the 16 new columns and their group placement; that all 16 are single-source and therefore never a range until phase 2b; the cell shape and why `unit`, `basis`, `prep` and `match` left it; the parenthesised-figure finding and the 105 cells it recovered; the marker collision and why the marks compose rather than compete; the `absent` field, what it is for, and that a typo in it names nothing and passes. Correct the iodine line near 1369, which says reliable per-food values are scarce, to say the column exists and what it rests on. Record that chromium is unparked from MEXT only, and that AFCD's chromium and Thor 2011 stay rejected. Check any sentence counting groups or columns, since both numbers changed.
+Extend "Evidence columns" with: the 16 new columns and their group placement; that all 16 are single-source and therefore never a range until phase 2b; the cell shape and why `unit`, `basis`, `prep` and `match` left it; the parenthesised-figure finding and the 105 cells it recovered; the marker collision and why the marks compose rather than compete; the `absent` field, what it is for, and that a typo in it names nothing and passes. Correct **two** iodine claims in `README.md`, both now false. Find each by its text, not its line number:
+
+- Near line 1369, in the list of deliberate exclusions: *"**Iodine**, as reliable per-food values are scarce for plant foods."* It has a column now. Either move the entry out of that list or rewrite it to say what the column rests on and why it is still not a total.
+- Near line 978: *"Three standing notes are shown whatever the totals say: B12, that iodine is **not in this dataset at all**, and that intake is not absorption."* The dataset carries iodine now. The standing note still exists and is still correct in substance, because an evidence column reaches no total, so this sentence needs to describe the note as it now reads rather than as it did. Task 6 rewrote the note itself in `gaps.json`; this is the README describing it.
+
+This second one was found by the Task 6 implementer and was missing from both briefs. Record that chromium is unparked from MEXT only, and that AFCD's chromium and Thor 2011 stay rejected. Check any sentence counting groups or columns, since both numbers changed.
 
 - [ ] **Step 2: Update `tools/evidence/README.md`**
 
