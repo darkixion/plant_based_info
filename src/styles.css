@@ -413,11 +413,18 @@ tbody td[data-ev=none],
 tbody td[data-ev=trace],
 tbody td[data-ev=not-detected],
 tbody td[data-ev=not-measured]{font-style:italic; color:var(--muted)}
-tbody td[data-ev=estimated]::after{content:" calc"; font-size:.75em; color:var(--muted)}
+/* One ::after per element, so the marks compose here rather than competing.
+   Two separate rules meant the later one won outright, and the cells that
+   carry both are the least certain figures on the page: a value never
+   assayed, for a food that is only a proxy for the one named. */
+tbody td[data-ev=estimated]::after,
+tbody td[data-match=proxy]::after{font-size:.75em; color:var(--muted)}
+tbody td[data-ev=estimated]:not([data-match=proxy])::after{content:" calc"}
+tbody td[data-match=proxy]:not([data-ev=estimated])::after{content:" ~"}
+tbody td[data-ev=estimated][data-match=proxy]::after{content:" calc ~"}
 /* The % daily value view, where these three have no percentage to show. Quiet,
    because the dash is an exemption rather than a finding about the food. */
 tbody td[data-ev=nodv] .noref{color:var(--faint)}
-tbody td[data-match=proxy]::after{content:" ~"; color:var(--muted)}
 /* A range is two numbers and a word, which is wider than any figure the column
    was sized for, so it is allowed to set its own type size rather than push the
    column out. */

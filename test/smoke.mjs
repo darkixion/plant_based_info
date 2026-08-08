@@ -3481,6 +3481,79 @@ await test("an evidence column names its sources where a reader can reach them",
   });
 });
 
+await test("a calculated figure is shown as one, not as a measurement", async () => {
+  /* MEXT prints a calculated value in parentheses. The extractor kept the raw
+     string and set value to null, so every estimated cell was silently dropped
+     and the sixth state had never once been exercised by real data. */
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const states = {};
+      for (const f of Object.values(EV))
+        for (const c of Object.values(f.cells)) states[c.state] = (states[c.state] || 0) + 1;
+      return states;
+    });
+    assert(r.estimated > 50, `expected the estimated state to be exercised, got ${r.estimated || 0}`);
+    // And it must render as a figure, since a calculation is still a number.
+    const cells = await page.$$eval('#tbody td[data-ev="estimated"]',
+      tds => tds.map(t => t.textContent.trim()));
+    assert(cells.length > 0, "no estimated cell rendered");
+    assert(cells.every(t => /[0-9]/.test(t)), "an estimated cell must show its figure");
+  });
+});
+
+await test("the sixteen new columns carry the evidence they should", async () => {
+  await withPage(async page => {
+    const r = await page.evaluate(() => {
+      const ids = ["mo", "iodine", "cr", "resstarch", "starch", "glucose", "fructose",
+                   "sucrose", "maltose", "sorbitol", "mannitol", "organicacids", "citric",
+                   "malic", "quinic", "oxalate"];
+      const out = {};
+      for (const id of ids) out[id] = 0;
+      for (const f of Object.values(EV))
+        for (const id of ids) if (f.cells[id]) out[id]++;
+      return out;
+    });
+    // Every column must reach at least one food, or it is a column of nothing.
+    const empty = Object.entries(r).filter(([, n]) => n === 0).map(([id]) => id);
+    eq(empty.length, 0, `columns with no cell at all: ${empty.join(", ")}`);
+    // The two best-covered, as a check that the join actually joined.
+    assert(r.mo >= 79, `molybdenum reached ${r.mo} foods, expected at least 79`);
+    assert(r.iodine >= 79, `iodine reached ${r.iodine} foods, expected at least 79`);
+    assert(r.cr >= 79, `chromium reached ${r.cr} foods, expected at least 79`);
+    // The organic acid corpus carries only 33 of the 81 mapped foods at all, so
+    // this column is capped by the source rather than by the mapping.
+    assert(r.organicacids <= 33, `organic acids reached ${r.organicacids}, expected at most 33`);
+  });
+});
+
+await test("a figure that is both calculated and a proxy shows both marks", async () => {
+  /* An element has one ::after. The estimated rule sets " calc" and the proxy
+     rule sets " ~", the proxy rule is declared later, so it won and the calc
+     marker silently vanished on exactly the least certain cells on the page:
+     a figure never assayed, for a food that is only a proxy for the one named.
+     Latent since phase 1 and invisible until an estimated cell existed. */
+  await withPage(async page => {
+    const marks = await page.$$eval('#tbody td[data-ev="estimated"][data-match="proxy"]',
+      tds => tds.map(t => getComputedStyle(t, "::after").content));
+    assert(marks.length > 0, "no cell is both calculated and a proxy match");
+    const lost = marks.filter(m => !m.includes("calc"));
+    eq(lost.length, 0, `cells that dropped the calc marker: ${lost.length} of ${marks.length}`);
+    const noProxy = marks.filter(m => !m.includes("~"));
+    eq(noProxy.length, 0, `cells that dropped the proxy marker: ${noProxy.length} of ${marks.length}`);
+  });
+});
+
+await test("iodine says what it was measured to say", async () => {
+  await withPage(async page => {
+    // The finding, and the reason this column is worth having: mostly analysed
+    // absence, with seaweed orders of magnitude above everything else.
+    eq(await cellText(page, "Kelp", "iodine"), "200000", "kelp iodine");
+    const none = await page.evaluate(() =>
+      Object.values(EV).filter(f => f.cells.iodine?.state === "not-detected").length);
+    assert(none >= 40, `expected at least 40 foods assayed and found to contain none, got ${none}`);
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

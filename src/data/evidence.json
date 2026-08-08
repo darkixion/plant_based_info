@@ -17,6 +17,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 20.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.4,
@@ -44,6 +114,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 56,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 17.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 8.9,
@@ -67,6 +207,75 @@
    "insolfibre": {
     "state": "measured",
     "value": 12,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 27,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 14.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -101,6 +310,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 63,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 16.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "range",
     "low": 2.3,
@@ -126,6 +405,76 @@
    "insolfibre": {
     "state": "measured",
     "value": 4.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 140,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 15.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -159,6 +508,109 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 90,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 16.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 3.3,
@@ -186,6 +638,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 150,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 16.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 5.9,
@@ -207,6 +729,109 @@
     ]
    },
    "insolfibre": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 60,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 7.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
     "state": "not-measured",
     "sources": [
      "mext-2020"
@@ -239,6 +864,77 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 240,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 2.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 11,
@@ -262,6 +958,75 @@
    "insolfibre": {
     "state": "measured",
     "value": 2.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 150,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 10.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -295,6 +1060,109 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 44,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 4.1,
@@ -318,6 +1186,33 @@
    "insolfibre": {
     "state": "measured",
     "value": 8.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 76,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
     "sources": [
      "mext-2020"
     ]
@@ -349,6 +1244,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 290,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 18,
@@ -371,6 +1336,75 @@
    },
    "insolfibre": {
     "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 54,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -402,6 +1436,75 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 110,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 56.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 22,
@@ -425,6 +1528,79 @@
    "insolfibre": {
     "state": "measured",
     "value": 4.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 23,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 52.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 2.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -456,6 +1632,77 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 59,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 56.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 16,
@@ -479,6 +1726,77 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 34,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 30.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -513,6 +1831,78 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 47,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 62.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 17,
@@ -539,6 +1929,78 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 16,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 64.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 7.9,
@@ -559,6 +2021,111 @@
     ]
    },
    "insolfibre": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 10.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 3.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
     "state": "not-measured",
     "sources": [
      "mext-2020"
@@ -591,6 +2158,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 32,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 4.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 60,
@@ -614,6 +2251,111 @@
    "insolfibre": {
     "state": "measured",
     "value": 7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 88,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 4.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 5.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.1,
     "sources": [
      "mext-2020"
     ]
@@ -645,6 +2387,79 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 28,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 12.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 1.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 80,
@@ -668,6 +2483,79 @@
    "insolfibre": {
     "state": "measured",
     "value": 5.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 42,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 13,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -699,6 +2587,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 110,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 15,
@@ -720,6 +2678,110 @@
    },
    "insolfibre": {
     "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 44,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.7,
     "sources": [
      "mext-2020"
     ]
@@ -751,6 +2813,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 13,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 25,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 33,
@@ -774,6 +2906,76 @@
    "insolfibre": {
     "state": "measured",
     "value": 21.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 45,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 2.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -805,6 +3007,79 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 30,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 11.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 5.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 19,
@@ -832,6 +3107,79 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 3.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 82,
@@ -854,6 +3202,79 @@
    "insolfibre": {
     "state": "measured",
     "value": 6.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 3.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -885,6 +3306,75 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 34.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 5.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 6,
@@ -912,6 +3402,79 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 150,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 13,
@@ -935,6 +3498,111 @@
    "insolfibre": {
     "state": "measured",
     "value": 2.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.7,
     "sources": [
      "mext-2020"
     ]
@@ -973,6 +3641,80 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 38,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 4,
@@ -996,6 +3738,75 @@
    "insolfibre": {
     "state": "measured",
     "value": 3.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1029,6 +3840,110 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 8.5,
@@ -1052,6 +3967,108 @@
    "insolfibre": {
     "state": "measured",
     "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1083,6 +4100,80 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 20,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 4,
@@ -1106,6 +4197,76 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "measured",
+    "value": 1.3,
     "sources": [
      "mext-2020"
     ]
@@ -1137,6 +4298,109 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "measured",
+    "value": 1.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 7.6,
@@ -1160,6 +4424,76 @@
    "insolfibre": {
     "state": "measured",
     "value": 2.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "measured",
+    "value": 0.2,
     "sources": [
      "mext-2020"
     ]
@@ -1191,6 +4525,113 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 14.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 3.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "measured",
+    "value": 10.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 4.9,
@@ -1212,6 +4653,114 @@
    },
    "insolfibre": {
     "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 14.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "trace",
     "sources": [
      "mext-2020"
     ]
@@ -1244,6 +4793,110 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.8,
@@ -1267,6 +4920,78 @@
    "insolfibre": {
     "state": "measured",
     "value": 3.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1300,6 +5025,110 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 3.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 2.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 2.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 10.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.95,
@@ -1324,6 +5153,110 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 2.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
     "sources": [
      "mext-2020"
     ]
@@ -1357,6 +5290,108 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.2,
@@ -1380,6 +5415,110 @@
    "insolfibre": {
     "state": "measured",
     "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
     "sources": [
      "mext-2020"
     ]
@@ -1411,6 +5550,108 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 2.3,
@@ -1434,6 +5675,111 @@
    "insolfibre": {
     "state": "measured",
     "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 2.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 2.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
     "sources": [
      "mext-2020"
     ]
@@ -1466,6 +5812,78 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 1.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 2.7,
@@ -1489,6 +5907,110 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 10,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "trace",
     "sources": [
      "mext-2020"
     ]
@@ -1520,6 +6042,109 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.6,
@@ -1543,6 +6168,111 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 2.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1574,6 +6304,75 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.7,
@@ -1597,6 +6396,76 @@
    "insolfibre": {
     "state": "measured",
     "value": 2.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1628,6 +6497,110 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 8.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 5.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.7,
@@ -1651,6 +6624,77 @@
    "insolfibre": {
     "state": "measured",
     "value": 2.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 3.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1682,6 +6726,77 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.3,
@@ -1707,6 +6822,76 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 93,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1400,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 41,
@@ -1728,6 +6913,109 @@
    },
    "insolfibre": {
     "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 11,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 200000,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "measured",
+    "value": 14,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "measured",
+    "value": 23.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "trace",
     "sources": [
      "mext-2020"
     ]
@@ -1759,6 +7047,109 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 6.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 4.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.7,
@@ -1782,6 +7173,114 @@
    "insolfibre": {
     "state": "measured",
     "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 1.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 2.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
     "sources": [
      "mext-2020"
     ]
@@ -1813,6 +7312,78 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 1.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 1.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 3.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.9,
@@ -1836,6 +7407,110 @@
    "insolfibre": {
     "state": "measured",
     "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 6.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1867,6 +7542,107 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 8.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 8.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1,
@@ -1890,6 +7666,110 @@
    "insolfibre": {
     "state": "measured",
     "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "measured",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 3.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 1.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1921,6 +7801,77 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 4.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 4.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 1.1,
@@ -1944,6 +7895,77 @@
    "insolfibre": {
     "state": "measured",
     "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 1.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 4.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 7.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -1975,6 +7997,108 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 1.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 8.8,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.2,
@@ -1998,6 +8122,31 @@
    "insolfibre": {
     "state": "measured",
     "value": 0.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
     "sources": [
      "mext-2020"
     ]
@@ -2029,6 +8178,108 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "measured",
+    "value": 2.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "measured",
+    "value": 3.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.5,
@@ -2052,6 +8303,79 @@
    "insolfibre": {
     "state": "measured",
     "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 3.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "estimated",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]
@@ -2083,6 +8407,79 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 2.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "estimated",
+    "value": 2.9,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 0.3,
@@ -2106,6 +8503,31 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "trace",
     "sources": [
      "mext-2020"
     ]
@@ -2137,6 +8559,112 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.3,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 1.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "estimated",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "estimated",
+    "value": 0.5,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 3.7,
@@ -2164,6 +8692,79 @@
      "mext-2020"
     ]
    },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 16,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
    "biotin": {
     "state": "measured",
     "value": 4.4,
@@ -2187,6 +8788,109 @@
    "insolfibre": {
     "state": "measured",
     "value": 1.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "resstarch": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "iodine": {
+    "state": "not-detected",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "cr": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "starch": {
+    "state": "estimated",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "glucose": {
+    "state": "estimated",
+    "value": 5.6,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "fructose": {
+    "state": "estimated",
+    "value": 5.2,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sucrose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "maltose": {
+    "state": "trace",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "sorbitol": {
+    "state": "estimated",
+    "value": 0,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mannitol": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "organicacids": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "citric": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "malic": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "quinic": {
+    "state": "not-measured",
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "oxalate": {
+    "state": "not-measured",
     "sources": [
      "mext-2020"
     ]

@@ -24,13 +24,64 @@ const slugify = (name, state) => `${name} ${state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const map = rd("page-map-mext.json");
-const fibre = rd("mext-2020-fibre.json");
 const cofid = rd("cofid-2021-plant.json");
 const afcd = rd("afcd-r3-plant.json");
 
-const fibreBy = Object.fromEntries(fibre.map(r => [r.code, r]));
+const CORPORA = {
+  fibre:  rd("mext-2020-fibre.json"),
+  plant:  rd("mext-2020-plant.json"),
+  sugars: rd("mext-2020-sugars.json"),
+  acids:  rd("mext-2020-organic-acids.json"),
+};
+/* All four Japanese corpora key on the same food code, which is what makes one
+   loop over the reviewed mappings enough. */
+const BY_CODE = Object.fromEntries(Object.entries(CORPORA)
+  .map(([k, rows]) => [k, Object.fromEntries(rows.map(r => [r.code, r]))]));
+
 const cofidBy = Object.fromEntries(cofid.map(r => [r.name, r]));
 const afcdBy = Object.fromEntries(afcd.map(r => [r.name, r]));
+
+/* The uniform components: one source, one field, one cell. Biotin is not here
+   and stays hand-written below, because it is the only multi-source component
+   and the shape of a multi-source declaration is not knowable until the AFCD
+   and IFCT mappings exist. This table covers what is uniform. */
+const COMPONENTS = [
+  { id: "solfibre",     corpus: "fibre",  field: "sol_prosky" },
+  { id: "insolfibre",   corpus: "fibre",  field: "insol_prosky" },
+  { id: "resstarch",    corpus: "fibre",  field: "resistant_starch" },
+  { id: "mo",           corpus: "plant",  field: "mo" },
+  { id: "iodine",       corpus: "plant",  field: "iodine" },
+  { id: "cr",           corpus: "plant",  field: "cr" },
+  { id: "starch",       corpus: "sugars", field: "starch" },
+  { id: "glucose",      corpus: "sugars", field: "glucose" },
+  { id: "fructose",     corpus: "sugars", field: "fructose" },
+  { id: "sucrose",      corpus: "sugars", field: "sucrose" },
+  { id: "maltose",      corpus: "sugars", field: "maltose" },
+  { id: "sorbitol",     corpus: "sugars", field: "sorbitol" },
+  { id: "mannitol",     corpus: "sugars", field: "mannitol" },
+  { id: "organicacids", corpus: "acids",  field: "total_oa" },
+  { id: "citric",       corpus: "acids",  field: "citric" },
+  { id: "malic",        corpus: "acids",  field: "malic" },
+  { id: "quinic",       corpus: "acids",  field: "quinic" },
+  { id: "oxalate",      corpus: "acids",  field: "oxalic" },
+];
+
+/* MEXT prints a calculated figure in parentheses and the extractor kept the
+   string without parsing it, so every one of these arrived with value null.
+   The parentheses are the source saying "calculated, not assayed", which is
+   what state estimated means, so the figure is recovered here rather than
+   dropped. Returns null for anything that is not a parenthesised number. */
+const bracketed = raw => {
+  const m = /^\(\s*([\d.]+)\s*\)$/.exec(String(raw ?? "").trim());
+  if (!m) return null;
+  const n = parseFloat(m[1]);
+  return Number.isNaN(n) ? null : n;
+};
+
+/* The figure a cell carries, whichever way the extractor recorded it. Never
+   substitutes a value for a missing one: a null here means no figure, and the
+   caller must drop the cell rather than write a zero. */
+const figureOf = c => c.value !== null && c.value !== undefined ? c.value : bracketed(c.raw);
 
 /* Reviewed page -> CoFID and AFCD names, for the biotin comparison. MEXT is
    already mapped in page-map-mext.json. Every pair here was checked by hand
@@ -73,15 +124,17 @@ for (const p of map) {
   const alt = ALT[`${slugify(p.page, "")} ${p.page_state}`.trim()] || {};
   const cells = {};
 
-  const fib = fibreBy[p.jp_code];
-  for (const [id, field] of [["solfibre", "sol_prosky"], ["insolfibre", "insol_prosky"]]) {
-    const c = fib && fib[field];
-    if (!c) continue;
+  for (const comp of COMPONENTS) {
+    const row = BY_CODE[comp.corpus][p.jp_code];
+    const c = row && row[comp.field];
+    if (!c) continue;                        // no entry at all, which is no data
     const through = passthrough(c.state);
-    if (through) { cells[id] = { state: through, sources: ["mext-2020"] }; nCells++; continue; }
+    if (through) { cells[comp.id] = { state: through, sources: ["mext-2020"] }; nCells++; continue; }
     if (c.state !== "measured" && c.state !== "estimated") continue;
-    const cell = reconcile([{ source: "mext-2020", value: c.value, derivation: c.state === "estimated" ? "estimated" : "analysed" }]);
-    cells[id] = cell;
+    const value = figureOf(c);
+    if (value === null) continue;            // a state that carries no figure
+    cells[comp.id] = reconcile([{ source: "mext-2020", value,
+      derivation: c.state === "estimated" ? "estimated" : "analysed" }]);
     nCells++;
   }
 
