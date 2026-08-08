@@ -3554,6 +3554,27 @@ await test("iodine says what it was measured to say", async () => {
   });
 });
 
+await test("the page does not say iodine has no column", async () => {
+  /* It has one. Four sentences said otherwise, and a page that contradicts its
+     own table is worse than one that shows less. */
+  await withPage(async page => {
+    /* openDialog replaces #dlgB each time, so the text has to be collected per
+       dialog rather than read from the body once at the end. The five ids are
+       DLG's own keys; "gaps" is the one that renders gaps.json. */
+    const text = await page.evaluate(() => {
+      let all = "";
+      for (const id of ["how", "meth", "about", "bio", "gaps"]) {
+        openDialog(id);
+        all += document.querySelector("#dlgB").innerText + "\n";
+      }
+      return all;
+    });
+    for (const claim of ["Iodine has no column", "Iodine is not a column",
+                         "Iodine is not included", "no column for it here"])
+      assert(!text.includes(claim), `the page still says "${claim}"`);
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

@@ -41,7 +41,7 @@
           ${isFav(l)?I.heartFull:I.heart}
           <span class="sr">${isFav(l)?"Remove":"Add"} ${esc(d.name)} ${isFav(l)?"from":"to"} favourites</span>
         </button></div></td>
-      ${t.map(h=>{if(h.evidence){if(S.dv)return`<td class="num ${colClass(h)}" data-g="${h.group}" data-n="${esc(h.id)}" data-ev="nodv"><span class="noref" aria-hidden="true">&ndash;</span><span class="sr">no daily value published</span></td>`;const m=ev(slugAt(l),h.id),p=m&&evFood(slugAt(l))?.match==="proxy"?' data-match="proxy"':"";return`<td class="num ${colClass(h)}" data-g="${h.group}" data-n="${esc(h.id)}" data-ev="${m?m.state:"none"}"${p}>${esc(evText(m,h.dp))}</td>`}const f=shown(d,h),g=f===0||f===null,b=f===null?null:noteFor(l,h.id);return b&&i.add(b),`<td class="num${g?" low":""} ${colClass(h)}" data-g="${h.group}" data-n="${esc(h.id)}">${fmt(f,h)}${b?noteMark(b):""}</td>`}).join("")}
+      ${t.map(h=>{if(h.evidence){if(S.dv)return`<td class="num ${colClass(h)}" data-g="${h.group}" data-n="${esc(h.id)}" data-ev="nodv"><span class="noref" aria-hidden="true">&ndash;</span><span class="sr">no daily value published</span></td>`;const m=ev(slugAt(l),h.id),p=m&&evFood(slugAt(l))?.match==="proxy"?' data-match="proxy"':"";return`<td class="num ${colClass(h)}" data-g="${h.group}" data-n="${esc(h.id)}" data-ev="${m?m.state:"none"}"${p}>${esc(evText(m,h.dp))}</td>`}const g=shown(d,h),f=g===0||g===null,b=g===null?null:noteFor(l,h.id);return b&&i.add(b),`<td class="num${f?" low":""} ${colClass(h)}" data-g="${h.group}" data-n="${esc(h.id)}">${fmt(g,h)}${b?noteMark(b):""}</td>`}).join("")}
     </tr>`}).join(""):`<tr><td class="empty" colspan="${t.length+1}">${emptyState()}</td></tr>`;const c=lensById(S.lens);$("#cap").textContent=(n.length===FOODS.length?`${FOODS.length} vegan foods`:`Showing ${n.length} of ${FOODS.length} vegan foods`)+(t.length===NUTS.length?`, all ${t.length} nutrient columns`:`, ${t.length} of ${NUTS.length} nutrient columns`)+`. Values ${basisLabel()} of food`+(S.dv?", shown as % of adult daily value.":".")+(S.favsOnly?" Favourites only.":"")+(c?` ${c.name} highlighted.`:"")+(S.dv&&S.basis==="kcal"?" 5% here is a full day's worth at 2000 kcal.":"");const r=$("#noteKey");r.hidden=!i.size,r.innerHTML=[...i].map(d=>`<span><sup class="fnote">${esc(d.marker)}</sup> <b>${esc(d.short)}.</b>
      ${esc(d.text)}</span>`).join(""),syncHeadOffset()}function syncHeadOffset(){const e=$("#thead").rows[0];if(!e)return;const t=e.getBoundingClientRect().height;t&&$("#grid").style.setProperty("--head1",`${Math.floor(t)}px`);const n=e.cells[0],a=n&&n.getBoundingClientRect().width;a&&$("#grid").style.setProperty("--foodw",`${a}px`);const s=$("#scroller").clientWidth;s&&$("#grid").style.setProperty("--scrollw",`${s}px`)}addEventListener("resize",syncHeadOffset);function emptyState(){return S.favsOnly&&!S.favs.size?`<b>No favourites yet</b>Star a food with the heart button to build a shortlist,
             then come back here.
@@ -67,38 +67,38 @@
         <dd>${t.perKcal.toFixed(1)} g</dd></div>`)}n&&(s+=`<div class="drow"><dt>Omega-6 : omega-3</dt>
       <dd>${n.flip?`1 : ${n.a.toFixed(1)}`:`${n.a.toFixed(1)} : 1`}</dd></div>`);const o=t?t.score>=100?"Meets the adult FAO/WHO pattern for every essential amino acid.":`Scored against the FAO/WHO adult pattern. ${esc(t.limiting)} caps the
            score; pairing this food with one richer in it raises the total.`:"";return`<h4 style="margin-top:18px">Protein quality</h4><dl>${s}</dl>`+(o?`<p style="font-size:11.5px;color:var(--faint);margin:8px 0 0;line-height:1.4">${o}</p>`:"")}function renderDetail(){const e=foodAt(S.sel),t=r=>shown(e,nut(r)),n=r=>evText(ev(slugAt(S.sel),r),nut(r).dp),a=S.day.find(r=>r.slug===slugAt(S.sel)),s=["vitamin","mineral","carbdetail","acids","amino","plant"],o=[["overview","Overview",I.macro],...s.map(r=>groupOf(r)).map(r=>[r.id,r.label,r.icon]),["absorption","Absorption",I.eye]],i=new Set;let c;if(S.tab==="overview"){const r=["kcal","protein","carbs","fiber","solfibre","insolfibre","resstarch","fat","satfat"],d=NUTS.filter(l=>l.dv!==null&&l.dv>0&&l.group!=="macro").flatMap(l=>{const u=t(l.id);return u===null?[]:[{n:l,pc:u/l.dv*100}]}).filter(l=>l.pc>0).sort((l,u)=>u.pc-l.pc).slice(0,6);c="<h4>Macronutrients</h4><dl>"+r.map(l=>{const u=nut(l),h=l==="fiber"||l==="satfat"||!!u.evidence;if(u.evidence){const b=ev(slugAt(S.sel),l),m=b&&(b.state==="measured"||b.state==="range"||b.state==="estimated");return`<div class="drow sub"><dt>${esc(u.label)}</dt>
-          <dd>${m?`${esc(n(l))} ${esc(u.unit)}`:`<span class="nodata">${esc(n(l))}</span>`}</dd></div>`}const f=t(l),g=l==="kcal"&&f!==null?` <span class="pc">· ${Math.round(f*4.184)} kJ</span>`:"";return`<div class="drow${h?" sub":""}"><dt>${esc(u.label)}</dt>
-        <dd>${f===null?'<span class="nodata">not measured</span>':`${f.toFixed(u.dp)} ${u.unit}${g}`}</dd></div>`}).join("")+"</dl>"+proteinQualityBlock(e)+'<h4 style="margin-top:18px">Top nutrients</h4><dl>'+d.map(({n:l,pc:u})=>{const h=noteFor(S.sel,l.id);return h&&i.add(h),`<div class="drow"><dt>${esc(l.label)}</dt>
+          <dd>${m?`${esc(n(l))} ${esc(u.unit)}`:`<span class="nodata">${esc(n(l))}</span>`}</dd></div>`}const g=t(l),f=l==="kcal"&&g!==null?` <span class="pc">· ${Math.round(g*4.184)} kJ</span>`:"";return`<div class="drow${h?" sub":""}"><dt>${esc(u.label)}</dt>
+        <dd>${g===null?'<span class="nodata">not measured</span>':`${g.toFixed(u.dp)} ${u.unit}${f}`}</dd></div>`}).join("")+"</dl>"+proteinQualityBlock(e)+'<h4 style="margin-top:18px">Top nutrients</h4><dl>'+d.map(({n:l,pc:u})=>{const h=noteFor(S.sel,l.id);return h&&i.add(h),`<div class="drow"><dt>${esc(l.label)}</dt>
           <dd class="pc">${Math.round(u)}% DV${h?noteMark(h):""}</dd></div>`}).join("")+"</dl>"}else if(S.tab==="absorption"){const r=sourceOf(e),d=VNUTS.flatMap(l=>{const u=val(e,l.id)===null?null:noteFor(S.sel,l.id);return u&&ABSORB_NOTES.has(u.id)?[{n:l,note:u}]:[]});for(const{note:l}of d)i.add(l);c="<h4>Absorption</h4>"+(d.length?d.map(({n:l,note:u})=>`
         <div class="biorow curated">
           <div class="biohead"><b>${esc(l.label)}</b>
             <span class="biowhen">this food</span></div>
           <p>${esc(u.text)}</p>
-        </div>`).join(""):"")+(r.length?r.map(l=>{const u=nut(l),h=affecting(l).map(f=>`
-          <div class="biorow ${f.direction}">
+        </div>`).join(""):"")+(r.length?r.map(l=>{const u=nut(l),h=affecting(l).map(g=>`
+          <div class="biorow ${g.direction}">
             <div class="biohead">
-              <span class="bioarrow" aria-hidden="true">${f.direction==="up"?"↑":"↓"}</span>
-              <b>${esc(agentLabel(f.agent))}</b>
-              <span class="biowhen">${esc(f.when)}</span>
+              <span class="bioarrow" aria-hidden="true">${g.direction==="up"?"↑":"↓"}</span>
+              <b>${esc(agentLabel(g.agent))}</b>
+              <span class="biowhen">${esc(g.when)}</span>
             </div>
-            <p>${esc(f.text)}</p>
+            <p>${esc(g.text)}</p>
           </div>`).join("");return`<h5 class="biofor">${esc(u.label)}</h5>${h}`}).join(""):`<p class="nodatanote">Nothing on record applies to this food. That means no
            interaction has been recorded for the nutrients it is a meaningful source of,
            not that its nutrients are absorbed whole.</p>`)+`<p class="nodatanote">These are general facts about the nutrients, shown because this
        food's own figures make it a meaningful source of them. Nothing above adjusts a figure.
-       <button class="absorbmore" type="button" data-dlg="bio">Sources</button></p>`}else{const r=NUTS.filter(g=>g.group===S.tab),d=r.filter(g=>!g.evidence),l=d.map(g=>t(g.id)).filter(g=>g!==null),u=Math.max(...l,1e-4),h=lensIds(),f=d.length-l.length;c=`<h4>${esc(GROUPS.find(g=>g.id===S.tab)?.label||S.tab)}</h4>
-      <dl>`+r.map(g=>{if(g.evidence){const y=ev(slugAt(S.sel),g.id),w=y&&(y.state==="measured"||y.state==="range"||y.state==="estimated"),T=y?.sources?.length?` <span class="pc">· ${esc(y.sources.map(k=>SRCS[k]?.country??k).join(", "))}</span>`:"";return`<div class="drow${h.has(g.id)?" lensrow":""}" style="display:block">
+       <button class="absorbmore" type="button" data-dlg="bio">Sources</button></p>`}else{const r=NUTS.filter(f=>f.group===S.tab),d=r.filter(f=>!f.evidence),l=d.map(f=>t(f.id)).filter(f=>f!==null),u=Math.max(...l,1e-4),h=lensIds(),g=d.length-l.length;c=`<h4>${esc(GROUPS.find(f=>f.id===S.tab)?.label||S.tab)}</h4>
+      <dl>`+r.map(f=>{if(f.evidence){const y=ev(slugAt(S.sel),f.id),w=y&&(y.state==="measured"||y.state==="range"||y.state==="estimated"),T=y?.sources?.length?` <span class="pc">· ${esc(y.sources.map(k=>SRCS[k]?.country??k).join(", "))}</span>`:"";return`<div class="drow${h.has(f.id)?" lensrow":""}" style="display:block">
             <div style="display:flex;justify-content:space-between;gap:10px">
-              <dt>${esc(g.label)}</dt>
-              <dd>${w?`${esc(evText(y,g.dp))} ${esc(g.unit)}${T}`:`<span class="nodata">${esc(evText(y,g.dp))}</span>`}</dd>
+              <dt>${esc(f.label)}</dt>
+              <dd>${w?`${esc(evText(y,f.dp))} ${esc(f.unit)}${T}`:`<span class="nodata">${esc(evText(y,f.dp))}</span>`}</dd>
             </div>
-          </div>`}const b=t(g.id),m=b===null,p=!m&&g.dv?Math.round(b/g.dv*100):null,v=m?null:noteFor(S.sel,g.id);return v&&i.add(v),`<div class="drow${h.has(g.id)?" lensrow":""}" style="display:block">
+          </div>`}const b=t(f.id),m=b===null,p=!m&&f.dv?Math.round(b/f.dv*100):null,v=m?null:noteFor(S.sel,f.id);return v&&i.add(v),`<div class="drow${h.has(f.id)?" lensrow":""}" style="display:block">
           <div style="display:flex;justify-content:space-between;gap:10px">
-            <dt>${esc(g.label)}</dt>
-            <dd>${m?'<span class="nodata">not measured</span>':`${b.toFixed(g.dp)} ${g.unit}${p!==null?` <span class="pc">· ${p}%</span>`:""}${v?noteMark(v):""}`}</dd>
+            <dt>${esc(f.label)}</dt>
+            <dd>${m?'<span class="nodata">not measured</span>':`${b.toFixed(f.dp)} ${f.unit}${p!==null?` <span class="pc">· ${p}%</span>`:""}${v?noteMark(v):""}`}</dd>
           </div>
           ${m?"":`<div class="minibar" aria-hidden="true"><i style="width:${(b/u*100).toFixed(1)}%"></i></div>`}
-        </div>`}).join("")+"</dl>"+(f?`<p class="nodatanote">${f===r.length?"USDA publishes no figures at all for this group in this food.":`USDA publishes no figure for ${f} of the ${r.length}.`}
+        </div>`}).join("")+"</dl>"+(g?`<p class="nodatanote">${g===r.length?"USDA publishes no figures at all for this group in this food.":`USDA publishes no figure for ${g} of the ${r.length}.`}
         Unmeasured is not the same as none: nobody has analysed it, rather than
         having analysed it and found nothing.</p>`:"")}$("#detail").innerHTML=`
     <div class="dhead">
@@ -157,13 +157,13 @@
       <button class="btn" type="button" data-act="dayclear">${I.x} Clear the day</button>
       <span class="push">${e.length} food${e.length===1?"":"s"} ·
         <b>${dayGrams()} g</b> in total</span>
-    </div>`}const FAO_SCORED=new Set(FAO_PATTERN.flatMap(e=>e.ids)),NON_ESSENTIAL=NUTS.filter(e=>e.group==="amino"&&!FAO_SCORED.has(e.id)).length;function aminoRefsByNutrient(e){const t=new Map;for(const n of dayAminoAcids(e))for(const a of n.ids)t.set(a,{...n,partners:n.ids.filter(s=>s!==a)});return t}function renderDayTotals(e){const t=dayContributors(),n=$("#dayTotals");if(!t.length){n.innerHTML="";return}const a=aminoRefsByNutrient(e),s=new Set,o=GROUPS.filter(i=>S.groups.has(i.id)).map(i=>{const c=e.filter(d=>d.n.group===i.id).map(d=>{const{n:l,total:u,partial:h,from:f,of:g,notes:b}=d,m=a.get(l.id),p=l.dv&&u!==null?u/l.dv*100:m?m.pc:null,v=m&&m.partners.length?`<span class="qual">with ${m.partners.map(y=>nut(y).label.toLowerCase()).join(" and ")}</span>`:"";return b.forEach(y=>s.add(y)),`<div class="totrow${u===null?" none":""}">
+    </div>`}const FAO_SCORED=new Set(FAO_PATTERN.flatMap(e=>e.ids)),NON_ESSENTIAL=NUTS.filter(e=>e.group==="amino"&&!FAO_SCORED.has(e.id)).length;function aminoRefsByNutrient(e){const t=new Map;for(const n of dayAminoAcids(e))for(const a of n.ids)t.set(a,{...n,partners:n.ids.filter(s=>s!==a)});return t}function renderDayTotals(e){const t=dayContributors(),n=$("#dayTotals");if(!t.length){n.innerHTML="";return}const a=aminoRefsByNutrient(e),s=new Set,o=GROUPS.filter(i=>S.groups.has(i.id)).map(i=>{const c=e.filter(d=>d.n.group===i.id).map(d=>{const{n:l,total:u,partial:h,from:g,of:f,notes:b}=d,m=a.get(l.id),p=l.dv&&u!==null?u/l.dv*100:m?m.pc:null,v=m&&m.partners.length?`<span class="qual">with ${m.partners.map(y=>nut(y).label.toLowerCase()).join(" and ")}</span>`:"";return b.forEach(y=>s.add(y)),`<div class="totrow${u===null?" none":""}">
         <span class="totname">${esc(l.label)}${b.map(noteMark).join("")}${v}</span>
         <span class="totval">${u===null?'<span class="nodata">not measured</span>':`${u.toFixed(l.dp)} <span class="u">${esc(l.unit)}</span>`}</span>
         <span class="totbar" aria-hidden="true">${p===null?"":`<i class="${p>=100?"full":""}" style="width:${Math.min(p,100).toFixed(1)}%"></i>`}</span>
         <span class="totpc">${p===null?`<span class="noref" aria-hidden="true">&ndash;</span>
              <span class="sr">no ${l.group==="amino"?"published requirement":"daily value published"}</span>`:`${Math.round(p)}%`}</span>
-        <span class="totcov">${h?`from ${f} of ${g}`:""}</span>
+        <span class="totcov">${h?`from ${g} of ${f}`:""}</span>
       </div>`}).join(""),r=i.id==="amino";return`<div class="totgroup" data-g="${i.id}"><h4>${i.icon}${esc(i.label)}</h4>
       <div class="tothead" aria-hidden="true">
         <span>Nutrient</span><span>Total</span><span></span>
@@ -204,7 +204,7 @@
       <div class="per">nothing added yet</div></div>
       <div class="dbody"><p class="nodatanote" style="margin-top:0">Add a food and its
       totals appear here, in units and as a percentage of a daily value.</p>${o}</div>`;return}const i=totalOf(e,"kcal"),c=totalOf(e,"protein"),r=totalOf(e,"fiber"),d=[i,c,r].map(p=>{const v=p.n.dv&&p.total!==null?Math.round(p.total/p.n.dv*100):null,y=p.partial?` <span class="cov">from ${p.from} of ${p.of}</span>`:"";return`<div class="drow"><dt>${esc(p.n.label)}</dt>
-      <dd>${fmtTotal(p.total,p.n)}${v===null?"":` <span class="pc">· ${v}%</span>`}${y}</dd></div>`}).join(""),l=dayProteinQuality(e),h=["ala","la"].every(p=>!totalOf(e,p).partial)?omegaRatio({v:e.map(p=>p.total)}):null,{short:f,over:g,budget:b}=dayStanding(e),m=p=>`<button class="jump" type="button" data-daysort="${esc(p.id)}">
+      <dd>${fmtTotal(p.total,p.n)}${v===null?"":` <span class="pc">· ${v}%</span>`}${y}</dd></div>`}).join(""),l=dayProteinQuality(e),h=["ala","la"].every(p=>!totalOf(e,p).partial)?omegaRatio({v:e.map(p=>p.total)}):null,{short:g,over:f,budget:b}=dayStanding(e),m=p=>`<button class="jump" type="button" data-daysort="${esc(p.id)}">
     <span>${esc(p.label)}</span><b>${Math.round(p.pc)}%</b>
     <span class="ar" aria-hidden="true">${I.right}</span>
     <span class="sr">, show the foods highest in it</span></button>`;n.innerHTML=`
@@ -242,14 +242,14 @@
         <div class="drow"><dt>Omega-6 : omega-3</dt>
           <dd>${h.flip?`1 : ${h.a.toFixed(1)}`:`${h.a.toFixed(1)} : 1`}</dd></div></dl>`:""}
 
-      ${f.length?`<h4 style="margin-top:18px">Short on</h4>
-        <div class="jumps">${f.slice(0,8).map(m).join("")}</div>
+      ${g.length?`<h4 style="margin-top:18px">Short on</h4>
+        <div class="jumps">${g.slice(0,8).map(m).join("")}</div>
         <p class="nodatanote">Under half a daily value. Pick one to see the foods richest in
         it. Nutrients where any food in your day was never assayed are left out rather than
         reported as a shortfall that might not be one.</p>`:""}
 
-      ${g.length?`<h4 style="margin-top:18px">Comfortable</h4>
-        <div class="jumps">${g.slice(0,8).map(m).join("")}</div>`:""}
+      ${f.length?`<h4 style="margin-top:18px">Comfortable</h4>
+        <div class="jumps">${f.slice(0,8).map(m).join("")}</div>`:""}
 
       ${b.length?`<h4 style="margin-top:18px">Above the guideline</h4>
         <div class="jumps">${b.map(m).join("")}</div>
@@ -507,10 +507,12 @@
     from oxalate-rich greens is largely unavailable. Phytates in wholegrains and pulses hold back
     zinc and iron. A total comfortably over 100% can still leave you short, and no figure here
     accounts for it.</p>
-    <p><b>Iodine has no column, so it has no total.</b> A view that lists what you are short of
-    implies the list is complete. It is not, and iodine is a real requirement and a common gap on a
-    plant-based diet. Nor are there upper limits: the one worth knowing unaided is selenium, where
-    a couple of Brazil nuts covers a day and a handful every day is too many.</p>
+    <p><b>Iodine has a column now, and still no total.</b> A view that lists what you are
+    short of implies the list is complete. Iodine is a real requirement and a common gap on a
+    plant-based diet, and its figures here come from Japan rather than from the table the totals
+    are built on, so they are shown per food and never summed. Nor are there upper limits: the one
+    worth knowing unaided is selenium, where a couple of Brazil nuts covers a day and a handful
+    every day is too many.</p>
     <h4>What "daily value" means here</h4>
     <p>Percentages use general adult reference intakes: FDA Daily Values for vitamins and minerals,
     and the FAO/WHO 2007 scoring pattern where amino acids are concerned. They are a common yardstick,
@@ -545,8 +547,9 @@
       ${FORTIFIED?`a “${esc(FORTIFIED.marker)}”`:"a marker"} with a note under the table.
       Yeast contains no B12 whatever, so every microgram in the yeast rows was put there by the
       maker, along with most of their thiamin, riboflavin, niacin and folate; the same goes for
-      soy milk's B12, calcium and vitamin D. Iodine is not a column, so fortification with it is
-      not shown anywhere.</li>
+      soy milk's B12, calcium and vitamin D. Iodine is shown per food from an outside source, so
+      fortification with it is not tracked here the way the B12, calcium and vitamin D added to
+      soy milk are.</li>
       <li><b>Seaweed and B12 is two different stories, not one.</b> This entry used to say
       flatly that seaweed's B12 is inactive analogues, and that is right about spirulina and
       wrong about nori. Spirulina is largely pseudovitamin B12, which the body cannot use and
@@ -558,8 +561,9 @@
       show zero in this table because USDA publishes zero for them, which is its own caveat. The
       traces in tempeh and miso come from bacteria and are too small and too variable to count on.
       See <b>Nutrient gaps</b> for the whole of it.</li>
-      <li><b>Iodine is not included.</b> USDA measures it in plenty of other foods and publishes a
-      figure for none of these, so there is nothing to show rather than something held back. See
+      <li><b>Iodine comes from outside this table.</b> USDA measures it in plenty of other foods and
+      publishes a figure for none of these, so the column is built from Japan's tables instead. It is
+      shown per food, it carries its source, and it enters no total. See
       <b>Nutrient gaps</b>.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for

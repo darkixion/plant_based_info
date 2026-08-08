@@ -3152,10 +3152,12 @@ const DLG = {
     from oxalate-rich greens is largely unavailable. Phytates in wholegrains and pulses hold back
     zinc and iron. A total comfortably over 100% can still leave you short, and no figure here
     accounts for it.</p>
-    <p><b>Iodine has no column, so it has no total.</b> A view that lists what you are short of
-    implies the list is complete. It is not, and iodine is a real requirement and a common gap on a
-    plant-based diet. Nor are there upper limits: the one worth knowing unaided is selenium, where
-    a couple of Brazil nuts covers a day and a handful every day is too many.</p>
+    <p><b>Iodine has a column now, and still no total.</b> A view that lists what you are
+    short of implies the list is complete. Iodine is a real requirement and a common gap on a
+    plant-based diet, and its figures here come from Japan rather than from the table the totals
+    are built on, so they are shown per food and never summed. Nor are there upper limits: the one
+    worth knowing unaided is selenium, where a couple of Brazil nuts covers a day and a handful
+    every day is too many.</p>
     <h4>What "daily value" means here</h4>
     <p>Percentages use general adult reference intakes: FDA Daily Values for vitamins and minerals,
     and the FAO/WHO 2007 scoring pattern where amino acids are concerned. They are a common yardstick,
@@ -3190,8 +3192,9 @@ const DLG = {
       ${FORTIFIED ? `a “${esc(FORTIFIED.marker)}”` : "a marker"} with a note under the table.
       Yeast contains no B12 whatever, so every microgram in the yeast rows was put there by the
       maker, along with most of their thiamin, riboflavin, niacin and folate; the same goes for
-      soy milk's B12, calcium and vitamin D. Iodine is not a column, so fortification with it is
-      not shown anywhere.</li>
+      soy milk's B12, calcium and vitamin D. Iodine is shown per food from an outside source, so
+      fortification with it is not tracked here the way the B12, calcium and vitamin D added to
+      soy milk are.</li>
       <li><b>Seaweed and B12 is two different stories, not one.</b> This entry used to say
       flatly that seaweed's B12 is inactive analogues, and that is right about spirulina and
       wrong about nori. Spirulina is largely pseudovitamin B12, which the body cannot use and
@@ -3203,8 +3206,9 @@ const DLG = {
       show zero in this table because USDA publishes zero for them, which is its own caveat. The
       traces in tempeh and miso come from bacteria and are too small and too variable to count on.
       See <b>Nutrient gaps</b> for the whole of it.</li>
-      <li><b>Iodine is not included.</b> USDA measures it in plenty of other foods and publishes a
-      figure for none of these, so there is nothing to show rather than something held back. See
+      <li><b>Iodine comes from outside this table.</b> USDA measures it in plenty of other foods and
+      publishes a figure for none of these, so the column is built from Japan's tables instead. It is
+      shown per food, it carries its source, and it enters no total. See
       <b>Nutrient gaps</b>.</li>
       <li><b>“n/a” is not a zero.</b> It means USDA publishes no figure for that nutrient in that
       food. Amino acids are the common gap: they are expensive to assay, so they are measured for
