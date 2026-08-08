@@ -12,7 +12,7 @@ import { gradeDerivation, reconcile } from "../tools/reconcile.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
-import { checkEvidence } from "../build.mjs";
+import { checkEvidence, checkGaps } from "../build.mjs";
 
 let passed = 0, failed = 0;
 const results = [];
@@ -244,6 +244,23 @@ test("a food's mapping is stored once, not on every cell", () => {
   // a level with the field rather than disappearing.
   assertHas(checkEvidence({ "oats-rolled-dry": { prep: "boiled", match: "exact", cells: {} } },
     nutrients, foods, sources), "disagrees with the food's state");
+});
+
+// ----------------------------------------------------------------- gap checks
+
+test("a claim that something is absent fails once it is present", () => {
+  const nutrients = [{ id: "biotin", evidence: true }, { id: "fiber" }];
+  const sources = {};
+  const entry = { id: "traces", tier: "unseen", nutrients: [], label: "Traces",
+                  role: "r", why: "x".repeat(50), closing: "c", cites: [] };
+
+  eq(checkGaps({ sources, gaps: [{ ...entry, absent: ["chromium"] }] }, nutrients).length, 0,
+     "naming a component with no column is the whole point of the field");
+
+  assertHas(checkGaps({ sources, gaps: [{ ...entry, absent: ["biotin"] }] }, nutrients),
+    "biotin");
+  assertHas(checkGaps({ sources, gaps: [{ ...entry, absent: ["biotin"] }] }, nutrients),
+    "has a column");
 });
 
 console.log(results.join("\n"));

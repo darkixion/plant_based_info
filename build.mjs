@@ -108,6 +108,68 @@ export function checkEvidence(evidence, nutrients, foods, sources) {
   return problems;
 }
 
+/** Exported so test/tools.mjs can exercise it without a build, the same as
+ *  checkEvidence above. Takes the parsed gaps object, carrying `.sources` and
+ *  `.gaps`, and the nutrients array. */
+export function checkGaps(gaps, nutrients) {
+  const problems = [];
+  const allIds = new Set(nutrients.map(n => n.id));
+  const evIds = new Set(nutrients.filter(n => n.evidence).map(n => n.id));
+
+  /* ---- nutrient gaps ----
+     Same shape of check as the interactions above, and the same reason: an
+     entry naming a nutrient that does not exist renders as an entry with no
+     evidence under it, which reads as a nutrient nothing is known about rather
+     than as a mistake. */
+  const gSources = gaps.sources || {}, gList = gaps.gaps || [];
+  const TIERS = new Set(["gap", "plan", "unseen"]);
+  if (!Array.isArray(gList) || !gList.length) problems.push("gaps: none");
+  const gSeen = new Set();
+  for (const g of Array.isArray(gList) ? gList : []) {
+    const at = `gaps: "${g.id || "(no id)"}"`;
+    if (!g.id) problems.push("gaps: an entry with no id");
+    else if (gSeen.has(g.id)) problems.push(`${at} is listed twice`);
+    gSeen.add(g.id);
+    if (!TIERS.has(g.tier))
+      problems.push(`${at} has tier "${g.tier}", not one of: ${[...TIERS].join(", ")}`);
+    if (!g.label) problems.push(`${at} has no label`);
+    if (!g.why || g.why.length < 40) problems.push(`${at} has no usable "why"`);
+    if (!Array.isArray(g.nutrients))
+      problems.push(`${at} has no nutrients array (use [] where there is no column)`);
+    else for (const id of g.nutrients) {
+      if (!allIds.has(id)) problems.push(`${at} names nutrient "${id}", which does not exist`);
+      // A gap's evidence is counted over `v`: how many foods carry any, how
+      // many were measured and found to contain none, how many were never
+      // assayed. An evidence column has no `v` to count, so the entry would
+      // render as a claim with nothing under it.
+      else if (evIds.has(id))
+        problems.push(`${at} names "${id}", which is an evidence column and has no figures to count`);
+    }
+    /* An entry may claim a component is not here at all, and the claim is
+       checked rather than trusted. Two entries carried exactly this claim in
+       prose and went false the day phase 1 shipped a column for what they said
+       was missing, because `nutrients: []` meant nothing could catch it. */
+    for (const id of g.absent || []) {
+      if (allIds.has(id))
+        problems.push(`${at} says "${id}" is absent, and it has a column`);
+    }
+    /* Cites are required for a gap and optional below it, which is a rule about
+       what kind of claim each tier makes. A "gap" asserts something about the
+       world and needs a source. A "plan" entry describes this table, and its
+       evidence is computed from it at render time. An "unseen" entry says only
+       that the data does not contain something, which the data itself shows. */
+    if (g.tier === "gap" && (!Array.isArray(g.cites) || !g.cites.length))
+      problems.push(`${at} is a gap and cites no source`);
+    for (const key of g.cites || [])
+      if (!gSources[key]) problems.push(`${at} cites unknown source "${key}"`);
+  }
+  for (const key of Object.keys(gSources))
+    if (!gList.some(g => (g.cites || []).includes(key)))
+      problems.push(`gaps: source "${key}" is cited by nothing`);
+
+  return problems;
+}
+
 // `srcs` rather than `sources`, which the interactions block below already
 // declares from `inter`. A parameter and a const of one name is a syntax error.
 function validate(data, portions, inter, gaps, evidence, srcs) {
@@ -348,48 +410,7 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
     if (!interactions.some(x => (x.cites || []).includes(key)))
       problems.push(`interactions: source "${key}" is cited by nothing`);
 
-  /* ---- nutrient gaps ----
-     Same shape of check as the interactions above, and the same reason: an
-     entry naming a nutrient that does not exist renders as an entry with no
-     evidence under it, which reads as a nutrient nothing is known about rather
-     than as a mistake. */
-  const gSources = gaps.sources || {}, gList = gaps.gaps || [];
-  const TIERS = new Set(["gap", "plan", "unseen"]);
-  if (!Array.isArray(gList) || !gList.length) problems.push("gaps: none");
-  const gSeen = new Set();
-  for (const g of Array.isArray(gList) ? gList : []) {
-    const at = `gaps: "${g.id || "(no id)"}"`;
-    if (!g.id) problems.push("gaps: an entry with no id");
-    else if (gSeen.has(g.id)) problems.push(`${at} is listed twice`);
-    gSeen.add(g.id);
-    if (!TIERS.has(g.tier))
-      problems.push(`${at} has tier "${g.tier}", not one of: ${[...TIERS].join(", ")}`);
-    if (!g.label) problems.push(`${at} has no label`);
-    if (!g.why || g.why.length < 40) problems.push(`${at} has no usable "why"`);
-    if (!Array.isArray(g.nutrients))
-      problems.push(`${at} has no nutrients array (use [] where there is no column)`);
-    else for (const id of g.nutrients) {
-      if (!ids.has(id)) problems.push(`${at} names nutrient "${id}", which does not exist`);
-      // A gap's evidence is counted over `v`: how many foods carry any, how
-      // many were measured and found to contain none, how many were never
-      // assayed. An evidence column has no `v` to count, so the entry would
-      // render as a claim with nothing under it.
-      else if (evIds.has(id))
-        problems.push(`${at} names "${id}", which is an evidence column and has no figures to count`);
-    }
-    /* Cites are required for a gap and optional below it, which is a rule about
-       what kind of claim each tier makes. A "gap" asserts something about the
-       world and needs a source. A "plan" entry describes this table, and its
-       evidence is computed from it at render time. An "unseen" entry says only
-       that the data does not contain something, which the data itself shows. */
-    if (g.tier === "gap" && (!Array.isArray(g.cites) || !g.cites.length))
-      problems.push(`${at} is a gap and cites no source`);
-    for (const key of g.cites || [])
-      if (!gSources[key]) problems.push(`${at} cites unknown source "${key}"`);
-  }
-  for (const key of Object.keys(gSources))
-    if (!gList.some(g => (g.cites || []).includes(key)))
-      problems.push(`gaps: source "${key}" is cited by nothing`);
+  problems.push(...checkGaps(gaps, nutrients));
 
   problems.push(...checkEvidence(evidence, nutrients, foods, srcs));
   // A citation nobody uses is the same fault as an uncited claim, read from the

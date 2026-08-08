@@ -73,9 +73,10 @@
       "id": "fibrefractions",
       "tier": "unseen",
       "nutrients": [],
+      "absent": ["betaglucan", "pectin", "inulin", "oligosaccharides", "inositol"],
       "label": "Inulin and the other fibre fractions",
       "role": "",
-      "why": "USDA measures inulin, soluble and insoluble fibre, beta-glucan, resistant starch, pectin and the oligosaccharides in some foods, and publishes none of them for any of these. The Fibre column here is a single total, so the prebiotic fractions cannot be separated out of it. Reaching them would need a second database joined to this one, the way the flavonoid columns were.",
+      "why": "Soluble fibre, insoluble fibre and resistant starch each have a column here now, taken from Japan's tables because USDA measures all three and publishes none of them for any of these foods. The rest of the family is still missing. Inulin and the oligosaccharides need a database this page does not yet join to. Beta-glucan, pectin and free inositol are carried by none of the eight sources gathered for this work, so none of the three can be shown at all. Most of the inositol in a plant food is bound up as phytate rather than free, which is a different figure and one this page may yet reach.",
       "closing": "",
       "cites": []
     },
@@ -83,9 +84,10 @@
       "id": "traces",
       "tier": "unseen",
       "nutrients": [],
-      "label": "Biotin, chromium, molybdenum, boron and taurine",
+      "absent": ["boron", "taurine"],
+      "label": "Boron and taurine",
       "role": "",
-      "why": "Checked and absent. USDA publishes no figures for any of the five in these foods. None of them is a recognised shortfall on a plant-based diet, so they are missing columns rather than missing nutrients, and they are named here so that their silence is not read as coverage.",
+      "why": "Biotin, molybdenum and chromium have columns here now, taken from Japan's tables rather than from USDA, which publishes none of the three for any of these foods. Two of the original five are still absent. Boron is measured by a Danish database this page does not yet join to. Taurine was assayed across 48 plant foods and detected in none, so a column would be one finding repeated 131 times, and the exception worth stating in words is red algae: nori and kelp are not zero.",
       "closing": "",
       "cites": []
     }
