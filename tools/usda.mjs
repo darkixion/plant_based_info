@@ -585,7 +585,7 @@ async function cmdAdd(args) {
   const spec = JSON.parse(await readFile(join(ROOT, "tools", "food-additions.json"), "utf8"));
 
   const unknown = data.nutrients
-    .filter(n => !COLUMN_TO_USDA[n.id] && !FROM_OTHER_SOURCE[n.id]).map(n => n.id);
+    .filter(n => !n.evidence && !COLUMN_TO_USDA[n.id] && !FROM_OTHER_SOURCE[n.id]).map(n => n.id);
   if (unknown.length) throw new Error(`no USDA id mapped for column(s): ${unknown.join(", ")}`);
 
   const additions = [...(spec.requested || []), ...(spec.staples || [])];
