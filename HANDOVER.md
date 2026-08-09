@@ -3,7 +3,21 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-07 (thirteenth)
+## Latest session, 2026-08-08 (fourteenth session)
+
+Phase 2a shipped 16 columns and two groups, taking the table to 89 columns. Beta-glucan and free inositol have no source anywhere, measured rather than assumed, so they join pectin. Inositol phosphate is phytate and is due in phase 2b.
+
+Sixteen components remain, blocked on reviewed mappings for AFCD, IFCT, CoFID and Frida. That is phase 2b, and the mapping is the slow part rather than the columns.
+
+The parenthesised-figure bug taught us that a state modelled and rendered but never exercised is a state nobody has tested. The `estimated` branch was dead code for a whole phase and the marker for it had never once been drawn.
+
+The marker collision taught us that two `::after` rules on one element is one rule. It was invisible until the first estimated cell met the first proxy food.
+
+The chromium note taught us a sharp lesson: a note recording what was rejected must name the source it rejected, not the nutrient. "Chromium is parked" nearly skipped a column with better coverage than most of phase 2a.
+
+The two gap entries went false the day phase 1 shipped, which is why the `absent` check exists, and a typo in an `absent` list still names nothing and passes.
+
+## Earlier session, 2026-08-07 (thirteenth)
 
 **Phase 1 of the evidence columns shipped**, executed from the plan the twelfth
 session wrote. Soluble fibre, insoluble fibre and biotin are columns now: 73

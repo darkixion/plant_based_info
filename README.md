@@ -711,18 +711,15 @@ from the page** and **names that only mean anything inside the repository**.
 
 ## Evidence columns
 
-Three columns come from outside USDA: **soluble fibre**, **insoluble fibre** and
-**biotin**. They are marked `"evidence": true` in `nutrients.json`, and
-everything else about them follows from that one flag.
+Three columns originally came from outside USDA, but phase 2a added 16 more across the carb detail and organic acids groups, taking the table to 89 columns. These 19 are marked `"evidence": true` in `nutrients.json`, and everything else about them follows from that one flag.
 
-They exist because USDA *defines* a nutrient id for each of them and publishes a
-value for none. That was measured rather than assumed, with a control: the same
-parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and
-zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch,
-pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin.
-So "the id exists" says nothing about whether a pull can reach it, and these
-needed national food composition tables instead: Japan's MEXT 2020, the UK's
-CoFID 2021 and Australia's AFCD Release 3.
+They exist because USDA *defines* a nutrient id for each of them and publishes a value for none. That was measured rather than assumed, with a control: the same parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch, pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin. So "the id exists" says nothing about whether a pull can reach it, and these needed national food composition tables instead. The table currently draws entirely on Japan's MEXT 2020. Because all 16 of the new phase 2a columns are single-source, they are never a range until more databases are mapped in phase 2b. The cell shape reflects this: `unit`, `basis`, `prep` and `match` have been promoted to the per-food level, leaving the per-cell structure cleaner.
+
+There are cases where a figure is known but not strictly measured. A parenthesised figure from MEXT means it was estimated rather than directly assayed. When adding support for estimated values, a bug revealed that 105 cells were dropped entirely because the parser threw them out instead of keeping them. The `estimated` branch was dead code for a whole phase until those 105 cells were recovered. Another finding was a marker collision when the first estimated cell met the first proxy food: two `::after` rules on one element collapse into one rule. The markers now compose rather than compete.
+
+Some components are completely absent from the dataset. The `absent` field in `gaps.json` lists these. It is a check rather than a database lookup, and a typo in it names nothing and passes silently.
+
+For chromium, it is unparked from MEXT only, because AFCD's chromium and Thor 2011 were rejected. The note recording what was rejected must name the source it rejected, not the nutrient, otherwise it nearly skipped a column with better coverage than most.
 
 ### An evidence value is not in `v`, and that is the whole mechanism
 
@@ -738,7 +735,7 @@ Four locks, and the point of having four is that no single edit undoes them:
 1. `IDX` is built over the non-evidence nutrients, so **`val()` throws** on an
    evidence id rather than returning null. A mistake here is loud on the spot
    instead of quiet and wrong. `BY_ID` is the map to reach a *column* by id,
-   which is a different question and covers all 73.
+   which is a different question and covers all 89.
 2. `shown()` returns null for an evidence column before it reaches `val()`, so
    the four call sites that read it get a blank rather than an exception.
 3. `dv` is `null` on all three, so there is no percentage to take even if one
@@ -975,8 +972,8 @@ tenth of a pound and far too small to move a rounded pounds figure. It also
 clamps out-of-range input to the nearest end rather than snapping to the
 default, so typing the "5" of "55" no longer reads as 70 for a keystroke.
 
-**Three standing notes are shown whatever the totals say**: B12, that iodine is
-not in this dataset at all, and that intake is not absorption. A view listing
+**Three standing notes are shown whatever the totals say**: B12, that iodine
+ reaches no total because it is an evidence column, and that intake is not absorption. A view listing
 what you are short of implies the list is complete, and each of these is a wrong
 conclusion the totals actively invite.
 
@@ -1002,8 +999,8 @@ dialog, so cancelling cannot leave the control reading "Add…" over an unchange
 table. There is a test for exactly that.
 
 **Every nutrient group starts visible**, derived from `GROUPS` rather than
-listed, so a seventh group would show the day it was added. That makes the
-opening table 70 columns wide and horizontally scrollable; switching groups off
+listed, so a ninth group would show the day it was added. That makes the
+opening table 89 columns wide and horizontally scrollable; switching groups off
 in the sidebar is how it narrows. Tests must therefore say which groups they
 want, via `showGroups()` in `test/smoke.mjs`, rather than clicking a sidebar
 button to "turn one on": a click means flip, and every one of those clicks
@@ -1366,7 +1363,7 @@ reason than the carotenoids have.
   ceiling for 31 columns.
 - **Fennel**, which is in SR Legacy but raw only and with no amino acid
   analysis, so it does not match the cooked-vegetable convention.
-- **Iodine**, as reliable per-food values are scarce for plant foods.
+- **Iodine**. It has a column now resting entirely on MEXT data, as reliable per-food values are scarce elsewhere, so it remains an evidence column and is not yet a total.
 - **EPA and DHA.** Measured, and there is nothing to show: USDA finds EPA in four
   of these foods and DHA in one, all at traces indistinguishable from assay
   noise. Whole plant foods are not a source, which is a fact the Methodology

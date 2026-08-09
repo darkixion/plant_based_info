@@ -4,8 +4,7 @@ Extracted food-composition data for components USDA SR Legacy does not carry, ke
 so that adding a food later costs nothing: the values are already here, for far more
 foods than the page lists.
 
-**Nothing in this directory is on the page.** No column has been added and no figure
-in `src/data/nutrients.json` has moved. This is raw material for a future tool.
+**Nineteen columns from this directory are on the page.** Phase 1 added three (soluble fibre, insoluble fibre and biotin), and phase 2a added 16 more. These 19 columns draw entirely on MEXT so far. The rest of the databases here remain raw material for phase 2b, which will map them to the page's foods to form ranges.
 
 `sources.json` is the index. Every corpus file names its source by key, and every
 source records country, year, method, quality and limitations.
