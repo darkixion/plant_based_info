@@ -277,12 +277,9 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
   // individually plausible and only disagree when compared with each other.
   const at = id => nutrients.findIndex(n => n.id === id);
   // Each list is a subset of its total and never the whole of it, so the sum may
-  // fall short but must never exceed. Polyunsaturated is deliberately absent:
-  // the pull already checks it, and adding it here too would be redundant
-  // rather than newly correct. The fat-group re-pull resolved the six foods
-  // that used to disagree, so the check would pass if it were moved; doing so
-  // is on the open list in HANDOVER.md rather than done here.
+  // fall short but must never exceed.
   const subsets = [
+    { total: "pufa", parts: ["ala", "la"], label: "polyunsaturated" },
     { total: "mufa", parts: ["oleic", "palmitoleic"], label: "monounsaturated" },
     { total: "satfat", parts: ["lauric", "palmitic", "stearic"], label: "saturated fat" },
     { total: "fat", parts: ["satfat"], label: "total fat" },
