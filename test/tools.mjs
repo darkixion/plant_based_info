@@ -13,6 +13,7 @@ import { gradeDerivation, reconcile } from "../tools/reconcile.mjs";
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
 import { checkEvidence, checkGaps } from "../build.mjs";
+import { execSync } from "node:child_process";
 
 let passed = 0, failed = 0;
 const results = [];
@@ -261,6 +262,16 @@ test("a claim that something is absent fails once it is present", () => {
     "biotin");
   assertHas(checkGaps({ sources, gaps: [{ ...entry, absent: ["biotin"] }] }, nutrients),
     "has a column");
+});
+
+// ----------------------------------------------------------------- CLI checks
+
+test("add --dry-run completes without error", () => {
+  try {
+    execSync("node tools/usda.mjs add --dry-run", { stdio: "ignore" });
+  } catch (e) {
+    throw new Error("add --dry-run failed: " + e.message);
+  }
 });
 
 console.log(results.join("\n"));

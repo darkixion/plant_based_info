@@ -102,6 +102,9 @@ const KNOWN = {
   1258: { id: "satfat", label: "Saturated fat", group: "macro", unit: "g", dv: 20, dp: 2,
     why: "The fraction with no double bonds, solid at room temperature. Plant foods are generally low in it, coconut and palm being the exceptions, and it is the fraction dietary guidance asks people to limit." },
 
+  1198: { id: "betaine", label: "Betaine", group: "vitamin", unit: "mg", dv: null, dp: 1, after: "chol",
+    why: "Spares choline in methylation pathways and concentrated in whole grains, spinach and sugar beet." },
+
   // Gamma-tocopherol, the vitamin E form the alpha-only column does not count.
   // 57 of the 131 foods have a figure and 43 are non-zero; the 14 measured
   // zeros are figures rather than gaps and display as such. Every food with a
@@ -561,7 +564,7 @@ const COLUMN_TO_USDA = {
   cys: 1216, phe: 1217, tyr: 1218, thr: 1211, trp: 1210, val: 1219, arg: 1220,
   alaa: 1222, asp: 1223, glu: 1224, gly: 1225, pro: 1226, ser: 1227, vita: 1106,
   vitc: 1162, vitd: 1114, vite: 1109, gammatoc: 1126, vitk: 1185, b1: 1165, b2: 1166, b3: 1167,
-  b5: 1170, b6: 1175, b9: 1177, b12: 1178, chol: 1180, ca: 1087, fe: 1089,
+  b5: 1170, b6: 1175, b9: 1177, b12: 1178, chol: 1180, betaine: 1198, ca: 1087, fe: 1089,
   mg: 1090, p: 1091, k: 1092, na: 1093, zn: 1095, cu: 1098, mn: 1101, se: 1103,
   betacar: 1107, alphacar: 1108, cryptox: 1120, luteinzea: 1123, lycopene: 1122,
   phytosterols: 1283,
