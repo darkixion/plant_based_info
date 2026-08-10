@@ -888,7 +888,7 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
       "Adzuki beans (cooked)", "Amaranth (cooked)", "Bell pepper (yellow, raw)",
       "Borlotti beans (cooked)", "Dates", "Goji berries (dried)",
       "Hemp seeds (hulled)", "Leeks (cooked)", "Nutritional yeast",
-      "Papaya", "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)"];
+      "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)"];
     eq(missing.slice().sort().join(", "), expected.join(", "), "foods without omega figures");
   });
 });

@@ -3259,8 +3259,8 @@ $("#totalFoods").textContent = String(FOODS.length);
 
 // Derived from the data so adding a column cannot leave the prose behind.
 const GROUP_BLURB: Record<NutrientGroup, string> = { macro: "macronutrients", fats: "fat fractions", amino: "amino acids",
-                      vitamin: "vitamins", mineral: "minerals", carbdetail: "sugars and starches",
-                      acids: "organic acids", plant: "plant compounds" };
+                      vitamin: "vitamins", mineral: "minerals", carbdetail: "carbohydrate detail",
+                      acids: "organic acids", plant: "plant compounds", other: "anti-nutrients" };
 $("#compBlurb").textContent = `${NUTS.length} nutrients per food: ` +
   GROUPS.map(g => `${NUTS.filter(n => n.group === g.id).length} ${GROUP_BLURB[g.id]}`)
     .join(", ").replace(/, ([^,]*)$/, " and $1") + ".";
