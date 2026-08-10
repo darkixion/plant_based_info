@@ -1,57 +1,93 @@
 {
- "mext-2020": {
-  "title": "Standard Tables of Food Composition in Japan, 2020 (Eighth Revised Edition)",
-  "publisher": "Ministry of Education, Culture, Sports, Science and Technology (MEXT), Japan",
-  "country": "Japan",
-  "url": "https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html",
-  "quality": "high"
- },
- "cofid-2021": {
-  "title": "McCance and Widdowson's The Composition of Foods Integrated Dataset (CoFID), 2021",
-  "publisher": "Public Health England / Food Standards Agency",
-  "country": "United Kingdom",
-  "url": "https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid",
-  "quality": "high"
- },
- "afcd-r3": {
-  "title": "Australian Food Composition Database, Release 3",
-  "publisher": "Food Standards Australia New Zealand (FSANZ)",
-  "country": "Australia",
-  "url": "https://www.foodstandards.gov.au/science-data/food-nutrient-databases/afcd/data-files",
-  "quality": "high, except chromium"
- },
- "ifct-2017": {
-  "title": "Indian Food Composition Tables 2017",
-  "publisher": "National Institute of Nutrition, Indian Council of Medical Research, Hyderabad",
-  "country": "India",
-  "url": "https://www.nin.res.in/ebooks/IFCT2017.pdf",
-  "quality": "high"
- },
- "research-papers": {
-  "title": "Primary Research Literature Compilation (CoQ10, CoQ9, Melatonin, Squalene)",
-  "publisher": "Various (Venegas 2011, Žmitek 2014, Kubo 2008, Fine 2016, etc.)",
-  "country": "International",
-  "url": "",
-  "quality": "high"
- },
- "lozano-grande-2018": {
-  "title": "Plant Sources, Extraction Methods, and Uses of Squalene",
-  "quality": "high"
- },
- "ryan-2007": {
-  "title": "Phytosterol, Squalene, Tocopherol Content and Fatty Acid Profile of Selected Seeds, Grains, and Legumes",
-  "quality": "high"
- },
- "owen-2000": {
-  "title": "Olive-oil consumption and health: the possible role of antioxidants",
-  "quality": "high"
- },
- "beltran-2016": {
-  "title": "Squalene in virgin olive oil: Screening of variability in olive cultivars",
-  "quality": "high"
- },
- "nergiz-2011": {
-  "title": "The effect of the refining processes on the squalene content of vegetable oils",
-  "quality": "high"
- }
+  "mext-2020": {
+    "title": "Standard Tables of Food Composition in Japan, 2020 (Eighth Revised Edition)",
+    "publisher": "Ministry of Education, Culture, Sports, Science and Technology (MEXT), Japan",
+    "country": "Japan",
+    "url": "https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html",
+    "quality": "high"
+  },
+  "cofid-2021": {
+    "title": "McCance and Widdowson's The Composition of Foods Integrated Dataset (CoFID), 2021",
+    "publisher": "Public Health England / Food Standards Agency",
+    "country": "United Kingdom",
+    "url": "https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid",
+    "quality": "high"
+  },
+  "afcd-r3": {
+    "title": "Australian Food Composition Database, Release 3",
+    "publisher": "Food Standards Australia New Zealand (FSANZ)",
+    "country": "Australia",
+    "url": "https://www.foodstandards.gov.au/science-data/food-nutrient-databases/afcd/data-files",
+    "quality": "high, except chromium"
+  },
+  "ifct-2017": {
+    "title": "Indian Food Composition Tables 2017",
+    "publisher": "National Institute of Nutrition, Indian Council of Medical Research, Hyderabad",
+    "country": "India",
+    "url": "https://www.nin.res.in/ebooks/IFCT2017.pdf",
+    "quality": "high"
+  },
+  "research-papers": {
+    "title": "Primary Research Literature Compilation (CoQ10, CoQ9, Melatonin, Squalene)",
+    "publisher": "Various (Venegas 2011, Žmitek 2014, Kubo 2008, Fine 2016, etc.)",
+    "country": "International",
+    "url": "",
+    "quality": "high"
+  },
+  "lozano-grande-2018": {
+    "title": "Plant Sources, Extraction Methods, and Uses of Squalene",
+    "quality": "high"
+  },
+  "ryan-2007": {
+    "title": "Phytosterol, Squalene, Tocopherol Content and Fatty Acid Profile of Selected Seeds, Grains, and Legumes",
+    "quality": "high"
+  },
+  "owen-2000": {
+    "title": "Olive-oil consumption and health: the possible role of antioxidants",
+    "quality": "high"
+  },
+  "beltran-2016": {
+    "title": "Squalene in virgin olive oil: Screening of variability in olive cultivars",
+    "quality": "high"
+  },
+  "nergiz-2011": {
+    "title": "The effect of the refining processes on the squalene content of vegetable oils",
+    "quality": "high"
+  },
+  "usda-pa": {
+    "name": "USDA Database for the Proanthocyanidin Content of Selected Foods (Release 2, 2015)",
+    "url": "https://data.nal.usda.gov/dataset/usda-database-proanthocyanidin-content-selected-foods-release-2-2015"
+  },
+  "milder-2005": {
+    "name": "Milder et al. 2005, Lignan contents of Dutch plant foods (Br J Nutr)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/15705221/"
+  },
+  "eurofir": {
+    "name": "EuroFIR eBASIS Bioactive Database",
+    "url": "https://www.eurofir.org/our-tools/ebasis/"
+  },
+  "kamao-2007": {
+    "name": "Kamao et al. 2007, Vitamin K content of foods (J Nutr Sci Vitaminol)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18202534/"
+  },
+  "clements-1980": {
+    "name": "Clements & Darnell 1980, Myo-inositol content of common foods (Am J Clin Nutr)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/7416064/"
+  },
+  "nih-boron": {
+    "name": "NIH Office of Dietary Supplements, Boron Fact Sheet",
+    "url": "https://ods.od.nih.gov/factsheets/Boron-HealthProfessional/"
+  },
+  "pizzorno-2015": {
+    "name": "Pizzorno 2015, Nothing Boring About Boron (Integr Med)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4712861/"
+  },
+  "biesiekierski-2011": {
+    "name": "Biesiekierski et al. 2011, Quantification of fructans, GOS and other FODMAPs (J Hum Nutr Diet)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/21332832/"
+  },
+  "muir-2007": {
+    "name": "Muir et al. 2007, Measurement of short-chain carbohydrates (J Agric Food Chem)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/17441508/"
+  }
 }

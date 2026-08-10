@@ -487,31 +487,30 @@ function agentLabel(a: InteractionAgent): string {
    A lens is a named set of nutrients that cuts across the column groups.
    Only nutrients present in DATA are listed; anything unknown is dropped on load. */
 const BUILTIN_LENSES = [
-  { id: "eaa", name: "Essential amino acids", ids: ["his","ile","leu","lys","met","phe","thr","trp","val"],
-    why: "The nine amino acids the body cannot make and must get from food. A protein is only as useful as its scarcest one, so the lowest of these caps the rest." },
-  { id: "creatine", name: "Creatine precursors", ids: ["gly","arg","met"],
-    why: "Creatine is not present in plant foods, so vegans synthesise it from these three amino acids. Body stores tend to run lower on a plant-based diet." },
-  { id: "bcaa", name: "Branched-chain (BCAA)", ids: ["leu","ile","val"],
-    why: "The three amino acids muscle burns directly rather than sending to the liver. Leucine is the one that triggers muscle protein synthesis." },
-  { id: "sulphur", name: "Sulphur amino acids", ids: ["met","cys"],
-    why: "Methionine and cysteine are scored as a pair because cysteine spares methionine. Pulses are usually short on both, which is what grains make up for." },
-  { id: "aromatic", name: "Aromatic amino acids", ids: ["phe","tyr"],
-    why: "Phenylalanine and tyrosine are scored as a pair, since the body makes tyrosine from phenylalanine. Both feed dopamine and thyroid hormone production." },
-  { id: "iron", name: "Iron & absorption", ids: ["fe","vitc"],
-    why: "Plant iron is non-haem and poorly absorbed on its own. Vitamin C in the same meal can multiply uptake severalfold, so the two columns are worth reading together." },
-  { id: "bone", name: "Bone health", ids: ["ca","vitd","vitk","mg","p"],
+  { id: "essentials", name: "⭐ Essentials", ids: ["kcal","protein","carbs","fiber","fat","satfat","ala","la","vitc","vite","vitk","ca","fe","mg","k","zn","na"],
+    why: "The core nutrients most people are likely to care about, keeping the table concise." },
+  { id: "amino", name: "Protein & Amino Acids", ids: ["protein","his","ile","leu","lys","met","cys","phe","tyr","thr","trp","val"],
+    why: "Total protein alongside the essential amino acids and their precursors." },
+  { id: "fats", name: "Fats & Omegas", ids: ["fat","satfat","mufa","pufa","ala","la","palmitoleic","oleic","epa","dha"],
+    why: "A detailed breakdown of dietary fats, including saturated, monounsaturated, polyunsaturated, and all major omegas." },
+  { id: "carbs", name: "Fibre & Carbohydrates", ids: ["carbs","fiber","solfibre","insolfibre","resstarch","starch","sugars","fructose","glucose","sucrose","inulin","raffinose","stachyose","verbascose"],
+    why: "Total carbohydrates and fibre, broken down into specific sugars, starches, and complex oligosaccharides." },
+  { id: "iron", name: "Iron & Absorption", ids: ["fe","vitc"],
+    why: "Plant iron is non-haem and poorly absorbed on its own. Vitamin C in the same meal can multiply uptake severalfold." },
+  { id: "bone", name: "Bone Health", ids: ["ca","vitd","vitk","mg","p"],
     why: "Calcium is only half the story: vitamin D governs how much you absorb, vitamin K directs it into bone, and magnesium and phosphorus build the mineral itself." },
-  { id: "methyl", name: "B12, folate & methylation", ids: ["b12","b9","b6","chol","met"],
-    why: "The nutrients that keep homocysteine in check. B12 is the critical gap on a vegan diet, because unfortified plant foods are not a reliable source whatever these figures show." },
-  /* EPA and DHA joined this the day they became columns. The sentence had
-     always ended on "the forms the body actually uses" while the table had no
-     way to show them, so the lens raised a question it could not answer. */
-  { id: "omega", name: "Omega balance", ids: ["ala","la","epa","dha"],
-    why: "The two fats the body cannot make, and the two it is meant to build from them. ALA and LA compete for the same enzymes, so a diet heavy in omega-6 blunts an already poor conversion. EPA and DHA are what that conversion is for, and both columns are all but empty across these foods, which is the point of showing them." },
-  { id: "antiox", name: "Antioxidant vitamins", ids: ["vita","vitc","vite","se"],
-    why: "Nutrients that limit oxidative damage, working in different compartments: vitamin C in water, vitamin E in fat, and selenium as part of the enzymes that recycle them." },
-  { id: "electro", name: "Electrolytes", ids: ["na","k","mg","ca"],
-    why: "The minerals governing fluid balance, nerve signalling and muscle contraction. Whole plant foods are naturally high in potassium and low in sodium, the opposite of most processed food." },
+  { id: "methyl", name: "B12 & Folate", ids: ["b12","b9","b6","chol"],
+    why: "The nutrients that keep homocysteine in check. B12 is the critical gap on a vegan diet." },
+  { id: "antiox", name: "Antioxidants", ids: ["vitc","vite","se","betacar","luteinzea","lycopene","anthocyanidins","flavan3ols","flavonols","phenolics","coq10","coq9","melatonin","squalene","ergothioneine"],
+    why: "Nutrients and bioactive compounds that limit oxidative damage." },
+  { id: "phyto", name: "Plant Compounds", ids: ["phytosterols","phenolics","anthocyanidins","flavan3ols","flavonols","lignans","proanthocyanidins","glucosinolates","coq10","coq9","melatonin","squalene","ergothioneine"],
+    why: "A comprehensive look at health-promoting phytochemicals and bioactives." },
+  { id: "electro", name: "Electrolytes", ids: ["na","k","ca","mg"],
+    why: "The minerals governing fluid balance, nerve signalling and muscle contraction." },
+  { id: "minabs", name: "Mineral Absorption", ids: ["phytate","oxalate","oxalate_sol","fe","ca","zn"],
+    why: "Anti-nutrients that can bind to essential minerals and inhibit their absorption." },
+  { id: "all", name: "All nutrients", ids: ["__ALL__"],
+    why: "Shows the full available nutrient set in the entire database." }
 ];
 
 /* A day's list is stored as slug and grams, keyed the same way favourites are
@@ -533,7 +532,7 @@ const S: State = {
   sel: 0, favs: new Set(), favsOnly: false,
   dv: false, basis: "g", view: "table", tab: "overview",
   chartNut: "protein", dark: false,
-  lens: "", custom: [],
+  lens: "essentials", custom: [],
   day: [], kg: DEFAULT_KG, wUnit: "kg",
 };
 
@@ -732,7 +731,14 @@ const COL_ORDER = (() => {
   }
   return out;
 })();
-const cols = () => COL_ORDER.filter(n => S.groups.has(n.group));
+const cols = () => {
+  if (S.lens === "all") return COL_ORDER;
+  if (S.lens) {
+    const l = lensById(S.lens);
+    if (l) return COL_ORDER.filter(c => l.ids.includes(c.id));
+  }
+  return COL_ORDER.filter(n => S.groups.has(n.group));
+};
 /* Takes Pick<Food, "v"> rather than Food because it reads nothing but the
    value vector. That is also why the day view can hand it a day's totals
    wrapped as { v: [...] } rather than a real food. */
@@ -1167,6 +1173,10 @@ function setCat(cat: string) {
 }
 
 function toggleGroup(id: NutrientGroup) {
+  if (S.lens) {
+    S.lens = "";
+    renderLensSelect();
+  }
   S.groups.has(id) ? S.groups.delete(id) : S.groups.add(id);
   // A table with no columns is not a view anyone asked for, so switching off the
   // last group falls back to macronutrients.
@@ -1205,7 +1215,7 @@ function renderLensSelect() {
     `<option value=""${S.lens ? "" : " selected"}>None</option>` +
     `<optgroup label="Built in">${BUILTIN_LENSES.map(opt).join("")}</optgroup>` +
     (S.custom.length ? `<optgroup label="Yours">${S.custom.map(opt).join("")}</optgroup>` : "") +
-    `<option value="${LENS_ADD}" title="Build your own highlight group from any nutrients.">Add…</option>`;
+    `<option value="${LENS_ADD}" title="Build your own preset from any nutrients.">Add…</option>`;
   $("#lensSel").classList.toggle("lensactive", !!S.lens);
   renderLensNote();
 }
@@ -1217,25 +1227,24 @@ function renderLensNote() {
   box.hidden = false;
   box.innerHTML =
     `<b>${esc(l.name)}</b>` +
-    (l.why ? ` ${esc(l.why)}` : ` Highlighting ${cols.length} nutrients.`) +
+    (l.why ? ` ${esc(l.why)}` : ` Applying preset ${cols.length} nutrients.`) +
     `<span class="cols">${cols.map(esc).join(" · ")}</span>`;
 }
 
-/** Highlighting a nutrient whose group is switched off would highlight nothing,
+/** Applying preset a nutrient whose group is switched off would highlight nothing,
  *  so selecting a lens turns on whatever groups it needs. */
 function setLens(id: string) {
   S.lens = lensById(id) ? id : "";
   const l = lensById(S.lens);
   if (l) {
-    const needed = new Set(l.ids.map(x => nut(x).group));
-    const added = [...needed].filter(g => !S.groups.has(g));
-    added.forEach(g => S.groups.add(g));
-    if (added.length) {
-      renderGroups();
-      say(`Highlighting ${l.name}. Also showing ${added
-        .map(g => groupOf(g).label.toLowerCase()).join(" and ")}.`);
-    } else say(`Highlighting ${l.name}, ${l.ids.length} nutrients.`);
-  } else say("Highlight cleared.");
+    if (l.id === "all") {
+      say(`Applying preset ${l.name}. Showing all columns.`);
+    } else {
+      say(`Applying preset ${l.name}, ${l.ids.length} columns.`);
+    }
+  } else {
+    say("Preset cleared.");
+  }
   renderLensSelect();
   savePrefs();
   render();
@@ -1341,25 +1350,20 @@ $("#thead").addEventListener("focusout", () => previewNut(null));
  *  columns begins and ends so the accent rule is drawn once per run rather
  *  than between every adjacent pair. */
 function layout() {
-  const c = cols(), L = lensIds();
+  const c = cols();
   return c.map((n, k) => {
     // The neighbours themselves rather than their indices: absent is exactly
     // what "first column" and "last column" meant when this read k === 0.
-    const prev = c[k - 1], next = c[k + 1];
-    const lens = L.has(n.id);
+    const prev = c[k - 1];
     return { ...n,
       gstart: !prev || prev.group !== n.group,
-      lens,
-      lensL: lens && (!prev || !L.has(prev.id)),
-      lensR: lens && (!next || !L.has(next.id)),
       sorted: S.sort.id === n.id,
     };
   });
 }
 
 const colClass = (n: ReturnType<typeof layout>[number]) => [
-  n.gstart && "gstart", n.lens && "lens", n.lensL && "lensL",
-  n.lensR && "lensR", n.sorted && "sorted",
+  n.gstart && "gstart", n.sorted && "sorted",
 ].filter(Boolean).join(" ");
 
 function renderTable(r: ReturnType<typeof rows>) {
@@ -1368,10 +1372,9 @@ function renderTable(r: ReturnType<typeof rows>) {
 
   const groupHead = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
     const own = c.filter(x => x.group === g.id);
-    const anyLens = own.some(x => x.lens);
     // The label sits in its own box so it can stick to the left of the
     // scrollport while the group scrolls past underneath it.
-    return `<th class="grp${anyLens ? " lens" : ""}" data-g="${g.id}" colspan="${own.length}"
+    return `<th class="grp" data-g="${g.id}" colspan="${own.length}"
       scope="colgroup"><span class="grplabel">${esc(g.label)}</span></th>`;
   }).join("");
 
@@ -1385,8 +1388,7 @@ function renderTable(r: ReturnType<typeof rows>) {
     return `<th scope="col" aria-sort="${aria}" data-g="${n.group}" class="${colClass(n)}">
       <button class="sortbtn" type="button" data-sort="${n.id}"
         ${n.why ? `title="${esc(n.why)}" aria-describedby="why-${esc(n.id)}"` : ""}>
-        <span>${esc(n.label)} <span class="unit">${unit}</span>${
-          n.lens ? '<span class="sr">, highlighted</span>' : ""}</span>
+        <span>${esc(n.label)} <span class="unit">${unit}</span></span>
         <span class="ar" aria-hidden="true">${n.sorted ? (S.sort.dir === 1 ? I.up : I.down) : I.sortable}</span>
       </button>${n.why ? `<span class="sr" id="why-${esc(n.id)}">${esc(n.why)}</span>` : ""}</th>`;
   }).join("");
@@ -1472,7 +1474,7 @@ function renderTable(r: ReturnType<typeof rows>) {
     `. Values ${basisLabel()} of food` +
     (S.dv ? ", shown as % of adult daily value." : ".") +
     (S.favsOnly ? " Favourites only." : "") +
-    (lens ? ` ${lens.name} highlighted.` : "") +
+    (lens ? ` ${lens.name} preset applied.` : "") +
     // The reason the two controls are separate rather than one three-way switch.
     // A %DV per 100 kcal figure scales by 20 over a 2000 kcal day, so one number
     // reads the whole table without anyone learning 60-odd daily values.
@@ -2733,7 +2735,7 @@ function csvDay() {
 const csv = () => S.view === "day" ? csvDay() : csvTable();
 $("#csvBtn").onclick = csv;
 
-/* ---------- custom highlight groups ---------- */
+/* ---------- custom presets ---------- */
 function renderNutPick(chosen: Set<string> = new Set()) {
   $("#nutPick").innerHTML = GROUPS.map(g => {
     const list = NUTS.filter(n => n.group === g.id);
@@ -2757,7 +2759,7 @@ function renderSavedLenses() {
   const box = $("#savedLenses");
   if (!S.custom.length) { box.innerHTML = ""; return; }
   box.innerHTML = `<p style="font-size:13.5px;font-weight:600;color:var(--ink);margin:0 0 8px">
-      Your highlight groups</p>` +
+      Your presets</p>` +
     S.custom.map(l => `<div class="savedlens">
       <span class="swatch" aria-hidden="true" style="width:11px;height:11px;border-radius:3px;
         background:var(--lens-bg);border:2px solid var(--lens-line);flex:none"></span>
@@ -2794,7 +2796,7 @@ $("#savedLenses").addEventListener("click", e => {
   if (S.lens === id) S.lens = "";
   savePrefs();
   renderSavedLenses(); renderLensSelect(); render();
-  say(`Deleted highlight group ${gone ? gone.name : ""}.`);
+  say(`Deleted preset ${gone ? gone.name : ""}.`);
 });
 
 $("#lensForm").addEventListener("submit", e => {
@@ -2810,7 +2812,7 @@ $("#lensForm").addEventListener("submit", e => {
   savePrefs();
   $<HTMLDialogElement>("#lensDlg").close();
   setLens(id);                       // also switches on any groups it needs
-  say(`Saved highlight group ${name}, ${ids.length} nutrients.`);
+  say(`Saved preset ${name}, ${ids.length} nutrients.`);
 });
 
 /* ---------- dialogs ----------
@@ -2981,8 +2983,8 @@ const DLG = {
     <p>Every column header is a button. One click sorts high to low, a second reverses it. The
     sorted column is shown in bold all the way down, so you can keep your place while scrolling
     sideways. Sorting applies to the whole dataset, not just the page you are looking at.</p>
-    <h4>Highlight what you came for</h4>
-    <p>The <b>Highlight</b> menu picks out a set of nutrients wherever they sit in the table:
+    <h4>Choose combinations of columns</h4>
+    <p>The <b>Presets</b> menu displays curated combinations of columns:
     the nine essential amino acids, the three the body uses to make creatine, the pair that matter
     for iron absorption, and so on. Choosing one switches on any column group it needs.</p>
     <p>Choose <b>Add…</b>, the last entry in that menu, to build your own from any combination of
@@ -3017,7 +3019,7 @@ const DLG = {
     <p><b>Export CSV</b>, above the table, writes out exactly the rows and columns you can
     currently see, so narrowing the table narrows the export with it.</p>
     <h4>What gets remembered</h4>
-    <p>Your favourites, the foods and quantities in your day, saved highlight groups, visible
+    <p>Your favourites, the foods and quantities in your day, saved presets, visible
     columns, sort order and light or dark mode are kept in this browser between visits. Nothing is
     sent anywhere. It is stored on your own machine, so it will not follow you to another device,
     and clearing site data will clear it.</p>

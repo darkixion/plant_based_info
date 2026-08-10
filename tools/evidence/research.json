@@ -72,6 +72,16 @@
     "coq10": {
       "v": 2.6,
       "match": "Kubo 2008, Mattila 2001, Román-Pizarro 2017"
+    },
+    "boron": {
+      "v": 1.71,
+      "match": "1.71 mg/100g (Roasted/Salted equivalent)",
+      "source": "nih-boron"
+    },
+    "inositol-free": {
+      "v": 210,
+      "match": "210.0 mg/100g",
+      "source": "clements-1980"
     }
   },
   "pistachios": {
@@ -90,12 +100,37 @@
     "coq10": {
       "v": 2.43,
       "match": "Román-Pizarro 2017"
+    },
+    "boron": {
+      "v": 0.88,
+      "match": "Mean of 0.7-1.07 mg",
+      "source": "nih-boron"
     }
   },
   "broccoli-cooked": {
     "coq10": {
       "v": 0.86,
       "match": "Kubo 2008, Mattila 2001"
+    },
+    "lignans": {
+      "v": 1.2,
+      "match": "1.20 mg/100g",
+      "source": "milder-2005"
+    },
+    "glucosinolates": {
+      "v": 61.7,
+      "match": "McNaughton 2003",
+      "source": "eurofir"
+    },
+    "glucoraphanin": {
+      "v": 45,
+      "match": "Estimated major fraction of 61.7 total",
+      "source": "eurofir"
+    },
+    "boron": {
+      "v": 0.22,
+      "match": "0.22 mg/100g",
+      "source": "nih-boron"
     }
   },
   "cauliflower-cooked": {
@@ -121,6 +156,11 @@
       "v": 89,
       "match": "Ryan 2007",
       "source": "ryan-2007"
+    },
+    "lignans": {
+      "v": 2.1,
+      "match": "2.10 mg/100g",
+      "source": "milder-2005"
     }
   },
   "amaranth-cooked": {
@@ -134,6 +174,11 @@
       "v": 3.5,
       "match": "Ryan 2007 (Raw seed value)",
       "source": "ryan-2007"
+    },
+    "oligosaccharides": {
+      "v": 8.6,
+      "match": "Mean of 2.7-14.5g RFOs",
+      "source": "biesiekierski-2011"
     }
   },
   "lentils-cooked": {
@@ -141,6 +186,11 @@
       "v": 2,
       "match": "Ryan 2007 (Raw seed value)",
       "source": "ryan-2007"
+    },
+    "oligosaccharides": {
+      "v": 4.8,
+      "match": "Mean of 1.6-8.0g RFOs",
+      "source": "biesiekierski-2011"
     }
   },
   "green-peas-cooked": {
@@ -148,6 +198,11 @@
       "v": 2.3,
       "match": "Ryan 2007 (Raw seed value)",
       "source": "ryan-2007"
+    },
+    "inositol-free": {
+      "v": 240,
+      "match": "240.0 mg/100g",
+      "source": "clements-1980"
     }
   },
   "flaxseed": {
@@ -155,6 +210,11 @@
       "v": 2.5,
       "match": "Ryan 2007",
       "source": "ryan-2007"
+    },
+    "lignans": {
+      "v": 301.12,
+      "match": "301.12 mg/100g",
+      "source": "milder-2005"
     }
   },
   "sweetcorn-cooked": {
@@ -176,6 +236,226 @@
       "v": 0.5,
       "match": "Ryan 2007 (Raw seed value)",
       "source": "ryan-2007"
+    }
+  },
+  "sesame-seeds": {
+    "lignans": {
+      "v": 29.34,
+      "match": "29.34 mg/100g",
+      "source": "milder-2005"
+    }
+  },
+  "kale-raw": {
+    "lignans": {
+      "v": 2.32,
+      "match": "2.32 mg/100g",
+      "source": "milder-2005"
+    },
+    "glucosinolates": {
+      "v": 101,
+      "match": "McNaughton 2003",
+      "source": "eurofir"
+    }
+  },
+  "sunflower-seeds": {
+    "lignans": {
+      "v": 0.69,
+      "match": "0.69 mg/100g",
+      "source": "milder-2005"
+    }
+  },
+  "pinto-beans-cooked": {
+    "proanthocyanidins": {
+      "v": 796,
+      "match": "796.0 mg/100g (Raw converted)",
+      "source": "usda-pa"
+    },
+    "boron": {
+      "v": 0.4,
+      "match": "0.40 mg/100g",
+      "source": "pizzorno-2015"
+    },
+    "oligosaccharides": {
+      "v": 4.5,
+      "match": "Mean of 3.2-5.8g",
+      "source": "biesiekierski-2011"
+    }
+  },
+  "kidney-beans-cooked": {
+    "proanthocyanidins": {
+      "v": 563,
+      "match": "563.0 mg/100g (Raw converted)",
+      "source": "usda-pa"
+    },
+    "boron": {
+      "v": 0.35,
+      "match": "0.35 mg/100g",
+      "source": "pizzorno-2015"
+    },
+    "inositol-free": {
+      "v": 320,
+      "match": "320.0 mg/100g",
+      "source": "clements-1980"
+    },
+    "oligosaccharides": {
+      "v": 4.25,
+      "match": "Mean of 3.0-5.5g",
+      "source": "biesiekierski-2011"
+    }
+  },
+  "hazelnuts": {
+    "proanthocyanidins": {
+      "v": 501.2,
+      "match": "501.2 mg/100g",
+      "source": "usda-pa"
+    },
+    "boron": {
+      "v": 2.1,
+      "match": "2.10 mg/100g",
+      "source": "pizzorno-2015"
+    }
+  },
+  "pecans": {
+    "proanthocyanidins": {
+      "v": 494,
+      "match": "494.0 mg/100g",
+      "source": "usda-pa"
+    }
+  },
+  "oats-rolled-dry": {
+    "beta-glucan": {
+      "v": 5.5,
+      "match": "Mean of 3.0-8.0g",
+      "source": "eurofir"
+    },
+    "inositol-free": {
+      "v": 19.25,
+      "match": "Mean of 8.5-30.0 mg",
+      "source": "clements-1980"
+    },
+    "ergothioneine": {
+      "v": 0.5,
+      "match": "Estimated from literature",
+      "source": "eurofir"
+    }
+  },
+  "mushrooms-white-raw": {
+    "beta-glucan": {
+      "v": 0.4,
+      "match": "Estimated from literature",
+      "source": "eurofir"
+    },
+    "ergothioneine": {
+      "v": 13,
+      "match": "Estimated from literature",
+      "source": "eurofir"
+    }
+  },
+  "asparagus-cooked": {
+    "inulin": {
+      "v": 2.25,
+      "match": "Mean of 1.5-3.0g",
+      "source": "muir-2007"
+    }
+  },
+  "natto": {
+    "mk7": {
+      "v": 939,
+      "match": "939.0 µg/100g",
+      "source": "kamao-2007"
+    },
+    "k2": {
+      "v": 939,
+      "match": "Total based on MK-7",
+      "source": "kamao-2007"
+    }
+  },
+  "tempeh": {
+    "mk7": {
+      "v": 10,
+      "match": "Mean of 5.0-15.0 µg/100g",
+      "source": "kamao-2007"
+    },
+    "k2": {
+      "v": 10,
+      "match": "Total based on MK-7",
+      "source": "kamao-2007"
+    }
+  },
+  "almonds": {
+    "boron": {
+      "v": 2,
+      "match": "Mean of 1.7-2.3 mg",
+      "source": "pizzorno-2015"
+    },
+    "inositol-free": {
+      "v": 180,
+      "match": "180.0 mg/100g",
+      "source": "clements-1980"
+    }
+  },
+  "walnuts": {
+    "boron": {
+      "v": 1.6,
+      "match": "1.60 mg/100g",
+      "source": "pizzorno-2015"
+    }
+  },
+  "banana": {
+    "boron": {
+      "v": 0.14,
+      "match": "0.14 mg/100g",
+      "source": "nih-boron"
+    }
+  },
+  "edamame-cooked": {
+    "inositol-free": {
+      "v": 200,
+      "match": "Mean of 150-250 mg/100g",
+      "source": "clements-1980"
+    },
+    "oligosaccharides": {
+      "v": 4.5,
+      "match": "Mean of 4.0-5.0g",
+      "source": "biesiekierski-2011"
+    },
+    "raffinose": {
+      "v": 1.5,
+      "match": "Literature average",
+      "source": "biesiekierski-2011"
+    },
+    "stachyose": {
+      "v": 3,
+      "match": "Literature average",
+      "source": "biesiekierski-2011"
+    }
+  },
+  "quinoa-cooked": {
+    "inositol-free": {
+      "v": 33.1,
+      "match": "Mean of 30.8-35.4 mg",
+      "source": "clements-1980"
+    }
+  },
+  "split-peas-cooked": {
+    "oligosaccharides": {
+      "v": 5.5,
+      "match": "Mean of 4.0-7.0g",
+      "source": "biesiekierski-2011"
+    }
+  },
+  "carrots-raw": {
+    "pectin": {
+      "v": 1.7,
+      "match": "Mean of 1.0-2.4g",
+      "source": "eurofir"
+    }
+  },
+  "black-beans-cooked": {
+    "oligosaccharides": {
+      "v": 4.75,
+      "match": "Mean of 3.5-6.0g",
+      "source": "biesiekierski-2011"
     }
   }
 }

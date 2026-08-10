@@ -3,7 +3,13 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-10 (sixteenth session)
+## Latest session, 2026-08-10 (fifteenth session) — Phase 2b Expansion
+- Added 21 new nutrient columns focusing on complex carbohydrates (beta-glucan, pectin, inulin, oligosaccharides), phytochemicals (lignans, proanthocyanidins, glucosinolates, ergothioneine), and specific vitamin isomers (Vitamin K2 MK-4 through MK-11) as well as Boron.
+- The total evidence column count increased to 48, and total columns to 122.
+- Enforced strict matching between `research.json` keys and actual generated slugs from `usda.mjs` / `evidence.json`.
+- Learned that `foods` is dynamically generated from USDA map when compiling `evidence.json`.
+
+## Earlier session, 2026-08-10 (sixteenth session)
 
 Completed Batch 4 of Phase 2b (evidence column expansions) by adding four new lipid components and one phenolic column from literature via `tools/evidence/research.json`. 
 

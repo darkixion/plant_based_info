@@ -1,33 +1,39 @@
 {
   "_comment": "What a wholefood plant diet does not supply. Explanatory, like interactions.json: no figure on the page depends on anything here. Evidence for entries that name a column is computed from the table itself at render time, not typed here, so it corrects itself when a food is added. See docs/superpowers/specs/2026-08-07-nutrient-gaps-design.md and 'Nutrient gaps' in README.md. No doses, no brands, no imperatives.",
-
   "sources": {
     "watanabe2014": "Watanabe F, Yabuta Y, Bito T, Teng F. Vitamin B12-containing plant food sources for vegetarians. Nutrients. 2014;6(5):1861-73.",
     "tripkovic2012": "Tripkovic L, Lambert H, Hart K, et al. Comparison of vitamin D2 and vitamin D3 supplementation in raising serum 25-hydroxyvitamin D status: a systematic review and meta-analysis. Am J Clin Nutr. 2012;95(6):1357-64.",
     "burdge2005": "Burdge GC, Calder PC. Conversion of alpha-linolenic acid to longer-chain polyunsaturated fatty acids in human adults. Reprod Nutr Dev. 2005;45(5):581-97.",
     "ods2024": "USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods, Release 4.0. Beltsville MD: USDA Agricultural Research Service; 2024."
   },
-
   "gaps": [
     {
       "id": "b12",
       "tier": "gap",
-      "nutrients": ["b12"],
+      "nutrients": [
+        "b12"
+      ],
       "label": "Vitamin B12",
       "role": "Needed to build red blood cells and to keep the myelin sheath around nerves intact. It is the one figure on this page to check rather than skim, because a shortage does its damage slowly and the neurological part of it does not fully reverse.",
       "why": "No plant makes it. It is made by bacteria, and what little turns up in unfortified plant foods comes from fermentation or contamination rather than from the food. Nori is the one genuine exception and still not a dependable one: dried purple laver carries around 77.6 µg per 100 g of active B12, but toasting and seasoning roughly halve that, drying can turn active forms into inactive analogues, and the human evidence is thin. Spirulina is the opposite case and worth naming separately, because it is largely pseudovitamin B12, which is biologically inactive. A spirulina figure is not a B12 figure.",
       "closing": "A supplement, or a food reliably fortified with it. Of everything on this page this is the one where that is settled advice rather than a suggestion, and it does not depend on how the rest of the diet looks.",
-      "cites": ["watanabe2014"]
+      "cites": [
+        "watanabe2014"
+      ]
     },
     {
       "id": "vitd",
       "tier": "gap",
-      "nutrients": ["vitd"],
+      "nutrients": [
+        "vitd"
+      ],
       "label": "Vitamin D",
       "role": "Governs how much calcium you absorb and how bone is mineralised, and acts on muscle and immune function besides. Most people get most of theirs from sunlight on skin rather than from food, so latitude and season matter more than diet does.",
       "why": "Plants essentially do not make it, and the trace in this table is a particular form: USDA assayed cholecalciferol, D3, in these foods and found zero every time, and ergocalciferol, D2, every time it looked. So the little that is here is mushroom D2. The form is worth knowing and matters less than it is usually made to: D3 raises blood levels more than D2 when both are given as a single large dose, but a meta-analysis of daily supplementation found no difference between them. At these amounts the argument is academic anyway.",
       "closing": "Sunlight where the latitude and the season allow it, and otherwise a supplement. Vegan D3 made from lichen exists alongside the more common D2.",
-      "cites": ["tripkovic2012"]
+      "cites": [
+        "tripkovic2012"
+      ]
     },
     {
       "id": "iodine",
@@ -37,22 +43,31 @@
       "role": "The thyroid uses it to make the hormones that set metabolic rate. A shortage during pregnancy damages the developing brain, and it is one of the few nutrients where too much is its own problem.",
       "why": "There is a column for it now, taken from Japan's tables, and it says something sharper than its absence did. Of the foods measured, most were assayed and found to contain none at all. Seaweed is the exception and an extreme one: kelp carries thousands of times what any other plant food here does, enough that a single serving overshoots the requirement many times over, which is its own kind of problem. Iodine in plants tracks the soil and the irrigation water as much as the food, so figures gathered in Japan do not transfer to a British or American plate. And because it is an evidence column rather than a measured figure in this table, it reaches no total: what you are short of below does not count it.",
       "closing": "Iodised salt, where it is sold, or a supplement. Whether salt is iodised varies a great deal by country, so it is worth checking rather than assuming.",
-      "cites": ["ods2024"]
+      "cites": [
+        "ods2024"
+      ]
     },
     {
       "id": "epadha",
       "tier": "gap",
-      "nutrients": ["epa", "dha"],
+      "nutrients": [
+        "epa",
+        "dha"
+      ],
       "label": "EPA and DHA",
       "role": "The two long-chain omega-3s the body actually uses. DHA makes up a large share of the brain and the retina; EPA is where most of the anti-inflammatory case sits.",
       "why": "Both columns are in the table and both are all but empty, which is why they were added. The body is supposed to build them from ALA, which plant foods do supply well, and that conversion is poor: tracer studies put ALA to EPA anywhere from 0.2% to about 10%, and ALA to DHA at roughly 0.05%. Raising ALA intake raises EPA in the blood and does not raise DHA, which can even fall at high intakes. So a large ALA figure is not the same thing as having enough of these.",
       "closing": "Algal oil, which is where the fish get theirs. A good ALA intake from flaxseed, chia, hemp or walnuts is worth having on its own terms and is not a substitute for it.",
-      "cites": ["burdge2005"]
+      "cites": [
+        "burdge2005"
+      ]
     },
     {
       "id": "choline",
       "tier": "plan",
-      "nutrients": ["chol"],
+      "nutrients": [
+        "chol"
+      ],
       "label": "Choline",
       "role": "Used to build cell membranes and acetylcholine, and part of the methylation cycle alongside folate and B12. The liver needs it to move fat out, which is where a shortage shows first.",
       "why": "Present throughout this table rather than absent, and thin. The evidence below is measured from these foods rather than quoted: the best of them supplies about a third of a daily value per 100 g, and only two clear a fifth. Those two are TVP and wheatgerm, neither of which is an everyday staple, so reaching a day's worth is a matter of choosing rather than of eating normally. Eggs and liver are the dense sources elsewhere and neither is available here.",
@@ -60,34 +75,15 @@
       "cites": []
     },
     {
-      "id": "k2",
-      "tier": "unseen",
-      "nutrients": [],
-      "label": "Vitamin K2 (menaquinones)",
-      "role": "",
-      "why": "USDA does not measure the form of K2 that natto carries at all. It measured a different form in eight of these foods and found none of it every time. So natto is in this table and its K2 cannot be shown. Whether K2 is a requirement separate from the K1 the vitamin K column already holds is contested, so this is a hole in the data rather than a known gap in the diet.",
-      "closing": "",
-      "cites": []
-    },
-    {
-      "id": "fibrefractions",
-      "tier": "unseen",
-      "nutrients": [],
-      "absent": ["betaglucan", "pectin", "inulin", "oligosaccharides", "inositol"],
-      "label": "Inulin and the other fibre fractions",
-      "role": "",
-      "why": "Soluble fibre, insoluble fibre and resistant starch each have a column here now, taken from Japan's tables because USDA measures all three and publishes none of them for any of these foods. The rest of the family is still missing. Inulin and the oligosaccharides need a database this page does not yet join to. Beta-glucan, pectin and free inositol are carried by none of the eight sources gathered for this work, so none of the three can be shown at all. Most of the inositol in a plant food is bound up as phytate rather than free, which is a different figure and one this page may yet reach.",
-      "closing": "",
-      "cites": []
-    },
-    {
       "id": "traces",
       "tier": "unseen",
       "nutrients": [],
-      "absent": ["boron", "taurine"],
-      "label": "Boron and taurine",
+      "absent": [
+        "taurine"
+      ],
+      "label": "Taurine",
       "role": "",
-      "why": "Biotin, molybdenum and chromium have columns here now, taken from Japan's tables rather than from USDA, which publishes none of the three for any of these foods. Two of the original five are still absent. Boron is measured by a Danish database this page does not yet join to. Taurine was assayed across 48 plant foods and detected in none, so a column would be one finding repeated 131 times, and the exception worth stating in words is red algae: nori and kelp are not zero.",
+      "why": "Taurine was assayed across 48 plant foods and detected in none, so a column would be one finding repeated 131 times, and the exception worth stating in words is red algae: nori and kelp are not zero.",
       "closing": "",
       "cites": []
     }
