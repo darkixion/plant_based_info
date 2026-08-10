@@ -3,7 +3,18 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-09 (fifteenth session)
+## Latest session, 2026-08-10 (sixteenth session)
+
+Completed Batch 4 of Phase 2b (evidence column expansions) by adding four new lipid components and one phenolic column from literature via `tools/evidence/research.json`. 
+
+- Added **Squalene**, **Coenzyme Q10**, **Coenzyme Q9**, and **Melatonin** as new evidence columns in the `fats` group. 
+- Added **Total Phenolics** (`phenolics`) to the `plant` group, populated for extra virgin olive oil.
+- `phytosterols` was researched and updated, but remains a USDA-sourced column rather than an evidence column to preserve its original data per user instructions.
+- Registered five new literature citations in `sources.json` (e.g. `lozano-grande-2018`) and updated the evidence pipeline to map these custom sources directly instead of pooling them under a generic "research-papers" citation.
+- The table now stands at 101 nutrient columns, with 27 of them marked as `evidence: true`.
+- Fixed the `smoke.mjs` test suite to expect 101 columns and 27 evidence columns.
+
+## Earlier session, 2026-08-09 (fifteenth session)
 
 Began execution of Phase 2b (evidence column expansions) by adding **Betaine** from USDA SR Legacy, making it the 90th column in the table, pulling 57 non-zero values. Also explicitly renamed the "Vitamin D" column to "Vitamin D2". 
 

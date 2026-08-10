@@ -214,7 +214,7 @@ for (const [slug, cols] of Object.entries(research)) {
   }
   for (const [colId, data] of Object.entries(cols)) {
     // We treat research data as analyzed literature values
-    out[slug].cells[colId] = reconcile([{ source: "research-papers", value: data.v, derivation: "analysed" }]);
+    out[slug].cells[colId] = reconcile([{ source: data.source || "research-papers", value: data.v, derivation: "analysed" }]);
     nCells++;
   }
 }

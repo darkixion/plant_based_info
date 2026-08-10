@@ -1,43 +1,181 @@
 {
   "olive-oil-extra-virgin": {
-    "coq10": { "v": 6.09, "match": "Žmitek 2014 (~100 EVOO samples)" },
-    "melatonin": { "v": 3.08, "match": "Venegas 2011" }
+    "coq10": {
+      "v": 6.09,
+      "match": "Žmitek 2014 (~100 EVOO samples)"
+    },
+    "melatonin": {
+      "v": 3.08,
+      "match": "Venegas 2011"
+    },
+    "squalene": {
+      "v": 564,
+      "match": "Beltrán 2016 / Owen 2000",
+      "source": "beltran-2016"
+    },
+    "phenolics": {
+      "v": 23.2,
+      "match": "Owen 2000",
+      "source": "owen-2000"
+    }
   },
   "soybean-oil-refined": {
-    "coq10": { "v": 3.0, "match": "Fine 2016 (Industrially refined)" }
+    "coq10": {
+      "v": 3,
+      "match": "Fine 2016 (Industrially refined)"
+    },
+    "squalene": {
+      "v": 9.9,
+      "match": "Nergiz 2011 (Refined)",
+      "source": "nergiz-2011"
+    }
   },
   "rapeseed-oil": {
-    "coq10": { "v": 3.5, "match": "Fine 2016 (Industrially refined)" }
+    "coq10": {
+      "v": 3.5,
+      "match": "Fine 2016 (Industrially refined)"
+    }
   },
   "sunflower-oil": {
-    "coq10": { "v": 0.3, "match": "Fine 2016 (Industrially refined)" },
-    "coq9": { "v": 10.13, "match": "Rodríguez-Acuña 2008 (Dominant isoform)" }
+    "coq10": {
+      "v": 0.3,
+      "match": "Fine 2016 (Industrially refined)"
+    },
+    "coq9": {
+      "v": 10.13,
+      "match": "Rodríguez-Acuña 2008 (Dominant isoform)"
+    },
+    "squalene": {
+      "v": 13.8,
+      "match": "Nergiz 2011 (Refined)",
+      "source": "nergiz-2011"
+    }
   },
   "peanut-oil": {
-    "coq10": { "v": 7.7, "match": "Cabrini 2001 (Crude)" }
+    "coq10": {
+      "v": 7.7,
+      "match": "Cabrini 2001 (Crude)"
+    },
+    "squalene": {
+      "v": 27.4,
+      "match": "Lozano-Grande 2018",
+      "source": "lozano-grande-2018"
+    }
   },
   "sesame-oil": {
-    "coq10": { "v": 3.15, "match": "Mattila 2001 & Kubo 2008" }
+    "coq10": {
+      "v": 3.15,
+      "match": "Mattila 2001 & Kubo 2008"
+    }
   },
   "peanuts": {
-    "coq10": { "v": 2.6, "match": "Kubo 2008, Mattila 2001, Román-Pizarro 2017" }
+    "coq10": {
+      "v": 2.6,
+      "match": "Kubo 2008, Mattila 2001, Román-Pizarro 2017"
+    }
   },
   "pistachios": {
-    "coq10": { "v": 2.5, "match": "Aydoğan 2023 (Cultivars average)" }
+    "coq10": {
+      "v": 2.5,
+      "match": "Aydoğan 2023 (Cultivars average)"
+    }
   },
   "spinach-raw": {
-    "coq10": { "v": 1.18, "match": "Román-Pizarro 2017, Kubo 2008, Mattila 2001" }
+    "coq10": {
+      "v": 1.18,
+      "match": "Román-Pizarro 2017, Kubo 2008, Mattila 2001"
+    }
   },
   "avocado": {
-    "coq10": { "v": 2.43, "match": "Román-Pizarro 2017" }
+    "coq10": {
+      "v": 2.43,
+      "match": "Román-Pizarro 2017"
+    }
   },
   "broccoli-cooked": {
-    "coq10": { "v": 0.86, "match": "Kubo 2008, Mattila 2001" }
+    "coq10": {
+      "v": 0.86,
+      "match": "Kubo 2008, Mattila 2001"
+    }
   },
   "cauliflower-cooked": {
-    "coq10": { "v": 0.3, "match": "Mattila 2001" }
+    "coq10": {
+      "v": 0.3,
+      "match": "Mattila 2001"
+    }
   },
   "orange-raw": {
-    "coq10": { "v": 0.39, "match": "Kubo 2008" }
+    "coq10": {
+      "v": 0.39,
+      "match": "Kubo 2008"
+    }
+  },
+  "walnut-oil": {
+    "squalene": {
+      "v": 1.1,
+      "match": "Tian 2023"
+    }
+  },
+  "pumpkin-seeds": {
+    "squalene": {
+      "v": 89,
+      "match": "Ryan 2007",
+      "source": "ryan-2007"
+    }
+  },
+  "amaranth-cooked": {
+    "squalene": {
+      "v": 4.16,
+      "match": "Popa 2015 (Raw seed value)"
+    }
+  },
+  "chickpeas-cooked": {
+    "squalene": {
+      "v": 3.5,
+      "match": "Ryan 2007 (Raw seed value)",
+      "source": "ryan-2007"
+    }
+  },
+  "lentils-cooked": {
+    "squalene": {
+      "v": 2,
+      "match": "Ryan 2007 (Raw seed value)",
+      "source": "ryan-2007"
+    }
+  },
+  "green-peas-cooked": {
+    "squalene": {
+      "v": 2.3,
+      "match": "Ryan 2007 (Raw seed value)",
+      "source": "ryan-2007"
+    }
+  },
+  "flaxseed": {
+    "squalene": {
+      "v": 2.5,
+      "match": "Ryan 2007",
+      "source": "ryan-2007"
+    }
+  },
+  "sweetcorn-cooked": {
+    "squalene": {
+      "v": 2,
+      "match": "Ryan 2007 (Raw seed value)",
+      "source": "ryan-2007"
+    }
+  },
+  "buckwheat-cooked": {
+    "squalene": {
+      "v": 0.5,
+      "match": "Ryan 2007 (Raw seed value)",
+      "source": "ryan-2007"
+    }
+  },
+  "millet-cooked": {
+    "squalene": {
+      "v": 0.5,
+      "match": "Ryan 2007 (Raw seed value)",
+      "source": "ryan-2007"
+    }
   }
 }

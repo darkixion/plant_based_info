@@ -929,6 +929,15 @@
    "dp": 1,
    "evidence": true,
    "why": "A triterpene and biochemical precursor to the steroid family (including vitamin D and cholesterol), highly concentrated in certain plant oils like olive and argan oil."
+  },
+  {
+   "id": "phenolics",
+   "label": "Total Phenolics",
+   "group": "plant",
+   "unit": "mg",
+   "dp": 1,
+   "evidence": true,
+   "why": "A diverse group of phytochemicals known for their strong antioxidant properties. They help neutralize free radicals and reduce inflammation."
   }
  ],
  "notes": [

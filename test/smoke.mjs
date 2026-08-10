@@ -2662,8 +2662,7 @@ await test("the food column leaves room for figures on a phone", async () => {
 
 await test("the caption stays inside the part of the table you can see", async () => {
   // The caption's own box is as wide as the table, so its text had nowhere to
-  // wrap and ran off the screen mid-sentence: "...all 68 nutrient columns.
-  // Values p". It is the only thing that says what is on screen, so a reader
+  // wrap and ran off the screen mid-sentence: "...all 101 nutrient columns. Values p". It is the only thing that says what is on screen, so a reader
   // who cannot finish it cannot tell a filtered table from the whole dataset.
   await atWidth(320, async page => {
     const r = await page.evaluate(() => {
@@ -3345,7 +3344,7 @@ await test("an evidence value reaches no total, no percentage and no score", asy
         threw: (() => { try { val(FOODS[0], ev[0]); return false; } catch { return true; } })(),
       };
     });
-    eq(r.ev.length, 26, "twenty-six evidence columns");
+    eq(r.ev.length, 27, "twenty-seven evidence columns");
     eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
     eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
     eq(r.inTotals.length, 0, `evidence ids in day totals: ${r.inTotals.join(", ")}`);
@@ -3429,7 +3428,7 @@ await test("a column stored at the end is still shown where it belongs", async (
     // were appended after biotin, so the last three are now the last three of
     // that append rather than the three evidence columns that existed before it.
     const stored = await page.evaluate(() => DATA.nutrients.map(n => n.id).slice(-3));
-    eq(stored.join(" "), "coq9 melatonin squalene",
+    eq(stored.join(" "), "melatonin squalene phenolics",
        "the evidence columns stay at the end of the array they are stored in");
   });
 });

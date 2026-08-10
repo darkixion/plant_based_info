@@ -709,7 +709,7 @@ from the page** and **names that only mean anything inside the repository**.
 
 ## Evidence columns
 
-Three columns originally came from outside USDA, but phase 2a added 16 more across the carb detail and organic acids groups. Phase 2b added betaine, anti-nutrients, Coenzyme Q and melatonin, taking the table to 100 columns. These 26 are marked `"evidence": true` in `nutrients.json`, and everything else about them follows from that one flag.
+Three columns originally came from outside USDA, but phase 2a added 16 more across the carb detail and organic acids groups. Phase 2b added betaine, anti-nutrients, Coenzyme Q, melatonin, squalene and phenolics, taking the table to 101 columns. These 27 are marked `"evidence": true` in `nutrients.json`, and everything else about them follows from that one flag.
 
 They exist because USDA *defines* a nutrient id for each of them and publishes a value for none. That was measured rather than assumed, with a control: the same parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch, pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin. So "the id exists" says nothing about whether a pull can reach it, and these needed national food composition tables instead. The table currently draws entirely on Japan's MEXT 2020. Because all 16 of the new phase 2a columns are single-source, they are never a range until more databases are mapped in phase 2b. The cell shape reflects this: `unit`, `basis`, `prep` and `match` have been promoted to the per-food level, leaving the per-cell structure cleaner.
 
@@ -998,7 +998,7 @@ table. There is a test for exactly that.
 
 **Every nutrient group starts visible**, derived from `GROUPS` rather than
 listed, so a ninth group would show the day it was added. That makes the
-opening table 100 columns wide and horizontally scrollable; switching groups off
+opening table 101 columns wide and horizontally scrollable; switching groups off
 in the sidebar is how it narrows. Tests must therefore say which groups they
 want, via `showGroups()` in `test/smoke.mjs`, rather than clicking a sidebar
 button to "turn one on": a click means flip, and every one of those clicks
