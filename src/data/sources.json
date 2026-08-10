@@ -89,5 +89,17 @@
   "muir-2007": {
     "name": "Muir et al. 2007, Measurement of short-chain carbohydrates (J Agric Food Chem)",
     "url": "https://pubmed.ncbi.nlm.nih.gov/17441508/"
+  },
+  "cnf": {
+    "title": "Canadian Nutrient File (CNF)",
+    "quality": "high"
+  },
+  "literature": {
+    "title": "Scientific Literature Compilation",
+    "quality": "high"
+  },
+  "existing": {
+    "title": "Existing Pre-compiled Data",
+    "quality": "high"
   }
 }
