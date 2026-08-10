@@ -24,6 +24,11 @@ const slugify = (name, state) => `${name} ${state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const map = rd("page-map-mext.json");
+const ifctMap = rd("page-map-ifct.json");
+const ifct11 = rd("ifct-2017-table11.json");
+const ifct9 = rd("ifct-2017-table9.json");
+const ifct11By = Object.fromEntries(ifct11.map(r => [r.code, r]));
+const ifct9By = Object.fromEntries(ifct9.map(r => [r.code, r]));
 const cofid = rd("cofid-2021-plant.json");
 const afcd = rd("afcd-r3-plant.json");
 
@@ -159,6 +164,59 @@ for (const p of map) {
 
   if (Object.keys(cells).length)
     out[slug] = { prep: p.page_state || "as listed", match: p.match, cells };
+}
+
+for (const p of ifctMap) {
+  if (!p.ifct_code) continue;
+  const slug = slugify(p.page, p.page_state);
+  
+  if (!out[slug]) {
+    out[slug] = { prep: p.page_state || "as listed", match: p.match, cells: {} };
+  } else if (p.match === "proxy") {
+    // If the main food was exact but this is proxy, or both proxy, we just append to the existing object
+    // Note: MEXT match might be "exact" and IFCT "proxy". For simplicity, we just use the existing one.
+  }
+  
+  // extract from table 11
+  const t11 = ifct11By[p.ifct_code];
+  if (t11 && t11.phytate_mg) {
+     const val = num(t11.phytate_mg.mean);
+     if (val !== null) {
+       out[slug].cells.phytate = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
+       nCells++;
+     }
+  }
+
+  // extract from table 9
+  const t9 = ifct9By[p.ifct_code];
+  if (t9) {
+     if (t9.oxalate_soluble_mg) {
+       const val = num(t9.oxalate_soluble_mg.mean);
+       if (val !== null) {
+         out[slug].cells.oxalate = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
+         nCells++;
+       }
+     }
+     if (t9.oxalate_insoluble_mg) {
+       const val = num(t9.oxalate_insoluble_mg.mean);
+       if (val !== null) {
+         out[slug].cells.oxalate_insol = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
+         nCells++;
+       }
+     }
+  }
+}
+
+const research = rd("research.json");
+for (const [slug, cols] of Object.entries(research)) {
+  if (!out[slug]) {
+    out[slug] = { prep: "as listed", match: "proxy", cells: {} };
+  }
+  for (const [colId, data] of Object.entries(cols)) {
+    // We treat research data as analyzed literature values
+    out[slug].cells[colId] = reconcile([{ source: "research-papers", value: data.v, derivation: "analysed" }]);
+    nCells++;
+  }
 }
 
 writeFileSync(join(ROOT, "src", "data", "evidence.json"), JSON.stringify(out, null, 1) + "\n");

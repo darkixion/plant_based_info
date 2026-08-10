@@ -1,0 +1,43 @@
+{
+  "olive-oil-extra-virgin": {
+    "coq10": { "v": 6.09, "match": "Žmitek 2014 (~100 EVOO samples)" },
+    "melatonin": { "v": 3.08, "match": "Venegas 2011" }
+  },
+  "soybean-oil-refined": {
+    "coq10": { "v": 3.0, "match": "Fine 2016 (Industrially refined)" }
+  },
+  "rapeseed-oil": {
+    "coq10": { "v": 3.5, "match": "Fine 2016 (Industrially refined)" }
+  },
+  "sunflower-oil": {
+    "coq10": { "v": 0.3, "match": "Fine 2016 (Industrially refined)" },
+    "coq9": { "v": 10.13, "match": "Rodríguez-Acuña 2008 (Dominant isoform)" }
+  },
+  "peanut-oil": {
+    "coq10": { "v": 7.7, "match": "Cabrini 2001 (Crude)" }
+  },
+  "sesame-oil": {
+    "coq10": { "v": 3.15, "match": "Mattila 2001 & Kubo 2008" }
+  },
+  "peanuts": {
+    "coq10": { "v": 2.6, "match": "Kubo 2008, Mattila 2001, Román-Pizarro 2017" }
+  },
+  "pistachios": {
+    "coq10": { "v": 2.5, "match": "Aydoğan 2023 (Cultivars average)" }
+  },
+  "spinach-raw": {
+    "coq10": { "v": 1.18, "match": "Román-Pizarro 2017, Kubo 2008, Mattila 2001" }
+  },
+  "avocado": {
+    "coq10": { "v": 2.43, "match": "Román-Pizarro 2017" }
+  },
+  "broccoli-cooked": {
+    "coq10": { "v": 0.86, "match": "Kubo 2008, Mattila 2001" }
+  },
+  "cauliflower-cooked": {
+    "coq10": { "v": 0.3, "match": "Mattila 2001" }
+  },
+  "orange-raw": {
+    "coq10": { "v": 0.39, "match": "Kubo 2008" }
+  }
+}

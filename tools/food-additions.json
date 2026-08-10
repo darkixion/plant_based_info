@@ -70,7 +70,20 @@
   {"name":"Borlotti beans","alt":"Cranberry beans","state":"cooked","cat":"Legumes","colour":"#C4816F","fdc_id":"173736"},
   {"name":"Tomatoes","state":"raw","cat":"Vegetables","colour":"#E04B2E","fdc_id":"170457"},
 
-  {"name":"Wheatgerm","alt":"Wheat germ","state":"toasted","cat":"Grains","colour":"#D19A45","fdc_id":"173896"}
+  {"name":"Wheatgerm","alt":"Wheat germ","state":"toasted","cat":"Grains","colour":"#D19A45","fdc_id":"173896"},
+
+  {"name":"Papaya","state":"raw","cat":"Fruit","colour":"#FA9232","fdc_id":"169926"},
+  {"name":"Goji berries","state":"dried","cat":"Fruit","colour":"#DE3B12","fdc_id":"173032"},
+  {"name":"Rapeseed oil","alt":"Canola oil","state":"","cat":"Fats & Oils","colour":"#F2D04E","fdc_id":"172336"},
+  {"name":"Sunflower oil","state":"","cat":"Fats & Oils","colour":"#F4DD5F","fdc_id":"171025"},
+  {"name":"Sesame oil","state":"","cat":"Fats & Oils","colour":"#D1A25C","fdc_id":"171016"},
+  {"name":"Walnut oil","state":"","cat":"Fats & Oils","colour":"#E8C07A","fdc_id":"171030"},
+  {"name":"Avocado oil","state":"","cat":"Fats & Oils","colour":"#8FA84E","fdc_id":"173573"},
+  {"name":"Olive oil","state":"extra virgin","cat":"Fats & Oils","colour":"#A6B435","fdc_id":"171413"},
+  {"name":"Peanut oil","state":"","cat":"Fats & Oils","colour":"#E4CD7A","fdc_id":"171410"},
+  {"name":"Flaxseed oil","alt":"Linseed oil","state":"cold pressed","cat":"Fats & Oils","colour":"#D6B56E","fdc_id":"167702"},
+  {"name":"Soybean oil","alt":"Vegetable oil","state":"refined","cat":"Fats & Oils","colour":"#F0DE8E","fdc_id":"172370"},
+  {"name":"Coconut oil","state":"","cat":"Fats & Oils","colour":"#FDFCF6","fdc_id":"171412"}
  ],
 
  "staples": [

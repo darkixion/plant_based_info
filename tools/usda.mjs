@@ -579,6 +579,7 @@ const COLUMN_TO_USDA = {
    column an error. */
 const FROM_OTHER_SOURCE = {
   anthocyanidins: "flavonoids.mjs", flavan3ols: "flavonoids.mjs", flavonols: "flavonoids.mjs",
+  flavanones: "flavonoids.mjs", flavones: "flavonoids.mjs", isoflavones: "isoflavones.mjs",
 };
 
 async function cmdAdd(args) {
@@ -605,7 +606,7 @@ async function cmdAdd(args) {
     if (!desc.has(f.fdc_id)) throw new Error(`${f.name}: fdc_id ${f.fdc_id} is not in SR Legacy`);
     if (have.has(slugify(f))) { skipped++; continue; }
     const v = vals.get(f.fdc_id) || {};
-    const row = data.nutrients.map(n => {
+    const row = data.nutrients.filter(n => !n.evidence).map(n => {
       const primary = COLUMN_TO_USDA[n.id];
       let a = v[String(primary)];
       // A new food gets the same fallback treatment as a pulled column, and the

@@ -3,7 +3,7 @@
  * Pulls flavonoid columns from the USDA Database for the Flavonoid Content of
  * Selected Foods, Release 3.3.
  *
- *   node tools/flavonoids.mjs extract           .accdb -> tools/cache/flav_r33/*.csv
+ *   node tools/flavonoids.mjs extract           .accdb -> tools/cache/flav_exp11/*.csv
  *   node tools/flavonoids.mjs coverage          report what the join reaches, write nothing
  *   node tools/flavonoids.mjs pull [--dry-run]  add those columns to nutrients.json
  *
@@ -33,17 +33,17 @@ import { readCSV } from "./csv.mjs";
 const exec = promisify(execFile);
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const CACHE = join(ROOT, "tools", "cache");
-const ACCDB = join(CACHE, "Flav_R03-3.accdb");
-const CSV_DIR = join(CACHE, "flav_r33");
+const ACCDB = join(CACHE, "FDB-EXP_R01-1.accdb");
+const CSV_DIR = join(CACHE, "flav_exp11");
 const SR_DIR = join(CACHE, "FoodData_Central_sr_legacy_food_csv_2018-04");
-const ACCDB_URL = "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/Flav/Flav_R03-3.accdb";
+const ACCDB_URL = "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/Flav/FDB-EXP_R01-1.accdb";
 const DATA = join(ROOT, "src", "data", "nutrients.json");
 const MAP = join(ROOT, "src", "data", "usda-map.json");
 
 /* Tables worth extracting. FLAV_IND holds the 24,130 individual laboratory
    measurements behind FLAV_DAT; it is not needed to build columns but it is
    what you read when a figure looks wrong. */
-const TABLES = ["FOOD_DES", "FLAV_DAT", "NUTR_DEF", "FD_GROUP"];
+const TABLES = ["FLAV_DAT", "NUTR_DEF", "FD_GROUP"];
 
 /* ---------- what counts as a measured subclass ----------
    USDA publishes individual compounds, not subclass totals, so a column here is
@@ -73,50 +73,13 @@ const TABLES = ["FOOD_DES", "FLAV_DAT", "NUTR_DEF", "FD_GROUP"];
    that understates by an unknown amount. Rocket loses a 47 mg flavonol figure
    the same way, for want of myricetin. */
 const SUBCLASS = {
-  anthocyanidins: {
-    class: "Anthocyanidins",
-    require: ["Cyanidin", "Delphinidin", "Malvidin", "Pelargonidin", "Peonidin", "Petunidin"],
+  isoflavones: {
+    class: "Isoflavones",
+    require: ["Daidzein", "Genistein", "Glycitein"],
     col: {
-      id: "anthocyanidins", label: "Anthocyanidins", group: "plant",
-      unit: "mg", dv: null, dp: 1, after: "lycopene",
-      why: "The red, purple and blue pigments in berries, and the reason a blackberry is not a raspberry. They are what most people mean by antioxidants in fruit, though only a small fraction of what a portion contains is absorbed.",
-    },
-  },
-  flavan3ols: {
-    class: "Flavan-3-ols",
-    require: ["(+)-Catechin", "(-)-Epicatechin", "(-)-Epigallocatechin",
-              "(-)-Epicatechin 3-gallate", "(-)-Epigallocatechin 3-gallate"],
-    col: {
-      id: "flavan3ols", label: "Flavan-3-ols", group: "plant",
-      unit: "mg", dv: null, dp: 1, after: "anthocyanidins",
-      why: "The catechins, which give tea, cocoa and apple skin their astringency. Dark berries and nuts lead this column here, because USDA never measured the full set for cocoa powder and it is withheld rather than undercounted.",
-    },
-  },
-  flavonols: {
-    class: "Flavonols",
-    require: ["Quercetin", "Kaempferol", "Myricetin"],
-    col: {
-      id: "flavonols", label: "Flavonols", group: "plant",
-      unit: "mg", dv: null, dp: 1, after: "flavan3ols",
-      why: "Quercetin and its relatives, the most widespread flavonoids in vegetables and the best measured of the group. Kale, watercress and onions carry the most of anything here, by a wide margin over the fruit.",
-    },
-  },
-  flavanones: {
-    class: "Flavanones",
-    require: ["Eriodictyol", "Hesperetin", "Naringenin"],
-    col: {
-      id: "flavanones", label: "Flavanones", group: "plant",
-      unit: "mg", dv: null, dp: 1, after: "flavonols",
-      why: "A class of flavonoids found primarily in citrus fruits (like hesperetin and naringenin) and tomatoes.",
-    },
-  },
-  flavones: {
-    class: "Flavones",
-    require: ["Apigenin", "Luteolin"],
-    col: {
-      id: "flavones", label: "Flavones", group: "plant",
-      unit: "mg", dv: null, dp: 1, after: "flavanones",
-      why: "A flavonoid subclass found in high amounts in celery, parsley, and chamomile. They are widely studied for their anti-inflammatory properties.",
+      id: "isoflavones", label: "Isoflavones", group: "plant",
+      unit: "mg", dv: null, dp: 1, after: "flavones",
+      why: "The phytoestrogens found predominantly in soybeans and soy products. These compounds are structurally similar to estrogen and are actively researched for hormonal health.",
     },
   },
 };
@@ -228,8 +191,8 @@ async function computeValues() {
     .map(r => [r.fdc_id, String(r.NDB_number).padStart(5, "0")]));
 
   const defs = await readCSV(join(CSV_DIR, "NUTR_DEF.csv"));
-  const nameOf = new Map(defs.map(d => [d.Nutr_no, d["Nutrient name"].trim()]));
-  const classOf = new Map(defs.map(d => [d.Nutr_no, d.Flav_Class]));
+  const nameOf = new Map(defs.map(d => [d.Nutr_No, d["Nutrient name"].trim()]));
+  const classOf = new Map(defs.map(d => [d.Nutr_No, d.Flav_Class]));
 
   /* Every compound is checked against a definition, so a release that renames
      one fails loudly here rather than quietly dropping it from a sum. */
@@ -247,21 +210,21 @@ async function computeValues() {
      hot loop below compares ids rather than strings. */
   const ids = {};
   for (const [key, s] of Object.entries(SUBCLASS)) {
-    const inClass = defs.filter(d => d.Flav_Class === s.class).map(d => d.Nutr_no);
+    const inClass = defs.filter(d => d.Flav_Class === s.class).map(d => d.Nutr_No);
     ids[key] = { all: inClass, need: inClass.filter(id => s.require.includes(nameOf.get(id))) };
   }
 
   const perNdb = new Map();
   for (const r of await readCSV(join(CSV_DIR, "FLAV_DAT.csv"))) {
     if (r.Flav_Val === "" || r.Flav_Val == null) continue;
+    if (r.Deriv_Cd === "Z") continue; // skip imputed zeroes
     const v = Number(r.Flav_Val);
     if (!Number.isFinite(v)) continue;
     const m = perNdb.get(r.NDB_No) || perNdb.set(r.NDB_No, new Map()).get(r.NDB_No);
-    m.set(r.Nutr_no, v);
+    m.set(r.Nutr_No, v);
   }
 
-  const descOf = new Map((await readCSV(join(CSV_DIR, "FOOD_DES.csv")))
-    .map(r => [r.NDB_No, r.Long_Desc]));
+  const descOf = new Map();
 
   return data.foods.map(f => {
     const fdc = rows.get(slugify(f));

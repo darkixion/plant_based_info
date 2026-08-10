@@ -93,6 +93,27 @@
     "sources": [
      "cofid-2021"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 218,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 8.42,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 2.04,
+    "sources": [
+     "ifct-2017"
+    ]
    }
   }
  },
@@ -189,6 +210,27 @@
     "value": 8.9,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 578,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 5.57,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 1.7,
+    "sources": [
+     "ifct-2017"
     ]
    }
   }
@@ -487,6 +529,27 @@
      "mext-2020",
      "cofid-2021"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 375,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 10.57,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 1.72,
+    "sources": [
+     "ifct-2017"
+    ]
    }
   }
  },
@@ -714,6 +777,27 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1.63,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 0.18,
+    "sources": [
+     "ifct-2017"
     ]
    }
   }
@@ -1611,6 +1695,27 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 120,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 42.22,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 40.72,
+    "sources": [
+     "ifct-2017"
+    ]
    }
   }
  },
@@ -1708,6 +1813,27 @@
     "value": 16,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 341,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 32.3,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 177,
+    "sources": [
+     "ifct-2017"
     ]
    }
   }
@@ -2365,6 +2491,13 @@
     "value": 92,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 2.6,
+    "sources": [
+     "research-papers"
     ]
    }
   }
@@ -3602,9 +3735,9 @@
    },
    "oxalate": {
     "state": "measured",
-    "value": 0.7,
+    "value": 241,
     "sources": [
-     "mext-2020"
+     "ifct-2017"
     ]
    },
    "biotin": {
@@ -3619,6 +3752,27 @@
       "source": "cofid-2021",
       "value": 0.1
      }
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 12.01,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 351,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 1.18,
+    "sources": [
+     "research-papers"
     ]
    }
   }
@@ -3819,6 +3973,13 @@
      "mext-2020",
      "cofid-2021"
     ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.86,
+    "sources": [
+     "research-papers"
+    ]
    }
   }
  },
@@ -3949,6 +4110,13 @@
     "value": 8.5,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "research-papers"
     ]
    }
   }
@@ -5003,6 +5171,13 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 2.43,
+    "sources": [
+     "research-papers"
     ]
    }
   }
@@ -7390,6 +7565,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.39,
+    "sources": [
+     "research-papers"
+    ]
    }
   }
  },
@@ -8900,6 +9082,138 @@
     "value": 0.4,
     "sources": [
      "mext-2020"
+    ]
+   }
+  }
+ },
+ "brussels-sprouts-cooked": {
+  "prep": "cooked",
+  "match": "proxy",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 18.32,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 4.67,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "oxalate_insol": {
+    "state": "measured",
+    "value": 7.73,
+    "sources": [
+     "ifct-2017"
+    ]
+   }
+  }
+ },
+ "olive-oil-extra-virgin": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 6.09,
+    "sources": [
+     "research-papers"
+    ]
+   },
+   "melatonin": {
+    "state": "measured",
+    "value": 3.08,
+    "sources": [
+     "research-papers"
+    ]
+   }
+  }
+ },
+ "soybean-oil-refined": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "research-papers"
+    ]
+   }
+  }
+ },
+ "rapeseed-oil": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 3.5,
+    "sources": [
+     "research-papers"
+    ]
+   }
+  }
+ },
+ "sunflower-oil": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "research-papers"
+    ]
+   },
+   "coq9": {
+    "state": "measured",
+    "value": 10.13,
+    "sources": [
+     "research-papers"
+    ]
+   }
+  }
+ },
+ "peanut-oil": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 7.7,
+    "sources": [
+     "research-papers"
+    ]
+   }
+  }
+ },
+ "sesame-oil": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 3.15,
+    "sources": [
+     "research-papers"
+    ]
+   }
+  }
+ },
+ "pistachios": {
+  "prep": "as listed",
+  "match": "proxy",
+  "cells": {
+   "coq10": {
+    "state": "measured",
+    "value": 2.5,
+    "sources": [
+     "research-papers"
     ]
    }
   }

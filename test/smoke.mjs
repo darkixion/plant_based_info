@@ -354,16 +354,16 @@ await test("alternative names are shown and are searchable", async () => {
   await withPage(async page => {
     // Search by the alternative name: this both proves the search matches it
     // and brings the row onto the page whatever the default sort happens to be.
-    await page.fill("#q", "linseed");
+    await page.fill("#q", "globe");
     await page.waitForFunction(() => {
       const n = document.querySelectorAll("#tbody .fname");
-      return n.length === 1 && n[0].dataset.name === "Flaxseed";
+      return n.length === 1 && n[0].dataset.name === "Artichokes";
     });
     const rendered = await page.evaluate(() => {
-      const f = document.querySelector('#tbody .fname[data-name="Flaxseed"]');
+      const f = document.querySelector('#tbody .fname[data-name="Artichokes"]');
       return f && f.textContent.replace(/\s+/g, " ").trim();
     });
-    assert(/Flaxseed \(Linseed\)/.test(rendered || ""), `shown as: ${rendered}`);
+    assert(/Artichokes \(Globe artichokes\)/.test(rendered || ""), `shown as: ${rendered}`);
   });
 });
 
@@ -886,9 +886,9 @@ await test("omega-7 and omega-9 columns are present and populated", async () => 
     });
     const expected = [
       "Adzuki beans (cooked)", "Amaranth (cooked)", "Bell pepper (yellow, raw)",
-      "Borlotti beans (cooked)", "Dates",
+      "Borlotti beans (cooked)", "Dates", "Goji berries (dried)",
       "Hemp seeds (hulled)", "Leeks (cooked)", "Nutritional yeast",
-      "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)"];
+      "Papaya", "Seitan", "Shiitake mushrooms (raw)", "Soy milk (unsweetened)", "Teff (cooked)"];
     eq(missing.slice().sort().join(", "), expected.join(", "), "foods without omega figures");
   });
 });
@@ -933,7 +933,7 @@ await test("the saturated fat breakdown is present and stays inside its total", 
       return DATA.foods.map(f => [f.name, f.v[i] || 0])
         .sort((a, b) => b[1] - a[1])[0];
     });
-    eq(lauric[0], "Coconut", `richest in lauric acid: ${lauric.join(" ")}`);
+    eq(lauric[0], "Coconut oil", `richest in lauric acid: ${lauric.join(" ")}`);
   });
 });
 
@@ -2536,7 +2536,7 @@ await test("the phytosterol caveat names the categories it is silent on", async 
       };
     });
     assert(empty.length >= 4, `expected at least four empty categories, got ${empty.join(", ")}`);
-    assert(filled === 25, `expected 25 foods with a figure, got ${filled}`);
+    assert(filled === 32, `expected 32 foods with a figure, got ${filled}`);
     // The two the old README singled out by hand. They must come out of the
     // data here, not out of a literal in the prose.
     assert(missingRich.includes("Almonds") && missingRich.includes("Walnuts"),
@@ -2770,8 +2770,8 @@ await test("EPA and DHA tell a measured zero apart from an unmeasured one", asyn
     });
     eq(r.dha.above, 1, "exactly one food has any DHA");
     eq(r.epa.above, 4, "exactly four foods have any EPA");
-    assert(r.epa.unmeasured === 18 && r.dha.unmeasured === 18,
-      `18 foods were never assayed, got ${r.epa.unmeasured} and ${r.dha.unmeasured}`);
+    assert(r.epa.unmeasured === 20 && r.dha.unmeasured === 20,
+      `20 foods were never assayed, got ${r.epa.unmeasured} and ${r.dha.unmeasured}`);
     assert(r.epa.zero > 100, `most foods are a measured zero, got ${r.epa.zero}`);
 
     // Rendered: a real figure, an unmeasured cell, and a measured zero.
@@ -3053,7 +3053,7 @@ await test("a gap's evidence is measured from the table, not typed into it", asy
       return { text, b12: state("b12"), dha: state("dha") };
     });
     // Rendered numbers must equal the data's numbers, not a remembered pair.
-    assert(r.text.includes(`${r.b12.above} of 131 foods have any at all`),
+    assert(r.text.includes(`${r.b12.above} of 143 foods have any at all`),
       `B12's count should be ${r.b12.above}: ${r.text.slice(0, 400)}`);
     assert(r.text.includes(`${r.b12.zero} were measured and found to contain none`),
       `B12's measured-zero count should be ${r.b12.zero}`);
@@ -3345,7 +3345,7 @@ await test("an evidence value reaches no total, no percentage and no score", asy
         threw: (() => { try { val(FOODS[0], ev[0]); return false; } catch { return true; } })(),
       };
     });
-    eq(r.ev.length, 19, "nineteen evidence columns");
+    eq(r.ev.length, 26, "twenty-six evidence columns");
     eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
     eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
     eq(r.inTotals.length, 0, `evidence ids in day totals: ${r.inTotals.join(", ")}`);
@@ -3429,7 +3429,7 @@ await test("a column stored at the end is still shown where it belongs", async (
     // were appended after biotin, so the last three are now the last three of
     // that append rather than the three evidence columns that existed before it.
     const stored = await page.evaluate(() => DATA.nutrients.map(n => n.id).slice(-3));
-    eq(stored.join(" "), "malic quinic oxalate",
+    eq(stored.join(" "), "coq9 melatonin squalene",
        "the evidence columns stay at the end of the array they are stored in");
   });
 });

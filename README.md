@@ -666,9 +666,7 @@ iodine (1100) and the proanthocyanidins. That is a pattern worth naming: **SR
 Legacy defines a great many ids it never populates for whole plant foods**, so
 "the id exists" says nothing about whether a pull can reach it.
 
-The only populated, unrepresented nutrient the sweep turned up is **betaine**,
-57 of 57 non-zero, which belongs beside choline since it spares choline in
-methylation. Everything else is either already consumed, an existing deliberate
+The only populated nutrient the sweep turned up that was missing was **betaine** (57 of 57 non-zero), which has now been added and sits beside choline since it spares choline in methylation. Everything else is either already consumed, an existing deliberate
 omission (the tocopherol and tocotrienol family, the phytosterol fractions), or
 trivial (sugar fractions where a total exists, minor fatty-acid chain lengths,
 fluoride, and caffeine and theobromine at one food each).
@@ -711,7 +709,7 @@ from the page** and **names that only mean anything inside the repository**.
 
 ## Evidence columns
 
-Three columns originally came from outside USDA, but phase 2a added 16 more across the carb detail and organic acids groups, taking the table to 89 columns. These 19 are marked `"evidence": true` in `nutrients.json`, and everything else about them follows from that one flag.
+Three columns originally came from outside USDA, but phase 2a added 16 more across the carb detail and organic acids groups. Phase 2b added betaine, anti-nutrients, Coenzyme Q and melatonin, taking the table to 100 columns. These 26 are marked `"evidence": true` in `nutrients.json`, and everything else about them follows from that one flag.
 
 They exist because USDA *defines* a nutrient id for each of them and publishes a value for none. That was measured rather than assumed, with a control: the same parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch, pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin. So "the id exists" says nothing about whether a pull can reach it, and these needed national food composition tables instead. The table currently draws entirely on Japan's MEXT 2020. Because all 16 of the new phase 2a columns are single-source, they are never a range until more databases are mapped in phase 2b. The cell shape reflects this: `unit`, `basis`, `prep` and `match` have been promoted to the per-food level, leaving the per-cell structure cleaner.
 
@@ -1000,7 +998,7 @@ table. There is a test for exactly that.
 
 **Every nutrient group starts visible**, derived from `GROUPS` rather than
 listed, so a ninth group would show the day it was added. That makes the
-opening table 89 columns wide and horizontally scrollable; switching groups off
+opening table 100 columns wide and horizontally scrollable; switching groups off
 in the sidebar is how it narrows. Tests must therefore say which groups they
 want, via `showGroups()` in `test/smoke.mjs`, rather than clicking a sidebar
 button to "turn one on": a click means flip, and every one of those clicks

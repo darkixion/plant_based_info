@@ -3,7 +3,17 @@
 Written 2026-08-05, updated 2026-08-07. Read `README.md` first; it carries
 everything durable that a handover note should not be holding.
 
-## Latest session, 2026-08-08 (fourteenth session)
+## Latest session, 2026-08-09 (fifteenth session)
+
+Began execution of Phase 2b (evidence column expansions) by adding **Betaine** from USDA SR Legacy, making it the 90th column in the table, pulling 57 non-zero values. Also explicitly renamed the "Vitamin D" column to "Vitamin D2". 
+
+Completed Batch 2: Integrated the anti-nutrients **Phytate**, **Soluble Oxalate**, and **Insoluble Oxalate** using the IFCT 2017 database. Added a new `other` group to the UI to properly render these columns.
+
+Completed Batch 3: Built a custom data pipeline to ingest meta-analysis data for **CoQ10**, **CoQ9**, **Melatonin**, and **Squalene** from literature (Venegas 2011, Žmitek 2014, Kubo 2008, Fine 2016) via `tools/evidence/research.json`. Resolved extreme variations in oil CoQ10 by mapping values to the exact states represented in our database (e.g. mapping `extra virgin` olive oil to `~61 mg/kg` and `refined` soybean oil to `30 mg/kg`).
+
+The table now stands at 100 nutrient columns.
+
+## Earlier session, 2026-08-08 (fourteenth session)
 
 Phase 2a shipped 16 columns and two groups, taking the table to 89 columns. Beta-glucan and free inositol have no source anywhere, measured rather than assumed, so they join pectin. Inositol phosphate is phytate and is due in phase 2b.
 

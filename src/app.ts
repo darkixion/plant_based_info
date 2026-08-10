@@ -5,7 +5,7 @@
    `notes` is optional because build.mjs and this file both read it as
    `data.notes || []`. The type describes what the code believes, not what
    today's data file happens to contain. */
-type NutrientGroup = "macro" | "fats" | "amino" | "vitamin" | "mineral" | "carbdetail" | "acids" | "plant";
+type NutrientGroup = "macro" | "fats" | "amino" | "vitamin" | "mineral" | "carbdetail" | "acids" | "plant" | "other";
 type Unit = "kcal" | "g" | "mg" | "µg";
 
 interface Nutrient {
@@ -200,7 +200,7 @@ declare const I: Record<
   "leaf" | "compare" | "heart" | "heartFull" | "help" | "book" | "info" | "dl" |
   "moon" | "sun" | "search" | "x" | "pct" | "grid" | "eye" |
   "macro" | "fats" | "amino" | "vit" | "min" | "carb" | "acid" | "up" | "down" | "sortable" |
-  "right" | "plant" | "plus" | "minus", string>;
+  "right" | "plant" | "other" | "plus" | "minus", string>;
 /* Portion weights, injected by build.mjs from src/data/portions.json the same
    way DATA is. 128 of the 131 foods have at least one; the three that do not
    have no USDA row at all, so an index read is genuinely optional here rather
@@ -229,6 +229,7 @@ const GROUPS = [
   { id: "carbdetail", label: "Carbohydrate detail", icon: I.carb },
   { id: "acids",   label: "Organic acids",  icon: I.acid },
   { id: "plant",   label: "Plant compounds", icon: I.plant },
+  { id: "other",   label: "Anti-nutrients",  icon: I.other },
 ] satisfies { id: NutrientGroup; label: string; icon: string }[];
 /* Evidence columns are deliberately absent from IDX, so val() throws on one.
    That is the point rather than an oversight: an evidence value is not a
@@ -1623,7 +1624,7 @@ function renderDetail() {
   // the overview instead. A test asserts every group holding evidence columns
   // appears here, since those cells carry sources the panel is the only place
   // to show.
-  const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "carbdetail", "acids", "amino", "plant"];
+  const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "carbdetail", "acids", "amino", "plant", "other"];
   const tabs = [["overview", "Overview", I.macro],
     ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon]),
     ["absorption", "Absorption", I.eye]];

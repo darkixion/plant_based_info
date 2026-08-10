@@ -19,5 +19,19 @@
   "country": "Australia",
   "url": "https://www.foodstandards.gov.au/science-data/food-nutrient-databases/afcd/data-files",
   "quality": "high, except chromium"
+ },
+ "ifct-2017": {
+  "title": "Indian Food Composition Tables 2017",
+  "publisher": "National Institute of Nutrition, Indian Council of Medical Research, Hyderabad",
+  "country": "India",
+  "url": "https://www.nin.res.in/ebooks/IFCT2017.pdf",
+  "quality": "high"
+ },
+ "research-papers": {
+  "title": "Primary Research Literature Compilation (CoQ10, CoQ9, Melatonin, Squalene)",
+  "publisher": "Various (Venegas 2011, Žmitek 2014, Kubo 2008, Fine 2016, etc.)",
+  "country": "International",
+  "url": "",
+  "quality": "high"
  }
 }
