@@ -1,0 +1,4962 @@
+[
+  {
+    "key": "1",
+    "name": "Strawberry, raw"
+  },
+  {
+    "key": "2",
+    "name": "Apple, raw, all varieties"
+  },
+  {
+    "key": "3",
+    "name": "Banana, raw"
+  },
+  {
+    "key": "4",
+    "name": "Potato, raw"
+  },
+  {
+    "key": "6",
+    "name": "Milk, whole, konventional (not organic), 3.5 % fat"
+  },
+  {
+    "key": "8",
+    "name": "Parsley, raw"
+  },
+  {
+    "key": "9",
+    "name": "Pear, raw"
+  },
+  {
+    "key": "10",
+    "name": "Rhubarb, raw"
+  },
+  {
+    "key": "11",
+    "name": "Currant, black, raw"
+  },
+  {
+    "key": "12",
+    "name": "Yogurt plain, whole milk"
+  },
+  {
+    "key": "13",
+    "name": "Celery, raw"
+  },
+  {
+    "key": "14",
+    "name": "Cauliflower, all varieties, raw"
+  },
+  {
+    "key": "17",
+    "name": "Broccoli, raw"
+  },
+  {
+    "key": "20",
+    "name": "Beans, wax, raw"
+  },
+  {
+    "key": "21",
+    "name": "Lemon, raw"
+  },
+  {
+    "key": "22",
+    "name": "Dill, raw"
+  },
+  {
+    "key": "23",
+    "name": "Kale, raw"
+  },
+  {
+    "key": "24",
+    "name": "Carrot, raw"
+  },
+  {
+    "key": "25",
+    "name": "Garfish, raw"
+  },
+  {
+    "key": "26",
+    "name": "Cabbage, white, raw"
+  },
+  {
+    "key": "27",
+    "name": "Rose hip, raw"
+  },
+  {
+    "key": "28",
+    "name": "Elderberry, raw"
+  },
+  {
+    "key": "30",
+    "name": "Salmon, Atlantic, wild, raw"
+  },
+  {
+    "key": "31",
+    "name": "Sweetcorn, on-the-cob, raw"
+  },
+  {
+    "key": "32",
+    "name": "Milk, buttermilk"
+  },
+  {
+    "key": "33",
+    "name": "Milk, partly skimmed, konventional (not organic), 1.5 % fat"
+  },
+  {
+    "key": "34",
+    "name": "Mackerel, raw"
+  },
+  {
+    "key": "35",
+    "name": "Almond, raw"
+  },
+  {
+    "key": "36",
+    "name": "Watermelon, raw"
+  },
+  {
+    "key": "37",
+    "name": "Pepper, sweet, green, raw"
+  },
+  {
+    "key": "38",
+    "name": "Pepper, sweet, red, raw"
+  },
+  {
+    "key": "39",
+    "name": "Radish, raw"
+  },
+  {
+    "key": "40",
+    "name": "Currant, red, raw"
+  },
+  {
+    "key": "41",
+    "name": "Brussels sprouts, raw"
+  },
+  {
+    "key": "43",
+    "name": "Beet, red, raw"
+  },
+  {
+    "key": "44",
+    "name": "Cabbage, red, raw"
+  },
+  {
+    "key": "45",
+    "name": "Plaice, raw"
+  },
+  {
+    "key": "46",
+    "name": "Celeriac, celery root, raw"
+  },
+  {
+    "key": "47",
+    "name": "Herring, pickled, canned"
+  },
+  {
+    "key": "48",
+    "name": "Herring, raw"
+  },
+  {
+    "key": "49",
+    "name": "Cabbage, pointed, raw"
+  },
+  {
+    "key": "50",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "51",
+    "name": "Gooseberry, raw"
+  },
+  {
+    "key": "52",
+    "name": "Tomato, ripe, raw, origin unknown"
+  },
+  {
+    "key": "54",
+    "name": "Grape, raw"
+  },
+  {
+    "key": "55",
+    "name": "Peas, green, raw"
+  },
+  {
+    "key": "56",
+    "name": "Squash, raw"
+  },
+  {
+    "key": "57",
+    "name": "Artichoke, raw"
+  },
+  {
+    "key": "58",
+    "name": "Beans, mung, dried, raw"
+  },
+  {
+    "key": "59",
+    "name": "Oats, rolled, average values"
+  },
+  {
+    "key": "60",
+    "name": "Rye flour, dark, wholemeal"
+  },
+  {
+    "key": "61",
+    "name": "Wheat, flour, wholemeal"
+  },
+  {
+    "key": "62",
+    "name": "Ginger root, raw"
+  },
+  {
+    "key": "63",
+    "name": "Okra, raw"
+  },
+  {
+    "key": "64",
+    "name": "Asparagus, green, raw"
+  },
+  {
+    "key": "65",
+    "name": "Fennel, bulb, raw"
+  },
+  {
+    "key": "66",
+    "name": "Saithe, raw"
+  },
+  {
+    "key": "67",
+    "name": "Buckwheat, whole, raw"
+  },
+  {
+    "key": "69",
+    "name": "Aubergine, raw"
+  },
+  {
+    "key": "70",
+    "name": "Orange, raw"
+  },
+  {
+    "key": "71",
+    "name": "Lamb, leg, unspecified , raw"
+  },
+  {
+    "key": "72",
+    "name": "Cod, fillet, raw"
+  },
+  {
+    "key": "73",
+    "name": "Cheese, semihard, Feta, 40 % fidm"
+  },
+  {
+    "key": "74",
+    "name": "Pork, collar with rind, raw"
+  },
+  {
+    "key": "76",
+    "name": "Rice groats, brown, raw"
+  },
+  {
+    "key": "77",
+    "name": "Sugar, sucrose, white"
+  },
+  {
+    "key": "78",
+    "name": "Lard, pork, refined, Raffinol"
+  },
+  {
+    "key": "79",
+    "name": "Lard, pork"
+  },
+  {
+    "key": "81",
+    "name": "Water, bottled, carbonated"
+  },
+  {
+    "key": "87",
+    "name": "Goose, flesh and skin, raw"
+  },
+  {
+    "key": "88",
+    "name": "Nut, coco, raw"
+  },
+  {
+    "key": "89",
+    "name": "Snacks, expanded, potatobasis"
+  },
+  {
+    "key": "92",
+    "name": "Soya sauce"
+  },
+  {
+    "key": "94",
+    "name": "Cheese, firm, 40 % fidm., all varieties"
+  },
+  {
+    "key": "95",
+    "name": "Ymer, low fat"
+  },
+  {
+    "key": "97",
+    "name": "Cheese, semihard, Mozzarella, 45 % fidm."
+  },
+  {
+    "key": "98",
+    "name": "Cheese, processed, 45 % fidm."
+  },
+  {
+    "key": "101",
+    "name": "Duck, flesh and skin, raw"
+  },
+  {
+    "key": "102",
+    "name": "Rye-flour, wheat-flour, bolted"
+  },
+  {
+    "key": "103",
+    "name": "Pudding powder"
+  },
+  {
+    "key": "108",
+    "name": "Cheese, semihard, Havarti, 30 % fidm."
+  },
+  {
+    "key": "109",
+    "name": "Cheese, firm, Danbo, 45 % fidm."
+  },
+  {
+    "key": "110",
+    "name": "Lamb, flank, spiced, cooked"
+  },
+  {
+    "key": "114",
+    "name": "Onions, chopped and deepfried"
+  },
+  {
+    "key": "115",
+    "name": "Tea, ready-to-drink"
+  },
+  {
+    "key": "116",
+    "name": "Chestnut, raw"
+  },
+  {
+    "key": "117",
+    "name": "Coffee, instant, prepared with water"
+  },
+  {
+    "key": "118",
+    "name": "Cheese, semihard, Esrom, 45 % fidm."
+  },
+  {
+    "key": "131",
+    "name": "Cheese, firm, Elbo, 40 % fidm."
+  },
+  {
+    "key": "132",
+    "name": "Potato crisps, coarse"
+  },
+  {
+    "key": "136",
+    "name": "Cheese, Roquefort, Danish, 50 % fidm."
+  },
+  {
+    "key": "137",
+    "name": "Coffee, instant, decaffeinated, prepared with water"
+  },
+  {
+    "key": "138",
+    "name": "Cheese, Danish Blue, 50 % fidm."
+  },
+  {
+    "key": "139",
+    "name": "Cheese, Brie, 60 % fidm."
+  },
+  {
+    "key": "141",
+    "name": "Bacon, stewing, raw"
+  },
+  {
+    "key": "142",
+    "name": "Coffee, beverage"
+  },
+  {
+    "key": "143",
+    "name": "Rye kernels, whole/cracked"
+  },
+  {
+    "key": "144",
+    "name": "Sausage, liver sausage"
+  },
+  {
+    "key": "146",
+    "name": "Sour cream, 50 % fat"
+  },
+  {
+    "key": "148",
+    "name": "Cheese, firm, 45 % fidm., all varieties"
+  },
+  {
+    "key": "149",
+    "name": "Linseeds, raw"
+  },
+  {
+    "key": "150",
+    "name": "Peanut, dried"
+  },
+  {
+    "key": "152",
+    "name": "Double Cream, 50 % fat"
+  },
+  {
+    "key": "154",
+    "name": "Soya flour, full fat"
+  },
+  {
+    "key": "156",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "158",
+    "name": "Milk, dry, skimmed, powder"
+  },
+  {
+    "key": "161",
+    "name": "Cheese, semihard, Havarti, 45 % fidm."
+  },
+  {
+    "key": "162",
+    "name": "Rose hip, dried, powder"
+  },
+  {
+    "key": "163",
+    "name": "Oyster, raw"
+  },
+  {
+    "key": "164",
+    "name": "Wine, white, dry"
+  },
+  {
+    "key": "165",
+    "name": "Fish balls, canned"
+  },
+  {
+    "key": "166",
+    "name": "Rye bread crumbs with brown sugar, average values"
+  },
+  {
+    "key": "167",
+    "name": "Wine, white, average values"
+  },
+  {
+    "key": "168",
+    "name": "Wine, white, Rhine wine"
+  },
+  {
+    "key": "169",
+    "name": "Tomato, sun-dried"
+  },
+  {
+    "key": "170",
+    "name": "Ymer"
+  },
+  {
+    "key": "171",
+    "name": "Wine, red, rosé, non-alcoholic"
+  },
+  {
+    "key": "173",
+    "name": "Wine, white, medium"
+  },
+  {
+    "key": "174",
+    "name": "Biscuit, sweet, 'Finnish'"
+  },
+  {
+    "key": "175",
+    "name": "Wine, white, non-alcoholic"
+  },
+  {
+    "key": "176",
+    "name": "Barley groats, raw"
+  },
+  {
+    "key": "180",
+    "name": "Liquorice allsorts"
+  },
+  {
+    "key": "181",
+    "name": "Danish pastry, square"
+  },
+  {
+    "key": "182",
+    "name": "Salad dressing, French"
+  },
+  {
+    "key": "183",
+    "name": "Cheese, Danish Blue, 60 % fidm."
+  },
+  {
+    "key": "184",
+    "name": "Cheese, firm, Fynbo, 45 % fidm."
+  },
+  {
+    "key": "187",
+    "name": "Eggs, chicken, egg white, pasteurized"
+  },
+  {
+    "key": "188",
+    "name": "Lumpsucker, smoked"
+  },
+  {
+    "key": "189",
+    "name": "Wheat, kernels, whole/cracked"
+  },
+  {
+    "key": "192",
+    "name": "Bread-crumbs"
+  },
+  {
+    "key": "194",
+    "name": "Apple juice, canned or bottled"
+  },
+  {
+    "key": "199",
+    "name": "Pearl-sago (potato starch)"
+  },
+  {
+    "key": "203",
+    "name": "Cheese, firm, Maribo, 45 % fidm."
+  },
+  {
+    "key": "204",
+    "name": "Mustard, brown, ready made"
+  },
+  {
+    "key": "205",
+    "name": "Garlic, raw"
+  },
+  {
+    "key": "206",
+    "name": "Wine, rosé"
+  },
+  {
+    "key": "209",
+    "name": "Cheese, firm, Samsoe, 45 % fidm."
+  },
+  {
+    "key": "211",
+    "name": "Baby food, infant formula, low iron content, powder"
+  },
+  {
+    "key": "212",
+    "name": "Sherry, medium"
+  },
+  {
+    "key": "213",
+    "name": "Wine, red"
+  },
+  {
+    "key": "214",
+    "name": "Cheese, hard, Cheshire, 50 % fidm."
+  },
+  {
+    "key": "215",
+    "name": "Eggs, chicken, egg white, raw"
+  },
+  {
+    "key": "216",
+    "name": "Bacon, frying, raw"
+  },
+  {
+    "key": "217",
+    "name": "Vermouth, dry"
+  },
+  {
+    "key": "220",
+    "name": "Vermouth, sweet"
+  },
+  {
+    "key": "221",
+    "name": "Prune, dried plum"
+  },
+  {
+    "key": "222",
+    "name": "Tamarind, Indian date, raw"
+  },
+  {
+    "key": "223",
+    "name": "Pastry, croissant"
+  },
+  {
+    "key": "225",
+    "name": "Eggs, chicken, egg white, dried"
+  },
+  {
+    "key": "226",
+    "name": "Vinegar"
+  },
+  {
+    "key": "228",
+    "name": "Madeira"
+  },
+  {
+    "key": "230",
+    "name": "Pastry with poppy seeds"
+  },
+  {
+    "key": "231",
+    "name": "Cheese, Blue and white mould, 70 % fidm."
+  },
+  {
+    "key": "232",
+    "name": "Wine, white, sweet"
+  },
+  {
+    "key": "245",
+    "name": "Brandy, cognac"
+  },
+  {
+    "key": "246",
+    "name": "Wine, white, sparkling, champagne"
+  },
+  {
+    "key": "248",
+    "name": "Cheese, firm, Svenbo, 45 % fidm."
+  },
+  {
+    "key": "249",
+    "name": "Aquavit, spiced, average values"
+  },
+  {
+    "key": "250",
+    "name": "Sherry, dry"
+  },
+  {
+    "key": "251",
+    "name": "Olives, black, without stones, in brine"
+  },
+  {
+    "key": "257",
+    "name": "Spirits, 70 % proof"
+  },
+  {
+    "key": "258",
+    "name": "Vodka"
+  },
+  {
+    "key": "259",
+    "name": "Plain cake, lemon cake"
+  },
+  {
+    "key": "260",
+    "name": "BITTER, Krabask Bitter"
+  },
+  {
+    "key": "261",
+    "name": "Cheese, hard, Emmentaler, 45 % fidm."
+  },
+  {
+    "key": "263",
+    "name": "Breakfast cereal, Rice Krispies"
+  },
+  {
+    "key": "268",
+    "name": "Lemon juice, fresh"
+  },
+  {
+    "key": "270",
+    "name": "Cheese, semihard, Esrom, 60 % fidm."
+  },
+  {
+    "key": "271",
+    "name": "Cream yoghurt, 9 % fat, with fruit"
+  },
+  {
+    "key": "272",
+    "name": "Tofu, soy bean curd"
+  },
+  {
+    "key": "273",
+    "name": "Port"
+  },
+  {
+    "key": "276",
+    "name": "Plain cake, chocolate cake"
+  },
+  {
+    "key": "277",
+    "name": "Bouillon, chicken, prepared"
+  },
+  {
+    "key": "279",
+    "name": "Danish pastry, cinnamon roll"
+  },
+  {
+    "key": "280",
+    "name": "Danish pastry, average values"
+  },
+  {
+    "key": "281",
+    "name": "Plain cake, average values"
+  },
+  {
+    "key": "282",
+    "name": "Pop corn, oil and salt added, traditional"
+  },
+  {
+    "key": "283",
+    "name": "Bulgur, parboiled, raw"
+  },
+  {
+    "key": "285",
+    "name": "Lentils, sprouted, raw"
+  },
+  {
+    "key": "286",
+    "name": "Whisky"
+  },
+  {
+    "key": "287",
+    "name": "Sausage, beef salami"
+  },
+  {
+    "key": "291",
+    "name": "Cheese, semihard, Havarti, 60 % fidm."
+  },
+  {
+    "key": "300",
+    "name": "Cream, cultured, 9 % fat  (Fraiche 9%)"
+  },
+  {
+    "key": "302",
+    "name": "Hazelnut, dried"
+  },
+  {
+    "key": "303",
+    "name": "Cream, 9 % fat"
+  },
+  {
+    "key": "305",
+    "name": "Pasta, raw"
+  },
+  {
+    "key": "307",
+    "name": "Cheese, Quark, 5 % fidm."
+  },
+  {
+    "key": "308",
+    "name": "Cheese, hard, Grana, 32 % fidm."
+  },
+  {
+    "key": "309",
+    "name": "Cheese, hard, Parmesan, 32 % fidm."
+  },
+  {
+    "key": "313",
+    "name": "Gin"
+  },
+  {
+    "key": "317",
+    "name": "Gherkin, pickled, no sugar added"
+  },
+  {
+    "key": "319",
+    "name": "Yeast, baker`s, compressed"
+  },
+  {
+    "key": "320",
+    "name": "Biscuit, sweet, vanilla flavoured"
+  },
+  {
+    "key": "321",
+    "name": "Cheese, hard, Cheddar, Danish"
+  },
+  {
+    "key": "324",
+    "name": "Fish cake, raw"
+  },
+  {
+    "key": "328",
+    "name": "Pistachio nuts, dried"
+  },
+  {
+    "key": "330",
+    "name": "Whipped egg white and sugar with chocolate covering"
+  },
+  {
+    "key": "331",
+    "name": "Millet, flakes"
+  },
+  {
+    "key": "333",
+    "name": "Cheese, unripened, smoked, 1 % fat"
+  },
+  {
+    "key": "335",
+    "name": "Cod, liver, canned"
+  },
+  {
+    "key": "337",
+    "name": "Snacks, expanded, cornbased"
+  },
+  {
+    "key": "340",
+    "name": "Cheese, whey, Myseost, 33 % fidm."
+  },
+  {
+    "key": "341",
+    "name": "Cheese, hard, Gruyere, 45 % fidm."
+  },
+  {
+    "key": "342",
+    "name": "Cabbage, red, canned, no sugar added"
+  },
+  {
+    "key": "343",
+    "name": "Danish pastry, kringle/bar"
+  },
+  {
+    "key": "344",
+    "name": "Sherry, sweet"
+  },
+  {
+    "key": "348",
+    "name": "Fig, dried"
+  },
+  {
+    "key": "350",
+    "name": "Cranberry, raw"
+  },
+  {
+    "key": "351",
+    "name": "Pastry, 'linse'"
+  },
+  {
+    "key": "352",
+    "name": "Pop corn, oil and salt added"
+  },
+  {
+    "key": "356",
+    "name": "Danish pastry, christmas cake"
+  },
+  {
+    "key": "358",
+    "name": "Sausage, salami"
+  },
+  {
+    "key": "359",
+    "name": "Pound cake"
+  },
+  {
+    "key": "364",
+    "name": "Quinces, raw"
+  },
+  {
+    "key": "366",
+    "name": "Pumpkin, raw"
+  },
+  {
+    "key": "368",
+    "name": "Radishes, oriental, daikon, Japanese radish, raw"
+  },
+  {
+    "key": "370",
+    "name": "Sesame seeds, whole"
+  },
+  {
+    "key": "371",
+    "name": "Olives, green, pickled, canned"
+  },
+  {
+    "key": "372",
+    "name": "Seaweed, agar, dried"
+  },
+  {
+    "key": "375",
+    "name": "Crispbread, knackebrot, rye, coarse"
+  },
+  {
+    "key": "377",
+    "name": "Macaroni, spaghetti, whole meal, raw"
+  },
+  {
+    "key": "379",
+    "name": "Rye bread, dark, wholemeal, imported"
+  },
+  {
+    "key": "380",
+    "name": "Pear, canned"
+  },
+  {
+    "key": "381",
+    "name": "Turnip, raw"
+  },
+  {
+    "key": "385",
+    "name": "Millet, whole-grain"
+  },
+  {
+    "key": "386",
+    "name": "Pop corn, microwave oven"
+  },
+  {
+    "key": "387",
+    "name": "Mussel, raw"
+  },
+  {
+    "key": "388",
+    "name": "Cucumber, raw"
+  },
+  {
+    "key": "392",
+    "name": "Danish pastry, butter ring"
+  },
+  {
+    "key": "393",
+    "name": "Nut paste with cacao, spreads"
+  },
+  {
+    "key": "395",
+    "name": "Corn flakes, average values"
+  },
+  {
+    "key": "396",
+    "name": "Breakfast cereal, müsli, average values"
+  },
+  {
+    "key": "403",
+    "name": "Apricot, canned, light syrup pack"
+  },
+  {
+    "key": "404",
+    "name": "Gherkin, pickled"
+  },
+  {
+    "key": "406",
+    "name": "Pork sausage, saveloy type, low fat"
+  },
+  {
+    "key": "407",
+    "name": "Grape juice"
+  },
+  {
+    "key": "408",
+    "name": "Crayfish, raw"
+  },
+  {
+    "key": "409",
+    "name": "Corn starch"
+  },
+  {
+    "key": "410",
+    "name": "Carrot, canned"
+  },
+  {
+    "key": "412",
+    "name": "Potatoes, mashed, instant powder with dry milk"
+  },
+  {
+    "key": "413",
+    "name": "Rye bread, light"
+  },
+  {
+    "key": "416",
+    "name": "Bitter, Jägermeister"
+  },
+  {
+    "key": "417",
+    "name": "Salt, table"
+  },
+  {
+    "key": "418",
+    "name": "Rye bread, dark, pumpernickel"
+  },
+  {
+    "key": "421",
+    "name": "Apricot, canned, no sugar added"
+  },
+  {
+    "key": "422",
+    "name": "Pumpkin, canned"
+  },
+  {
+    "key": "423",
+    "name": "Pineapple, canned"
+  },
+  {
+    "key": "424",
+    "name": "Onions, chopped, frozen"
+  },
+  {
+    "key": "425",
+    "name": "Cream pastry, layer cake"
+  },
+  {
+    "key": "426",
+    "name": "Wheat rusk"
+  },
+  {
+    "key": "427",
+    "name": "Wheat rusk"
+  },
+  {
+    "key": "432",
+    "name": "Crispbread, knackebrot, rye, fine"
+  },
+  {
+    "key": "433",
+    "name": "Mustard, yellow, ready made"
+  },
+  {
+    "key": "434",
+    "name": "Peach, canned"
+  },
+  {
+    "key": "436",
+    "name": "Corn flakes, frosted"
+  },
+  {
+    "key": "438",
+    "name": "Sunflower seeds, decorticated, dried"
+  },
+  {
+    "key": "443",
+    "name": "Snacks, extruded, cornbased"
+  },
+  {
+    "key": "444",
+    "name": "Oats, rolled, enriched"
+  },
+  {
+    "key": "447",
+    "name": "Muskmelon, raw"
+  },
+  {
+    "key": "451",
+    "name": "Tomato, Danish, ripe, raw"
+  },
+  {
+    "key": "452",
+    "name": "Tangerine, canned"
+  },
+  {
+    "key": "454",
+    "name": "Plaice, fillet, breaded, frozen"
+  },
+  {
+    "key": "458",
+    "name": "Apricot, dried"
+  },
+  {
+    "key": "459",
+    "name": "Sauce, barbeque"
+  },
+  {
+    "key": "460",
+    "name": "Breakfast cereal, Müsli with added sugar"
+  },
+  {
+    "key": "461",
+    "name": "Breakfast cereal, Müsli, no sugar added"
+  },
+  {
+    "key": "462",
+    "name": "Rye bread, fine with wheat flour, industrially produced"
+  },
+  {
+    "key": "464",
+    "name": "Lime, raw"
+  },
+  {
+    "key": "467",
+    "name": "Elderberry, juice, concentrated, sugar not added"
+  },
+  {
+    "key": "468",
+    "name": "Cream, 13 % fat (UHT)"
+  },
+  {
+    "key": "470",
+    "name": "Pepper, hot chili, canned"
+  },
+  {
+    "key": "471",
+    "name": "Sesame seed, decorticated"
+  },
+  {
+    "key": "474",
+    "name": "Burbot, raw"
+  },
+  {
+    "key": "475",
+    "name": "Hake, raw"
+  },
+  {
+    "key": "477",
+    "name": "Salad dressing, mayonnaise, low calorie"
+  },
+  {
+    "key": "479",
+    "name": "Lettuce, iceberg (incl. crisphead types), raw"
+  },
+  {
+    "key": "480",
+    "name": "Oats, rolled, not enriched"
+  },
+  {
+    "key": "482",
+    "name": "Strawberries, frozen, sweetened, whole"
+  },
+  {
+    "key": "483",
+    "name": "Cream, 13 % fat"
+  },
+  {
+    "key": "486",
+    "name": "Saccharin"
+  },
+  {
+    "key": "489",
+    "name": "Sausage, salami"
+  },
+  {
+    "key": "490",
+    "name": "Radish, white, raw"
+  },
+  {
+    "key": "491",
+    "name": "Melon, cantaloup, raw"
+  },
+  {
+    "key": "492",
+    "name": "Beet, red, canned, no sugar added"
+  },
+  {
+    "key": "495",
+    "name": "Octopus, raw"
+  },
+  {
+    "key": "496",
+    "name": "Horse-radish, raw"
+  },
+  {
+    "key": "497",
+    "name": "Strawberries, canned"
+  },
+  {
+    "key": "502",
+    "name": "Carrot, frozen"
+  },
+  {
+    "key": "503",
+    "name": "Pepper, sweet, canned"
+  },
+  {
+    "key": "504",
+    "name": "Pastry, coco macaroon"
+  },
+  {
+    "key": "508",
+    "name": "Grape, green, raw"
+  },
+  {
+    "key": "510",
+    "name": "Papaya, raw"
+  },
+  {
+    "key": "511",
+    "name": "Milk, dry, whole, powder"
+  },
+  {
+    "key": "514",
+    "name": "Lingonberry, jam"
+  },
+  {
+    "key": "515",
+    "name": "Pecans, dried"
+  },
+  {
+    "key": "517",
+    "name": "Cheese, cottage, 20 % fidm."
+  },
+  {
+    "key": "518",
+    "name": "Shrimp, boiled, shell removed"
+  },
+  {
+    "key": "519",
+    "name": "Swede, raw"
+  },
+  {
+    "key": "520",
+    "name": "Quark with fruit"
+  },
+  {
+    "key": "525",
+    "name": "Cod, roe, canned"
+  },
+  {
+    "key": "527",
+    "name": "Shrimp, canned"
+  },
+  {
+    "key": "533",
+    "name": "Date, dried"
+  },
+  {
+    "key": "534",
+    "name": "Bouillon, beef, cube, prepared"
+  },
+  {
+    "key": "535",
+    "name": "Ice cream, dairy, three coloured"
+  },
+  {
+    "key": "537",
+    "name": "Tea, leaves"
+  },
+  {
+    "key": "538",
+    "name": "Rhubarb, frozen"
+  },
+  {
+    "key": "540",
+    "name": "Gherkin cucumber, raw"
+  },
+  {
+    "key": "541",
+    "name": "Lemon sole, raw"
+  },
+  {
+    "key": "542",
+    "name": "Cucumber, large, pickled"
+  },
+  {
+    "key": "544",
+    "name": "Chicory, raw"
+  },
+  {
+    "key": "546",
+    "name": "Dab, raw"
+  },
+  {
+    "key": "547",
+    "name": "Kidney, calf, raw"
+  },
+  {
+    "key": "548",
+    "name": "Cod, fillet, breaded, raw"
+  },
+  {
+    "key": "549",
+    "name": "Blue whiting, fillet, raw"
+  },
+  {
+    "key": "551",
+    "name": "Pastry, average values"
+  },
+  {
+    "key": "553",
+    "name": "Whiting, raw"
+  },
+  {
+    "key": "556",
+    "name": "Salt, sea salt (no iodine fortification)"
+  },
+  {
+    "key": "558",
+    "name": "Oat Bran, Danish"
+  },
+  {
+    "key": "559",
+    "name": "Carrot, raw"
+  },
+  {
+    "key": "560",
+    "name": "Mandarin orange, raw"
+  },
+  {
+    "key": "561",
+    "name": "Perch, raw"
+  },
+  {
+    "key": "562",
+    "name": "Cod, fillet, boiled"
+  },
+  {
+    "key": "564",
+    "name": "Wolffish (catfish), raw"
+  },
+  {
+    "key": "566",
+    "name": "Heart, veal, raw"
+  },
+  {
+    "key": "569",
+    "name": "Kidney, ox, raw"
+  },
+  {
+    "key": "570",
+    "name": "Torsk, tusk, raw"
+  },
+  {
+    "key": "571",
+    "name": "Cod, fillet, smoked, with skin"
+  },
+  {
+    "key": "573",
+    "name": "Cabbage, Chinese, raw"
+  },
+  {
+    "key": "574",
+    "name": "Kidney, pig, raw"
+  },
+  {
+    "key": "578",
+    "name": "Figs, raw"
+  },
+  {
+    "key": "579",
+    "name": "Carambola, raw"
+  },
+  {
+    "key": "581",
+    "name": "Turbot, raw"
+  },
+  {
+    "key": "582",
+    "name": "Haddock, raw"
+  },
+  {
+    "key": "583",
+    "name": "Pork, liver paste, Danish, low fat"
+  },
+  {
+    "key": "584",
+    "name": "Flounder, raw"
+  },
+  {
+    "key": "585",
+    "name": "Endive (escarole), raw"
+  },
+  {
+    "key": "587",
+    "name": "Pollack, raw"
+  },
+  {
+    "key": "588",
+    "name": "Plain cake, frangipani cake"
+  },
+  {
+    "key": "589",
+    "name": "Caviar, Danish (roe, lump-sucker)"
+  },
+  {
+    "key": "591",
+    "name": "Lettuce, looseleaf, raw"
+  },
+  {
+    "key": "592",
+    "name": "Split peas, dry, raw"
+  },
+  {
+    "key": "593",
+    "name": "Persimmon, kaki fruit, raw"
+  },
+  {
+    "key": "594",
+    "name": "Ling, fillet, raw"
+  },
+  {
+    "key": "595",
+    "name": "Sole, raw"
+  },
+  {
+    "key": "596",
+    "name": "Tomato, peeled, canned"
+  },
+  {
+    "key": "597",
+    "name": "Meat balls, average values"
+  },
+  {
+    "key": "598",
+    "name": "Fish balls, fried"
+  },
+  {
+    "key": "599",
+    "name": "Endive (frisee), raw"
+  },
+  {
+    "key": "600",
+    "name": "Lettuce, Cos or romaine, raw"
+  },
+  {
+    "key": "601",
+    "name": "Pikeperch, raw"
+  },
+  {
+    "key": "602",
+    "name": "Potatoes, mashed, instant powder without dry milk"
+  },
+  {
+    "key": "603",
+    "name": "Redfish, ocean perch, raw"
+  },
+  {
+    "key": "606",
+    "name": "Carrot, raw"
+  },
+  {
+    "key": "607",
+    "name": "Cod, liver, smoked"
+  },
+  {
+    "key": "608",
+    "name": "Cod, liver, raw"
+  },
+  {
+    "key": "610",
+    "name": "Nectarine, raw"
+  },
+  {
+    "key": "611",
+    "name": "Pike, raw"
+  },
+  {
+    "key": "612",
+    "name": "Salad dressing, oil and vinegar, low calorie"
+  },
+  {
+    "key": "614",
+    "name": "Squash, all varieties, raw"
+  },
+  {
+    "key": "615",
+    "name": "Wheat bread, with whole kernels"
+  },
+  {
+    "key": "616",
+    "name": "Avocado, raw"
+  },
+  {
+    "key": "617",
+    "name": "Wheat bran"
+  },
+  {
+    "key": "621",
+    "name": "Beet, red, canned"
+  },
+  {
+    "key": "624",
+    "name": "Tomato, imported, ripe, raw"
+  },
+  {
+    "key": "625",
+    "name": "Lobster, boiled"
+  },
+  {
+    "key": "626",
+    "name": "Lobster, canned"
+  },
+  {
+    "key": "627",
+    "name": "Butterhead lettuce (US), cabbage lettuce (UK), raw"
+  },
+  {
+    "key": "628",
+    "name": "Margarine, 70 % fat, table use, soft, vegetable fat"
+  },
+  {
+    "key": "629",
+    "name": "Cabbage, red, canned"
+  },
+  {
+    "key": "632",
+    "name": "Pomegranate, raw"
+  },
+  {
+    "key": "634",
+    "name": "Spotted wolffish, fillet, raw"
+  },
+  {
+    "key": "635",
+    "name": "Mussels, in water, canned"
+  },
+  {
+    "key": "636",
+    "name": "Cape gooseberries, raw"
+  },
+  {
+    "key": "637",
+    "name": "Cheese, unripened, smoked, 10 % fat"
+  },
+  {
+    "key": "639",
+    "name": "Bream, raw"
+  },
+  {
+    "key": "641",
+    "name": "Heart, beef, raw"
+  },
+  {
+    "key": "643",
+    "name": "Pak choi (bok choy), raw"
+  },
+  {
+    "key": "644",
+    "name": "Heart, pork, raw"
+  },
+  {
+    "key": "646",
+    "name": "Rye bread, dark with high fat seeds and whole kernels, industrially produced"
+  },
+  {
+    "key": "647",
+    "name": "Walnuts, dried"
+  },
+  {
+    "key": "649",
+    "name": "Asparagus, canned"
+  },
+  {
+    "key": "650",
+    "name": "Garlic, dried, powder"
+  },
+  {
+    "key": "652",
+    "name": "Chickory, raddichio, raw"
+  },
+  {
+    "key": "653",
+    "name": "Eggs, chicken, dried"
+  },
+  {
+    "key": "654",
+    "name": "Lobster, raw"
+  },
+  {
+    "key": "655",
+    "name": "Norway lobster, raw"
+  },
+  {
+    "key": "656",
+    "name": "Crispbread, knackebrot, wheat, coarse"
+  },
+  {
+    "key": "657",
+    "name": "Curry powder"
+  },
+  {
+    "key": "658",
+    "name": "Norway haddock, fillet, raw"
+  },
+  {
+    "key": "659",
+    "name": "Potato crisps, fatreduced"
+  },
+  {
+    "key": "661",
+    "name": "Saithe (UK), pollock (US), fillet, frozen"
+  },
+  {
+    "key": "662",
+    "name": "Cream, 18 % fat"
+  },
+  {
+    "key": "663",
+    "name": "Beans, wax, canned"
+  },
+  {
+    "key": "665",
+    "name": "Wheat bread, with wheat bran"
+  },
+  {
+    "key": "666",
+    "name": "Pork, ham, cured, canned"
+  },
+  {
+    "key": "667",
+    "name": "Bread, bolted rye and wheat, sour, with caraway seeds"
+  },
+  {
+    "key": "668",
+    "name": "Eggs, chicken, long eggs, boiled, frozen"
+  },
+  {
+    "key": "669",
+    "name": "Blackberry, jam"
+  },
+  {
+    "key": "670",
+    "name": "Marmalade, mango"
+  },
+  {
+    "key": "671",
+    "name": "Cream, cultured, 18 % fat"
+  },
+  {
+    "key": "672",
+    "name": "Bread, wholemeal"
+  },
+  {
+    "key": "673",
+    "name": "Liver, goose, raw"
+  },
+  {
+    "key": "674",
+    "name": "Veal, eye of round, salted, boiled"
+  },
+  {
+    "key": "675",
+    "name": "Chocolate, milk"
+  },
+  {
+    "key": "676",
+    "name": "Bread, white"
+  },
+  {
+    "key": "677",
+    "name": "Wheat bread, italien type, industrially produced"
+  },
+  {
+    "key": "679",
+    "name": "Miso, soy paste"
+  },
+  {
+    "key": "680",
+    "name": "Beans, green, canned"
+  },
+  {
+    "key": "681",
+    "name": "Lentils, dried"
+  },
+  {
+    "key": "682",
+    "name": "Gizzard, chicken, raw"
+  },
+  {
+    "key": "683",
+    "name": "Kohlrabi, raw"
+  },
+  {
+    "key": "685",
+    "name": "Watercress, raw"
+  },
+  {
+    "key": "686",
+    "name": "Salad dressing, soured fresh cream, low calorie"
+  },
+  {
+    "key": "687",
+    "name": "Eggs, chicken, yolk, dried"
+  },
+  {
+    "key": "688",
+    "name": "Baguette, wheat, fine, industrially produced"
+  },
+  {
+    "key": "691",
+    "name": "Potato, canned"
+  },
+  {
+    "key": "692",
+    "name": "Brazil nuts, dried, raw"
+  },
+  {
+    "key": "693",
+    "name": "Pork, ham, boiled, sliced"
+  },
+  {
+    "key": "694",
+    "name": "Charr, raw"
+  },
+  {
+    "key": "695",
+    "name": "Meat balls, frozen"
+  },
+  {
+    "key": "696",
+    "name": "Eggs, chicken, pasteurized"
+  },
+  {
+    "key": "698",
+    "name": "Liver, calf, raw"
+  },
+  {
+    "key": "699",
+    "name": "Veal, lean meat, raw"
+  },
+  {
+    "key": "700",
+    "name": "Halibut, atlantic, smoked"
+  },
+  {
+    "key": "701",
+    "name": "Wheat bread, for toasting, industrially produced"
+  },
+  {
+    "key": "702",
+    "name": "Pig, fat, raw"
+  },
+  {
+    "key": "703",
+    "name": "Blackberry, frozen, unsweetened"
+  },
+  {
+    "key": "704",
+    "name": "Coconut meat, desiccated"
+  },
+  {
+    "key": "707",
+    "name": "Sweetbread, lamb, raw"
+  },
+  {
+    "key": "708",
+    "name": "Chicken, hen, flesh only"
+  },
+  {
+    "key": "711",
+    "name": "Halibut, atlantic, raw"
+  },
+  {
+    "key": "712",
+    "name": "Liver, broiler or fryer, raw"
+  },
+  {
+    "key": "713",
+    "name": "Trout, raw"
+  },
+  {
+    "key": "715",
+    "name": "Chard, swiss, raw"
+  },
+  {
+    "key": "716",
+    "name": "Onion, raw"
+  },
+  {
+    "key": "720",
+    "name": "Coffee, instant, powder"
+  },
+  {
+    "key": "721",
+    "name": "Cheese, hard, Parmesan, grated"
+  },
+  {
+    "key": "722",
+    "name": "Rolls, wheat with coarse meal, industrially produced"
+  },
+  {
+    "key": "724",
+    "name": "Pork, ham, topside (M. Semimembranosus), lean, raw"
+  },
+  {
+    "key": "726",
+    "name": "Cherry, canned in sugar"
+  },
+  {
+    "key": "728",
+    "name": "Duck, flesh only, raw"
+  },
+  {
+    "key": "729",
+    "name": "Turkey, breast, boiled/smoked, sliced"
+  },
+  {
+    "key": "731",
+    "name": "Cream pastry, marzipan- and cocoa-covered"
+  },
+  {
+    "key": "732",
+    "name": "Turkey, flesh only, raw"
+  },
+  {
+    "key": "734",
+    "name": "Pork, ham, silverside (M. Semitendinosus), lean, raw"
+  },
+  {
+    "key": "736",
+    "name": "Rye bread, with siftings (soft) and high fat seeds, industrially produced"
+  },
+  {
+    "key": "737",
+    "name": "Lump, lumpsucker, raw"
+  },
+  {
+    "key": "738",
+    "name": "Duck, breast, flesh only, raw"
+  },
+  {
+    "key": "739",
+    "name": "Pork, loin, lean, raw"
+  },
+  {
+    "key": "740",
+    "name": "Onions, spring, raw"
+  },
+  {
+    "key": "742",
+    "name": "Liver, ox, raw"
+  },
+  {
+    "key": "743",
+    "name": "Pork, loin fillet, smoked"
+  },
+  {
+    "key": "744",
+    "name": "Pastry, napoleon hat"
+  },
+  {
+    "key": "745",
+    "name": "Wheat bread, with coarse meal, for toasting, industrially produced"
+  },
+  {
+    "key": "746",
+    "name": "Pork, ham, silverside (M. Biceps Femoris), lean, raw"
+  },
+  {
+    "key": "747",
+    "name": "Liver, duck, raw"
+  },
+  {
+    "key": "748",
+    "name": "Marzipanproduct, chocolatecover, average values"
+  },
+  {
+    "key": "749",
+    "name": "Pork, saddle, smoked, raw"
+  },
+  {
+    "key": "750",
+    "name": "Pork, saddle, smoked, boiled"
+  },
+  {
+    "key": "751",
+    "name": "Tuna, in tomato sauce, canned"
+  },
+  {
+    "key": "752",
+    "name": "Cabbage, savoy, raw"
+  },
+  {
+    "key": "753",
+    "name": "Asparagus, all types, raw"
+  },
+  {
+    "key": "754",
+    "name": "Chicken, breast, boiled, sliced"
+  },
+  {
+    "key": "756",
+    "name": "Lemon peel, raw"
+  },
+  {
+    "key": "757",
+    "name": "Pistachio nuts, dry roasted with salt"
+  },
+  {
+    "key": "760",
+    "name": "Cherry juice, concentrated, sugar added"
+  },
+  {
+    "key": "763",
+    "name": "Strawberry juice, concentrated, sugar added"
+  },
+  {
+    "key": "764",
+    "name": "Beans, green, raw"
+  },
+  {
+    "key": "765",
+    "name": "Dill weed, dried"
+  },
+  {
+    "key": "766",
+    "name": "Bread, white, for sausages"
+  },
+  {
+    "key": "767",
+    "name": "Celeriac, celery leaves, raw"
+  },
+  {
+    "key": "768",
+    "name": "Whitefish, raw"
+  },
+  {
+    "key": "769",
+    "name": "Lingonberry, raw"
+  },
+  {
+    "key": "770",
+    "name": "Beef, topside, cap off, raw"
+  },
+  {
+    "key": "771",
+    "name": "Pork, tenderloin, trimmed, raw"
+  },
+  {
+    "key": "772",
+    "name": "Crispbread, knackebrot, wheat, fine"
+  },
+  {
+    "key": "773",
+    "name": "Hare, raw"
+  },
+  {
+    "key": "774",
+    "name": "Rainbow trout, raw"
+  },
+  {
+    "key": "775",
+    "name": "Coriander seed"
+  },
+  {
+    "key": "776",
+    "name": "Heart, chicken, raw"
+  },
+  {
+    "key": "777",
+    "name": "Pork, meat, lean, approx. 3 % fat, raw"
+  },
+  {
+    "key": "778",
+    "name": "Cod, roe, raw"
+  },
+  {
+    "key": "781",
+    "name": "Liver, pig, raw"
+  },
+  {
+    "key": "783",
+    "name": "Crab claws, meat, raw"
+  },
+  {
+    "key": "784",
+    "name": "Crab claws, meat, canned"
+  },
+  {
+    "key": "785",
+    "name": "Turkey, flesh and skin, raw"
+  },
+  {
+    "key": "786",
+    "name": "Bread, white, coarse grain"
+  },
+  {
+    "key": "787",
+    "name": "Marzipan"
+  },
+  {
+    "key": "789",
+    "name": "Pork, hand, lean, raw"
+  },
+  {
+    "key": "790",
+    "name": "Wheat bread, white, with cracked chestnuts"
+  },
+  {
+    "key": "791",
+    "name": "Elderberry, juice, concentrated, sugar added"
+  },
+  {
+    "key": "793",
+    "name": "Fennel seed"
+  },
+  {
+    "key": "794",
+    "name": "Marmalade, English type"
+  },
+  {
+    "key": "795",
+    "name": "Chicken, flesh only, raw"
+  },
+  {
+    "key": "796",
+    "name": "Lamb, leg, trimmed, raw"
+  },
+  {
+    "key": "798",
+    "name": "Veal, thin fat, raw"
+  },
+  {
+    "key": "799",
+    "name": "Cauliflower, Danish, raw"
+  },
+  {
+    "key": "800",
+    "name": "Crab, boiled"
+  },
+  {
+    "key": "802",
+    "name": "Ptarmigan, flesh, raw"
+  },
+  {
+    "key": "804",
+    "name": "Chocolate, milk, with nuts"
+  },
+  {
+    "key": "805",
+    "name": "Beef, rumpsteak, cap off, raw"
+  },
+  {
+    "key": "806",
+    "name": "Pine nuts, dried"
+  },
+  {
+    "key": "807",
+    "name": "Rabbit, flesh only, raw"
+  },
+  {
+    "key": "808",
+    "name": "Pepper, hot chili, raw"
+  },
+  {
+    "key": "813",
+    "name": "Baguette, with rye, industrially produced"
+  },
+  {
+    "key": "815",
+    "name": "Cashew nuts, dry roasted"
+  },
+  {
+    "key": "816",
+    "name": "Rolls, italien type, industrially produced"
+  },
+  {
+    "key": "818",
+    "name": "Beef, meat, lean (&lt;5 % fat), raw"
+  },
+  {
+    "key": "819",
+    "name": "Beef, thick flank (top rump), cap off, raw"
+  },
+  {
+    "key": "823",
+    "name": "Breakfast cereal, Guldkorn"
+  },
+  {
+    "key": "824",
+    "name": "Leek, raw"
+  },
+  {
+    "key": "825",
+    "name": "Tuna, in water, canned"
+  },
+  {
+    "key": "827",
+    "name": "Cream pastry, cream puff"
+  },
+  {
+    "key": "828",
+    "name": "Roastbeef, sliced"
+  },
+  {
+    "key": "830",
+    "name": "Cream pastry, average values"
+  },
+  {
+    "key": "831",
+    "name": "Beef, tenderloin, defatted, raw"
+  },
+  {
+    "key": "832",
+    "name": "Mutton, round, raw"
+  },
+  {
+    "key": "833",
+    "name": "Dried fig spread"
+  },
+  {
+    "key": "836",
+    "name": "Wheat bread, with whole kernels"
+  },
+  {
+    "key": "837",
+    "name": "Rye bread, fine with wheat flour and high fat seeds, industrially produced"
+  },
+  {
+    "key": "838",
+    "name": "Rolls, white, industrially produced"
+  },
+  {
+    "key": "839",
+    "name": "Potato crisps"
+  },
+  {
+    "key": "840",
+    "name": "Marmalade, orange"
+  },
+  {
+    "key": "841",
+    "name": "Pork, hind leg without rind, raw"
+  },
+  {
+    "key": "842",
+    "name": "Lake trout, raw"
+  },
+  {
+    "key": "843",
+    "name": "Spinach, chopped, frozen"
+  },
+  {
+    "key": "844",
+    "name": "Pheasant, flesh only, raw"
+  },
+  {
+    "key": "854",
+    "name": "Tongue, pig, raw"
+  },
+  {
+    "key": "856",
+    "name": "Tongue, pig, cured"
+  },
+  {
+    "key": "859",
+    "name": "Dried fruits spread, average values"
+  },
+  {
+    "key": "860",
+    "name": "Squab (pigeon), flesh, raw"
+  },
+  {
+    "key": "861",
+    "name": "Bread, white"
+  },
+  {
+    "key": "863",
+    "name": "Wheat bread, white, with walnuts"
+  },
+  {
+    "key": "864",
+    "name": "Nut, pea, oilroasted and salted"
+  },
+  {
+    "key": "866",
+    "name": "Sprat, raw"
+  },
+  {
+    "key": "867",
+    "name": "Coriander, leaf, raw"
+  },
+  {
+    "key": "868",
+    "name": "Bamboo shoots, canned, salted"
+  },
+  {
+    "key": "869",
+    "name": "Bamboo shoots, canned, nonsalted"
+  },
+  {
+    "key": "870",
+    "name": "Beef, shin + leg (shank), raw"
+  },
+  {
+    "key": "871",
+    "name": "Beef, striploin \"cap off\", raw"
+  },
+  {
+    "key": "872",
+    "name": "Dock (US), sorrel (UK), raw"
+  },
+  {
+    "key": "874",
+    "name": "Cheese, Quarg, 45 % fidm."
+  },
+  {
+    "key": "876",
+    "name": "Sugar, brown"
+  },
+  {
+    "key": "878",
+    "name": "Asparagus, white, raw"
+  },
+  {
+    "key": "879",
+    "name": "Beef, outside, round, raw"
+  },
+  {
+    "key": "880",
+    "name": "Raisin , seedless"
+  },
+  {
+    "key": "881",
+    "name": "Currant, black, jam"
+  },
+  {
+    "key": "882",
+    "name": "Chicken, leg, flesh and skin, raw"
+  },
+  {
+    "key": "884",
+    "name": "Marmalade, black currant"
+  },
+  {
+    "key": "886",
+    "name": "Chicken, drumstick, flesh and skin, raw"
+  },
+  {
+    "key": "887",
+    "name": "Baguette, wheat with rye, high fat seeds, industrially produced"
+  },
+  {
+    "key": "888",
+    "name": "Kale, frozen"
+  },
+  {
+    "key": "889",
+    "name": "Chervil, chopped, frozen"
+  },
+  {
+    "key": "891",
+    "name": "Beef, eye of round, raw"
+  },
+  {
+    "key": "896",
+    "name": "Halibut, greenland, gravad"
+  },
+  {
+    "key": "897",
+    "name": "Halibut, greenland, raw"
+  },
+  {
+    "key": "898",
+    "name": "Crispbread, wheat"
+  },
+  {
+    "key": "899",
+    "name": "Wheat bread, sandwich/toast type, high fat seeds, industrially produced"
+  },
+  {
+    "key": "900",
+    "name": "Pork, sausage, frankfurter, canned"
+  },
+  {
+    "key": "902",
+    "name": "Dogfish, piked, raw"
+  },
+  {
+    "key": "903",
+    "name": "Sweets, boiled"
+  },
+  {
+    "key": "904",
+    "name": "Tuna, raw"
+  },
+  {
+    "key": "905",
+    "name": "Turkey, mince, 0-5% fat, raw"
+  },
+  {
+    "key": "907",
+    "name": "Chicken, breast, flesh and skin, raw"
+  },
+  {
+    "key": "908",
+    "name": "Wiener nougat"
+  },
+  {
+    "key": "909",
+    "name": "Beef, meat, 5-10 % fat, raw"
+  },
+  {
+    "key": "911",
+    "name": "Tongue, ox, raw"
+  },
+  {
+    "key": "913",
+    "name": "Tongue, calf, cured"
+  },
+  {
+    "key": "915",
+    "name": "Marmalade, all types"
+  },
+  {
+    "key": "916",
+    "name": "Marmalade, cherry"
+  },
+  {
+    "key": "917",
+    "name": "Herring, breaded, fried, in vinegar with sugar"
+  },
+  {
+    "key": "921",
+    "name": "Salmon, Atlantic, wild, canned"
+  },
+  {
+    "key": "923",
+    "name": "Horse, meat, raw"
+  },
+  {
+    "key": "924",
+    "name": "Sardine, in tomato sauce, canned"
+  },
+  {
+    "key": "925",
+    "name": "Chicken, sausage"
+  },
+  {
+    "key": "927",
+    "name": "Mushroom, canned"
+  },
+  {
+    "key": "929",
+    "name": "Wheat bread, white, with sunflower kernels"
+  },
+  {
+    "key": "930",
+    "name": "Chives, raw"
+  },
+  {
+    "key": "933",
+    "name": "Tongue, calf, raw"
+  },
+  {
+    "key": "936",
+    "name": "Pork, ham, spiced, deboned"
+  },
+  {
+    "key": "937",
+    "name": "Parsnip, raw"
+  },
+  {
+    "key": "939",
+    "name": "Cassava, raw"
+  },
+  {
+    "key": "940",
+    "name": "Beef, topside \"cap on\", raw"
+  },
+  {
+    "key": "942",
+    "name": "Beef, mince, 10-15% fat, raw"
+  },
+  {
+    "key": "943",
+    "name": "Chewing gum, no sugar added, all types"
+  },
+  {
+    "key": "944",
+    "name": "Beef, neck, raw"
+  },
+  {
+    "key": "945",
+    "name": "Pork, mince, 5-10% fat, raw"
+  },
+  {
+    "key": "948",
+    "name": "Bacalao, cod, split, salted and dried, raw"
+  },
+  {
+    "key": "949",
+    "name": "Pork, collar, defatted, raw"
+  },
+  {
+    "key": "950",
+    "name": "Jerusalem artichoke, raw"
+  },
+  {
+    "key": "955",
+    "name": "Goose, flesh only, raw"
+  },
+  {
+    "key": "956",
+    "name": "Bread, white, roll"
+  },
+  {
+    "key": "957",
+    "name": "Kale, canned"
+  },
+  {
+    "key": "958",
+    "name": "Spinach, canned"
+  },
+  {
+    "key": "959",
+    "name": "Chicken, flesh and skin, raw"
+  },
+  {
+    "key": "960",
+    "name": "Mackerel, in tomato sauce, canned"
+  },
+  {
+    "key": "961",
+    "name": "Mushroom, raw"
+  },
+  {
+    "key": "966",
+    "name": "Beef, rumpsteak \"cap on\", raw"
+  },
+  {
+    "key": "967",
+    "name": "Biscuit, sweet"
+  },
+  {
+    "key": "969",
+    "name": "Cress, garden, raw"
+  },
+  {
+    "key": "971",
+    "name": "Liquorice, sweet"
+  },
+  {
+    "key": "972",
+    "name": "Marmalade, raspberry"
+  },
+  {
+    "key": "973",
+    "name": "Pork, ham, silverside with rind, raw"
+  },
+  {
+    "key": "975",
+    "name": "Herring, pickled, canned"
+  },
+  {
+    "key": "976",
+    "name": "Parsley root, raw"
+  },
+  {
+    "key": "978",
+    "name": "Bean sprouts, average values, raw"
+  },
+  {
+    "key": "979",
+    "name": "Margarine, 30 % fat, vegetable fat"
+  },
+  {
+    "key": "980",
+    "name": "Beef, shoulder, ventral part"
+  },
+  {
+    "key": "981",
+    "name": "Cod, roe, smoked"
+  },
+  {
+    "key": "982",
+    "name": "Pork, sausage, Danish, raw"
+  },
+  {
+    "key": "984",
+    "name": "Veal, medium fat, raw"
+  },
+  {
+    "key": "985",
+    "name": "Pork, hand with rind, raw"
+  },
+  {
+    "key": "986",
+    "name": "Blended spread, 80% fat"
+  },
+  {
+    "key": "987",
+    "name": "Marshmellows, unspecified"
+  },
+  {
+    "key": "988",
+    "name": "Pork, meat, approx. 10 % fat, raw"
+  },
+  {
+    "key": "989",
+    "name": "Pork, brawn, head cheese"
+  },
+  {
+    "key": "990",
+    "name": "Chicken, wing, flesh and skin, raw"
+  },
+  {
+    "key": "991",
+    "name": "Wheat bread, high fat seeds, industrially produced"
+  },
+  {
+    "key": "993",
+    "name": "Sprat (sardine), in tomato sauce, canned"
+  },
+  {
+    "key": "994",
+    "name": "Lamb, shoulder, raw"
+  },
+  {
+    "key": "995",
+    "name": "Pheasant, flesh and skin, raw"
+  },
+  {
+    "key": "997",
+    "name": "Marmalade, strawberry"
+  },
+  {
+    "key": "998",
+    "name": "Salmon, Atlantic, wild, cold smoked"
+  },
+  {
+    "key": "1001",
+    "name": "Pastilles, sugarfree, unspecified"
+  },
+  {
+    "key": "1002",
+    "name": "Halibut, greenland, smoked"
+  },
+  {
+    "key": "1003",
+    "name": "Pork, loin, defatted (approx. 3 mm fat), raw"
+  },
+  {
+    "key": "1005",
+    "name": "Cauliflower, imported, raw"
+  },
+  {
+    "key": "1006",
+    "name": "Fructose"
+  },
+  {
+    "key": "1007",
+    "name": "Salt, block"
+  },
+  {
+    "key": "1008",
+    "name": "Toffees, mixed"
+  },
+  {
+    "key": "1010",
+    "name": "Liver pâté, pork, Danish"
+  },
+  {
+    "key": "1014",
+    "name": "Bread, white, roll, coarse grain"
+  },
+  {
+    "key": "1015",
+    "name": "Butter, salt not added"
+  },
+  {
+    "key": "1017",
+    "name": "Lamb, leg with fat, raw"
+  },
+  {
+    "key": "1018",
+    "name": "Plant margarine, 80%, fry/bake"
+  },
+  {
+    "key": "1019",
+    "name": "Beef, chuck, raw"
+  },
+  {
+    "key": "1020",
+    "name": "Margarine, 80 % fat, table use, soft, vegetable fat"
+  },
+  {
+    "key": "1021",
+    "name": "Pork, ham, smoked, boiled"
+  },
+  {
+    "key": "1022",
+    "name": "Chocolate, bitter"
+  },
+  {
+    "key": "1024",
+    "name": "Herring, pickled, spiced, canned"
+  },
+  {
+    "key": "1026",
+    "name": "Herring, smoked"
+  },
+  {
+    "key": "1029",
+    "name": "Pork, ham, silverside (M. Biceps Femoris), 5 mm rind, raw"
+  },
+  {
+    "key": "1032",
+    "name": "Margarine, 80 % fat, table use, vegetable fat"
+  },
+  {
+    "key": "1034",
+    "name": "Anchovy, pickled, canned"
+  },
+  {
+    "key": "1035",
+    "name": "Sprat, pickled, canned"
+  },
+  {
+    "key": "1036",
+    "name": "Margarine, 80 % fat, for frying/baking, animal and vegetable fat"
+  },
+  {
+    "key": "1037",
+    "name": "Chicken, hen, flesh and skin, raw"
+  },
+  {
+    "key": "1038",
+    "name": "Margarine, 80 % fat, table use, animal and vegetable fat"
+  },
+  {
+    "key": "1040",
+    "name": "Beef, brisket, anterior part, raw"
+  },
+  {
+    "key": "1042",
+    "name": "Beef, shoulder, dorsal part, raw"
+  },
+  {
+    "key": "1044",
+    "name": "Margarine, (more than 50 % fat), average"
+  },
+  {
+    "key": "1045",
+    "name": "Cream pastry, with jam, marzipan-covered"
+  },
+  {
+    "key": "1047",
+    "name": "Rolls, wheat with coarse meal, high fat seeds, industrially produced"
+  },
+  {
+    "key": "1048",
+    "name": "Milk, skimmed, organic"
+  },
+  {
+    "key": "1049",
+    "name": "Milk, skimmed"
+  },
+  {
+    "key": "1052",
+    "name": "Butter, salt added"
+  },
+  {
+    "key": "1053",
+    "name": "Beef, meat, approx. 15 % fat, raw"
+  },
+  {
+    "key": "1054",
+    "name": "Herring, pickled, in madeira sauce, canned"
+  },
+  {
+    "key": "1055",
+    "name": "Passion fruit, raw"
+  },
+  {
+    "key": "1057",
+    "name": "Jam, fruit, average values"
+  },
+  {
+    "key": "1058",
+    "name": "Pork, flank, raw"
+  },
+  {
+    "key": "1059",
+    "name": "Swiss roll, raspberry stuffing"
+  },
+  {
+    "key": "1060",
+    "name": "Pork, ham, bayonne style, deboned"
+  },
+  {
+    "key": "1061",
+    "name": "Sugar pea (Snow pea, Mangetout) raw"
+  },
+  {
+    "key": "1062",
+    "name": "Swiss roll, unspecified"
+  },
+  {
+    "key": "1063",
+    "name": "Bread, roll, danish"
+  },
+  {
+    "key": "1064",
+    "name": "Beef, top, end of rump, raw"
+  },
+  {
+    "key": "1065",
+    "name": "Liquorice, average values"
+  },
+  {
+    "key": "1066",
+    "name": "Milk, skimmed, 0.5 % fat"
+  },
+  {
+    "key": "1067",
+    "name": "Beef, mince, 15-20% fat, raw"
+  },
+  {
+    "key": "1068",
+    "name": "Milk, buttermilk with lemon"
+  },
+  {
+    "key": "1069",
+    "name": "Beef, T-bone steak, raw"
+  },
+  {
+    "key": "1070",
+    "name": "Veal and pork, mince, 15-20% fat, raw"
+  },
+  {
+    "key": "1071",
+    "name": "Cream pastry, shortbread with chocolate glaze"
+  },
+  {
+    "key": "1074",
+    "name": "Pork sausage, jagdwurst"
+  },
+  {
+    "key": "1075",
+    "name": "Coffee bean, roasted, ground"
+  },
+  {
+    "key": "1076",
+    "name": "Pork, mince, 15-20% fat, raw"
+  },
+  {
+    "key": "1077",
+    "name": "Pork, thin belly, lean, approx. 2 mm rind, raw"
+  },
+  {
+    "key": "1078",
+    "name": "Herring, pickled, in curry sauce, canned"
+  },
+  {
+    "key": "1079",
+    "name": "Cocoa, instant, med milk, powder"
+  },
+  {
+    "key": "1082",
+    "name": "Beef, sirloin, raw"
+  },
+  {
+    "key": "1083",
+    "name": "Pastry, garland cake"
+  },
+  {
+    "key": "1084",
+    "name": "Wheat germ, raw"
+  },
+  {
+    "key": "1087",
+    "name": "Haddock, breaded, fried"
+  },
+  {
+    "key": "1088",
+    "name": "Tuna, in oil, canned"
+  },
+  {
+    "key": "1089",
+    "name": "Black salsify, raw"
+  },
+  {
+    "key": "1090",
+    "name": "Mutton, shoulder, raw"
+  },
+  {
+    "key": "1091",
+    "name": "Chicken, flesh and skin, grilled"
+  },
+  {
+    "key": "1092",
+    "name": "Chocolate, plain, couverture"
+  },
+  {
+    "key": "1093",
+    "name": "Frankfurt sausage, boiled, fast food"
+  },
+  {
+    "key": "1096",
+    "name": "Cinnamon stick"
+  },
+  {
+    "key": "1098",
+    "name": "Syrup, kitchen"
+  },
+  {
+    "key": "1099",
+    "name": "Pate, liver"
+  },
+  {
+    "key": "1100",
+    "name": "Chanterelle, raw"
+  },
+  {
+    "key": "1101",
+    "name": "Pork sausage, saveloy type"
+  },
+  {
+    "key": "1103",
+    "name": "Pork scratchings"
+  },
+  {
+    "key": "1105",
+    "name": "Mackerel, filet, in natural juices, canned"
+  },
+  {
+    "key": "1107",
+    "name": "Milk, skimmed, with chocolate"
+  },
+  {
+    "key": "1108",
+    "name": "Milk, skimmed, with chocolate (UHT)"
+  },
+  {
+    "key": "1109",
+    "name": "Beef, striploin \"cap on\", raw"
+  },
+  {
+    "key": "1110",
+    "name": "Cheese, Camembert, 30 % fidm."
+  },
+  {
+    "key": "1111",
+    "name": "Alfalfa seeds, sprouted, raw"
+  },
+  {
+    "key": "1112",
+    "name": "Pork, meat, approx. 20 % fat, raw"
+  },
+  {
+    "key": "1114",
+    "name": "Liquorice, salt"
+  },
+  {
+    "key": "1115",
+    "name": "Biscuit, 20-30% wholemeal, digestive type"
+  },
+  {
+    "key": "1117",
+    "name": "Pork, loin with rind, raw"
+  },
+  {
+    "key": "1118",
+    "name": "Fruit gums"
+  },
+  {
+    "key": "1120",
+    "name": "Sprat (sardine), in oil, canned"
+  },
+  {
+    "key": "1121",
+    "name": "Sardine, in oil, canned"
+  },
+  {
+    "key": "1122",
+    "name": "Cream Crackers"
+  },
+  {
+    "key": "1124",
+    "name": "Pork, thin belly with rind, raw"
+  },
+  {
+    "key": "1125",
+    "name": "Human milk, colostrum"
+  },
+  {
+    "key": "1126",
+    "name": "Breakfast cereal, Havrefras"
+  },
+  {
+    "key": "1128",
+    "name": "Pork/beef sausage, saveloy type"
+  },
+  {
+    "key": "1132",
+    "name": "Herring, autumn, raw"
+  },
+  {
+    "key": "1134",
+    "name": "Baby food, infant formula, low iron content, prepared"
+  },
+  {
+    "key": "1135",
+    "name": "Vecao"
+  },
+  {
+    "key": "1136",
+    "name": "Pork, mettwurst, smoked"
+  },
+  {
+    "key": "1137",
+    "name": "Bacon, sliced, raw"
+  },
+  {
+    "key": "1138",
+    "name": "Sandwich with ham and cheese, toasted, fast food"
+  },
+  {
+    "key": "1142",
+    "name": "Alfalfa seeds"
+  },
+  {
+    "key": "1143",
+    "name": "Pork, sausage, frankfurter"
+  },
+  {
+    "key": "1147",
+    "name": "Salad dressing, mayonnaise"
+  },
+  {
+    "key": "1149",
+    "name": "Beef, entrecote \"cap on\", raw"
+  },
+  {
+    "key": "1150",
+    "name": "Kippers, in oil, canned"
+  },
+  {
+    "key": "1152",
+    "name": "Herring, salted, ripened"
+  },
+  {
+    "key": "1153",
+    "name": "Milk, 1.5 % fat, cultured, kefir"
+  },
+  {
+    "key": "1154",
+    "name": "Milk, partly skimmed, organic, 1.5 % fat"
+  },
+  {
+    "key": "1156",
+    "name": "Salad dressing, oil and vinegar"
+  },
+  {
+    "key": "1157",
+    "name": "Nutmeg, whole"
+  },
+  {
+    "key": "1158",
+    "name": "Pork, flank, spiced, cooked"
+  },
+  {
+    "key": "1160",
+    "name": "Chervil, raw"
+  },
+  {
+    "key": "1161",
+    "name": "Pork sausage, Thüringer bratwurst"
+  },
+  {
+    "key": "1162",
+    "name": "Peanut butter"
+  },
+  {
+    "key": "1164",
+    "name": "Sweetcorn, kernels, canned"
+  },
+  {
+    "key": "1166",
+    "name": "Apple, dried"
+  },
+  {
+    "key": "1167",
+    "name": "Human milk, transitional (10th day post partum)"
+  },
+  {
+    "key": "1169",
+    "name": "Yogurt, with fruit, 1.5 % fat"
+  },
+  {
+    "key": "1171",
+    "name": "Veal, fat, raw"
+  },
+  {
+    "key": "1172",
+    "name": "Pork, neck, smoked, boiled"
+  },
+  {
+    "key": "1173",
+    "name": "Biscuit, sweet"
+  },
+  {
+    "key": "1174",
+    "name": "Cream, whipping, 38 % fat"
+  },
+  {
+    "key": "1176",
+    "name": "Honey"
+  },
+  {
+    "key": "1178",
+    "name": "Beverages, soy, commercially prepared, unfortified"
+  },
+  {
+    "key": "1180",
+    "name": "Human milk, mature"
+  },
+  {
+    "key": "1181",
+    "name": "Cream, cultured, 38 % fat"
+  },
+  {
+    "key": "1182",
+    "name": "Salmon, Atlantic, wild, salted"
+  },
+  {
+    "key": "1184",
+    "name": "Black pudding, boiled"
+  },
+  {
+    "key": "1187",
+    "name": "Eggs, chicken, yolk, salted, pasteurized"
+  },
+  {
+    "key": "1188",
+    "name": "Charr, fillet, smoked"
+  },
+  {
+    "key": "1189",
+    "name": "Milk, with chocolate, partly skimmed, 1.5 % fat (UHT)"
+  },
+  {
+    "key": "1190",
+    "name": "Gelatin"
+  },
+  {
+    "key": "1191",
+    "name": "Margarine, (less than 50 % fat), average"
+  },
+  {
+    "key": "1192",
+    "name": "Frankfurt sausage, fried, fast food"
+  },
+  {
+    "key": "1193",
+    "name": "Pecans, oil roasted"
+  },
+  {
+    "key": "1195",
+    "name": "Margarine, 40 % fat, vegetable fat"
+  },
+  {
+    "key": "1198",
+    "name": "Buckwheat flour"
+  },
+  {
+    "key": "1199",
+    "name": "Yeast, dried"
+  },
+  {
+    "key": "1200",
+    "name": "Squab (pigeon), raw"
+  },
+  {
+    "key": "1201",
+    "name": "Pork, thick belly, defatted, approx. 2 mm rind, raw"
+  },
+  {
+    "key": "1202",
+    "name": "Cheese, processed, 20 % fidm."
+  },
+  {
+    "key": "1203",
+    "name": "Cheese, firm, Danbo, 20 % fidm."
+  },
+  {
+    "key": "1204",
+    "name": "Seaweed, kombu, dried"
+  },
+  {
+    "key": "1205",
+    "name": "Milk, with chocolate, partly skimmed, 1.5 % fat"
+  },
+  {
+    "key": "1206",
+    "name": "Cocoa, instant, without milk, powder"
+  },
+  {
+    "key": "1207",
+    "name": "Yeast extract, Marmite"
+  },
+  {
+    "key": "1209",
+    "name": "French fries, deepfried, fast food"
+  },
+  {
+    "key": "1210",
+    "name": "Egg, hen, yolk, sugar added, pasteurized, frozen"
+  },
+  {
+    "key": "1211",
+    "name": "Cheese, firm, 20 % fidm., all varieties"
+  },
+  {
+    "key": "1215",
+    "name": "Cheese, Cream, 60 % fidm."
+  },
+  {
+    "key": "1216",
+    "name": "Tomato paste, concentrated"
+  },
+  {
+    "key": "1217",
+    "name": "Beans, soy, dried, raw"
+  },
+  {
+    "key": "1218",
+    "name": "Meat extract, cube"
+  },
+  {
+    "key": "1220",
+    "name": "Mackerel, smoked"
+  },
+  {
+    "key": "1221",
+    "name": "Beef brisket, soaked in brine"
+  },
+  {
+    "key": "1224",
+    "name": "Biscuit, sweet"
+  },
+  {
+    "key": "1225",
+    "name": "Rice groats, raw"
+  },
+  {
+    "key": "1226",
+    "name": "Pork, ham, smoked"
+  },
+  {
+    "key": "1227",
+    "name": "Cheese, processed, 30 % fidm."
+  },
+  {
+    "key": "1228",
+    "name": "Cheese, Brie, 45 % fidm."
+  },
+  {
+    "key": "1229",
+    "name": "Chicken, flesh and skin, battered, deepfried"
+  },
+  {
+    "key": "1230",
+    "name": "Egg, chicken, yolk, raw"
+  },
+  {
+    "key": "1232",
+    "name": "Beef, meat, approx. 25 % fat, raw"
+  },
+  {
+    "key": "1233",
+    "name": "Beef, brisket, posterior part, raw"
+  },
+  {
+    "key": "1234",
+    "name": "Lamb, meat, average values, raw"
+  },
+  {
+    "key": "1235",
+    "name": "Cheese, Camembert, 45 % fidm."
+  },
+  {
+    "key": "1236",
+    "name": "Chicken, flesh and skin, deepfried"
+  },
+  {
+    "key": "1237",
+    "name": "Beef, brisket, middle part, raw"
+  },
+  {
+    "key": "1238",
+    "name": "Bucklingpaté (sweet cured herring, smoked)"
+  },
+  {
+    "key": "1240",
+    "name": "Buckwheat groats, raw"
+  },
+  {
+    "key": "1243",
+    "name": "Cheese, semihard, Feta, 50 % fidm"
+  },
+  {
+    "key": "1244",
+    "name": "Cheese, firm, skimmed milk, max. 5 % fidm."
+  },
+  {
+    "key": "1246",
+    "name": "Tomato puree"
+  },
+  {
+    "key": "1248",
+    "name": "Eel, raw"
+  },
+  {
+    "key": "1249",
+    "name": "Pork, thick belly with rind, raw"
+  },
+  {
+    "key": "1251",
+    "name": "Beef, flatribs (short ribs), raw"
+  },
+  {
+    "key": "1252",
+    "name": "Rice, polished, raw"
+  },
+  {
+    "key": "1253",
+    "name": "Bouillon, beef, concentrated, cube"
+  },
+  {
+    "key": "1255",
+    "name": "Rice flour"
+  },
+  {
+    "key": "1256",
+    "name": "Cocoa, powder"
+  },
+  {
+    "key": "1257",
+    "name": "Olives, black, salted, in oil"
+  },
+  {
+    "key": "1258",
+    "name": "Rye flour, bolted (extraction rate 85 %)"
+  },
+  {
+    "key": "1259",
+    "name": "Cheese, firm, Danbo, 30 % fidm."
+  },
+  {
+    "key": "1261",
+    "name": "Beef, flank, raw"
+  },
+  {
+    "key": "1262",
+    "name": "Tomato ketchup, bottled"
+  },
+  {
+    "key": "1265",
+    "name": "Milk, whole, 3.5, (UHT), % fat"
+  },
+  {
+    "key": "1266",
+    "name": "Milk, whole, organic, 3.5 % fat"
+  },
+  {
+    "key": "1268",
+    "name": "Lamb, loin, raw"
+  },
+  {
+    "key": "1269",
+    "name": "Pork, meat, approx. 32 % fat, raw"
+  },
+  {
+    "key": "1270",
+    "name": "Yoghurt with strawberries"
+  },
+  {
+    "key": "1271",
+    "name": "Rice, parboiled, raw"
+  },
+  {
+    "key": "1272",
+    "name": "Potato flour"
+  },
+  {
+    "key": "1273",
+    "name": "Yoghurt with mixed berries"
+  },
+  {
+    "key": "1274",
+    "name": "Cheese, firm, 30 % fidm., all varieties"
+  },
+  {
+    "key": "1275",
+    "name": "Baby food, infant formula, high iron content, powder"
+  },
+  {
+    "key": "1276",
+    "name": "Peach, dried"
+  },
+  {
+    "key": "1277",
+    "name": "Cheese, Camembert, 50 % fidm."
+  },
+  {
+    "key": "1284",
+    "name": "Yoghurt with peach melba"
+  },
+  {
+    "key": "1286",
+    "name": "Yoghurt, whole milk, with fruit"
+  },
+  {
+    "key": "1288",
+    "name": "Cheese, firm, Maribo, 30 % fidm."
+  },
+  {
+    "key": "1289",
+    "name": "Yoghurt with pear and banana"
+  },
+  {
+    "key": "1290",
+    "name": "Yoghurt with cherries"
+  },
+  {
+    "key": "1291",
+    "name": "Milk, acidophilus cultured from whole milk, 3.5% fat"
+  },
+  {
+    "key": "1292",
+    "name": "Poppy seeds"
+  },
+  {
+    "key": "1294",
+    "name": "Barley flour, raw"
+  },
+  {
+    "key": "1296",
+    "name": "Pasta, boiled"
+  },
+  {
+    "key": "1297",
+    "name": "Corn flour"
+  },
+  {
+    "key": "1299",
+    "name": "Cheese, semihard, Mozzarella, 30 % fidm."
+  },
+  {
+    "key": "1301",
+    "name": "Wheat flour"
+  },
+  {
+    "key": "1302",
+    "name": "Eel, smoked"
+  },
+  {
+    "key": "1304",
+    "name": "Cheese, Cream, 70 % fidm."
+  },
+  {
+    "key": "1305",
+    "name": "Yoghurt with müsli"
+  },
+  {
+    "key": "1311",
+    "name": "Semolina"
+  },
+  {
+    "key": "1312",
+    "name": "Baking powder"
+  },
+  {
+    "key": "1313",
+    "name": "Cheese, Brie, 50 % fidm."
+  },
+  {
+    "key": "1314",
+    "name": "Peas, green, canned"
+  },
+  {
+    "key": "1315",
+    "name": "Lamb, flank, raw"
+  },
+  {
+    "key": "1316",
+    "name": "Lamb, breast, raw"
+  },
+  {
+    "key": "1317",
+    "name": "Beansprouts, soy, raw"
+  },
+  {
+    "key": "1318",
+    "name": "Cheese, firm, Samsoe, 30 % fidm."
+  },
+  {
+    "key": "1320",
+    "name": "Goat milk"
+  },
+  {
+    "key": "1334",
+    "name": "Rolls, sweet dough type"
+  },
+  {
+    "key": "1345",
+    "name": "Oil, cotton seed"
+  },
+  {
+    "key": "1351",
+    "name": "Sorbitol"
+  },
+  {
+    "key": "1355",
+    "name": "Oil, palm"
+  },
+  {
+    "key": "1364",
+    "name": "Oil, cocoa butter"
+  },
+  {
+    "key": "1377",
+    "name": "Palm kernel oil"
+  },
+  {
+    "key": "1380",
+    "name": "Peanut oil"
+  },
+  {
+    "key": "1382",
+    "name": "Sunflower oil"
+  },
+  {
+    "key": "1384",
+    "name": "Walnut oil"
+  },
+  {
+    "key": "1390",
+    "name": "Beet, red, danish, raw"
+  },
+  {
+    "key": "1391",
+    "name": "Kale, Danish, raw"
+  },
+  {
+    "key": "1394",
+    "name": "Lettuce, iceberg (incl. crisphead types), danish, raw"
+  },
+  {
+    "key": "1396",
+    "name": "Cod liver oil"
+  },
+  {
+    "key": "1406",
+    "name": "Dumplings, frozen"
+  },
+  {
+    "key": "1412",
+    "name": "Oil, sesame"
+  },
+  {
+    "key": "1413",
+    "name": "Lettuce, iceberg (incl. crisphead types), imported, raw"
+  },
+  {
+    "key": "1414",
+    "name": "Sugar, brown cane sugar"
+  },
+  {
+    "key": "1415",
+    "name": "Corn oil"
+  },
+  {
+    "key": "1418",
+    "name": "Linseed oil"
+  },
+  {
+    "key": "1420",
+    "name": "Rye bread, soft, no high fat seeds, industrially produced"
+  },
+  {
+    "key": "1427",
+    "name": "Wheat bread, italien type, retail bakery"
+  },
+  {
+    "key": "1429",
+    "name": "Oil, grapeseed"
+  },
+  {
+    "key": "1440",
+    "name": "Oil, coconut"
+  },
+  {
+    "key": "1454",
+    "name": "Saithe (UK), pollock (US), liver oil"
+  },
+  {
+    "key": "1455",
+    "name": "Fat, beef tallow"
+  },
+  {
+    "key": "1461",
+    "name": "Soyabean oil, refined"
+  },
+  {
+    "key": "1465",
+    "name": "Fish fillet, breaded, deepfried, fast food"
+  },
+  {
+    "key": "1467",
+    "name": "Olive oil"
+  },
+  {
+    "key": "1483",
+    "name": "Oil, rape seed (no eruca acid)"
+  },
+  {
+    "key": "1485",
+    "name": "Celeriac, celery root, danish, raw"
+  },
+  {
+    "key": "1492",
+    "name": "Arugula, rocket, raw"
+  },
+  {
+    "key": "1507",
+    "name": "Pumpkin seed, dried"
+  },
+  {
+    "key": "1512",
+    "name": "Durum wheat flour"
+  },
+  {
+    "key": "1521",
+    "name": "Wheat bread, white, industrially produced"
+  },
+  {
+    "key": "1522",
+    "name": "Bread, white, large, retail bakery"
+  },
+  {
+    "key": "1523",
+    "name": "Wheat bread, with coarse meal, industrially produced"
+  },
+  {
+    "key": "1524",
+    "name": "Wheat bread, large, with coarse meal, retail bakery"
+  },
+  {
+    "key": "1548",
+    "name": "Tiger prawn, aquaculture, raw, frozen"
+  },
+  {
+    "key": "1549",
+    "name": "Prawn, giant tiger, aquaculture, boiled, frozen"
+  },
+  {
+    "key": "1552",
+    "name": "Salmon, Atlantic, aquaculture, cold smoked"
+  },
+  {
+    "key": "1553",
+    "name": "Salmon, atlantic, aquaculture, hot smoked"
+  },
+  {
+    "key": "1574",
+    "name": "American inspired cookie"
+  },
+  {
+    "key": "1575",
+    "name": "Cookies, oat flakes, industrially produced"
+  },
+  {
+    "key": "1576",
+    "name": "Butter cookie, brown, (Danish), industrially produced"
+  },
+  {
+    "key": "1577",
+    "name": "Biscuit, sweet, pepper nuts, Danish tradition, industrially produced"
+  },
+  {
+    "key": "1578",
+    "name": "Cookies, Klenät, industrially produced"
+  },
+  {
+    "key": "1580",
+    "name": "Cookies, coconut, industrially produced"
+  },
+  {
+    "key": "1581",
+    "name": "Cookie, truffle product / unbaked, industrially produced"
+  },
+  {
+    "key": "1582",
+    "name": "Wreath cake, almond based, Danish tradition"
+  },
+  {
+    "key": "1584",
+    "name": "Sweetcorn, baby, on-the-cob, raw"
+  },
+  {
+    "key": "1585",
+    "name": "Pomelo (pommelo; shaddock), raw"
+  },
+  {
+    "key": "1586",
+    "name": "Biscuit, rye"
+  },
+  {
+    "key": "1587",
+    "name": "Biscuit, wheat, sweet with thick chocolate"
+  },
+  {
+    "key": "1591",
+    "name": "Granola bar"
+  },
+  {
+    "key": "1592",
+    "name": "Wafer sticks"
+  },
+  {
+    "key": "1595",
+    "name": "Biscuit, coarse grain with fruit and vegetables"
+  },
+  {
+    "key": "1596",
+    "name": "Milk, skimmed, 0.1 % fat"
+  },
+  {
+    "key": "1597",
+    "name": "Yogurt plain, low fat, 1.5 % fat"
+  },
+  {
+    "key": "1598",
+    "name": "Yogurt low fat, 0.1 % fat"
+  },
+  {
+    "key": "1607",
+    "name": "Bread, wheat, white wheat, wholw grain, retail bakery"
+  },
+  {
+    "key": "1608",
+    "name": "Rolls, White Wheat, whole grain, industrially produced"
+  },
+  {
+    "key": "1609",
+    "name": "Bread, wheat, white wheat, wholw grain, industrially produced"
+  },
+  {
+    "key": "1610",
+    "name": "Herring, Baltic Sea, unspecified, raw"
+  },
+  {
+    "key": "1611",
+    "name": "Beef, mince, 5-10% fat, raw"
+  },
+  {
+    "key": "1612",
+    "name": "Pork, mince, 10-15% fat, raw"
+  },
+  {
+    "key": "1613",
+    "name": "Turkey, mince, 5-10% fat, raw"
+  },
+  {
+    "key": "1616",
+    "name": "Hamburger, medium patty, salad and dressing, fast food"
+  },
+  {
+    "key": "1619",
+    "name": "Cheeseburger, salad and dressing, fast food"
+  },
+  {
+    "key": "1620",
+    "name": "Hamburger, bacon and cheese, salad and dressing, fast food"
+  },
+  {
+    "key": "1621",
+    "name": "Hamburger, chicken, salad and dressing, fast food"
+  },
+  {
+    "key": "1623",
+    "name": "Sandwich with chicken and bacon, salad and dressing, fast food"
+  },
+  {
+    "key": "1633",
+    "name": "Pita sandwich with kebab, salad and dressing, fast food"
+  },
+  {
+    "key": "1636",
+    "name": "Pita sandwich with falafel, salad and dressing, fast food"
+  },
+  {
+    "key": "1638",
+    "name": "Dürüm roll with kebab, salad and dressing, fast food"
+  },
+  {
+    "key": "1640",
+    "name": "French Hotdog, fast food"
+  },
+  {
+    "key": "1644",
+    "name": "Chicken, grilled, fast food"
+  },
+  {
+    "key": "1645",
+    "name": "Chicken nuggets, deepfried, fast food"
+  },
+  {
+    "key": "1646",
+    "name": "Pizza with tomato and cheese, fast food"
+  },
+  {
+    "key": "1648",
+    "name": "Pizza with salami, tomato and cheese, fast food"
+  },
+  {
+    "key": "1652",
+    "name": "Fish fillet, breaded, fried, delicatessens"
+  },
+  {
+    "key": "1653",
+    "name": "Tuna, yellowfin, raw"
+  },
+  {
+    "key": "1654",
+    "name": "Shrimp, boiled, in brine"
+  },
+  {
+    "key": "1655",
+    "name": "Salmon, atlantic, aquaculture, gravad"
+  },
+  {
+    "key": "1656",
+    "name": "Flounder, fillet, breaded, raw, frozen"
+  },
+  {
+    "key": "1657",
+    "name": "Fish fingers, breaded, frozen"
+  },
+  {
+    "key": "1658",
+    "name": "Salmon, atlantic, aquaculture, raw"
+  },
+  {
+    "key": "1659",
+    "name": "Salmon, pacific, wild, raw"
+  },
+  {
+    "key": "1660",
+    "name": "Striped catfish, raw, frozen"
+  },
+  {
+    "key": "1661",
+    "name": "Blue mussel, boiled"
+  },
+  {
+    "key": "1662",
+    "name": "Eggs, chicken, battery hens, raw"
+  },
+  {
+    "key": "1663",
+    "name": "Eggs, chicken, free-range (outdoor) hens, raw"
+  },
+  {
+    "key": "1664",
+    "name": "Eggs, chicken, free-range hens (indoor), raw"
+  },
+  {
+    "key": "1665",
+    "name": "Eggs, chicken, organic farming, raw"
+  },
+  {
+    "key": "1666",
+    "name": "Eggs, chicken, boiled, frozen"
+  },
+  {
+    "key": "1667",
+    "name": "Eggs, chicken, yolk, pasteurized"
+  },
+  {
+    "key": "1668",
+    "name": "Eggs, chicken, scrambled, industrially produced"
+  },
+  {
+    "key": "1669",
+    "name": "Eggs, chicken, scrambled eggs mix, industrially produced"
+  },
+  {
+    "key": "1670",
+    "name": "Rye bread, dark, industrially produced"
+  },
+  {
+    "key": "1671",
+    "name": "Rye bread, dark, whole grains, industrially produced"
+  },
+  {
+    "key": "1672",
+    "name": "Wheat bread, with coarse meal and high fat seeds, retail bakery"
+  },
+  {
+    "key": "1673",
+    "name": "Rye bread, dark, retail bakery"
+  },
+  {
+    "key": "1674",
+    "name": "Rye bread, dark, whole grains, retail bakery"
+  },
+  {
+    "key": "1675",
+    "name": "Rye bread, dark, with high fat seeds, retail bakery"
+  },
+  {
+    "key": "1676",
+    "name": "Rye bread, with siftings (soft) and high fat seeds, retail bakery"
+  },
+  {
+    "key": "1677",
+    "name": "Yogurt, with fruit, 0.1 % fat, no sugar added"
+  },
+  {
+    "key": "1678",
+    "name": "Cheese, cottage, 10 % fidm."
+  },
+  {
+    "key": "1679",
+    "name": "Cheese, cottage, 5 % fidm."
+  },
+  {
+    "key": "1680",
+    "name": "Lactose, dry, powder"
+  },
+  {
+    "key": "1681",
+    "name": "Yogurt, with fruit, 0.4 % fat"
+  },
+  {
+    "key": "1682",
+    "name": "Buttermilk dessert"
+  },
+  {
+    "key": "1683",
+    "name": "Milkshake"
+  },
+  {
+    "key": "1684",
+    "name": "Blended spread, 75% fat"
+  },
+  {
+    "key": "1685",
+    "name": "Blended spread, reduced fat, 57% fat"
+  },
+  {
+    "key": "1686",
+    "name": "Pork, thick flank, completely trimmed, raw"
+  },
+  {
+    "key": "1687",
+    "name": "Pork, thin belly with rind, raw"
+  },
+  {
+    "key": "1689",
+    "name": "Pork, jaw, trimmed, raw"
+  },
+  {
+    "key": "1690",
+    "name": "Oat drink, unfortified"
+  },
+  {
+    "key": "1691",
+    "name": "Rice drink, unfortified"
+  },
+  {
+    "key": "1692",
+    "name": "Almond drink, unfortified"
+  },
+  {
+    "key": "1693",
+    "name": "Skyr, 0.2 % fat"
+  },
+  {
+    "key": "1694",
+    "name": "Galia melon, raw"
+  },
+  {
+    "key": "1697",
+    "name": "Caraway seed, raw"
+  },
+  {
+    "key": "1700",
+    "name": "Rice drink, with added calcium"
+  },
+  {
+    "key": "1701",
+    "name": "Oat drink, with added calcium"
+  },
+  {
+    "key": "1702",
+    "name": "Soy drink, with added calcium"
+  },
+  {
+    "key": "1703",
+    "name": "Rolls, italien type, retail bakery"
+  },
+  {
+    "key": "1704",
+    "name": "Wheat bread, pita, white"
+  },
+  {
+    "key": "1705",
+    "name": "Wheat bread, pita, with coarse meal"
+  },
+  {
+    "key": "1707",
+    "name": "Breakfast cereal, with bran"
+  },
+  {
+    "key": "1708",
+    "name": "Sea Buckthorn"
+  },
+  {
+    "key": "1712",
+    "name": "Veal, rump, raw"
+  },
+  {
+    "key": "1721",
+    "name": "Pepper, sweet, yellow, raw"
+  },
+  {
+    "key": "1722",
+    "name": "Spelt wheat flour, bolted"
+  },
+  {
+    "key": "1723",
+    "name": "Spelt wheat flour, whole"
+  },
+  {
+    "key": "1724",
+    "name": "Quinoa, white, raw"
+  },
+  {
+    "key": "1725",
+    "name": "Quinoa, red, raw"
+  },
+  {
+    "key": "1726",
+    "name": "Quinoa, black, raw"
+  },
+  {
+    "key": "1727",
+    "name": "Rye flour, unspecified"
+  },
+  {
+    "key": "1728",
+    "name": "Chia seeds"
+  },
+  {
+    "key": "1729",
+    "name": "Pearled spelt"
+  },
+  {
+    "key": "1730",
+    "name": "Pearled barley"
+  },
+  {
+    "key": "1731",
+    "name": "Oil margarine"
+  },
+  {
+    "key": "1732",
+    "name": "Oil margarine, fortified with A- and D-vitamin"
+  },
+  {
+    "key": "1733",
+    "name": "Plant margarine, 80%, fry/bake, enriched with A- and D-vitamin"
+  },
+  {
+    "key": "1734",
+    "name": "Plant margarine, 80%, fry/bake, enriched with A-vitamin"
+  },
+  {
+    "key": "1735",
+    "name": "Plant margarine, 75%, fry/bake, fortified with A-vitamin"
+  },
+  {
+    "key": "1736",
+    "name": "Plant margarine, 60%, table use, soft, enriched with A-vitamin"
+  },
+  {
+    "key": "1737",
+    "name": "Plant margarine, 40%, table use, soft, enriched with A- and D-vitamin"
+  },
+  {
+    "key": "1739",
+    "name": "Beef, mince, 8-12% fat, raw"
+  },
+  {
+    "key": "1740",
+    "name": "Chicken, mince, 3-10% fat, raw"
+  },
+  {
+    "key": "1741",
+    "name": "Baby spinach, raw"
+  },
+  {
+    "key": "1743",
+    "name": "Salad, romaine, raw"
+  },
+  {
+    "key": "1744",
+    "name": "Squash, red kuri, Danish, raw"
+  },
+  {
+    "key": "1745",
+    "name": "Butternut squash, raw"
+  },
+  {
+    "key": "1747",
+    "name": "Whey protein powder"
+  },
+  {
+    "key": "1748",
+    "name": "Rice cake/cracker, puffed brown rice, plain"
+  },
+  {
+    "key": "1749",
+    "name": "Spinach, whole leaf, frozen"
+  },
+  {
+    "key": "1750",
+    "name": "Cabbage, red, Danish, raw"
+  },
+  {
+    "key": "1751",
+    "name": "Cabbage, pointed, Danish, raw"
+  },
+  {
+    "key": "1752",
+    "name": "Parsnip, Danish, raw"
+  },
+  {
+    "key": "1753",
+    "name": "Veal, top round, raw"
+  },
+  {
+    "key": "1754",
+    "name": "Veal, topside, trimmed, raw"
+  },
+  {
+    "key": "1755",
+    "name": "Veal, heart of rump, trimmed, raw"
+  },
+  {
+    "key": "1756",
+    "name": "Veal, shortloin, raw"
+  },
+  {
+    "key": "1758",
+    "name": "Beef, bottom round, raw"
+  },
+  {
+    "key": "1759",
+    "name": "Beef, flank steak, raw"
+  },
+  {
+    "key": "1760",
+    "name": "Carrots, imported, without peel, raw"
+  },
+  {
+    "key": "1761",
+    "name": "Carrots, Danish, without peel, raw"
+  },
+  {
+    "key": "1762",
+    "name": "Parsnips, imported, raw"
+  },
+  {
+    "key": "1763",
+    "name": "Celery, root, imported, raw"
+  },
+  {
+    "key": "1764",
+    "name": "Cream yoghurt, plain, 10% fat (Greek and Turkish style)"
+  },
+  {
+    "key": "1765",
+    "name": "Cream yoghurt, plain, 2% fat (Greek and Turkish style)"
+  },
+  {
+    "key": "1766",
+    "name": "Milk, acidophilus cultured from partly skimmed milk, 1.5% fat"
+  },
+  {
+    "key": "1767",
+    "name": "Milk, acidophilus cultured from skimmed milk, 0.5% fat"
+  },
+  {
+    "key": "1768",
+    "name": "Pizza topping (Grated cheese, Mozzarella)"
+  },
+  {
+    "key": "1769",
+    "name": "Skinkeost 30+ (Processed cheese with ham)"
+  },
+  {
+    "key": "1770",
+    "name": "Rejeost, light, 8% fat, (Processed cheese with shrimp)"
+  },
+  {
+    "key": "1771",
+    "name": "Feta, 5% (Salad cheese)"
+  },
+  {
+    "key": "1772",
+    "name": "Cheese, Cream, 30-40 % fidm."
+  },
+  {
+    "key": "1773",
+    "name": "Cheese, Cream, 45-55 % fidm."
+  },
+  {
+    "key": "1774",
+    "name": "Cheese, Brie, 11%"
+  },
+  {
+    "key": "1775",
+    "name": "Goat cheese, soft, 45-55% fidm."
+  },
+  {
+    "key": "1776",
+    "name": "Goat cheese, in brine, 20-25%"
+  },
+  {
+    "key": "1777",
+    "name": "Goat cheese, hard, 45% fidm."
+  },
+  {
+    "key": "1778",
+    "name": "Cheese, firm, 6%/10% fidm."
+  },
+  {
+    "key": "1779",
+    "name": "Cheese, firm, 45% fidm., Danish"
+  },
+  {
+    "key": "1780",
+    "name": "Cheese, firm, 50% fidm., Danish"
+  },
+  {
+    "key": "1781",
+    "name": "Veal, brisket, raw"
+  },
+  {
+    "key": "1782",
+    "name": "Beef, brisket, boneless, raw"
+  },
+  {
+    "key": "1783",
+    "name": "Cold cuts, with wheat protein"
+  },
+  {
+    "key": "1784",
+    "name": "Seitan"
+  },
+  {
+    "key": "1785",
+    "name": "Mince, with mycoprotein"
+  },
+  {
+    "key": "1786",
+    "name": "Mince, with soy protein"
+  },
+  {
+    "key": "1787",
+    "name": "Mince balls, with soy protein"
+  },
+  {
+    "key": "1788",
+    "name": "Pieces, with soy protein"
+  },
+  {
+    "key": "1789",
+    "name": "Cold cuts, with soy and pea protein"
+  },
+  {
+    "key": "1790",
+    "name": "Mince, with pea protein"
+  },
+  {
+    "key": "1791",
+    "name": "Sausage, with pea protein"
+  },
+  {
+    "key": "1792",
+    "name": "Cold cuts, with eggwhite"
+  },
+  {
+    "key": "1793",
+    "name": "Pieces, with mycoprotein"
+  },
+  {
+    "key": "1794",
+    "name": "Sausage, with soy protein"
+  },
+  {
+    "key": "1795",
+    "name": "Beef, entrecote/rib eye, raw"
+  },
+  {
+    "key": "1796",
+    "name": "Aronia berries"
+  },
+  {
+    "key": "1797",
+    "name": "Oatmilk, with added calcium and vitamins"
+  },
+  {
+    "key": "1798",
+    "name": "Almondmilk, with added calcium"
+  },
+  {
+    "key": "1799",
+    "name": "Lentils, red, dried, raw"
+  },
+  {
+    "key": "1800",
+    "name": "Lentils, green, dried, raw"
+  },
+  {
+    "key": "1801",
+    "name": "Beans, white, dried, raw"
+  },
+  {
+    "key": "1802",
+    "name": "Beans, red kidney, dried, raw"
+  },
+  {
+    "key": "1803",
+    "name": "Chickpeas, dry, raw"
+  },
+  {
+    "key": "1804",
+    "name": "Le Puy green lentil, dried, raw"
+  },
+  {
+    "key": "1805",
+    "name": "Lentils, beluga, dried, raw"
+  },
+  {
+    "key": "1806",
+    "name": "Edamame beans (Soy beans), shelled, frozen"
+  },
+  {
+    "key": "1807",
+    "name": "Lentils, green, boiled, canned"
+  },
+  {
+    "key": "1808",
+    "name": "Baked beans (white beans in tomato sauce)"
+  },
+  {
+    "key": "1809",
+    "name": "Chili beans (red kidney beans in chilisauce)"
+  },
+  {
+    "key": "1810",
+    "name": "Beans, red kidney, boiled, canned"
+  },
+  {
+    "key": "1811",
+    "name": "Beans, red kidney, cooked, ready to eat"
+  },
+  {
+    "key": "1812",
+    "name": "Chickpeas, boiled, canned"
+  },
+  {
+    "key": "1813",
+    "name": "Chickpeas, steamed, ready to eat"
+  },
+  {
+    "key": "1814",
+    "name": "Beans, black, boiled, canned"
+  },
+  {
+    "key": "1815",
+    "name": "White beans, dried and boiled"
+  },
+  {
+    "key": "1816",
+    "name": "Beans, red kidney, dried and boiled"
+  },
+  {
+    "key": "1817",
+    "name": "Blueberries, frozen"
+  },
+  {
+    "key": "1818",
+    "name": "Raspberries, frozen"
+  },
+  {
+    "key": "1819",
+    "name": "Strawberries, frozen"
+  },
+  {
+    "key": "1820",
+    "name": "Sweet corn kernels, frozen"
+  },
+  {
+    "key": "1821",
+    "name": "Peas, green, frozen"
+  },
+  {
+    "key": "1822",
+    "name": "Green beans (haricots verts), frozen"
+  },
+  {
+    "key": "1823",
+    "name": "Cauliflower, frozen"
+  },
+  {
+    "key": "1824",
+    "name": "Broccoli, frozen"
+  },
+  {
+    "key": "1825",
+    "name": "Brussel sprouts, frozen"
+  },
+  {
+    "key": "1826",
+    "name": "Soup vegetables, frozen"
+  },
+  {
+    "key": "1827",
+    "name": "Root vegetables, frozen"
+  },
+  {
+    "key": "1828",
+    "name": "Mango, frozen"
+  },
+  {
+    "key": "1829",
+    "name": "Pomegranate seeds, frozen"
+  },
+  {
+    "key": "1830",
+    "name": "Pineapple, frozen"
+  },
+  {
+    "key": "1831",
+    "name": "Mixed berries. frozen"
+  },
+  {
+    "key": "1832",
+    "name": "Baby carrots, frozen"
+  },
+  {
+    "key": "1833",
+    "name": "Leek, frozen"
+  },
+  {
+    "key": "1834",
+    "name": "Avocado, frozen"
+  },
+  {
+    "key": "1835",
+    "name": "Wok mix, organic, frozen"
+  },
+  {
+    "key": "1836",
+    "name": "Wok mix, frozen"
+  },
+  {
+    "key": "1837",
+    "name": "Pearl onion. frozen"
+  },
+  {
+    "key": "1838",
+    "name": "Bean mix, frozen"
+  },
+  {
+    "key": "1839",
+    "name": "Root vegetable fritters, frozen"
+  },
+  {
+    "key": "1840",
+    "name": "Sweet potato fries, frozen"
+  },
+  {
+    "key": "1841",
+    "name": "Potato wedges, frozen"
+  },
+  {
+    "key": "1842",
+    "name": "Halved potatoes, frozen"
+  },
+  {
+    "key": "1843",
+    "name": "Curly fries, frozen"
+  },
+  {
+    "key": "1844",
+    "name": "Potato rösti, frozen"
+  },
+  {
+    "key": "1845",
+    "name": "Potato croquettes, frozen"
+  },
+  {
+    "key": "1846",
+    "name": "Steak fries (thick fries with skin), frozen"
+  },
+  {
+    "key": "1847",
+    "name": "French fries, crinkle-cut, frozen"
+  },
+  {
+    "key": "1848",
+    "name": "Blueberries, raw"
+  },
+  {
+    "key": "1849",
+    "name": "Blackberry, raw"
+  },
+  {
+    "key": "1850",
+    "name": "Raspberry, raw"
+  },
+  {
+    "key": "1851",
+    "name": "Apricot, raw"
+  },
+  {
+    "key": "1852",
+    "name": "Plum, raw"
+  },
+  {
+    "key": "1853",
+    "name": "Peach, raw"
+  },
+  {
+    "key": "1854",
+    "name": "Cherry, raw"
+  },
+  {
+    "key": "1855",
+    "name": "Pineapple, raw"
+  },
+  {
+    "key": "1856",
+    "name": "Grapefruit, raw"
+  },
+  {
+    "key": "1857",
+    "name": "Melon, honeydew, raw"
+  },
+  {
+    "key": "1858",
+    "name": "Kiwi fruit, raw"
+  },
+  {
+    "key": "1859",
+    "name": "Mango, raw"
+  },
+  {
+    "key": "1860",
+    "name": "Water, tap water"
+  },
+  {
+    "key": "1861",
+    "name": "Lolland raisins (beige-brown pea), dried"
+  },
+  {
+    "key": "1862",
+    "name": "Pineapple juice"
+  },
+  {
+    "key": "1863",
+    "name": "Orange juice"
+  },
+  {
+    "key": "1864",
+    "name": "Grapefruit juice"
+  },
+  {
+    "key": "1865",
+    "name": "Prune juice"
+  },
+  {
+    "key": "1866",
+    "name": "Apple juice"
+  },
+  {
+    "key": "1867",
+    "name": "Mixed fruit juice"
+  },
+  {
+    "key": "1868",
+    "name": "Carrot juice"
+  },
+  {
+    "key": "1869",
+    "name": "Tomato juice"
+  },
+  {
+    "key": "1870",
+    "name": "Mixed vegetable juice"
+  },
+  {
+    "key": "1871",
+    "name": "Mixed fruit and vegetable juice"
+  },
+  {
+    "key": "1872",
+    "name": "Fruit smoothie"
+  },
+  {
+    "key": "1873",
+    "name": "Fruit and vegetable smoothie"
+  },
+  {
+    "key": "1874",
+    "name": "Mixed fruit cordial base, sugar added, dilution: 1+4"
+  },
+  {
+    "key": "1875",
+    "name": "Mixed fruit cordial base, sugar added, dilution: 1+5"
+  },
+  {
+    "key": "1876",
+    "name": "Cranberry cordial base, artificial sweetener added, dilution: 1+4"
+  },
+  {
+    "key": "1877",
+    "name": "Mixed fruit cordial base, artificial sweetener added, dilution: 1+4"
+  },
+  {
+    "key": "1878",
+    "name": "Mixed fruit cordial base, sugar and artificial sweetener added, dilution: 1+4"
+  },
+  {
+    "key": "1879",
+    "name": "Fruit juice, sugar added"
+  },
+  {
+    "key": "1880",
+    "name": "Fruit juice, artificial sweetener added"
+  },
+  {
+    "key": "1881",
+    "name": "Pear cider, sugar added, alcohol&lt;0.7%"
+  },
+  {
+    "key": "1882",
+    "name": "Apple cider, sugar added, alcohol&lt;0.7%"
+  },
+  {
+    "key": "1883",
+    "name": "Pear cider, artificial sweetener added, alcohol&lt;0.7%"
+  },
+  {
+    "key": "1884",
+    "name": "Peach Icetea, sugar added"
+  },
+  {
+    "key": "1885",
+    "name": "Lemon Icetea, sugar added"
+  },
+  {
+    "key": "1886",
+    "name": "Peach Icetea, artificial sweetener added"
+  },
+  {
+    "key": "1887",
+    "name": "Peach Icetea, sugar and artificial sweetener added"
+  },
+  {
+    "key": "1888",
+    "name": "Lemon Icetea, sugar added, powder"
+  },
+  {
+    "key": "1889",
+    "name": "Soft drink, sugar added"
+  },
+  {
+    "key": "1890",
+    "name": "Soft drink, artificial sweetener added"
+  },
+  {
+    "key": "1891",
+    "name": "Soft drink, sugar and artificial sweetener added"
+  },
+  {
+    "key": "1893",
+    "name": "Soft drink, not carbonated, sugar added, ready to drink"
+  },
+  {
+    "key": "1894",
+    "name": "Concentrated soft drink, not carbonated, sugar added, dilution 1+3"
+  },
+  {
+    "key": "1895",
+    "name": "Concentrated soft drink, not carbonated, sugar added, dilution 1+4"
+  },
+  {
+    "key": "1896",
+    "name": "Concentrated soft drink, not carbonated, sugar added, dilution 1+5"
+  },
+  {
+    "key": "1897",
+    "name": "Concentrated soft drink, not carbonated, sugar added, dilution 1+7"
+  },
+  {
+    "key": "1898",
+    "name": "Concentrated soft drink, not carbonated, sugar added, dilution 1+9"
+  },
+  {
+    "key": "1899",
+    "name": "Concentrated soft drink, not carbonated, artificial sweetener added, dilution 1+4"
+  },
+  {
+    "key": "1900",
+    "name": "Concentrated soft drink, not carbonated, artificial sweetener added, dilution 1+5"
+  },
+  {
+    "key": "1901",
+    "name": "Concentrated soft drink, not carbonated, artificial sweetener added, dilution 1+9"
+  },
+  {
+    "key": "1902",
+    "name": "Concentrated soft drink, not carbonated, artificial sweetener added, dilution 1+11"
+  },
+  {
+    "key": "1903",
+    "name": "Concentrated soft drink, not carbonated, sugar and artificial sweetener added, dilution 1+7"
+  },
+  {
+    "key": "1904",
+    "name": "Concentrated soft drink, not carbonated, sugar and artificial sweetener added, dilution 1+11"
+  },
+  {
+    "key": "1905",
+    "name": "Beer, lager, alc. 4-5 % by vol."
+  },
+  {
+    "key": "1906",
+    "name": "Beer, amber lager, alc. 4-5 % by vol."
+  },
+  {
+    "key": "1907",
+    "name": "Beer, strong lager, alc. 5-6 % by vol."
+  },
+  {
+    "key": "1908",
+    "name": "Beer, strong lager, alc. 7-8 % by vol."
+  },
+  {
+    "key": "1909",
+    "name": "Beer, lager, alc. 2-3 % by vol."
+  },
+  {
+    "key": "1910",
+    "name": "Beer, lager, alcohol free"
+  },
+  {
+    "key": "1911",
+    "name": "Dark malt beer (Oud bruin type dark sweet beer), alc. 1-2 % by vol."
+  },
+  {
+    "key": "1912",
+    "name": "Beer, brown ale, alc. 5-7 % by vol."
+  },
+  {
+    "key": "1913",
+    "name": "Beer, blonde ale, alc. 6-7 % by vol."
+  },
+  {
+    "key": "1914",
+    "name": "Beer, wheat, German weissbier style, alc. 4-6 % by vol."
+  },
+  {
+    "key": "1915",
+    "name": "Beer, wheat, Belgian witbier style, alc. 5-6 % by vol."
+  },
+  {
+    "key": "1916",
+    "name": "Imperial stout, alc. 8% vol."
+  },
+  {
+    "key": "1917",
+    "name": "Beer, Danish Christmas, alc. 5-6 % vol."
+  },
+  {
+    "key": "1918",
+    "name": "Dried ham, Serrano"
+  },
+  {
+    "key": "1919",
+    "name": "Dried ham, Black forest"
+  },
+  {
+    "key": "1920",
+    "name": "Pork, loin without rind, dry aged"
+  },
+  {
+    "key": "1921",
+    "name": "Chocolate ice cream"
+  },
+  {
+    "key": "1922",
+    "name": "Chocolate ice cream, sugar free"
+  },
+  {
+    "key": "1923",
+    "name": "Chocolate ice cream, vegan"
+  },
+  {
+    "key": "1924",
+    "name": "Strawberry ice cream"
+  },
+  {
+    "key": "1925",
+    "name": "Caramel ice cream"
+  },
+  {
+    "key": "1926",
+    "name": "Nougat ice cream"
+  },
+  {
+    "key": "1927",
+    "name": "Sorbet, raspberry"
+  },
+  {
+    "key": "1928",
+    "name": "Stracciatella ice cream"
+  },
+  {
+    "key": "1929",
+    "name": "Vanilla ice cream, &lt;50% cream"
+  },
+  {
+    "key": "1930",
+    "name": "Vanilla ice cream, &gt;50% cream"
+  },
+  {
+    "key": "1931",
+    "name": "Vanilla ice cream, without cream"
+  },
+  {
+    "key": "1932",
+    "name": "Vanilla ice cream, vegan"
+  },
+  {
+    "key": "1933",
+    "name": "Lemonade popsickle"
+  },
+  {
+    "key": "1934",
+    "name": "Lemonade popsickle with coating"
+  },
+  {
+    "key": "1935",
+    "name": "Stick ice cream, vanilla with chocolate coating"
+  },
+  {
+    "key": "1936",
+    "name": "Stick ice cream, vanilla with chocolate and almond coating"
+  },
+  {
+    "key": "1937",
+    "name": "Stick ice cream, vanilla with lemonade coating"
+  },
+  {
+    "key": "1938",
+    "name": "Stick ice cream, vanilla with blackcurrant and chocolate coating"
+  },
+  {
+    "key": "1939",
+    "name": "Ice cream bar, waffle vanilla ice cream with strawberry sauce and chocolate coating"
+  },
+  {
+    "key": "1940",
+    "name": "Waffle ice cream cone, vanilla with chocolate coating and nuts"
+  },
+  {
+    "key": "1941",
+    "name": "Chicken mayonnaise salad, light"
+  },
+  {
+    "key": "1942",
+    "name": "Chicken mayonnaise salad"
+  },
+  {
+    "key": "1943",
+    "name": "Ham mayonnaise salad, light"
+  },
+  {
+    "key": "1944",
+    "name": "Ham mayonnaise salad"
+  },
+  {
+    "key": "1945",
+    "name": "Tuna mayonnaise salad"
+  },
+  {
+    "key": "1946",
+    "name": "Italian mayonnaise salad"
+  },
+  {
+    "key": "1947",
+    "name": "Egg mayonnaise salad"
+  },
+  {
+    "key": "1948",
+    "name": "Chicken and bacon mayonnaise salad"
+  },
+  {
+    "key": "1949",
+    "name": "Horseradish cream salad"
+  },
+  {
+    "key": "1950",
+    "name": "Curry mayonnaise salad"
+  },
+  {
+    "key": "1951",
+    "name": "Shellfish mayonnaise salad"
+  },
+  {
+    "key": "1952",
+    "name": "Salad dressing, thousand island"
+  },
+  {
+    "key": "1953",
+    "name": "Salad dressing, sour creme"
+  },
+  {
+    "key": "1954",
+    "name": "Salad dressing, garlic"
+  },
+  {
+    "key": "1955",
+    "name": "Fastfood dressing, burger"
+  },
+  {
+    "key": "1956",
+    "name": "Pesto, peper"
+  },
+  {
+    "key": "1957",
+    "name": "Aioli"
+  },
+  {
+    "key": "1958",
+    "name": "Pesto alla genovese"
+  },
+  {
+    "key": "1959",
+    "name": "Pesto, tomato (Pesto rosso)"
+  },
+  {
+    "key": "1961",
+    "name": "Salad dressing, Cæsar"
+  },
+  {
+    "key": "1962",
+    "name": "Salad dressing, Italian"
+  },
+  {
+    "key": "1963",
+    "name": "Salad dressing, Honey/Mustard"
+  },
+  {
+    "key": "1964",
+    "name": "Mayonnaise"
+  },
+  {
+    "key": "1965",
+    "name": "Mayonnaise, low fat"
+  },
+  {
+    "key": "1966",
+    "name": "Mayonnaise, chili"
+  },
+  {
+    "key": "1967",
+    "name": "Mayonnaise, vegan"
+  },
+  {
+    "key": "1968",
+    "name": "Remoulade"
+  },
+  {
+    "key": "1969",
+    "name": "Remoulade, fatreduced"
+  },
+  {
+    "key": "1970",
+    "name": "Pizza with ham and pineapple, fast food"
+  },
+  {
+    "key": "1971",
+    "name": "Pizza with kebab, salad and dressing, fast food"
+  },
+  {
+    "key": "1972",
+    "name": "Spring roll with vegetables, deepfried, fast food"
+  },
+  {
+    "key": "1973",
+    "name": "Rice, boiled"
+  },
+  {
+    "key": "1974",
+    "name": "Shawarma kebab meat, takeaway"
+  },
+  {
+    "key": "1975",
+    "name": "Sushi, takeaway"
+  },
+  {
+    "key": "1976",
+    "name": "Wakame seaweed salad with sesame seeds, takeaway"
+  },
+  {
+    "key": "1977",
+    "name": "Butter chicken, takeaway"
+  },
+  {
+    "key": "1978",
+    "name": "Salad with chicken, takeaway"
+  },
+  {
+    "key": "1979",
+    "name": "Pad Thai with shrimp, takeaway"
+  },
+  {
+    "key": "1980",
+    "name": "Red curry chicken, takeaway"
+  },
+  {
+    "key": "1981",
+    "name": "Stir fried beef, takeaway"
+  },
+  {
+    "key": "2384",
+    "name": "Energy drink, sugar added"
+  },
+  {
+    "key": "2385",
+    "name": "Energy drink, sugar free"
+  },
+  {
+    "key": "2386",
+    "name": "Energy drink, with sugar and artificial sweetener"
+  },
+  {
+    "key": "2387",
+    "name": "Beef soup, frozen"
+  },
+  {
+    "key": "2388",
+    "name": "Chicken soup, frozen"
+  },
+  {
+    "key": "2389",
+    "name": "Curry soup, shelf-stable"
+  },
+  {
+    "key": "2390",
+    "name": "Asparagus soup, shelf-stable"
+  },
+  {
+    "key": "2391",
+    "name": "Tomato soup, frozen"
+  },
+  {
+    "key": "2392",
+    "name": "Tomato soup, chilled"
+  },
+  {
+    "key": "2393",
+    "name": "Tomato soup, shelf-stable"
+  },
+  {
+    "key": "2394",
+    "name": "Tomato soup, reconstituted (from dry mix)"
+  },
+  {
+    "key": "2395",
+    "name": "Goulash soup, frozen"
+  },
+  {
+    "key": "2396",
+    "name": "Curry soup, frozen"
+  }
+]

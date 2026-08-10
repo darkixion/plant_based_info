@@ -101,5 +101,29 @@
   "existing": {
     "title": "Existing Pre-compiled Data",
     "quality": "high"
+  },
+  "fao-phytate": {
+    "name": "FAO/INFOODS PhyFoodComp 1.0 (2018)",
+    "url": "https://www.fao.org/food-composition/tables-and-databases/detail/(global--2018)-fao-infoods-izincg-global-food-composition-database-for-phytate---version-1.0-(phyfoodcomp1.0)/en"
+  },
+  "usda-pa-r2": {
+    "name": "USDA Proanthocyanidin Database R2 (2015)",
+    "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/proanthocyanidins/"
+  },
+  "mcnaughton-2003": {
+    "name": "McNaughton & Marks 2003, Glucosinolates database (Br J Nutr)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/14513828/"
+  },
+  "halliwell-2023": {
+    "name": "Halliwell et al. 2023, Ergothioneine (Br J Nutr)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/"
+  },
+  "schurgers-2000": {
+    "name": "Schurgers & Vermeer 2000, Menaquinone content of foods (Haemostasis)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/11356998/"
+  },
+  "arnao-2018": {
+    "name": "Arnao & Hernandez-Ruiz 2018, Phytomelatonin (Molecules)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/"
   }
 }

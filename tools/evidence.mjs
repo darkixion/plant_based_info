@@ -281,7 +281,7 @@ for (const p of Object.entries(cnfMap)) {
   }
 }
 
-// Literature integration
+// Literature integration (original boron/inositol/lignans)
 for (const lit of literature) {
   const slug = lit.key;
   if (!out[slug]) out[slug] = { prep: "as listed", match: "exact", cells: {} };
@@ -300,6 +300,37 @@ for (const lit of literature) {
     const existing = out[slug].cells.lignans ? [{ source: "existing", value: out[slug].cells.lignans.value, derivation: "analysed" }] : [];
     out[slug].cells.lignans = reconcile([...existing, { source: "literature", value: lit.lignans, derivation: "analysed" }]);
     nCells++;
+  }
+}
+
+// Comprehensive literature integration (Phase 3)
+const litMisc = rd("literature-misc.json");
+const LIT_FIELDS = [
+  { json: "phytate",           col: "phytate",           src: "fao-phytate" },
+  { json: "lignans",           col: "lignans",           src: "milder-2005" },
+  { json: "proanthocyanidins", col: "proanthocyanidins", src: "usda-pa-r2" },
+  { json: "glucosinolates",    col: "glucosinolates",    src: "mcnaughton-2003" },
+  { json: "glucoraphanin",     col: "glucoraphanin",     src: "mcnaughton-2003" },
+  { json: "ergothioneine",     col: "ergothioneine",     src: "halliwell-2023" },
+  { json: "beta-glucan",       col: "beta-glucan",       src: "literature" },
+  { json: "melatonin",         col: "melatonin",         src: "arnao-2018" },
+  { json: "squalene",          col: "squalene",          src: "literature" },
+  { json: "phenolics",         col: "phenolics",         src: "literature" },
+  { json: "coq10",             col: "coq10",             src: "literature" },
+  { json: "mk7",              col: "mk7",               src: "schurgers-2000" },
+  { json: "k2",               col: "k2",                src: "schurgers-2000" },
+];
+for (const entry of litMisc) {
+  const slug = entry.slug;
+  if (!out[slug]) out[slug] = { prep: "as listed", match: "exact", cells: {} };
+  for (const f of LIT_FIELDS) {
+    const val = num(entry[f.json]);
+    if (val === null) continue;
+    // Only add if no existing value, to avoid overwriting higher-quality data
+    if (!out[slug].cells[f.col]) {
+      out[slug].cells[f.col] = reconcile([{ source: f.src, value: val, derivation: "analysed" }]);
+      nCells++;
+    }
   }
 }
 

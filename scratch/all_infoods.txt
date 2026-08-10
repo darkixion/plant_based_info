@@ -1,0 +1,902 @@
+0100104: Maize green, boiled
+0100105: Maize, flour, 65% extraction, boiled
+0100106: Maize, flour, 95% extraction, boiled
+0100107: Maize, bran
+0100108: Sorghum flour, boiled
+0100109: Rice, raw
+0100110: Maize, dried
+0100111: Rice, long grain, brown, raw
+0100112: Rice, long grain, brown, parboiled
+0100113: Rice, long grain, milled, parboiled
+0100114: Rice, long grain, milled, raw
+0100115: Rice, bran, raw
+0100116: Rice, white, milled, raw
+0100117: Rice, yellow, milled, raw
+0100118: Rice, long grain, brown, cooked
+0100119: Rice, long grain, white, cooked
+0100120: Rice gruel, fermented, malted rice and water
+0100121: Rice, white, broken, raw
+0100122: Rice, white, broken, raw
+0100123: Rice, white, broken, raw
+0100124: Rice, white, broken, raw
+0100125: Rice, bran, raw
+0100126: Rice, bran, raw
+0100127: Rice, bran, raw
+0100128: Rice, bran, raw
+0100129: Rice, milled, cooked
+0100130: Rice, milled, cooked
+0100131: Rice, milled, cooked
+0100132: Rice, bran, raw
+0100133: Rice, bran, steamed
+0100134: Rice, bran, steamed for 60 minutes, fermented
+0100135: Rice, bran, steamed for 60 minutes, fermented
+0100136: Rice, bran, steamed for 60 minutes, fermented
+0100137: Rice, Jasmine, white, raw
+0100138: Rice, Jasmine, brown, raw
+0100139: Rice, Glutinous, white, raw
+0100140: Rice, Glutinous, black, raw
+0100141: Rice, Basmati, raw
+0100142: Rice, Basmati, infrared-irradiated,raw
+0100143: Rice, bran, laboratory defatted, raw
+0100144: Rice, bran, commercial defatted, raw
+0100145: Rice, white, raw
+0100146: Rice, white, parboiled
+0100147: Rice, brown, parboiled
+0100148: Rice, long grain, brown, raw
+0100149: Rice, long grain, brown, parboiled
+0100150: Rice, long grain, brown, parboiled
+0100151: Rice, long grain, white, Asian, raw
+0100152: Rice, long grain, white, Basmati, raw
+0100153: Rice, long grain, white, Jasmine, raw
+0100154: Rice, long grain, white, ecological Jasmine, raw
+0100155: Rice, long grain, white, Instant, parboiled
+0100156: Rice, long grain, white, Instant, parboiled
+0100157: Rice, long grain, white, Instant, parboiled
+0100158: Rice, long grain, white, ecological, parboiled
+0100159: Rice, long grain, white, ecological, parboiled
+0100160: Rice, long grain, white, wild rice mix, parboiled
+0100161: Rice, long grain, white, wild rice mix, parboiled
+0100162: Rice, short grain, brown, ecological, raw
+0100163: Rice, short grain, white, instant flakes
+0100164: Rice, short grain, white, instant flakes
+0100165: Rice, short grain, white, instant flakes
+0100166: Rice, short grain, white, ecological, raw
+0100167: Rice, short grain, white, Avorio, parboiled
+0100168: Rice, polished, milled, raw
+0100169: Rice, bran, raw
+0100170: Rice, milled, raw
+0100171: Rice, milled, raw
+0100172: Rice, milled, raw
+0100173: Rice, milled, raw
+0100174: Rice, non-glutinous, milled, raw
+0100175: Rice, glutinous, milled, raw
+0100176: Rice, brown, raw
+0100177: Rice, milled, raw
+0100178: Rice, white brown, milled, raw
+0100179: Rice, red brown, milled, raw
+0100180: Rice, black brown, milled, raw
+0100181: Rice, Asian Indian variety, milled, organic, raw
+0100182: Rice bran, Asian Indian variety, organic, raw
+0100183: Rice, short/medium grain, flour, raw
+0100184: Rice, short/medium grain, flour, raw
+0100185: Rice, long grain, flour, raw
+0100186: Rice, bran, untreated, raw
+0100187: Rice, bran, treated with Candida utilis strain IFO1086, raw
+0100188: Rice, bran, treated with Candida utilis strain IFO0626, raw
+0100189: Rice flake, thick, powdered, raw 
+0100190: Rice flake, medium, powdered, raw
+0100191: Rice flake, thin, powdered, raw
+0100192: Rice flake, very thin, powdered, raw
+0100193: Rice flake, thick, powdered, raw 
+0100194: Rice flake, medium, powdered, raw
+0100195: Rice flake, thin, powdered, raw
+0100196: Rice flake, very thin, powdered, raw
+0100197: Rice flake, thick, powdered, raw 
+0100198: Rice flake, medium, powdered, raw
+0100199: Rice flake, thin, powdered, raw
+0100200: Rice flake, very thin, powdered, raw
+0100201: Rice flake, thick, powdered, raw 
+0100202: Rice flake, medium, powdered, raw
+0100203: Rice flake, thin, powdered, raw
+0100204: Rice flake, very thin, powdered, raw
+0100205: Rice, parboiled, raw
+0100206: Rice, Arbolio, raw
+0100207: Rice, brown, raw
+0100208: Rice, milled, raw
+0100209: Rice, brown, raw
+0100210: Rice, brown, raw
+0100211: Rice, brown, raw
+0100212: Rice, brown, raw
+0100213: Rice, brown, raw
+0100214: Rice, brown, raw
+0300001: Lima bean, immature
+0300002: Pigeon pea, dried
+0300003: Pigeon pea, immature, boiled
+0300004: Kidney bean, dried
+0300005: Kidney bean, immature
+0300006: Bengal bean, boiled
+0300007: Cowpeas, boiled
+0300008: Horse bean, seeds, raw
+0300009: Horse bean, seeds, raw
+0300010: Horse bean, seeds, conventional tillage, raw
+0300011: Horse bean, seeds, two-layer tillage, raw
+0300012: Horse bean, seeds, surface tillage, raw
+0300013: Horse bean, seeds, minimum tillage, raw
+0300014: Horse bean, seeds, without nitrogen fertilizarion, raw
+0300015: Horse bean, seeds, nitrogen fertilization (50 kg ha-1), raw
+0300016: Horse bean, seeds, nitrogen fertilization (100 kg ha-1), raw
+0300017: Vigna trilobata, seeds, mature, sun-dried, raw
+0300018: Vigna bourneae, seeds, mature, sun-dried, raw
+0300019: Cassia floribunda Cav., seeds, sun-dried, raw
+0300020: Cassia obtusifolia (L.), seeds, sun-dried, raw
+0300021: Afzelia africana, seeds, raw
+0300022: Pentaclethra macrophylla, seeds, raw
+0300023: Afzelia africana, seeds, raw
+0300024: Pentaclethra macrophylla, seeds, raw
+0300025: Canavalia virosa, seeds, mature, dried, raw
+0300026: Petaco bean, seeds, raw
+0300027: Moth bean, seeds, raw
+0300028: Australian sweet lupin, raw
+0300029: Faba beans, raw
+0300030: Lentil, French, raw
+0300032: Chickpea, water-soaked, drained, cooked without salt, drained
+0300033: Asparagus bean, raw
+0300034: Asparagus bean, boiled for 10 minutes, sun-dried
+0300035: Asparagus bean, boiled for 20 minutes, sun-dried
+0300036: Asparagus bean, boiled for 30 minutes, sun-dried
+0300037: Asparagus bean, boiled for 40 minutes, sun-dried
+0300038: Asparagus bean, roasted for 5 minutes
+0300039: Asparagus bean, roasted for 10 minutes
+0300040: Asparagus bean, roasted for 15 minutes
+0300041: Asparagus bean, roasted for 20 minutes
+0300042: Legume, seeds, mature, whole, raw
+0300043: Legume, seeds, mature, whole, raw
+0300044: Legume, seeds, mature, whole, raw
+0300045: Cranberry bean, seeds, flour, raw
+0300046: Cranberry bean, seeds, dehulled, roasted, flour
+0300047: Cranberry bean, seeds, dehulled, sproated, flour
+0300048: Cranberry bean, seeds, boiled, drained, flour
+0300049: Cranberry bean, seeds, cooked, drained, flour
+0300050: Black gran, seeds, whole, raw
+0300051: Black gran, seeds, cotyledon, milled, raw
+0300052: Black gran, seeds, germ, milled, raw
+0300053: Black gran, seeds, seed coat, milled, raw
+0300054: Black gran, seeds, aleurone layer enriched in seed coat, milled, raw
+0300055: Black gran, seeds, plumule fraction, milled, raw
+0300056: Field pea, raw
+0300057: Field pea, water-soaked, autoclaved
+0300058: Field pea, germinated
+0300059: Field pea, autoclaved germinates
+0300060: Chickpea, whole, raw
+0300061: Chickpea, whole, water-soaked, autoclaved
+0300062: Chickpea, whole, germinated, dried
+0300063: Chickpea, whole, germinated, autoclaved
+0300064: Black gram, whole, raw
+0300065: Black gram, whole, water-soaked, autoclaved
+0300066: Black gram, whole, germinated
+0300067: Black gram, whole, autoclaved germinates
+0300068: Lentil, whole, raw
+0300069: Lentil, whole,water-soaked, autoclaved
+0300070: Lentil, whole, germinated
+0300071: Lentil, whole, autoclaved germinates
+0300072: Chickpea, split, raw
+0300073: Chickpea, whole, raw
+0300074: Chickpea, puffed, raw
+0300075: Black gram, split, raw
+0300076: Black gram, whole, raw
+0300077: Cowpea, raw
+0300078: Green gram, split, raw
+0300079: Green gram, whole, raw
+0300080: Horse gram, raw
+0300081: Lentil, split, raw
+0300082: Black gram, seeds, dried, raw
+0300083: Black gram, seeds, soaked, raw
+0300084: Black gram, seeds, dried, germinated for 1 day
+0300085: Black gram, seeds, dried, germinated for 2 days
+0300086: Black gram, seeds, dried, germinated for 3 days
+0300087: Common bean, seeds, raw
+0300089: Mung bean, seeds, whole, raw
+0300090: Green gram, seeds, water-soaked, dried
+0300091: Green gram, seeds, water-soaked, germinated, dried
+0300092: Green gram, seeds, water-soaked, germinated, dehulled, dried
+0300093: Cowpea, seeds, water-soaked, dried
+0300094: Cowpea, seeds, water-soaked, germinated, dried
+0300095: Cowpea, seeds, water-soaked, germinated, dehulled, dried
+0300096: Lentil, seeds, water-soaked, dried
+0300097: Lentil, seeds, water-soaked, germinated, dried
+0300098: Lentil, seeds, water-soaked, germinated, dehulled, dried
+0300099: Chickpea, seeds, water-soaked, dried
+0300100: Chickpea, seeds, water-soaked, germinated, dried
+0300101: Chickpea, seeds, water-soaked, germinated, dehulled, dried 
+0300102: Mung bean, sprouts, raw
+0300103: Green gram, seeds, mature, raw
+0300104: Green gram, seeds, mature, water-soaked, freeze-dried
+0300105: Green gram, seeds, mature, water-soaked, irradiated (2 kGy), freeze-dried
+0300106: Green gram, seeds, mature, water-soaked, irradiated (4 kGy), freeze-dried
+0300107: Green gram, seeds, mature, water-soaked, irradiated (6 kGy), freeze-dried
+0300108: Mung bean, seeds, raw
+0300109: Chickpea, seeds, raw
+0300110: Chickpea, seeds, raw
+0300111: Lentil, seeds, raw
+0300112: Lentil, seeds, raw
+0300113: V. aconitifolia, seeds, mature, sun-dried, raw
+0300114: Cowpea, seeds, flour, raw
+0300115: Cowpea, seeds, flour, extruded
+0300116: Cowpea, seeds, air-dried, raw
+0300117: V. unguiculata, seeds, mature, raw
+0300118: V. unguiculata, seeds, mature, boiled, oven-dried
+0300119: Cowpea, seeds, decorticated, flour, raw
+0300120: Cowpea, seeds, decorticated, flour, raw
+0300121: Cowpea, seeds, decorticated, flour, raw
+0300122: Cowpea, seeds, decorticated, flour, raw
+0300123: Cowpea, seeds, decorticated, flour, raw
+0300124: Cowpea, seeds, decorticated, flour, raw
+0300125: Cowpea, seeds, decorticated, flour, raw
+0300126: Cowpea, seeds, decorticated, flour, raw
+0300127: Cowpea, seeds, decorticated, flour, raw
+0300128: Cowpea, seeds, decorticated, flour, raw
+0300129: Cowpea, seeds, decorticated, flour, raw
+0300130: Cowpea, seeds, decorticated, flour, raw
+0300137: Cowpea, seeds, raw
+0300138: Cowpea, seeds, raw
+0300139: Cowpea, seeds, raw
+0300140: Cowpea, seeds, raw
+0300141: Cowpea, seeds, raw
+0300142: Cowpea, seeds, oven-dried, raw
+0300143: Cowpea, seeds, germinated, oven-dried, raw
+0300144: Cowpea, seeds, fermented, oven-dried, raw
+0300145: Cowpea, seeds, autoclaved, oven-dried, raw
+0300146: Cowpea, seeds, mature, raw
+0300147: Cowpea, seeds, mature, water-soaked, sun-dried
+0300148: Cowpea, seeds, mature, water-soaked, boiled, sun-dried
+0300149: Cowpea, seeds, mature, water-soaked, germinated, sun-dried
+0300150: Cowpea, seeds, mature, roasted
+0300151: Cowpea, seeds, mature, decorticated, raw
+0300152: Cowpea, seeds, mature, decorticated, water-soaked, sun-dried
+0300153: Cowpea, seeds, mature, decorticated, water-soaked, boiled, sun-dried
+0300154: Cowpea, seeds, mature, decorticated, water-soaked, boiled, sun-dried
+0300155: Cowpea, seeds, mature, roasted
+0300156: Vetch, seeds, mature, raw
+0300157: Beans, seeds, raw
+0300158: Vetch, seeds, raw
+0300159: Fava beans, seeds, boiled
+0300160: Lentil, seeds, boiled
+0300161: Faba beans, raw
+0300162: Faba beans, water-soaked, drained, cooked without salt, drained
+0300163: Green gram, seeds, whole, raw
+0300164: Green gram, seeds, whole, water-soaked, pressure cooked
+0300165: Green gram, seeds, whole, water-soaked, microwave cooked
+0300166: Bengal gram, seeds, whole, raw
+0300167: Bengal gram, seeds, whole, water-soaked, pressure cooked
+0300168: Bengal gram, seeds, whole, water-soaked, microwave cooked
+0300169: Cowpea, seeds, whole, raw
+0300170: Cowpea, seeds, whole, water-soaked, pressure cooked
+0300171: Cowpea, seeds, whole, water-soaked, microwave cooked
+0300172: Horse gram, seeds, whole, raw
+0300173: Horse gram, seeds, whole, water-soaked, pressure cooked
+0300174: Horse gram, seeds, whole, water-soaked, microwave cooked
+0300175: Lentil, seeds, whole, raw
+0300176: Lentil, seeds, whole, water-soaked, pressure cooked
+0300177: Lentil, seeds, whole, water-soaked, microwave cooked
+0300178: Field beans, seeds, dried, whole, raw
+0300179: Field beans, seeds, dried, whole, water-soaked, pressure cooked
+0300180: Field beans, seeds, dried, water-soaked, microwave cooked
+0300181: French beans, seeds, whole, raw
+0300182: French beans, seeds, whole, water-soaked, pressure cooked
+0300183: French beans, seeds, whole, water-soaked, microwave cooked
+0300184: Broad beans, seeds, whole, raw
+0300185: Broad beans, seeds, whole, water-soaked, pressure cooked
+0300186: Broad beans, seeds, whole, water-soaked, microwave cooked
+0300187: Common vetch, Green, seeds, dried, raw
+0300188: Common vetch, Brown, seeds, dried, raw
+0300189: Common vetch, Black, seeds, dried, raw
+0300190: Common vetch, seeds, green cotyledon, dried, raw
+0300191: Common vetch, seeds, orange cotyledon, dried, raw
+0300192: Common vetch, seeds, beige cotyledon, dried, raw
+0300193: Common vetch, seeds, small size, dried, raw
+0300194: Common vetch, seeds, medium size, dried, raw
+0300195: Common vetch, seeds, large size, dried, raw
+0300196: Lentil, seeds, raw
+0300197: Lentil, seeds, raw
+0300198: Lentil, seeds, raw
+0300199: Grass pea, seeds, raw
+0300200: Grass pea, seeds, raw
+0300201: Grass pea, seeds, raw
+0300202: Cowpea, seeds, flour, raw
+0300203: Cowpea, seeds, flour, raw
+0300204: Cowpea, seeds, flour, raw
+0300205: Cowpea, seeds, flour, raw
+0300206: Cowpea, seeds, flour, raw
+0300207: Cowpea, seeds, flour, raw
+0300208: Cowpea, seeds, flour, raw
+0300209: Cowpea, seeds, flour, raw
+0300210: Cowpea, seeds, flour, raw
+0300211: Cowpea, seeds, flour, raw
+0300212: Cowpea, seeds, flour, raw
+0300213: Cowpea, seeds, flour, raw
+0300214: Cowpea, seeds, flour, raw
+0300215: Cowpea, seeds, flour, raw
+0300216: Cowpea, seeds, flour, raw
+0300217: Cowpea, seeds, flour, raw
+0300218: Cowpea, seeds, flour, raw
+0300219: Cowpea, seeds, flour, raw
+0300220: Cowpea, seeds, flour, raw
+0300221: Cowpea, seeds, flour, raw
+0300222: Cowpea, seeds, flour, raw
+0300223: Cowpea, seeds, flour, raw
+0300224: Cowpea, seeds, flour, raw
+0300225: Cowpea, seeds, flour, raw
+0300226: Cowpea, seeds, flour, raw
+0300227: Cowpea, seeds, flour, raw
+0300228: Cowpea, seeds, flour, raw
+0300229: Cowpea, seeds, flour, raw
+0300230: Cowpea, seeds, flour, raw
+0300231: Cowpea, seeds, flour, raw
+0300232: Cowpea, seeds, flour, raw
+0300233: Cowpea, seeds, flour, raw
+0300234: Cowpea, seeds, flour, raw
+0300235: Cowpea, seeds, flour, raw
+0300236: Cowpea, seeds, flour, raw
+0300237: Cowpea, seeds, flour, raw
+0300238: Cowpea, seeds, flour, raw
+0300239: Cowpea, seeds, raw
+0300240: Cowpea, seeds, cooked, oven dried
+0300241: Cowpea, seeds, germinated 24 h, oven dried
+0300242: Cowpea, seeds, germinated 48 h, oven dried
+0300243: Cowpea, seeds, germinated 72 h, oven dried
+0300244: Cowpea, seeds, fermented 24 h, oven dried
+0300245: Cowpea, seeds, fermented 48 h, oven dried
+0300246: Cowpea, seeds, fermented 72 h, oven dried
+0300247: Bengal gram, seeds, raw
+0300248: Black gram, seeds, raw
+0300249: Green gram, seeds, raw
+0300250: Horse gram, seeds, raw
+0300251: Chickpea, seeds, cotyledon, raw
+0300252: Chickpea, seeds, embryonic axe, raw
+0300253: Chickpea, seeds, seed coat, raw
+0300254: Horse gram, seeds, cotyledon, raw
+0300255: Horse gram, seeds, embryonic axe, raw
+0300256: Horse gram, seeds, seed coat, raw
+0300257: Chickpea, seeds, raw
+0300258: Chickpea, seeds, cooked, dried
+0300259: Chickpea, seeds, mature, water-soaked, raw
+0300260: Chickpea, seeds, mature, water-soaked, pressure-cooked
+0300261: White pea, seeds, mature, water-soaked, raw
+0300262: White pea, seeds, mature, water-soaked, pressure-cooked
+0300263: Pea, seeds, dried, raw
+0300264: Chickpea, seeds, dried, raw
+0300265: Lentil, seeds, dried, raw
+0300266: Bengal gram, seeds, dehulled, milled into flour, raw
+0300267: Black gram, seeds, dehulled, milled into flour, raw
+0300268: Green gram, seeds, dehulled, milled into flour, raw
+0300269: Lentil, seeds, dehulled, milled into flour, raw
+0300270: Bengal gram, seeds, dehulled, milled into flour, pressure-cooked
+0300271: Black gram, seeds, dehulled, milled into flour, pressure-cooked
+0300272: Green gram, seeds, dehulled, milled into flour, pressure-cooked
+0300273: Lentil, seeds, dehulled, milled into flour, pressure-cooked
+0300274: Atylosia scarabaeoides, seeds, sun-dried, raw
+0300275: Rhynchosia filipes, seeds, sun-dried, raw
+0300276: Vigna trilobata, seeds, sun-dried, raw
+0300277: Vigna unguiculata subsp. unguiculata, seeds, sun-dried, raw
+0300278: Broad beans, seeds, water-soaked, boiled, drained, hulled
+0300279: Chickpeas, seeds, water-soaked, boiled, drained
+0300280: Lentil, seeds, large, boiled, drained
+0300281: Lentil, seeds, small, boiled, drained
+0300282: Beans, Giant, seeds, water-soaked, boiled, drained
+0300283: Beans, Elephant, seeds, water-soaked, boiled, drained
+0300284: Black-eyed beans, seeds, water-soaked, boiled, drained
+0300285: Lentil, seeds, dried, raw
+0300286: Lentil, seeds, dried, raw
+0300287: Lentil, seeds, dried, raw
+0300288: Lentil, seeds, dried, raw
+0300289: Lentil, seeds, dried, raw
+0300290: Lentil, seeds, dried, raw
+0300291: Lentil, seeds, dried, raw
+0300292: Lentil, seeds, dried, raw
+0300293: Chickling (grass pea), seeds, dried, raw
+0300294: Pea, seeds, dried, raw
+0300295: Pea, Green, seeds, dried, raw
+0300296: Chickpea, seeds, dried, raw
+0300297: Chickpea, seeds, dried, raw
+0300298: Chickpea, seeds, dried, raw
+0300299: Soybean, seeds, dried, raw
+0300300: Fava bean (broad bean), seeds, dried, raw
+0300301: Fava bean (broad bean), seeds, dried, raw
+0300302: Navy bean, seeds, dried, raw
+0300303: Cannellini bean, seeds, dried, raw
+0300304: Roman bean, seeds, dried, raw
+0300305: Butter bean, seeds, dried, raw
+0300306: Black eyed bean, seeds, dried, raw
+0300307: Black bean, seeds, dried, raw
+0300308: Roman bean, seeds, dried, raw
+0300309: Azuki bean, seeds, dried, raw
+0300310: Kidney bean, seeds, dried, raw
+0300311: Faba beans, seeds, raw
+0300312: Faba beans, seeds, dehulled, raw
+0300313: Faba beans, seeds, flaked
+0300314: Faba beans, seeds, cooked
+0300315: Faba beans, seeds, germinated
+0300316: Bengal gram, seeds, raw
+0300317: Black gram, seeds, raw
+0300318: Green gram, seeds, raw
+0300319: Lentil, seeds, raw
+0300320: Faba bean, seeds, mature, dried, raw
+0300327: Peas, seeds, dried, raw
+0300328: Lentil, seeds, dried, raw
+0300329: Chickpea, seeds, dried, raw
+0300330: Beans, White, , seeds, dried, raw
+0300331: Broad beans, seeds, dried, raw
+0300332: Chickpea, seeds, dried, raw
+0300333: Chickpea, seeds, dried, raw
+0300334: Grass pea, seeds, dried, raw
+0300335: Grass pea, seeds, dried, raw
+0300336: Lentil, seeds, dried, raw
+0300337: Lentil, seeds, dried, raw
+0300338: Lentil, seeds, dried, raw
+0300339: Lentil, seeds, dried, raw
+0300340: Lentil, seeds, dried, raw
+0300341: Lentil, seeds, dried, raw
+0300342: Pea, seeds, dried, raw
+0300343: Cowpea, seeds, raw
+0300344: Pea, seeds, raw
+0300345: Great northern beans, seeds, dried, raw
+0300346: Baby lima beans, seeds, dried, raw
+0300347: Large lima beans, seeds, dried, raw
+0300348: Cowpea, blackeyed, seeds, dried, raw
+0300349: Chickpea, seeds, dried, raw
+0300350: Peas, green, seeds, without seed coat, splited, dried, raw
+0300351: Lentil, seeds, without seed coat, splited, dried, raw
+0300352: Great northern beans, seeds, dried, boiled, drained
+0300353: Lima beans, Baby, seeds, dried, boiled, drained
+0300354: Lima beans, Large, seeds, dried, boiled, drained
+0300355: Cowpea, blackeyed, seeds, dried, boiled, drained
+0300356: Chickpea, seeds, dried, boiled, drained
+0300357: Peas, green, seeds, without seed coat, splited, dried, boiled, drained
+0300358: Lentil, seeds, without seed coat, splited, dried, boiled, drained
+0300359: Field pea, seeds, whole, raw
+0300360: Field pea, seeds, dehulled, raw
+0300361: Field pea, seeds, whole, boiled
+0300362: Field pea, seeds, dehulled, boiled
+0300363: Faba beans, seeds, dried, raw
+0300364: Faba beans, seeds, dried, soaked, raw
+0300365: Faba beans, seeds, dried, soaked, blanched
+0300366: Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)
+0300367: Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)
+0300368: Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)
+0300369: Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)
+0300370: Chickpea, seeds, dried, raw
+0300371: Chickpea, seeds, dried, water-soaked, raw
+0300372: Chickpea, seeds, dried, water-soaked, blanched
+0300373: Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)
+0300374: Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)
+0300375: Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)
+0300376: Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)
+0300377: Faba beans, seeds, dried, raw
+0300378: Faba beans, seeds, dried, soaked, raw
+0300379: Faba beans, seeds, dried, soaked, germinated for 24 h, raw
+0300380: Faba beans, seeds, dried, soaked, germinated for 48 h, raw
+0300381: Faba beans, seeds, dried, soaked, germinated for 72 h, raw
+0300382: Chickpea, seeds, dried, raw
+0300383: Chickpea, seeds, dried, water-soaked, raw
+0300384: Chickpea, seeds, dried, water-soaked, germinated for 24 h, raw
+0300385: Chickpea, seeds, dried, water-soaked, germinated for 48 h, raw
+0300386: Chickpea, seeds, dried, water-soaked, germinated for 72 h, raw
+0300387: Common bean, seed, raw
+0300388: Common bean, seed, raw
+0300389: Common bean, seed, raw
+0300390: Common bean, seed, raw
+0300391: Common bean, seed, raw
+0300392: Common bean, seed, raw
+0300393: Common bean, seed, raw
+0300394: Common bean, seed, raw
+0300395: Common bean, seed, raw
+0300396: Common bean, seed, raw
+0300397: Common bean, seed, raw
+0300398: Common bean, seed, raw
+0300399: Common bean, seed, raw
+0300400: Common bean, seed, raw
+0300401: Common bean, seed, raw
+0300402: Common bean, seed, raw
+0300403: Common bean, seed, raw
+0300404: Common bean, seed, raw
+0300405: Common bean, seed, raw
+0300406: Common bean, seed, raw
+0300407: Common bean, seed, raw
+0300408: Common bean, seed, raw
+0300409: Common bean, seed, raw
+0300410: Common bean, seed, raw
+0300411: Common bean, seed, raw
+0300412: Common bean, seed, raw
+0300413: Common bean, seed, raw
+0300414: Common bean, seed, raw
+0300415: Common bean, seed, raw
+0300416: Common bean, seed, raw
+0300417: Common bean, seed, raw
+0300418: Common bean, seed, raw
+0300419: Common bean, seed, raw
+0300420: Common bean, seed, raw
+0300421: Common bean, seed, raw
+0300422: Common bean, seed, raw
+0300423: Common bean, seed, raw
+0300424: Common bean, seed, raw
+0300425: Common bean, seed, raw
+0300426: Common bean, seed, raw
+0300427: Common bean, seed, raw
+0300428: Common bean, seed, raw
+0300429: Common bean, seed, raw
+0300430: Common bean, seed, raw
+0300431: Common bean, seed, raw
+0300432: Common bean, seed, raw
+0300433: Common bean, seed, raw
+0300440: Chickpea, seed, mature, raw
+0300441: Chickpea, seed, mature, water-soaked, pressure-cooked, freeze-dried
+0300442: Common bean, flour, raw
+0300443: Common bean, flour, raw
+0300444: Common bean, flour, raw
+0300445: Common bean, seed, canned, dried
+0300446: Common bean, seed, canned, dried
+0300447: Common bean, seed, canned, dried
+0300448: African yam bean, seed, raw
+0300449: African yam bean, seed, raw
+0300450: Lima bean, seed, raw
+0300451: Faba bean, seed, raw
+0300452: Faba bean, seed, raw
+0300453: Faba bean, seed, raw
+0300454: Cowpea, seed, raw
+0300455: Cowpea, seed, raw
+0300456: Cowpea, seed, raw
+0300457: Chickpea, seed, raw
+0300458: Chickpea, seed, raw
+0300459: Chickpea, seed, raw
+0300460: Lentil, seed, raw
+0300461: Lentil, seed, raw
+0300462: Lentil, seed, raw
+0300463: Chickpea, seed, tempered, dried, raw
+0300464: Chickpea, seed, water-soaked, cooked, dried
+0300465: Chickpea, seed, raw
+0300466: Cowpea, seed, raw
+0300467: Kidney bean, seed, raw
+0300468: Faba bean, seed, raw
+0300469: Faba bean, seed, canned
+0300470: Chickpea, seed, raw
+0300471: Chickpea, seed, water-soaked, boiled, dried
+0300472: Chickpea, seed, water-soaked, autoclaved, dried
+0300473: Chickpea, seed, water-soaked, microwaved, dried
+0300474: Chickpea, seed, raw
+0300475: Chickpea, seed, water-soaked, pressure-cooked
+0300476: Chickpea, seed, water-soaked, microwaved
+0300477: Chickpea, seed, water-soaked, sprouted, raw
+0300478: Chickpea, seed, water-soaked, sprouted, pressure-cooked
+0300479: Chickpea, seed, water-soaked, sprouted, microwaved
+0300480: Pea, seed, raw
+0300481: Lentil, seed, raw
+0300482: Chickpea, seed, raw
+0300483: Chickpea, dehulled seed, raw
+0300484: Cowpea, dehulled seed, raw
+0300486: Broad beans, whole, dried, raw
+0300487: Chickpeas, whole, dried, raw
+0300488: Haricot beans, white, whole, sun-dried, raw
+0300489: Lentils, whole, sun-dried, raw
+0300490: Peas, field, whole, sun-dried, raw
+0300492: Mung bean, boiled
+0300493: Mung bean flour, raw
+0300494: Mung bean flour, porridge
+0300495: Kidney beans, canned, drained 
+0300496: Chickpeas, canned, drained 
+0300497: Mung bean, raw
+0300498: Chickpea, raw
+0300499: Lentil, raw
+0300500: Chickpea, whole, raw
+0300501: Chickpea, split, raw
+0300502: Chickpea, white, raw
+0300503: Black gram, split, raw
+0300504: Green gram, split, raw
+0300505: Lentil, raw
+0300506: Ground pea, stew 
+0300507: Ground chick pea, stew 
+0300508: Ground grass pea, stew 
+0300509: Broad bean, split, stew 
+0300510: Broad bean and lentil, split, stew 
+0300511: Lentil, split, stew
+0300512: Cowpeas, boiled with salt
+0300513: Pigeon Peas, dried
+0300514: Hyacinth bean, boiled with salt
+0300515: Cowpeas, stew
+0300516: Beans, pinto and red, dried, raw 
+0300517: Lentils, dried, raw 
+0300518: Chickpeas, dried, raw
+0300519: Splitpeas, dried, raw 
+0300520: Beans, pinto and red, cooked, drained
+0300521: Lentils, cooked whithout discarding the excessive water
+0300522: Lentil, seed, water-soaked for 12 h, raw, dried
+0300523: Lentil, seed, water-soaked for 12 h, boiled, dried
+0300524: Lentil, seed, water-soaked for 12 h, autoclaved, dried
+0300525: Lentil, seed, water-soaked for 12 h, microwave cooked, dried
+0300526: Cowpea, seeds, water-soaked, drained, boiled (50% water 50% seeds)
+0300527: Cowpea, seeds, raw
+0300528: Chickpea, seeds, raw
+0300529: Pigeon pea, seeds, raw
+0300530: Lentil, seeds, water-soaked, drained, boiled
+0300531: Lentil, seeds, raw
+0300532: Lupins, seeds, raw
+0300533: Lupins, seeds, canned
+0400001: Groundnut, boiled
+0400002: Groundnut, flour
+0500355: Bell tree dahlia, raw
+0500356: Bell tree dahlia, cooked
+0500357: Green leafy vegetables, raw
+0500358: Green leafy vegetables, cooked
+0500359: Mint, raw
+0500360: Mint, cooked
+0500361: Parsley, raw
+0500362: Green leafy vegetables, raw
+0500363: Green leafy vegetables, cooked
+0500364: Cowpea, raw
+0500365: Malanga, raw
+0500366: Asystasia, raw
+0500367: Asystasia,boiled
+0500368: Asystasia,boiled
+0500369: Mustard greens, raw
+0500370: Mustard greens, boiled
+0500371: Mustard greens, boiled
+0500372: Tassel flower, raw
+0500373: Tassel flower, boiled
+0500374: Tassel flower, boiled
+0500375: Water williow, raw
+0500376: Water williow, boiled
+0500377: Water williow, boiled
+0500378: Green leafy vegetables, raw
+0500379: Green leafy vegetables, boiled
+0500380: Green leafy vegetables, boiled
+0500381: Bladder leaves, raw
+0500382: Bladder leaves, boiled
+0500383: Bladder leaves, boiled
+0500384: Knotgrass leaves, raw 
+0500385: Knotgrass leaves, boiled
+0500386: Knotgrass leaves, boiled
+0500387: Knotgrass leaves, raw 
+0500388: Knotgrass leaves, boiled
+0500389: Knotgrass leaves, boiled
+0500390: Green leafy vegetables, raw 
+0500391: Green leafy vegetables, blanched and boiled
+0500392: Prince's feather,raw
+0500393: Prince's feather, blanched and boiled
+0500394: Fluted gourd leaves, raw
+0500395: Fluted gourd leaves, blanched and boiled
+0500396: Jute leaves, raw
+0500397: Jute leaves, blanched and boiled
+0500398: Bitter leaf, raw
+0500399: Bitter leaf, blanched and boiled
+0500400: African basil, raw
+0500401: African basil, boiled
+0500402: Cabbage, dried
+0500403: Cabbage, cooked
+0500404: Colocasia, dried
+0500405: Colocasia, cooked
+0500406: Cauliflower, dried
+0500407: Cauliflower, cooked
+0500408: Green leafy vegetable, dried
+0500409: Green leafy vegetable, cooked
+0500410: Spinach, dried
+0500411: Spinach, cooked
+0500412: Harkuch leaves, raw
+0500413: Pigweed leaves, raw
+0500414: Pigweed leaves, raw
+0500415: Pigweed leaves, cooked
+0500416: Pigweed leaves, raw
+0500417: Pigweed leaves, cooked
+0500418: Radish leaves, raw
+0500419: Radish leaves, raw
+0500420: Radish leaves, cooked
+0500421: Radish leaves, raw
+0500422: Radish leaves, cooked
+0500423: Spinach, raw
+0500424: Spinach, raw
+0500425: Spinach, cooked
+0500426: Spinach, raw
+0500427: Spinach, cooked
+0500428: English pea leaves, raw
+0500429: English pea leaves, raw
+0500430: English pea leaves, cooked
+0500431: Elephant ear, raw
+0500432: Chinese spinach, raw
+0500433: Bottle gourd, raw
+0500434: Mallow, raw
+0500435: Field mustard, raw
+0500436: Field mustard, raw
+0500437: Spinach, cooked
+0500438: Spinach, cooked
+0500439: Cauliflower, cooked
+0500440: Cauliflower, cooked
+0500441: Calabash, cooked
+0500442: Calabash, cooked
+0500443: Butterhead lettuce, dried
+0500444: Rucola, Raw leaves, dried
+0500445: Watercress, dried
+0500446: Kale, dried
+0500447: Kale, dried
+0500448: Chinese cabbage, dried
+0500449: Chinese cabbage, dried
+0500450: Cabbage, dried
+0500451: Cabbage, dried
+0500452: Spinach substitute, dried
+0500453: Amaranth, raw
+0500454: Amaranth, blanched in water
+0500455: Amaranth, blanched
+0500456: Amaranth, blanched in saltwater
+0500457: Amaranth, blanched
+0500458: Amaranth, blanched
+0500459: Amaranth, dried (sun)
+0500460: Amaranth, dried (solar)
+0500461: Amaranth, dried (shade)
+0500462: Amaranth, dried (cabinet)
+0500463: Amaranth, dried (low temperature)
+0500464: Amaranth, raw
+0500465: Amaranth, cooked
+0500466: Amaranth, cooked
+0500467: Amaranth, cooked
+0500468: Green leafy vegetable, raw
+0500469: Green leafy vegetable, cooked
+0500470: Green leafy vegetable, cooked
+0500471: Green leafy vegetable, cooked
+0500472: Green leafy vegetable, raw
+0500473: Green leafy vegetable, cooked
+0500474: Green leafy vegetable, cooked
+0500475: Green leafy vegetable, cooked
+0500476: Shepu leaves, cooked
+0500477: Mint, raw
+0500478: Spinach, cooked
+0500479: Radish leaves, cooked
+0500480: Green leafy vegetable, cooked
+0500481: Cauliflower, cooked
+0500482: Green leafy vegetable, cooked
+0500483: Lettuce, raw
+0500484: Green leafy vegetable, cooked
+0500485: Mustard leaves, cooked
+0500486: Green leafy vegetable, cooked
+0500487: Currypatta, cooked
+0500488: Red amaranth, cooked
+0500489: Cabbage,cooked
+0500490: Onion stalk leaves, cooked
+0500491: Bitter leaf, raw 
+0500492: Non-bitter leaf, raw
+0500493: Misbredie, raw
+0500494: Misbredie, cooked 
+0500495: Slippery vine, raw
+0500496: Slippery vine, blanched 
+0500497: Slippery vine, dried (sun)
+0500498: Slippery vine, cooked
+0500499: Green leafy vegetable, cooked
+0500500: Green leafy vegetable, cooked
+0500501: Chinese cabbage, cooked 
+0500502: Watercress, cooked
+0500503: Green leafy vegetable, cooked
+0500504: Sweet potatoe leaves, cooked  
+0500505: Green leaf, dried
+0500506: Green leaf, cooked
+0500507: Fluted pumpkin leaf, dried
+0500508: Fluted pumpkin leaf, cooked
+0500509: Green leafy vegetable, dried
+0500510: Green leafy vegetable, cooked
+0500511: Canola, raw
+0500512: Kale, raw
+0500513: Collard greens, raw
+0500514: Cabbage, raw
+0500515: Canola, raw
+0500516: Canola, raw
+0500517: Canola, raw
+0500518: Canola, dried
+0500519: Canola, raw
+0500520: Green leafy vegetable, dried
+0500521: Collard greens, raw
+0500522: Kale, raw
+0500523: Sweet potatoe greens, raw
+0500524: Wild spinach, raw
+0500525: Hunter's spinach, raw
+0500526: Wild foxglove, raw
+0500527: Spindle-pod, raw
+0500528: Jelly melon, raw
+0500529: Devil's thorn, raw
+0500530: Gallant soldier, raw
+0500531: Yellow justicia, raw
+0500532: Stars talk, raw
+0500533: Sticky gooseberry, raw
+0500534: Coffee senna, raw
+0500535: Black nightshade, raw
+0500536: Broccoli leaves, raw
+0500537: Cactus leaf, raw
+0500538: Spinach, raw
+0500539: Watercress, raw
+0500540: Marjoram, raw
+0500541: Mint, raw
+0500542: Parsley, raw
+0500543: Green leafy vegetables, raw
+0500544: Green leafy vegetables, raw
+0500545: Wild lettuce, raw
+0500546: Cocoyam leaves, raw
+0500547: Spinach, raw
+0500548: Amaranth, raw
+0500549: Mint, raw
+0500550: Bengal gram, raw
+0500551: Cauliflower, raw
+0500552: Mint, raw
+0500553: Bengal gram, raw
+0500554: Spinach, raw
+0500555: Cauliflower, raw
+0500556: Amaranth, raw
+0500557: Leaf parsley, raw
+0500558: Celery leaves, raw
+0500559: Lettuce, raw
+0500560: Cabbage, raw
+0500561: Amaranth, raw
+0500562: Amaranth, cooked
+0500563: Amaranth, cooked (pressure)
+0500564: Amaranth, cooked (microwave)
+0500565: Green leafy vegetables, raw
+0500566: Green leafy vegetables, cooked
+0500567: Green leafy vegetables, cooked (pressure)
+0500568: Green leafy vegetables, cooked (microwave)
+0500569: Green leafy vegetables, raw
+0500570: Green leafy vegetables, cooked
+0500571: Green leafy vegetables, cooked (pressure)
+0500572: Green leafy vegetables, cooked (microwave)
+0500573: Spinach, raw
+0500574: Spinach, cooked 
+0500575: Spinach, cooked (pressure)
+0500576: Spinach, cooked (microwave)
+0500577: Green leafy vegetables, raw
+0500578: Green leafy vegetables, blanched
+0500579: Spinach, raw
+0500580: Spinach, raw
+0500581: Spinach, raw
+0500582: Spinach, raw
+0500583: Spinach, raw
+0500584: Green leafy vegetables, raw
+0500585: Green leafy vegetables, raw
+0500586: Green leafy vegetables, raw
+0500587: Green leafy vegetables, raw
+0500588: Green leafy vegetables, raw
+0500589: Spinach, raw
+0500590: Spinach, steamed
+0500591: Spinach, cooked (microwave)
+0500592: Broccoli Leaves, raw
+0500593: Broccoli leaves, steamed
+0500594: Broccoli leaves, cooked (microwave)
+0500595: Green leafy vegetables, raw
+0500596: Green leafy vegetables, cooked
+0500597: Green leafy vegetables, cooked
+0500598: Green leafy vegetables, cooked
+0500599: Cassava Leaves, raw
+0500600: Cassava Leaves, cooked
+0500601: Cassava Leaves, cooked
+0500602: Cassava Leaves, boiled
+0500603: Cassava, leaf, boiled 
+0500604: Chinese cabbage, boiled
+0500605: Pumpkin, leaf, boiled
+0500606: Pumpkin, fruit, boiled
+0500607: Amaranth, boiled
+0500608: Okra, leaf, boiled
+0500609: Okra, fruit
+0500610: Pit pit, raw
+0500611: Aupa,raw
+0500612: Tulip,raw
+0500613: Aibika, raw
+0500614: Pumpkin tips, raw
+0500615: Sago, raw
+0500616: Cassava, leaves, boiled 
+0500617: Cassava, leaves, raw
+0500618: Cassava, leaves, destalked, raw
+0500619: Cassava, leaves, destalked, boiled
+0500620: Cassava, leaves, destalked, boiled
+0500621: Cassava, leaves, destalked, boiled
+0600001: Avocado, raw
+0600002: Banana, raw
+0600003: Indian plum, raw
+0600004: Guavas, raw
+0600005: Mango, raw
+0600006: Mango, boiled
+0600007: Banana, raw
+0600008: Guavas, raw
+0600009: Bread fruit, seeds, raw
+0600010: Coconut, raw
+0600011: Kwambi figs, raw

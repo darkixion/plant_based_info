@@ -1,0 +1,3610 @@
+[
+  {
+    "key": "0100104",
+    "name": "Maize green, boiled"
+  },
+  {
+    "key": "0100105",
+    "name": "Maize, flour, 65% extraction, boiled"
+  },
+  {
+    "key": "0100106",
+    "name": "Maize, flour, 95% extraction, boiled"
+  },
+  {
+    "key": "0100107",
+    "name": "Maize, bran"
+  },
+  {
+    "key": "0100108",
+    "name": "Sorghum flour, boiled"
+  },
+  {
+    "key": "0100109",
+    "name": "Rice, raw"
+  },
+  {
+    "key": "0100110",
+    "name": "Maize, dried"
+  },
+  {
+    "key": "0100111",
+    "name": "Rice, long grain, brown, raw"
+  },
+  {
+    "key": "0100112",
+    "name": "Rice, long grain, brown, parboiled"
+  },
+  {
+    "key": "0100113",
+    "name": "Rice, long grain, milled, parboiled"
+  },
+  {
+    "key": "0100114",
+    "name": "Rice, long grain, milled, raw"
+  },
+  {
+    "key": "0100115",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100116",
+    "name": "Rice, white, milled, raw"
+  },
+  {
+    "key": "0100117",
+    "name": "Rice, yellow, milled, raw"
+  },
+  {
+    "key": "0100118",
+    "name": "Rice, long grain, brown, cooked"
+  },
+  {
+    "key": "0100119",
+    "name": "Rice, long grain, white, cooked"
+  },
+  {
+    "key": "0100120",
+    "name": "Rice gruel, fermented, malted rice and water"
+  },
+  {
+    "key": "0100121",
+    "name": "Rice, white, broken, raw"
+  },
+  {
+    "key": "0100122",
+    "name": "Rice, white, broken, raw"
+  },
+  {
+    "key": "0100123",
+    "name": "Rice, white, broken, raw"
+  },
+  {
+    "key": "0100124",
+    "name": "Rice, white, broken, raw"
+  },
+  {
+    "key": "0100125",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100126",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100127",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100128",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100129",
+    "name": "Rice, milled, cooked"
+  },
+  {
+    "key": "0100130",
+    "name": "Rice, milled, cooked"
+  },
+  {
+    "key": "0100131",
+    "name": "Rice, milled, cooked"
+  },
+  {
+    "key": "0100132",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100133",
+    "name": "Rice, bran, steamed"
+  },
+  {
+    "key": "0100134",
+    "name": "Rice, bran, steamed for 60 minutes, fermented"
+  },
+  {
+    "key": "0100135",
+    "name": "Rice, bran, steamed for 60 minutes, fermented"
+  },
+  {
+    "key": "0100136",
+    "name": "Rice, bran, steamed for 60 minutes, fermented"
+  },
+  {
+    "key": "0100137",
+    "name": "Rice, Jasmine, white, raw"
+  },
+  {
+    "key": "0100138",
+    "name": "Rice, Jasmine, brown, raw"
+  },
+  {
+    "key": "0100139",
+    "name": "Rice, Glutinous, white, raw"
+  },
+  {
+    "key": "0100140",
+    "name": "Rice, Glutinous, black, raw"
+  },
+  {
+    "key": "0100141",
+    "name": "Rice, Basmati, raw"
+  },
+  {
+    "key": "0100142",
+    "name": "Rice, Basmati, infrared-irradiated,raw"
+  },
+  {
+    "key": "0100143",
+    "name": "Rice, bran, laboratory defatted, raw"
+  },
+  {
+    "key": "0100144",
+    "name": "Rice, bran, commercial defatted, raw"
+  },
+  {
+    "key": "0100145",
+    "name": "Rice, white, raw"
+  },
+  {
+    "key": "0100146",
+    "name": "Rice, white, parboiled"
+  },
+  {
+    "key": "0100147",
+    "name": "Rice, brown, parboiled"
+  },
+  {
+    "key": "0100148",
+    "name": "Rice, long grain, brown, raw"
+  },
+  {
+    "key": "0100149",
+    "name": "Rice, long grain, brown, parboiled"
+  },
+  {
+    "key": "0100150",
+    "name": "Rice, long grain, brown, parboiled"
+  },
+  {
+    "key": "0100151",
+    "name": "Rice, long grain, white, Asian, raw"
+  },
+  {
+    "key": "0100152",
+    "name": "Rice, long grain, white, Basmati, raw"
+  },
+  {
+    "key": "0100153",
+    "name": "Rice, long grain, white, Jasmine, raw"
+  },
+  {
+    "key": "0100154",
+    "name": "Rice, long grain, white, ecological Jasmine, raw"
+  },
+  {
+    "key": "0100155",
+    "name": "Rice, long grain, white, Instant, parboiled"
+  },
+  {
+    "key": "0100156",
+    "name": "Rice, long grain, white, Instant, parboiled"
+  },
+  {
+    "key": "0100157",
+    "name": "Rice, long grain, white, Instant, parboiled"
+  },
+  {
+    "key": "0100158",
+    "name": "Rice, long grain, white, ecological, parboiled"
+  },
+  {
+    "key": "0100159",
+    "name": "Rice, long grain, white, ecological, parboiled"
+  },
+  {
+    "key": "0100160",
+    "name": "Rice, long grain, white, wild rice mix, parboiled"
+  },
+  {
+    "key": "0100161",
+    "name": "Rice, long grain, white, wild rice mix, parboiled"
+  },
+  {
+    "key": "0100162",
+    "name": "Rice, short grain, brown, ecological, raw"
+  },
+  {
+    "key": "0100163",
+    "name": "Rice, short grain, white, instant flakes"
+  },
+  {
+    "key": "0100164",
+    "name": "Rice, short grain, white, instant flakes"
+  },
+  {
+    "key": "0100165",
+    "name": "Rice, short grain, white, instant flakes"
+  },
+  {
+    "key": "0100166",
+    "name": "Rice, short grain, white, ecological, raw"
+  },
+  {
+    "key": "0100167",
+    "name": "Rice, short grain, white, Avorio, parboiled"
+  },
+  {
+    "key": "0100168",
+    "name": "Rice, polished, milled, raw"
+  },
+  {
+    "key": "0100169",
+    "name": "Rice, bran, raw"
+  },
+  {
+    "key": "0100170",
+    "name": "Rice, milled, raw"
+  },
+  {
+    "key": "0100171",
+    "name": "Rice, milled, raw"
+  },
+  {
+    "key": "0100172",
+    "name": "Rice, milled, raw"
+  },
+  {
+    "key": "0100173",
+    "name": "Rice, milled, raw"
+  },
+  {
+    "key": "0100174",
+    "name": "Rice, non-glutinous, milled, raw"
+  },
+  {
+    "key": "0100175",
+    "name": "Rice, glutinous, milled, raw"
+  },
+  {
+    "key": "0100176",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100177",
+    "name": "Rice, milled, raw"
+  },
+  {
+    "key": "0100178",
+    "name": "Rice, white brown, milled, raw"
+  },
+  {
+    "key": "0100179",
+    "name": "Rice, red brown, milled, raw"
+  },
+  {
+    "key": "0100180",
+    "name": "Rice, black brown, milled, raw"
+  },
+  {
+    "key": "0100181",
+    "name": "Rice, Asian Indian variety, milled, organic, raw"
+  },
+  {
+    "key": "0100182",
+    "name": "Rice bran, Asian Indian variety, organic, raw"
+  },
+  {
+    "key": "0100183",
+    "name": "Rice, short/medium grain, flour, raw"
+  },
+  {
+    "key": "0100184",
+    "name": "Rice, short/medium grain, flour, raw"
+  },
+  {
+    "key": "0100185",
+    "name": "Rice, long grain, flour, raw"
+  },
+  {
+    "key": "0100186",
+    "name": "Rice, bran, untreated, raw"
+  },
+  {
+    "key": "0100187",
+    "name": "Rice, bran, treated with Candida utilis strain IFO1086, raw"
+  },
+  {
+    "key": "0100188",
+    "name": "Rice, bran, treated with Candida utilis strain IFO0626, raw"
+  },
+  {
+    "key": "0100189",
+    "name": "Rice flake, thick, powdered, raw "
+  },
+  {
+    "key": "0100190",
+    "name": "Rice flake, medium, powdered, raw"
+  },
+  {
+    "key": "0100191",
+    "name": "Rice flake, thin, powdered, raw"
+  },
+  {
+    "key": "0100192",
+    "name": "Rice flake, very thin, powdered, raw"
+  },
+  {
+    "key": "0100193",
+    "name": "Rice flake, thick, powdered, raw "
+  },
+  {
+    "key": "0100194",
+    "name": "Rice flake, medium, powdered, raw"
+  },
+  {
+    "key": "0100195",
+    "name": "Rice flake, thin, powdered, raw"
+  },
+  {
+    "key": "0100196",
+    "name": "Rice flake, very thin, powdered, raw"
+  },
+  {
+    "key": "0100197",
+    "name": "Rice flake, thick, powdered, raw "
+  },
+  {
+    "key": "0100198",
+    "name": "Rice flake, medium, powdered, raw"
+  },
+  {
+    "key": "0100199",
+    "name": "Rice flake, thin, powdered, raw"
+  },
+  {
+    "key": "0100200",
+    "name": "Rice flake, very thin, powdered, raw"
+  },
+  {
+    "key": "0100201",
+    "name": "Rice flake, thick, powdered, raw "
+  },
+  {
+    "key": "0100202",
+    "name": "Rice flake, medium, powdered, raw"
+  },
+  {
+    "key": "0100203",
+    "name": "Rice flake, thin, powdered, raw"
+  },
+  {
+    "key": "0100204",
+    "name": "Rice flake, very thin, powdered, raw"
+  },
+  {
+    "key": "0100205",
+    "name": "Rice, parboiled, raw"
+  },
+  {
+    "key": "0100206",
+    "name": "Rice, Arbolio, raw"
+  },
+  {
+    "key": "0100207",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100208",
+    "name": "Rice, milled, raw"
+  },
+  {
+    "key": "0100209",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100210",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100211",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100212",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100213",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0100214",
+    "name": "Rice, brown, raw"
+  },
+  {
+    "key": "0300001",
+    "name": "Lima bean, immature"
+  },
+  {
+    "key": "0300002",
+    "name": "Pigeon pea, dried"
+  },
+  {
+    "key": "0300003",
+    "name": "Pigeon pea, immature, boiled"
+  },
+  {
+    "key": "0300004",
+    "name": "Kidney bean, dried"
+  },
+  {
+    "key": "0300005",
+    "name": "Kidney bean, immature"
+  },
+  {
+    "key": "0300006",
+    "name": "Bengal bean, boiled"
+  },
+  {
+    "key": "0300007",
+    "name": "Cowpeas, boiled"
+  },
+  {
+    "key": "0300008",
+    "name": "Horse bean, seeds, raw"
+  },
+  {
+    "key": "0300009",
+    "name": "Horse bean, seeds, raw"
+  },
+  {
+    "key": "0300010",
+    "name": "Horse bean, seeds, conventional tillage, raw"
+  },
+  {
+    "key": "0300011",
+    "name": "Horse bean, seeds, two-layer tillage, raw"
+  },
+  {
+    "key": "0300012",
+    "name": "Horse bean, seeds, surface tillage, raw"
+  },
+  {
+    "key": "0300013",
+    "name": "Horse bean, seeds, minimum tillage, raw"
+  },
+  {
+    "key": "0300014",
+    "name": "Horse bean, seeds, without nitrogen fertilizarion, raw"
+  },
+  {
+    "key": "0300015",
+    "name": "Horse bean, seeds, nitrogen fertilization (50 kg ha-1), raw"
+  },
+  {
+    "key": "0300016",
+    "name": "Horse bean, seeds, nitrogen fertilization (100 kg ha-1), raw"
+  },
+  {
+    "key": "0300017",
+    "name": "Vigna trilobata, seeds, mature, sun-dried, raw"
+  },
+  {
+    "key": "0300018",
+    "name": "Vigna bourneae, seeds, mature, sun-dried, raw"
+  },
+  {
+    "key": "0300019",
+    "name": "Cassia floribunda Cav., seeds, sun-dried, raw"
+  },
+  {
+    "key": "0300020",
+    "name": "Cassia obtusifolia (L.), seeds, sun-dried, raw"
+  },
+  {
+    "key": "0300021",
+    "name": "Afzelia africana, seeds, raw"
+  },
+  {
+    "key": "0300022",
+    "name": "Pentaclethra macrophylla, seeds, raw"
+  },
+  {
+    "key": "0300023",
+    "name": "Afzelia africana, seeds, raw"
+  },
+  {
+    "key": "0300024",
+    "name": "Pentaclethra macrophylla, seeds, raw"
+  },
+  {
+    "key": "0300025",
+    "name": "Canavalia virosa, seeds, mature, dried, raw"
+  },
+  {
+    "key": "0300026",
+    "name": "Petaco bean, seeds, raw"
+  },
+  {
+    "key": "0300027",
+    "name": "Moth bean, seeds, raw"
+  },
+  {
+    "key": "0300028",
+    "name": "Australian sweet lupin, raw"
+  },
+  {
+    "key": "0300029",
+    "name": "Faba beans, raw"
+  },
+  {
+    "key": "0300030",
+    "name": "Lentil, French, raw"
+  },
+  {
+    "key": "0300032",
+    "name": "Chickpea, water-soaked, drained, cooked without salt, drained"
+  },
+  {
+    "key": "0300033",
+    "name": "Asparagus bean, raw"
+  },
+  {
+    "key": "0300034",
+    "name": "Asparagus bean, boiled for 10 minutes, sun-dried"
+  },
+  {
+    "key": "0300035",
+    "name": "Asparagus bean, boiled for 20 minutes, sun-dried"
+  },
+  {
+    "key": "0300036",
+    "name": "Asparagus bean, boiled for 30 minutes, sun-dried"
+  },
+  {
+    "key": "0300037",
+    "name": "Asparagus bean, boiled for 40 minutes, sun-dried"
+  },
+  {
+    "key": "0300038",
+    "name": "Asparagus bean, roasted for 5 minutes"
+  },
+  {
+    "key": "0300039",
+    "name": "Asparagus bean, roasted for 10 minutes"
+  },
+  {
+    "key": "0300040",
+    "name": "Asparagus bean, roasted for 15 minutes"
+  },
+  {
+    "key": "0300041",
+    "name": "Asparagus bean, roasted for 20 minutes"
+  },
+  {
+    "key": "0300042",
+    "name": "Legume, seeds, mature, whole, raw"
+  },
+  {
+    "key": "0300043",
+    "name": "Legume, seeds, mature, whole, raw"
+  },
+  {
+    "key": "0300044",
+    "name": "Legume, seeds, mature, whole, raw"
+  },
+  {
+    "key": "0300045",
+    "name": "Cranberry bean, seeds, flour, raw"
+  },
+  {
+    "key": "0300046",
+    "name": "Cranberry bean, seeds, dehulled, roasted, flour"
+  },
+  {
+    "key": "0300047",
+    "name": "Cranberry bean, seeds, dehulled, sproated, flour"
+  },
+  {
+    "key": "0300048",
+    "name": "Cranberry bean, seeds, boiled, drained, flour"
+  },
+  {
+    "key": "0300049",
+    "name": "Cranberry bean, seeds, cooked, drained, flour"
+  },
+  {
+    "key": "0300050",
+    "name": "Black gran, seeds, whole, raw"
+  },
+  {
+    "key": "0300051",
+    "name": "Black gran, seeds, cotyledon, milled, raw"
+  },
+  {
+    "key": "0300052",
+    "name": "Black gran, seeds, germ, milled, raw"
+  },
+  {
+    "key": "0300053",
+    "name": "Black gran, seeds, seed coat, milled, raw"
+  },
+  {
+    "key": "0300054",
+    "name": "Black gran, seeds, aleurone layer enriched in seed coat, milled, raw"
+  },
+  {
+    "key": "0300055",
+    "name": "Black gran, seeds, plumule fraction, milled, raw"
+  },
+  {
+    "key": "0300056",
+    "name": "Field pea, raw"
+  },
+  {
+    "key": "0300057",
+    "name": "Field pea, water-soaked, autoclaved"
+  },
+  {
+    "key": "0300058",
+    "name": "Field pea, germinated"
+  },
+  {
+    "key": "0300059",
+    "name": "Field pea, autoclaved germinates"
+  },
+  {
+    "key": "0300060",
+    "name": "Chickpea, whole, raw"
+  },
+  {
+    "key": "0300061",
+    "name": "Chickpea, whole, water-soaked, autoclaved"
+  },
+  {
+    "key": "0300062",
+    "name": "Chickpea, whole, germinated, dried"
+  },
+  {
+    "key": "0300063",
+    "name": "Chickpea, whole, germinated, autoclaved"
+  },
+  {
+    "key": "0300064",
+    "name": "Black gram, whole, raw"
+  },
+  {
+    "key": "0300065",
+    "name": "Black gram, whole, water-soaked, autoclaved"
+  },
+  {
+    "key": "0300066",
+    "name": "Black gram, whole, germinated"
+  },
+  {
+    "key": "0300067",
+    "name": "Black gram, whole, autoclaved germinates"
+  },
+  {
+    "key": "0300068",
+    "name": "Lentil, whole, raw"
+  },
+  {
+    "key": "0300069",
+    "name": "Lentil, whole,water-soaked, autoclaved"
+  },
+  {
+    "key": "0300070",
+    "name": "Lentil, whole, germinated"
+  },
+  {
+    "key": "0300071",
+    "name": "Lentil, whole, autoclaved germinates"
+  },
+  {
+    "key": "0300072",
+    "name": "Chickpea, split, raw"
+  },
+  {
+    "key": "0300073",
+    "name": "Chickpea, whole, raw"
+  },
+  {
+    "key": "0300074",
+    "name": "Chickpea, puffed, raw"
+  },
+  {
+    "key": "0300075",
+    "name": "Black gram, split, raw"
+  },
+  {
+    "key": "0300076",
+    "name": "Black gram, whole, raw"
+  },
+  {
+    "key": "0300077",
+    "name": "Cowpea, raw"
+  },
+  {
+    "key": "0300078",
+    "name": "Green gram, split, raw"
+  },
+  {
+    "key": "0300079",
+    "name": "Green gram, whole, raw"
+  },
+  {
+    "key": "0300080",
+    "name": "Horse gram, raw"
+  },
+  {
+    "key": "0300081",
+    "name": "Lentil, split, raw"
+  },
+  {
+    "key": "0300082",
+    "name": "Black gram, seeds, dried, raw"
+  },
+  {
+    "key": "0300083",
+    "name": "Black gram, seeds, soaked, raw"
+  },
+  {
+    "key": "0300084",
+    "name": "Black gram, seeds, dried, germinated for 1 day"
+  },
+  {
+    "key": "0300085",
+    "name": "Black gram, seeds, dried, germinated for 2 days"
+  },
+  {
+    "key": "0300086",
+    "name": "Black gram, seeds, dried, germinated for 3 days"
+  },
+  {
+    "key": "0300087",
+    "name": "Common bean, seeds, raw"
+  },
+  {
+    "key": "0300089",
+    "name": "Mung bean, seeds, whole, raw"
+  },
+  {
+    "key": "0300090",
+    "name": "Green gram, seeds, water-soaked, dried"
+  },
+  {
+    "key": "0300091",
+    "name": "Green gram, seeds, water-soaked, germinated, dried"
+  },
+  {
+    "key": "0300092",
+    "name": "Green gram, seeds, water-soaked, germinated, dehulled, dried"
+  },
+  {
+    "key": "0300093",
+    "name": "Cowpea, seeds, water-soaked, dried"
+  },
+  {
+    "key": "0300094",
+    "name": "Cowpea, seeds, water-soaked, germinated, dried"
+  },
+  {
+    "key": "0300095",
+    "name": "Cowpea, seeds, water-soaked, germinated, dehulled, dried"
+  },
+  {
+    "key": "0300096",
+    "name": "Lentil, seeds, water-soaked, dried"
+  },
+  {
+    "key": "0300097",
+    "name": "Lentil, seeds, water-soaked, germinated, dried"
+  },
+  {
+    "key": "0300098",
+    "name": "Lentil, seeds, water-soaked, germinated, dehulled, dried"
+  },
+  {
+    "key": "0300099",
+    "name": "Chickpea, seeds, water-soaked, dried"
+  },
+  {
+    "key": "0300100",
+    "name": "Chickpea, seeds, water-soaked, germinated, dried"
+  },
+  {
+    "key": "0300101",
+    "name": "Chickpea, seeds, water-soaked, germinated, dehulled, dried "
+  },
+  {
+    "key": "0300102",
+    "name": "Mung bean, sprouts, raw"
+  },
+  {
+    "key": "0300103",
+    "name": "Green gram, seeds, mature, raw"
+  },
+  {
+    "key": "0300104",
+    "name": "Green gram, seeds, mature, water-soaked, freeze-dried"
+  },
+  {
+    "key": "0300105",
+    "name": "Green gram, seeds, mature, water-soaked, irradiated (2 kGy), freeze-dried"
+  },
+  {
+    "key": "0300106",
+    "name": "Green gram, seeds, mature, water-soaked, irradiated (4 kGy), freeze-dried"
+  },
+  {
+    "key": "0300107",
+    "name": "Green gram, seeds, mature, water-soaked, irradiated (6 kGy), freeze-dried"
+  },
+  {
+    "key": "0300108",
+    "name": "Mung bean, seeds, raw"
+  },
+  {
+    "key": "0300109",
+    "name": "Chickpea, seeds, raw"
+  },
+  {
+    "key": "0300110",
+    "name": "Chickpea, seeds, raw"
+  },
+  {
+    "key": "0300111",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300112",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300113",
+    "name": "V. aconitifolia, seeds, mature, sun-dried, raw"
+  },
+  {
+    "key": "0300114",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300115",
+    "name": "Cowpea, seeds, flour, extruded"
+  },
+  {
+    "key": "0300116",
+    "name": "Cowpea, seeds, air-dried, raw"
+  },
+  {
+    "key": "0300117",
+    "name": "V. unguiculata, seeds, mature, raw"
+  },
+  {
+    "key": "0300118",
+    "name": "V. unguiculata, seeds, mature, boiled, oven-dried"
+  },
+  {
+    "key": "0300119",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300120",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300121",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300122",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300123",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300124",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300125",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300126",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300127",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300128",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300129",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300130",
+    "name": "Cowpea, seeds, decorticated, flour, raw"
+  },
+  {
+    "key": "0300137",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300138",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300139",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300140",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300141",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300142",
+    "name": "Cowpea, seeds, oven-dried, raw"
+  },
+  {
+    "key": "0300143",
+    "name": "Cowpea, seeds, germinated, oven-dried, raw"
+  },
+  {
+    "key": "0300144",
+    "name": "Cowpea, seeds, fermented, oven-dried, raw"
+  },
+  {
+    "key": "0300145",
+    "name": "Cowpea, seeds, autoclaved, oven-dried, raw"
+  },
+  {
+    "key": "0300146",
+    "name": "Cowpea, seeds, mature, raw"
+  },
+  {
+    "key": "0300147",
+    "name": "Cowpea, seeds, mature, water-soaked, sun-dried"
+  },
+  {
+    "key": "0300148",
+    "name": "Cowpea, seeds, mature, water-soaked, boiled, sun-dried"
+  },
+  {
+    "key": "0300149",
+    "name": "Cowpea, seeds, mature, water-soaked, germinated, sun-dried"
+  },
+  {
+    "key": "0300150",
+    "name": "Cowpea, seeds, mature, roasted"
+  },
+  {
+    "key": "0300151",
+    "name": "Cowpea, seeds, mature, decorticated, raw"
+  },
+  {
+    "key": "0300152",
+    "name": "Cowpea, seeds, mature, decorticated, water-soaked, sun-dried"
+  },
+  {
+    "key": "0300153",
+    "name": "Cowpea, seeds, mature, decorticated, water-soaked, boiled, sun-dried"
+  },
+  {
+    "key": "0300154",
+    "name": "Cowpea, seeds, mature, decorticated, water-soaked, boiled, sun-dried"
+  },
+  {
+    "key": "0300155",
+    "name": "Cowpea, seeds, mature, roasted"
+  },
+  {
+    "key": "0300156",
+    "name": "Vetch, seeds, mature, raw"
+  },
+  {
+    "key": "0300157",
+    "name": "Beans, seeds, raw"
+  },
+  {
+    "key": "0300158",
+    "name": "Vetch, seeds, raw"
+  },
+  {
+    "key": "0300159",
+    "name": "Fava beans, seeds, boiled"
+  },
+  {
+    "key": "0300160",
+    "name": "Lentil, seeds, boiled"
+  },
+  {
+    "key": "0300161",
+    "name": "Faba beans, raw"
+  },
+  {
+    "key": "0300162",
+    "name": "Faba beans, water-soaked, drained, cooked without salt, drained"
+  },
+  {
+    "key": "0300163",
+    "name": "Green gram, seeds, whole, raw"
+  },
+  {
+    "key": "0300164",
+    "name": "Green gram, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300165",
+    "name": "Green gram, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300166",
+    "name": "Bengal gram, seeds, whole, raw"
+  },
+  {
+    "key": "0300167",
+    "name": "Bengal gram, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300168",
+    "name": "Bengal gram, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300169",
+    "name": "Cowpea, seeds, whole, raw"
+  },
+  {
+    "key": "0300170",
+    "name": "Cowpea, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300171",
+    "name": "Cowpea, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300172",
+    "name": "Horse gram, seeds, whole, raw"
+  },
+  {
+    "key": "0300173",
+    "name": "Horse gram, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300174",
+    "name": "Horse gram, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300175",
+    "name": "Lentil, seeds, whole, raw"
+  },
+  {
+    "key": "0300176",
+    "name": "Lentil, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300177",
+    "name": "Lentil, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300178",
+    "name": "Field beans, seeds, dried, whole, raw"
+  },
+  {
+    "key": "0300179",
+    "name": "Field beans, seeds, dried, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300180",
+    "name": "Field beans, seeds, dried, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300181",
+    "name": "French beans, seeds, whole, raw"
+  },
+  {
+    "key": "0300182",
+    "name": "French beans, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300183",
+    "name": "French beans, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300184",
+    "name": "Broad beans, seeds, whole, raw"
+  },
+  {
+    "key": "0300185",
+    "name": "Broad beans, seeds, whole, water-soaked, pressure cooked"
+  },
+  {
+    "key": "0300186",
+    "name": "Broad beans, seeds, whole, water-soaked, microwave cooked"
+  },
+  {
+    "key": "0300187",
+    "name": "Common vetch, Green, seeds, dried, raw"
+  },
+  {
+    "key": "0300188",
+    "name": "Common vetch, Brown, seeds, dried, raw"
+  },
+  {
+    "key": "0300189",
+    "name": "Common vetch, Black, seeds, dried, raw"
+  },
+  {
+    "key": "0300190",
+    "name": "Common vetch, seeds, green cotyledon, dried, raw"
+  },
+  {
+    "key": "0300191",
+    "name": "Common vetch, seeds, orange cotyledon, dried, raw"
+  },
+  {
+    "key": "0300192",
+    "name": "Common vetch, seeds, beige cotyledon, dried, raw"
+  },
+  {
+    "key": "0300193",
+    "name": "Common vetch, seeds, small size, dried, raw"
+  },
+  {
+    "key": "0300194",
+    "name": "Common vetch, seeds, medium size, dried, raw"
+  },
+  {
+    "key": "0300195",
+    "name": "Common vetch, seeds, large size, dried, raw"
+  },
+  {
+    "key": "0300196",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300197",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300198",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300199",
+    "name": "Grass pea, seeds, raw"
+  },
+  {
+    "key": "0300200",
+    "name": "Grass pea, seeds, raw"
+  },
+  {
+    "key": "0300201",
+    "name": "Grass pea, seeds, raw"
+  },
+  {
+    "key": "0300202",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300203",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300204",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300205",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300206",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300207",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300208",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300209",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300210",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300211",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300212",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300213",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300214",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300215",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300216",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300217",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300218",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300219",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300220",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300221",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300222",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300223",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300224",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300225",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300226",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300227",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300228",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300229",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300230",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300231",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300232",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300233",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300234",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300235",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300236",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300237",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300238",
+    "name": "Cowpea, seeds, flour, raw"
+  },
+  {
+    "key": "0300239",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300240",
+    "name": "Cowpea, seeds, cooked, oven dried"
+  },
+  {
+    "key": "0300241",
+    "name": "Cowpea, seeds, germinated 24 h, oven dried"
+  },
+  {
+    "key": "0300242",
+    "name": "Cowpea, seeds, germinated 48 h, oven dried"
+  },
+  {
+    "key": "0300243",
+    "name": "Cowpea, seeds, germinated 72 h, oven dried"
+  },
+  {
+    "key": "0300244",
+    "name": "Cowpea, seeds, fermented 24 h, oven dried"
+  },
+  {
+    "key": "0300245",
+    "name": "Cowpea, seeds, fermented 48 h, oven dried"
+  },
+  {
+    "key": "0300246",
+    "name": "Cowpea, seeds, fermented 72 h, oven dried"
+  },
+  {
+    "key": "0300247",
+    "name": "Bengal gram, seeds, raw"
+  },
+  {
+    "key": "0300248",
+    "name": "Black gram, seeds, raw"
+  },
+  {
+    "key": "0300249",
+    "name": "Green gram, seeds, raw"
+  },
+  {
+    "key": "0300250",
+    "name": "Horse gram, seeds, raw"
+  },
+  {
+    "key": "0300251",
+    "name": "Chickpea, seeds, cotyledon, raw"
+  },
+  {
+    "key": "0300252",
+    "name": "Chickpea, seeds, embryonic axe, raw"
+  },
+  {
+    "key": "0300253",
+    "name": "Chickpea, seeds, seed coat, raw"
+  },
+  {
+    "key": "0300254",
+    "name": "Horse gram, seeds, cotyledon, raw"
+  },
+  {
+    "key": "0300255",
+    "name": "Horse gram, seeds, embryonic axe, raw"
+  },
+  {
+    "key": "0300256",
+    "name": "Horse gram, seeds, seed coat, raw"
+  },
+  {
+    "key": "0300257",
+    "name": "Chickpea, seeds, raw"
+  },
+  {
+    "key": "0300258",
+    "name": "Chickpea, seeds, cooked, dried"
+  },
+  {
+    "key": "0300259",
+    "name": "Chickpea, seeds, mature, water-soaked, raw"
+  },
+  {
+    "key": "0300260",
+    "name": "Chickpea, seeds, mature, water-soaked, pressure-cooked"
+  },
+  {
+    "key": "0300261",
+    "name": "White pea, seeds, mature, water-soaked, raw"
+  },
+  {
+    "key": "0300262",
+    "name": "White pea, seeds, mature, water-soaked, pressure-cooked"
+  },
+  {
+    "key": "0300263",
+    "name": "Pea, seeds, dried, raw"
+  },
+  {
+    "key": "0300264",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300265",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300266",
+    "name": "Bengal gram, seeds, dehulled, milled into flour, raw"
+  },
+  {
+    "key": "0300267",
+    "name": "Black gram, seeds, dehulled, milled into flour, raw"
+  },
+  {
+    "key": "0300268",
+    "name": "Green gram, seeds, dehulled, milled into flour, raw"
+  },
+  {
+    "key": "0300269",
+    "name": "Lentil, seeds, dehulled, milled into flour, raw"
+  },
+  {
+    "key": "0300270",
+    "name": "Bengal gram, seeds, dehulled, milled into flour, pressure-cooked"
+  },
+  {
+    "key": "0300271",
+    "name": "Black gram, seeds, dehulled, milled into flour, pressure-cooked"
+  },
+  {
+    "key": "0300272",
+    "name": "Green gram, seeds, dehulled, milled into flour, pressure-cooked"
+  },
+  {
+    "key": "0300273",
+    "name": "Lentil, seeds, dehulled, milled into flour, pressure-cooked"
+  },
+  {
+    "key": "0300274",
+    "name": "Atylosia scarabaeoides, seeds, sun-dried, raw"
+  },
+  {
+    "key": "0300275",
+    "name": "Rhynchosia filipes, seeds, sun-dried, raw"
+  },
+  {
+    "key": "0300276",
+    "name": "Vigna trilobata, seeds, sun-dried, raw"
+  },
+  {
+    "key": "0300277",
+    "name": "Vigna unguiculata subsp. unguiculata, seeds, sun-dried, raw"
+  },
+  {
+    "key": "0300278",
+    "name": "Broad beans, seeds, water-soaked, boiled, drained, hulled"
+  },
+  {
+    "key": "0300279",
+    "name": "Chickpeas, seeds, water-soaked, boiled, drained"
+  },
+  {
+    "key": "0300280",
+    "name": "Lentil, seeds, large, boiled, drained"
+  },
+  {
+    "key": "0300281",
+    "name": "Lentil, seeds, small, boiled, drained"
+  },
+  {
+    "key": "0300282",
+    "name": "Beans, Giant, seeds, water-soaked, boiled, drained"
+  },
+  {
+    "key": "0300283",
+    "name": "Beans, Elephant, seeds, water-soaked, boiled, drained"
+  },
+  {
+    "key": "0300284",
+    "name": "Black-eyed beans, seeds, water-soaked, boiled, drained"
+  },
+  {
+    "key": "0300285",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300286",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300287",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300288",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300289",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300290",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300291",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300292",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300293",
+    "name": "Chickling (grass pea), seeds, dried, raw"
+  },
+  {
+    "key": "0300294",
+    "name": "Pea, seeds, dried, raw"
+  },
+  {
+    "key": "0300295",
+    "name": "Pea, Green, seeds, dried, raw"
+  },
+  {
+    "key": "0300296",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300297",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300298",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300299",
+    "name": "Soybean, seeds, dried, raw"
+  },
+  {
+    "key": "0300300",
+    "name": "Fava bean (broad bean), seeds, dried, raw"
+  },
+  {
+    "key": "0300301",
+    "name": "Fava bean (broad bean), seeds, dried, raw"
+  },
+  {
+    "key": "0300302",
+    "name": "Navy bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300303",
+    "name": "Cannellini bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300304",
+    "name": "Roman bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300305",
+    "name": "Butter bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300306",
+    "name": "Black eyed bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300307",
+    "name": "Black bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300308",
+    "name": "Roman bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300309",
+    "name": "Azuki bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300310",
+    "name": "Kidney bean, seeds, dried, raw"
+  },
+  {
+    "key": "0300311",
+    "name": "Faba beans, seeds, raw"
+  },
+  {
+    "key": "0300312",
+    "name": "Faba beans, seeds, dehulled, raw"
+  },
+  {
+    "key": "0300313",
+    "name": "Faba beans, seeds, flaked"
+  },
+  {
+    "key": "0300314",
+    "name": "Faba beans, seeds, cooked"
+  },
+  {
+    "key": "0300315",
+    "name": "Faba beans, seeds, germinated"
+  },
+  {
+    "key": "0300316",
+    "name": "Bengal gram, seeds, raw"
+  },
+  {
+    "key": "0300317",
+    "name": "Black gram, seeds, raw"
+  },
+  {
+    "key": "0300318",
+    "name": "Green gram, seeds, raw"
+  },
+  {
+    "key": "0300319",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300320",
+    "name": "Faba bean, seeds, mature, dried, raw"
+  },
+  {
+    "key": "0300327",
+    "name": "Peas, seeds, dried, raw"
+  },
+  {
+    "key": "0300328",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300329",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300330",
+    "name": "Beans, White, , seeds, dried, raw"
+  },
+  {
+    "key": "0300331",
+    "name": "Broad beans, seeds, dried, raw"
+  },
+  {
+    "key": "0300332",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300333",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300334",
+    "name": "Grass pea, seeds, dried, raw"
+  },
+  {
+    "key": "0300335",
+    "name": "Grass pea, seeds, dried, raw"
+  },
+  {
+    "key": "0300336",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300337",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300338",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300339",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300340",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300341",
+    "name": "Lentil, seeds, dried, raw"
+  },
+  {
+    "key": "0300342",
+    "name": "Pea, seeds, dried, raw"
+  },
+  {
+    "key": "0300343",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300344",
+    "name": "Pea, seeds, raw"
+  },
+  {
+    "key": "0300345",
+    "name": "Great northern beans, seeds, dried, raw"
+  },
+  {
+    "key": "0300346",
+    "name": "Baby lima beans, seeds, dried, raw"
+  },
+  {
+    "key": "0300347",
+    "name": "Large lima beans, seeds, dried, raw"
+  },
+  {
+    "key": "0300348",
+    "name": "Cowpea, blackeyed, seeds, dried, raw"
+  },
+  {
+    "key": "0300349",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300350",
+    "name": "Peas, green, seeds, without seed coat, splited, dried, raw"
+  },
+  {
+    "key": "0300351",
+    "name": "Lentil, seeds, without seed coat, splited, dried, raw"
+  },
+  {
+    "key": "0300352",
+    "name": "Great northern beans, seeds, dried, boiled, drained"
+  },
+  {
+    "key": "0300353",
+    "name": "Lima beans, Baby, seeds, dried, boiled, drained"
+  },
+  {
+    "key": "0300354",
+    "name": "Lima beans, Large, seeds, dried, boiled, drained"
+  },
+  {
+    "key": "0300355",
+    "name": "Cowpea, blackeyed, seeds, dried, boiled, drained"
+  },
+  {
+    "key": "0300356",
+    "name": "Chickpea, seeds, dried, boiled, drained"
+  },
+  {
+    "key": "0300357",
+    "name": "Peas, green, seeds, without seed coat, splited, dried, boiled, drained"
+  },
+  {
+    "key": "0300358",
+    "name": "Lentil, seeds, without seed coat, splited, dried, boiled, drained"
+  },
+  {
+    "key": "0300359",
+    "name": "Field pea, seeds, whole, raw"
+  },
+  {
+    "key": "0300360",
+    "name": "Field pea, seeds, dehulled, raw"
+  },
+  {
+    "key": "0300361",
+    "name": "Field pea, seeds, whole, boiled"
+  },
+  {
+    "key": "0300362",
+    "name": "Field pea, seeds, dehulled, boiled"
+  },
+  {
+    "key": "0300363",
+    "name": "Faba beans, seeds, dried, raw"
+  },
+  {
+    "key": "0300364",
+    "name": "Faba beans, seeds, dried, soaked, raw"
+  },
+  {
+    "key": "0300365",
+    "name": "Faba beans, seeds, dried, soaked, blanched"
+  },
+  {
+    "key": "0300366",
+    "name": "Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300367",
+    "name": "Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300368",
+    "name": "Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300369",
+    "name": "Faba beans, seeds, dried, soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300370",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300371",
+    "name": "Chickpea, seeds, dried, water-soaked, raw"
+  },
+  {
+    "key": "0300372",
+    "name": "Chickpea, seeds, dried, water-soaked, blanched"
+  },
+  {
+    "key": "0300373",
+    "name": "Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300374",
+    "name": "Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300375",
+    "name": "Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300376",
+    "name": "Chickpea, seeds, dried, water-soaked, blanched, autoclaved (canned)"
+  },
+  {
+    "key": "0300377",
+    "name": "Faba beans, seeds, dried, raw"
+  },
+  {
+    "key": "0300378",
+    "name": "Faba beans, seeds, dried, soaked, raw"
+  },
+  {
+    "key": "0300379",
+    "name": "Faba beans, seeds, dried, soaked, germinated for 24 h, raw"
+  },
+  {
+    "key": "0300380",
+    "name": "Faba beans, seeds, dried, soaked, germinated for 48 h, raw"
+  },
+  {
+    "key": "0300381",
+    "name": "Faba beans, seeds, dried, soaked, germinated for 72 h, raw"
+  },
+  {
+    "key": "0300382",
+    "name": "Chickpea, seeds, dried, raw"
+  },
+  {
+    "key": "0300383",
+    "name": "Chickpea, seeds, dried, water-soaked, raw"
+  },
+  {
+    "key": "0300384",
+    "name": "Chickpea, seeds, dried, water-soaked, germinated for 24 h, raw"
+  },
+  {
+    "key": "0300385",
+    "name": "Chickpea, seeds, dried, water-soaked, germinated for 48 h, raw"
+  },
+  {
+    "key": "0300386",
+    "name": "Chickpea, seeds, dried, water-soaked, germinated for 72 h, raw"
+  },
+  {
+    "key": "0300387",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300388",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300389",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300390",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300391",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300392",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300393",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300394",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300395",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300396",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300397",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300398",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300399",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300400",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300401",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300402",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300403",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300404",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300405",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300406",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300407",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300408",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300409",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300410",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300411",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300412",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300413",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300414",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300415",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300416",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300417",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300418",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300419",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300420",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300421",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300422",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300423",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300424",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300425",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300426",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300427",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300428",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300429",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300430",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300431",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300432",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300433",
+    "name": "Common bean, seed, raw"
+  },
+  {
+    "key": "0300440",
+    "name": "Chickpea, seed, mature, raw"
+  },
+  {
+    "key": "0300441",
+    "name": "Chickpea, seed, mature, water-soaked, pressure-cooked, freeze-dried"
+  },
+  {
+    "key": "0300442",
+    "name": "Common bean, flour, raw"
+  },
+  {
+    "key": "0300443",
+    "name": "Common bean, flour, raw"
+  },
+  {
+    "key": "0300444",
+    "name": "Common bean, flour, raw"
+  },
+  {
+    "key": "0300445",
+    "name": "Common bean, seed, canned, dried"
+  },
+  {
+    "key": "0300446",
+    "name": "Common bean, seed, canned, dried"
+  },
+  {
+    "key": "0300447",
+    "name": "Common bean, seed, canned, dried"
+  },
+  {
+    "key": "0300448",
+    "name": "African yam bean, seed, raw"
+  },
+  {
+    "key": "0300449",
+    "name": "African yam bean, seed, raw"
+  },
+  {
+    "key": "0300450",
+    "name": "Lima bean, seed, raw"
+  },
+  {
+    "key": "0300451",
+    "name": "Faba bean, seed, raw"
+  },
+  {
+    "key": "0300452",
+    "name": "Faba bean, seed, raw"
+  },
+  {
+    "key": "0300453",
+    "name": "Faba bean, seed, raw"
+  },
+  {
+    "key": "0300454",
+    "name": "Cowpea, seed, raw"
+  },
+  {
+    "key": "0300455",
+    "name": "Cowpea, seed, raw"
+  },
+  {
+    "key": "0300456",
+    "name": "Cowpea, seed, raw"
+  },
+  {
+    "key": "0300457",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300458",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300459",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300460",
+    "name": "Lentil, seed, raw"
+  },
+  {
+    "key": "0300461",
+    "name": "Lentil, seed, raw"
+  },
+  {
+    "key": "0300462",
+    "name": "Lentil, seed, raw"
+  },
+  {
+    "key": "0300463",
+    "name": "Chickpea, seed, tempered, dried, raw"
+  },
+  {
+    "key": "0300464",
+    "name": "Chickpea, seed, water-soaked, cooked, dried"
+  },
+  {
+    "key": "0300465",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300466",
+    "name": "Cowpea, seed, raw"
+  },
+  {
+    "key": "0300467",
+    "name": "Kidney bean, seed, raw"
+  },
+  {
+    "key": "0300468",
+    "name": "Faba bean, seed, raw"
+  },
+  {
+    "key": "0300469",
+    "name": "Faba bean, seed, canned"
+  },
+  {
+    "key": "0300470",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300471",
+    "name": "Chickpea, seed, water-soaked, boiled, dried"
+  },
+  {
+    "key": "0300472",
+    "name": "Chickpea, seed, water-soaked, autoclaved, dried"
+  },
+  {
+    "key": "0300473",
+    "name": "Chickpea, seed, water-soaked, microwaved, dried"
+  },
+  {
+    "key": "0300474",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300475",
+    "name": "Chickpea, seed, water-soaked, pressure-cooked"
+  },
+  {
+    "key": "0300476",
+    "name": "Chickpea, seed, water-soaked, microwaved"
+  },
+  {
+    "key": "0300477",
+    "name": "Chickpea, seed, water-soaked, sprouted, raw"
+  },
+  {
+    "key": "0300478",
+    "name": "Chickpea, seed, water-soaked, sprouted, pressure-cooked"
+  },
+  {
+    "key": "0300479",
+    "name": "Chickpea, seed, water-soaked, sprouted, microwaved"
+  },
+  {
+    "key": "0300480",
+    "name": "Pea, seed, raw"
+  },
+  {
+    "key": "0300481",
+    "name": "Lentil, seed, raw"
+  },
+  {
+    "key": "0300482",
+    "name": "Chickpea, seed, raw"
+  },
+  {
+    "key": "0300483",
+    "name": "Chickpea, dehulled seed, raw"
+  },
+  {
+    "key": "0300484",
+    "name": "Cowpea, dehulled seed, raw"
+  },
+  {
+    "key": "0300486",
+    "name": "Broad beans, whole, dried, raw"
+  },
+  {
+    "key": "0300487",
+    "name": "Chickpeas, whole, dried, raw"
+  },
+  {
+    "key": "0300488",
+    "name": "Haricot beans, white, whole, sun-dried, raw"
+  },
+  {
+    "key": "0300489",
+    "name": "Lentils, whole, sun-dried, raw"
+  },
+  {
+    "key": "0300490",
+    "name": "Peas, field, whole, sun-dried, raw"
+  },
+  {
+    "key": "0300492",
+    "name": "Mung bean, boiled"
+  },
+  {
+    "key": "0300493",
+    "name": "Mung bean flour, raw"
+  },
+  {
+    "key": "0300494",
+    "name": "Mung bean flour, porridge"
+  },
+  {
+    "key": "0300495",
+    "name": "Kidney beans, canned, drained "
+  },
+  {
+    "key": "0300496",
+    "name": "Chickpeas, canned, drained "
+  },
+  {
+    "key": "0300497",
+    "name": "Mung bean, raw"
+  },
+  {
+    "key": "0300498",
+    "name": "Chickpea, raw"
+  },
+  {
+    "key": "0300499",
+    "name": "Lentil, raw"
+  },
+  {
+    "key": "0300500",
+    "name": "Chickpea, whole, raw"
+  },
+  {
+    "key": "0300501",
+    "name": "Chickpea, split, raw"
+  },
+  {
+    "key": "0300502",
+    "name": "Chickpea, white, raw"
+  },
+  {
+    "key": "0300503",
+    "name": "Black gram, split, raw"
+  },
+  {
+    "key": "0300504",
+    "name": "Green gram, split, raw"
+  },
+  {
+    "key": "0300505",
+    "name": "Lentil, raw"
+  },
+  {
+    "key": "0300506",
+    "name": "Ground pea, stew "
+  },
+  {
+    "key": "0300507",
+    "name": "Ground chick pea, stew "
+  },
+  {
+    "key": "0300508",
+    "name": "Ground grass pea, stew "
+  },
+  {
+    "key": "0300509",
+    "name": "Broad bean, split, stew "
+  },
+  {
+    "key": "0300510",
+    "name": "Broad bean and lentil, split, stew "
+  },
+  {
+    "key": "0300511",
+    "name": "Lentil, split, stew"
+  },
+  {
+    "key": "0300512",
+    "name": "Cowpeas, boiled with salt"
+  },
+  {
+    "key": "0300513",
+    "name": "Pigeon Peas, dried"
+  },
+  {
+    "key": "0300514",
+    "name": "Hyacinth bean, boiled with salt"
+  },
+  {
+    "key": "0300515",
+    "name": "Cowpeas, stew"
+  },
+  {
+    "key": "0300516",
+    "name": "Beans, pinto and red, dried, raw "
+  },
+  {
+    "key": "0300517",
+    "name": "Lentils, dried, raw "
+  },
+  {
+    "key": "0300518",
+    "name": "Chickpeas, dried, raw"
+  },
+  {
+    "key": "0300519",
+    "name": "Splitpeas, dried, raw "
+  },
+  {
+    "key": "0300520",
+    "name": "Beans, pinto and red, cooked, drained"
+  },
+  {
+    "key": "0300521",
+    "name": "Lentils, cooked whithout discarding the excessive water"
+  },
+  {
+    "key": "0300522",
+    "name": "Lentil, seed, water-soaked for 12 h, raw, dried"
+  },
+  {
+    "key": "0300523",
+    "name": "Lentil, seed, water-soaked for 12 h, boiled, dried"
+  },
+  {
+    "key": "0300524",
+    "name": "Lentil, seed, water-soaked for 12 h, autoclaved, dried"
+  },
+  {
+    "key": "0300525",
+    "name": "Lentil, seed, water-soaked for 12 h, microwave cooked, dried"
+  },
+  {
+    "key": "0300526",
+    "name": "Cowpea, seeds, water-soaked, drained, boiled (50% water 50% seeds)"
+  },
+  {
+    "key": "0300527",
+    "name": "Cowpea, seeds, raw"
+  },
+  {
+    "key": "0300528",
+    "name": "Chickpea, seeds, raw"
+  },
+  {
+    "key": "0300529",
+    "name": "Pigeon pea, seeds, raw"
+  },
+  {
+    "key": "0300530",
+    "name": "Lentil, seeds, water-soaked, drained, boiled"
+  },
+  {
+    "key": "0300531",
+    "name": "Lentil, seeds, raw"
+  },
+  {
+    "key": "0300532",
+    "name": "Lupins, seeds, raw"
+  },
+  {
+    "key": "0300533",
+    "name": "Lupins, seeds, canned"
+  },
+  {
+    "key": "0400001",
+    "name": "Groundnut, boiled"
+  },
+  {
+    "key": "0400002",
+    "name": "Groundnut, flour"
+  },
+  {
+    "key": "0500355",
+    "name": "Bell tree dahlia, raw"
+  },
+  {
+    "key": "0500356",
+    "name": "Bell tree dahlia, cooked"
+  },
+  {
+    "key": "0500357",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500358",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500359",
+    "name": "Mint, raw"
+  },
+  {
+    "key": "0500360",
+    "name": "Mint, cooked"
+  },
+  {
+    "key": "0500361",
+    "name": "Parsley, raw"
+  },
+  {
+    "key": "0500362",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500363",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500364",
+    "name": "Cowpea, raw"
+  },
+  {
+    "key": "0500365",
+    "name": "Malanga, raw"
+  },
+  {
+    "key": "0500366",
+    "name": "Asystasia, raw"
+  },
+  {
+    "key": "0500367",
+    "name": "Asystasia,boiled"
+  },
+  {
+    "key": "0500368",
+    "name": "Asystasia,boiled"
+  },
+  {
+    "key": "0500369",
+    "name": "Mustard greens, raw"
+  },
+  {
+    "key": "0500370",
+    "name": "Mustard greens, boiled"
+  },
+  {
+    "key": "0500371",
+    "name": "Mustard greens, boiled"
+  },
+  {
+    "key": "0500372",
+    "name": "Tassel flower, raw"
+  },
+  {
+    "key": "0500373",
+    "name": "Tassel flower, boiled"
+  },
+  {
+    "key": "0500374",
+    "name": "Tassel flower, boiled"
+  },
+  {
+    "key": "0500375",
+    "name": "Water williow, raw"
+  },
+  {
+    "key": "0500376",
+    "name": "Water williow, boiled"
+  },
+  {
+    "key": "0500377",
+    "name": "Water williow, boiled"
+  },
+  {
+    "key": "0500378",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500379",
+    "name": "Green leafy vegetables, boiled"
+  },
+  {
+    "key": "0500380",
+    "name": "Green leafy vegetables, boiled"
+  },
+  {
+    "key": "0500381",
+    "name": "Bladder leaves, raw"
+  },
+  {
+    "key": "0500382",
+    "name": "Bladder leaves, boiled"
+  },
+  {
+    "key": "0500383",
+    "name": "Bladder leaves, boiled"
+  },
+  {
+    "key": "0500384",
+    "name": "Knotgrass leaves, raw "
+  },
+  {
+    "key": "0500385",
+    "name": "Knotgrass leaves, boiled"
+  },
+  {
+    "key": "0500386",
+    "name": "Knotgrass leaves, boiled"
+  },
+  {
+    "key": "0500387",
+    "name": "Knotgrass leaves, raw "
+  },
+  {
+    "key": "0500388",
+    "name": "Knotgrass leaves, boiled"
+  },
+  {
+    "key": "0500389",
+    "name": "Knotgrass leaves, boiled"
+  },
+  {
+    "key": "0500390",
+    "name": "Green leafy vegetables, raw "
+  },
+  {
+    "key": "0500391",
+    "name": "Green leafy vegetables, blanched and boiled"
+  },
+  {
+    "key": "0500392",
+    "name": "Prince's feather,raw"
+  },
+  {
+    "key": "0500393",
+    "name": "Prince's feather, blanched and boiled"
+  },
+  {
+    "key": "0500394",
+    "name": "Fluted gourd leaves, raw"
+  },
+  {
+    "key": "0500395",
+    "name": "Fluted gourd leaves, blanched and boiled"
+  },
+  {
+    "key": "0500396",
+    "name": "Jute leaves, raw"
+  },
+  {
+    "key": "0500397",
+    "name": "Jute leaves, blanched and boiled"
+  },
+  {
+    "key": "0500398",
+    "name": "Bitter leaf, raw"
+  },
+  {
+    "key": "0500399",
+    "name": "Bitter leaf, blanched and boiled"
+  },
+  {
+    "key": "0500400",
+    "name": "African basil, raw"
+  },
+  {
+    "key": "0500401",
+    "name": "African basil, boiled"
+  },
+  {
+    "key": "0500402",
+    "name": "Cabbage, dried"
+  },
+  {
+    "key": "0500403",
+    "name": "Cabbage, cooked"
+  },
+  {
+    "key": "0500404",
+    "name": "Colocasia, dried"
+  },
+  {
+    "key": "0500405",
+    "name": "Colocasia, cooked"
+  },
+  {
+    "key": "0500406",
+    "name": "Cauliflower, dried"
+  },
+  {
+    "key": "0500407",
+    "name": "Cauliflower, cooked"
+  },
+  {
+    "key": "0500408",
+    "name": "Green leafy vegetable, dried"
+  },
+  {
+    "key": "0500409",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500410",
+    "name": "Spinach, dried"
+  },
+  {
+    "key": "0500411",
+    "name": "Spinach, cooked"
+  },
+  {
+    "key": "0500412",
+    "name": "Harkuch leaves, raw"
+  },
+  {
+    "key": "0500413",
+    "name": "Pigweed leaves, raw"
+  },
+  {
+    "key": "0500414",
+    "name": "Pigweed leaves, raw"
+  },
+  {
+    "key": "0500415",
+    "name": "Pigweed leaves, cooked"
+  },
+  {
+    "key": "0500416",
+    "name": "Pigweed leaves, raw"
+  },
+  {
+    "key": "0500417",
+    "name": "Pigweed leaves, cooked"
+  },
+  {
+    "key": "0500418",
+    "name": "Radish leaves, raw"
+  },
+  {
+    "key": "0500419",
+    "name": "Radish leaves, raw"
+  },
+  {
+    "key": "0500420",
+    "name": "Radish leaves, cooked"
+  },
+  {
+    "key": "0500421",
+    "name": "Radish leaves, raw"
+  },
+  {
+    "key": "0500422",
+    "name": "Radish leaves, cooked"
+  },
+  {
+    "key": "0500423",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500424",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500425",
+    "name": "Spinach, cooked"
+  },
+  {
+    "key": "0500426",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500427",
+    "name": "Spinach, cooked"
+  },
+  {
+    "key": "0500428",
+    "name": "English pea leaves, raw"
+  },
+  {
+    "key": "0500429",
+    "name": "English pea leaves, raw"
+  },
+  {
+    "key": "0500430",
+    "name": "English pea leaves, cooked"
+  },
+  {
+    "key": "0500431",
+    "name": "Elephant ear, raw"
+  },
+  {
+    "key": "0500432",
+    "name": "Chinese spinach, raw"
+  },
+  {
+    "key": "0500433",
+    "name": "Bottle gourd, raw"
+  },
+  {
+    "key": "0500434",
+    "name": "Mallow, raw"
+  },
+  {
+    "key": "0500435",
+    "name": "Field mustard, raw"
+  },
+  {
+    "key": "0500436",
+    "name": "Field mustard, raw"
+  },
+  {
+    "key": "0500437",
+    "name": "Spinach, cooked"
+  },
+  {
+    "key": "0500438",
+    "name": "Spinach, cooked"
+  },
+  {
+    "key": "0500439",
+    "name": "Cauliflower, cooked"
+  },
+  {
+    "key": "0500440",
+    "name": "Cauliflower, cooked"
+  },
+  {
+    "key": "0500441",
+    "name": "Calabash, cooked"
+  },
+  {
+    "key": "0500442",
+    "name": "Calabash, cooked"
+  },
+  {
+    "key": "0500443",
+    "name": "Butterhead lettuce, dried"
+  },
+  {
+    "key": "0500444",
+    "name": "Rucola, Raw leaves, dried"
+  },
+  {
+    "key": "0500445",
+    "name": "Watercress, dried"
+  },
+  {
+    "key": "0500446",
+    "name": "Kale, dried"
+  },
+  {
+    "key": "0500447",
+    "name": "Kale, dried"
+  },
+  {
+    "key": "0500448",
+    "name": "Chinese cabbage, dried"
+  },
+  {
+    "key": "0500449",
+    "name": "Chinese cabbage, dried"
+  },
+  {
+    "key": "0500450",
+    "name": "Cabbage, dried"
+  },
+  {
+    "key": "0500451",
+    "name": "Cabbage, dried"
+  },
+  {
+    "key": "0500452",
+    "name": "Spinach substitute, dried"
+  },
+  {
+    "key": "0500453",
+    "name": "Amaranth, raw"
+  },
+  {
+    "key": "0500454",
+    "name": "Amaranth, blanched in water"
+  },
+  {
+    "key": "0500455",
+    "name": "Amaranth, blanched"
+  },
+  {
+    "key": "0500456",
+    "name": "Amaranth, blanched in saltwater"
+  },
+  {
+    "key": "0500457",
+    "name": "Amaranth, blanched"
+  },
+  {
+    "key": "0500458",
+    "name": "Amaranth, blanched"
+  },
+  {
+    "key": "0500459",
+    "name": "Amaranth, dried (sun)"
+  },
+  {
+    "key": "0500460",
+    "name": "Amaranth, dried (solar)"
+  },
+  {
+    "key": "0500461",
+    "name": "Amaranth, dried (shade)"
+  },
+  {
+    "key": "0500462",
+    "name": "Amaranth, dried (cabinet)"
+  },
+  {
+    "key": "0500463",
+    "name": "Amaranth, dried (low temperature)"
+  },
+  {
+    "key": "0500464",
+    "name": "Amaranth, raw"
+  },
+  {
+    "key": "0500465",
+    "name": "Amaranth, cooked"
+  },
+  {
+    "key": "0500466",
+    "name": "Amaranth, cooked"
+  },
+  {
+    "key": "0500467",
+    "name": "Amaranth, cooked"
+  },
+  {
+    "key": "0500468",
+    "name": "Green leafy vegetable, raw"
+  },
+  {
+    "key": "0500469",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500470",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500471",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500472",
+    "name": "Green leafy vegetable, raw"
+  },
+  {
+    "key": "0500473",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500474",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500475",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500476",
+    "name": "Shepu leaves, cooked"
+  },
+  {
+    "key": "0500477",
+    "name": "Mint, raw"
+  },
+  {
+    "key": "0500478",
+    "name": "Spinach, cooked"
+  },
+  {
+    "key": "0500479",
+    "name": "Radish leaves, cooked"
+  },
+  {
+    "key": "0500480",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500481",
+    "name": "Cauliflower, cooked"
+  },
+  {
+    "key": "0500482",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500483",
+    "name": "Lettuce, raw"
+  },
+  {
+    "key": "0500484",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500485",
+    "name": "Mustard leaves, cooked"
+  },
+  {
+    "key": "0500486",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500487",
+    "name": "Currypatta, cooked"
+  },
+  {
+    "key": "0500488",
+    "name": "Red amaranth, cooked"
+  },
+  {
+    "key": "0500489",
+    "name": "Cabbage,cooked"
+  },
+  {
+    "key": "0500490",
+    "name": "Onion stalk leaves, cooked"
+  },
+  {
+    "key": "0500491",
+    "name": "Bitter leaf, raw "
+  },
+  {
+    "key": "0500492",
+    "name": "Non-bitter leaf, raw"
+  },
+  {
+    "key": "0500493",
+    "name": "Misbredie, raw"
+  },
+  {
+    "key": "0500494",
+    "name": "Misbredie, cooked "
+  },
+  {
+    "key": "0500495",
+    "name": "Slippery vine, raw"
+  },
+  {
+    "key": "0500496",
+    "name": "Slippery vine, blanched "
+  },
+  {
+    "key": "0500497",
+    "name": "Slippery vine, dried (sun)"
+  },
+  {
+    "key": "0500498",
+    "name": "Slippery vine, cooked"
+  },
+  {
+    "key": "0500499",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500500",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500501",
+    "name": "Chinese cabbage, cooked "
+  },
+  {
+    "key": "0500502",
+    "name": "Watercress, cooked"
+  },
+  {
+    "key": "0500503",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500504",
+    "name": "Sweet potatoe leaves, cooked  "
+  },
+  {
+    "key": "0500505",
+    "name": "Green leaf, dried"
+  },
+  {
+    "key": "0500506",
+    "name": "Green leaf, cooked"
+  },
+  {
+    "key": "0500507",
+    "name": "Fluted pumpkin leaf, dried"
+  },
+  {
+    "key": "0500508",
+    "name": "Fluted pumpkin leaf, cooked"
+  },
+  {
+    "key": "0500509",
+    "name": "Green leafy vegetable, dried"
+  },
+  {
+    "key": "0500510",
+    "name": "Green leafy vegetable, cooked"
+  },
+  {
+    "key": "0500511",
+    "name": "Canola, raw"
+  },
+  {
+    "key": "0500512",
+    "name": "Kale, raw"
+  },
+  {
+    "key": "0500513",
+    "name": "Collard greens, raw"
+  },
+  {
+    "key": "0500514",
+    "name": "Cabbage, raw"
+  },
+  {
+    "key": "0500515",
+    "name": "Canola, raw"
+  },
+  {
+    "key": "0500516",
+    "name": "Canola, raw"
+  },
+  {
+    "key": "0500517",
+    "name": "Canola, raw"
+  },
+  {
+    "key": "0500518",
+    "name": "Canola, dried"
+  },
+  {
+    "key": "0500519",
+    "name": "Canola, raw"
+  },
+  {
+    "key": "0500520",
+    "name": "Green leafy vegetable, dried"
+  },
+  {
+    "key": "0500521",
+    "name": "Collard greens, raw"
+  },
+  {
+    "key": "0500522",
+    "name": "Kale, raw"
+  },
+  {
+    "key": "0500523",
+    "name": "Sweet potatoe greens, raw"
+  },
+  {
+    "key": "0500524",
+    "name": "Wild spinach, raw"
+  },
+  {
+    "key": "0500525",
+    "name": "Hunter's spinach, raw"
+  },
+  {
+    "key": "0500526",
+    "name": "Wild foxglove, raw"
+  },
+  {
+    "key": "0500527",
+    "name": "Spindle-pod, raw"
+  },
+  {
+    "key": "0500528",
+    "name": "Jelly melon, raw"
+  },
+  {
+    "key": "0500529",
+    "name": "Devil's thorn, raw"
+  },
+  {
+    "key": "0500530",
+    "name": "Gallant soldier, raw"
+  },
+  {
+    "key": "0500531",
+    "name": "Yellow justicia, raw"
+  },
+  {
+    "key": "0500532",
+    "name": "Stars talk, raw"
+  },
+  {
+    "key": "0500533",
+    "name": "Sticky gooseberry, raw"
+  },
+  {
+    "key": "0500534",
+    "name": "Coffee senna, raw"
+  },
+  {
+    "key": "0500535",
+    "name": "Black nightshade, raw"
+  },
+  {
+    "key": "0500536",
+    "name": "Broccoli leaves, raw"
+  },
+  {
+    "key": "0500537",
+    "name": "Cactus leaf, raw"
+  },
+  {
+    "key": "0500538",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500539",
+    "name": "Watercress, raw"
+  },
+  {
+    "key": "0500540",
+    "name": "Marjoram, raw"
+  },
+  {
+    "key": "0500541",
+    "name": "Mint, raw"
+  },
+  {
+    "key": "0500542",
+    "name": "Parsley, raw"
+  },
+  {
+    "key": "0500543",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500544",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500545",
+    "name": "Wild lettuce, raw"
+  },
+  {
+    "key": "0500546",
+    "name": "Cocoyam leaves, raw"
+  },
+  {
+    "key": "0500547",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500548",
+    "name": "Amaranth, raw"
+  },
+  {
+    "key": "0500549",
+    "name": "Mint, raw"
+  },
+  {
+    "key": "0500550",
+    "name": "Bengal gram, raw"
+  },
+  {
+    "key": "0500551",
+    "name": "Cauliflower, raw"
+  },
+  {
+    "key": "0500552",
+    "name": "Mint, raw"
+  },
+  {
+    "key": "0500553",
+    "name": "Bengal gram, raw"
+  },
+  {
+    "key": "0500554",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500555",
+    "name": "Cauliflower, raw"
+  },
+  {
+    "key": "0500556",
+    "name": "Amaranth, raw"
+  },
+  {
+    "key": "0500557",
+    "name": "Leaf parsley, raw"
+  },
+  {
+    "key": "0500558",
+    "name": "Celery leaves, raw"
+  },
+  {
+    "key": "0500559",
+    "name": "Lettuce, raw"
+  },
+  {
+    "key": "0500560",
+    "name": "Cabbage, raw"
+  },
+  {
+    "key": "0500561",
+    "name": "Amaranth, raw"
+  },
+  {
+    "key": "0500562",
+    "name": "Amaranth, cooked"
+  },
+  {
+    "key": "0500563",
+    "name": "Amaranth, cooked (pressure)"
+  },
+  {
+    "key": "0500564",
+    "name": "Amaranth, cooked (microwave)"
+  },
+  {
+    "key": "0500565",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500566",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500567",
+    "name": "Green leafy vegetables, cooked (pressure)"
+  },
+  {
+    "key": "0500568",
+    "name": "Green leafy vegetables, cooked (microwave)"
+  },
+  {
+    "key": "0500569",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500570",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500571",
+    "name": "Green leafy vegetables, cooked (pressure)"
+  },
+  {
+    "key": "0500572",
+    "name": "Green leafy vegetables, cooked (microwave)"
+  },
+  {
+    "key": "0500573",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500574",
+    "name": "Spinach, cooked "
+  },
+  {
+    "key": "0500575",
+    "name": "Spinach, cooked (pressure)"
+  },
+  {
+    "key": "0500576",
+    "name": "Spinach, cooked (microwave)"
+  },
+  {
+    "key": "0500577",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500578",
+    "name": "Green leafy vegetables, blanched"
+  },
+  {
+    "key": "0500579",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500580",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500581",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500582",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500583",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500584",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500585",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500586",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500587",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500588",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500589",
+    "name": "Spinach, raw"
+  },
+  {
+    "key": "0500590",
+    "name": "Spinach, steamed"
+  },
+  {
+    "key": "0500591",
+    "name": "Spinach, cooked (microwave)"
+  },
+  {
+    "key": "0500592",
+    "name": "Broccoli Leaves, raw"
+  },
+  {
+    "key": "0500593",
+    "name": "Broccoli leaves, steamed"
+  },
+  {
+    "key": "0500594",
+    "name": "Broccoli leaves, cooked (microwave)"
+  },
+  {
+    "key": "0500595",
+    "name": "Green leafy vegetables, raw"
+  },
+  {
+    "key": "0500596",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500597",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500598",
+    "name": "Green leafy vegetables, cooked"
+  },
+  {
+    "key": "0500599",
+    "name": "Cassava Leaves, raw"
+  },
+  {
+    "key": "0500600",
+    "name": "Cassava Leaves, cooked"
+  },
+  {
+    "key": "0500601",
+    "name": "Cassava Leaves, cooked"
+  },
+  {
+    "key": "0500602",
+    "name": "Cassava Leaves, boiled"
+  },
+  {
+    "key": "0500603",
+    "name": "Cassava, leaf, boiled "
+  },
+  {
+    "key": "0500604",
+    "name": "Chinese cabbage, boiled"
+  },
+  {
+    "key": "0500605",
+    "name": "Pumpkin, leaf, boiled"
+  },
+  {
+    "key": "0500606",
+    "name": "Pumpkin, fruit, boiled"
+  },
+  {
+    "key": "0500607",
+    "name": "Amaranth, boiled"
+  },
+  {
+    "key": "0500608",
+    "name": "Okra, leaf, boiled"
+  },
+  {
+    "key": "0500609",
+    "name": "Okra, fruit"
+  },
+  {
+    "key": "0500610",
+    "name": "Pit pit, raw"
+  },
+  {
+    "key": "0500611",
+    "name": "Aupa,raw"
+  },
+  {
+    "key": "0500612",
+    "name": "Tulip,raw"
+  },
+  {
+    "key": "0500613",
+    "name": "Aibika, raw"
+  },
+  {
+    "key": "0500614",
+    "name": "Pumpkin tips, raw"
+  },
+  {
+    "key": "0500615",
+    "name": "Sago, raw"
+  },
+  {
+    "key": "0500616",
+    "name": "Cassava, leaves, boiled "
+  },
+  {
+    "key": "0500617",
+    "name": "Cassava, leaves, raw"
+  },
+  {
+    "key": "0500618",
+    "name": "Cassava, leaves, destalked, raw"
+  },
+  {
+    "key": "0500619",
+    "name": "Cassava, leaves, destalked, boiled"
+  },
+  {
+    "key": "0500620",
+    "name": "Cassava, leaves, destalked, boiled"
+  },
+  {
+    "key": "0500621",
+    "name": "Cassava, leaves, destalked, boiled"
+  },
+  {
+    "key": "0600001",
+    "name": "Avocado, raw"
+  },
+  {
+    "key": "0600002",
+    "name": "Banana, raw"
+  },
+  {
+    "key": "0600003",
+    "name": "Indian plum, raw"
+  },
+  {
+    "key": "0600004",
+    "name": "Guavas, raw"
+  },
+  {
+    "key": "0600005",
+    "name": "Mango, raw"
+  },
+  {
+    "key": "0600006",
+    "name": "Mango, boiled"
+  },
+  {
+    "key": "0600007",
+    "name": "Banana, raw"
+  },
+  {
+    "key": "0600008",
+    "name": "Guavas, raw"
+  },
+  {
+    "key": "0600009",
+    "name": "Bread fruit, seeds, raw"
+  },
+  {
+    "key": "0600010",
+    "name": "Coconut, raw"
+  },
+  {
+    "key": "0600011",
+    "name": "Kwambi figs, raw"
+  }
+]

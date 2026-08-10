@@ -1,0 +1,2838 @@
+[
+  {
+    "key": "F002258",
+    "name": "Cardamom seed, dried, ground"
+  },
+  {
+    "key": "F003190",
+    "name": "Coriander seed, dried, ground"
+  },
+  {
+    "key": "F003327",
+    "name": "Cumin (cummin) seed, dried, ground"
+  },
+  {
+    "key": "F003821",
+    "name": "Fenugreek seed, dried"
+  },
+  {
+    "key": "F006118",
+    "name": "Nutmeg, dried, ground"
+  },
+  {
+    "key": "F006618",
+    "name": "Pepper, black, ground"
+  },
+  {
+    "key": "F005158",
+    "name": "Lecithin, soy, granules"
+  },
+  {
+    "key": "F009350",
+    "name": "Vanilla bean extract"
+  },
+  {
+    "key": "F002955",
+    "name": "Cider, apple (alcohol ~4-5% v/v)"
+  },
+  {
+    "key": "F010642",
+    "name": "Protein powder, hemp seed based"
+  },
+  {
+    "key": "F003041",
+    "name": "Coffee, espresso, from ground coffee beans"
+  },
+  {
+    "key": "F003065",
+    "name": "Coffee, long black, from ground coffee beans"
+  },
+  {
+    "key": "F009796",
+    "name": "Coffee, flat white/latte/cappuccino, from ground coffee beans, with regular fat cow's milk"
+  },
+  {
+    "key": "F003130",
+    "name": "Cordial base, 25% citrus fruit juice, regular"
+  },
+  {
+    "key": "F003135",
+    "name": "Cordial base, 40% citrus fruit juice, regular"
+  },
+  {
+    "key": "F009928",
+    "name": "Cordial base, fruit juice/flavours, intense sweetened or diet"
+  },
+  {
+    "key": "F003158",
+    "name": "Cordial, 25% citrus fruit juice, regular, recommended dilution"
+  },
+  {
+    "key": "F003160",
+    "name": "Cordial, 40% citrus fruit juice, regular, recommended dilution"
+  },
+  {
+    "key": "F009927",
+    "name": "Cordial, fruit juice/flavours, recommended dilution"
+  },
+  {
+    "key": "F009931",
+    "name": "Cordial, fruit juice/flavours, intense sweetened or diet, recommended dilution"
+  },
+  {
+    "key": "F004663",
+    "name": "Juice, apple, commercial, added vitamin C"
+  },
+  {
+    "key": "F004656",
+    "name": "Juice, apple &amp; blackcurrant, commercial"
+  },
+  {
+    "key": "F004739",
+    "name": "Juice, orange, commercial"
+  },
+  {
+    "key": "F004731",
+    "name": "Juice, orange &amp; mango, commercial"
+  },
+  {
+    "key": "F010307",
+    "name": "Juice, vegetable blend, commercial"
+  },
+  {
+    "key": "F004099",
+    "name": "Fruit drink, apple juice"
+  },
+  {
+    "key": "F004101",
+    "name": "Fruit drink, blackcurrant, commercial"
+  },
+  {
+    "key": "F004102",
+    "name": "Fruit drink, cranberry"
+  },
+  {
+    "key": "F004114",
+    "name": "Fruit drink, orange juice"
+  },
+  {
+    "key": "F008438",
+    "name": "Soft drink, fruit flavours"
+  },
+  {
+    "key": "F008439",
+    "name": "Soft drink, fruit flavours, intense sweetened or diet"
+  },
+  {
+    "key": "F001115",
+    "name": "Biscuit, savoury, corn cake, plain, salted"
+  },
+  {
+    "key": "F001152",
+    "name": "Biscuit, savoury, rice cracker, plain"
+  },
+  {
+    "key": "F009833",
+    "name": "Biscuit, savoury, rice cracker, added vegetable powder"
+  },
+  {
+    "key": "F001147",
+    "name": "Biscuit, savoury, rice cake, from brown rice, plain"
+  },
+  {
+    "key": "F001151",
+    "name": "Biscuit, savoury, rice cracker, flavoured (excluding seaweed)"
+  },
+  {
+    "key": "F001153",
+    "name": "Biscuit, savoury, rice cracker, seaweed flavoured"
+  },
+  {
+    "key": "F001118",
+    "name": "Biscuit, savoury, from rye flour, crispbread"
+  },
+  {
+    "key": "F009832",
+    "name": "Biscuit, savoury, seed based"
+  },
+  {
+    "key": "F001123",
+    "name": "Biscuit, savoury, from white wheat flour, flaky cracker style"
+  },
+  {
+    "key": "F001126",
+    "name": "Biscuit, savoury, from white wheat flour, plain snack cracker style"
+  },
+  {
+    "key": "F001129",
+    "name": "Biscuit, savoury, from white wheat flour, Salada style"
+  },
+  {
+    "key": "F001133",
+    "name": "Biscuit, savoury, from white wheat flour, water cracker style"
+  },
+  {
+    "key": "F001122",
+    "name": "Biscuit, savoury, from white wheat flour, cheese-flavoured"
+  },
+  {
+    "key": "F010958",
+    "name": "Biscuit, savoury, from white wheat flour, flavoured (excluding cheese)"
+  },
+  {
+    "key": "F001137",
+    "name": "Biscuit, savoury, from wholemeal wheat flour, crispbread"
+  },
+  {
+    "key": "F001135",
+    "name": "Biscuit, savoury, from wholemeal wheat flour &amp; rye flour, crispbread, puffed"
+  },
+  {
+    "key": "F001120",
+    "name": "Biscuit, savoury, from wheat flour, crispbread, puffed &amp; toasted"
+  },
+  {
+    "key": "F001251",
+    "name": "Biscuit, sweet, wheatmeal"
+  },
+  {
+    "key": "F001167",
+    "name": "Biscuit, sweet, biscuit base, caramel filling, chocolate-coated, commercial"
+  },
+  {
+    "key": "F001168",
+    "name": "Biscuit, sweet, biscuit base, mint filling, chocolate-coated"
+  },
+  {
+    "key": "F001170",
+    "name": "Biscuit, sweet, chocolate chip or coated"
+  },
+  {
+    "key": "F001234",
+    "name": "Biscuit, sweet, sandwich, cream filling, chocolate-coated, tim tam style"
+  },
+  {
+    "key": "F009839",
+    "name": "Biscuit, sweet, breakfast style, with or without dried fruit"
+  },
+  {
+    "key": "F009854",
+    "name": "Bread, flat wrap or tortilla, corn, commercial"
+  },
+  {
+    "key": "F000233",
+    "name": "Bagel, from white flour, commercial"
+  },
+  {
+    "key": "F000234",
+    "name": "Bagel, from white flour, commercial, toasted"
+  },
+  {
+    "key": "F001387",
+    "name": "Bread, damper, from white flour, homemade"
+  },
+  {
+    "key": "F001463",
+    "name": "Bread, from white flour"
+  },
+  {
+    "key": "F001541",
+    "name": "Bread, from white flour, toasted"
+  },
+  {
+    "key": "F001528",
+    "name": "Bread, from white flour, Italian-style, commercial"
+  },
+  {
+    "key": "F001529",
+    "name": "Bread, from white flour, Italian-style, commercial, toasted"
+  },
+  {
+    "key": "F001671",
+    "name": "Bread, from white flour, Turkish"
+  },
+  {
+    "key": "F001672",
+    "name": "Bread, from white flour, Turkish, toasted"
+  },
+  {
+    "key": "F001537",
+    "name": "Bread, from white flour, sour dough, commercial"
+  },
+  {
+    "key": "F001538",
+    "name": "Bread, from white flour, sour dough, toasted"
+  },
+  {
+    "key": "F001353",
+    "name": "Bread roll, from white flour"
+  },
+  {
+    "key": "F001553",
+    "name": "Bread, from wholemeal flour"
+  },
+  {
+    "key": "F001597",
+    "name": "Bread, from wholemeal flour, toasted"
+  },
+  {
+    "key": "F001360",
+    "name": "Bread roll, from wholemeal flour"
+  },
+  {
+    "key": "F001621",
+    "name": "Bread, mixed grain"
+  },
+  {
+    "key": "F001644",
+    "name": "Bread, mixed grain, toasted"
+  },
+  {
+    "key": "F001365",
+    "name": "Bread roll, mixed grain"
+  },
+  {
+    "key": "F001450",
+    "name": "Bread, from rye flour, sour dough"
+  },
+  {
+    "key": "F001451",
+    "name": "Bread, from rye flour, sour dough, toasted"
+  },
+  {
+    "key": "F001468",
+    "name": "Bread, from white flour, added fibre"
+  },
+  {
+    "key": "F001479",
+    "name": "Bread, from white flour, added fibre, toasted"
+  },
+  {
+    "key": "F001484",
+    "name": "Bread, from white flour, added omega-3 polyunsaturates"
+  },
+  {
+    "key": "F001485",
+    "name": "Bread, from white flour, added omega-3 polyunsaturates, toasted"
+  },
+  {
+    "key": "F001543",
+    "name": "Bread, from white Jackaroo flour, added fibre and vitamins B1 &amp; folate &amp; Fe"
+  },
+  {
+    "key": "F001544",
+    "name": "Bread, from white Jackaroo flour, added fibre and vitamins B1 &amp; folate &amp; Fe, toasted"
+  },
+  {
+    "key": "F001600",
+    "name": "Bread, garlic, commercial, baked"
+  },
+  {
+    "key": "F001601",
+    "name": "Bread, garlic or herb, homemade, cooked"
+  },
+  {
+    "key": "F001457",
+    "name": "Bread, from white flour, commercial, added dried fruit"
+  },
+  {
+    "key": "F001458",
+    "name": "Bread, from white wheat flour, added dried fruit, toasted"
+  },
+  {
+    "key": "F009792",
+    "name": "Bun, sweet, hot cross bun, with dried fruit"
+  },
+  {
+    "key": "F001940",
+    "name": "Bun, sweet, with dried fruit, uniced"
+  },
+  {
+    "key": "F001939",
+    "name": "Bun, sweet, with dried fruit, iced"
+  },
+  {
+    "key": "F003313",
+    "name": "Crumpet, from white flour, toasted"
+  },
+  {
+    "key": "F005896",
+    "name": "Muffin, English style, from white flour"
+  },
+  {
+    "key": "F005898",
+    "name": "Muffin, English style, from white flour, toasted"
+  },
+  {
+    "key": "F005897",
+    "name": "Muffin, English style, from white flour, added dried fruit, toasted"
+  },
+  {
+    "key": "F001688",
+    "name": "Breakfast cereal, beverage, non-chocolate flavours, added vitamins &amp; minerals (Up &amp; Go)"
+  },
+  {
+    "key": "F001708",
+    "name": "Breakfast cereal, flakes of corn, unfortified"
+  },
+  {
+    "key": "F001701",
+    "name": "Breakfast cereal, flakes of corn, added vitamins &amp; minerals (Kellogg's Cornflakes)"
+  },
+  {
+    "key": "F001788",
+    "name": "Breakfast cereal, mixed grain (wheat, rice &amp; oat), flakes, honey, unfortified (Be Natural Honey Flakes)"
+  },
+  {
+    "key": "F001720",
+    "name": "Breakfast cereal, mixed grain (rice &amp; wheat), flakes, added vitamins &amp; minerals (Kellogg's Special K)"
+  },
+  {
+    "key": "F001767",
+    "name": "Breakfast cereal, mixed grain (wheat, oat &amp; corn), added vitamins &amp; minerals (Kellogg's Nutri-grain)"
+  },
+  {
+    "key": "F001733",
+    "name": "Breakfast cereal, mixed grain (wheat &amp; oat), flakes, apricot &amp; sultana, added vitamins &amp; minerals (Kellogg's Just Right)"
+  },
+  {
+    "key": "F001811",
+    "name": "Breakfast cereal, puffed or popped rice, no added sugar or salt, unfortified"
+  },
+  {
+    "key": "F001803",
+    "name": "Breakfast cereal, puffed or popped rice, added vitamins &amp; minerals (Kellogg's Rice Bubbles)"
+  },
+  {
+    "key": "F001807",
+    "name": "Breakfast cereal, puffed or popped rice, cocoa coating, added vitamins &amp; minerals (Kellogg's Coco Pops)"
+  },
+  {
+    "key": "F001871",
+    "name": "Breakfast cereal, whole wheat, puffed, no added sugar or salt, unfortified"
+  },
+  {
+    "key": "F001849",
+    "name": "Breakfast cereal, whole wheat, biscuit, no added sugar, unfortified"
+  },
+  {
+    "key": "F001829",
+    "name": "Breakfast cereal, wheat bran, pellets, added vitamins &amp; minerals (Kellogg's All Bran)"
+  },
+  {
+    "key": "F001818",
+    "name": "Breakfast cereal, wheat bran, flakes, added vitamins &amp; minerals (Kellogg's Bran Flakes)"
+  },
+  {
+    "key": "F001844",
+    "name": "Breakfast cereal, whole wheat, biscuit, added vitamins &amp; minerals (Sanitarium Weet Bix)"
+  },
+  {
+    "key": "F001845",
+    "name": "Breakfast cereal, whole wheat, biscuit, bran, added vitamins &amp; minerals (Sanitarium Weet-Bix Hi-Bran)"
+  },
+  {
+    "key": "F001860",
+    "name": "Breakfast cereal, whole wheat, flakes, added vitamins &amp; minerals (Weeties style)"
+  },
+  {
+    "key": "F001862",
+    "name": "Breakfast cereal, whole wheat, flakes, dried fruit &amp; nuts, added vitamins &amp; minerals (Uncle Toby's Fibre Plus)"
+  },
+  {
+    "key": "F001823",
+    "name": "Breakfast cereal, wheat bran, flakes, sultanas, added vitamins &amp; minerals (Kellogg's Sultana Bran)"
+  },
+  {
+    "key": "F009807",
+    "name": "Muesli, granola, toasted, added nuts &amp; seeds, unfortified"
+  },
+  {
+    "key": "F009808",
+    "name": "Muesli, granola, non-oat based, toasted, added nuts &amp; seeds, unfortified"
+  },
+  {
+    "key": "F005856",
+    "name": "Muesli, toasted, added dried fruit &amp; nuts, unfortified"
+  },
+  {
+    "key": "F005857",
+    "name": "Muesli, untoasted or natural style, added dried fruit, unfortified"
+  },
+  {
+    "key": "F007164",
+    "name": "Porridge, rolled oats, prepared with water"
+  },
+  {
+    "key": "F007156",
+    "name": "Porridge, rolled oats, prepared with regular fat cow's milk"
+  },
+  {
+    "key": "F007143",
+    "name": "Porridge, rolled oats mixed with sugar or honey &amp; other flavours, prepared with cow's milk"
+  },
+  {
+    "key": "F001374",
+    "name": "Bread, banana, commercial"
+  },
+  {
+    "key": "F001376",
+    "name": "Bread, banana, homemade"
+  },
+  {
+    "key": "F008273",
+    "name": "Slice, brownie, chocolate, without nuts, commercial"
+  },
+  {
+    "key": "F008272",
+    "name": "Slice, brownie, chocolate, with nuts, homemade"
+  },
+  {
+    "key": "F002100",
+    "name": "Cake, carrot, commercial, iced"
+  },
+  {
+    "key": "F002102",
+    "name": "Cake, carrot, homemade, uniced"
+  },
+  {
+    "key": "F002101",
+    "name": "Cake, carrot, homemade, iced"
+  },
+  {
+    "key": "F002150",
+    "name": "Cake, fruit, homemade, uniced"
+  },
+  {
+    "key": "F005877",
+    "name": "Muffin, cake-style, berry, commercial"
+  },
+  {
+    "key": "F003573",
+    "name": "Doughnut, dusted with cinnamon &amp; sugar"
+  },
+  {
+    "key": "F003574",
+    "name": "Doughnut, iced"
+  },
+  {
+    "key": "F003575",
+    "name": "Doughnut, jam filled, sugar coated"
+  },
+  {
+    "key": "F007512",
+    "name": "Pudding, plum, steamed or boiled, homemade"
+  },
+  {
+    "key": "F007529",
+    "name": "Pudding, sticky date, homemade"
+  },
+  {
+    "key": "F008172",
+    "name": "Scone, fruit, commercial"
+  },
+  {
+    "key": "F008176",
+    "name": "Scone, pumpkin, homemade"
+  },
+  {
+    "key": "F000061",
+    "name": "Amaranth, grain, whole, uncooked"
+  },
+  {
+    "key": "F000379",
+    "name": "Barley, pearl, uncooked"
+  },
+  {
+    "key": "F000378",
+    "name": "Barley, pearl, boiled, no added fat or salt"
+  },
+  {
+    "key": "F001919",
+    "name": "Buckwheat groats, uncooked"
+  },
+  {
+    "key": "F001918",
+    "name": "Buckwheat groats, cooked in water, no added salt"
+  },
+  {
+    "key": "F003230",
+    "name": "Cornmeal (polenta), uncooked"
+  },
+  {
+    "key": "F003227",
+    "name": "Cornmeal (polenta), boiled, no added fat or salt"
+  },
+  {
+    "key": "F005692",
+    "name": "Millet, uncooked"
+  },
+  {
+    "key": "F005690",
+    "name": "Millet, boiled, no added fat or salt"
+  },
+  {
+    "key": "F006134",
+    "name": "Oat bran, unprocessed, uncooked"
+  },
+  {
+    "key": "F006136",
+    "name": "Oats, hulled, uncooked"
+  },
+  {
+    "key": "F006143",
+    "name": "Oats, rolled, uncooked"
+  },
+  {
+    "key": "F006141",
+    "name": "Oats, rolled, mixed with sugar or honey &amp; other flavours, uncooked"
+  },
+  {
+    "key": "F007593",
+    "name": "Quinoa, black, uncooked"
+  },
+  {
+    "key": "F007597",
+    "name": "Quinoa, red, uncooked"
+  },
+  {
+    "key": "F007599",
+    "name": "Quinoa, white, uncooked"
+  },
+  {
+    "key": "F007598",
+    "name": "Quinoa, uncooked"
+  },
+  {
+    "key": "F007596",
+    "name": "Quinoa, cooked in water, no added salt"
+  },
+  {
+    "key": "F007722",
+    "name": "Rye, grain, whole, uncooked"
+  },
+  {
+    "key": "F007724",
+    "name": "Rye, rolled, uncooked"
+  },
+  {
+    "key": "F008474",
+    "name": "Sorghum, grain, uncooked"
+  },
+  {
+    "key": "F009260",
+    "name": "Triticale, grain, uncooked"
+  },
+  {
+    "key": "F008745",
+    "name": "Spelt, uncooked"
+  },
+  {
+    "key": "F008744",
+    "name": "Spelt, boiled, no added fat or salt"
+  },
+  {
+    "key": "F009090",
+    "name": "Tapioca, pearl or seed style, uncooked"
+  },
+  {
+    "key": "F009089",
+    "name": "Tapioca, pearl or seed style, boiled, no added fat or salt"
+  },
+  {
+    "key": "F009535",
+    "name": "Wheat bran, unprocessed, uncooked"
+  },
+  {
+    "key": "F009537",
+    "name": "Wheat, whole, uncooked"
+  },
+  {
+    "key": "F009536",
+    "name": "Wheat germ"
+  },
+  {
+    "key": "F007682",
+    "name": "Rice, white, uncooked"
+  },
+  {
+    "key": "F007661",
+    "name": "Rice, white, boiled or rice cooker, no added salt"
+  },
+  {
+    "key": "F007678",
+    "name": "Rice, white, purchased as 'instant', microwaved"
+  },
+  {
+    "key": "F007648",
+    "name": "Rice, brown, uncooked"
+  },
+  {
+    "key": "F007641",
+    "name": "Rice, brown, boiled, no added salt"
+  },
+  {
+    "key": "F007684",
+    "name": "Rice, wild, uncooked"
+  },
+  {
+    "key": "F007683",
+    "name": "Rice, wild, boiled, no added salt"
+  },
+  {
+    "key": "F007639",
+    "name": "Rice paper wrapper, soaked in water"
+  },
+  {
+    "key": "F007666",
+    "name": "Rice, white, fried with bacon or ham, egg, prawns &amp; vegetables "
+  },
+  {
+    "key": "F003983",
+    "name": "Flour, arrowroot"
+  },
+  {
+    "key": "F003988",
+    "name": "Flour, cornflour, from maize starch"
+  },
+  {
+    "key": "F003989",
+    "name": "Flour, cornflour, from maize &amp; wheat starch"
+  },
+  {
+    "key": "F003986",
+    "name": "Flour, chickpea (besan)"
+  },
+  {
+    "key": "F003990",
+    "name": "Flour, gluten free, plain"
+  },
+  {
+    "key": "F003998",
+    "name": "Flour, rice"
+  },
+  {
+    "key": "F004000",
+    "name": "Flour, rye"
+  },
+  {
+    "key": "F004002",
+    "name": "Flour, soya (soy)"
+  },
+  {
+    "key": "F004004",
+    "name": "Flour, spelt"
+  },
+  {
+    "key": "F004006",
+    "name": "Flour, wheat, white, high protein or bread making flour"
+  },
+  {
+    "key": "F004007",
+    "name": "Flour, wheat, white, plain"
+  },
+  {
+    "key": "F004008",
+    "name": "Flour, wheat, white, plain, added vitamins B1, B2, B3, B6, E &amp; folate &amp; Fe, Mg &amp; Zn (Jackaroo)"
+  },
+  {
+    "key": "F004009",
+    "name": "Flour, wheat, white, self-raising"
+  },
+  {
+    "key": "F004013",
+    "name": "Flour, wheat, white, self-raising, added vitamins B1, B2, B3, B6, E &amp; folate &amp; Fe, Mg &amp; Zn (Jackaroo)"
+  },
+  {
+    "key": "F004014",
+    "name": "Flour, wheat, wholemeal, plain"
+  },
+  {
+    "key": "F004015",
+    "name": "Flour, wheat, wholemeal, self-raising"
+  },
+  {
+    "key": "F004220",
+    "name": "Gluten, from wheat (vital wheat gluten)"
+  },
+  {
+    "key": "F008831",
+    "name": "Starch, potato"
+  },
+  {
+    "key": "F004358",
+    "name": "Hamburger, white roll, beef patty, with cheese, onion, pickles &amp; sauce, fast food chain"
+  },
+  {
+    "key": "F006725",
+    "name": "Pizza, cheese &amp; tomato, commercial"
+  },
+  {
+    "key": "F006761",
+    "name": "Pizza, ham &amp; pineapple, purchased frozen, baked"
+  },
+  {
+    "key": "F006762",
+    "name": "Pizza, ham &amp; pineapple, takeaway style"
+  },
+  {
+    "key": "F006805",
+    "name": "Pizza, vegetable, fast food chain"
+  },
+  {
+    "key": "F006038",
+    "name": "Noodle, rice stick, boiled, drained"
+  },
+  {
+    "key": "F006048",
+    "name": "Noodle, wheat, fresh, soaked, drained"
+  },
+  {
+    "key": "F006055",
+    "name": "Noodle, wheat, instant, flavoured, dry, uncooked"
+  },
+  {
+    "key": "F006066",
+    "name": "Noodle, wheat, instant, unflavoured, boiled, drained"
+  },
+  {
+    "key": "F006067",
+    "name": "Noodle, wheat, instant, unflavoured, boiled, undrained"
+  },
+  {
+    "key": "F006068",
+    "name": "Noodle, wheat, instant, unflavoured, dry, uncooked"
+  },
+  {
+    "key": "F006053",
+    "name": "Noodle, wheat, instant, flavoured, boiled, drained"
+  },
+  {
+    "key": "F006054",
+    "name": "Noodle, wheat, instant, flavoured, boiled, undrained"
+  },
+  {
+    "key": "F006044",
+    "name": "Noodle, wheat with egg, plain, boiled, no added fat"
+  },
+  {
+    "key": "F006458",
+    "name": "Pasta, white wheat flour, dry"
+  },
+  {
+    "key": "F006456",
+    "name": "Pasta, white wheat flour, boiled from dry, no added salt"
+  },
+  {
+    "key": "F006460",
+    "name": "Pasta, white wheat flour, fresh, uncooked"
+  },
+  {
+    "key": "F006459",
+    "name": "Pasta, white wheat flour, fresh, boiled, no added salt"
+  },
+  {
+    "key": "F006445",
+    "name": "Pasta, white wheat flour &amp; egg, dry"
+  },
+  {
+    "key": "F006444",
+    "name": "Pasta, white wheat flour &amp; egg, boiled from dry, no added salt"
+  },
+  {
+    "key": "F006453",
+    "name": "Pasta, white wheat flour &amp; spinach, dry"
+  },
+  {
+    "key": "F006451",
+    "name": "Pasta, white wheat flour &amp; spinach, boiled from dry, no added salt"
+  },
+  {
+    "key": "F006465",
+    "name": "Pasta, wholemeal wheat flour, dry"
+  },
+  {
+    "key": "F006464",
+    "name": "Pasta, wholemeal wheat flour, boiled from dry, no added salt"
+  },
+  {
+    "key": "F006393",
+    "name": "Pasta dish, homemade, cooked unfilled pasta, homemade beef bolognese sauce &amp; added vegetables"
+  },
+  {
+    "key": "F008737",
+    "name": "Spaghetti in tomato &amp; cheese sauce, canned"
+  },
+  {
+    "key": "F008738",
+    "name": "Spaghetti in tomato &amp; cheese sauce, canned, reduced salt"
+  },
+  {
+    "key": "F006503",
+    "name": "Pastry, puff, vegetable oil, commercial, raw"
+  },
+  {
+    "key": "F006502",
+    "name": "Pastry, puff, vegetable oil, commercial, baked"
+  },
+  {
+    "key": "F006493",
+    "name": "Pastry, filled with spinach &amp; cheese, purchased frozen, baked"
+  },
+  {
+    "key": "F006656",
+    "name": "Pie, savoury, chicken &amp; vegetable, commercial"
+  },
+  {
+    "key": "F008794",
+    "name": "Spring roll, meat &amp; vegetable filling, commercial, deep fried"
+  },
+  {
+    "key": "F006679",
+    "name": "Pie, sweet, apple, commercial"
+  },
+  {
+    "key": "F005702",
+    "name": "Paste, soybean"
+  },
+  {
+    "key": "F008000",
+    "name": "Sauce, cranberry, commercial"
+  },
+  {
+    "key": "F008032",
+    "name": "Sauce, pasta, bolognese, homemade using beef mince &amp; homemade tomato based sauce"
+  },
+  {
+    "key": "F008031",
+    "name": "Sauce, pasta, bolognese, homemade using beef mince &amp; commercial tomato based sauce"
+  },
+  {
+    "key": "F008050",
+    "name": "Sauce, pasta, tomato-based, commercial, heated"
+  },
+  {
+    "key": "F008054",
+    "name": "Sauce, plum, commercial"
+  },
+  {
+    "key": "F008056",
+    "name": "Sauce, salsa, tomato-based, commercial"
+  },
+  {
+    "key": "F008065",
+    "name": "Sauce, soy, commercial"
+  },
+  {
+    "key": "F008067",
+    "name": "Sauce, soy, commercial, reduced salt"
+  },
+  {
+    "key": "F008083",
+    "name": "Sauce, tomato, commercial"
+  },
+  {
+    "key": "F008085",
+    "name": "Sauce, tomato, commercial, reduced salt"
+  },
+  {
+    "key": "F010105",
+    "name": "Sauce, tomato, reduced sugar &amp; salt, commercial"
+  },
+  {
+    "key": "F006577",
+    "name": "Peanut butter, smooth &amp; crunchy, added sugar &amp; salt"
+  },
+  {
+    "key": "F006579",
+    "name": "Peanut butter, smooth &amp; crunchy, no added sugar or salt"
+  },
+  {
+    "key": "F002462",
+    "name": "Cheese, goat, firm"
+  },
+  {
+    "key": "F002463",
+    "name": "Cheese, goat, soft"
+  },
+  {
+    "key": "F004415",
+    "name": "Ice confection, stick or tub, fruit juice or fruit flavoured"
+  },
+  {
+    "key": "F009608",
+    "name": "Yoghurt, apricot pieces or flavoured, regular fat (~3%)"
+  },
+  {
+    "key": "F009741",
+    "name": "Yoghurt, strawberry pieces or flavoured, regular fat (~3%)"
+  },
+  {
+    "key": "F009797",
+    "name": "Yoghurt, almond based, flavoured"
+  },
+  {
+    "key": "F009798",
+    "name": "Yoghurt, coconut based, flavoured"
+  },
+  {
+    "key": "F009738",
+    "name": "Yoghurt, soy based, berry flavoured, regular fat (~3%)"
+  },
+  {
+    "key": "F009739",
+    "name": "Yoghurt, soy based, vanilla flavoured, reduced fat (~1%)"
+  },
+  {
+    "key": "F009825",
+    "name": "Almond beverage, added sugar, unfortified"
+  },
+  {
+    "key": "F009824",
+    "name": "Almond beverage, no added sugar, unfortified"
+  },
+  {
+    "key": "F009827",
+    "name": "Almond beverage, added sugar &amp; Ca"
+  },
+  {
+    "key": "F009826",
+    "name": "Almond beverage, no added sugar, added Ca"
+  },
+  {
+    "key": "F009828",
+    "name": "Almond beverage, added sugar &amp; vitamins B1, B2, B12, C &amp; Ca"
+  },
+  {
+    "key": "F009812",
+    "name": "Coconut beverage, unfortified"
+  },
+  {
+    "key": "F009813",
+    "name": "Coconut beverage, added Ca"
+  },
+  {
+    "key": "F006132",
+    "name": "Oat beverage, fluid, unfortified"
+  },
+  {
+    "key": "F006131",
+    "name": "Oat beverage, fluid, added Ca"
+  },
+  {
+    "key": "F011006",
+    "name": "Oat beverage, fluid, added calcium &amp; vitamins"
+  },
+  {
+    "key": "F009980",
+    "name": "Rice beverage, unfortified"
+  },
+  {
+    "key": "F007632",
+    "name": "Rice beverage, fluid, added calcium"
+  },
+  {
+    "key": "F008721",
+    "name": "Soy beverage, regular fat (~3%), unfortified"
+  },
+  {
+    "key": "F008719",
+    "name": "Soy beverage, regular fat (~3%), added Ca"
+  },
+  {
+    "key": "F008720",
+    "name": "Soy beverage, regular fat (~3%), added Ca &amp; vitamins A, B1, B2 &amp; B12"
+  },
+  {
+    "key": "F008704",
+    "name": "Soy beverage, reduced fat (~1%), added Ca &amp; vitamins A, B1, B2 &amp; B12"
+  },
+  {
+    "key": "F009147",
+    "name": "Textured vegetable protein/soy granules"
+  },
+  {
+    "key": "F009176",
+    "name": "Tofu (soy bean curd), firm, as purchased"
+  },
+  {
+    "key": "F009822",
+    "name": "Meat alternative, protein (soy/wheat/pea) base, as purchased"
+  },
+  {
+    "key": "F009823",
+    "name": "Meat alternative, protein (soy/wheat/pea) base, cooked"
+  },
+  {
+    "key": "F010472",
+    "name": "Meat alternative, protein (soy/wheat/pea) base, added vitamins &amp; minerals, as purchased"
+  },
+  {
+    "key": "F009814",
+    "name": "Meat alternative, legume and/or vegetable base, as purchased"
+  },
+  {
+    "key": "F009816",
+    "name": "Meat alternative, legume and/or vegetable base, cooked"
+  },
+  {
+    "key": "F008670",
+    "name": "Soup, vegetable, instant dry mix"
+  },
+  {
+    "key": "F008661",
+    "name": "Soup, vegetable &amp; noodle, instant dry mix"
+  },
+  {
+    "key": "F006154",
+    "name": "Oil, almond"
+  },
+  {
+    "key": "F010968",
+    "name": "Oil, avocado"
+  },
+  {
+    "key": "F006163",
+    "name": "Oil, coconut"
+  },
+  {
+    "key": "F006166",
+    "name": "Oil, cottonseed"
+  },
+  {
+    "key": "F006167",
+    "name": "Oil, grapeseed"
+  },
+  {
+    "key": "F006168",
+    "name": "Oil, linseed or flaxseed"
+  },
+  {
+    "key": "F006169",
+    "name": "Oil, macadamia"
+  },
+  {
+    "key": "F006172",
+    "name": "Oil, mustard seed"
+  },
+  {
+    "key": "F006177",
+    "name": "Oil, olive"
+  },
+  {
+    "key": "F006183",
+    "name": "Oil, peanut"
+  },
+  {
+    "key": "F006185",
+    "name": "Oil, rice bran"
+  },
+  {
+    "key": "F006187",
+    "name": "Oil, sesame"
+  },
+  {
+    "key": "F006188",
+    "name": "Oil, soybean"
+  },
+  {
+    "key": "F006156",
+    "name": "Oil, blend of polyunsaturated vegetable oils"
+  },
+  {
+    "key": "F006155",
+    "name": "Oil, blend of monounsaturated vegetable oils"
+  },
+  {
+    "key": "F006191",
+    "name": "Oil, vegetable"
+  },
+  {
+    "key": "F003817",
+    "name": "Fat, solid, vegetable oil based"
+  },
+  {
+    "key": "F000086",
+    "name": "Apple, bonza, unpeeled, raw"
+  },
+  {
+    "key": "F000091",
+    "name": "Apple, fuji, unpeeled, raw"
+  },
+  {
+    "key": "F000092",
+    "name": "Apple, golden delicious, unpeeled, raw"
+  },
+  {
+    "key": "F000098",
+    "name": "Apple, green skin, unpeeled, raw"
+  },
+  {
+    "key": "F000095",
+    "name": "Apple, granny-smith, unpeeled, raw"
+  },
+  {
+    "key": "F000099",
+    "name": "Apple, jonathan, unpeeled, raw"
+  },
+  {
+    "key": "F000105",
+    "name": "Apple, pink lady, unpeeled, raw"
+  },
+  {
+    "key": "F000107",
+    "name": "Apple, red delicious, unpeeled, raw"
+  },
+  {
+    "key": "F000111",
+    "name": "Apple, royal gala, unpeeled, raw"
+  },
+  {
+    "key": "F000108",
+    "name": "Apple, red skin, peeled, raw"
+  },
+  {
+    "key": "F000110",
+    "name": "Apple, red skin, unpeeled, raw"
+  },
+  {
+    "key": "F000089",
+    "name": "Apple, dried"
+  },
+  {
+    "key": "F000134",
+    "name": "Apricot, raw"
+  },
+  {
+    "key": "F000130",
+    "name": "Apricot, dried"
+  },
+  {
+    "key": "F000122",
+    "name": "Apricot, canned in pear juice"
+  },
+  {
+    "key": "F000123",
+    "name": "Apricot, canned in pear juice, drained"
+  },
+  {
+    "key": "F000124",
+    "name": "Apricot, canned in pear juice, juice only"
+  },
+  {
+    "key": "F000262",
+    "name": "Banana, cavendish, peeled, raw"
+  },
+  {
+    "key": "F000267",
+    "name": "Banana, lady finger or sugar, peeled, raw"
+  },
+  {
+    "key": "F009884",
+    "name": "Banana, frozen"
+  },
+  {
+    "key": "F000257",
+    "name": "Banana chip"
+  },
+  {
+    "key": "F001267",
+    "name": "Blackberry, raw"
+  },
+  {
+    "key": "F001266",
+    "name": "Blackberry, purchased frozen"
+  },
+  {
+    "key": "F001290",
+    "name": "Blueberry, raw"
+  },
+  {
+    "key": "F001289",
+    "name": "Blueberry, purchased frozen"
+  },
+  {
+    "key": "F002522",
+    "name": "Cherry, raw"
+  },
+  {
+    "key": "F002513",
+    "name": "Cherry, black, canned in syrup"
+  },
+  {
+    "key": "F002514",
+    "name": "Cherry, black, canned in syrup, drained"
+  },
+  {
+    "key": "F002517",
+    "name": "Cherry, black, canned in syrup, syrup only"
+  },
+  {
+    "key": "F009883",
+    "name": "Cherry, pitted, frozen"
+  },
+  {
+    "key": "F003249",
+    "name": "Cranberry, raw"
+  },
+  {
+    "key": "F003248",
+    "name": "Cranberry, dried, sweetened"
+  },
+  {
+    "key": "F003423",
+    "name": "Custard apple, African pride, peeled, raw"
+  },
+  {
+    "key": "F003496",
+    "name": "Date, dried"
+  },
+  {
+    "key": "F003834",
+    "name": "Fig, fresh, unpeeled, raw"
+  },
+  {
+    "key": "F003832",
+    "name": "Fig, dried"
+  },
+  {
+    "key": "F004244",
+    "name": "Goji berry, dried"
+  },
+  {
+    "key": "F004253",
+    "name": "Grape, black muscatel (muscat), raw"
+  },
+  {
+    "key": "F004254",
+    "name": "Grape, black sultana, raw"
+  },
+  {
+    "key": "F004256",
+    "name": "Grape, cornichon, raw"
+  },
+  {
+    "key": "F004260",
+    "name": "Grape, green, raw"
+  },
+  {
+    "key": "F004259",
+    "name": "Grape, red globe, raw"
+  },
+  {
+    "key": "F004261",
+    "name": "Grape, waltham cross, raw"
+  },
+  {
+    "key": "F011002",
+    "name": "Grapefruit, pink flesh, peeled, raw"
+  },
+  {
+    "key": "F004262",
+    "name": "Grapefruit, yellow flesh, peeled, raw"
+  },
+  {
+    "key": "F004594",
+    "name": "Jackfruit, peeled, raw"
+  },
+  {
+    "key": "F004816",
+    "name": "Kiwifruit, green (hayward), peeled, raw"
+  },
+  {
+    "key": "F004815",
+    "name": "Kiwifruit, gold, peeled, raw"
+  },
+  {
+    "key": "F005198",
+    "name": "Lime, native, fruit"
+  },
+  {
+    "key": "F005299",
+    "name": "Mango, peeled, raw"
+  },
+  {
+    "key": "F009887",
+    "name": "Mango, peeled, frozen"
+  },
+  {
+    "key": "F005300",
+    "name": "Mango, pulped, canned"
+  },
+  {
+    "key": "F005516",
+    "name": "Melon, honey dew, white skin, peeled, raw"
+  },
+  {
+    "key": "F005517",
+    "name": "Melon, honey dew, yellow skin, peeled, raw"
+  },
+  {
+    "key": "F005515",
+    "name": "Melon, honey dew, peeled, raw"
+  },
+  {
+    "key": "F005519",
+    "name": "Melon, rockmelon, peeled, raw"
+  },
+  {
+    "key": "F005520",
+    "name": "Melon, watermelon, peeled, raw"
+  },
+  {
+    "key": "F005916",
+    "name": "Mulberry, raw"
+  },
+  {
+    "key": "F006276",
+    "name": "Orange, navel, peeled, raw"
+  },
+  {
+    "key": "F006279",
+    "name": "Orange, valencia, peeled, raw"
+  },
+  {
+    "key": "F006277",
+    "name": "Orange, peeled, raw"
+  },
+  {
+    "key": "F006333",
+    "name": "Passionfruit, raw"
+  },
+  {
+    "key": "F009888",
+    "name": "Passionfruit, pulp, frozen"
+  },
+  {
+    "key": "F006332",
+    "name": "Passionfruit, pulp, canned"
+  },
+  {
+    "key": "F006571",
+    "name": "Peach, white, unpeeled, raw"
+  },
+  {
+    "key": "F006573",
+    "name": "Peach, yellow, unpeeled, raw"
+  },
+  {
+    "key": "F006553",
+    "name": "Peach, canned in pear juice"
+  },
+  {
+    "key": "F006554",
+    "name": "Peach, canned in pear juice, drained"
+  },
+  {
+    "key": "F006555",
+    "name": "Peach, canned in pear juice, juice only"
+  },
+  {
+    "key": "F006606",
+    "name": "Pear, Packham's triumph, unpeeled, raw"
+  },
+  {
+    "key": "F006612",
+    "name": "Pear, William Bartlett, unpeeled, raw"
+  },
+  {
+    "key": "F006601",
+    "name": "Pear, green skin, unpeeled, raw"
+  },
+  {
+    "key": "F006585",
+    "name": "Pear, brown skin, unpeeled, raw"
+  },
+  {
+    "key": "F006593",
+    "name": "Pear, canned in pear juice"
+  },
+  {
+    "key": "F006594",
+    "name": "Pear, canned in pear juice, drained"
+  },
+  {
+    "key": "F006595",
+    "name": "Pear, canned in pear juice, juice only"
+  },
+  {
+    "key": "F006604",
+    "name": "Pear, nashi, unpeeled, raw"
+  },
+  {
+    "key": "F006702",
+    "name": "Pineapple, peeled, raw"
+  },
+  {
+    "key": "F009885",
+    "name": "Pineapple, peeled, frozen"
+  },
+  {
+    "key": "F006707",
+    "name": "Pineapple, canned in pineapple juice"
+  },
+  {
+    "key": "F006708",
+    "name": "Pineapple, canned in juice, drained"
+  },
+  {
+    "key": "F006710",
+    "name": "Pineapple, canned in pineapple juice, juice only"
+  },
+  {
+    "key": "F006711",
+    "name": "Pineapple, canned in syrup"
+  },
+  {
+    "key": "F006712",
+    "name": "Pineapple, canned in syrup, drained"
+  },
+  {
+    "key": "F006713",
+    "name": "Pineapple, canned in syrup, syrup only"
+  },
+  {
+    "key": "F006832",
+    "name": "Plum, unpeeled, raw"
+  },
+  {
+    "key": "F006825",
+    "name": "Plum, dark, canned in syrup"
+  },
+  {
+    "key": "F006826",
+    "name": "Plum, dark, canned in syrup, drained"
+  },
+  {
+    "key": "F006827",
+    "name": "Plum, dark, canned in syrup, syrup only"
+  },
+  {
+    "key": "F006828",
+    "name": "Plum, davidson (native), flesh"
+  },
+  {
+    "key": "F006830",
+    "name": "Plum, salted"
+  },
+  {
+    "key": "F007457",
+    "name": "Prickly pear, peeled, raw"
+  },
+  {
+    "key": "F007494",
+    "name": "Prune (dried plum)"
+  },
+  {
+    "key": "F007571",
+    "name": "Quandong, fruit, flesh"
+  },
+  {
+    "key": "F007619",
+    "name": "Raspberry, raw"
+  },
+  {
+    "key": "F007618",
+    "name": "Raspberry, purchased frozen"
+  },
+  {
+    "key": "F007614",
+    "name": "Raspberry, canned in syrup"
+  },
+  {
+    "key": "F007615",
+    "name": "Raspberry, canned in syrup, drained"
+  },
+  {
+    "key": "F007616",
+    "name": "Raspberry, canned in syrup, syrup only"
+  },
+  {
+    "key": "F008952",
+    "name": "Strawberry, raw"
+  },
+  {
+    "key": "F008951",
+    "name": "Strawberry, purchased frozen"
+  },
+  {
+    "key": "F008945",
+    "name": "Strawberry, canned in syrup"
+  },
+  {
+    "key": "F008946",
+    "name": "Strawberry, canned in syrup, drained"
+  },
+  {
+    "key": "F008947",
+    "name": "Strawberry, canned in syrup, syrup only"
+  },
+  {
+    "key": "F004141",
+    "name": "Fruit salad, canned in fruit juice"
+  },
+  {
+    "key": "F004142",
+    "name": "Fruit salad, canned in fruit juice, drained"
+  },
+  {
+    "key": "F004143",
+    "name": "Fruit salad, canned in fruit juice, juice only"
+  },
+  {
+    "key": "F009881",
+    "name": "Mixed berry, frozen"
+  },
+  {
+    "key": "F005712",
+    "name": "Mixed dried fruit"
+  },
+  {
+    "key": "F000243",
+    "name": "Baked beans, canned in tomato sauce"
+  },
+  {
+    "key": "F000244",
+    "name": "Baked beans, canned in tomato sauce, reduced salt"
+  },
+  {
+    "key": "F000416",
+    "name": "Bean, broad, dried"
+  },
+  {
+    "key": "F000419",
+    "name": "Bean, broad, fresh, raw"
+  },
+  {
+    "key": "F000418",
+    "name": "Bean, broad, fresh, boiled, drained"
+  },
+  {
+    "key": "F000422",
+    "name": "Bean, butter, fresh, raw"
+  },
+  {
+    "key": "F000421",
+    "name": "Bean, butter, fresh, boiled, drained"
+  },
+  {
+    "key": "F000436",
+    "name": "Bean, haricot, dried"
+  },
+  {
+    "key": "F000437",
+    "name": "Bean, haricot, dried, boiled, drained"
+  },
+  {
+    "key": "F000441",
+    "name": "Bean, lima, dried"
+  },
+  {
+    "key": "F000442",
+    "name": "Bean, lima, dried, boiled, drained"
+  },
+  {
+    "key": "F000446",
+    "name": "Bean, mung, whole, dried, uncooked"
+  },
+  {
+    "key": "F000449",
+    "name": "Bean, red kidney, dried"
+  },
+  {
+    "key": "F000451",
+    "name": "Bean, red kidney, dried, boiled, drained"
+  },
+  {
+    "key": "F000453",
+    "name": "Bean, red kidney, fresh, raw"
+  },
+  {
+    "key": "F000452",
+    "name": "Bean, red kidney, fresh, boiled, drained"
+  },
+  {
+    "key": "F000448",
+    "name": "Bean, red kidney, canned, drained"
+  },
+  {
+    "key": "F000458",
+    "name": "Bean, soya (soy), dried"
+  },
+  {
+    "key": "F000459",
+    "name": "Bean, soya (soy), dried, boiled, drained"
+  },
+  {
+    "key": "F002881",
+    "name": "Chickpea, dried"
+  },
+  {
+    "key": "F002882",
+    "name": "Chickpea, dried, boiled, drained"
+  },
+  {
+    "key": "F002880",
+    "name": "Chickpea, canned, drained"
+  },
+  {
+    "key": "F005178",
+    "name": "Lentil, French, hulled, dry"
+  },
+  {
+    "key": "F005181",
+    "name": "Lentil, green, hulled, dry"
+  },
+  {
+    "key": "F005184",
+    "name": "Lentil, red, hulled, dry"
+  },
+  {
+    "key": "F005182",
+    "name": "Lentil, hulled, dry"
+  },
+  {
+    "key": "F005177",
+    "name": "Lentil, dried, boiled, drained"
+  },
+  {
+    "key": "F006543",
+    "name": "Pea, split, dried"
+  },
+  {
+    "key": "F006544",
+    "name": "Pea, split, dried, boiled, drained"
+  },
+  {
+    "key": "F006541",
+    "name": "Pea, green, whole, dried"
+  },
+  {
+    "key": "F006545",
+    "name": "Pea, yellow, whole, dried"
+  },
+  {
+    "key": "F004230",
+    "name": "Goat, all cuts, separable fat, raw "
+  },
+  {
+    "key": "F004229",
+    "name": "Goat, all cuts, separable fat, baked, no added fat"
+  },
+  {
+    "key": "F004233",
+    "name": "Goat, forequarter, lean, raw "
+  },
+  {
+    "key": "F004232",
+    "name": "Goat, forequarter, lean, baked, no added fat "
+  },
+  {
+    "key": "F004235",
+    "name": "Goat, leg, lean, raw"
+  },
+  {
+    "key": "F004234",
+    "name": "Goat, leg, lean, baked, no added fat"
+  },
+  {
+    "key": "F004237",
+    "name": "Goat, loin, lean, raw"
+  },
+  {
+    "key": "F004236",
+    "name": "Goat, loin, lean, baked, no added fat"
+  },
+  {
+    "key": "F004240",
+    "name": "Goat, meat, all cuts, lean, raw"
+  },
+  {
+    "key": "F004238",
+    "name": "Goat, meat, all cuts, lean, baked, no added fat"
+  },
+  {
+    "key": "F004239",
+    "name": "Goat, meat, all cuts, lean, casseroled, no added fat"
+  },
+  {
+    "key": "F004243",
+    "name": "Goat, meat, all cuts, untrimmed, raw"
+  },
+  {
+    "key": "F004241",
+    "name": "Goat, meat, all cuts, untrimmed, baked, no added fat"
+  },
+  {
+    "key": "F004242",
+    "name": "Goat, meat, all cuts, untrimmed, casseroled, no added fat "
+  },
+  {
+    "key": "F002559",
+    "name": "Chicken piece, flesh, skin &amp; fat, coated, fast food outlet, fried"
+  },
+  {
+    "key": "F007819",
+    "name": "Salami, pepperoni"
+  },
+  {
+    "key": "F000544",
+    "name": "Beef, corned, canned"
+  },
+  {
+    "key": "F001322",
+    "name": "Braised steak &amp; onions, canned"
+  },
+  {
+    "key": "F009450",
+    "name": "Sausages &amp; vegetables, canned"
+  },
+  {
+    "key": "F009452",
+    "name": "Steak &amp; vegetables, canned"
+  },
+  {
+    "key": "F002983",
+    "name": "Coconut, fresh, mature fruit, flesh"
+  },
+  {
+    "key": "F002985",
+    "name": "Coconut, fresh, young or immature, flesh"
+  },
+  {
+    "key": "F002984",
+    "name": "Coconut, fresh, mature, water or juice"
+  },
+  {
+    "key": "F002986",
+    "name": "Coconut, fresh, young or immature, water or juice"
+  },
+  {
+    "key": "F009794",
+    "name": "Water, coconut, commercial"
+  },
+  {
+    "key": "F002987",
+    "name": "Coconut, grated &amp; desiccated"
+  },
+  {
+    "key": "F002982",
+    "name": "Coconut, cream, regular fat"
+  },
+  {
+    "key": "F002991",
+    "name": "Coconut, milk, canned, regular fat"
+  },
+  {
+    "key": "F002990",
+    "name": "Coconut, milk, canned, reduced fat"
+  },
+  {
+    "key": "F006081",
+    "name": "Nut, almond, with skin, raw, unsalted"
+  },
+  {
+    "key": "F006082",
+    "name": "Nut, almond, with skin, roasted, unsalted"
+  },
+  {
+    "key": "F006077",
+    "name": "Nut, almond meal"
+  },
+  {
+    "key": "F006087",
+    "name": "Nut, brazil, raw or blanched, unsalted"
+  },
+  {
+    "key": "F006088",
+    "name": "Nut, cashew, raw, unsalted"
+  },
+  {
+    "key": "F006092",
+    "name": "Nut, cashew, roasted, unsalted"
+  },
+  {
+    "key": "F006090",
+    "name": "Nut, cashew, roasted, salted"
+  },
+  {
+    "key": "F006095",
+    "name": "Nut, chestnut, raw, unsalted"
+  },
+  {
+    "key": "F006096",
+    "name": "Nut, chestnut, roasted, unsalted"
+  },
+  {
+    "key": "F006098",
+    "name": "Nut, hazelnut, raw, unsalted"
+  },
+  {
+    "key": "F006099",
+    "name": "Nut, macadamia, raw, unsalted"
+  },
+  {
+    "key": "F006107",
+    "name": "Nut, peanut, with skin, raw, unsalted"
+  },
+  {
+    "key": "F006108",
+    "name": "Nut, peanut, with skin, roasted, with oil, salted"
+  },
+  {
+    "key": "F006110",
+    "name": "Nut, peanut, without skin, roasted, with oil, unsalted"
+  },
+  {
+    "key": "F006109",
+    "name": "Nut, peanut, without skin, roasted, with oil, salted"
+  },
+  {
+    "key": "F006111",
+    "name": "Nut, pecan, raw, unsalted"
+  },
+  {
+    "key": "F006112",
+    "name": "Nut, pine, raw, unsalted"
+  },
+  {
+    "key": "F006113",
+    "name": "Nut, pistachio, raw, unsalted"
+  },
+  {
+    "key": "F006116",
+    "name": "Nut, walnut, raw, unsalted"
+  },
+  {
+    "key": "F008209",
+    "name": "Seed, chia, dried"
+  },
+  {
+    "key": "F009977",
+    "name": "Seed, hemp, dried"
+  },
+  {
+    "key": "F008210",
+    "name": "Seed, linseed or flaxseed"
+  },
+  {
+    "key": "F008211",
+    "name": "Seed, poppy"
+  },
+  {
+    "key": "F008212",
+    "name": "Seed, pumpkin, hulled &amp; dried"
+  },
+  {
+    "key": "F008215",
+    "name": "Seed, sunflower"
+  },
+  {
+    "key": "F008214",
+    "name": "Seed, sesame, unsalted"
+  },
+  {
+    "key": "F009533",
+    "name": "Wattle seed (acacia), ground"
+  },
+  {
+    "key": "F010328",
+    "name": "Flour, hemp"
+  },
+  {
+    "key": "F009076",
+    "name": "Tahini, sesame seed pulp"
+  },
+  {
+    "key": "F007422",
+    "name": "Prawn, banana, wild, flesh, raw"
+  },
+  {
+    "key": "F007421",
+    "name": "Prawn, banana, aquacultured, purchased cooked"
+  },
+  {
+    "key": "F009804",
+    "name": "Snack ball, date based"
+  },
+  {
+    "key": "F000333",
+    "name": "Bar, muesli, plain or with dried fruit"
+  },
+  {
+    "key": "F000337",
+    "name": "Bar, muesli, plain or with dried fruit, chocolate-coated"
+  },
+  {
+    "key": "F010956",
+    "name": "Bar, muesli, plain or with dried fruit, yoghurt-coated"
+  },
+  {
+    "key": "F000344",
+    "name": "Bar, muesli, with nuts"
+  },
+  {
+    "key": "F009803",
+    "name": "Bar, snack, oat based, baked"
+  },
+  {
+    "key": "F000368",
+    "name": "Bar, snack, fruit filled, baked"
+  },
+  {
+    "key": "F009801",
+    "name": "Bar, snack, with &gt;55% nuts"
+  },
+  {
+    "key": "F009802",
+    "name": "Bar, snack, with &gt;35% nuts, added protein"
+  },
+  {
+    "key": "F004248",
+    "name": "Snack, grain based, extruded, flavoured"
+  },
+  {
+    "key": "F006030",
+    "name": "Noodle snack, wheat, flavoured, dry"
+  },
+  {
+    "key": "F003198",
+    "name": "Corn chips, plain, salted"
+  },
+  {
+    "key": "F009073",
+    "name": "Taco shell, from corn flour, plain"
+  },
+  {
+    "key": "F006844",
+    "name": "Popcorn, commercial, butter flavoured, salted"
+  },
+  {
+    "key": "F007193",
+    "name": "Potato crisps or chips, plain, salted"
+  },
+  {
+    "key": "F007201",
+    "name": "Potato crisps or chips, salt &amp; vinegar flavoured"
+  },
+  {
+    "key": "F007189",
+    "name": "Potato crisps or chips, flavoured (other than salt &amp; vinegar)"
+  },
+  {
+    "key": "F007198",
+    "name": "Potato crisps or chips, reformed, salted"
+  },
+  {
+    "key": "F007204",
+    "name": "Potato straws, French fries, plain"
+  },
+  {
+    "key": "F009836",
+    "name": "Vegetable crisps or chips, sweet potato &amp; taro, flavoured"
+  },
+  {
+    "key": "F000279",
+    "name": "Bar, cherry &amp; coconut centre, dark chocolate-coated"
+  },
+  {
+    "key": "F000285",
+    "name": "Bar, coconut cream centre, milk chocolate-coated"
+  },
+  {
+    "key": "F000296",
+    "name": "Bar, honeycomb centre, milk chocolate-coated"
+  },
+  {
+    "key": "F000348",
+    "name": "Bar, nougat &amp; caramel centre, milk chocolate-coated"
+  },
+  {
+    "key": "F000372",
+    "name": "Bar, wafer &amp; cream layers, chocolate-coated"
+  },
+  {
+    "key": "F002937",
+    "name": "Chocolate, milk, with dried fruit &amp; nuts"
+  },
+  {
+    "key": "F002939",
+    "name": "Chocolate, milk, with nuts"
+  },
+  {
+    "key": "F003097",
+    "name": "Confectionery, almond, chocolate-coated"
+  },
+  {
+    "key": "F003100",
+    "name": "Confectionery, chocolate centre, sugar-coated"
+  },
+  {
+    "key": "F003105",
+    "name": "Confectionery, dried fruit &amp; nuts, chocolate-coated"
+  },
+  {
+    "key": "F003114",
+    "name": "Confectionery, peanut, chocolate-coated"
+  },
+  {
+    "key": "F003118",
+    "name": "Confectionery, sultana, chocolate-coated"
+  },
+  {
+    "key": "F005215",
+    "name": "Liquorice, chocolate-coated"
+  },
+  {
+    "key": "F004600",
+    "name": "Jam, berry"
+  },
+  {
+    "key": "F004604",
+    "name": "Jam, plum"
+  },
+  {
+    "key": "F004607",
+    "name": "Jam, stone fruit"
+  },
+  {
+    "key": "F005421",
+    "name": "Marmalade, orange"
+  },
+  {
+    "key": "F008777",
+    "name": "Spread, hazelnut &amp; chocolate flavoured"
+  },
+  {
+    "key": "F009937",
+    "name": "Syrup, rice malt"
+  },
+  {
+    "key": "F005213",
+    "name": "Liquorice, allsorts"
+  },
+  {
+    "key": "F005214",
+    "name": "Liquorice, black"
+  },
+  {
+    "key": "F010772",
+    "name": "Lolly, with fruit juice"
+  },
+  {
+    "key": "F000144",
+    "name": "Artichoke, globe, raw"
+  },
+  {
+    "key": "F000142",
+    "name": "Artichoke, globe, boiled, drained"
+  },
+  {
+    "key": "F000146",
+    "name": "Artichoke, jerusalem, peeled, raw"
+  },
+  {
+    "key": "F000145",
+    "name": "Artichoke, jerusalem, peeled, boiled, drained"
+  },
+  {
+    "key": "F000141",
+    "name": "Artichoke heart, canned in brine, drained"
+  },
+  {
+    "key": "F000155",
+    "name": "Asparagus, green, raw"
+  },
+  {
+    "key": "F000151",
+    "name": "Asparagus, green, boiled, drained"
+  },
+  {
+    "key": "F000153",
+    "name": "Asparagus, green, fresh or frozen, baked, roasted, stir-fried or fried, grilled or BBQ'd, no added fat"
+  },
+  {
+    "key": "F000149",
+    "name": "Asparagus, canned in brine, drained"
+  },
+  {
+    "key": "F000162",
+    "name": "Avocado, hass, raw"
+  },
+  {
+    "key": "F010994",
+    "name": "Avocado, shepard, raw"
+  },
+  {
+    "key": "F000431",
+    "name": "Bean, green, fresh, raw"
+  },
+  {
+    "key": "F000430",
+    "name": "Bean, green, fresh, boiled, drained"
+  },
+  {
+    "key": "F000434",
+    "name": "Bean, green, frozen, boiled, drained"
+  },
+  {
+    "key": "F000428",
+    "name": "Bean, green, fresh, cooked, no added fat"
+  },
+  {
+    "key": "F001015",
+    "name": "Beetroot, fresh, purple, peeled, raw"
+  },
+  {
+    "key": "F001013",
+    "name": "Beetroot, fresh, purple, peeled, baked, no added fat"
+  },
+  {
+    "key": "F001014",
+    "name": "Beetroot, fresh, purple, peeled, boiled, drained"
+  },
+  {
+    "key": "F001010",
+    "name": "Beetroot, canned in brine, drained"
+  },
+  {
+    "key": "F001905",
+    "name": "Broccoli, fresh, raw"
+  },
+  {
+    "key": "F001904",
+    "name": "Broccoli, fresh, microwaved"
+  },
+  {
+    "key": "F001900",
+    "name": "Broccoli, fresh, boiled, drained"
+  },
+  {
+    "key": "F001899",
+    "name": "Broccoli, fresh, baked, no added fat"
+  },
+  {
+    "key": "F001909",
+    "name": "Broccolini, fresh, raw"
+  },
+  {
+    "key": "F001908",
+    "name": "Broccolini, fresh, boiled, drained"
+  },
+  {
+    "key": "F001914",
+    "name": "Brussels sprout, fresh, raw"
+  },
+  {
+    "key": "F001913",
+    "name": "Brussels sprout, fresh, boiled, drained"
+  },
+  {
+    "key": "F011003",
+    "name": "Brussels sprout, fresh, baked, no added fat"
+  },
+  {
+    "key": "F001996",
+    "name": "Cabbage, Chinese, raw"
+  },
+  {
+    "key": "F001993",
+    "name": "Cabbage, Chinese, boiled, drained"
+  },
+  {
+    "key": "F001990",
+    "name": "Cabbage, Chinese flowering, raw"
+  },
+  {
+    "key": "F001988",
+    "name": "Cabbage, Chinese flowering, boiled, drained"
+  },
+  {
+    "key": "F001998",
+    "name": "Cabbage, mustard, raw"
+  },
+  {
+    "key": "F001997",
+    "name": "Cabbage, mustard, boiled, drained"
+  },
+  {
+    "key": "F002006",
+    "name": "Cabbage, red, raw"
+  },
+  {
+    "key": "F002003",
+    "name": "Cabbage, red, boiled, drained"
+  },
+  {
+    "key": "F002010",
+    "name": "Cabbage, savoy, raw"
+  },
+  {
+    "key": "F002009",
+    "name": "Cabbage, savoy, boiled, drained"
+  },
+  {
+    "key": "F002015",
+    "name": "Cabbage, white, raw"
+  },
+  {
+    "key": "F002014",
+    "name": "Cabbage, white, boiled, drained"
+  },
+  {
+    "key": "F002266",
+    "name": "Carrot, baby, peeled, fresh, raw"
+  },
+  {
+    "key": "F002265",
+    "name": "Carrot, baby, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F002263",
+    "name": "Carrot, baby, baked, no added fat"
+  },
+  {
+    "key": "F002276",
+    "name": "Carrot, mature, peeled, fresh, raw"
+  },
+  {
+    "key": "F002274",
+    "name": "Carrot, mature, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F002275",
+    "name": "Carrot, mature, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F002378",
+    "name": "Cauliflower, fresh, raw"
+  },
+  {
+    "key": "F002377",
+    "name": "Cauliflower, fresh, boiled, drained"
+  },
+  {
+    "key": "F002374",
+    "name": "Cauliflower, fresh, baked, no added fat"
+  },
+  {
+    "key": "F002390",
+    "name": "Celery, fresh, raw"
+  },
+  {
+    "key": "F002389",
+    "name": "Celery, fresh, fried, no added fat"
+  },
+  {
+    "key": "F003209",
+    "name": "Corn, fresh on cob, raw"
+  },
+  {
+    "key": "F003200",
+    "name": "Corn, fresh on cob, boiled, drained"
+  },
+  {
+    "key": "F003213",
+    "name": "Sweetcorn, fresh or frozen on cob, baked, roasted, fried, stir-fried, grilled or BBQ'd, no added fat"
+  },
+  {
+    "key": "F003202",
+    "name": "Corn, kernels, purchased frozen, raw"
+  },
+  {
+    "key": "F003201",
+    "name": "Corn, kernels, purchased frozen, boiled, drained"
+  },
+  {
+    "key": "F003220",
+    "name": "Corn, kernels, canned in brine, drained"
+  },
+  {
+    "key": "F003319",
+    "name": "Cucumber, common, peeled, raw"
+  },
+  {
+    "key": "F003320",
+    "name": "Cucumber, common, unpeeled, raw"
+  },
+  {
+    "key": "F010995",
+    "name": "Cucumber, Lebanese, peeled, raw"
+  },
+  {
+    "key": "F003321",
+    "name": "Cucumber, Lebanese, unpeeled, raw"
+  },
+  {
+    "key": "F003324",
+    "name": "Cucumber, telegraph, unpeeled, raw"
+  },
+  {
+    "key": "F004193",
+    "name": "Garlic, peeled, fresh, raw"
+  },
+  {
+    "key": "F004192",
+    "name": "Garlic, peeled, fresh, fried, no added fat"
+  },
+  {
+    "key": "F004781",
+    "name": "Kale, raw"
+  },
+  {
+    "key": "F004780",
+    "name": "Kale, fried, no added fat"
+  },
+  {
+    "key": "F005164",
+    "name": "Leek, fresh, raw"
+  },
+  {
+    "key": "F005163",
+    "name": "Leek, fresh, fried, no added fat"
+  },
+  {
+    "key": "F005162",
+    "name": "Leek, fresh, boiled, drained"
+  },
+  {
+    "key": "F005191",
+    "name": "Lettuce, cos, raw"
+  },
+  {
+    "key": "F005192",
+    "name": "Lettuce, iceberg, raw"
+  },
+  {
+    "key": "F005193",
+    "name": "Lettuce, mignonette, raw"
+  },
+  {
+    "key": "F005513",
+    "name": "Melon, bitter, fresh, raw"
+  },
+  {
+    "key": "F005514",
+    "name": "Melon, hairy, fresh, raw"
+  },
+  {
+    "key": "F005946",
+    "name": "Mushroom, common, fresh, raw"
+  },
+  {
+    "key": "F005945",
+    "name": "Mushroom, common, fresh, fried, no added fat"
+  },
+  {
+    "key": "F005949",
+    "name": "Mushroom, common, vitamin D enhanced, fresh, raw"
+  },
+  {
+    "key": "F005948",
+    "name": "Mushroom, common, vitamin D enhanced, fresh, fried, no added fat"
+  },
+  {
+    "key": "F006198",
+    "name": "Olive, green or black, drained"
+  },
+  {
+    "key": "F006225",
+    "name": "Onion, mature, brown skinned, peeled, raw"
+  },
+  {
+    "key": "F006224",
+    "name": "Onion, mature, brown skinned, peeled, fresh, fried, no added fat"
+  },
+  {
+    "key": "F009800",
+    "name": "Onion, mature, red skinned, raw"
+  },
+  {
+    "key": "F009820",
+    "name": "Onion, mature, red skinned, peeled, fried, no added fat"
+  },
+  {
+    "key": "F006243",
+    "name": "Onion, mature, white skinned, peeled, fresh, raw"
+  },
+  {
+    "key": "F006250",
+    "name": "Onion, spring, fresh, raw"
+  },
+  {
+    "key": "F006249",
+    "name": "Onion, spring, fresh, fried, no added fat"
+  },
+  {
+    "key": "F006328",
+    "name": "Parsnip, peeled, fresh, raw"
+  },
+  {
+    "key": "F006326",
+    "name": "Parsnip, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F006327",
+    "name": "Parsnip, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F006536",
+    "name": "Pea, green, fresh, raw"
+  },
+  {
+    "key": "F006535",
+    "name": "Pea, green, fresh, boiled, drained"
+  },
+  {
+    "key": "F006538",
+    "name": "Pea, green, frozen, boiled, drained"
+  },
+  {
+    "key": "F007247",
+    "name": "Potato, coliban, peeled, raw"
+  },
+  {
+    "key": "F007244",
+    "name": "Potato, coliban, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007245",
+    "name": "Potato, coliban, peeled, boiled, drained"
+  },
+  {
+    "key": "F007254",
+    "name": "Potato, desiree, peeled, raw"
+  },
+  {
+    "key": "F007250",
+    "name": "Potato, desiree, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007252",
+    "name": "Potato, desiree, peeled, boiled, drained"
+  },
+  {
+    "key": "F007308",
+    "name": "Potato, new, peeled, raw"
+  },
+  {
+    "key": "F007305",
+    "name": "Potato, new, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007306",
+    "name": "Potato, new, peeled, boiled, drained"
+  },
+  {
+    "key": "F007325",
+    "name": "Potato, pale skin, peeled, raw"
+  },
+  {
+    "key": "F007320",
+    "name": "Potato, pale skin, peeled, boiled, drained"
+  },
+  {
+    "key": "F007314",
+    "name": "Potato, pale skin, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007361",
+    "name": "Potato, pontiac, peeled, raw"
+  },
+  {
+    "key": "F007358",
+    "name": "Potato, pontiac, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007359",
+    "name": "Potato, pontiac, peeled, boiled, drained"
+  },
+  {
+    "key": "F007368",
+    "name": "Potato, red skin, peeled, raw"
+  },
+  {
+    "key": "F007364",
+    "name": "Potato, red skin, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007366",
+    "name": "Potato, red skin, peeled, boiled, drained"
+  },
+  {
+    "key": "F007386",
+    "name": "Potato, sebago, peeled, raw"
+  },
+  {
+    "key": "F007383",
+    "name": "Potato, sebago, peeled, baked, no added fat"
+  },
+  {
+    "key": "F007384",
+    "name": "Potato, sebago, peeled, boiled, drained"
+  },
+  {
+    "key": "F007235",
+    "name": "Potato, chips, regular, fast food outlet, deep fried, blended oil, salted"
+  },
+  {
+    "key": "F007236",
+    "name": "Potato, chips, regular, fast food outlet, deep fried, monounsaturated oil, salted"
+  },
+  {
+    "key": "F007238",
+    "name": "Potato, chips, regular, independent takeaway outlet, deep fried, blended oil, salted"
+  },
+  {
+    "key": "F007242",
+    "name": "Potato, chips, regular, purchased frozen, baked, no added fat"
+  },
+  {
+    "key": "F007269",
+    "name": "Potato, fries, fast food outlet, deep fried, monounsaturated oil, salted"
+  },
+  {
+    "key": "F007279",
+    "name": "Potato, fries, independent takeaway outlet, deep fried, blended oil, salted"
+  },
+  {
+    "key": "F007411",
+    "name": "Potato, wedges, regular, purchased frozen, baked or roasted, no added fat"
+  },
+  {
+    "key": "F007535",
+    "name": "Pumpkin, butternut, peeled, fresh, raw"
+  },
+  {
+    "key": "F007533",
+    "name": "Pumpkin, butternut, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F007534",
+    "name": "Pumpkin, butternut, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F007540",
+    "name": "Pumpkin, golden nugget, peeled, fresh, raw"
+  },
+  {
+    "key": "F007538",
+    "name": "Pumpkin, golden nugget, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F007539",
+    "name": "Pumpkin, golden nugget, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F007545",
+    "name": "Pumpkin, jarrahdale, peeled, fresh, raw"
+  },
+  {
+    "key": "F007543",
+    "name": "Pumpkin, jarrahdale, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F007544",
+    "name": "Pumpkin, jarrahdale, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F011004",
+    "name": "Pumpkin, kent/jap, peeled, fresh, raw"
+  },
+  {
+    "key": "F010998",
+    "name": "Pumpkin, kent/jap, peeled, fresh, boiled, drained, no added fat"
+  },
+  {
+    "key": "F011005",
+    "name": "Pumpkin, kent/jap, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F007559",
+    "name": "Pumpkin, Queensland blue, peeled, fresh, raw"
+  },
+  {
+    "key": "F007557",
+    "name": "Pumpkin, Queensland blue, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F007558",
+    "name": "Pumpkin, Queensland blue, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F007555",
+    "name": "Pumpkin, peeled, fresh, raw"
+  },
+  {
+    "key": "F007553",
+    "name": "Pumpkin, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F007554",
+    "name": "Pumpkin, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F007606",
+    "name": "Radish, red skinned, unpeeled, raw"
+  },
+  {
+    "key": "F007608",
+    "name": "Radish, white skinned, peeled, raw"
+  },
+  {
+    "key": "F008204",
+    "name": "Seaweed, nori, dried"
+  },
+  {
+    "key": "F008203",
+    "name": "Seaweed, boiled, drained"
+  },
+  {
+    "key": "F008373",
+    "name": "Snow pea, fresh, raw"
+  },
+  {
+    "key": "F008372",
+    "name": "Snow pea, fresh, fried, no added fat"
+  },
+  {
+    "key": "F008371",
+    "name": "Snow pea, fresh, boiled, drained"
+  },
+  {
+    "key": "F008749",
+    "name": "Spinach, baby, fresh, raw"
+  },
+  {
+    "key": "F008761",
+    "name": "Spinach, Mature English, fresh, raw"
+  },
+  {
+    "key": "F008760",
+    "name": "Spinach, Mature English, fresh, boiled, drained"
+  },
+  {
+    "key": "F008763",
+    "name": "Spinach, water, fresh, raw"
+  },
+  {
+    "key": "F008803",
+    "name": "Sprout, alfalfa, fresh, raw"
+  },
+  {
+    "key": "F008806",
+    "name": "Sprout, bean, fresh, raw"
+  },
+  {
+    "key": "F008811",
+    "name": "Squash, button, fresh, raw"
+  },
+  {
+    "key": "F008810",
+    "name": "Squash, button, fresh, boiled, drained"
+  },
+  {
+    "key": "F008813",
+    "name": "Squash, scallopini, fresh, raw"
+  },
+  {
+    "key": "F008812",
+    "name": "Squash, scallopini, fresh, boiled, drained"
+  },
+  {
+    "key": "F009021",
+    "name": "Swede, peeled, fresh, raw"
+  },
+  {
+    "key": "F009020",
+    "name": "Swede, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F009035",
+    "name": "Sweet potato, orange flesh, peeled, fresh, raw"
+  },
+  {
+    "key": "F010942",
+    "name": "Sweet potato, orange flesh, unpeeled, raw"
+  },
+  {
+    "key": "F009033",
+    "name": "Sweet potato, orange flesh, peeled, fresh, baked, no added fat"
+  },
+  {
+    "key": "F009034",
+    "name": "Sweet potato, orange flesh, peeled, fresh, boiled, drained"
+  },
+  {
+    "key": "F010943",
+    "name": "Sweet potato, purple flesh, peeled, raw"
+  },
+  {
+    "key": "F010999",
+    "name": "Sweet potato, purple flesh, peeled, baked, no added fat"
+  },
+  {
+    "key": "F009037",
+    "name": "Sweet potato, white flesh, peeled or unpeeled, fresh or frozen, baked, roasted, fried, stir-fried, grilled or BBQ'd, no added fat"
+  },
+  {
+    "key": "F009039",
+    "name": "Sweet potato, white flesh, peeled, raw"
+  },
+  {
+    "key": "F009190",
+    "name": "Tomato, cherry, raw"
+  },
+  {
+    "key": "F009193",
+    "name": "Tomato, common, raw"
+  },
+  {
+    "key": "F009208",
+    "name": "Tomato, paste, with added salt"
+  },
+  {
+    "key": "F009206",
+    "name": "Tomato, paste, no added salt"
+  },
+  {
+    "key": "F009209",
+    "name": "Tomato, puree, commercial"
+  },
+  {
+    "key": "F009217",
+    "name": "Tomato, sundried"
+  },
+  {
+    "key": "F009222",
+    "name": "Tomato, whole, canned in tomato juice, undrained"
+  },
+  {
+    "key": "F009221",
+    "name": "Tomato, whole, canned in tomato juice, drained"
+  },
+  {
+    "key": "F010071",
+    "name": "Tomato, whole, canned in tomato juice, no added salt, undrained"
+  },
+  {
+    "key": "F009340",
+    "name": "Turnip, white, peeled, fresh, raw"
+  },
+  {
+    "key": "F009339",
+    "name": "Turnip, white, peeled, fresh, boiled, no added fat"
+  },
+  {
+    "key": "F009491",
+    "name": "Vine leaf, grape, canned"
+  },
+  {
+    "key": "F009514",
+    "name": "Water chestnut, peeled, canned, drained"
+  },
+  {
+    "key": "F005813",
+    "name": "Mixed vegetables, purchased frozen, carrot, corn &amp; pea/bean, boiled, drained"
+  }
+]

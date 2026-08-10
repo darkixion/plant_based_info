@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "lentils-cooked",
+    "name": "lentils-cooked"
+  },
+  {
+    "slug": "chickpeas-cooked",
+    "name": "chickpeas-cooked"
+  },
+  {
+    "slug": "black-beans-cooked",
+    "name": "black-beans-cooked"
+  },
+  {
+    "slug": "kidney-beans-cooked",
+    "name": "kidney-beans-cooked"
+  },
+  {
+    "slug": "pinto-beans-cooked",
+    "name": "pinto-beans-cooked"
+  },
+  {
+    "slug": "split-peas-cooked",
+    "name": "split-peas-cooked"
+  },
+  {
+    "slug": "mung-beans-cooked",
+    "name": "mung-beans-cooked"
+  },
+  {
+    "slug": "green-peas-cooked",
+    "name": "green-peas-cooked"
+  },
+  {
+    "slug": "edamame-cooked",
+    "name": "edamame-cooked"
+  },
+  {
+    "slug": "lupin-beans-cooked",
+    "name": "lupin-beans-cooked"
+  },
+  {
+    "slug": "tofu-firm",
+    "name": "tofu-firm"
+  },
+  {
+    "slug": "tempeh",
+    "name": "tempeh"
+  },
+  {
+    "slug": "natto",
+    "name": "natto"
+  },
+  {
+    "slug": "soy-milk-unsweetened",
+    "name": "soy-milk-unsweetened"
+  },
+  {
+    "slug": "note",
+    "name": "note"
+  },
+  {
+    "slug": "oats-rolled-dry",
+    "name": "oats-rolled-dry"
+  },
+  {
+    "slug": "quinoa-cooked",
+    "name": "quinoa-cooked"
+  }
+]

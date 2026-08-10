@@ -1,0 +1,771 @@
+[
+  {
+    "slug": "oats-rolled-dry",
+    "beta-glucan": 4,
+    "phytate": 943,
+    "lignans": 0.044,
+    "source": "USDA/Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "pearl-barley-cooked",
+    "beta-glucan": 2.5,
+    "phytate": 160,
+    "lignans": 0.024,
+    "source": "USDA/PhyFoodComp"
+  },
+  {
+    "slug": "mushrooms-white-raw",
+    "beta-glucan": 0.21,
+    "ergothioneine": 0.69,
+    "coq10": 0.02,
+    "source": "USDA/Halliwell2023"
+  },
+  {
+    "slug": "shiitake-mushrooms-raw",
+    "beta-glucan": 2.24,
+    "ergothioneine": 1.29,
+    "coq10": 0.05,
+    "source": "USDA/Halliwell2023"
+  },
+  {
+    "slug": "oyster-mushrooms-raw",
+    "beta-glucan": 1.54,
+    "ergothioneine": 0.95,
+    "source": "USDA/Halliwell2023"
+  },
+  {
+    "slug": "natto",
+    "mk7": 1103.4,
+    "k2": 1103.4,
+    "phytate": 930,
+    "lignans": 0.137,
+    "source": "USDA/Schurgers2000/PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "sauerkraut-canned",
+    "mk7": 4.8,
+    "k2": 4.8,
+    "source": "Schurgers2000"
+  },
+  {
+    "slug": "miso",
+    "mk7": 10.1,
+    "k2": 10.1,
+    "phytate": 630,
+    "source": "Schurgers2000/PhyFoodComp"
+  },
+  {
+    "slug": "tempeh",
+    "mk7": 2.5,
+    "k2": 2.5,
+    "phytate": 818,
+    "ergothioneine": 0.53,
+    "lignans": 0.137,
+    "source": "Schurgers2000/PhyFoodComp/Halliwell2023/Milder2005"
+  },
+  {
+    "slug": "broccoli-cooked",
+    "glucosinolates": 61.7,
+    "glucoraphanin": 35.8,
+    "lignans": 0.077,
+    "phytate": 18,
+    "source": "McNaughton2003/Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "brussels-sprouts-cooked",
+    "glucosinolates": 236,
+    "lignans": 0.049,
+    "phytate": 29,
+    "source": "McNaughton2003/Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "kale-raw",
+    "glucosinolates": 101,
+    "lignans": 0.025,
+    "phytate": 20,
+    "source": "McNaughton2003/Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "cauliflower-cooked",
+    "glucosinolates": 61.9,
+    "lignans": 0.041,
+    "phytate": 17,
+    "source": "McNaughton2003/Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "pak-choi-raw",
+    "glucosinolates": 54,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "watercress-raw",
+    "glucosinolates": 165,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "kohlrabi-cooked",
+    "glucosinolates": 48.2,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "radishes-raw",
+    "glucosinolates": 78.5,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "turnip-cooked",
+    "glucosinolates": 68.3,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "swede-cooked",
+    "glucosinolates": 86.4,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "rocket-raw",
+    "glucosinolates": 42,
+    "source": "McNaughton2003"
+  },
+  {
+    "slug": "flaxseed",
+    "lignans": 301.129,
+    "phytate": 1498,
+    "source": "Milder2005/Thompson2006/PhyFoodComp"
+  },
+  {
+    "slug": "sesame-seeds",
+    "lignans": 39.348,
+    "phytate": 4710,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "sunflower-seeds",
+    "lignans": 0.891,
+    "phytate": 1640,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "pumpkin-seeds",
+    "lignans": 0.041,
+    "phytate": 1174,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "lentils-cooked",
+    "lignans": 0.26,
+    "phytate": 270,
+    "proanthocyanidins": 1.3,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "chickpeas-cooked",
+    "lignans": 0.055,
+    "phytate": 280,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "black-beans-cooked",
+    "lignans": 0.055,
+    "phytate": 290,
+    "proanthocyanidins": 24.8,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "kidney-beans-cooked",
+    "lignans": 0.055,
+    "phytate": 260,
+    "proanthocyanidins": 6.4,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "pinto-beans-cooked",
+    "lignans": 0.055,
+    "phytate": 234,
+    "proanthocyanidins": 1.5,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "split-peas-cooked",
+    "phytate": 192,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "mung-beans-cooked",
+    "phytate": 216,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "green-peas-cooked",
+    "phytate": 160,
+    "lignans": 0.037,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "edamame-cooked",
+    "phytate": 520,
+    "lignans": 0.137,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "broad-beans-cooked",
+    "phytate": 245,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "haricot-beans-cooked",
+    "phytate": 200,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "cannellini-beans-cooked",
+    "phytate": 200,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "butter-beans-cooked",
+    "phytate": 190,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "adzuki-beans-cooked",
+    "phytate": 310,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "black-eyed-peas-cooked",
+    "phytate": 220,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "borlotti-beans-cooked",
+    "phytate": 230,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "lupin-beans-cooked",
+    "phytate": 410,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "tofu-firm",
+    "phytate": 260,
+    "lignans": 0.137,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "quinoa-cooked",
+    "phytate": 300,
+    "lignans": 0.013,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "brown-rice-cooked",
+    "phytate": 378,
+    "lignans": 0.02,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "buckwheat-cooked",
+    "phytate": 263,
+    "lignans": 0.014,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "amaranth-cooked",
+    "phytate": 320,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "wholewheat-pasta-cooked",
+    "phytate": 327,
+    "lignans": 0.1,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "millet-cooked",
+    "phytate": 195,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "bulgur-wheat-cooked",
+    "phytate": 250,
+    "lignans": 0.032,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "teff-cooked",
+    "phytate": 310,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "wild-rice-cooked",
+    "phytate": 280,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "couscous-cooked",
+    "phytate": 195,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "almonds",
+    "lignans": 0.112,
+    "phytate": 1138,
+    "proanthocyanidins": 184,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "walnuts",
+    "lignans": 0.163,
+    "phytate": 982,
+    "proanthocyanidins": 67.3,
+    "melatonin": 0.0003,
+    "source": "Milder2005/PhyFoodComp/USDA-PA/Arnao2018"
+  },
+  {
+    "slug": "cashews",
+    "lignans": 0.033,
+    "phytate": 930,
+    "proanthocyanidins": 8.7,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "peanuts",
+    "lignans": 0.054,
+    "phytate": 1760,
+    "proanthocyanidins": 15.6,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "pistachios",
+    "lignans": 0.05,
+    "phytate": 903,
+    "proanthocyanidins": 237.3,
+    "melatonin": 0.0023,
+    "source": "Milder2005/PhyFoodComp/USDA-PA/Arnao2018"
+  },
+  {
+    "slug": "brazil-nuts",
+    "lignans": 0.027,
+    "phytate": 1719,
+    "proanthocyanidins": 0,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "hazelnuts",
+    "lignans": 0.058,
+    "phytate": 648,
+    "proanthocyanidins": 500.7,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "pecans",
+    "lignans": 0.026,
+    "phytate": 1620,
+    "proanthocyanidins": 494.1,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "macadamia-nuts-raw",
+    "phytate": 350,
+    "proanthocyanidins": 0,
+    "source": "PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "pine-nuts-dried",
+    "phytate": 200,
+    "proanthocyanidins": 0.3,
+    "source": "PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "chestnuts-roasted",
+    "phytate": 47,
+    "proanthocyanidins": 6.2,
+    "source": "PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "coconut-raw",
+    "phytate": 357,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "chia-seeds",
+    "phytate": 960,
+    "lignans": 0.041,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "hemp-seeds-hulled",
+    "phytate": 900,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "spinach-raw",
+    "lignans": 0.019,
+    "phytate": 490,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "asparagus-cooked",
+    "lignans": 0.065,
+    "phytate": 30,
+    "ergothioneine": 1.6,
+    "source": "Milder2005/PhyFoodComp/Halliwell2023"
+  },
+  {
+    "slug": "sweet-potato-baked",
+    "phytate": 38,
+    "lignans": 0.015,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "avocado",
+    "lignans": 0.013,
+    "phytate": 27,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "artichokes-cooked",
+    "lignans": 0.015,
+    "phytate": 32,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "beetroot-cooked",
+    "lignans": 0.015,
+    "phytate": 37,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "carrots-raw",
+    "lignans": 0.192,
+    "phytate": 24,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "celery-raw",
+    "lignans": 0.014,
+    "phytate": 14,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "leeks-cooked",
+    "lignans": 0.025,
+    "phytate": 18,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "onions-raw",
+    "lignans": 0.019,
+    "phytate": 18,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "potato-baked-with-skin",
+    "phytate": 44,
+    "lignans": 0.012,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "tomatoes-raw",
+    "lignans": 0.02,
+    "phytate": 10,
+    "melatonin": 0.0001,
+    "source": "Milder2005/PhyFoodComp/Arnao2018"
+  },
+  {
+    "slug": "sweetcorn-cooked",
+    "phytate": 267,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "swiss-chard-raw",
+    "phytate": 40,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "courgette-cooked",
+    "lignans": 0.022,
+    "phytate": 15,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "aubergine-cooked",
+    "lignans": 0.014,
+    "phytate": 14,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "bell-pepper-green-raw",
+    "lignans": 0.013,
+    "phytate": 12,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "bell-pepper-red-raw",
+    "lignans": 0.013,
+    "phytate": 12,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "bell-pepper-yellow-raw",
+    "lignans": 0.013,
+    "phytate": 12,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "butternut-squash-baked",
+    "phytate": 16,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "pumpkin-cooked",
+    "phytate": 15,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "parsnips-cooked",
+    "lignans": 0.034,
+    "phytate": 22,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "cucumber-raw-with-peel",
+    "lignans": 0.013,
+    "phytate": 8,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "ginger-root-raw",
+    "phytate": 34,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "shallots-raw",
+    "phytate": 14,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "spring-onions-raw",
+    "phytate": 10,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "celeriac-raw",
+    "lignans": 0.014,
+    "phytate": 23,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "orange-raw",
+    "lignans": 0.014,
+    "phytate": 11,
+    "proanthocyanidins": 0,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "blueberries-raw",
+    "lignans": 0.015,
+    "proanthocyanidins": 179.8,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "strawberries-raw",
+    "lignans": 0.052,
+    "proanthocyanidins": 145,
+    "phytate": 12,
+    "source": "Milder2005/USDA-PA/PhyFoodComp"
+  },
+  {
+    "slug": "raspberries-raw",
+    "lignans": 0.041,
+    "proanthocyanidins": 30.3,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "blackberries-raw",
+    "lignans": 0.047,
+    "proanthocyanidins": 23.2,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "apple-raw-with-skin",
+    "lignans": 0.013,
+    "proanthocyanidins": 71,
+    "phytate": 3,
+    "source": "Milder2005/USDA-PA/PhyFoodComp"
+  },
+  {
+    "slug": "pear-raw",
+    "lignans": 0.015,
+    "proanthocyanidins": 37.4,
+    "phytate": 5,
+    "source": "Milder2005/USDA-PA/PhyFoodComp"
+  },
+  {
+    "slug": "grapes-raw",
+    "lignans": 0.014,
+    "proanthocyanidins": 81.5,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "cherries-sweet-raw",
+    "lignans": 0.012,
+    "proanthocyanidins": 50.3,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "plums-raw",
+    "lignans": 0.018,
+    "proanthocyanidins": 141.1,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "peaches-raw",
+    "lignans": 0.015,
+    "proanthocyanidins": 67.2,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "apricots-raw",
+    "lignans": 0.014,
+    "proanthocyanidins": 10.3,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "pomegranate-raw",
+    "proanthocyanidins": 7.6,
+    "source": "USDA-PA"
+  },
+  {
+    "slug": "kiwi-raw",
+    "lignans": 0.014,
+    "proanthocyanidins": 0.3,
+    "source": "Milder2005/USDA-PA"
+  },
+  {
+    "slug": "banana",
+    "lignans": 0.012,
+    "phytate": 28,
+    "proanthocyanidins": 0,
+    "source": "Milder2005/PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "mango-raw",
+    "proanthocyanidins": 1.1,
+    "phytate": 12,
+    "source": "USDA-PA/PhyFoodComp"
+  },
+  {
+    "slug": "pineapple-raw",
+    "proanthocyanidins": 2.6,
+    "source": "USDA-PA"
+  },
+  {
+    "slug": "dates",
+    "phytate": 47,
+    "proanthocyanidins": 0,
+    "source": "PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "dried-figs-dried",
+    "phytate": 61,
+    "proanthocyanidins": 0,
+    "source": "PhyFoodComp/USDA-PA"
+  },
+  {
+    "slug": "grapefruit-raw",
+    "phytate": 6,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "guava-raw",
+    "proanthocyanidins": 1.5,
+    "source": "USDA-PA"
+  },
+  {
+    "slug": "watermelon-raw",
+    "phytate": 4,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "papaya-raw",
+    "phytate": 3,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "passion-fruit-raw",
+    "phytate": 22,
+    "source": "PhyFoodComp"
+  },
+  {
+    "slug": "lychees-raw",
+    "proanthocyanidins": 12.8,
+    "source": "USDA-PA"
+  },
+  {
+    "slug": "cocoa-powder-unsweetened",
+    "lignans": 0.058,
+    "proanthocyanidins": 3448,
+    "phytate": 1740,
+    "source": "Milder2005/USDA-PA/PhyFoodComp"
+  },
+  {
+    "slug": "tahini-from-roasted-kernels",
+    "lignans": 39.348,
+    "phytate": 4710,
+    "source": "Milder2005/PhyFoodComp"
+  },
+  {
+    "slug": "wheatgerm-toasted",
+    "phytate": 1543,
+    "lignans": 0.189,
+    "source": "PhyFoodComp/Milder2005"
+  },
+  {
+    "slug": "olive-oil-extra-virgin",
+    "lignans": 0.025,
+    "squalene": 564,
+    "phenolics": 35,
+    "source": "Milder2005/Beltran2018/Popular2023"
+  },
+  {
+    "slug": "rapeseed-oil",
+    "lignans": 0.014,
+    "squalene": 14.2,
+    "source": "Milder2005/Beltran2018"
+  },
+  {
+    "slug": "sesame-oil",
+    "lignans": 29.16,
+    "squalene": 27,
+    "source": "Milder2005/Popular2023"
+  },
+  {
+    "slug": "flaxseed-oil-cold-pressed",
+    "lignans": 0.314,
+    "source": "Milder2005"
+  },
+  {
+    "slug": "soybean-oil-refined",
+    "squalene": 9.9,
+    "source": "Nergiz2011"
+  },
+  {
+    "slug": "sunflower-oil",
+    "squalene": 13.8,
+    "source": "Nergiz2011"
+  },
+  {
+    "slug": "peanut-oil",
+    "squalene": 27.4,
+    "source": "Beltran2018"
+  },
+  {
+    "slug": "soy-milk-unsweetened",
+    "lignans": 0.037,
+    "phytate": 190,
+    "source": "Milder2005/PhyFoodComp"
+  }
+]

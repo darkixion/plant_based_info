@@ -145,6 +145,20 @@
     "sources": [
      "literature"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.26,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 1.3,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -294,6 +308,13 @@
     "sources": [
      "literature"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.055,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -422,6 +443,20 @@
     "sources": [
      "biesiekierski-2011"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 260,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.055,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -527,6 +562,13 @@
     "value": 5.5,
     "sources": [
      "biesiekierski-2011"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 192,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -777,6 +819,13 @@
     "value": 3.3,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 310,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -1040,6 +1089,20 @@
      "existing",
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 160,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.037,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -1166,6 +1229,20 @@
     "sources": [
      "biesiekierski-2011"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 520,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.137,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -1263,6 +1340,13 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 245,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -1394,6 +1478,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 260,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.137,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -1461,6 +1559,27 @@
     "value": 10,
     "sources": [
      "kamao-2007"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 818,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.137,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "ergothioneine": {
+    "state": "measured",
+    "value": 0.53,
+    "sources": [
+     "halliwell-2023"
     ]
    }
   }
@@ -1573,6 +1692,20 @@
     "sources": [
      "kamao-2007"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 930,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.137,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -1667,6 +1800,20 @@
     "value": 3.9,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 190,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.037,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -1802,6 +1949,20 @@
     "sources": [
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 943,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.044,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -1936,6 +2097,13 @@
     "value": 0.2,
     "sources": [
      "literature"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -2171,6 +2339,20 @@
     "sources": [
      "cnf"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 378,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.02,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -2277,6 +2459,20 @@
     "sources": [
      "ryan-2007"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 263,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -2381,6 +2577,13 @@
     "value": 0.5,
     "sources": [
      "ryan-2007"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 195,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -2519,6 +2722,13 @@
     "sources": [
      "ryan-2007"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 267,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -2631,6 +2841,27 @@
     "sources": [
      "existing",
      "literature"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1138,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.112,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 184,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -2788,6 +3019,27 @@
      "existing",
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1760,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.054,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 15.6,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -2894,6 +3146,13 @@
     "value": 0.69,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1640,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -3016,6 +3275,13 @@
     "sources": [
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1174,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -3121,6 +3387,13 @@
     "sources": [
      "existing",
      "literature"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 4710,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -3251,6 +3524,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 960,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.041,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -3363,6 +3650,13 @@
      "existing",
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1498,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -3459,6 +3753,13 @@
     "value": 28,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 900,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -3566,6 +3867,27 @@
     "value": 0.4,
     "sources": [
      "literature"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 930,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.033,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 8.7,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -3682,6 +4004,20 @@
      "existing",
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 648,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.058,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -3781,6 +4117,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 350,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -3876,6 +4226,20 @@
     "value": 6,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 47,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 6.2,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -3976,6 +4340,20 @@
     "value": 13,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 4710,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 39.348,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -4144,6 +4522,13 @@
     "sources": [
      "literature"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.019,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -4265,6 +4650,13 @@
     "value": 0,
     "sources": [
      "cnf"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 20,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -4398,6 +4790,13 @@
     "value": 0.22,
     "sources": [
      "nih-boron"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 18,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -4537,6 +4936,27 @@
     "sources": [
      "research-papers"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 17,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.041,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "glucosinolates": {
+    "state": "measured",
+    "value": 61.9,
+    "sources": [
+     "mcnaughton-2003"
+    ]
    }
   }
  },
@@ -4666,6 +5086,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "glucosinolates": {
+    "state": "measured",
+    "value": 54,
+    "sources": [
+     "mcnaughton-2003"
+    ]
    }
   }
  },
@@ -4766,6 +5193,13 @@
     "value": 4,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "glucosinolates": {
+    "state": "measured",
+    "value": 165,
+    "sources": [
+     "mcnaughton-2003"
     ]
    }
   }
@@ -4877,6 +5311,13 @@
     "value": 13,
     "sources": [
      "eurofir"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.02,
+    "sources": [
+     "literature"
     ]
    }
   }
@@ -5008,6 +5449,27 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "ergothioneine": {
+    "state": "measured",
+    "value": 1.29,
+    "sources": [
+     "halliwell-2023"
+    ]
+   },
+   "beta-glucan": {
+    "state": "measured",
+    "value": 2.24,
+    "sources": [
+     "literature"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.05,
+    "sources": [
+     "literature"
+    ]
    }
   }
  },
@@ -5104,6 +5566,20 @@
     "value": 12,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "ergothioneine": {
+    "state": "measured",
+    "value": 0.95,
+    "sources": [
+     "halliwell-2023"
+    ]
+   },
+   "beta-glucan": {
+    "state": "measured",
+    "value": 1.54,
+    "sources": [
+     "literature"
     ]
    }
   }
@@ -5239,6 +5715,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 38,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.015,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -5372,6 +5862,20 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 44,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.012,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -5511,6 +6015,27 @@
     "sources": [
      "muir-2007"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 30,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.065,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "ergothioneine": {
+    "state": "measured",
+    "value": 1.6,
+    "sources": [
+     "halliwell-2023"
+    ]
    }
   }
  },
@@ -5626,6 +6151,20 @@
     "sources": [
      "existing",
      "literature"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 27,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -5767,6 +6306,27 @@
      "existing",
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 28,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.012,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -5907,6 +6467,20 @@
     "sources": [
      "eurofir"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 24,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.192,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -6035,6 +6609,20 @@
     "value": 1.2,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 14,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -6167,6 +6755,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 8,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -6295,6 +6897,27 @@
     "value": 2.3,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 10,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.02,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "melatonin": {
+    "state": "measured",
+    "value": 0.0001,
+    "sources": [
+     "arnao-2018"
     ]
    }
   }
@@ -6429,6 +7052,20 @@
      "mext-2020",
      "cofid-2021"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 18,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.019,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -6527,6 +7164,20 @@
     "value": 2.7,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 15,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.022,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -6659,6 +7310,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 14,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -6788,6 +7453,20 @@
     "value": 1.6,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 12,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -6921,6 +7600,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 34,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -7016,6 +7702,13 @@
     "value": 1.7,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 10,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -7113,6 +7806,20 @@
     "value": 1,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 18,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.025,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -7245,6 +7952,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 16,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -7343,6 +8057,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 15,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -7440,6 +8161,13 @@
     "value": 0.3,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "glucosinolates": {
+    "state": "measured",
+    "value": 78.5,
+    "sources": [
+     "mcnaughton-2003"
     ]
    }
   }
@@ -7794,6 +8522,27 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 71,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -7929,6 +8678,27 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 12,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.052,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 145,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -8034,6 +8804,27 @@
     "value": 0.39,
     "sources": [
      "research-papers"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 11,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -8166,6 +8957,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.015,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 67.2,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -8293,6 +9098,20 @@
     "value": 1,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 81.5,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -8425,6 +9244,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -8523,6 +9356,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.015,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 179.8,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -8620,6 +9467,20 @@
     "value": 0.8,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 12,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 1.1,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -8750,6 +9611,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 2.6,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -8801,6 +9669,13 @@
     "value": 0.9,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 4,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -8931,6 +9806,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 6,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -9030,6 +9912,20 @@
     "value": 0.5,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 10.3,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -9131,6 +10027,27 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.015,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 37.4,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -9182,6 +10099,20 @@
     "value": 0.7,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.012,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 50.3,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -9546,6 +10477,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 61,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
@@ -9572,6 +10517,20 @@
     "value": 7.73,
     "sources": [
      "ifct-2017"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.049,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "glucosinolates": {
+    "state": "measured",
+    "value": 236,
+    "sources": [
+     "mcnaughton-2003"
     ]
    }
   }
@@ -9607,6 +10566,13 @@
     "sources": [
      "owen-2000"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.025,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -9639,6 +10605,20 @@
     "value": 3.5,
     "sources": [
      "research-papers"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "squalene": {
+    "state": "measured",
+    "value": 14.2,
+    "sources": [
+     "literature"
     ]
    }
   }
@@ -9700,6 +10680,20 @@
     "sources": [
      "research-papers"
     ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 29.16,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "squalene": {
+    "state": "measured",
+    "value": 27,
+    "sources": [
+     "literature"
+    ]
    }
   }
  },
@@ -9712,6 +10706,34 @@
     "value": 2.5,
     "sources": [
      "research-papers"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 903,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.05,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 237.3,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "melatonin": {
+    "state": "measured",
+    "value": 0.0023,
+    "sources": [
+     "arnao-2018"
     ]
    }
   }
@@ -9753,6 +10775,20 @@
     "sources": [
      "biesiekierski-2011"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 234,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.055,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
@@ -9765,6 +10801,20 @@
     "value": 494,
     "sources": [
      "usda-pa"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 1620,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.026,
+    "sources": [
+     "milder-2005"
     ]
    }
   }
@@ -9787,6 +10837,34 @@
     "sources": [
      "literature"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 982,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.163,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 67.3,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "melatonin": {
+    "state": "measured",
+    "value": 0.0003,
+    "sources": [
+     "arnao-2018"
+    ]
    }
   }
  },
@@ -9799,6 +10877,27 @@
     "value": 4.75,
     "sources": [
      "biesiekierski-2011"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 290,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.055,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 24.8,
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
@@ -9813,13 +10912,49 @@
     "sources": [
      "cnf"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 327,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "milder-2005"
+    ]
    }
   }
  },
  "brazil-nuts": {
   "prep": "as listed",
   "match": "exact",
-  "cells": {}
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 1719,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.027,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
  },
  "tvp-dry": {
   "prep": "as listed",
@@ -9829,11 +10964,640 @@
  "lupin-beans-cooked": {
   "prep": "as listed",
   "match": "exact",
-  "cells": {}
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 410,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
  },
  "spirulina-dried": {
   "prep": "as listed",
   "match": "exact",
   "cells": {}
+ },
+ "pearl-barley-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 160,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.024,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "beta-glucan": {
+    "state": "measured",
+    "value": 2.5,
+    "sources": [
+     "literature"
+    ]
+   }
+  }
+ },
+ "sauerkraut-canned": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "mk7": {
+    "state": "measured",
+    "value": 4.8,
+    "sources": [
+     "schurgers-2000"
+    ]
+   },
+   "k2": {
+    "state": "measured",
+    "value": 4.8,
+    "sources": [
+     "schurgers-2000"
+    ]
+   }
+  }
+ },
+ "miso": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 630,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "mk7": {
+    "state": "measured",
+    "value": 10.1,
+    "sources": [
+     "schurgers-2000"
+    ]
+   },
+   "k2": {
+    "state": "measured",
+    "value": 10.1,
+    "sources": [
+     "schurgers-2000"
+    ]
+   }
+  }
+ },
+ "kohlrabi-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "glucosinolates": {
+    "state": "measured",
+    "value": 48.2,
+    "sources": [
+     "mcnaughton-2003"
+    ]
+   }
+  }
+ },
+ "turnip-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "glucosinolates": {
+    "state": "measured",
+    "value": 68.3,
+    "sources": [
+     "mcnaughton-2003"
+    ]
+   }
+  }
+ },
+ "swede-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "glucosinolates": {
+    "state": "measured",
+    "value": 86.4,
+    "sources": [
+     "mcnaughton-2003"
+    ]
+   }
+  }
+ },
+ "rocket-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "glucosinolates": {
+    "state": "measured",
+    "value": 42,
+    "sources": [
+     "mcnaughton-2003"
+    ]
+   }
+  }
+ },
+ "haricot-beans-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 200,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "cannellini-beans-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 200,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "butter-beans-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 190,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "borlotti-beans-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 230,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "bulgur-wheat-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 250,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.032,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "teff-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 310,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "wild-rice-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 280,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "couscous-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 195,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "pine-nuts-dried": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 200,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0.3,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "coconut-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 357,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "artichokes-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 32,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.015,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "beetroot-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 37,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.015,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "swiss-chard-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 40,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "bell-pepper-red-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 12,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "bell-pepper-yellow-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 12,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.013,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "parsnips-cooked": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 22,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.034,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "shallots-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 14,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "celeriac-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 23,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.014,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "raspberries-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "lignans": {
+    "state": "measured",
+    "value": 0.041,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 30.3,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "blackberries-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "lignans": {
+    "state": "measured",
+    "value": 0.047,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 23.2,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "plums-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "lignans": {
+    "state": "measured",
+    "value": 0.018,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 141.1,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "pomegranate-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 7.6,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "dates": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 47,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "guava-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 1.5,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "papaya-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "passion-fruit-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 22,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "lychees-raw": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 12.8,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "cocoa-powder-unsweetened": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 1740,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.058,
+    "sources": [
+     "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 3448,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "wheatgerm-toasted": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 1543,
+    "sources": [
+     "fao-phytate"
+    ]
+   },
+   "lignans": {
+    "state": "measured",
+    "value": 0.189,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
+ },
+ "flaxseed-oil-cold-pressed": {
+  "prep": "as listed",
+  "match": "exact",
+  "cells": {
+   "lignans": {
+    "state": "measured",
+    "value": 0.314,
+    "sources": [
+     "milder-2005"
+    ]
+   }
+  }
  }
 }

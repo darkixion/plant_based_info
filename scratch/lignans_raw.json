@@ -1,0 +1,22 @@
+[
+  {
+    "food": "flaxseed",
+    "lignans_mg": 300,
+    "source": "PMC2860900"
+  },
+  {
+    "food": "sesame",
+    "lignans_mg": 800,
+    "source": "PMC2860900"
+  },
+  {
+    "food": "grains",
+    "lignans_mg": 5,
+    "source": "PMC2860900"
+  },
+  {
+    "food": "vegetables",
+    "lignans_mg": 1.4,
+    "source": "PMC2860900"
+  }
+]

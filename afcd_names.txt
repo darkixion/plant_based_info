@@ -1,0 +1,709 @@
+Cardamom seed, dried, ground
+Coriander seed, dried, ground
+Cumin (cummin) seed, dried, ground
+Fenugreek seed, dried
+Nutmeg, dried, ground
+Pepper, black, ground
+Lecithin, soy, granules
+Vanilla bean extract
+Cider, apple (alcohol ~4-5% v/v)
+Protein powder, hemp seed based
+Coffee, espresso, from ground coffee beans
+Coffee, long black, from ground coffee beans
+Coffee, flat white/latte/cappuccino, from ground coffee beans, with regular fat cow's milk
+Cordial base, 25% citrus fruit juice, regular
+Cordial base, 40% citrus fruit juice, regular
+Cordial base, fruit juice/flavours, intense sweetened or diet
+Cordial, 25% citrus fruit juice, regular, recommended dilution
+Cordial, 40% citrus fruit juice, regular, recommended dilution
+Cordial, fruit juice/flavours, recommended dilution
+Cordial, fruit juice/flavours, intense sweetened or diet, recommended dilution
+Juice, apple, commercial, added vitamin C
+Juice, apple &amp; blackcurrant, commercial
+Juice, orange, commercial
+Juice, orange &amp; mango, commercial
+Juice, vegetable blend, commercial
+Fruit drink, apple juice
+Fruit drink, blackcurrant, commercial
+Fruit drink, cranberry
+Fruit drink, orange juice
+Soft drink, fruit flavours
+Soft drink, fruit flavours, intense sweetened or diet
+Biscuit, savoury, corn cake, plain, salted
+Biscuit, savoury, rice cracker, plain
+Biscuit, savoury, rice cracker, added vegetable powder
+Biscuit, savoury, rice cake, from brown rice, plain
+Biscuit, savoury, rice cracker, flavoured (excluding seaweed)
+Biscuit, savoury, rice cracker, seaweed flavoured
+Biscuit, savoury, from rye flour, crispbread
+Biscuit, savoury, seed based
+Biscuit, savoury, from white wheat flour, flaky cracker style
+Biscuit, savoury, from white wheat flour, plain snack cracker style
+Biscuit, savoury, from white wheat flour, Salada style
+Biscuit, savoury, from white wheat flour, water cracker style
+Biscuit, savoury, from white wheat flour, cheese-flavoured
+Biscuit, savoury, from white wheat flour, flavoured (excluding cheese)
+Biscuit, savoury, from wholemeal wheat flour, crispbread
+Biscuit, savoury, from wholemeal wheat flour &amp; rye flour, crispbread, puffed
+Biscuit, savoury, from wheat flour, crispbread, puffed &amp; toasted
+Biscuit, sweet, wheatmeal
+Biscuit, sweet, biscuit base, caramel filling, chocolate-coated, commercial
+Biscuit, sweet, biscuit base, mint filling, chocolate-coated
+Biscuit, sweet, chocolate chip or coated
+Biscuit, sweet, sandwich, cream filling, chocolate-coated, tim tam style
+Biscuit, sweet, breakfast style, with or without dried fruit
+Bread, flat wrap or tortilla, corn, commercial
+Bagel, from white flour, commercial
+Bagel, from white flour, commercial, toasted
+Bread, damper, from white flour, homemade
+Bread, from white flour
+Bread, from white flour, toasted
+Bread, from white flour, Italian-style, commercial
+Bread, from white flour, Italian-style, commercial, toasted
+Bread, from white flour, Turkish
+Bread, from white flour, Turkish, toasted
+Bread, from white flour, sour dough, commercial
+Bread, from white flour, sour dough, toasted
+Bread roll, from white flour
+Bread, from wholemeal flour
+Bread, from wholemeal flour, toasted
+Bread roll, from wholemeal flour
+Bread, mixed grain
+Bread, mixed grain, toasted
+Bread roll, mixed grain
+Bread, from rye flour, sour dough
+Bread, from rye flour, sour dough, toasted
+Bread, from white flour, added fibre
+Bread, from white flour, added fibre, toasted
+Bread, from white flour, added omega-3 polyunsaturates
+Bread, from white flour, added omega-3 polyunsaturates, toasted
+Bread, from white Jackaroo flour, added fibre and vitamins B1 &amp; folate &amp; Fe
+Bread, from white Jackaroo flour, added fibre and vitamins B1 &amp; folate &amp; Fe, toasted
+Bread, garlic, commercial, baked
+Bread, garlic or herb, homemade, cooked
+Bread, from white flour, commercial, added dried fruit
+Bread, from white wheat flour, added dried fruit, toasted
+Bun, sweet, hot cross bun, with dried fruit
+Bun, sweet, with dried fruit, uniced
+Bun, sweet, with dried fruit, iced
+Crumpet, from white flour, toasted
+Muffin, English style, from white flour
+Muffin, English style, from white flour, toasted
+Muffin, English style, from white flour, added dried fruit, toasted
+Breakfast cereal, beverage, non-chocolate flavours, added vitamins &amp; minerals (Up &amp; Go)
+Breakfast cereal, flakes of corn, unfortified
+Breakfast cereal, flakes of corn, added vitamins &amp; minerals (Kellogg's Cornflakes)
+Breakfast cereal, mixed grain (wheat, rice &amp; oat), flakes, honey, unfortified (Be Natural Honey Flakes)
+Breakfast cereal, mixed grain (rice &amp; wheat), flakes, added vitamins &amp; minerals (Kellogg's Special K)
+Breakfast cereal, mixed grain (wheat, oat &amp; corn), added vitamins &amp; minerals (Kellogg's Nutri-grain)
+Breakfast cereal, mixed grain (wheat &amp; oat), flakes, apricot &amp; sultana, added vitamins &amp; minerals (Kellogg's Just Right)
+Breakfast cereal, puffed or popped rice, no added sugar or salt, unfortified
+Breakfast cereal, puffed or popped rice, added vitamins &amp; minerals (Kellogg's Rice Bubbles)
+Breakfast cereal, puffed or popped rice, cocoa coating, added vitamins &amp; minerals (Kellogg's Coco Pops)
+Breakfast cereal, whole wheat, puffed, no added sugar or salt, unfortified
+Breakfast cereal, whole wheat, biscuit, no added sugar, unfortified
+Breakfast cereal, wheat bran, pellets, added vitamins &amp; minerals (Kellogg's All Bran)
+Breakfast cereal, wheat bran, flakes, added vitamins &amp; minerals (Kellogg's Bran Flakes)
+Breakfast cereal, whole wheat, biscuit, added vitamins &amp; minerals (Sanitarium Weet Bix)
+Breakfast cereal, whole wheat, biscuit, bran, added vitamins &amp; minerals (Sanitarium Weet-Bix Hi-Bran)
+Breakfast cereal, whole wheat, flakes, added vitamins &amp; minerals (Weeties style)
+Breakfast cereal, whole wheat, flakes, dried fruit &amp; nuts, added vitamins &amp; minerals (Uncle Toby's Fibre Plus)
+Breakfast cereal, wheat bran, flakes, sultanas, added vitamins &amp; minerals (Kellogg's Sultana Bran)
+Muesli, granola, toasted, added nuts &amp; seeds, unfortified
+Muesli, granola, non-oat based, toasted, added nuts &amp; seeds, unfortified
+Muesli, toasted, added dried fruit &amp; nuts, unfortified
+Muesli, untoasted or natural style, added dried fruit, unfortified
+Porridge, rolled oats, prepared with water
+Porridge, rolled oats, prepared with regular fat cow's milk
+Porridge, rolled oats mixed with sugar or honey &amp; other flavours, prepared with cow's milk
+Bread, banana, commercial
+Bread, banana, homemade
+Slice, brownie, chocolate, without nuts, commercial
+Slice, brownie, chocolate, with nuts, homemade
+Cake, carrot, commercial, iced
+Cake, carrot, homemade, uniced
+Cake, carrot, homemade, iced
+Cake, fruit, homemade, uniced
+Muffin, cake-style, berry, commercial
+Doughnut, dusted with cinnamon &amp; sugar
+Doughnut, iced
+Doughnut, jam filled, sugar coated
+Pudding, plum, steamed or boiled, homemade
+Pudding, sticky date, homemade
+Scone, fruit, commercial
+Scone, pumpkin, homemade
+Amaranth, grain, whole, uncooked
+Barley, pearl, uncooked
+Barley, pearl, boiled, no added fat or salt
+Buckwheat groats, uncooked
+Buckwheat groats, cooked in water, no added salt
+Cornmeal (polenta), uncooked
+Cornmeal (polenta), boiled, no added fat or salt
+Millet, uncooked
+Millet, boiled, no added fat or salt
+Oat bran, unprocessed, uncooked
+Oats, hulled, uncooked
+Oats, rolled, uncooked
+Oats, rolled, mixed with sugar or honey &amp; other flavours, uncooked
+Quinoa, black, uncooked
+Quinoa, red, uncooked
+Quinoa, white, uncooked
+Quinoa, uncooked
+Quinoa, cooked in water, no added salt
+Rye, grain, whole, uncooked
+Rye, rolled, uncooked
+Sorghum, grain, uncooked
+Triticale, grain, uncooked
+Spelt, uncooked
+Spelt, boiled, no added fat or salt
+Tapioca, pearl or seed style, uncooked
+Tapioca, pearl or seed style, boiled, no added fat or salt
+Wheat bran, unprocessed, uncooked
+Wheat, whole, uncooked
+Wheat germ
+Rice, white, uncooked
+Rice, white, boiled or rice cooker, no added salt
+Rice, white, purchased as 'instant', microwaved
+Rice, brown, uncooked
+Rice, brown, boiled, no added salt
+Rice, wild, uncooked
+Rice, wild, boiled, no added salt
+Rice paper wrapper, soaked in water
+Rice, white, fried with bacon or ham, egg, prawns &amp; vegetables 
+Flour, arrowroot
+Flour, cornflour, from maize starch
+Flour, cornflour, from maize &amp; wheat starch
+Flour, chickpea (besan)
+Flour, gluten free, plain
+Flour, rice
+Flour, rye
+Flour, soya (soy)
+Flour, spelt
+Flour, wheat, white, high protein or bread making flour
+Flour, wheat, white, plain
+Flour, wheat, white, plain, added vitamins B1, B2, B3, B6, E &amp; folate &amp; Fe, Mg &amp; Zn (Jackaroo)
+Flour, wheat, white, self-raising
+Flour, wheat, white, self-raising, added vitamins B1, B2, B3, B6, E &amp; folate &amp; Fe, Mg &amp; Zn (Jackaroo)
+Flour, wheat, wholemeal, plain
+Flour, wheat, wholemeal, self-raising
+Gluten, from wheat (vital wheat gluten)
+Starch, potato
+Hamburger, white roll, beef patty, with cheese, onion, pickles &amp; sauce, fast food chain
+Pizza, cheese &amp; tomato, commercial
+Pizza, ham &amp; pineapple, purchased frozen, baked
+Pizza, ham &amp; pineapple, takeaway style
+Pizza, vegetable, fast food chain
+Noodle, rice stick, boiled, drained
+Noodle, wheat, fresh, soaked, drained
+Noodle, wheat, instant, flavoured, dry, uncooked
+Noodle, wheat, instant, unflavoured, boiled, drained
+Noodle, wheat, instant, unflavoured, boiled, undrained
+Noodle, wheat, instant, unflavoured, dry, uncooked
+Noodle, wheat, instant, flavoured, boiled, drained
+Noodle, wheat, instant, flavoured, boiled, undrained
+Noodle, wheat with egg, plain, boiled, no added fat
+Pasta, white wheat flour, dry
+Pasta, white wheat flour, boiled from dry, no added salt
+Pasta, white wheat flour, fresh, uncooked
+Pasta, white wheat flour, fresh, boiled, no added salt
+Pasta, white wheat flour &amp; egg, dry
+Pasta, white wheat flour &amp; egg, boiled from dry, no added salt
+Pasta, white wheat flour &amp; spinach, dry
+Pasta, white wheat flour &amp; spinach, boiled from dry, no added salt
+Pasta, wholemeal wheat flour, dry
+Pasta, wholemeal wheat flour, boiled from dry, no added salt
+Pasta dish, homemade, cooked unfilled pasta, homemade beef bolognese sauce &amp; added vegetables
+Spaghetti in tomato &amp; cheese sauce, canned
+Spaghetti in tomato &amp; cheese sauce, canned, reduced salt
+Pastry, puff, vegetable oil, commercial, raw
+Pastry, puff, vegetable oil, commercial, baked
+Pastry, filled with spinach &amp; cheese, purchased frozen, baked
+Pie, savoury, chicken &amp; vegetable, commercial
+Spring roll, meat &amp; vegetable filling, commercial, deep fried
+Pie, sweet, apple, commercial
+Paste, soybean
+Sauce, cranberry, commercial
+Sauce, pasta, bolognese, homemade using beef mince &amp; homemade tomato based sauce
+Sauce, pasta, bolognese, homemade using beef mince &amp; commercial tomato based sauce
+Sauce, pasta, tomato-based, commercial, heated
+Sauce, plum, commercial
+Sauce, salsa, tomato-based, commercial
+Sauce, soy, commercial
+Sauce, soy, commercial, reduced salt
+Sauce, tomato, commercial
+Sauce, tomato, commercial, reduced salt
+Sauce, tomato, reduced sugar &amp; salt, commercial
+Peanut butter, smooth &amp; crunchy, added sugar &amp; salt
+Peanut butter, smooth &amp; crunchy, no added sugar or salt
+Cheese, goat, firm
+Cheese, goat, soft
+Ice confection, stick or tub, fruit juice or fruit flavoured
+Yoghurt, apricot pieces or flavoured, regular fat (~3%)
+Yoghurt, strawberry pieces or flavoured, regular fat (~3%)
+Yoghurt, almond based, flavoured
+Yoghurt, coconut based, flavoured
+Yoghurt, soy based, berry flavoured, regular fat (~3%)
+Yoghurt, soy based, vanilla flavoured, reduced fat (~1%)
+Almond beverage, added sugar, unfortified
+Almond beverage, no added sugar, unfortified
+Almond beverage, added sugar &amp; Ca
+Almond beverage, no added sugar, added Ca
+Almond beverage, added sugar &amp; vitamins B1, B2, B12, C &amp; Ca
+Coconut beverage, unfortified
+Coconut beverage, added Ca
+Oat beverage, fluid, unfortified
+Oat beverage, fluid, added Ca
+Oat beverage, fluid, added calcium &amp; vitamins
+Rice beverage, unfortified
+Rice beverage, fluid, added calcium
+Soy beverage, regular fat (~3%), unfortified
+Soy beverage, regular fat (~3%), added Ca
+Soy beverage, regular fat (~3%), added Ca &amp; vitamins A, B1, B2 &amp; B12
+Soy beverage, reduced fat (~1%), added Ca &amp; vitamins A, B1, B2 &amp; B12
+Textured vegetable protein/soy granules
+Tofu (soy bean curd), firm, as purchased
+Meat alternative, protein (soy/wheat/pea) base, as purchased
+Meat alternative, protein (soy/wheat/pea) base, cooked
+Meat alternative, protein (soy/wheat/pea) base, added vitamins &amp; minerals, as purchased
+Meat alternative, legume and/or vegetable base, as purchased
+Meat alternative, legume and/or vegetable base, cooked
+Soup, vegetable, instant dry mix
+Soup, vegetable &amp; noodle, instant dry mix
+Oil, almond
+Oil, avocado
+Oil, coconut
+Oil, cottonseed
+Oil, grapeseed
+Oil, linseed or flaxseed
+Oil, macadamia
+Oil, mustard seed
+Oil, olive
+Oil, peanut
+Oil, rice bran
+Oil, sesame
+Oil, soybean
+Oil, blend of polyunsaturated vegetable oils
+Oil, blend of monounsaturated vegetable oils
+Oil, vegetable
+Fat, solid, vegetable oil based
+Apple, bonza, unpeeled, raw
+Apple, fuji, unpeeled, raw
+Apple, golden delicious, unpeeled, raw
+Apple, green skin, unpeeled, raw
+Apple, granny-smith, unpeeled, raw
+Apple, jonathan, unpeeled, raw
+Apple, pink lady, unpeeled, raw
+Apple, red delicious, unpeeled, raw
+Apple, royal gala, unpeeled, raw
+Apple, red skin, peeled, raw
+Apple, red skin, unpeeled, raw
+Apple, dried
+Apricot, raw
+Apricot, dried
+Apricot, canned in pear juice
+Apricot, canned in pear juice, drained
+Apricot, canned in pear juice, juice only
+Banana, cavendish, peeled, raw
+Banana, lady finger or sugar, peeled, raw
+Banana, frozen
+Banana chip
+Blackberry, raw
+Blackberry, purchased frozen
+Blueberry, raw
+Blueberry, purchased frozen
+Cherry, raw
+Cherry, black, canned in syrup
+Cherry, black, canned in syrup, drained
+Cherry, black, canned in syrup, syrup only
+Cherry, pitted, frozen
+Cranberry, raw
+Cranberry, dried, sweetened
+Custard apple, African pride, peeled, raw
+Date, dried
+Fig, fresh, unpeeled, raw
+Fig, dried
+Goji berry, dried
+Grape, black muscatel (muscat), raw
+Grape, black sultana, raw
+Grape, cornichon, raw
+Grape, green, raw
+Grape, red globe, raw
+Grape, waltham cross, raw
+Grapefruit, pink flesh, peeled, raw
+Grapefruit, yellow flesh, peeled, raw
+Jackfruit, peeled, raw
+Kiwifruit, green (hayward), peeled, raw
+Kiwifruit, gold, peeled, raw
+Lime, native, fruit
+Mango, peeled, raw
+Mango, peeled, frozen
+Mango, pulped, canned
+Melon, honey dew, white skin, peeled, raw
+Melon, honey dew, yellow skin, peeled, raw
+Melon, honey dew, peeled, raw
+Melon, rockmelon, peeled, raw
+Melon, watermelon, peeled, raw
+Mulberry, raw
+Orange, navel, peeled, raw
+Orange, valencia, peeled, raw
+Orange, peeled, raw
+Passionfruit, raw
+Passionfruit, pulp, frozen
+Passionfruit, pulp, canned
+Peach, white, unpeeled, raw
+Peach, yellow, unpeeled, raw
+Peach, canned in pear juice
+Peach, canned in pear juice, drained
+Peach, canned in pear juice, juice only
+Pear, Packham's triumph, unpeeled, raw
+Pear, William Bartlett, unpeeled, raw
+Pear, green skin, unpeeled, raw
+Pear, brown skin, unpeeled, raw
+Pear, canned in pear juice
+Pear, canned in pear juice, drained
+Pear, canned in pear juice, juice only
+Pear, nashi, unpeeled, raw
+Pineapple, peeled, raw
+Pineapple, peeled, frozen
+Pineapple, canned in pineapple juice
+Pineapple, canned in juice, drained
+Pineapple, canned in pineapple juice, juice only
+Pineapple, canned in syrup
+Pineapple, canned in syrup, drained
+Pineapple, canned in syrup, syrup only
+Plum, unpeeled, raw
+Plum, dark, canned in syrup
+Plum, dark, canned in syrup, drained
+Plum, dark, canned in syrup, syrup only
+Plum, davidson (native), flesh
+Plum, salted
+Prickly pear, peeled, raw
+Prune (dried plum)
+Quandong, fruit, flesh
+Raspberry, raw
+Raspberry, purchased frozen
+Raspberry, canned in syrup
+Raspberry, canned in syrup, drained
+Raspberry, canned in syrup, syrup only
+Strawberry, raw
+Strawberry, purchased frozen
+Strawberry, canned in syrup
+Strawberry, canned in syrup, drained
+Strawberry, canned in syrup, syrup only
+Fruit salad, canned in fruit juice
+Fruit salad, canned in fruit juice, drained
+Fruit salad, canned in fruit juice, juice only
+Mixed berry, frozen
+Mixed dried fruit
+Baked beans, canned in tomato sauce
+Baked beans, canned in tomato sauce, reduced salt
+Bean, broad, dried
+Bean, broad, fresh, raw
+Bean, broad, fresh, boiled, drained
+Bean, butter, fresh, raw
+Bean, butter, fresh, boiled, drained
+Bean, haricot, dried
+Bean, haricot, dried, boiled, drained
+Bean, lima, dried
+Bean, lima, dried, boiled, drained
+Bean, mung, whole, dried, uncooked
+Bean, red kidney, dried
+Bean, red kidney, dried, boiled, drained
+Bean, red kidney, fresh, raw
+Bean, red kidney, fresh, boiled, drained
+Bean, red kidney, canned, drained
+Bean, soya (soy), dried
+Bean, soya (soy), dried, boiled, drained
+Chickpea, dried
+Chickpea, dried, boiled, drained
+Chickpea, canned, drained
+Lentil, French, hulled, dry
+Lentil, green, hulled, dry
+Lentil, red, hulled, dry
+Lentil, hulled, dry
+Lentil, dried, boiled, drained
+Pea, split, dried
+Pea, split, dried, boiled, drained
+Pea, green, whole, dried
+Pea, yellow, whole, dried
+Goat, all cuts, separable fat, raw 
+Goat, all cuts, separable fat, baked, no added fat
+Goat, forequarter, lean, raw 
+Goat, forequarter, lean, baked, no added fat 
+Goat, leg, lean, raw
+Goat, leg, lean, baked, no added fat
+Goat, loin, lean, raw
+Goat, loin, lean, baked, no added fat
+Goat, meat, all cuts, lean, raw
+Goat, meat, all cuts, lean, baked, no added fat
+Goat, meat, all cuts, lean, casseroled, no added fat
+Goat, meat, all cuts, untrimmed, raw
+Goat, meat, all cuts, untrimmed, baked, no added fat
+Goat, meat, all cuts, untrimmed, casseroled, no added fat 
+Chicken piece, flesh, skin &amp; fat, coated, fast food outlet, fried
+Salami, pepperoni
+Beef, corned, canned
+Braised steak &amp; onions, canned
+Sausages &amp; vegetables, canned
+Steak &amp; vegetables, canned
+Coconut, fresh, mature fruit, flesh
+Coconut, fresh, young or immature, flesh
+Coconut, fresh, mature, water or juice
+Coconut, fresh, young or immature, water or juice
+Water, coconut, commercial
+Coconut, grated &amp; desiccated
+Coconut, cream, regular fat
+Coconut, milk, canned, regular fat
+Coconut, milk, canned, reduced fat
+Nut, almond, with skin, raw, unsalted
+Nut, almond, with skin, roasted, unsalted
+Nut, almond meal
+Nut, brazil, raw or blanched, unsalted
+Nut, cashew, raw, unsalted
+Nut, cashew, roasted, unsalted
+Nut, cashew, roasted, salted
+Nut, chestnut, raw, unsalted
+Nut, chestnut, roasted, unsalted
+Nut, hazelnut, raw, unsalted
+Nut, macadamia, raw, unsalted
+Nut, peanut, with skin, raw, unsalted
+Nut, peanut, with skin, roasted, with oil, salted
+Nut, peanut, without skin, roasted, with oil, unsalted
+Nut, peanut, without skin, roasted, with oil, salted
+Nut, pecan, raw, unsalted
+Nut, pine, raw, unsalted
+Nut, pistachio, raw, unsalted
+Nut, walnut, raw, unsalted
+Seed, chia, dried
+Seed, hemp, dried
+Seed, linseed or flaxseed
+Seed, poppy
+Seed, pumpkin, hulled &amp; dried
+Seed, sunflower
+Seed, sesame, unsalted
+Wattle seed (acacia), ground
+Flour, hemp
+Tahini, sesame seed pulp
+Prawn, banana, wild, flesh, raw
+Prawn, banana, aquacultured, purchased cooked
+Snack ball, date based
+Bar, muesli, plain or with dried fruit
+Bar, muesli, plain or with dried fruit, chocolate-coated
+Bar, muesli, plain or with dried fruit, yoghurt-coated
+Bar, muesli, with nuts
+Bar, snack, oat based, baked
+Bar, snack, fruit filled, baked
+Bar, snack, with &gt;55% nuts
+Bar, snack, with &gt;35% nuts, added protein
+Snack, grain based, extruded, flavoured
+Noodle snack, wheat, flavoured, dry
+Corn chips, plain, salted
+Taco shell, from corn flour, plain
+Popcorn, commercial, butter flavoured, salted
+Potato crisps or chips, plain, salted
+Potato crisps or chips, salt &amp; vinegar flavoured
+Potato crisps or chips, flavoured (other than salt &amp; vinegar)
+Potato crisps or chips, reformed, salted
+Potato straws, French fries, plain
+Vegetable crisps or chips, sweet potato &amp; taro, flavoured
+Bar, cherry &amp; coconut centre, dark chocolate-coated
+Bar, coconut cream centre, milk chocolate-coated
+Bar, honeycomb centre, milk chocolate-coated
+Bar, nougat &amp; caramel centre, milk chocolate-coated
+Bar, wafer &amp; cream layers, chocolate-coated
+Chocolate, milk, with dried fruit &amp; nuts
+Chocolate, milk, with nuts
+Confectionery, almond, chocolate-coated
+Confectionery, chocolate centre, sugar-coated
+Confectionery, dried fruit &amp; nuts, chocolate-coated
+Confectionery, peanut, chocolate-coated
+Confectionery, sultana, chocolate-coated
+Liquorice, chocolate-coated
+Jam, berry
+Jam, plum
+Jam, stone fruit
+Marmalade, orange
+Spread, hazelnut &amp; chocolate flavoured
+Syrup, rice malt
+Liquorice, allsorts
+Liquorice, black
+Lolly, with fruit juice
+Artichoke, globe, raw
+Artichoke, globe, boiled, drained
+Artichoke, jerusalem, peeled, raw
+Artichoke, jerusalem, peeled, boiled, drained
+Artichoke heart, canned in brine, drained
+Asparagus, green, raw
+Asparagus, green, boiled, drained
+Asparagus, green, fresh or frozen, baked, roasted, stir-fried or fried, grilled or BBQ'd, no added fat
+Asparagus, canned in brine, drained
+Avocado, hass, raw
+Avocado, shepard, raw
+Bean, green, fresh, raw
+Bean, green, fresh, boiled, drained
+Bean, green, frozen, boiled, drained
+Bean, green, fresh, cooked, no added fat
+Beetroot, fresh, purple, peeled, raw
+Beetroot, fresh, purple, peeled, baked, no added fat
+Beetroot, fresh, purple, peeled, boiled, drained
+Beetroot, canned in brine, drained
+Broccoli, fresh, raw
+Broccoli, fresh, microwaved
+Broccoli, fresh, boiled, drained
+Broccoli, fresh, baked, no added fat
+Broccolini, fresh, raw
+Broccolini, fresh, boiled, drained
+Brussels sprout, fresh, raw
+Brussels sprout, fresh, boiled, drained
+Brussels sprout, fresh, baked, no added fat
+Cabbage, Chinese, raw
+Cabbage, Chinese, boiled, drained
+Cabbage, Chinese flowering, raw
+Cabbage, Chinese flowering, boiled, drained
+Cabbage, mustard, raw
+Cabbage, mustard, boiled, drained
+Cabbage, red, raw
+Cabbage, red, boiled, drained
+Cabbage, savoy, raw
+Cabbage, savoy, boiled, drained
+Cabbage, white, raw
+Cabbage, white, boiled, drained
+Carrot, baby, peeled, fresh, raw
+Carrot, baby, peeled, fresh, boiled, drained
+Carrot, baby, baked, no added fat
+Carrot, mature, peeled, fresh, raw
+Carrot, mature, peeled, fresh, baked, no added fat
+Carrot, mature, peeled, fresh, boiled, drained
+Cauliflower, fresh, raw
+Cauliflower, fresh, boiled, drained
+Cauliflower, fresh, baked, no added fat
+Celery, fresh, raw
+Celery, fresh, fried, no added fat
+Corn, fresh on cob, raw
+Corn, fresh on cob, boiled, drained
+Sweetcorn, fresh or frozen on cob, baked, roasted, fried, stir-fried, grilled or BBQ'd, no added fat
+Corn, kernels, purchased frozen, raw
+Corn, kernels, purchased frozen, boiled, drained
+Corn, kernels, canned in brine, drained
+Cucumber, common, peeled, raw
+Cucumber, common, unpeeled, raw
+Cucumber, Lebanese, peeled, raw
+Cucumber, Lebanese, unpeeled, raw
+Cucumber, telegraph, unpeeled, raw
+Garlic, peeled, fresh, raw
+Garlic, peeled, fresh, fried, no added fat
+Kale, raw
+Kale, fried, no added fat
+Leek, fresh, raw
+Leek, fresh, fried, no added fat
+Leek, fresh, boiled, drained
+Lettuce, cos, raw
+Lettuce, iceberg, raw
+Lettuce, mignonette, raw
+Melon, bitter, fresh, raw
+Melon, hairy, fresh, raw
+Mushroom, common, fresh, raw
+Mushroom, common, fresh, fried, no added fat
+Mushroom, common, vitamin D enhanced, fresh, raw
+Mushroom, common, vitamin D enhanced, fresh, fried, no added fat
+Olive, green or black, drained
+Onion, mature, brown skinned, peeled, raw
+Onion, mature, brown skinned, peeled, fresh, fried, no added fat
+Onion, mature, red skinned, raw
+Onion, mature, red skinned, peeled, fried, no added fat
+Onion, mature, white skinned, peeled, fresh, raw
+Onion, spring, fresh, raw
+Onion, spring, fresh, fried, no added fat
+Parsnip, peeled, fresh, raw
+Parsnip, peeled, fresh, baked, no added fat
+Parsnip, peeled, fresh, boiled, drained
+Pea, green, fresh, raw
+Pea, green, fresh, boiled, drained
+Pea, green, frozen, boiled, drained
+Potato, coliban, peeled, raw
+Potato, coliban, peeled, baked, no added fat
+Potato, coliban, peeled, boiled, drained
+Potato, desiree, peeled, raw
+Potato, desiree, peeled, baked, no added fat
+Potato, desiree, peeled, boiled, drained
+Potato, new, peeled, raw
+Potato, new, peeled, baked, no added fat
+Potato, new, peeled, boiled, drained
+Potato, pale skin, peeled, raw
+Potato, pale skin, peeled, boiled, drained
+Potato, pale skin, peeled, baked, no added fat
+Potato, pontiac, peeled, raw
+Potato, pontiac, peeled, baked, no added fat
+Potato, pontiac, peeled, boiled, drained
+Potato, red skin, peeled, raw
+Potato, red skin, peeled, baked, no added fat
+Potato, red skin, peeled, boiled, drained
+Potato, sebago, peeled, raw
+Potato, sebago, peeled, baked, no added fat
+Potato, sebago, peeled, boiled, drained
+Potato, chips, regular, fast food outlet, deep fried, blended oil, salted
+Potato, chips, regular, fast food outlet, deep fried, monounsaturated oil, salted
+Potato, chips, regular, independent takeaway outlet, deep fried, blended oil, salted
+Potato, chips, regular, purchased frozen, baked, no added fat
+Potato, fries, fast food outlet, deep fried, monounsaturated oil, salted
+Potato, fries, independent takeaway outlet, deep fried, blended oil, salted
+Potato, wedges, regular, purchased frozen, baked or roasted, no added fat
+Pumpkin, butternut, peeled, fresh, raw
+Pumpkin, butternut, peeled, fresh, baked, no added fat
+Pumpkin, butternut, peeled, fresh, boiled, drained
+Pumpkin, golden nugget, peeled, fresh, raw
+Pumpkin, golden nugget, peeled, fresh, baked, no added fat
+Pumpkin, golden nugget, peeled, fresh, boiled, drained
+Pumpkin, jarrahdale, peeled, fresh, raw
+Pumpkin, jarrahdale, peeled, fresh, baked, no added fat
+Pumpkin, jarrahdale, peeled, fresh, boiled, drained
+Pumpkin, kent/jap, peeled, fresh, raw
+Pumpkin, kent/jap, peeled, fresh, boiled, drained, no added fat
+Pumpkin, kent/jap, peeled, fresh, baked, no added fat
+Pumpkin, Queensland blue, peeled, fresh, raw
+Pumpkin, Queensland blue, peeled, fresh, baked, no added fat
+Pumpkin, Queensland blue, peeled, fresh, boiled, drained
+Pumpkin, peeled, fresh, raw
+Pumpkin, peeled, fresh, baked, no added fat
+Pumpkin, peeled, fresh, boiled, drained
+Radish, red skinned, unpeeled, raw
+Radish, white skinned, peeled, raw
+Seaweed, nori, dried
+Seaweed, boiled, drained
+Snow pea, fresh, raw
+Snow pea, fresh, fried, no added fat
+Snow pea, fresh, boiled, drained
+Spinach, baby, fresh, raw
+Spinach, Mature English, fresh, raw
+Spinach, Mature English, fresh, boiled, drained
+Spinach, water, fresh, raw
+Sprout, alfalfa, fresh, raw
+Sprout, bean, fresh, raw
+Squash, button, fresh, raw
+Squash, button, fresh, boiled, drained
+Squash, scallopini, fresh, raw
+Squash, scallopini, fresh, boiled, drained
+Swede, peeled, fresh, raw
+Swede, peeled, fresh, boiled, drained
+Sweet potato, orange flesh, peeled, fresh, raw
+Sweet potato, orange flesh, unpeeled, raw
+Sweet potato, orange flesh, peeled, fresh, baked, no added fat
+Sweet potato, orange flesh, peeled, fresh, boiled, drained
+Sweet potato, purple flesh, peeled, raw
+Sweet potato, purple flesh, peeled, baked, no added fat
+Sweet potato, white flesh, peeled or unpeeled, fresh or frozen, baked, roasted, fried, stir-fried, grilled or BBQ'd, no added fat
+Sweet potato, white flesh, peeled, raw
+Tomato, cherry, raw
+Tomato, common, raw
+Tomato, paste, with added salt
+Tomato, paste, no added salt
+Tomato, puree, commercial
+Tomato, sundried
+Tomato, whole, canned in tomato juice, undrained
+Tomato, whole, canned in tomato juice, drained
+Tomato, whole, canned in tomato juice, no added salt, undrained
+Turnip, white, peeled, fresh, raw
+Turnip, white, peeled, fresh, boiled, no added fat
+Vine leaf, grape, canned
+Water chestnut, peeled, canned, drained
+Mixed vegetables, purchased frozen, carrot, corn &amp; pea/bean, boiled, drained

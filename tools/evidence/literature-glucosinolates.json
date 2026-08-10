@@ -1,0 +1,517 @@
+[
+  {
+    "food_key": "horseradish",
+    "food_name": "Horseradish",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 1590.0,
+    "primary_compound": "Sinigrin",
+    "primary_compound_mg_100g": 1450.0,
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "garden-cress",
+    "food_name": "Garden cress",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 389.0,
+    "primary_compound": "Glucotropaeolin",
+    "primary_compound_mg_100g": 380.0,
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "mustard-greens",
+    "food_name": "White mustard / Mustard greens",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 280.0,
+    "primary_compound": "Sinalbin / Sinigrin",
+    "primary_compound_mg_100g": 240.0,
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "brussels-sprouts",
+    "food_name": "Brussels sprouts",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 236.0,
+    "range_mg_100g": [110.0, 390.0],
+    "breakdown_mg_100g": {
+      "progoitrin": 62.0,
+      "sinigrin": 45.0,
+      "glucobrassicin": 39.0,
+      "glucoraphanin": 28.0
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "watercress",
+    "food_name": "Watercress",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 165.0,
+    "primary_compound": "Gluconasturtiin",
+    "primary_compound_mg_100g": 150.0,
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "savoy-cabbage",
+    "food_name": "Savoy cabbage",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 114.6,
+    "breakdown_mg_100g": {
+      "sinigrin": 52.4,
+      "glucobrassicin": 26.1
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "cabbage-raw",
+    "food_name": "White / Green Cabbage",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 108.9,
+    "range_mg_100g": [35.0, 185.0],
+    "breakdown_mg_100g": {
+      "sinigrin": 41.2,
+      "glucobrassicin": 28.5,
+      "progoitrin": 12.3
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "kale-raw",
+    "food_name": "Curly kale",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 101.0,
+    "range_mg_100g": [60.0, 140.0],
+    "breakdown_mg_100g": {
+      "sinigrin": 35.0,
+      "glucobrassicin": 25.0,
+      "progoitrin": 12.0
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "swede",
+    "food_name": "Swede / Rutabaga",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 86.4,
+    "breakdown_mg_100g": {
+      "progoitrin": 45.2,
+      "gluconapin": 14.8
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "radish-red",
+    "food_name": "Red radish",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 78.5,
+    "primary_compound": "Glucoraphenin",
+    "primary_compound_mg_100g": 62.1,
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "cabbage-red",
+    "food_name": "Red cabbage",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 75.3,
+    "range_mg_100g": [25.0, 130.0],
+    "breakdown_mg_100g": {
+      "sinigrin": 22.1,
+      "glucoraphanin": 18.2,
+      "glucobrassicin": 14.5
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "turnip",
+    "food_name": "Turnip",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 68.3,
+    "breakdown_mg_100g": {
+      "gluconapin": 28.4,
+      "progoitrin": 19.1
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "cauliflower-raw",
+    "food_name": "Cauliflower",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 61.9,
+    "range_mg_100g": [14.0, 112.0],
+    "breakdown_mg_100g": {
+      "sinigrin": 19.5,
+      "glucobrassicin": 15.3,
+      "progoitrin": 8.1
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "broccoli-raw",
+    "food_name": "Broccoli",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 61.7,
+    "range_mg_100g": [19.0, 127.0],
+    "breakdown_mg_100g": {
+      "glucoraphanin": 35.8,
+      "glucobrassicin": 11.2,
+      "neoglucobrassicin": 4.8
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "pak-choi",
+    "food_name": "Pak choi / Bok choy",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 54.0,
+    "breakdown_mg_100g": {
+      "gluconapin": 21.3,
+      "glucobrassicin": 11.5
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "kohlrabi",
+    "food_name": "Kohlrabi",
+    "compound_group": "Glucosinolates",
+    "total_glucosinolates_mg_100g": 48.2,
+    "breakdown_mg_100g": {
+      "glucobrassicin": 15.1,
+      "glucoraphanin": 12.5
+    },
+    "basis": "fresh weight",
+    "source_url": "https://ajcn.nutrition.org/article/S0002-9165%2823%2944053-1/pdf",
+    "citation": "McNaughton & Marks (2003)"
+  },
+  {
+    "food_key": "lepista-nuda",
+    "food_name": "Wood Blewit (Lepista nuda)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 554.0,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013)"
+  },
+  {
+    "food_key": "shiitake",
+    "food_name": "Shiitake Mushroom (Lentinula edodes)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 240.0,
+    "range_mg_100g": [28.4, 240.0],
+    "basis": "dry weight (240 mg/100g DW) / fresh weight (28.4 mg/100g FW)",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013) / Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "oyster-mushroom",
+    "food_name": "Oyster Mushroom (Pleurotus ostreatus)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 185.0,
+    "range_mg_100g": [80.0, 185.0],
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013) / Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "enoki",
+    "food_name": "Enoki Mushroom (Flammulina velutipes)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 120.0,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013)"
+  },
+  {
+    "food_key": "maitake",
+    "food_name": "Maitake Mushroom (Grifola frondosa)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 110.0,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013)"
+  },
+  {
+    "food_key": "button-mushroom",
+    "food_name": "White Button / Portobello (Agaricus bisporus)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 95.0,
+    "range_mg_100g": [7.8, 95.0],
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013) / Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "lions-mane",
+    "food_name": "Lion's Mane (Hericium erinaceus)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 65.0,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3749454/",
+    "citation": "Liang et al. (2013)"
+  },
+  {
+    "food_key": "porcini",
+    "food_name": "Porcini Mushroom (Boletus edulis)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 34.0,
+    "range_mg_100g": [18.0, 50.0],
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/",
+    "citation": "Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "tempeh",
+    "food_name": "Tempeh (Fermented Soybeans)",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 20.11,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/",
+    "citation": "Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "asparagus",
+    "food_name": "Asparagus",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 16.0,
+    "basis": "wet weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/",
+    "citation": "Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "garlic",
+    "food_name": "Garlic",
+    "compound_group": "Ergothioneine",
+    "ergothioneine_mg_100g": 3.5,
+    "basis": "wet weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/",
+    "citation": "Halliwell et al. (2023)"
+  },
+  {
+    "food_key": "pistachios",
+    "food_name": "Pistachios",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 230.0,
+    "range_ug_100g": [66.0, 230.0],
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "coffee-beans",
+    "food_name": "Coffee beans (roasted/raw)",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 110.0,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "mustard-seeds",
+    "food_name": "Mustard seed",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 37.9,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "almonds",
+    "food_name": "Almonds",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 3.9,
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "walnuts",
+    "food_name": "Walnuts",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 2.18,
+    "range_ug_100g": [0.35, 4.0],
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "tart-cherry",
+    "food_name": "Tart cherry (Prunus cerasus)",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 2.03,
+    "range_ug_100g": [1.35, 2.7],
+    "basis": "fresh weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "tomato-raw",
+    "food_name": "Tomato",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 1.33,
+    "range_ug_100g": [0.15, 2.5],
+    "basis": "fresh weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "rice-grain",
+    "food_name": "Rice grain",
+    "compound_group": "Phytomelatonin",
+    "melatonin_ug_100g": 0.85,
+    "range_ug_100g": [0.1, 1.6],
+    "basis": "dry weight",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "citation": "Arnao & Hernández-Ruiz (2018)"
+  },
+  {
+    "food_key": "olive-oil-extra-virgin",
+    "food_name": "Extra Virgin Olive Oil",
+    "compound_group": "Lipid Bioactives & Phenolics",
+    "squalene_mg_100g": 564.0,
+    "squalene_range_mg_100g": [400.0, 800.0],
+    "phytosterols_mg_100g": 185.0,
+    "tocopherols_mg_100g": 20.0,
+    "phenolics_mg_100g": 35.0,
+    "melatonin_ug_100g": 0.308,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6308249/",
+    "citation": "Beltrán et al. (2018) / Arnao (2014) / Popular et al. (2023)"
+  },
+  {
+    "food_key": "argan-oil",
+    "food_name": "Argan Oil",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 313.0,
+    "phytosterols_mg_100g": 160.0,
+    "tocopherols_mg_100g": 75.0,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10489903/",
+    "citation": "Popular et al. (2023)"
+  },
+  {
+    "food_key": "olive-pomace-oil",
+    "food_name": "Olive Pomace Oil",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 250.0,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6308249/",
+    "citation": "Beltrán et al. (2018)"
+  },
+  {
+    "food_key": "pumpkin-seed-oil",
+    "food_name": "Pumpkin Seed Oil",
+    "compound_group": "Lipid Bioactives",
+    "phytosterols_mg_100g": 325.0,
+    "squalene_mg_100g": 89.0,
+    "tocopherols_mg_100g": 50.0,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10489903/",
+    "citation": "Popular et al. (2023)"
+  },
+  {
+    "food_key": "sesame-oil",
+    "food_name": "Sesame Oil",
+    "compound_group": "Lipid Bioactives & Lignans",
+    "lignans_sesamin_sesamolin_mg_100g": 750.0,
+    "phytosterols_mg_100g": 475.0,
+    "squalene_mg_100g": 27.0,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10489903/",
+    "citation": "Popular et al. (2023)"
+  },
+  {
+    "food_key": "flaxseed-oil",
+    "food_name": "Flaxseed Oil",
+    "compound_group": "Lipid Bioactives",
+    "phytosterols_mg_100g": 400.0,
+    "tocopherols_mg_100g": 50.0,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10489903/",
+    "citation": "Popular et al. (2023)"
+  },
+  {
+    "food_key": "peanut-oil",
+    "food_name": "Peanut Oil",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 27.4,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6308249/",
+    "citation": "Beltrán et al. (2018)"
+  },
+  {
+    "food_key": "corn-oil-refined",
+    "food_name": "Corn Oil (Refined)",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 19.5,
+    "squalene_crude_mg_100g": 28.6,
+    "basis": "refined oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551149/",
+    "citation": "Nergiz & Celikkuryu (2011) / Beltrán et al. (2018)"
+  },
+  {
+    "food_key": "rapeseed-oil",
+    "food_name": "Canola / Rapeseed Oil",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 14.2,
+    "basis": "oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6308249/",
+    "citation": "Beltrán et al. (2018)"
+  },
+  {
+    "food_key": "sunflower-oil-refined",
+    "food_name": "Sunflower Oil (Refined)",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 13.8,
+    "squalene_crude_mg_100g": 21.5,
+    "basis": "refined oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551149/",
+    "citation": "Nergiz & Celikkuryu (2011) / Beltrán et al. (2018)"
+  },
+  {
+    "food_key": "soybean-oil-refined",
+    "food_name": "Soybean Oil (Refined)",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 9.9,
+    "squalene_crude_mg_100g": 16.4,
+    "basis": "refined oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551149/",
+    "citation": "Nergiz & Celikkuryu (2011) / Beltrán et al. (2018)"
+  },
+  {
+    "food_key": "cottonseed-oil-refined",
+    "food_name": "Cottonseed Oil (Refined)",
+    "compound_group": "Lipid Bioactives",
+    "squalene_mg_100g": 8.1,
+    "squalene_crude_mg_100g": 12.8,
+    "basis": "refined oil",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551149/",
+    "citation": "Nergiz & Celikkuryu (2011)"
+  }
+]

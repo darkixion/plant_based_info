@@ -1,0 +1,135 @@
+[
+  {
+    "food": "stone-ground whole grain bread",
+    "category": "grains",
+    "inositol_mg": 1150,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "hamburger bun",
+    "category": "grains",
+    "inositol_mg": 478,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "dried prunes",
+    "category": "fruits",
+    "inositol_mg": 470,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "great northern beans (canned)",
+    "category": "legumes",
+    "inositol_mg": 440,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "grapefruit juice (frozen concentrate)",
+    "category": "fruits",
+    "inositol_mg": 380,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "cantaloupe (fresh)",
+    "category": "fruits",
+    "inositol_mg": 355,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "orange (fresh)",
+    "category": "fruits",
+    "inositol_mg": 307,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "creamy peanut butter",
+    "category": "nuts",
+    "inositol_mg": 304,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "almonds",
+    "category": "nuts",
+    "inositol_mg": 278,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "40% bran flakes",
+    "category": "grains",
+    "inositol_mg": 274,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "dark red kidney beans (canned)",
+    "category": "legumes",
+    "inositol_mg": 249,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "green peas (canned)",
+    "category": "vegetables",
+    "inositol_mg": 235,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "orange juice (frozen concentrate)",
+    "category": "fruits",
+    "inositol_mg": 204,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "grapefruit (fresh)",
+    "category": "fruits",
+    "inositol_mg": 199,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "walnuts",
+    "category": "nuts",
+    "inositol_mg": 198,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "green beans (fresh)",
+    "category": "vegetables",
+    "inositol_mg": 193,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "navy beans",
+    "category": "legumes",
+    "inositol_mg": 178,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "chunky peanut butter",
+    "category": "nuts",
+    "inositol_mg": 128,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  },
+  {
+    "food": "lima beans",
+    "category": "legumes",
+    "inositol_mg": 127,
+    "unit": "mg/100g",
+    "source": "Clements & Darnell 1980"
+  }
+]
