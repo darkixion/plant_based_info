@@ -135,38 +135,39 @@
   <p class="nutnote" id="nutNote"></p>
   <p aria-live="polite" class="sr" id="live"></p>
 
-  <div class="split" id="browseView">
-    <div>
-      <div id="tableView">
-        <div class="tablewrap" id="scroller" tabindex="0" role="region"
-             aria-label="Nutrient table, scrollable horizontally">
-          <table id="grid">
-            <caption><span id="cap"></span></caption>
-            <thead id="thead"></thead>
-            <tbody id="tbody"></tbody>
-          </table>
-        </div>
-        <div class="notekey" id="noteKey" hidden></div>
+  <div id="browseView">
+    <div id="tableView">
+      <div class="tablewrap" id="scroller" tabindex="0" role="region"
+           aria-label="Nutrient table, scrollable horizontally">
+        <table id="grid">
+          <caption><span id="cap"></span></caption>
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
       </div>
-      <div id="chartView" hidden>
-        <div class="chart">
-          <div class="bar">
-            <label for="chartNut" style="font-size:14px">Compare foods by</label>
-            <select class="sel" id="chartNut"></select>
-          </div>
-          <div id="chartRows"></div>
+      <div class="notekey" id="noteKey" hidden></div>
+    </div>
+    <div id="chartView" hidden>
+      <div class="chart">
+        <div class="bar">
+          <label for="chartNut" style="font-size:14px">Compare foods by</label>
+          <select class="sel" id="chartNut"></select>
         </div>
+        <div id="chartRows"></div>
       </div>
     </div>
-
-    <aside class="detail" id="detail" aria-live="polite"></aside>
   </div>
 
   <!-- ============ my day ============
        The table answers "what is in this food". This answers "what did I get",
        which is the only basis on which a shortfall means anything. -->
-  <div class="split" id="dayView" hidden>
-    <div>
+  <div id="dayView" hidden>
+    <div class="tabs" role="tablist" aria-label="My day sections" style="margin-bottom:20px">
+      <button class="tab" type="button" role="tab" id="dayTabInputs" data-daytab="inputs" aria-selected="true">Inputs</button>
+      <button class="tab" type="button" role="tab" id="dayTabDay" data-daytab="day" aria-selected="false">Your Day</button>
+      <button class="tab" type="button" role="tab" id="dayTabTotals" data-daytab="totals" aria-selected="false">Totals</button>
+    </div>
+    <div id="dayInputsContainer">
       <div class="dayadd">
         <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
         <label class="sr" for="dayQ">Add a food to your day</label>
@@ -174,12 +175,14 @@
                role="combobox" aria-expanded="false" aria-controls="daySug" aria-autocomplete="list">
         <div class="daysug" id="daySug" role="listbox" aria-label="Matching foods" hidden></div>
       </div>
-
       <div id="dayList"></div>
+    </div>
+    <div id="daySumContainer" hidden>
+      <div class="detail daysum" id="daySum" aria-live="polite"></div>
+    </div>
+    <div id="dayTotalsContainer" hidden>
       <div id="dayTotals"></div>
     </div>
-
-    <aside class="detail daysum" id="daySum" aria-live="polite"></aside>
   </div>
 
   <section class="about" aria-labelledby="aboutH">
@@ -214,6 +217,8 @@
     <button class="x" type="button" id="dlgX"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="sr">Close</span></button></div>
   <div class="dlgbody" id="dlgB"></div>
 </dialog>
+
+<dialog id="detailDlg"></dialog>
 
 <dialog id="lensDlg" aria-labelledby="lensDlgT">
   <form method="dialog" id="lensForm">

@@ -300,8 +300,7 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
   background:var(--panel); min-height:40px}
 
 /* ---------- layout of table + detail ---------- */
-.split{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:20px; align-items:start}
-@media (max-width:1160px){.split{grid-template-columns:minmax(0,1fr)}}
+
 
 /* ---------- table ---------- */
 /* The box grows to its rows and the page scrolls, rather than the table being a
@@ -331,8 +330,8 @@ select.sel{padding:8px 10px; border:1px solid var(--line); border-radius:8px;
    included. It stayed invisible for so long because .sr is one pixel and
    clipped to nothing: the overflow was real, and there was nothing to see in
    it. Making this box the containing block is what brings them back inside. */
-.tablewrap{border:1px solid var(--line); border-radius:var(--r); overflow:auto;
-           position:relative; background:var(--panel)}
+.tablewrap{border:1px solid var(--line); border-radius:var(--r); position:relative; background:var(--panel);
+           overflow:auto; max-height:calc(100dvh - 32px)}
 .tablewrap:focus-visible{outline:3px solid var(--green); outline-offset:-3px}
 table{border-collapse:separate; border-spacing:0; width:100%; font-size:13.5px}
 caption{text-align:left; padding:12px 14px; color:var(--muted); font-size:13px;
@@ -504,7 +503,7 @@ td.num b{font-weight:600; color:var(--ink)}
    Wrapping rather than scrolling the strip: a tab you cannot see is a tab you
    do not know exists, and a horizontal scroller gives no sign there is more. */
 .tabs{display:flex; flex-wrap:wrap; border-block:1px solid var(--line); padding:0 6px}
-.tabs button{flex:1 1 30%; border:0; background:none; padding:11px 4px 9px; font-size:11.5px;
+.tabs button{flex:1 1 20%; border:0; background:none; padding:11px 4px 9px; font-size:11.5px;
   color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:5px;
   border-bottom:2px solid transparent; min-height:56px}
 .tabs button[aria-selected=true]{color:var(--green-dark); border-bottom-color:var(--green);

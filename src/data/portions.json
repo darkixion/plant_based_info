@@ -1534,5 +1534,595 @@
    "label": "1 cup",
    "g": 113
   }
+ ],
+ "papaya-raw": [
+  {
+   "label": "1 cup 1\" pieces",
+   "g": 145
+  },
+  {
+   "label": "1 cup, mashed",
+   "g": 230
+  },
+  {
+   "label": "1 fruit, small",
+   "g": 157
+  }
+ ],
+ "goji-berries-dried": [
+  {
+   "label": "5 tbsp",
+   "g": 28
+  }
+ ],
+ "rapeseed-oil": [
+  {
+   "label": "1 tbsp",
+   "g": 14
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "sunflower-oil": [
+  {
+   "label": "1 tbsp",
+   "g": 13.6
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "sesame-oil": [
+  {
+   "label": "1 tablespoon",
+   "g": 13.6
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "walnut-oil": [
+  {
+   "label": "1 tbsp",
+   "g": 13.6
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "avocado-oil": [
+  {
+   "label": "1 tbsp",
+   "g": 14
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "olive-oil-extra-virgin": [
+  {
+   "label": "1 tablespoon",
+   "g": 13.5
+  },
+  {
+   "label": "1 cup",
+   "g": 216
+  }
+ ],
+ "peanut-oil": [
+  {
+   "label": "1 tbsp",
+   "g": 13.5
+  },
+  {
+   "label": "1 cup",
+   "g": 216
+  }
+ ],
+ "flaxseed-oil-cold-pressed": [
+  {
+   "label": "1 tbsp",
+   "g": 13.6
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "soybean-oil-refined": [
+  {
+   "label": "1 tablespoon",
+   "g": 13.6
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "coconut-oil": [
+  {
+   "label": "1 tbsp",
+   "g": 13.6
+  },
+  {
+   "label": "1 cup",
+   "g": 218
+  }
+ ],
+ "soybeans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 172
+  }
+ ],
+ "green-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 125
+  }
+ ],
+ "pigeon-peas-cooked": [
+  {
+   "label": "1 cup",
+   "g": 168
+  }
+ ],
+ "great-northern-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 177
+  }
+ ],
+ "moth-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 177
+  }
+ ],
+ "lima-beans-cooked": [
+  {
+   "label": "1 cup",
+   "g": 188
+  },
+  {
+   "label": "1 tbsp",
+   "g": 11.7
+  }
+ ],
+ "sorghum-grain": [
+  {
+   "label": "1 cup",
+   "g": 192
+  }
+ ],
+ "spelt-cooked": [
+  {
+   "label": "1 cup",
+   "g": 194
+  }
+ ],
+ "white-rice-cooked": [
+  {
+   "label": "1 cup",
+   "g": 158
+  }
+ ],
+ "oat-bran-raw": [
+  {
+   "label": "1 cup",
+   "g": 94
+  }
+ ],
+ "wheat-bran": [
+  {
+   "label": "1 cup",
+   "g": 58
+  }
+ ],
+ "cabbage-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 89
+  },
+  {
+   "label": "1 cup, shredded",
+   "g": 70
+  },
+  {
+   "label": "1 leaf, large",
+   "g": 33
+  },
+  {
+   "label": "1 leaf, medium",
+   "g": 23
+  },
+  {
+   "label": "1 leaf",
+   "g": 15
+  }
+ ],
+ "red-cabbage-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 89
+  },
+  {
+   "label": "1 cup, shredded",
+   "g": 70
+  },
+  {
+   "label": "1 leaf",
+   "g": 23
+  }
+ ],
+ "collard-greens-cooked": [
+  {
+   "label": "1 cup, chopped",
+   "g": 190
+  }
+ ],
+ "mustard-greens-cooked": [
+  {
+   "label": "1 cup, chopped",
+   "g": 140
+  }
+ ],
+ "turnip-greens-cooked": [
+  {
+   "label": "1 cup, chopped",
+   "g": 144
+  }
+ ],
+ "dandelion-greens-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 55
+  }
+ ],
+ "endive-raw": [
+  {
+   "label": "1/2 cup, chopped",
+   "g": 25
+  }
+ ],
+ "romaine-lettuce-raw": [
+  {
+   "label": "1 cup shredded",
+   "g": 47
+  },
+  {
+   "label": "1 leaf inner",
+   "g": 6
+  },
+  {
+   "label": "1 leaf outer",
+   "g": 28
+  }
+ ],
+ "garlic-raw": [
+  {
+   "label": "1 cup",
+   "g": 136
+  },
+  {
+   "label": "3 cloves",
+   "g": 9
+  }
+ ],
+ "okra-cooked": [
+  {
+   "label": "1/2 cup slices",
+   "g": 80
+  },
+  {
+   "label": "8 pods",
+   "g": 85
+  }
+ ],
+ "yam-cooked": [
+  {
+   "label": "1 cup, cubes",
+   "g": 136
+  },
+  {
+   "label": "1/2 cup, cubes",
+   "g": 68
+  }
+ ],
+ "taro-cooked": [
+  {
+   "label": "1 cup, sliced",
+   "g": 132
+  }
+ ],
+ "plantain-baked": [
+  {
+   "label": "1 cup",
+   "g": 139
+  },
+  {
+   "label": "10 slice",
+   "g": 105
+  }
+ ],
+ "lotus-root-cooked": [
+  {
+   "label": "1/2 cup",
+   "g": 60
+  },
+  {
+   "label": "10 slices",
+   "g": 89
+  }
+ ],
+ "daikon-raw": [
+  {
+   "label": "1 cup slices",
+   "g": 116
+  },
+  {
+   "label": "1 radish",
+   "g": 338
+  }
+ ],
+ "cranberries-raw": [
+  {
+   "label": "1 cup, chopped",
+   "g": 110
+  },
+  {
+   "label": "1 cup, whole",
+   "g": 100
+  }
+ ],
+ "cantaloupe-raw": [
+  {
+   "label": "1 cup, balls",
+   "g": 177
+  },
+  {
+   "label": "1 cup, cubes",
+   "g": 160
+  },
+  {
+   "label": "1 cup, diced",
+   "g": 156
+  },
+  {
+   "label": "1 wedge, large",
+   "g": 102
+  },
+  {
+   "label": "1 wedge, medium",
+   "g": 69
+  },
+  {
+   "label": "1 melon, small",
+   "g": 441
+  },
+  {
+   "label": "1 wedge, small",
+   "g": 55
+  },
+  {
+   "label": "10 cantaloupe balls",
+   "g": 138
+  }
+ ],
+ "honeydew-melon-raw": [
+  {
+   "label": "1 cup, diced",
+   "g": 170
+  },
+  {
+   "label": "1 cup, balls",
+   "g": 177
+  },
+  {
+   "label": "1 wedge (1/8 of 5-1/4\" dia melon)",
+   "g": 125
+  },
+  {
+   "label": "1 wedge (1/8 of 6\" to 7\" dia melon)",
+   "g": 160
+  },
+  {
+   "label": "10 honeydew balls",
+   "g": 138
+  }
+ ],
+ "fig-raw": [
+  {
+   "label": "1 large",
+   "g": 64
+  },
+  {
+   "label": "1 medium",
+   "g": 50
+  },
+  {
+   "label": "1 small",
+   "g": 40
+  }
+ ],
+ "persimmon-raw": [
+  {
+   "label": "1 fruit",
+   "g": 168
+  }
+ ],
+ "jackfruit-raw": [
+  {
+   "label": "1 cup, sliced",
+   "g": 165
+  },
+  {
+   "label": "1 cup 1\" pieces",
+   "g": 151
+  }
+ ],
+ "kumquat-raw": [
+  {
+   "label": "1 fruit without refuse",
+   "g": 19
+  }
+ ],
+ "starfruit-raw": [
+  {
+   "label": "1 cup, cubes",
+   "g": 132
+  },
+  {
+   "label": "1 cup, sliced",
+   "g": 108
+  },
+  {
+   "label": "1 large",
+   "g": 124
+  },
+  {
+   "label": "1 medium",
+   "g": 91
+  },
+  {
+   "label": "1 small",
+   "g": 70
+  }
+ ],
+ "lime-raw": [
+  {
+   "label": "1 fruit",
+   "g": 67
+  }
+ ],
+ "lemon-raw": [
+  {
+   "label": "1 cup, sections",
+   "g": 212
+  },
+  {
+   "label": "1 fruit (2-1/8\" dia)",
+   "g": 58
+  },
+  {
+   "label": "1 fruit (2-3/8\" dia)",
+   "g": 84
+  },
+  {
+   "label": "1 wedge or slice",
+   "g": 7
+  }
+ ],
+ "prunes-dried": [
+  {
+   "label": "1 cup, pitted",
+   "g": 174
+  },
+  {
+   "label": "1 prune, pitted",
+   "g": 9.5
+  }
+ ],
+ "raisins": [
+  {
+   "label": "1 cup, packed",
+   "g": 165
+  },
+  {
+   "label": "1 cup",
+   "g": 145
+  }
+ ],
+ "dried-apricots-dried": [
+  {
+   "label": "1 cup",
+   "g": 119
+  }
+ ],
+ "wakame-raw": [
+  {
+   "label": "2 tbsp",
+   "g": 10
+  }
+ ],
+ "turmeric-ground": [
+  {
+   "label": "1 tbsp",
+   "g": 9.4
+  }
+ ],
+ "parsley-fresh": [
+  {
+   "label": "1 cup chopped",
+   "g": 60
+  },
+  {
+   "label": "10 sprigs",
+   "g": 10
+  }
+ ],
+ "cinnamon-ground": [
+  {
+   "label": "1 tbsp",
+   "g": 7.8
+  }
+ ],
+ "basil-fresh": [
+  {
+   "label": "2 tbsp, chopped",
+   "g": 5.3
+  },
+  {
+   "label": "1/4 cup leaves, whole",
+   "g": 6
+  }
+ ],
+ "poppy-seeds": [
+  {
+   "label": "1 tbsp",
+   "g": 8.8
+  }
+ ],
+ "almond-butter": [
+  {
+   "label": "1 tbsp",
+   "g": 16
+  },
+  {
+   "label": "1 cup",
+   "g": 250
+  }
+ ],
+ "peanut-butter-smooth": [
+  {
+   "label": "2 tbsp",
+   "g": 32
+  },
+  {
+   "label": "1 cup",
+   "g": 258
+  }
+ ],
+ "soy-protein-isolate": [
+  {
+   "label": "1 oz",
+   "g": 28.35
+  }
+ ],
+ "carob-powder": [
+  {
+   "label": "1 cup",
+   "g": 103
+  },
+  {
+   "label": "1 tbsp",
+   "g": 6
+  }
  ]
 }

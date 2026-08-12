@@ -163,6 +163,7 @@ interface State {
   basis: Basis;
   view: View;
   tab: string;
+  dayTab: "inputs" | "day" | "totals";
   chartNut: string;
   dark: boolean;
   lens: string;
@@ -533,7 +534,7 @@ const S: State = {
   dv: false, basis: "g", view: "table", tab: "overview",
   chartNut: "protein", dark: false,
   lens: "essentials", custom: [],
-  day: [], kg: DEFAULT_KG, wUnit: "kg",
+  day: [], kg: DEFAULT_KG, wUnit: "kg", dayTab: "inputs",
 };
 
 /** Anything that is not a usable number becomes zero rather than reaching a
@@ -1626,7 +1627,7 @@ function renderDetail() {
   // the overview instead. A test asserts every group holding evidence columns
   // appears here, since those cells carry sources the panel is the only place
   // to show.
-  const DETAIL_TABS: NutrientGroup[] = ["vitamin", "mineral", "carbdetail", "acids", "amino", "plant", "other"];
+  const DETAIL_TABS: NutrientGroup[] = ["fats", "vitamin", "mineral", "carbdetail", "acids", "amino", "plant", "other"];
   const tabs = [["overview", "Overview", I.macro],
     ...DETAIL_TABS.map(id => groupOf(id)).map(g => [g.id, g.label, g.icon]),
     ["absorption", "Absorption", I.eye]];
@@ -1784,30 +1785,37 @@ function renderDetail() {
         having analysed it and found nothing.</p>` : "");
   }
 
-  $("#detail").innerHTML = `
-    <div class="dhead">
-      <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${isFav(S.sel)}">
-        ${isFav(S.sel) ? I.heartFull : I.heart}
-        <span class="sr">${isFav(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
-      <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
-      <h3>${esc(f.name)}</h3>
-      ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
-      ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
-      <div class="per">${esc(f.cat)} · ${basisLabel()}</div>
-      <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
-        ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
-      ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
+  $("#detailDlg").innerHTML = `
+  <form method="dialog">
+    <div class="dlghead dhead">
+      <div>
+        <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${isFav(S.sel)}">
+          ${isFav(S.sel) ? I.heartFull : I.heart}
+          <span class="sr">${isFav(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
+        <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
+        <h3>${esc(f.name)}</h3>
+        ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
+        ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
+        <div class="per">${esc(f.cat)} · ${basisLabel()}</div>
+        <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
+          ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
+        ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
+      </div>
+      <button class="x" type="submit" aria-label="Close details"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
-    <div class="tabs" role="tablist" aria-label="Nutrient detail sections">
-      ${tabs.map(([id, label, icon]) => `
-        <button type="button" role="tab" data-tab="${id}" id="tab-${id}"
-          aria-selected="${S.tab === id}" aria-controls="tabp"
-          tabindex="${S.tab === id ? 0 : -1}">${icon}<span>${label}</span></button>`).join("")}
+    <div class="dlgbody">
+      <div class="tabs" role="tablist" aria-label="Nutrient detail sections">
+        ${tabs.map(([id, label, icon]) => `
+          <button type="button" role="tab" data-tab="${id}" id="tab-${id}"
+            aria-selected="${S.tab === id}" aria-controls="tabp"
+            tabindex="${S.tab === id ? 0 : -1}">${icon}<span>${label}</span></button>`).join("")}
+      </div>
+      <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}${
+        [...shownNotes].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
+          <b>${esc(n.short)}.</b> ${esc(n.text)}</p>`).join("")}</div>
+      <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>
     </div>
-    <div class="dbody" id="tabp" role="tabpanel" aria-labelledby="tab-${S.tab}" tabindex="0">${body}${
-      [...shownNotes].map(n => `<p class="nodatanote"><sup class="fnote">${esc(n.marker)}</sup>
-        <b>${esc(n.short)}.</b> ${esc(n.text)}</p>`).join("")}</div>
-    <div class="dfoot">% DV uses general adult reference values. Yours may differ.</div>`;
+  </form>`;
 }
 
 /* ---------- sidebar counts ----------
@@ -2224,6 +2232,14 @@ function renderDay() {
   renderDayList();
   renderDayTotals(totals);
   renderDaySummary(totals);
+
+  $("#dayInputsContainer").hidden = S.dayTab !== "inputs";
+  $("#daySumContainer").hidden = S.dayTab !== "day";
+  $("#dayTotalsContainer").hidden = S.dayTab !== "totals";
+
+  $("#dayTabInputs").setAttribute("aria-selected", String(S.dayTab === "inputs"));
+  $("#dayTabDay").setAttribute("aria-selected", String(S.dayTab === "day"));
+  $("#dayTabTotals").setAttribute("aria-selected", String(S.dayTab === "totals"));
 }
 
 /* ---------- master render ---------- */
@@ -2295,7 +2311,9 @@ document.addEventListener("click", e => {
   if (t.dataset.pick !== undefined) {
     S.sel = +t.dataset.pick;
     say(`${foodAt(S.sel).name} selected.`);
-    return render();
+    render();
+    $<HTMLDialogElement>("#detailDlg").showModal();
+    return;
   }
 
   if (t.dataset.fav !== undefined) {
@@ -2309,6 +2327,12 @@ document.addEventListener("click", e => {
     S.tab = t.dataset.tab;
     renderDetail();
     return $(`[data-tab="${S.tab}"]`).focus();
+  }
+
+  if (t.dataset.daytab) {
+    S.dayTab = t.dataset.daytab as "inputs" | "day" | "totals";
+    renderDay();
+    return $(`[data-daytab="${S.dayTab}"]`).focus();
   }
 
   if (t.dataset.act === "favs") {

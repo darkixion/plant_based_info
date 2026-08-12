@@ -2347,5 +2347,614 @@
    "value": 0.4
   },
   "water_g": 84.6
+ },
+ {
+  "page": "Soybeans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04105",
+  "jp_name": "だいず　［全粒・全粒製品］　全粒　青大豆　国産　ゆで",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "85",
+   "state": "measured",
+   "value": 85
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "9.9",
+   "state": "measured",
+   "value": 9.9
+  },
+  "water_g": 65.5
+ },
+ {
+  "page": "Green beans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06011",
+  "jp_name": "いんげんまめ　さやいんげん　若ざや　ゆで",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 91.7
+ },
+ {
+  "page": "Great Northern beans",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04008",
+  "jp_name": "いんげんまめ　全粒　ゆで",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "27",
+   "state": "measured",
+   "value": 27
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "3.7",
+   "state": "measured",
+   "value": 3.7
+  },
+  "water_g": 63.6
+ },
+ {
+  "page": "White rice",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "01083",
+  "jp_name": "こめ　［水稲穀粒］　精白米　うるち米",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "69",
+   "state": "measured",
+   "value": 69
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.4",
+   "state": "measured",
+   "value": 1.4
+  },
+  "water_g": 14.9
+ },
+ {
+  "page": "Cabbage",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06061",
+  "jp_name": "（キャベツ類）　キャベツ　結球葉　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.6",
+   "state": "measured",
+   "value": 1.6
+  },
+  "water_g": 92.7
+ },
+ {
+  "page": "Turnip greens",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06035",
+  "jp_name": "かぶ　葉　ゆで",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 92.2
+ },
+ {
+  "page": "Endive",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06018",
+  "jp_name": "エンダイブ　葉　生",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 94.6
+ },
+ {
+  "page": "Garlic",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06071",
+  "jp_name": "ぎょうじゃにんにく　葉　生",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 88.8
+ },
+ {
+  "page": "Okra",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06033",
+  "jp_name": "オクラ　果実　ゆで",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 89.4
+ },
+ {
+  "page": "Lotus root",
+  "page_state": "cooked",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06318",
+  "jp_name": "れんこん　根茎　ゆで",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 81.9
+ },
+ {
+  "page": "Cantaloupe",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07134",
+  "jp_name": "メロン　温室メロン　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.9",
+   "state": "measured",
+   "value": 0.9
+  },
+  "water_g": 87.8
+ },
+ {
+  "page": "Fig",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07015",
+  "jp_name": "いちじく　生",
+  "cr": {
+   "raw": "Tr",
+   "state": "trace",
+   "value": null
+  },
+  "mo": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "0.4",
+   "state": "measured",
+   "value": 0.4
+  },
+  "water_g": 84.6
+ },
+ {
+  "page": "Kumquat",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07056",
+  "jp_name": "（かんきつ類）　きんかん　全果　生",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 80.8
+ },
+ {
+  "page": "Starfruit",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07069",
+  "jp_name": "スターフルーツ　生",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 91.4
+ },
+ {
+  "page": "Lime",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07145",
+  "jp_name": "（かんきつ類）　ライム　果汁　生",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 89.8
+ },
+ {
+  "page": "Lemon",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "07155",
+  "jp_name": "（かんきつ類）　レモン　全果　生",
+  "cr": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "mo": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "iodine": {
+   "raw": "0",
+   "state": "not-detected",
+   "value": null
+  },
+  "biotin": {
+   "raw": "1.2",
+   "state": "measured",
+   "value": 1.2
+  },
+  "water_g": 85.3
+ },
+ {
+  "page": "Wakame",
+  "page_state": "raw",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "09039",
+  "jp_name": "わかめ　原藻　生",
+  "cr": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "mo": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "iodine": {
+   "raw": "1600",
+   "state": "measured",
+   "value": 1600
+  },
+  "biotin": {
+   "raw": "4.2",
+   "state": "measured",
+   "value": 4.2
+  },
+  "water_g": 89
+ },
+ {
+  "page": "Parsley",
+  "page_state": "fresh",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06239",
+  "jp_name": "パセリ　葉　生",
+  "cr": {
+   "raw": "4",
+   "state": "measured",
+   "value": 4
+  },
+  "mo": {
+   "raw": "39",
+   "state": "measured",
+   "value": 39
+  },
+  "iodine": {
+   "raw": "7",
+   "state": "measured",
+   "value": 7
+  },
+  "biotin": {
+   "raw": "4.0999999999999996",
+   "state": "measured",
+   "value": 4.1
+  },
+  "water_g": 84.7
+ },
+ {
+  "page": "Basil",
+  "page_state": "fresh",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "06238",
+  "jp_name": "バジル　葉　生",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 91.5
+ },
+ {
+  "page": "Peanut butter",
+  "page_state": "smooth",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "05037",
+  "jp_name": "らっかせい　ピーナッツバター",
+  "cr": {
+   "raw": "3",
+   "state": "measured",
+   "value": 3
+  },
+  "mo": {
+   "raw": "92",
+   "state": "measured",
+   "value": 92
+  },
+  "iodine": {
+   "raw": "1",
+   "state": "measured",
+   "value": 1
+  },
+  "biotin": {
+   "raw": "79.0",
+   "state": "measured",
+   "value": 79
+  },
+  "water_g": 1.2
+ },
+ {
+  "page": "Soy protein isolate",
+  "page_state": "",
+  "found_on_page": true,
+  "match": "exact",
+  "jp_code": "04057",
+  "jp_name": "だいず　［その他］　大豆たんぱく　分離大豆たんぱく　塩分無調整タイプ",
+  "cr": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "mo": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "iodine": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "biotin": {
+   "raw": "-",
+   "state": "not-measured",
+   "value": null
+  },
+  "water_g": 5.9
  }
 ]
