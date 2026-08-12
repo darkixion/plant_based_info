@@ -968,6 +968,33 @@ anything, and the reason to have it is that neither table basis can answer "am I
 getting enough": per 100 g and per 100 kcal both describe a food, and this
 describes a day.
 
+**Its three sections are the toolbar's segmented control, not a tab strip.**
+They started as three labels spread across the full width with a two-pixel rule
+under whichever was showing, which reads as three headings: nothing about them
+said they could be pressed. Table and Chart is the same question asked about a
+different thing, and that control is already on the page being unmistakable
+about it, so the sections borrow it and the selected one is a raised pill.
+Styled as a segment and behaving as tabs, which is why `.seg button` matches on
+`aria-selected` as well as `aria-pressed`: a segment that switches a view is a
+set of toggles, and one that switches a panel is a set of tabs.
+
+**A section marks itself when it changes out of sight.** The day is edited on
+one section and read on the other two, so adding a food moves two panels that
+are not on screen, and the reader had no way of knowing. Every route to a
+change goes through `addToDay`, `setDayGrams`, `removeFromDay` or the clear
+button, so `dayChanged()` is the one place that has to know; it marks every
+section except the one being looked at, and `renderDay()` clears whichever that
+is, since looking at a section is what counts as having seen it.
+
+The marks live in a module-level `dayUnseen`, not in `S`, and are deliberately
+not saved: they are a fact about this sitting rather than about the day, and a
+dot restored on load would point at a change nobody made. There is a test for
+that. Two details worth keeping: retyping a quantity that is already there marks
+nothing, because a dot that appears when nothing moved teaches the reader to
+ignore dots; and the marks repaint through `renderDayDots()` rather than
+`renderDay()`, because typing a quantity must not redraw the field being typed
+into and so cannot go through the full render.
+
 **The table rows gained no button for it.** A second icon beside the heart on
 131 rows reads as an extra column of furniture, and building a day is something
 people do by naming foods rather than by hunting for them in a table. The two

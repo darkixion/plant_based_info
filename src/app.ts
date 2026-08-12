@@ -1082,6 +1082,39 @@ function dayStanding(totals: DayTotal[]) {
   };
 }
 
+/* ---------- what the reader has not seen yet ----------
+   The day is edited on one of its three sections and read on the other two, so
+   adding a food changes two panels that are not on screen and the reader has no
+   way of knowing either of them moved. Every route to a change goes through the
+   four functions below, so this is the one place that has to know.
+
+   Not in S, and deliberately not saved: it is a fact about this sitting rather
+   than about the day, and a dot restored on load would be pointing at a change
+   nobody made. renderDay() clears whichever section is being looked at, which
+   also makes the first render after any change clear the section the change was
+   made on, since that is the one showing. */
+/** The three sections, their buttons and their panels. One list, so a fourth
+ *  cannot be added to the strip and then be the one nobody remembered to hide,
+ *  mark or clear. */
+const DAY_TABS: [State["dayTab"], string, string][] = [
+  ["inputs", "#dayTabInputs", "#dayInputsContainer"],
+  ["day", "#dayTabDay", "#daySumContainer"],
+  ["totals", "#dayTabTotals", "#dayTotalsContainer"]];
+
+const dayUnseen = new Set<State["dayTab"]>();
+function dayChanged() {
+  for (const [id] of DAY_TABS) if (id !== S.dayTab) dayUnseen.add(id);
+  savePrefs();
+  renderDayDots();
+}
+
+/** The dots alone. Typing a quantity must not redraw the field being typed
+ *  into, so that path cannot call renderDay(), and a change made by typing is
+ *  exactly the kind the other two sections need to advertise. */
+function renderDayDots() {
+  for (const [id, tab] of DAY_TABS) $(`${tab} .tdot`).hidden = !dayUnseen.has(id);
+}
+
 /** Returns the entry the day now holds for that slug, or null if the slug names
  *  no food. The caller announces the quantity, and reading it back off the list
  *  afterwards would be looking up something this already has. */
@@ -1093,20 +1126,24 @@ function addToDay(slug: string, g: number = DEFAULT_G): DayEntry | null {
   const entry = at || { slug, g: 0 };
   entry.g = clampG(entry.g + g);
   if (!at) S.day.push(entry);
-  savePrefs();
+  dayChanged();
   return entry;
 }
 
 function setDayGrams(slug: string, g: number | string) {
   const at = S.day.find(e => e.slug === slug);
   if (!at) return;
+  const was = at.g;
   at.g = clampG(g);
-  savePrefs();
+  // Typing over a quantity with the same number is not a change, and a dot that
+  // appears when nothing moved teaches the reader to ignore dots.
+  if (at.g === was) { savePrefs(); return; }
+  dayChanged();
 }
 
 function removeFromDay(slug: string) {
   S.day = S.day.filter(e => e.slug !== slug);
-  savePrefs();
+  dayChanged();
 }
 
 function rows() {
@@ -2314,20 +2351,19 @@ function renderDay() {
   renderDayTotals(totals);
   renderDaySummary(totals);
 
-  /* One list rather than three pairs of lines, so a fourth section cannot be
-     added to the strip and then be the one nobody remembered to hide. tabindex
-     alongside aria-selected: the three are one stop in the tab order, and only
-     the selected one is that stop. */
-  const TABS: [State["dayTab"], string, string][] = [
-    ["inputs", "#dayTabInputs", "#dayInputsContainer"],
-    ["day", "#dayTabDay", "#daySumContainer"],
-    ["totals", "#dayTabTotals", "#dayTotalsContainer"]];
-  for (const [id, tab, panel] of TABS) {
+  // Looking at a section is what counts as having seen it, and this runs for
+  // whichever one is showing, so it is the only place that needs to say so.
+  dayUnseen.delete(S.dayTab);
+
+  /* tabindex alongside aria-selected: the three are one stop in the tab order,
+     and only the selected one is that stop. */
+  for (const [id, tab, panel] of DAY_TABS) {
     const on = S.dayTab === id;
     $(panel).hidden = !on;
     $(tab).setAttribute("aria-selected", String(on));
     $(tab).setAttribute("tabindex", on ? "0" : "-1");
   }
+  renderDayDots();
 }
 
 /* ---------- master render ---------- */
@@ -2486,7 +2522,7 @@ document.addEventListener("click", e => {
   if (t.dataset.act === "dayclear") {
     const n = S.day.length;
     S.day = [];
-    savePrefs();
+    dayChanged();
     say(`Cleared ${n} food${n === 1 ? "" : "s"} from your day.`);
     return render();
   }

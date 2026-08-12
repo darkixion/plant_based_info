@@ -2067,7 +2067,10 @@ await test("my day is a sidebar destination, and the table controls go with it",
     // Foods and Favourites rather than in the segmented control.
     eq(await page.locator(".side #vDay").count(), 1, "My day in the sidebar");
     eq(await page.locator(".bar #vDay").count(), 0, "My day left in the toolbar");
-    eq(await page.locator(".seg button").count(), 2, "segments beside it");
+    // The view segment specifically, not every segment on the page: the day's
+    // own three sections are a segment too, and they are inside the day view
+    // rather than beside Table and Chart, which is the distinction this asserts.
+    eq(await page.locator('.bar [aria-label="View format"] button').count(), 2, "segments beside it");
 
     await page.click("#vDay");
     eq(await page.locator("#vDay").getAttribute("aria-pressed"), "true", "pressed");
@@ -2186,6 +2189,106 @@ await test("the day's tabs carry the semantics the detail's tabs do", async () =
       .map(t => `${t.dataset.daytab}:${t.getAttribute("aria-selected")}:${t.getAttribute("tabindex")}`));
     eq(moved.join(" "), "inputs:false:-1 day:false:-1 totals:true:0", "the roving stop moves with the selection");
   });
+});
+
+await test("the day's sections look like a control, not like three headings", async () => {
+  /* Three small labels spread across the full width with a two-pixel rule under
+     one of them read as headings. They are the segmented control the toolbar
+     already uses for "Table or Chart", which is the same question asked about a
+     different thing, and the selected one is a raised pill rather than an
+     underline. */
+  await withPage(async page => {
+    await page.click("#vDay");
+    const r = await page.evaluate(() => {
+      const strip = document.querySelector("#dayView [role=tablist]");
+      const on = document.querySelector('#dayView [data-daytab][aria-selected="true"]');
+      const off = document.querySelector('#dayView [data-daytab][aria-selected="false"]');
+      const cs = el => getComputedStyle(el);
+      return { seg: strip.classList.contains("seg"),
+               stripBg: cs(strip).backgroundColor,
+               onBg: cs(on).backgroundColor, offBg: cs(off).backgroundColor,
+               onWeight: cs(on).fontWeight, offWeight: cs(off).fontWeight,
+               onShadow: cs(on).boxShadow };
+    });
+    assert(r.seg, "the strip is the app's segmented control");
+    // The selected one is filled and raised; the others are not.
+    assert(r.onBg !== r.offBg, `the selected section is filled, got ${r.onBg} against ${r.offBg}`);
+    assert(r.onBg !== r.stripBg, "and stands out from the groove it sits in");
+    assert(r.onShadow !== "none", "and is raised off it");
+    assert(Number(r.onWeight) > Number(r.offWeight), "and is the heavier of the two");
+  });
+});
+
+await test("a section that changed while you were not looking says so", async () => {
+  /* The day is edited on one section and read on the other two, so adding a
+     food changes two panels that are not on screen. */
+  await withPage(async page => {
+    await page.click("#vDay");
+    const dots = () => page.evaluate(() => Object.fromEntries(
+      [...document.querySelectorAll("#dayView [data-daytab]")]
+        .map(t => [t.dataset.daytab, !t.querySelector(".tdot").hidden])));
+
+    eq(JSON.stringify(await dots()), JSON.stringify({ inputs: false, day: false, totals: false }),
+       "nothing is marked before anything has happened");
+
+    await page.evaluate(() => { addToDay("lentils-cooked", 200); renderDay(); });
+    const added = await dots();
+    assert(added.day && added.totals, "the two sections you cannot see are marked");
+    assert(!added.inputs, "the one you are looking at is not");
+
+    // Looking at a section is what counts as having seen it.
+    await page.click("#dayTabTotals");
+    const seen = await dots();
+    assert(!seen.totals, "visiting a section clears its mark");
+    assert(seen.day, "and leaves the one still unvisited marked");
+    await page.click("#dayTabDay");
+    assert(!(await dots()).day, "and that one clears when it is visited too");
+
+    // Removing counts, and so does a quantity, which reaches the dots without
+    // going through renderDay(): that path must not redraw the field being
+    // typed into, so it repaints only the totals, the summary and these.
+    await page.click("#dayTabInputs");
+    await page.evaluate(() => {
+      const i = document.querySelector("[data-dayg]");
+      i.value = "250"; i.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    const typed = await dots();
+    assert(typed.day && typed.totals, "changing a quantity marks the other two");
+
+    // But typing the same number over itself is not a change, and a mark that
+    // appears when nothing moved teaches the reader to ignore marks.
+    await page.click("#dayTabDay");
+    await page.click("#dayTabTotals");
+    await page.click("#dayTabInputs");
+    await page.evaluate(() => {
+      const i = document.querySelector("[data-dayg]");
+      i.value = "250"; i.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    const same = await dots();
+    assert(!same.day && !same.totals, "retyping the same quantity marks nothing");
+  });
+});
+
+await test("a change mark is not restored from a saved day", async () => {
+  /* The marks are a fact about this sitting, not about the day. Reloading into
+     three dots would be pointing at a change nobody made. */
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto(PAGE);
+  await page.waitForSelector("#tbody tr");
+  await page.click("#vDay");
+  await page.evaluate(() => { addToDay("lentils-cooked", 200); renderDay(); });
+  assert((await page.evaluate(() => !document.querySelector("#dayTabTotals .tdot").hidden)),
+    "marked before the reload");
+
+  await page.reload();
+  await page.waitForSelector("#tbody tr");
+  await page.click("#vDay");
+  eq(await page.evaluate(() => S.day.length), 1, "the day itself survived the reload");
+  const after = await page.evaluate(() => [...document.querySelectorAll("#dayView [data-daytab]")]
+    .filter(t => !t.querySelector(".tdot").hidden).map(t => t.dataset.daytab));
+  eq(after.join(","), "", "and no section claims a change on a fresh load");
+  await ctx.close();
 });
 
 await test("the food's colour is a swatch rather than a sliver", async () => {

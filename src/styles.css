@@ -287,8 +287,22 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
      border-radius:10px; padding:3px; gap:3px}
 .seg button{border:0; background:none; padding:8px 18px; border-radius:7px; font-size:14px;
   color:var(--muted); min-height:38px}
-.seg button[aria-pressed=true]{background:var(--panel); color:var(--ink); font-weight:600;
-  box-shadow:var(--shadow)}
+/* aria-selected as well as aria-pressed: a segment that switches a view is a
+   set of toggles, and a segment that switches a panel is a set of tabs. They
+   are the same control to look at and two different things to a screen reader,
+   so the state each one carries is different and both raise the same pill. */
+.seg button[aria-pressed=true], .seg button[aria-selected=true]{
+  background:var(--panel); color:var(--ink); font-weight:600; box-shadow:var(--shadow)}
+
+/* ---------- the day's three sections ----------
+   Full width rather than the toolbar's inline pill: these three are the whole
+   navigation of the view under them, not one control among several in a row. */
+.daytabs{display:flex; margin-bottom:20px}
+.daytabs button{flex:1}
+/* A change the reader has not seen yet. --warn rather than a red of its own,
+   which is the colour this palette already uses to mean "look at this". */
+.tdot{display:inline-block; width:7px; height:7px; border-radius:50%;
+  background:var(--warn); margin-left:7px; vertical-align:.12em}
 .btn{display:inline-flex; gap:8px; align-items:center; padding:9px 15px; border-radius:9px;
   border:1px solid var(--line); background:var(--raise-warm); color:var(--body); font-size:14px;
   min-height:40px}
@@ -916,6 +930,11 @@ dialog::backdrop{background:var(--backdrop)}
      line and cost the reader the end of every food that is not one word. */
   .crow{grid-template-columns:minmax(0,1fr) 64px; gap:4px 10px}
   .crow .lbl{grid-column:1 / -1}
+
+  /* The toolbar segment's 18px of inline padding leaves "Your day" a third of a
+     320px screen minus 36, which is not enough for the two words, so it wrapped
+     and took the other two segments' height with it. */
+  .daytabs button{padding-inline:6px; font-size:13.5px}
 
   /* The food column was 369px wide in a 360px viewport: wider than the screen
      it had to fit on. Being sticky at left:0, it covered the scrollport whole
