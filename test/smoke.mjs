@@ -37,8 +37,14 @@ async function withPage(fn) {
   page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
   await page.goto(PAGE);
   await page.waitForSelector("#tbody tr");
-  // reset default preset so tests can assume the old baseline of just macronutrients visible
-  await page.evaluate(() => { if (S.lens) { S.lens = ""; renderLensSelect(); render(); } });
+  /* Reset the default preset so tests can assume the old baseline of every
+     group visible. renderGroups() as well as renderLensSelect(): the sidebar
+     reports which groups have columns on screen, so clearing the preset changes
+     what it has to say, and a test that read a stale button would click to
+     switch a group "on" and switch it off. */
+  await page.evaluate(() => {
+    if (S.lens) { S.lens = ""; renderLensSelect(); renderGroups(); render(); }
+  });
   try { await fn(page, errors); } finally { await ctx.close(); }
   return errors;
 }
@@ -201,6 +207,32 @@ await test("a custom group with no nutrients is rejected, not saved", async () =
     assert(await page.locator("#lensDlg[open]").count() === 1, "dialog stays open");
     const err = await page.locator("#lensErr").textContent();
     assert(/at least one/i.test(err), `error message shown, got "${err}"`);
+  });
+});
+
+await test("the preset editor opens ticking the columns on screen", async () => {
+  /* Reading the preset's own id list was wrong for exactly one of them: "All
+     nutrients" carries the sentinel __ALL__, which matches no nutrient, so the
+     preset where the answer is "everything" opened with nothing ticked. */
+  await withPage(async page => {
+    const ticked = async () => {
+      await page.selectOption("#lensSel", { label: "Add…" });
+      await page.waitForSelector("#lensDlg", { state: "visible" });
+      const n = await page.locator("#nutPick input:checked").count();
+      await page.click("#lensCancel");
+      await page.waitForSelector("#lensDlg", { state: "hidden" });
+      return n;
+    };
+    const all = await page.evaluate(() => DATA.nutrients.length);
+
+    await page.selectOption("#lensSel", "iron");
+    eq(await ticked(), 2, "the iron preset's two columns");
+
+    await page.selectOption("#lensSel", "all");
+    eq(await ticked(), all, "every column, which is what this preset shows");
+
+    await page.selectOption("#lensSel", "");
+    eq(await ticked(), 0, "no preset is still the blank slate it was");
   });
 });
 
@@ -2027,6 +2059,88 @@ await test("adding from the detail panel leaves you where you were", async () =>
   });
 });
 
+await test("each strip of tabs arrows within itself", async () => {
+  /* The handler asked the document for every [role=tab], which was the detail
+     tabs and only them until "My day" grew a strip of its own. After that the
+     day's three sat in front of the detail's ten in document order, so arrowing
+     off either end of the detail strip landed on a day tab, found no data-tab
+     and returned: the wrap stopped working in both directions, silently. */
+  await withPage(async page => {
+    await page.locator("#tbody .fname").first().click();
+    await page.waitForFunction(() => document.querySelector("#detailDlg")?.open);
+    const tabs = await page.locator('#detailDlg [role="tab"]')
+      .evaluateAll(t => t.map(x => x.dataset.tab));
+
+    await page.evaluate(() => document.querySelector('#detailDlg [data-tab="overview"]').focus());
+    await page.keyboard.press("ArrowLeft");
+    eq(await page.evaluate(() => S.tab), tabs[tabs.length - 1], "left off the first wraps to the last");
+    await page.keyboard.press("ArrowRight");
+    eq(await page.evaluate(() => S.tab), tabs[0], "right off the last wraps to the first");
+    // And it must stay inside its own strip whichever way it wrapped.
+    eq(await page.evaluate(() => document.activeElement?.closest('[role="tablist"]')
+      ?.getAttribute("aria-label")), "Nutrient detail sections", "focus stayed in the detail strip");
+
+    // The day's strip arrows on its own terms, which it never did before.
+    await page.evaluate(() => document.querySelector("#detailDlg").close());
+    await page.click("#vDay");
+    await page.evaluate(() => document.querySelector("#dayTabInputs").focus());
+    await page.keyboard.press("ArrowRight");
+    eq(await page.evaluate(() => S.dayTab), "day", "arrows to the next day tab");
+    await page.keyboard.press("End");
+    eq(await page.evaluate(() => S.dayTab), "totals", "End reaches the last");
+    await page.keyboard.press("ArrowRight");
+    eq(await page.evaluate(() => S.dayTab), "inputs", "and wraps within the day's own three");
+  });
+});
+
+await test("the day's tabs carry the semantics the detail's tabs do", async () => {
+  await withPage(async page => {
+    await page.click("#vDay");
+    const r = await page.evaluate(() => ({
+      tabs: [...document.querySelectorAll("#dayView [data-daytab]")].map(t => ({
+        id: t.dataset.daytab, controls: t.getAttribute("aria-controls"),
+        selected: t.getAttribute("aria-selected"), tabindex: t.getAttribute("tabindex") })),
+      panels: [...document.querySelectorAll("#dayView [role=tabpanel]")].map(p => ({
+        id: p.id, labelledby: p.getAttribute("aria-labelledby") })),
+      liveOnSummary: document.querySelector("#daySum").hasAttribute("aria-live"),
+    }));
+    eq(r.panels.length, 3, "one panel per tab");
+    for (const t of r.tabs) {
+      assert(t.controls, `${t.id} names the panel it controls`);
+      const panel = r.panels.find(p => p.id === t.controls);
+      assert(panel, `${t.id} controls a panel that exists`);
+      assert(panel.labelledby, `the ${t.id} panel names the tab that labels it`);
+    }
+    // Roving: the three are one stop in the tab order, not three.
+    eq(r.tabs.filter(t => t.tabindex === "0").length, 1, "exactly one tab is in the tab order");
+    eq(r.tabs.find(t => t.selected === "true").tabindex, "0", "and it is the selected one");
+    // A live region behind a tab that starts hidden announces nothing while it
+    // changes and then all of it at once when the tab is opened.
+    assert(!r.liveOnSummary, "the summary is not a live region inside a hidden panel");
+
+    await page.click("#dayTabTotals");
+    const moved = await page.evaluate(() => [...document.querySelectorAll("#dayView [data-daytab]")]
+      .map(t => `${t.dataset.daytab}:${t.getAttribute("aria-selected")}:${t.getAttribute("tabindex")}`));
+    eq(moved.join(" "), "inputs:false:-1 day:false:-1 totals:true:0", "the roving stop moves with the selection");
+  });
+});
+
+await test("the food's colour is a swatch rather than a sliver", async () => {
+  /* .sw is a span with no display of its own, so it got its size from being a
+     flex item everywhere it appeared. The detail head is not a flex container,
+     so the 96px circle rendered two pixels wide and nobody could see it. */
+  await withPage(async page => {
+    await page.locator("#tbody .fname").first().click();
+    await page.waitForFunction(() => document.querySelector("#detailDlg")?.open);
+    const box = await page.evaluate(() => {
+      const r = document.querySelector("#detailDlg .sw").getBoundingClientRect();
+      return { w: Math.round(r.width), h: Math.round(r.height) };
+    });
+    eq(box.w, 96, "the swatch is as wide as the stylesheet asks");
+    eq(box.h, 96, "and as tall");
+  });
+});
+
 await test("the totals list scores amino acids, not only the panel beside it", async () => {
   await withPage(async page => {
     await seedDay(page, [{ slug: "lentils-cooked", g: 200 }, { slug: "brown-rice-cooked", g: 180 }]);
@@ -2312,12 +2426,24 @@ await test("sorting under the per-calorie basis orders by what is on screen", as
   await withPage(async page => {
     await showGroups(page, "macro", "amino", "mineral");
     await page.click('[data-sort="fe"]');
-    const byWeight = await page.locator("#tbody .fname").first().evaluate(e => e.dataset.name);
-    eq(byWeight, "Turmeric", "richest iron per 100 g");
+    const order = () => page.locator("#tbody .fname").evaluateAll(e => e.map(x => x.dataset.name));
+    const byWeight = await order();
+    eq(byWeight[0], "Turmeric", "richest iron per 100 g");
 
     await page.click("#basisBtn");
-    const byEnergy = await page.locator("#tbody .fname").first().evaluate(e => e.dataset.name);
-    eq(byEnergy, "Turmeric", "richest iron per 100 kcal");
+    const byEnergy = await order();
+    eq(byEnergy[0], "Turmeric", "richest iron per 100 kcal");
+
+    /* The two leaders were different foods until dried spices arrived in the
+       dataset, and a test that names the same food on both sides of the switch
+       passes just as happily when the switch does nothing. So the ordering is
+       what has to move, not the top row: 100 g of spinach and 100 g of turmeric
+       are not remotely the same amount of energy. */
+    assert(byEnergy.join() !== byWeight.join(),
+      "the basis must reorder the table, not just relabel it");
+    const rank = (list, name) => list.indexOf(name);
+    assert(rank(byEnergy, "Spinach") < rank(byWeight, "Spinach"),
+      `spinach must climb per calorie, was ${rank(byWeight, "Spinach")} now ${rank(byEnergy, "Spinach")}`);
   });
 });
 
@@ -2446,6 +2572,167 @@ await test("every group label spans exactly its own columns", async () => {
   });
 });
 
+await test("group labels still span their own columns under every preset", async () => {
+  /* A preset filters the columns rather than highlighting them, so most groups
+     lose some of their columns and several lose all of them. A group with
+     nothing left must draw no label at all: colspan="0" is not "no cell", it is
+     a one-column-wide cell, and one of those shifts every label to its right
+     off its own columns. The test above cannot catch this because it clears the
+     preset first, which is exactly the state the bug does not occur in. */
+  await withPage(async page => {
+    const presets = await page.locator("#lensSel optgroup[label='Built in'] option")
+      .evaluateAll(els => els.map(e => e.value));
+    for (const id of ["", ...presets]) {
+      await page.selectOption("#lensSel", id);
+      const r = await page.evaluate(() => ({
+        spans: [...document.querySelectorAll("#thead th.grp")]
+          .map(t => [t.dataset.g, t.colSpan]),
+        // The rendered cell count, which is what actually decides the layout:
+        // a colspan of 0 still occupies a column.
+        cells: document.querySelectorAll("#thead th.grp").length,
+        order: [...document.querySelectorAll("#thead tr:nth-child(2) th")]
+          .map(t => t.dataset.g),
+      }));
+      const runs = r.order.filter((g, i) => g !== r.order[i - 1]);
+      const counted = runs.map(g => [g, r.order.filter(x => x === g).length]);
+      const what = id ? `preset ${id}` : "no preset";
+      eq(r.cells, runs.length, `${what}: one label per group with columns left`);
+      eq(JSON.stringify(r.spans), JSON.stringify(counted),
+         `${what}: group labels must span exactly the columns under them`);
+    }
+  });
+});
+
+await test("a preset shows the group label for a group that is switched off", async () => {
+  /* Presets ignore the group toggles, so a saved preset can put a column on
+     screen whose group is switched off. The label has to follow the columns,
+     or that column sits under whatever label happens to precede it. */
+  await withPage(async page => {
+    await page.evaluate(() => {
+      S.groups = new Set(["macro"]);
+      S.lens = "bone";                    // calcium, vitamin D and K, magnesium, phosphorus
+      renderLensSelect(); renderGroups(); render();
+    });
+    const r = await page.evaluate(() => ({
+      labels: [...document.querySelectorAll("#thead th.grp")].map(t => t.dataset.g),
+      order: [...document.querySelectorAll("#thead tr:nth-child(2) th")].map(t => t.dataset.g),
+    }));
+    const runs = r.order.filter((g, i) => g !== r.order[i - 1]);
+    eq(JSON.stringify(r.labels), JSON.stringify(runs),
+       `a label per visible run, got ${r.labels.join(",")} over ${r.order.join(",")}`);
+  });
+});
+
+await test("the sidebar reports the columns on screen, not the toggles behind them", async () => {
+  /* A preset narrows the columns without touching S.groups, so the sidebar sat
+     there with all nine groups pressed and their full counts over a table
+     holding four groups and seventeen columns. */
+  await withPage(async page => {
+    const strip = () => page.evaluate(() => ({
+      buttons: [...document.querySelectorAll("#groupNav [data-grp]")].map(b => ({
+        id: b.dataset.grp, on: b.getAttribute("aria-pressed") === "true",
+        count: b.querySelector(".count").textContent.trim() })),
+      groupsOnScreen: [...new Set(cols().map(n => n.group))],
+    }));
+
+    await page.selectOption("#lensSel", "essentials");
+    const under = await strip();
+    eq(under.buttons.filter(b => b.on).map(b => b.id).join(","),
+       under.groupsOnScreen.join(","), "pressed exactly where a column is showing");
+    // And a group showing part of itself says so rather than claiming all of it.
+    const macro = under.buttons.find(b => b.id === "macro");
+    assert(/^\d+\/\d+$/.test(macro.count), `a partly shown group counts "on/all", got "${macro.count}"`);
+    const amino = under.buttons.find(b => b.id === "amino");
+    assert(!amino.on && !amino.count.includes("/"),
+      `a group with no columns is off and keeps its plain total, got ${amino.on} "${amino.count}"`);
+
+    // With no preset the two questions are the same one again, and the counts
+    // go back to being whole.
+    await page.selectOption("#lensSel", "");
+    const off = await strip();
+    eq(off.buttons.filter(b => b.on).map(b => b.id).join(","),
+       off.groupsOnScreen.join(","), "still pressed exactly where a column is showing");
+    assert(off.buttons.every(b => !b.count.includes("/")),
+      "no group is partly shown once the preset is cleared");
+  });
+});
+
+await test("pressing a group under a preset adds it rather than hiding it", async () => {
+  /* The button said "amino acids are not showing", and pressing it cleared the
+     preset and then flipped amino acids off in a set where all nine groups were
+     still switched on. So the one thing it could not do was what it offered. */
+  await withPage(async page => {
+    await page.selectOption("#lensSel", "essentials");
+    assert(!(await page.locator('#groupNav [data-grp="amino"]').getAttribute("aria-pressed") === "true"),
+      "amino acids start unpressed under this preset");
+
+    await page.click('#groupNav [data-grp="amino"]');
+    const after = await page.evaluate(() => ({
+      groups: [...new Set(cols().map(n => n.group))], lens: S.lens,
+      pressed: document.querySelector('#groupNav [data-grp="amino"]').getAttribute("aria-pressed"),
+    }));
+    eq(after.lens, "", "the preset gives way to the toggles");
+    eq(after.pressed, "true", "the button now reads as showing");
+    assert(after.groups.includes("amino"), `amino acids are on screen, got ${after.groups.join(",")}`);
+    // The preset's own groups come with it rather than the nine that were
+    // sitting switched on underneath it.
+    for (const g of ["macro", "fats", "vitamin", "mineral"])
+      assert(after.groups.includes(g), `${g} carried over from the preset`);
+    for (const g of ["plant", "carbdetail", "acids", "other"])
+      assert(!after.groups.includes(g), `${g} was not showing and must not arrive`);
+  });
+});
+
+await test("a seasoning says what a helping of it weighs", async () => {
+  /* Every figure is per 100 g, and 100 g of turmeric is a jar of it. Sorting by
+     iron puts it above every food anyone eats by the plateful, so the row has
+     to carry the scale the way the per-calorie basis carries its grams. */
+  await withPage(async page => {
+    /* Waiting on the name rather than on a row count: "one row" is already true
+       from the search before this one, so the wait returns on the old table and
+       the assertion reads the previous food. */
+    const search = async name => {
+      await page.fill("#q", name);
+      await page.waitForFunction(
+        n => document.querySelector("#tbody .fname")?.dataset.name === n, name);
+      return page.locator("#tbody .fname").first().innerText();
+    };
+    const row = await search("Turmeric");
+    assert(/1 tbsp = 9 g/.test(row), `turmeric pins its spoonful, got ${JSON.stringify(row)}`);
+
+    // Per food, not per category: a cup of chopped parsley really is 60 g.
+    const parsley = await search("Parsley");
+    assert(/1 cup chopped = 60 g/.test(parsley),
+      `parsley pins the portion it is actually eaten in, got ${JSON.stringify(parsley)}`);
+
+    // And nothing else carries it, or it would stop meaning anything.
+    await page.fill("#q", "");
+    await page.waitForFunction(() => document.querySelectorAll("#tbody tr").length > 100);
+    const scales = await page.locator("#tbody .fname .scale").count();
+    eq(scales, await page.evaluate(() => FOODS.filter(f => f.cat === "Herbs & Spices").length),
+       "one scale per seasoning and none anywhere else");
+  });
+});
+
+await test("every seasoning has a portion small enough to be one", async () => {
+  /* The 5 g portion floor was calibrated against foods eaten by the plateful.
+     Applied to a dried herb it dropped everything USDA publishes: oregano
+     shipped with no portion at all, and turmeric and cinnamon kept only their
+     tablespoon while the teaspoon anyone measures fell under it. */
+  await withPage(async page => {
+    const r = await page.evaluate(() => FOODS
+      .map((f, i) => ({ name: f.name, cat: f.cat, portions: P[slugAt(i)] || [] }))
+      .filter(f => f.cat === "Herbs & Spices")
+      .map(f => ({ name: f.name, n: f.portions.length,
+                   smallest: Math.min(...f.portions.map(p => p.g)) })));
+    assert(r.length >= 5, `the seasonings are in the data, got ${r.length}`);
+    for (const f of r) {
+      assert(f.n > 0, `${f.name} has at least one portion`);
+      assert(f.smallest < 5, `${f.name}'s smallest portion is a spoonful, got ${f.smallest} g`);
+    }
+  });
+});
+
 await test("the omega-3 columns sit together, and say so", async () => {
   // ALA, EPA and DHA are all omega-3, and omega-6 used to sit between them.
   await withPage(async page => {
@@ -2520,7 +2807,9 @@ await test("the dropped components stay dropped", async () => {
 await test("an evidence column names its sources where a reader can reach them", async () => {
   await withPage(async page => {
     await selectFood(page, "Kidney beans", "Kidney beans");
-    const text = await page.evaluate(() => { S.tab = "vitamin"; renderDetail(); return $("#tabp").textContent; });
+    // innerText, not textContent: "where a reader can reach them" is the whole
+    // claim, and textContent would pass on sources nobody can see.
+    const text = await page.evaluate(() => { S.tab = "vitamin"; renderDetail(); return $("#tabp").innerText; });
     assert(/0\.5 to 3\.7/.test(text), `the panel should carry the range too, got: ${text.slice(0, 300)}`);
     // The countries rather than the source keys: "mext-2020" is this
     // repository's name for it, and the page does not name its own plumbing.
@@ -2568,9 +2857,12 @@ await test("the sixteen new columns carry the evidence they should", async () =>
     assert(r.mo >= 79, `molybdenum reached ${r.mo} foods, expected at least 79`);
     assert(r.iodine >= 79, `iodine reached ${r.iodine} foods, expected at least 79`);
     assert(r.cr >= 79, `chromium reached ${r.cr} foods, expected at least 79`);
-    // The organic acid corpus carries only a portion of the mapped foods at all, so
-    // this column is capped by the source rather than by the mapping.
-    assert(r.organicacids <= 50, `organic acids reached ${r.organicacids}, expected at most 50`);
+    // The organic acid corpus carries only 40 of the mapped foods at all, so
+    // this column is capped by the source rather than by the mapping. The cap is
+    // the exact figure rather than a round number above it: the point is that a
+    // column claiming coverage its source does not have makes someone look, and
+    // slack in the bound is exactly the room for that to go unnoticed.
+    assert(r.organicacids <= 40, `organic acids reached ${r.organicacids}, expected at most 40`);
   });
 });
 

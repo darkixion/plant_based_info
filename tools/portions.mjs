@@ -30,9 +30,19 @@ const OUT = join(ROOT, "src", "data", "portions.json");
 
 /* A portion is a plausible single helping. Above the cap it is a purchase (a
    whole melon, a head of pak choi); below the floor it is one pistachio kernel,
-   which nobody adds to a day and which clampG would round away in the app. */
+   which nobody adds to a day and which clampG would round away in the app.
+
+   Herbs and spices get their own floor, because five grams is not a small
+   helping of oregano, it is about two tablespoons. The floor was calibrated
+   against foods eaten by the plateful, and applying it to a dried herb dropped
+   every portion USDA publishes: oregano shipped with none at all, and turmeric
+   and cinnamon kept only their tablespoon while the teaspoon anyone actually
+   measures fell under it. A gram is where clampG stops being able to tell one
+   portion from another, so that is the real floor for these. */
 const MAX_G = 500;
 const MIN_G = 5;
+const MIN_G_SEASONING = 1;
+const SEASONINGS = "Herbs & Spices";
 
 /* Every CSV this tool reads lives in CSV_DIR, so the call site names a file
    rather than a path, the same shorthand usda.mjs keeps. */
@@ -102,6 +112,7 @@ function compute({ data, fdcBySlug, byFdc }) {
     const slug = slugify(f.name, f.state);
     const rows = byFdc.get(fdcBySlug.get(slug)) || [];
     const out = [];
+    const floor = f.cat === SEASONINGS ? MIN_G_SEASONING : MIN_G;
 
     for (const p of rows) {
       const desc = (p.modifier || p.portion_description || "").trim();
@@ -111,7 +122,7 @@ function compute({ data, fdcBySlug, byFdc }) {
       for (const [re, why] of TEXT_DROPS) if (!reason && re.test(desc)) reason = why;
       if (!reason && !(g > 0)) reason = "no gram weight";
       if (!reason && g > MAX_G) reason = `${g} g, over the ${MAX_G} g cap`;
-      if (!reason && g < MIN_G) reason = `${g} g, under the ${MIN_G} g floor`;
+      if (!reason && g < floor) reason = `${g} g, under the ${floor} g floor`;
       // Two portions of one food that round to the same whole gram cannot be
       // told apart by clampG(), so the app could only ever show one of them
       // as selected. This is a data constraint, so it is enforced here rather

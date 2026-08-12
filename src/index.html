@@ -162,12 +162,21 @@
        The table answers "what is in this food". This answers "what did I get",
        which is the only basis on which a shortfall means anything. -->
   <div id="dayView" hidden>
+    <!-- Every attribute here is the pattern the detail tabs already follow, and
+         they are on the markup rather than added by the renderer because the
+         strip is markup rather than rendered. aria-controls names the panel a
+         screen reader moves to; the roving tabindex is what makes the three
+         behave as one stop in the tab order, arrowed between rather than tabbed
+         through. renderDay() keeps aria-selected and tabindex in step. -->
     <div class="tabs" role="tablist" aria-label="My day sections" style="margin-bottom:20px">
-      <button class="tab" type="button" role="tab" id="dayTabInputs" data-daytab="inputs" aria-selected="true">Inputs</button>
-      <button class="tab" type="button" role="tab" id="dayTabDay" data-daytab="day" aria-selected="false">Your Day</button>
-      <button class="tab" type="button" role="tab" id="dayTabTotals" data-daytab="totals" aria-selected="false">Totals</button>
+      <button class="tab" type="button" role="tab" id="dayTabInputs" data-daytab="inputs"
+              aria-selected="true" aria-controls="dayInputsContainer" tabindex="0">Inputs</button>
+      <button class="tab" type="button" role="tab" id="dayTabDay" data-daytab="day"
+              aria-selected="false" aria-controls="daySumContainer" tabindex="-1">Your Day</button>
+      <button class="tab" type="button" role="tab" id="dayTabTotals" data-daytab="totals"
+              aria-selected="false" aria-controls="dayTotalsContainer" tabindex="-1">Totals</button>
     </div>
-    <div id="dayInputsContainer">
+    <div id="dayInputsContainer" role="tabpanel" aria-labelledby="dayTabInputs" tabindex="0">
       <div class="dayadd">
         <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
         <label class="sr" for="dayQ">Add a food to your day</label>
@@ -177,10 +186,14 @@
       </div>
       <div id="dayList"></div>
     </div>
-    <div id="daySumContainer" hidden>
-      <div class="detail daysum" id="daySum" aria-live="polite"></div>
+    <!-- No aria-live on the summary any more. It is behind a tab that starts
+         hidden, and a live region inside a hidden container announces nothing
+         while it changes and then everything at once when the tab is opened.
+         say() and #live already carry the announcements this view makes. -->
+    <div id="daySumContainer" role="tabpanel" aria-labelledby="dayTabDay" tabindex="0" hidden>
+      <div class="detail daysum" id="daySum"></div>
     </div>
-    <div id="dayTotalsContainer" hidden>
+    <div id="dayTotalsContainer" role="tabpanel" aria-labelledby="dayTabTotals" tabindex="0" hidden>
       <div id="dayTotals"></div>
     </div>
   </div>

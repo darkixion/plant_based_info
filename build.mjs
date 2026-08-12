@@ -228,6 +228,10 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
   // by any route, whatever a later edit does. app.ts builds IDX the same way.
   const vCount = nutrients.filter(n => !n.evidence).length;
   const slugs = new Set();
+  // Which foods are seasonings, because their portions are held to a lower
+  // floor below. Same string as SEASONINGS in tools/portions.mjs and app.ts,
+  // and duplicated for the same reason the floor itself is.
+  const seasonings = new Set();
   for (const f of foods) {
     if (!Array.isArray(f.v)) { problems.push(`${f.name}: no values array`); continue; }
     if (f.v.length !== vCount)
@@ -239,6 +243,7 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
       .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     if (slugs.has(slug)) problems.push(`duplicate food key "${slug}", saved favourites would collide`);
     slugs.add(slug);
+    if (f.cat === "Herbs & Spices") seasonings.add(slug);
   }
 
   // Per-cell notes point at a food and a nutrient by name. A typo in either
@@ -317,13 +322,16 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
       else if (labels.has(p.label))
         problems.push(`portions: "${slug}" lists "${p.label}" twice`);
       labels.add(p.label);
-      // 5 and 500 are forced duplicates of MIN_G and MAX_G in
-      // tools/portions.mjs: build.mjs may import nothing but node:*, so the
+      // 5, 1 and 500 are forced duplicates of MIN_G, MIN_G_SEASONING and MAX_G
+      // in tools/portions.mjs: build.mjs may import nothing but node:*, so the
       // literals cannot be shared and must not quietly become an import.
       // Zero or negative would render a portion that sets a quantity of
       // nothing, under the floor is precision clampG would round away, and
-      // above the cap is a purchase rather than a helping.
-      if (typeof p.g !== "number" || !(p.g > 0) || p.g < 5 || p.g > 500) {
+      // above the cap is a purchase rather than a helping. A seasoning gets the
+      // lower floor because five grams of oregano is about two tablespoons: the
+      // ordinary floor dropped every portion USDA publishes for it.
+      const floor = seasonings.has(slug) ? 1 : 5;
+      if (typeof p.g !== "number" || !(p.g > 0) || p.g < floor || p.g > 500) {
         problems.push(`portions: "${slug}" portion "${p.label}" has an impossible weight ${p.g}`);
         continue;
       }

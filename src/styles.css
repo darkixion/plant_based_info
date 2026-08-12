@@ -464,6 +464,13 @@ thead tr:nth-child(2) th.lens.sorted{box-shadow:inset 0 3px 0 var(--lens-line),i
    A column could be switched off from the sidebar; this cannot be. */
 .fname .per100{font-variant-numeric:tabular-nums; color:var(--green-dark);
      background:var(--line-soft); border-radius:4px; padding:0 4px; margin-top:2px}
+/* ---- what a helping of a seasoning weighs ----
+   The same job as .per100 and deliberately not the same colour: that one is a
+   consequence of a basis the reader chose, this one is a property of the food
+   and is there whichever basis is showing. Muted rather than green, because it
+   is a caveat and not a figure to read off. */
+.fname .scale{font-variant-numeric:tabular-nums; color:var(--faint);
+     background:var(--line-soft); border-radius:4px; padding:0 4px; margin-top:2px}
 .fav{border:0; background:none; padding:7px; border-radius:8px; color:var(--faint); line-height:0;
      margin-left:auto; min-width:34px; min-height:34px}
 .fav:hover{background:var(--line-soft); color:var(--green)}
@@ -489,7 +496,10 @@ td.num b{font-weight:600; color:var(--ink)}
 .detail{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
         position:sticky; top:14px}
 .dhead{padding:20px 18px 14px; text-align:center; position:relative}
-.dhead .sw{width:96px; height:96px; margin:0 auto 12px}
+/* display:block, because .sw is a span and width does nothing to an inline box.
+   Everywhere else the swatch is a flex item, which blockifies it and hid this:
+   here it is not one, so the 96px circle rendered as a two-pixel sliver. */
+.dhead .sw{display:block; width:96px; height:96px; margin:0 auto 12px}
 .dhead h3{font-size:19px}
 .dhead .st{color:var(--muted); font-size:13.5px}
 .dhead .per{color:var(--faint); font-size:12.5px; margin-top:6px}

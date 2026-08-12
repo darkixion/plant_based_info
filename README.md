@@ -982,35 +982,88 @@ sidebar is taken from the entries that resolve rather than from the stored list.
 
 **Switching off the last nutrient group falls back to macronutrients**, since a
 table with no columns is not a view anyone asked for. `toggleGroup` therefore
-syncs every sidebar button from the state rather than only the one clicked: the
-fallback switches a group on that nobody pressed.
+redraws the whole sidebar rather than the one button clicked: the fallback
+switches a group on that nobody pressed.
 
-**Highlight lenses** are named nutrient sets that cut across groups. Built-ins
-live in `BUILTIN_LENSES` in `app.ts`; users can save their own. Selecting a lens
-switches on whatever column groups it needs, since highlighting a hidden column
-would highlight nothing.
+**The sidebar buttons report the columns on screen, not `S.groups`.** They were
+the same thing until a preset could narrow the columns by itself, after which
+all nine groups sat there pressed with their full counts over a table holding
+four groups and seventeen columns. `renderGroups` presses a button when the
+group has a column showing and counts "6/11" where a preset is showing part of
+one. Pressing a button under a preset therefore has to act on what the button
+says, so `toggleGroup` carries the preset's groups over as the new selection
+before flipping the one pressed: otherwise "also show me amino acids" cleared
+the preset and hid them, because all nine groups were still switched on
+underneath it.
 
-**The last entry in that menu, `Add…`, is an action rather than a lens** and
+**Presets** are named nutrient sets that cut across groups. Built-ins live in
+`BUILTIN_LENSES` in `app.ts`; users can save their own. A preset *filters* the
+columns rather than accenting them, because accenting left the reader scrolling
+the full width to find the columns they had just asked for. So while one is
+selected it replaces the group toggles outright: `cols()` returns its nutrients
+and ignores `S.groups`, and pressing any group button clears the preset and
+hands the choice back to the toggles. The `all` preset is the sentinel that
+means every column, and the table opens on `essentials`.
+
+**The group labels are counted off the visible columns, not off `S.groups`**,
+for the same reason. A preset leaves most groups with only some of their columns
+and several with none, and a group with none must draw no cell at all:
+`colspan="0"` is not "no cell" but a cell one column wide, which slides every
+label to its right off its own columns. `renderTable` walks the visible columns
+into runs and draws one label per run, which also covers a preset showing a
+column whose group is switched off. Two tests hold this, one across every
+built-in preset.
+
+**The last entry in that menu, `Add…`, is an action rather than a preset** and
 opens the editor. It carries the sentinel value `LENS_ADD`, and the change
-handler puts the menu back to whatever is highlighted *before* opening the
+handler puts the menu back to whatever preset is selected *before* opening the
 dialog, so cancelling cannot leave the control reading "Add…" over an unchanged
-table. There is a test for exactly that.
+table. There is a test for exactly that. The editor opens ticking the columns
+the selected preset is showing, taken from `cols()` rather than from the
+preset's own id list, because "All nutrients" carries the sentinel `__ALL__`
+that matches no nutrient and so opened with nothing ticked.
 
-**Every nutrient group starts visible**, derived from `GROUPS` rather than
-listed, so a ninth group would show the day it was added. That makes the
-opening table 101 columns wide and horizontally scrollable; switching groups off
-in the sidebar is how it narrows. Tests must therefore say which groups they
+**A roving tabindex is scoped to its own tablist.** The handler used to ask the
+document for every `[role=tab]`, which was the detail tabs and only them until
+"My day" grew a strip of its own. After that the day's three sat in front of the
+detail's ten in document order, so arrowing off either end of the detail strip
+landed on a day tab, found no `data-tab` on it and returned: the wrap stopped
+working in both directions with nothing to say why. It now reads
+`tab.closest('[role=tablist]')`, and both strips arrow, wrap, Home and End
+within themselves.
+
+**Every nutrient group starts switched on**, derived from `GROUPS` rather than
+listed, so a tenth group would show the day it was added. All of them together
+are 122 columns, which is why the table opens on the `essentials` preset instead
+and clearing it is what exposes the full width; switching groups off in the
+sidebar is how that narrows. Tests must therefore say which groups they
 want, via `showGroups()` in `test/smoke.mjs`, rather than clicking a sidebar
 button to "turn one on": a click means flip, and every one of those clicks
 silently became a turn-off the day the default changed.
 
-**Quantities can come from a USDA portion.** 128 of the 131 foods carry portion
+**Quantities can come from a USDA portion.** 190 of the 193 foods carry portion
 weights from SR Legacy's `food_portion.csv`, so a banana can be "1 medium" at
 118 g rather than a number you guess. Choosing one writes its grams into the
 quantity field and nothing else: `S.day` still stores `{ slug, g }`, so every
 total, export and saved day is exactly what typing that number would produce.
 The select shows "custom" whenever the quantity matches no portion, which is
 derived from the quantity rather than remembered, so the steppers move it too.
+
+**Herbs and spices are held to their own portion floor**, 1 g against the
+ordinary 5 g. The floor was calibrated against foods eaten by the plateful, and
+5 g of oregano is about two tablespoons: applied unchanged it dropped every
+portion USDA publishes for it, so oregano shipped with none at all while
+turmeric and cinnamon kept only their tablespoon. The literal is duplicated in
+`tools/portions.mjs` and `build.mjs` for the same reason `MIN_G` and `MAX_G`
+already are, and both say so.
+
+**A seasoning also pins that portion beside its name in the table**, the way the
+per-calorie basis pins the grams that make 100 kcal, and for the same reason.
+Every figure here is per 100 g, and 100 g of a dried spice is a jar of it:
+turmeric leads iron, cinnamon leads fibre and oregano leads calcium, all of them
+above foods anyone eats by the plateful. The pin is the largest portion USDA
+publishes and is chosen per food rather than per category, so parsley says 60 g
+for a chopped cup, which is what parsley is actually eaten in.
 
 **Gram weights are copied from USDA exactly, so 30 of the 320 portions carry a
 fractional gram.** The option itself shows the real figure, "1 tbsp · 12.3 g",

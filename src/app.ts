@@ -203,7 +203,7 @@ declare const I: Record<
   "macro" | "fats" | "amino" | "vit" | "min" | "carb" | "acid" | "up" | "down" | "sortable" |
   "right" | "plant" | "other" | "plus" | "minus", string>;
 /* Portion weights, injected by build.mjs from src/data/portions.json the same
-   way DATA is. 128 of the 131 foods have at least one; the three that do not
+   way DATA is. 190 of the 193 foods have at least one; the three that do not
    have no USDA row at all, so an index read is genuinely optional here rather
    than a missing measurement being papered over. */
 declare const P: Record<string, Portion[]>;
@@ -484,8 +484,9 @@ function agentLabel(a: InteractionAgent): string {
   return a.label;
 }
 
-/* ---------- highlight lenses ----------
-   A lens is a named set of nutrients that cuts across the column groups.
+/* ---------- column presets ----------
+   A preset is a named set of nutrients that cuts across the column groups, and
+   selecting one narrows the table to exactly those columns.
    Only nutrients present in DATA are listed; anything unknown is dropped on load. */
 const BUILTIN_LENSES = [
   { id: "essentials", name: "⭐ Essentials", ids: ["kcal","protein","carbs","fiber","fat","satfat","ala","la","vitc","vite","vitk","ca","fe","mg","k","zn","na"],
@@ -650,7 +651,7 @@ function loadPrefs() {
         l && typeof l.name === "string" && Array.isArray(l.ids))
       .map((l: { id?: unknown; name: string; ids: unknown[]; why?: unknown }) => ({
         id: String(l.id || ""), name: l.name.slice(0, 40),
-        // BY_ID: a lens only highlights columns, so an evidence column belongs
+        // BY_ID: a preset only chooses columns, so an evidence column belongs
         // in one, and filtering on IDX would drop it silently on reload.
         ids: l.ids.filter((x: unknown): x is string => typeof x === "string" && BY_ID.has(x)),
         ...(typeof l.why === "string" && l.why ? { why: l.why.slice(0, 240) } : {}) }))
@@ -1136,14 +1137,30 @@ function rows() {
    The sidebar is the only place groups are toggled. There used to be a second
    row of pills doing the same job, which meant two controls to keep in sync
    and two places to look. */
+/* The buttons describe what is on the screen, not what `S.groups` holds. The two
+   were the same thing until a preset could narrow the columns on its own: after
+   that the sidebar went on showing all nine groups pressed, with their full
+   counts, while the table under it held four groups and seventeen columns. A
+   control that reports a state the page is not in is worse than no control. */
 function renderGroups() {
   const counts: Record<string, number> = {};
   NUTS.forEach(n => counts[n.group] = (counts[n.group] || 0) + 1);
-  $("#groupNav").innerHTML = GROUPS.map(g => `
+  const on: Record<string, number> = {};
+  cols().forEach(n => on[n.group] = (on[n.group] || 0) + 1);
+  $("#groupNav").innerHTML = GROUPS.map(g => {
+    const shown = on[g.id] ?? 0, all = counts[g.id] ?? 0;
+    // "3/24" only where a preset is showing part of a group. Off is off, and
+    // the unpressed button already says so without a nought beside it.
+    const partial = shown > 0 && shown < all;
+    return `
     <li><button class="navbtn" type="button" data-grp="${g.id}"
-        aria-pressed="${S.groups.has(g.id)}">
+        aria-pressed="${shown > 0}"${partial
+          ? ` title="${shown} of the ${all} ${g.label.toLowerCase()} columns are showing"` : ""}>
       ${g.icon}<span>${g.label}</span>
-      <span class="count">${counts[g.id]}</span><span class="dot"></span></button></li>`).join("");
+      <span class="count">${partial ? `${shown}/${all}` : all}</span>
+      ${partial ? `<span class="sr">, ${shown} of ${all} showing</span>` : ""}
+      <span class="dot"></span></button></li>`;
+  }).join("");
 }
 
 /* ---------- sidebar categories ----------
@@ -1175,6 +1192,13 @@ function setCat(cat: string) {
 
 function toggleGroup(id: NutrientGroup) {
   if (S.lens) {
+    /* Carry the preset's groups over as the new selection before flipping the
+       one that was pressed. The sidebar now says which groups are on screen, so
+       pressing one has to act on what it says: clearing the preset and flipping
+       against the old `S.groups` turned "also show me amino acids" into hiding
+       them, because all nine groups were still switched on underneath a preset
+       that was showing four. */
+    S.groups = new Set(cols().map(n => n.group));
     S.lens = "";
     renderLensSelect();
   }
@@ -1184,14 +1208,12 @@ function toggleGroup(id: NutrientGroup) {
   const fellBack = !S.groups.size;
   if (fellBack) S.groups.add("macro");
 
-  // Sync every button from the state rather than only the one just clicked: the
-  // fallback switches a group back on that nobody pressed, and that button was
-  // left reading "off" while its nine columns sat there in the table. Setting
-  // the attribute rather than re-rendering keeps focus on the button.
-  document.querySelectorAll<HTMLElement>("#groupNav [data-grp]").forEach(b => {
-    const grp = b.dataset.grp;
-    b.setAttribute("aria-pressed", String(isGroup(grp) && S.groups.has(grp)));
-  });
+  // Re-render the whole strip rather than setting the one attribute that was
+  // clicked: the fallback switches a group back on that nobody pressed, and
+  // leaving a preset behind turns every partial count back into a whole one.
+  // The re-render replaces the button, so focus has to be put back on it.
+  renderGroups();
+  $(`#groupNav [data-grp="${id}"]`).focus();
 
   say(fellBack
     ? `The table needs at least one group, so macronutrients stay shown.`
@@ -1200,7 +1222,7 @@ function toggleGroup(id: NutrientGroup) {
   render();
 }
 
-/* ---------- highlight lens ---------- */
+/* ---------- column presets ---------- */
 /* The last entry in the menu is an action rather than a lens: choosing it opens
    the editor. A value no lens id can collide with, since every built-in id is a
    word and every custom one is "c" followed by a timestamp. */
@@ -1228,12 +1250,16 @@ function renderLensNote() {
   box.hidden = false;
   box.innerHTML =
     `<b>${esc(l.name)}</b>` +
-    (l.why ? ` ${esc(l.why)}` : ` Applying preset ${cols.length} nutrients.`) +
+    // The fallback is what a custom preset saved without a description shows,
+    // which is every custom preset until someone types one.
+    (l.why ? ` ${esc(l.why)}` : ` Showing ${cols.length} nutrients.`) +
     `<span class="cols">${cols.map(esc).join(" · ")}</span>`;
 }
 
-/** Applying preset a nutrient whose group is switched off would highlight nothing,
- *  so selecting a lens turns on whatever groups it needs. */
+/** A preset is now the whole answer to which columns are on screen: it filters
+ *  them rather than accenting them, so it replaces the group toggles for as long
+ *  as it is selected instead of switching the groups it needs back on. Pressing
+ *  a group is what clears it, in toggleGroup. */
 function setLens(id: string) {
   S.lens = lensById(id) ? id : "";
   const l = lensById(S.lens);
@@ -1247,6 +1273,9 @@ function setLens(id: string) {
     say("Preset cleared.");
   }
   renderLensSelect();
+  // The sidebar reports which groups have columns, and choosing a preset is the
+  // other half of what decides that.
+  renderGroups();
   savePrefs();
   render();
 }
@@ -1346,10 +1375,23 @@ $("#thead").addEventListener("focusin", e => previewNut(nutOf(e)));
 $("#thead").addEventListener("focusout", () => previewNut(null));
 
 /* ---------- table ---------- */
+/* 100 g of a dried spice is a jar of it rather than a helping, and every figure
+   here is per 100 g. That is not a rounding problem, it changes what the table
+   appears to say: turmeric leads iron, cinnamon leads fibre and oregano leads
+   calcium, all of them ahead of foods anyone eats by the plateful. So the
+   largest portion USDA publishes is pinned beside the name, for exactly the
+   reason the grams per 100 kcal figure is pinned there, and by food rather than
+   by category: a cup of chopped parsley really is 60 g, and saying so is as
+   much the point as saying that a generous spoon of turmeric is nine. */
+const SEASONINGS = "Herbs & Spices";
+const seasoningPortion = (f: Food, slug: string): Portion | null => {
+  if (f.cat !== SEASONINGS) return null;
+  const ps = portionsFor(slug);
+  return ps.length ? ps.reduce((a, b) => (b.g > a.g ? b : a)) : null;
+};
+
 /** Decorates the visible columns with everything the renderer needs to know
- *  about position: where each group starts, and where each run of highlighted
- *  columns begins and ends so the accent rule is drawn once per run rather
- *  than between every adjacent pair. */
+ *  about position: which of them starts a new group, and which one is sorted. */
 function layout() {
   const c = cols();
   return c.map((n, k) => {
@@ -1371,13 +1413,28 @@ function renderTable(r: ReturnType<typeof rows>) {
   const c = layout(), page = r;
   const nameSorted = S.sort.id === "__name";
 
-  const groupHead = GROUPS.filter(g => S.groups.has(g.id)).map(g => {
-    const own = c.filter(x => x.group === g.id);
+  /* One cell per unbroken run of columns from the same group, counted off the
+     columns actually on screen rather than off the group toggles. A preset
+     filters the columns instead of highlighting them, so most presets leave a
+     group with only some of its columns and several leave it with none, and the
+     two are no longer the same question: which groups are switched on, and
+     which groups have a column left. Asking the first one wrote colspan="0" for
+     an emptied group, which is not "no cell" but a cell one column wide, so
+     every label from there rightwards sat over the wrong columns and four empty
+     labels trailed off the end. Reading the runs also covers the other
+     direction, a preset showing a column whose group is switched off, which is
+     reachable from saved preferences and left that column with no label. */
+  const runs: { id: NutrientGroup; span: number }[] = [];
+  for (const n of c) {
+    const last = runs[runs.length - 1];
+    if (last && last.id === n.group) last.span++;
+    else runs.push({ id: n.group, span: 1 });
+  }
+  const groupHead = runs.map(r =>
     // The label sits in its own box so it can stick to the left of the
     // scrollport while the group scrolls past underneath it.
-    return `<th class="grp" data-g="${g.id}" colspan="${own.length}"
-      scope="colgroup"><span class="grplabel">${esc(g.label)}</span></th>`;
-  }).join("");
+    `<th class="grp" data-g="${r.id}" colspan="${r.span}"
+      scope="colgroup"><span class="grplabel">${esc(groupOf(r.id).label)}</span></th>`).join("");
 
   // Each header explains what its nutrient does: as a native tooltip on hover,
   // in the note under the toolbar on hover or keyboard focus, and as a
@@ -1411,6 +1468,8 @@ function renderTable(r: ReturnType<typeof rows>) {
     // Null where the food has no energy figure to divide by, which is why it is
     // read once here rather than tested and then read again.
     const per100 = S.basis === "kcal" ? gramsPer100kcal(f) : null;
+    // Null for everything that is not a seasoning, which is all but five foods.
+    const spoon = seasoningPortion(f, slugAt(i));
     return `
     <tr data-i="${i}" ${S.sel === i ? 'aria-selected="true"' : ""}>
       <td class="food${nameSorted ? " sorted" : ""}"><div class="fcell">
@@ -1421,6 +1480,9 @@ function renderTable(r: ReturnType<typeof rows>) {
           ${per100 === null ? ""
             : `<span class="per100">${Math.round(per100)} g</span>
                <span class="sr">makes 100 kcal</span>`}
+          ${spoon === null ? ""
+            : `<span class="scale">${esc(spoon.label)} = ${Math.max(1, Math.round(spoon.g))} g</span>
+               <span class="sr">, against the 100 g every figure here is measured on</span>`}
           <span class="sr">, show full profile</span></button>
         <button class="fav" type="button" data-fav="${i}" aria-pressed="${isFav(i)}">
           ${isFav(i) ? I.heartFull : I.heart}
@@ -1796,7 +1858,13 @@ function renderDetail() {
         <h3>${esc(f.name)}</h3>
         ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
         ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
-        <div class="per">${esc(f.cat)} · ${basisLabel()}</div>
+        <div class="per">${esc(f.cat)} · ${basisLabel()}${(() => {
+          // The same scale the table pins beside the name. This panel is where
+          // someone reads a seasoning's full profile, so it is where the
+          // difference between a spoonful and 100 g matters most.
+          const spoon = seasoningPortion(f, slugAt(S.sel));
+          return spoon ? ` · ${esc(spoon.label)} = ${Math.max(1, Math.round(spoon.g))} g` : "";
+        })()}</div>
         <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
           ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
         ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
@@ -2233,13 +2301,20 @@ function renderDay() {
   renderDayTotals(totals);
   renderDaySummary(totals);
 
-  $("#dayInputsContainer").hidden = S.dayTab !== "inputs";
-  $("#daySumContainer").hidden = S.dayTab !== "day";
-  $("#dayTotalsContainer").hidden = S.dayTab !== "totals";
-
-  $("#dayTabInputs").setAttribute("aria-selected", String(S.dayTab === "inputs"));
-  $("#dayTabDay").setAttribute("aria-selected", String(S.dayTab === "day"));
-  $("#dayTabTotals").setAttribute("aria-selected", String(S.dayTab === "totals"));
+  /* One list rather than three pairs of lines, so a fourth section cannot be
+     added to the strip and then be the one nobody remembered to hide. tabindex
+     alongside aria-selected: the three are one stop in the tab order, and only
+     the selected one is that stop. */
+  const TABS: [State["dayTab"], string, string][] = [
+    ["inputs", "#dayTabInputs", "#dayInputsContainer"],
+    ["day", "#dayTabDay", "#daySumContainer"],
+    ["totals", "#dayTabTotals", "#dayTotalsContainer"]];
+  for (const [id, tab, panel] of TABS) {
+    const on = S.dayTab === id;
+    $(panel).hidden = !on;
+    $(tab).setAttribute("aria-selected", String(on));
+    $(tab).setAttribute("tabindex", on ? "0" : "-1");
+  }
 }
 
 /* ---------- master render ---------- */
@@ -2480,8 +2555,8 @@ chartSel.onchange = () => { S.chartNut = chartSel.value; savePrefs(); renderChar
 
 const lensSel = $<HTMLSelectElement>("#lensSel");
 lensSel.onchange = () => {
-  // "Add…" is an action, not a choice. Put the control back to whatever is
-  // highlighted now *before* opening the editor, so cancelling the dialog does
+  // "Add…" is an action, not a choice. Put the control back to whatever preset
+  // is selected now *before* opening the editor, so cancelling the dialog does
   // not leave the menu reading "Add…" over an unchanged table.
   if (lensSel.value === LENS_ADD) { renderLensSelect(); openLensEditor(); return; }
   setLens(lensSel.value);
@@ -2650,11 +2725,21 @@ $("#daySum").addEventListener("change", e => {
   } else $<HTMLInputElement>("#dayKg").value = String(+S.kg.toFixed(1));
 });
 
-/* roving tabindex across the detail tabs */
+/* Roving tabindex, once for each strip of tabs on the page.
+
+   The query used to be every [role=tab] in the document, which was the same set
+   as the detail tabs right up until "My day" grew a strip of its own. After that
+   the day's three tabs sat in front of the detail's ten in document order, so
+   arrowing left off the first detail tab landed on a day tab, found no data-tab
+   on it and returned: the wrap in both directions stopped working and nothing
+   said why. A tab belongs to its own tablist, so ask that rather than the
+   document. */
 document.addEventListener("keydown", e => {
   const tab = targetEl(e);
   if (!tab?.matches('[role="tab"]')) return;
-  const t = [...document.querySelectorAll<HTMLElement>('[role="tab"]')];
+  const strip = tab.closest('[role="tablist"]');
+  if (!strip) return;
+  const t = [...strip.querySelectorAll<HTMLElement>('[role="tab"]')];
   const i = t.indexOf(tab);
   let j = null;
   if (e.key === "ArrowRight") j = (i + 1) % t.length;
@@ -2662,12 +2747,19 @@ document.addEventListener("keydown", e => {
   if (e.key === "Home") j = 0;
   if (e.key === "End") j = t.length - 1;
   if (j === null) return;
-  // j is one of the indices of t, and every [role=tab] here is rendered with
-  // its data-tab, so this is the tab that was arrowed to.
-  const to = t[j]?.dataset.tab;
-  if (to === undefined) return;
+  const to = t[j];
+  if (!to) return;
   e.preventDefault();
-  S.tab = to; renderDetail();
+  // Which strip it is decides what "select this tab" means. Both carry their
+  // selection in the state rather than in the DOM, so both re-render.
+  if (to.dataset.daytab) {
+    S.dayTab = to.dataset.daytab as State["dayTab"];
+    renderDay();
+    $(`[data-daytab="${S.dayTab}"]`).focus();
+    return;
+  }
+  if (to.dataset.tab === undefined) return;
+  S.tab = to.dataset.tab; renderDetail();
   $(`[data-tab="${S.tab}"]`).focus();
 });
 
@@ -2798,9 +2890,13 @@ function openLensEditor() {
   $<HTMLInputElement>("#lensName").value = "";
   $<HTMLInputElement>("#lensWhy").value = "";
   renderSavedLenses();
-  // Pre-tick whatever is highlighted now, so refining a built-in lens into your
-  // own variant is a couple of clicks rather than starting from nothing.
-  renderNutPick(lensIds());
+  /* Pre-tick the columns the selected preset is showing, so refining a built-in
+     into your own variant is a couple of clicks rather than starting from
+     nothing. The preset's own id list is the wrong thing to read: "All
+     nutrients" carries the sentinel `__ALL__`, which matches no nutrient, so
+     the one preset where the answer is "everything" opened with nothing ticked.
+     With no preset selected this is empty, which is the blank slate it was. */
+  renderNutPick(new Set(S.lens ? cols().map(n => n.id) : []));
   $<HTMLDialogElement>("#lensDlg").showModal();
   $("#lensName").focus();
 }
@@ -2835,7 +2931,7 @@ $("#lensForm").addEventListener("submit", e => {
   S.custom.push({ id, name: name.slice(0, 40), ids, ...(why ? { why } : {}) });
   savePrefs();
   $<HTMLDialogElement>("#lensDlg").close();
-  setLens(id);                       // also switches on any groups it needs
+  setLens(id);                       // narrows the table to the nutrients picked
   say(`Saved preset ${name}, ${ids.length} nutrients.`);
 });
 
@@ -2999,24 +3095,31 @@ function gapsDialog(): string {
 const DLG = {
   how: ["How to use", `
     <h4>Show the columns you want</h4>
-    <p>The <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and
-    off. Each group has its own background tint in the table, so you can tell at a glance where one
-    ends and the next begins. All ${GROUPS.length} start visible, which makes for a wide table;
-    switch off the ones you are not reading and the rest close up.</p>
+    <p>The table opens on the <b>Essentials</b> preset, which is a readable width. The
+    <b>Nutrient groups</b> buttons in the sidebar switch whole groups of columns on and off, and
+    pressing any of them clears the preset and hands the choice back to you. Each group has its own
+    background tint in the table, so you can tell at a glance where one ends and the next begins.
+    All ${GROUPS.length} groups together make for a very wide table; switch off the ones you are not
+    reading and the rest close up.</p>
     <h4>Sort by anything</h4>
     <p>Every column header is a button. One click sorts high to low, a second reverses it. The
     sorted column is shown in bold all the way down, so you can keep your place while scrolling
     sideways. Sorting applies to the whole dataset, not just the page you are looking at.</p>
     <h4>Choose combinations of columns</h4>
-    <p>The <b>Presets</b> menu displays curated combinations of columns:
-    the nine essential amino acids, the three the body uses to make creatine, the pair that matter
-    for iron absorption, and so on. Choosing one switches on any column group it needs.</p>
+    <p>The <b>Presets</b> menu holds curated combinations of columns: total protein with the
+    essential amino acids, the pair that matter for iron absorption, the five that build bone, and
+    so on. Choosing one narrows the table to exactly those columns, so what you want to read is
+    there without scrolling past everything else. <b>All nutrients</b> puts every column back.</p>
     <p>Choose <b>Add…</b>, the last entry in that menu, to build your own from any combination of
     nutrients and give it a name. Your groups are saved in this browser and appear in the same
     menu.</p>
     <h4>Compare like for like</h4>
     <p><b>Show % daily value</b> converts every column that has a reference value into a percentage,
     which makes a milligram of selenium and a gram of protein comparable at a glance.</p>
+    <p>Every figure is per 100 g, which is a helping of most things here and a jarful of a dried
+    spice. Sorting by iron puts turmeric above everything, so the herbs and spices carry the weight
+    of a real spoonful beside their names: a generous spoon of turmeric is 9 g, and the row beside
+    it is measuring 100.</p>
     <h4>Build a day and total it</h4>
     <p>The table answers what is in a food. <b>My day</b>, in the sidebar under Favourites, answers
     what you got. Type a food into the box at the top, say how many grams, and every one of the
