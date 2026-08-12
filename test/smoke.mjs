@@ -1500,6 +1500,69 @@ await test("a total over a food nobody measured says how many it covers", async 
   });
 });
 
+await test("no view scrolls the page sideways on a phone", async () => {
+  /* The page-level version of the check the coverage note makes for one
+     element. A layout this wide fails as one piece: the browse view stopped
+     being a nested grid, so the 122-column table's min-content width walked up
+     through every ordinary block between it and `.shell`'s single column, which
+     was `1fr` and therefore `minmax(auto,1fr)`, and set the width of the whole
+     page. 1702px of it on a 390px phone, with the hero, the toolbar and the
+     header all drawn that wide.
+
+     Asserted at 320px, per the note in the README: a check written at 380px
+     passed while 320px overflowed, and that lesson is the reason the number
+     here is the narrowest width that matters rather than a common one. The
+     table is the only thing allowed to scroll sideways, inside its own box. */
+  await withPage(async page => {
+    /* Seeded before narrowing, and back to the table before the loop starts:
+       seedDay() reaches the day view by clicking the sidebar button, which is
+       behind the menu once the viewport is a phone, and the view segment this
+       loop drives is not on the page while the day view is showing. */
+    await seedDay(page, [{ slug: "lentils-cooked", g: 200 }]);
+    await page.click("#navFoods");
+    await page.waitForSelector("#vTable", { state: "visible" });
+    await page.setViewportSize({ width: 320, height: 800 });
+
+    /* The day button lives in the sidebar, which is behind the menu at this
+       width, so getting to that view means opening the nav. Measured with it
+       open too: a sidebar that only appears on a phone is the one panel no
+       desktop check ever sees. */
+    const show = async control => {
+      if (control === "#vDay") {
+        await page.click(".menubtn");
+        await page.waitForSelector("#vDay", { state: "visible" });
+        await measure("menu open");
+        // Choosing a destination closes the menu on its own, so there is
+        // nothing to close here.
+        await page.click("#vDay");
+        await page.waitForSelector("#vDay", { state: "hidden" });
+      } else await page.click(control);
+      await page.waitForTimeout(60);
+    };
+    const views = [["table", "#vTable"], ["chart", "#vChart"], ["day", "#vDay"]];
+    for (const [name, control] of views) {
+      await show(control);
+      await measure(name + " view");
+    }
+
+    async function measure(what) {
+      const r = await page.evaluate(() => ({
+        scrollW: document.documentElement.scrollWidth,
+        innerW: window.innerWidth,
+        // Whatever is sticking out, so a failure names it rather than only
+        // reporting a number.
+        widest: [...document.querySelectorAll("body *")]
+          .filter(e => !e.closest("#scroller") && e.getBoundingClientRect().width > 0)
+          .filter(e => e.getBoundingClientRect().right > window.innerWidth + 1)
+          .slice(0, 4)
+          .map(e => `${e.tagName.toLowerCase()}.${(e.className || "").toString().split(" ")[0]}`),
+      }));
+      assert(r.scrollW <= r.innerW,
+        `${what} is ${r.scrollW}px wide in a ${r.innerW}px viewport, from ${r.widest.join(", ") || "?"}`);
+    }
+  });
+});
+
 await test("the coverage note still shows on a phone-width viewport", async () => {
   await withPage(async page => {
     // Same partial-fats day as the test above, but narrow enough to hit the

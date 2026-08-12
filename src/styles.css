@@ -871,7 +871,21 @@ dialog::backdrop{background:var(--backdrop)}
    than leaving it holding a cell. */
 .menubtn{display:none}
 @media (max-width:820px){
-  .shell{grid-template-columns:1fr}
+  /* minmax(0,1fr) and not 1fr, which is minmax(auto,1fr) and lets the widest
+     thing inside the column set the width of the column. The two-column rule
+     above has always said minmax(0,1fr) for this reason; this one said 1fr and
+     got away with it only because the browse view used to be a nested grid that
+     capped the propagation before it arrived. The day that nesting went, the
+     122-column table started setting the width of the whole page: 1702px of it
+     on a 390px phone, with the hero, the toolbar and the header all drawn that
+     wide and the page scrolling sideways as one piece.
+     .tablewrap's own overflow:auto does not stop this. Zeroing the automatic
+     minimum size of a scroll container is a rule about flex and grid items, and
+     every box between the table and this column is an ordinary block, so the
+     min-content contribution walks straight up through them. Capping the track
+     is what stops it, which is the same conclusion the .lensgrp select below
+     reaches by the same route. */
+  .shell{grid-template-columns:minmax(0,1fr)}
   .side{position:static; height:auto; border-right:0; border-bottom:1px solid var(--line)}
   .hero,.sect{padding-inline:16px} .top{padding-inline:16px}
   /* The sidebar is shown by an attribute on the shell rather than by a class on
@@ -893,6 +907,16 @@ dialog::backdrop{background:var(--backdrop)}
 }
 
 @media (max-width:700px){
+  /* A chart row is a 180px name, a bar and a 92px figure, which with its gaps
+     needs 296px before the bar has any width at all. Inside the section and the
+     card's own padding that is 46px more than a 320px screen has, so the
+     figures hung off the right and the page scrolled sideways to reach them.
+     The name takes a line of its own here and the bar and its figure share the
+     next one. Narrowing the name column instead would have kept the row on one
+     line and cost the reader the end of every food that is not one word. */
+  .crow{grid-template-columns:minmax(0,1fr) 64px; gap:4px 10px}
+  .crow .lbl{grid-column:1 / -1}
+
   /* The food column was 369px wide in a 360px viewport: wider than the screen
      it had to fit on. Being sticky at left:0, it covered the scrollport whole
      and the reader got a list of names and not one figure.

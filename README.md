@@ -291,9 +291,28 @@ background or shadow.
 The page has four breakpoints and no more: **1160**, where the detail panel
 stops sitting beside the table; **900**, where the hero illustration goes;
 **820**, where the shell stops being two columns and the sidebar goes behind a
-menu button; and **700**, where the totals grid sheds its bar column and the
-food table compacts. Each already meant something before it was reused, and a
-fifth number would be a fifth thing to keep in step.
+menu button; and **700**, where the totals grid sheds its bar column, the food
+table compacts, and a chart row puts the food's name on a line of its own. Each
+already meant something before it was reused, and a fifth number would be a
+fifth thing to keep in step.
+
+**Both of `.shell`'s column lists say `minmax(0,1fr)` and neither may say
+`1fr`.** They are not the same: `1fr` is `minmax(auto,1fr)`, which lets the
+widest thing inside the column decide how wide the column is. The single-column
+rule said `1fr` for a long time and got away with it, because the browse view
+was a nested grid whose own `minmax(0,1fr)` capped the propagation first. When
+that nesting went, in 283fc48, the 122-column table began setting the width of
+the whole page: 1702px of it on a 390px phone, with the hero, the toolbar and
+the header all drawn that wide and the page scrolling sideways as one piece.
+
+`.tablewrap`'s `overflow:auto` does not stop this. Zeroing the automatic minimum
+size of a scroll container is a rule about flex and grid *items*, and every box
+between the table and the column is an ordinary block, so the min-content
+contribution walks straight up through them. Capping the track is what stops it.
+There is now a test that measures `documentElement.scrollWidth` against the
+viewport in all three views at 320px, which is the check that was missing: the
+one narrow-viewport test on the page asserted a single element's right edge, and
+a page that is four times too wide passes that comfortably.
 
 **Nothing above 820px is affected by any of it**, and there is a test at 1440px
 asserting exactly that: the food column keeps its 210px minimum, the swatch is
@@ -447,8 +466,18 @@ the lesson, from a session where a check written at 380px passed while 320px
 overflowed: a layout verification that names one viewport width will pass while
 a narrower common one breaks.
 
-**The header rows do not stick vertically, and that is a decision rather than an
-oversight.** The table is full length and the page scrolls.
+**The header rows now stick vertically, inside a `max-height` on `.tablewrap`.**
+This reverses the decision recorded below, and the reversal arrived in 283fc48
+without saying so, which is why both halves are written down here: the argument
+against is still the argument against, and it was accepted rather than answered.
+The table is a nested scroller inside a scrolling page, and on a phone that is
+felt rather than theoretical, because the box is a full viewport tall and sits
+under a screen and a half of hero and toolbar. Reverting it is two lines, the
+`max-height` and the `overflow`, if the nesting turns out to cost more than the
+sticky header is worth.
+
+What follows is the reasoning that held until then, and it is still true about
+the CSS.
 
 Worth writing down because it looks fixable and is not, at least not cheaply.
 A sticky element sticks within its nearest scroll container. `.tablewrap` must
@@ -461,12 +490,13 @@ full-length variant the header ends up nearly two thousand pixels above the
 viewport. So a horizontally scrolling table with a page-sticky header cannot be
 written as one element.
 
-Two ways round it were built and both were rejected:
+Two ways round it were built and both were rejected at the time. The first is
+the one that later shipped anyway:
 
 - **A `max-height` on `.tablewrap`**, which restores vertical scrolling inside
   the box so the header has something to stick within. It works, and it turns
-  the table into a nested scroller inside a scrolling page, which is worse than
-  the problem.
+  the table into a nested scroller inside a scrolling page, which was judged
+  worse than the problem. This is what the table does today.
 - **A second copy of the header outside the box**, sticky to the page,
   width-matched to the real one and scroll-synced with it. This is the technique
   the CSS-Tricks comment threads land on. It needs a colgroup rebuilt from
