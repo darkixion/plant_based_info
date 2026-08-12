@@ -2127,17 +2127,82 @@ await test("the day's tabs carry the semantics the detail's tabs do", async () =
 
 await test("the food's colour is a swatch rather than a sliver", async () => {
   /* .sw is a span with no display of its own, so it got its size from being a
-     flex item everywhere it appeared. The detail head is not a flex container,
-     so the 96px circle rendered two pixels wide and nobody could see it. */
+     flex item everywhere it appeared. The detail head was not a flex container,
+     so the circle rendered two pixels wide and nobody could see it. Asserted
+     against the width the stylesheet asks for rather than against a number
+     written here, because the number is a design decision and this is not. */
   await withPage(async page => {
     await page.locator("#tbody .fname").first().click();
     await page.waitForFunction(() => document.querySelector("#detailDlg")?.open);
     const box = await page.evaluate(() => {
-      const r = document.querySelector("#detailDlg .sw").getBoundingClientRect();
-      return { w: Math.round(r.width), h: Math.round(r.height) };
+      const sw = document.querySelector("#detailDlg .sw");
+      const r = sw.getBoundingClientRect(), cs = getComputedStyle(sw);
+      return { w: Math.round(r.width), h: Math.round(r.height),
+               wantW: parseFloat(cs.width), wantH: parseFloat(cs.height) };
     });
-    eq(box.w, 96, "the swatch is as wide as the stylesheet asks");
-    eq(box.h, 96, "and as tall");
+    eq(box.w, Math.round(box.wantW), "the swatch is as wide as the stylesheet asks");
+    eq(box.h, Math.round(box.wantH), "and as tall");
+    assert(box.w > 40, `and big enough to read as the food's colour, got ${box.w}px`);
+  });
+});
+
+await test("the food dialog keeps its place when a tab changes what is in it", async () => {
+  /* A dialog centres itself, so its box grew and shrank around its middle: the
+     tab strip is what someone is aiming at when they read a food group by
+     group, and moving from vitamins to organic acids slid that strip down the
+     screen because the panel under it got shorter. */
+  await withPage(async page => {
+    await page.locator("#tbody .fname").first().click();
+    await page.waitForFunction(() => document.querySelector("#detailDlg")?.open);
+    const tabs = await page.locator('#detailDlg [role="tab"]')
+      .evaluateAll(t => t.map(x => x.dataset.tab));
+
+    const places = new Set(), heights = new Set();
+    for (const t of tabs) {
+      await page.click(`#detailDlg [data-tab="${t}"]`);
+      const r = await page.evaluate(() => {
+        const d = document.querySelector("#detailDlg").getBoundingClientRect();
+        const strip = document.querySelector("#detailDlg .tabs").getBoundingClientRect();
+        return { top: Math.round(d.top), strip: Math.round(strip.top), h: Math.round(d.height) };
+      });
+      places.add(`${r.top}/${r.strip}`);
+      heights.add(r.h);
+    }
+    eq(places.size, 1,
+       `the dialog and its tab strip hold still across all ${tabs.length} tabs, saw ${[...places].join(" ")}`);
+    // Anchored, not frozen: the box is still allowed to be as short as its
+    // content, which is also what proves the tabs really do differ in length.
+    assert(heights.size > 1, "a short tab still makes a short dialog");
+  });
+});
+
+await test("the food dialog's head is a row across the width, not a column in a corner", async () => {
+  /* It was a 96px sphere with the name, the category and a button stacked under
+     it, in a box that shrank to its own content: a 640px dialog opening on a
+     left-aligned block with four hundred pixels of nothing beside it. */
+  await withPage(async page => {
+    await page.locator('#tbody .fname[data-name="Almonds"]').first().click();
+    await page.waitForFunction(() => document.querySelector("#detailDlg")?.open);
+    const r = await page.evaluate(() => {
+      const box = el => el.getBoundingClientRect();
+      const head = box(document.querySelector(".fhead"));
+      const sw = box(document.querySelector(".fhead .sw"));
+      const h3 = box(document.querySelector(".fhead h3"));
+      const facts = box(document.querySelector(".facts"));
+      const x = box(document.querySelector(".fhead .x"));
+      const mid = b => (b.top + b.bottom) / 2;
+      return { headH: Math.round(head.height), headW: Math.round(head.width),
+               sameRow: Math.abs(mid(sw) - mid(h3)) < 24,
+               nameBeforeActions: h3.right <= facts.left,
+               actionsClearOfClose: facts.right <= x.left,
+               used: Math.round(facts.right - sw.left) };
+    });
+    assert(r.sameRow, "the swatch and the name share a line");
+    assert(r.nameBeforeActions, "the actions sit to the right of the name");
+    assert(r.actionsClearOfClose, "and clear of the close button");
+    assert(r.used > r.headW * 0.8,
+      `the head uses the width it has, filled ${r.used} of ${r.headW}`);
+    assert(r.headH < 130, `and reads as a row rather than a stack, got ${r.headH}px`);
   });
 });
 

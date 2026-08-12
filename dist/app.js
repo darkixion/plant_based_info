@@ -106,19 +106,22 @@
         Unmeasured is not the same as none: nobody has analysed it, rather than
         having analysed it and found nothing.</p>`:"")}$("#detailDlg").innerHTML=`
   <form method="dialog">
-    <div class="dlghead dhead">
-      <div>
+    <div class="fhead" style="--c:${e.colour}">
+      <span class="sw" aria-hidden="true"></span>
+      <div class="fid">
+        <h3>${esc(e.name)}</h3>
+        ${e.alt?`<div class="st">also known as ${esc(e.alt)}</div>`:""}
+        <div class="per">${[e.state&&esc(e.state),esc(e.cat),basisLabel(),(()=>{const l=seasoningPortion(e,slugAt(S.sel));return l&&`${esc(l.label)} = ${Math.max(1,Math.round(l.g))} g`})()].filter(Boolean).map(l=>`<span>${l}</span>`).join(" · ")}</div>
+      </div>
+      <div class="facts">
         <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${isFav(S.sel)}">
           ${isFav(S.sel)?I.heartFull:I.heart}
           <span class="sr">${isFav(S.sel)?"Remove from":"Add to"} favourites</span></button>
-        <span class="sw" style="--c:${e.colour}" aria-hidden="true"></span>
-        <h3>${esc(e.name)}</h3>
-        ${e.alt?`<div class="st">also known as ${esc(e.alt)}</div>`:""}
-        ${e.state?`<div class="st">${esc(e.state)}</div>`:""}
-        <div class="per">${esc(e.cat)} · ${basisLabel()}${(()=>{const l=seasoningPortion(e,slugAt(S.sel));return l?` · ${esc(l.label)} = ${Math.max(1,Math.round(l.g))} g`:""})()}</div>
-        <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
-          ${a?`Add another ${DEFAULT_G} g`:"Add to my day"}</button>
-        ${a?`<div class="inday">${a.g} g in your day</div>`:""}
+        <div class="factadd">
+          <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
+            ${a?`Add another ${DEFAULT_G} g`:"Add to my day"}</button>
+          ${a?`<div class="inday">${a.g} g in your day</div>`:""}
+        </div>
       </div>
       <button class="x" type="submit" aria-label="Close details"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>

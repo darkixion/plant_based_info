@@ -495,15 +495,11 @@ td.num b{font-weight:600; color:var(--ink)}
 /* ---------- detail panel ---------- */
 .detail{border:1px solid var(--line); border-radius:var(--r); background:var(--panel);
         position:sticky; top:14px}
+/* The day summary's head, which is a title and a line under it and nothing
+   else. The food dialog used to share this and does not any more: see .fhead. */
 .dhead{padding:20px 18px 14px; text-align:center; position:relative}
-/* display:block, because .sw is a span and width does nothing to an inline box.
-   Everywhere else the swatch is a flex item, which blockifies it and hid this:
-   here it is not one, so the 96px circle rendered as a two-pixel sliver. */
-.dhead .sw{display:block; width:96px; height:96px; margin:0 auto 12px}
 .dhead h3{font-size:19px}
-.dhead .st{color:var(--muted); font-size:13.5px}
 .dhead .per{color:var(--faint); font-size:12.5px; margin-top:6px}
-.dhead .fav{position:absolute; right:12px; top:12px; margin:0}
 /* Two rows of three rather than one row of six. The detail panel is a 300px
    column at every width, not just on a phone, so this is not a narrow-screen
    concern: six labels never fit on one line anywhere. Five already needed
@@ -784,6 +780,73 @@ dialog{border:1px solid var(--line); border-radius:var(--r); padding:0; max-widt
 dialog::backdrop{background:var(--backdrop)}
 .dlghead{display:flex; align-items:center; gap:12px; padding:18px 20px; border-bottom:1px solid var(--line)}
 .dlgbody{padding:20px; max-height:64vh; overflow:auto}
+
+/* ---------- the food dialog ----------
+   Anchored to the top of the viewport rather than centred in it. A dialog
+   centres by default, which means its box grows and shrinks around its middle:
+   the tab strip is what someone is aiming at when they read a food group by
+   group, and switching from vitamins to organic acids moved that strip down the
+   screen because the panel under it got shorter. Anchoring the top holds the
+   name, the strip and the tab they just pressed exactly where they were, and
+   lets the bottom edge be the only thing that moves.
+
+   The height chain that makes it work: the dialog is a column capped to the
+   viewport, and only the panel scrolls. Without min-height:0 on each box in that
+   chain a flex item refuses to shrink below its content, and the whole dialog
+   grows past the bottom of the screen instead of the panel scrolling.
+
+   [open] on the selector deliberately: a plain `#detailDlg{display:flex}` beats
+   the user agent's `dialog:not([open]){display:none}` no matter how specific
+   that is, because author rules win over user agent ones, and the dialog would
+   sit on the page permanently. */
+#detailDlg[open]{display:flex; flex-direction:column;
+  margin-block:24px auto; max-height:calc(100dvh - 48px)}
+#detailDlg form{display:flex; flex-direction:column; min-height:0}
+/* The tab strip and the footer are the dialog's own furniture, so they stay put
+   and the panel between them takes the scroll. The padding goes with them: this
+   box had 20px of its own on top of the 18px the panel already had. */
+#detailDlg .dlgbody{display:flex; flex-direction:column; min-height:0;
+  padding:0; max-height:none; overflow:visible}
+#detailDlg .dbody{flex:1; min-height:0; overflow:auto}
+
+/* ---------- the food dialog's head ----------
+   One row: the food's colour, its name, and what to do with it. It was a 96px
+   sphere with the name, the category and a button stacked under it in a column
+   that shrank to its own content, so a 640px dialog opened on a left-aligned
+   block with four hundred pixels of nothing beside it, and the heart and the
+   close button stranded at two different heights on the right.
+
+   The wash is the one liberty taken here. Every food already carries a colour,
+   in the table, the chart and the day list, so the dialog is tinted by the food
+   it is describing: mixed into --panel rather than laid over it, which is what
+   keeps it honest in both themes, and faded out by two thirds of the way across
+   so it reads as a light source behind the swatch rather than as a banner. */
+.fhead{position:relative; display:flex; align-items:center; gap:16px;
+  padding:16px 52px 16px 20px; border-bottom:1px solid var(--line);
+  background:linear-gradient(100deg,
+    color-mix(in srgb, var(--c) 16%, var(--panel)), var(--panel) 64%)}
+.fhead .sw{display:block; width:60px; height:60px; flex:none}
+.fid{flex:1; min-width:0}
+.fid h3{font-size:23px; line-height:1.15; letter-spacing:-.01em; color:var(--ink)}
+.fid .st{color:var(--muted); font-size:13px; margin-top:2px}
+.fid .per{color:var(--faint); font-size:12.5px; margin-top:3px; font-variant-numeric:tabular-nums}
+.fid .per span{white-space:nowrap}
+.facts{display:flex; align-items:center; gap:10px; flex:none}
+.facts .fav{margin:0}
+.factadd{display:flex; flex-direction:column; align-items:flex-end; gap:3px}
+.factadd .btn{margin:0; white-space:nowrap}
+.fhead .x{position:absolute; right:10px; top:10px; margin:0}
+/* Under about 560px the actions cannot sit beside the name without squeezing it
+   to nothing, so they take a line of their own underneath. Only the actions
+   wrap: the swatch and the name stay on one line, because putting the swatch on
+   a line by itself is the stranded circle with empty space beside it that this
+   head was rewritten to get rid of. The head keeps its right padding so the
+   name clears the close button and both rows end on the same edge. */
+@media (max-width:560px){
+  .fhead{flex-wrap:wrap}
+  .fhead .sw{width:48px; height:48px}
+  .facts{flex:1 1 100%; justify-content:flex-end}
+}
 .dlgbody h4{margin:18px 0 6px} .dlgbody h4:first-child{margin-top:0}
 .dlgbody p,.dlgbody li{font-size:14px; color:var(--muted)}
 .x{margin-left:auto; border:0; background:none; padding:8px; border-radius:8px; line-height:0;

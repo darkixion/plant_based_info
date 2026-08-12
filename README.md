@@ -328,6 +328,34 @@ the few that need it. `display:none` takes them out of the accessibility tree
 too, which is right: a control that is not there should not be announced as
 though it were.
 
+**The food dialog is anchored to the top of the viewport, not centred in it.**
+A dialog centres by default, so its box grows and shrinks around its middle, and
+the tab strip is what someone is aiming at when they read a food group by group:
+moving from vitamins to organic acids slid that strip down the screen because
+the panel under it got shorter, and they had to find it again on every press.
+`margin-block:24px auto` holds the name, the strip and the tab just pressed
+exactly where they were and lets the bottom edge be the only thing that moves.
+The box is anchored rather than frozen, so a short group is still a short
+dialog, and there is a test that asserts both halves of that.
+
+The height chain underneath it is `#detailDlg[open]` as a flex column capped to
+the viewport, with `min-height:0` on every box down to the panel, which is what
+lets the panel scroll instead of the dialog growing past the bottom of the
+screen. `[open]` is load-bearing in that selector: a plain `#detailDlg{display:
+flex}` beats the user agent's `dialog:not([open]){display:none}` however
+specific that is, because author rules win over user agent ones, and the dialog
+would sit on the page permanently.
+
+**Its head is one row and carries the food's colour.** It used to be a 96px
+sphere with the name, the category and a button stacked under it, in a box that
+shrank to its own content, so a 640px dialog opened on a left-aligned block with
+four hundred pixels of nothing beside it and the heart and close button stranded
+at two different heights. It is now swatch, name and actions across the width,
+about 100px tall against the 250 it was, which is most of what made the tab
+strip worth anchoring. The head is tinted by the food it describes, mixed into
+`--panel` rather than laid over it so it holds up in both themes. `.dhead` still
+belongs to the day summary; the food dialog's head is `.fhead`.
+
 **A header may wrap; a figure may not.** "Vitamin B-12" over two lines is
 narrower than the same words on one and costs nothing. A wrapped number is a
 misread number.

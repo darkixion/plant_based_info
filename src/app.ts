@@ -1849,25 +1849,38 @@ function renderDetail() {
 
   $("#detailDlg").innerHTML = `
   <form method="dialog">
-    <div class="dlghead dhead">
-      <div>
-        <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${isFav(S.sel)}">
-          ${isFav(S.sel) ? I.heartFull : I.heart}
-          <span class="sr">${isFav(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
-        <span class="sw" style="--c:${f.colour}" aria-hidden="true"></span>
+    <div class="fhead" style="--c:${f.colour}">
+      <span class="sw" aria-hidden="true"></span>
+      <div class="fid">
         <h3>${esc(f.name)}</h3>
         ${f.alt ? `<div class="st">also known as ${esc(f.alt)}</div>` : ""}
-        ${f.state ? `<div class="st">${esc(f.state)}</div>` : ""}
-        <div class="per">${esc(f.cat)} · ${basisLabel()}${(() => {
+        <div class="per">${[
+          // One line of provenance rather than three stacked ones. The state
+          // belongs with the category and the basis: they are all answers to
+          // "what exactly am I reading", and reading them as a sentence is what
+          // lets the name above be a name.
+          f.state && esc(f.state), esc(f.cat), basisLabel(),
           // The same scale the table pins beside the name. This panel is where
           // someone reads a seasoning's full profile, so it is where the
           // difference between a spoonful and 100 g matters most.
-          const spoon = seasoningPortion(f, slugAt(S.sel));
-          return spoon ? ` · ${esc(spoon.label)} = ${Math.max(1, Math.round(spoon.g))} g` : "";
-        })()}</div>
-        <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
-          ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
-        ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
+          (() => {
+            const spoon = seasoningPortion(f, slugAt(S.sel));
+            return spoon && `${esc(spoon.label)} = ${Math.max(1, Math.round(spoon.g))} g`;
+          })(),
+        // A segment at a time, each one unbreakable, so a line that has to wrap
+        // wraps at a separator. "1 tbsp = 9 g" broken after the "1" reads as a
+        // different measurement.
+        ].filter(Boolean).map(s => `<span>${s}</span>`).join(" · ")}</div>
+      </div>
+      <div class="facts">
+        <button class="fav" type="button" data-fav="${S.sel}" aria-pressed="${isFav(S.sel)}">
+          ${isFav(S.sel) ? I.heartFull : I.heart}
+          <span class="sr">${isFav(S.sel) ? "Remove from" : "Add to"} favourites</span></button>
+        <div class="factadd">
+          <button class="btn dayadd-btn" type="button" data-dayadd="${S.sel}">${I.plus}
+            ${inDay ? `Add another ${DEFAULT_G} g` : "Add to my day"}</button>
+          ${inDay ? `<div class="inday">${inDay.g} g in your day</div>` : ""}
+        </div>
       </div>
       <button class="x" type="submit" aria-label="Close details"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
