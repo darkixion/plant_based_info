@@ -439,6 +439,13 @@ for (const row of fdc.rows) {
     const found = row[id];
     if (!found || typeof found.amount !== "number") continue;
     const held = out[row.page].cells[id];
+    /* Already applied. Without this the pass is not idempotent and a second run
+       quietly destroys data: it reads back the range it wrote, finds its own
+       figure at the top of it, sees no disagreement and collapses the cell to a
+       lone measurement, dropping the source it was reconciled against. That is
+       how Halliwell fell out of the shiitake and oyster ergothioneine cells
+       between two runs of this tool. */
+    if (held && (held.sources || []).includes("usda-fdc-foundation")) continue;
     const previous = held && (held.state === "measured" ? held.value : held.state === "range" ? held.high : null);
     if (typeof previous === "number" && Math.abs(previous - found.amount) > 1e-9) {
       const lo = Math.min(previous, held.low ?? previous, found.amount);

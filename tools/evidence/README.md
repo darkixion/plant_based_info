@@ -225,17 +225,50 @@ It changes no cell. MK-8 is already a range of 0 to 89.8 over three sources and
 5.553 sits inside it. What it does change is the natto MK-7 question below,
 which now has a fourth analysed figure in it.
 
-### Natto MK-7, where this file and the data disagree
+### Natto MK-7, and why the range described below cannot be built
 
 The section below says natto MK-7 "is a range over all three" of Kamao,
 Schurgers and Sim. The data says `{"state":"measured","value":939,
-"sources":["kamao-2007"]}`. One of the two is wrong and it is not clear which:
-either the range was lost in a regeneration, or it was described here and never
-applied. Left as it stands rather than guessed at, because natto MK-7 is the
-largest single figure in the vitamin K columns and moving it is the owner's
-call. Worth knowing before that call: a range would have to run **81.6 to
-1034**, not the 939 to 998 named below, because Walther's 2017 table attests an
-upper bound of 1034 and `loadAttested` indexes both ends of a range.
+"sources":["kamao-2007"]}`. The range was attempted and **the build refused it**,
+for a reason worth keeping.
+
+Four analyses now exist:
+
+| Source | MK-7, µg/100 g | |
+|---|---|---|
+| Sim 2021 | 81.6 | one Australian supermarket sample |
+| Tanaka 2026 | 538.9 | converted from PK equivalents, above |
+| Kamao 2007 | 939 | |
+| Schurgers 2000, via Walther | 882 to 1034 | |
+
+Sim does not belong at the bottom of that span. It is a single sample, and
+`sources.json` already records what its own authors say about that column: they
+had no MK-7 standard for their recovery work. So the honest cell is a range of
+**538.87 to 1034** over the three analyses that had one, with Sim recorded as
+`disputed`, which is exactly how sauerkraut MK-4 already treats it.
+
+`checkEvidence` refuses that cell:
+
+```
+evidence natto.mk7: 1034 exceeds k2 939, which it is part of
+```
+
+And it is right. Natto's **Total K2 is 939, cited to Kamao**, and a part cannot
+exceed the whole within a shared source. Schurgers reports MK-7 up to 1034 with
+MK-8 at 84 and MK-6 at 14 on top of it, so natto's real total is over 1,000 and
+the k2 cell is simply too low.
+
+Raising it is where this stops. **No source here publishes a total K2 for
+natto.** Every total available is a sum of one table's own homologues: 567.2 for
+Tanaka, 1,044 to 1,105 for Walther 2013, 980 to 1,146 for Walther 2017. Those
+sums are arithmetic on each source's figures, but citing Walther for a total it
+never printed is the fault this store exists to prevent, and both Walther sums
+also fold an ND in as zero while Walther 2017 marks natto MK-10 not reported.
+
+So MK-7 stays at Kamao's 939 and the inconsistency stays documented. What
+unblocks it is a source that publishes natto's total K2 directly, or a decision
+that a derived total may be stored as `estimated` and marked calculated on the
+page. That is a change to what this store allows, not a data entry.
 
 ### Where the two accounts disagree, and how a third settled it
 

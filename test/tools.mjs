@@ -14,7 +14,7 @@ import { gradeDerivation, reconcile } from "../tools/reconcile.mjs";
 // the page as a side effect of running the tests.
 import { checkEvidence, checkGaps } from "../build.mjs";
 import { execSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 let passed = 0, failed = 0;
 const results = [];
@@ -449,6 +449,29 @@ test("no measured evidence figure rounds away to zero on the page", () => {
     }
   }
   eq(zero.length, 0, `these measured figures print as zero: ${zero.join("; ")}`);
+});
+
+test("running the evidence generator changes nothing", () => {
+  /* The store is meant to be a fixed point of its own generator: the file in
+     the repository is what the passes produce, so running them again produces
+     it unchanged. This is not a tidiness check. A pass that reads back its own
+     output and treats it as somebody else's can destroy data on a second run,
+     and one did: the Foundation Foods pass found its own figure at the top of a
+     range it had written, saw no disagreement, and collapsed the cell to a lone
+     measurement, dropping Halliwell from the shiitake and oyster ergothioneine
+     cells. The file is restored before the assertion so a failure here reports
+     rather than damages. */
+  const path = new URL("../src/data/evidence.json", import.meta.url);
+  const before = readFileSync(path, "utf8");
+  try {
+    execSync("node tools/evidence.mjs", { stdio: "ignore" });
+  } catch (e) {
+    throw new Error("the evidence generator failed to run: " + e.message);
+  }
+  const after = readFileSync(path, "utf8");
+  if (after !== before) writeFileSync(path, before);
+  eq(after === before, true,
+     "src/data/evidence.json is not a fixed point of tools/evidence.mjs: a pass is rewriting cells it has already written");
 });
 
 // ----------------------------------------------------------------- CLI checks
