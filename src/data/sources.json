@@ -239,6 +239,14 @@
     "url": "https://www.intechopen.com/chapters/50921",
     "quality": "review; the same author as walther-2013 with a finer table, reporting Schurgers 2000 and Kamao 2007"
   },
+  "jensen-2025": {
+    "short": "Denmark (Jensen 2025)",
+    "title": "Jensen et al. 2025, Vitamin K content in food and dietary intake among the Danes (Food Chem 464:141651), supplementary Table S3",
+    "publisher": "Food Chemistry",
+    "country": "Denmark",
+    "url": "https://backend.orbit.dtu.dk/ws/files/382428057/1-s2.0-S0308814624033016-main.pdf",
+    "quality": "high; PK and MK-4 to MK-10 measured individually in 88 composite samples, with a stated limit of quantification of 0.1 ug/100 g for every vitamer"
+  },
   "usda-fdc-foundation": {
     "short": "USDA Foundation",
     "title": "USDA FoodData Central, Foundation Foods, release 2026-04-30",

@@ -14548,5 +14548,46 @@
     ]
    }
   }
+ },
+ "rye-bread": {
+  "prep": "as listed",
+  "matches": {
+   "jensen-2025": "close"
+  },
+  "cells": {
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2025"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2025"
+    ]
+   },
+   "mk8": {
+    "state": "measured",
+    "value": 0.31,
+    "sources": [
+     "jensen-2025"
+    ]
+   },
+   "mk9": {
+    "state": "measured",
+    "value": 0.27,
+    "sources": [
+     "jensen-2025"
+    ]
+   },
+   "mk10": {
+    "state": "measured",
+    "value": 0.12,
+    "sources": [
+     "jensen-2025"
+    ]
+   }
+  }
  }
 }

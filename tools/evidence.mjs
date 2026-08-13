@@ -418,6 +418,30 @@ for (const row of tanaka.rows) {
   }
 }
 
+/* Jensen 2025, which has sat here unused since it was ingested because not one
+   of its 88 composite samples was a food on this page. The page gained a rye
+   bread and now one of them is.
+
+   This is the source that makes MK-10 a column with a figure in it rather than
+   a column of absences, and it was never a sourcing problem: the data has been
+   in this directory the whole time and the food list was what was missing.
+
+   An absent vitamer in this paper is a result below the 0.1 ug/100 g limit of
+   quantification it states for every one of them, so it is an analysed absence
+   and not a gap. That is what fills MK-4 and MK-7 here. */
+const jensen25 = rd("jensen-2025-vitamin-k.json");
+for (const row of jensen25.rows) {
+  if (!row.page) continue;
+  grade(row.page, "jensen-2025", row.match);
+  for (const id of ["mk4", "mk7", "mk8", "mk9", "mk10"]) {
+    if (out[row.page].cells[id]) continue;
+    out[row.page].cells[id] = typeof row[id] === "number"
+      ? { state: "measured", value: row[id], sources: ["jensen-2025"] }
+      : { state: "not-detected", sources: ["jensen-2025"] };
+    nCells++;
+  }
+}
+
 /* USDA FoodData Central Foundation Foods. Not SR Legacy, which defines
    beta-glucan and publishes zero rows of it: this is a separate release of
    individually analysed samples, per 100 g of the food as sold, which is
