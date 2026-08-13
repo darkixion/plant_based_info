@@ -5,7 +5,7 @@ so that adding a food later costs nothing: the values are already here, for far 
 foods than the page lists.
 
 **All 47 of the page's evidence columns draw on this directory**, over
-1,942 cells across 157 foods and 42 sources. Phase 1 added three (soluble fibre,
+1,953 cells across 157 foods and 41 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
@@ -49,6 +49,7 @@ calcium. So every component here had to come from somewhere else.
 | `walther-2017-menaquinones.json` | 3 | the same author's later and finer table: ranges rather than midpoints, one row per primary study |
 | `jensen-2022-vitamin-k.json` | 3 | a direct LC analysis of **MK-4 to MK-10** in broccoli, canola oil and natto, with a limit of quantification per homologue |
 | `jensen-2025-vitamin-k.json` | 9 | PK and MK-4 to MK-10 in 88 Danish composite foods. Kept for later: **no page food is among them** |
+| `mattila-2001-coq.json` | 12 | **CoQ9** and CoQ10 in ug/g fresh weight. The only food table here carrying CoQ9, and the only CoQ source reaching vegetables and fruit rather than oils |
 | `page-map-mext.json` | 81 | reviewed mappings from this page's foods to MEXT rows |
 
 ## The evidence states
@@ -230,6 +231,48 @@ transcription of that study gives sauerkraut MK-4 0.4, MK-5 0.8, MK-6 1.5, MK-7
 of all six homologues filed under one of them. MK-7 is 0.2 µg and 4.8 is the
 total.
 
+## Coenzyme Q9, and a column that was one cell
+
+CoQ9 had a single figure on it, sunflower oil at 10.13 mg/100 g from
+Rodríguez-Acuña, and every other food read as no data. It now has eight cells,
+five measured and three analysed absences, all from a source `sources.json`
+already carried and the page already cited for CoQ10: Mattila and Kumpulainen's
+2001 table is the first food table to report CoQ9 beside CoQ10, and the only one
+here that reaches a vegetable or a fruit rather than an oil.
+
+The table is printed in **µg/g fresh weight** and this store holds mg/100 g, so
+every figure is scaled by a tenth in `tools/evidence.mjs` and rounded back,
+because 0.04 × 0.1 leaves float noise otherwise. Four foods gained CoQ10 as
+well. The pass **never writes over another paper's figure**: Mattila's CoQ10
+disagrees with Fine 2016 on rapeseed oil (6.35 against 3.5) and with Kubo 2008
+on orange (0.14 against 0.39), and neither disagreement is a generator's to
+settle, so those two cells stay with the sources that already held them.
+
+Cauliflower's CoQ10 was **0.3 and is now 0.27**. The source says 2.7 µg/g, and
+0.3 was a one-decimal rounding of it stored in a two-decimal column, so the page
+printed 0.30 for a figure the paper never gave.
+
+`coq9` is the first evidence column to need **three decimal places**. Cauliflower
+is 0.04 µg/g, which is 0.004 mg/100 g, and at the column's old `dp` of 2 a
+measured value would have printed as 0.00, which reads as none. Thirty-two other
+columns already use three.
+
+### Why this corpus is not attested
+
+`loadAttested` does not index it, unlike the Jensen and Walther corpora. What is
+transcribed here is the Czech Journal of Food Sciences reprint of Mattila's
+Table 1, not the 2001 original, and it is shorter than the original's 35 foods.
+Wiring a partial reproduction would fail every cell citing Mattila for a food
+the reprint omits, and one such cell exists: **sesame oil carries CoQ10 3.15
+mg/100 g cited to Mattila, and this table's only dietary fat is rapeseed oil**.
+`research.json` records that value's derivation as "Mattila 2001 & Kubo 2008",
+which is two sources where the cell names one. Whether the original table has a
+sesame oil row is unresolved and the paper is paywalled. A check that cannot
+tell a missing row from a wrong figure is worse than no check.
+
+One row is deliberately unmapped. The table says only **"Bean"**, at 0.06 µg/g,
+and this page carries twenty of them.
+
 `sources.json` is the index. Every corpus file names its source by key, and every
 source records country, year, method, quality and limitations.
 
@@ -268,6 +311,31 @@ source records country, year, method, quality and limitations.
   foods), Tinggi 1997 (Australian foods). Only abstracts were seen.
 - **Chromium is parked** at the owner's request. The evidence is kept in
   `mext-2020-plant.json` and `sources.json`, and the finding is recorded below.
+
+## The August 2026 sweep, and what it settled
+
+A third literature sweep over the eight thinnest columns. Recorded in full
+because two of its leads had already been chased twice, and the cost of this
+directory is re-deriving the same refusals:
+
+| Lead | Column | Why it did not land |
+|---|---|---|
+| O'Leary 2026, AAFC and Saskatchewan, 37 dry bean genotypes | raffinose, stachyose, verbascose | The most promising of them, and it fails on basis like the rest. Table 5 reports **canned** beans, which is the right preparation, but every column is `%DW` and the paper gives no moisture for the canned product, so there is no arithmetic from it to an as-eaten figure. It also reports **total RFO only**: stachyose is ~88% and raffinose ~10% of it, and verbascose was "below the reliable detection limit" |
+| Siva 2019, Njoumi 2019, OECD common bean, RFO reviews | the same three | Dry matter, raw seed, every one. The same refusal the verbascose section above records, reached again from new papers |
+| Mushroom beta-glucan literature | beta-glucan | Reported as % of dry matter. Mushrooms are about 90% water, so the conversion is a basis conversion and a large one |
+| Tortorella glucoraphanin table; Sasaki 2012 | glucoraphanin | Sasaki was already rejected above for giving only a per-cultivar maximum. Tortorella is paywalled at ACS and its table mixes mg/100 g FW, µmol/100 g FW and µmol/g DW by study |
+| Pyo, six Korean commercial oils | CoQ9 | Sesame and soybean oil are page foods and this is the best remaining CoQ9 lead. Springer requires authentication and the figures could not be read |
+| Rodríguez-Acuña 2008, soybean and rapeseed oil | CoQ9 | The page already cites this paper for sunflower oil. Its soybean and rapeseed figures are behind the ACS paywall, and the secondary sources that quote it **conflate its numbers with Kamei's corn oil and Mattila's rapeseed oil**, so nothing quoting it can be trusted for them |
+| Peach and pear quinic acid, cultivar datasets | quinic | Fresh weight, cultivar level, and the right shape. Taylor & Francis returned 403. The one dataset reachable is thinned **young** fruit at 5 to 10.5 mg/g, which the paper itself contrasts with ripe fruit, so it cannot stand for a ripe peach |
+| Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
+| Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+**MK-8, MK-9 and MK-10 are now a food-list problem, not a source problem.**
+`jensen-2025-vitamin-k.json` already holds MK-10 at 0.12 to 0.25 µg/100 g in rye
+bread, wheat buns and three plant-based cheeses, measured per vitamer at a
+stated LOQ. The figures are here and unused because the page carries no bread
+and no plant-based cheese. Adding one of those foods would fill three columns
+from data already in this directory; no further searching will.
 
 ## Chromium, parked
 

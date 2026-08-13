@@ -167,7 +167,7 @@
   },
   "mattila-2001": {
     "title": "Mattila & Kumpulainen 2001, coenzyme Q9 and Q10 in foods",
-    "quality": "single study, not reproduced against any corpus here",
+    "quality": "single study; its food table is transcribed in mattila-2001-coq.json but not indexed for attestation, because the transcription is a later reprint and shorter than the original's 35 foods",
     "short": "Mattila 2001"
   },
   "zmitek-2014": {

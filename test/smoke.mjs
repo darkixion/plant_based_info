@@ -3191,6 +3191,59 @@ await test("the page does not say iodine has no column", async () => {
   });
 });
 
+await test("a measurement below its column's precision is not shown as nothing", async () => {
+  /* Cauliflower's CoQ9 is 0.04 ug/g, which is 0.004 mg/100 g, and coq9 is
+     printed with toFixed. At the dp of 2 the column used to carry, a figure a
+     paper actually measured would have reached the reader as "0.00", which is
+     what an analysed absence looks like. The column is three decimals for this
+     one food, and the guard is here so a later tidy of the dp cannot quietly
+     round a measurement away into a zero. */
+  await withPage(async page => {
+    const line = async (q, name) => {
+      await page.fill("#q", q);
+      await page.waitForFunction(
+        n => [...document.querySelectorAll("#tbody .fname")].some(e => e.dataset.name === n), name);
+      await page.locator(`#tbody .fname[data-name="${name}"]`).first().click();
+      await page.waitForFunction(
+        n => document.querySelector("#detailDlg h3")?.textContent === n, name);
+      const out = await page.evaluate(() => {
+        S.tab = "plant"; renderDetail();
+        const t = document.querySelector("#tabp").innerText.split("\n");
+        const i = t.findIndex(x => /^Coenzyme Q9$/i.test(x.trim()));
+        return i < 0 ? "not shown" : t[i + 1].trim();
+      });
+      await page.evaluate(() => document.querySelector("#detailDlg").close());
+      return out;
+    };
+    assert(/^0\.004 mg/.test(await line("Cauliflower", "Cauliflower")),
+           `cauliflower CoQ9 should print 0.004, got ${await line("Cauliflower", "Cauliflower")}`);
+    // The absences are the other half of the column and read as a finding.
+    assert(/none detected/i.test(await line("Carrots", "Carrots")), "carrot CoQ9 is an analysed absence");
+  });
+});
+
+await test("a new source does not overwrite a figure another paper already held", async () => {
+  /* Mattila's CoQ10 disagrees with Fine 2016 on rapeseed oil and with Kubo 2008
+     on orange. The generator takes Mattila's CoQ9 column, which nothing else
+     here answers for, and leaves those two CoQ10 cells where they were: a
+     disagreement between two papers is not a generator's to settle. */
+  await withPage(async page => {
+    const held = await page.evaluate(() => ({
+      rapeseed: EV["rapeseed-oil"]?.cells.coq10,
+      orange: EV["orange-raw"]?.cells.coq10,
+      cauliflower: EV["cauliflower-cooked"]?.cells.coq10,
+    }));
+    eq(held.rapeseed.value, 3.5, "rapeseed oil CoQ10 stays with Fine 2016");
+    eq(held.rapeseed.sources[0], "fine-2016", "rapeseed oil CoQ10 source");
+    eq(held.orange.value, 0.39, "orange CoQ10 stays with Kubo 2008");
+    eq(held.orange.sources[0], "kubo-2008", "orange CoQ10 source");
+    /* The exception, and the reason the rule is worth a test: a cell citing
+       Mattila alone is the pass's own, and it was carrying 0.3 where the source
+       says 2.7 ug/g, which is 0.27. */
+    eq(held.cauliflower.value, 0.27, "cauliflower CoQ10 corrected to what the source says");
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));

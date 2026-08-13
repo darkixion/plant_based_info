@@ -906,7 +906,7 @@
    "group": "plant",
    "unit": "mg",
    "dv": null,
-   "dp": 2,
+   "dp": 3,
    "evidence": true,
    "why": "The primary isoform of Coenzyme Q in certain plants and rodents. While distinct from CoQ10, it shares antioxidant properties and contributes to total body quinone pools."
   },

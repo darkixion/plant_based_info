@@ -973,7 +973,8 @@
    "mext-2020": "close",
    "milder-2005": "close",
    "ryan-2007": "close",
-   "sim-2021": "close"
+   "sim-2021": "close",
+   "mattila-2001": "close"
   },
   "cells": {
    "solfibre": {
@@ -1129,6 +1130,20 @@
     "state": "not-detected",
     "sources": [
      "sim-2021"
+    ]
+   },
+   "coq9": {
+    "state": "measured",
+    "value": 0.01,
+    "sources": [
+     "mattila-2001"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.27,
+    "sources": [
+     "mattila-2001"
     ]
    }
   }
@@ -1638,7 +1653,6 @@
    "milder-2005": "exact",
    "sim-2021": "exact",
    "walther-2013": "exact",
-   "schurgers-2000": "exact",
    "walther-2017": "exact",
    "jensen-2022": "exact"
   },
@@ -1735,24 +1749,17 @@
     ]
    },
    "mk7": {
-    "state": "range",
-    "low": 81.6,
-    "high": 1034,
+    "state": "measured",
+    "value": 939,
     "sources": [
-     "jensen-2022",
-     "kamao-2007",
-     "sim-2021",
-     "walther-2013",
-     "walther-2017"
+     "kamao-2007"
     ]
    },
    "k2": {
-    "state": "range",
-    "low": 939,
-    "high": 1034,
+    "state": "measured",
+    "value": 939,
     "sources": [
-     "kamao-2007",
-     "schurgers-2000"
+     "kamao-2007"
     ]
    },
    "lignans": {
@@ -5126,7 +5133,7 @@
    },
    "coq10": {
     "state": "measured",
-    "value": 0.3,
+    "value": 0.27,
     "sources": [
      "mattila-2001"
     ]
@@ -5163,6 +5170,13 @@
     "state": "not-detected",
     "sources": [
      "sim-2021"
+    ]
+   },
+   "coq9": {
+    "state": "measured",
+    "value": 0.004,
+    "sources": [
+     "mattila-2001"
     ]
    }
   }
@@ -6615,7 +6629,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "mattila-2001": "close"
   },
   "cells": {
    "solfibre": {
@@ -6783,6 +6798,19 @@
     "state": "not-detected",
     "sources": [
      "sim-2021"
+    ]
+   },
+   "coq9": {
+    "state": "not-detected",
+    "sources": [
+     "mattila-2001"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.17,
+    "sources": [
+     "mattila-2001"
     ]
    }
   }
@@ -8851,7 +8879,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "mattila-2001": "close"
   },
   "cells": {
    "solfibre": {
@@ -9011,6 +9040,20 @@
     "sources": [
      "sim-2021"
     ]
+   },
+   "coq9": {
+    "state": "measured",
+    "value": 0.02,
+    "sources": [
+     "mattila-2001"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.13,
+    "sources": [
+     "mattila-2001"
+    ]
    }
   }
  },
@@ -9020,7 +9063,8 @@
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "mattila-2001": "close"
   },
   "cells": {
    "solfibre": {
@@ -9172,6 +9216,20 @@
     "sources": [
      "usda-pa-r2"
     ]
+   },
+   "coq9": {
+    "state": "measured",
+    "value": 0.01,
+    "sources": [
+     "mattila-2001"
+    ]
+   },
+   "coq10": {
+    "state": "measured",
+    "value": 0.14,
+    "sources": [
+     "mattila-2001"
+    ]
    }
   }
  },
@@ -9182,7 +9240,8 @@
    "kubo-2008": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "mattila-2001": "close"
   },
   "cells": {
    "solfibre": {
@@ -9303,6 +9362,12 @@
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "coq9": {
+    "state": "not-detected",
+    "sources": [
+     "mattila-2001"
     ]
    }
   }
@@ -13239,7 +13304,8 @@
    "fine-2016": "proxy",
    "milder-2005": "proxy",
    "sim-2021": "exact",
-   "jensen-2022": "exact"
+   "jensen-2022": "exact",
+   "mattila-2001": "close"
   },
   "cells": {
    "coq10": {
@@ -13286,6 +13352,12 @@
     "state": "not-detected",
     "sources": [
      "jensen-2022"
+    ]
+   },
+   "coq9": {
+    "state": "not-detected",
+    "sources": [
+     "mattila-2001"
     ]
    }
   }

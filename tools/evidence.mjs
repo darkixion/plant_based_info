@@ -308,6 +308,41 @@ for (const p of Object.entries(cnfMap)) {
   }
 }
 
+/* Mattila 2001, the only food table here that carries CoQ9 as well as CoQ10,
+   and the only source of either that reaches this page's vegetables and fruit
+   rather than its oils. Printed in ug/g fresh weight and stored in mg/100 g,
+   so every figure is scaled by a tenth and rounded back to kill the float
+   noise that 0.04 * 0.1 otherwise leaves behind.
+
+   Never writes over another paper's figure. Mattila's CoQ10 disagrees with
+   Fine 2016 on rapeseed oil and with Kubo 2008 on orange, and neither
+   disagreement is this pass's to settle: it takes the CoQ9 column, which no
+   other source here has anything to say about, and leaves the CoQ10 cells to
+   the sources that already hold them. The one exception is a cell already
+   citing Mattila alone, which this pass owns and may correct. */
+const mattila = rd("mattila-2001-coq.json");
+const toPageUnit = ugPerG => Number((ugPerG * 0.1).toFixed(6));
+for (const row of mattila.rows) {
+  if (!row.page) continue;
+  grade(row.page, "mattila-2001", row.match);
+  for (const id of ["coq9", "coq10"]) {
+    const c = row[id];
+    if (!c) continue;
+    const held = out[row.page].cells[id];
+    const ours = held && (held.sources || []).length === 1 && held.sources[0] === "mattila-2001";
+    if (held && !ours) continue;
+    if (c.state === "measured")
+      out[row.page].cells[id] = { state: "measured", value: toPageUnit(c.ug_g), sources: ["mattila-2001"] };
+    /* An absence with no limit of detection behind it. Weaker than Jensen's
+       below-LOQ results and recorded all the same, because a column of
+       analysed absences is what CoQ9 in plant food actually looks like. */
+    else if (c.state === "not-detected")
+      out[row.page].cells[id] = { state: "not-detected", sources: ["mattila-2001"] };
+    else continue;
+    nCells++;
+  }
+}
+
 /* literature.json and literature-misc.json used to be read here. Both were
    compilations with no citation per value: literature-misc.json recorded a
    source of "USDA/Milder2005/PhyFoodComp" for a whole row, and its figures
