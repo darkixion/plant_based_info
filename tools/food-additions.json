@@ -195,7 +195,8 @@
   "Fonio": "Not in USDA SR Legacy.",
   "Chlorella": "Not in USDA SR Legacy under chlorella or any synonym.",
   "Dulse": "Not in USDA SR Legacy under dulse, palmaria palmata, or dillisk.",
-  "Kimchi": "Not in USDA SR Legacy. Fermented cabbage entries are limited to sauerkraut.",
-  "Oat milk": "Post-dates the April 2018 SR Legacy release."
+  "Kimchi": "WRONG, and kept only until someone acts on it: SR Legacy carries \"Cabbage, kimchi\" at 170392. It fills 43 of the 68 columns a food needs, which is thin but not empty, and the claim that fermented cabbage stops at sauerkraut is false. Re-checked August 2026.",
+  "Oat milk": "Post-dates the April 2018 SR Legacy release.",
+  "Sea grapes (rong nho, umi-budou)": "Not in USDA SR Legacy under sea grape, caulerpa, green caviar, lato or umi budou. SR Legacy carries ten seaweed rows and none is Caulerpa lentillifera. It IS in MEXT 2020 as code 09012, うみぶどう 生, and this repository already holds part of that row: 97 g water, iodine 80 ug, biotin 0.1 ug, total fibre 0.8 g, chromium and molybdenum both trace, selenium not detected. Adding it therefore needs no new source, only a second route into the main table, since every food here is pinned to one SR Legacy row. Worth knowing before that is built: at 97 g of water it is the most watery food that would be on the page, and most of its 74 columns would be a zero or a blank."
  }
 }
