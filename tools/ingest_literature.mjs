@@ -33,7 +33,7 @@ function addData(arr, field, valField) {
     else if (item.food.includes('soybean')) match = 'soybeans';
     else if (item.food.includes('chickpea')) match = 'chickpeas-cooked';
     else if (item.food.includes('lentil')) match = 'lentils-cooked';
-    else if (item.food.includes('lima bean')) match = 'lima-beans-cooked';
+    else if (item.food.includes('lima bean')) match = 'butter-beans-cooked';
     else if (item.food.includes('navy bean')) match = 'white-beans-cooked';
     else if (item.food.includes('kidney bean')) match = 'kidney-beans-cooked';
     else if (item.food.includes('apple')) match = 'apple';

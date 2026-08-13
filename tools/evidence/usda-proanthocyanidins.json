@@ -239,7 +239,9 @@
   "group": "Spices and Herbs",
   "desc": "Spices, cinnamon, ground",
   "sciname": "Cinnamomum aromaticum",
-  "page_slugs": [],
+  "page_slugs": [
+   "cinnamon-ground"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -785,7 +787,9 @@
   "group": "Spices and Herbs",
   "desc": "Spices, oregano, dried",
   "sciname": "Origanum vulgare",
-  "page_slugs": [],
+  "page_slugs": [
+   "oregano-dried"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -1097,7 +1101,9 @@
   "group": "Spices and Herbs",
   "desc": "Spices, poppy seed",
   "sciname": "Papaver somniferum",
-  "page_slugs": [],
+  "page_slugs": [
+   "poppy-seeds"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -1175,7 +1181,9 @@
   "group": "Spices and Herbs",
   "desc": "Spices, turmeric, ground",
   "sciname": "Curcuma longa L.",
-  "page_slugs": [],
+  "page_slugs": [
+   "turmeric-ground"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -2881,7 +2889,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Cranberries, raw",
   "sciname": "Vaccinium macrocarpon",
-  "page_slugs": [],
+  "page_slugs": [
+   "cranberries-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -3295,7 +3305,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Figs, raw",
   "sciname": "Ficus carica",
-  "page_slugs": [],
+  "page_slugs": [
+   "fig-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -3717,7 +3729,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Limes, raw",
   "sciname": "Citrus latifolia",
-  "page_slugs": [],
+  "page_slugs": [
+   "lime-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -3875,7 +3889,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Melons, cantaloupe, raw",
   "sciname": "Cucumis melo",
-  "page_slugs": [],
+  "page_slugs": [
+   "cantaloupe-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -3953,7 +3969,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Melons, honeydew, raw",
   "sciname": "Cucumis melo",
-  "page_slugs": [],
+  "page_slugs": [
+   "honeydew-melon-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -4865,7 +4883,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Plums, dried (prunes), uncooked",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "prunes-dried"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -6671,7 +6691,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Cabbage, raw",
   "sciname": "Brassica oleracea (Capitata Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "cabbage-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -6827,7 +6849,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Cabbage, red, raw",
   "sciname": "Brassica oleracea (Capitata Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "red-cabbage-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -7773,7 +7797,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Garlic, raw",
   "sciname": "Allium sativum",
-  "page_slugs": [],
+  "page_slugs": [
+   "garlic-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -7985,7 +8011,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Lettuce, cos or romaine, raw",
   "sciname": "Lactuca sativa var. logifolia",
-  "page_slugs": [],
+  "page_slugs": [
+   "romaine-lettuce-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -13937,7 +13965,9 @@
   "group": "Cereal Grains and Pasta",
   "desc": "Oat bran, raw",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "oat-bran-raw"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -14317,7 +14347,9 @@
   "group": "Cereal Grains and Pasta",
   "desc": "Sorghum grain",
   "sciname": "Sorghum spp.",
-  "page_slugs": [],
+  "page_slugs": [
+   "sorghum-grain"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",
@@ -14395,7 +14427,9 @@
   "group": "Cereal Grains and Pasta",
   "desc": "Wheat bran, crude",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "wheat-bran"
+  ],
   "subclasses": {
    "proanthocyanidins": {
     "name": "Proanthocyanidins",

@@ -1,0 +1,36 @@
+{
+  "source": "walther-2013",
+  "citation": "Walther B, Karl JP, Booth SL, Boyaval P. Menaquinones, bacteria, and the food supply: the relevance of dairy and fermented food products. Adv Nutr. 2013;4(4):463-73, Table 2",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3941825/",
+  "table": "Table 2, representative ranges of measured menaquinone concentration in dairy foods and fermented food products",
+  "unit": "ug/100 g",
+  "quotes": [
+    "Schurgers LJ, Vermeer C. Determination of phylloquinone and menaquinones in food. Haemostasis. 2000;30:298-307 (reference 28)",
+    "Kamao M, Suhara Y, Tsugawa N, et al. Vitamin K content of foods and dietary vitamin K intake in Japanese young women. J Nutr Sci Vitaminol. 2007;53:464-70 (reference 29)"
+  ],
+  "note": "A review reporting the two primary studies rather than a study in its own right, which is why both are named above. ND is not detectable. Only the two plant rows are transcribed here; the dairy, cheese and salami rows of the same table are foods this page does not carry. The table has no column for a menaquinone total and none is recorded here, because summing across homologues would be this repository's arithmetic and not the source's.",
+  "rows": [
+    {
+      "food": "Natto", "refs": [28, 29],
+      "mk4": { "state": "range", "low": 0, "high": 2.0, "raw": "ND-2.0" },
+      "mk5": { "state": "measured", "value": 7.5 },
+      "mk6": { "state": "measured", "value": 13.8 },
+      "mk7": { "state": "range", "low": 939, "high": 998, "raw": "939-998" },
+      "mk8": { "state": "measured", "value": 84.1 },
+      "mk9": { "state": "not-detected", "raw": "ND" },
+      "mk10": { "state": "not-detected", "raw": "ND" }
+    },
+    {
+      "food": "Sauerkraut", "refs": [28],
+      "mk4": { "state": "measured", "value": 0.4 },
+      "mk5": { "state": "measured", "value": 0.8 },
+      "mk6": { "state": "measured", "value": 1.5 },
+      "mk7": { "state": "measured", "value": 0.2 },
+      "mk8": { "state": "measured", "value": 0.8 },
+      "mk9": { "state": "measured", "value": 1.1 },
+      "mk10": { "state": "not-detected", "raw": "ND" }
+    }
+  ],
+  "finding": "The sauerkraut row sums to 4.8 ug across its six reported homologues, which is the figure this page previously carried as sauerkraut MK-7. MK-7 in sauerkraut is 0.2 ug; 4.8 is the total.",
+  "mk11": "The review does not report MK-11 for any food and its table has no column for it."
+}

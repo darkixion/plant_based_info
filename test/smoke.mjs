@@ -2750,7 +2750,7 @@ await test("an evidence value reaches no total, no percentage and no score", asy
         threw: (() => { try { val(FOODS[0], ev[0]); return false; } catch { return true; } })(),
       };
     });
-    eq(r.ev.length, 48, "forty-eight evidence columns");
+    eq(r.ev.length, 47, "forty-seven evidence columns");
     eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
     eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
     eq(r.inTotals.length, 0, `evidence ids in day totals: ${r.inTotals.join(", ")}`);
@@ -3042,10 +3042,13 @@ await test("an evidence column names its sources where a reader can reach them",
     // claim, and textContent would pass on sources nobody can see.
     const text = await page.evaluate(() => { S.tab = "vitamin"; renderDetail(); return $("#tabp").innerText; });
     assert(/0\.5 to 3\.7/.test(text), `the panel should carry the range too, got: ${text.slice(0, 300)}`);
-    // The countries rather than the source keys: "mext-2020" is this
-    // repository's name for it, and the page does not name its own plumbing.
-    for (const country of ["Japan", "United Kingdom", "Australia"])
-      assert(text.includes(country), `${country} should be named beside the figure`);
+    /* The short labels rather than the source keys: "mext-2020" is this
+       repository's name for it, and the page does not name its own plumbing.
+       A country for a national table and an author and year for a paper, since
+       two thirds of the sources are single papers and have no country worth
+       printing. */
+    for (const label of ["Japan (MEXT)", "UK (CoFID)", "Australia (AFCD)"])
+      assert(text.includes(label), `${label} should be named beside the figure`);
   });
 });
 
@@ -3111,6 +3114,48 @@ await test("a figure that is both calculated and a proxy shows both marks", asyn
     eq(lost.length, 0, `cells that dropped the calc marker: ${lost.length} of ${marks.length}`);
     const noProxy = marks.filter(m => !m.includes("~"));
     eq(noProxy.length, 0, `cells that dropped the proxy marker: ${noProxy.length} of ${marks.length}`);
+  });
+});
+
+await test("the marks drawn on evidence cells are explained under the table", async () => {
+  /* The stylesheet draws " calc" and " ~" and cannot say what either means.
+     Nothing on the page did either, so a reader met "4.2 calc" and a tilde that
+     reads as contradicting the figure beside it, with no key anywhere. */
+  await withPage(async page => {
+    const shown = await page.evaluate(() => {
+      // "all" drops the preset and shows every column, which is the only view
+      // that puts an evidence column on the table at the same time as the key.
+      S.lens = "all";
+      render();
+      const key = document.querySelector("#noteKey");
+      return { hidden: key.hidden, text: key.innerText,
+               calc: !!document.querySelector('#tbody td[data-ev="estimated"]'),
+               proxy: !!document.querySelector('#tbody td[data-match="proxy"]') };
+    });
+    assert(shown.calc, "this tab should be showing at least one calculated figure");
+    assert(!shown.hidden, "the key must be visible when a mark is on screen");
+    assert(/Calculated by the source/.test(shown.text),
+      `the calc mark must be explained, got: ${shown.text.slice(0, 200)}`);
+    if (shown.proxy) assert(/proxy food/i.test(shown.text),
+      `the proxy mark must be explained, got: ${shown.text.slice(0, 200)}`);
+  });
+});
+
+await test("a view with no marked cell shows no key for them", async () => {
+  // A legend for a marker nobody can see is just more to read, which is the
+  // rule the per-cell footnotes already follow. The amino acid group carries no
+  // evidence column at all, so neither mark can appear while it is the only
+  // group on show.
+  await withPage(async page => {
+    const text = await page.evaluate(() => {
+      S.lens = "";
+      S.groups = new Set(["amino"]);
+      render();
+      const key = document.querySelector("#noteKey");
+      return key.hidden ? "" : key.innerText;
+    });
+    assert(!/Calculated by the source/.test(text),
+      `no calculated figure is on screen, so the key must not explain one: ${text.slice(0, 200)}`);
   });
 });
 

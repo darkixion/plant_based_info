@@ -7,7 +7,7 @@
  * the build has no dependencies and does exactly one thing: inline everything.
  */
 import { readFile, writeFile, watch } from "node:fs/promises";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -56,10 +56,35 @@ const inject = (src, token, value) => {
 const EV_STATES = new Set(["measured", "range", "trace", "not-detected", "estimated", "not-measured"]);
 const EV_MATCH = new Set(["exact", "close", "proxy"]);
 
+/* Evidence columns that are a named part of another evidence column, as
+   part -> total. Only pairs where one is definitionally inside the other: MK-7
+   is one menaquinone among the total, glucoraphanin one glucosinolate among
+   theirs. The sum may fall short of the total, since neither list is complete,
+   but no part may exceed it. */
+const EV_SUBSET = {
+  glucoraphanin: "glucosinolates",
+  mk4: "k2", mk7: "k2", mk8: "k2", mk9: "k2", mk10: "k2",
+};
+
+/* Two figures agree when they are the same figure. Tight on purpose: the cells
+   this rule exists to catch missed their source by one to nine per cent, which
+   is close enough to read as a rounding difference and far enough to be a
+   different measurement. Only true rounding is forgiven. */
+const attests = (mine, theirs) => Math.abs(mine - theirs) <= 0.0005 + Math.abs(theirs) * 1e-9;
+
 /** Exported so test/tools.mjs can exercise it without a build. Every rule here
  *  refuses a shape that would render as plausible data rather than as an error,
- *  which is the same standard the notes and portions checks above are held to. */
-export function checkEvidence(evidence, nutrients, foods, sources) {
+ *  which is the same standard the notes and portions checks above are held to.
+ *
+ *  `attested` is what the corpora in tools/evidence actually say, as
+ *  source -> food slug -> component -> figure, and is how a value gets held to
+ *  the database it cites rather than only to its own plausibility. It is
+ *  deliberately partial: a source absent from it has no corpus here and no cell
+ *  citing it can be checked, which is a gap in the evidence rather than a fault
+ *  in the data. Absence of the *food* under a source that is present is a
+ *  fault, because it means the cell reached a database no reviewed map connects
+ *  it to. */
+export function checkEvidence(evidence, nutrients, foods, sources, attested = {}) {
   const problems = [];
   const slug = f => `${f.name} ${f.state || ""}`.toLowerCase().trim()
     .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -70,12 +95,15 @@ export function checkEvidence(evidence, nutrients, foods, sources) {
     const food = bySlug.get(foodSlug);
     if (!food) { problems.push(`evidence for unknown food "${foodSlug}"`); continue; }
 
-    /* The mapping, checked once per food rather than once per cell. Preparation
+    /* The mappings, one per source rather than one per food. A food is mapped
+       once into each database it draws on and those mappings are not equally
+       good, so a single grade could only be right about one of them. Preparation
        is the sharpest edge in this data: a correct value against the wrong
        preparation is worse than none, because it looks right. */
-    if (!entry.match) problems.push(`evidence ${foodSlug}: no match grade`);
-    else if (!EV_MATCH.has(entry.match))
-      problems.push(`evidence ${foodSlug}: unknown match grade "${entry.match}"`);
+    const grades = entry.matches || {};
+    for (const [source, grade] of Object.entries(grades))
+      if (!EV_MATCH.has(grade))
+        problems.push(`evidence ${foodSlug}: unknown match grade "${grade}" for ${source}`);
     const state = (food.state || "as listed").toLowerCase();
     if (entry.prep && entry.prep.toLowerCase() !== state && entry.prep.toLowerCase() !== "as listed")
       problems.push(`evidence ${foodSlug}: prep "${entry.prep}" disagrees with the food's state "${food.state || ""}"`);
@@ -92,20 +120,319 @@ export function checkEvidence(evidence, nutrients, foods, sources) {
       if (carries) {
         if (!Array.isArray(c.sources) || !c.sources.length)
           problems.push(`${at}: a value with no source`);
-        else for (const s of c.sources)
+        else for (const s of c.sources) {
           if (!sources[s]) problems.push(`${at}: unknown source "${s}"`);
+          // The label the dialog prints beside the figure. Without one it fell
+          // back to the source key, so the page read "· milder-2005" where it
+          // meant to name a country or a paper.
+          else if (!sources[s].short) problems.push(`${at}: source "${s}" has no short label`);
+          /* Every source a figure rests on must be graded, because the page
+             decides the proxy mark per cell from the cell's own sources. An
+             ungraded one would show unmarked, which is the failure that let
+             IFCT's dry-basis phytate sit on cooked rows looking exact. */
+          if (!grades[s]) problems.push(`${at}: no match grade for ${s}`);
+        }
       }
       if ((c.state === "measured" || c.state === "estimated") && typeof c.value !== "number")
         problems.push(`${at}: ${c.state} with no value`);
+      /* A fraction of a total that exceeds it. The same check the fat columns
+         in `v` already get, and for the same reason: the two figures look
+         individually plausible and only disagree when compared, which is the
+         signature of a food whose two cells came from samples that cannot both
+         describe it. Evidence columns were outside that check until a
+         glucoraphanin figure of 89 mg met a recorded 61.7 mg of total
+         glucosinolates on the same row. */
+      const total = EV_SUBSET[id] && entry.cells[EV_SUBSET[id]];
+      // Compared at the top of each, since a range's upper bound is the most
+      // the cell claims and the most the total is allowed to be short of.
+      const most = x => (x?.state === "range" ? x.high : x?.value);
+      /* Only within one source. A part exceeding its total is impossible in one
+         set of samples and merely a disagreement across two: broccoli's total
+         glucosinolates are a UK literature mean and its glucoraphanin a
+         cultivar screen elsewhere, and holding the second against the first
+         would refuse a real measurement on the strength of an unrelated one.
+         Same source, though, and the food cannot contain more of a part than of
+         the whole it belongs to. */
+      const shared = total && (c.sources || []).some(s => (total.sources || []).includes(s));
+      if (shared && typeof most(total) === "number" && typeof most(c) === "number"
+          && most(c) > most(total) * 1.01 + 0.005)
+        problems.push(`${at}: ${most(c)} exceeds ${EV_SUBSET[id]} ${most(total)}, which it is part of`);
+
       if (c.state === "range") {
         if (typeof c.low !== "number" || typeof c.high !== "number")
           problems.push(`${at}: range with no bounds`);
         else if (!(c.high > c.low))
           problems.push(`${at}: range bounds are equal or inverted, which means reconciliation was skipped`);
       }
+
+      /* What the sources this cell names actually say, for the ones a corpus
+         here can answer for. Collected before any comparison because the rule
+         differs by how many answered: one figure must be reproduced exactly,
+         several are being reconciled and only bound the answer. */
+      if (!carries) continue;
+      const found = [];
+      for (const s of c.sources || []) {
+        const corpus = attested[s];
+        if (!corpus) continue;
+        const row = corpus[foodSlug];
+        if (!row) { problems.push(`${at}: cites ${s} but there is no ${s} row mapped to this food`); continue; }
+        /* An array where a corpus samples the same food many times over: FAO's
+           phytate release carries a row per cultivar and treatment rather than
+           one per food, so the source attests a spread rather than a figure and
+           every part of it counts. */
+        const figures = Array.isArray(row[id]) ? row[id] : [row[id]];
+        if (!figures.length || figures.some(f => typeof f !== "number"))
+          { problems.push(`${at}: the ${s} row for this food carries no ${id}`); continue; }
+        for (const figure of figures) found.push({ source: s, figure });
+      }
+      if (!found.length) continue;
+
+      if (c.state === "range") {
+        // A range names the breadth of a disagreement, so it has to contain the
+        // disagreement. One that excludes a source it credits has quietly
+        // dropped that source's finding while keeping its name.
+        for (const { source, figure } of found)
+          if (figure < c.low - 0.0005 || figure > c.high + 0.0005)
+            problems.push(`${at}: range ${c.low} to ${c.high} excludes ${source}'s ${figure}`);
+      } else if (found.length === 1) {
+        if (!attests(c.value, found[0].figure))
+          problems.push(`${at}: ${c.value} disagrees with ${found[0].source}, which says ${found[0].figure}`);
+      } else {
+        // Several sources: the value is a reconciliation and equals none of
+        // them by design, but it can never leave the span they establish.
+        const lo = Math.min(...found.map(f => f.figure));
+        const hi = Math.max(...found.map(f => f.figure));
+        if (c.value < lo - 0.0005 || c.value > hi + 0.0005)
+          problems.push(`${at}: ${c.value} is outside the ${lo} to ${hi} its sources attest`);
+      }
     }
   }
   return problems;
+}
+
+/* ---------- what the corpora actually say ----------
+   Reads tools/evidence back into the shape checkEvidence holds cells against:
+   source -> food slug -> component -> figure. The evidence store is the raw
+   material the page's cells are drawn from, so reading it here closes the loop
+   between the two: a value can no longer drift from the row it came from, and
+   a citation can no longer be attached to a database that never held it.
+
+   Only sources with both a corpus file and a reviewed page map appear. That
+   partiality is the point and is documented on checkEvidence: unlisted sources
+   are single papers with nothing here to check them against, and inventing a
+   verdict for them would be worse than admitting there is none. */
+const EV_DIR = join(ROOT, "tools", "evidence");
+const readCorpus = name => {
+  const path = join(EV_DIR, name);
+  if (!existsSync(path)) return null;
+  return JSON.parse(readFileSync(path, "utf8"));
+};
+const evSlug = (page, state) => `${page} ${state || ""}`.toLowerCase().trim()
+  .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+/* MEXT prints an estimated figure in parentheses and a trace as "Tr", so the
+   parsed rows keep `value` null for everything that is not a plain number and
+   the figure has to come back off `raw`. A cell whose state carries no figure
+   is never compared, so only the numeric states need to resolve. */
+const rawFigure = field => {
+  if (!field) return undefined;
+  if (typeof field.value === "number") return field.value;
+  const m = /-?\d+(\.\d+)?/.exec(String(field.raw ?? ""));
+  return m ? Number(m[0]) : undefined;
+};
+
+export function loadAttested() {
+  const out = {};
+  const put = (source, slug, id, figure) => {
+    if (typeof figure !== "number" || Number.isNaN(figure)) return;
+    ((out[source] ||= {})[slug] ||= {})[id] = figure;
+  };
+  /* Registering the food even when no component resolves is deliberate: it is
+     what separates "this database has nothing to say about that component"
+     from "no reviewed map reaches this food at all", and those are different
+     faults with different fixes. */
+  const reach = (source, slug) => { (out[source] ||= {})[slug] ||= {}; };
+
+  // MEXT, across its four tables, joined on the Japanese food code.
+  const mextMap = readCorpus("page-map-mext.json");
+  if (mextMap) {
+    const table = (file, cols) => {
+      const rows = readCorpus(file);
+      if (!rows) return;
+      const byCode = new Map(rows.map(r => [r.code, r]));
+      for (const m of mextMap) {
+        const slug = evSlug(m.page, m.page_state);
+        reach("mext-2020", slug);
+        const row = byCode.get(m.jp_code);
+        if (!row) continue;
+        for (const [id, field] of Object.entries(cols)) put("mext-2020", slug, id, rawFigure(row[field]));
+      }
+    };
+    table("mext-2020-plant.json", { biotin: "biotin", mo: "mo", iodine: "iodine", cr: "cr" });
+    table("mext-2020-fibre.json",
+          { solfibre: "sol_prosky", insolfibre: "insol_prosky", resstarch: "resistant_starch" });
+    table("mext-2020-sugars.json", { starch: "starch", glucose: "glucose", fructose: "fructose",
+          sucrose: "sucrose", maltose: "maltose", sorbitol: "sorbitol", mannitol: "mannitol" });
+    table("mext-2020-organic-acids.json",
+          { organicacids: "total_oa", citric: "citric", malic: "malic", quinic: "quinic", oxalate: "oxalic" });
+  }
+
+  // IFCT, whose two tables share one code and one reviewed map.
+  const ifctMap = readCorpus("page-map-ifct.json");
+  if (ifctMap) {
+    const t11 = new Map((readCorpus("ifct-2017-table11.json") || []).map(r => [r.code, r]));
+    const t9 = new Map((readCorpus("ifct-2017-table9.json") || []).map(r => [r.code, r]));
+    for (const m of ifctMap) {
+      const slug = evSlug(m.page, m.page_state);
+      reach("ifct-2017", slug);
+      const a = t11.get(m.ifct_code);
+      if (a) put("ifct-2017", slug, "phytate", a.phytate_mg?.mean);
+      const b = t9.get(m.ifct_code);
+      if (b) {
+        put("ifct-2017", slug, "oxalate_sol", b.oxalate_soluble_mg?.mean ?? b.oxalate_soluble_mg);
+        put("ifct-2017", slug, "oxalate_insol", b.oxalate_insoluble_mg?.mean ?? b.oxalate_insoluble_mg);
+      }
+    }
+  }
+
+  /* CoFID. Every cell citing it is a biotin reconciliation against MEXT, so
+     without this the check would hold those values to MEXT alone and call a
+     correct reconciliation a disagreement. */
+  const cofidMap = readCorpus("page-map-cofid.json");
+  if (cofidMap) {
+    const rows = new Map((readCorpus("cofid-2021-plant.json") || []).map(r => [r.code, r]));
+    for (const m of cofidMap) {
+      const slug = evSlug(m.page, m.page_state);
+      reach("cofid-2021", slug);
+      const row = rows.get(m.cofid_code);
+      // "N" is CoFID's own marker for a component it did not measure, and is
+      // not a number however much it sits in a numeric column.
+      if (row && row.biotin_ug !== "" && row.biotin_ug !== "N")
+        put("cofid-2021", slug, "biotin", Number(row.biotin_ug));
+    }
+  }
+
+  // AFCD, whose map is a plain slug -> key object rather than a row list.
+  const afcdMap = readCorpus("page-map-afcd.json");
+  if (afcdMap) {
+    const rows = new Map((readCorpus("afcd-r3-plant.json") || []).map(r => [r.key, r]));
+    for (const [slug, key] of Object.entries(afcdMap)) {
+      reach("afcd-r3", slug);
+      const row = rows.get(key);
+      if (!row) continue;
+      const num = v => (v === "" || v == null ? undefined : Number(v));
+      put("afcd-r3", slug, "inulin", num(row.inulin_g));
+      put("afcd-r3", slug, "biotin", num(row.biotin_ug));
+    }
+  }
+
+  /* FAO/INFOODS phytate, joined by a reviewed map from page food to row index.
+     A list of rows rather than one, because the release samples cultivars and
+     treatments rather than foods: "Cashew nut, raw" is three rows spanning 290
+     to 929, and no single one of them is the cashew. */
+  const faoMap = readCorpus("page-map-fao-phytate.json");
+  if (faoMap) {
+    const rows = readCorpus("fao-phytate.json") || [];
+    for (const m of faoMap) {
+      reach("fao-phytate", m.page);
+      const figures = (m.rows || []).map(i => rows[i]?.phytate_mg_100g).filter(v => typeof v === "number");
+      if (figures.length) (out["fao-phytate"][m.page].phytate = figures);
+    }
+  }
+
+  /* FAO/INFOODS BioFoodComp and AnFooD, for the raffinose family. Rows per
+     component rather than per food: a cooked chickpea row carrying verbascose
+     and a boiled one carrying only raffinose are both the right food, and which
+     components each can answer for differs. */
+  const oligoMap = readCorpus("page-map-fao-oligos.json");
+  if (oligoMap) {
+    const rows = readCorpus("fao-oligosaccharides.json") || [];
+    for (const m of oligoMap) {
+      reach("fao-oligosaccharides", m.page);
+      for (const [id, list] of Object.entries(m.components || {})) {
+        const figures = list.map(i => rows[i]?.[id])
+          .filter(c => c && typeof c.value === "number").map(c => c.value);
+        if (figures.length) out["fao-oligosaccharides"][m.page][id] = figures;
+      }
+    }
+  }
+
+  /* Sim 2021, the Australian vitamin K database. Only its measured figures
+     enter the index: a row reading ND is an analysed absence, which the cell
+     records as not-detected and which carries no figure to compare against. */
+  const simMap = readCorpus("page-map-sim-2021.json");
+  if (simMap) {
+    const corpus = readCorpus("sim-2021-vitamin-k.json");
+    const rows = new Map((corpus?.rows || []).map(r => [r.food, r]));
+    for (const m of simMap) {
+      reach("sim-2021", m.page);
+      const row = rows.get(m.row);
+      if (!row) continue;
+      for (const id of ["mk4", "mk7"]) {
+        if (typeof row[id] === "number") { put("sim-2021", m.page, id, row[id]); continue; }
+        /* One row prints a range with no median beside it, so the bounds are
+           what the source attests and the cell has to be a range over them. */
+        const span = row[`${id}_range`];
+        if (Array.isArray(span)) { out["sim-2021"][m.page][id] = span; continue; }
+        // An analysed absence attests zero. Not the same as a measured zero to
+        // a reader, but for bounding a range it is exactly what the source
+        // found, and a cell citing it must still contain that finding.
+        if (row[id] === "ND") put("sim-2021", m.page, id, 0);
+      }
+    }
+  }
+
+  /* Walther's two menaquinone tables, 2013 and 2017, for the homologues. Two
+     plant rows each and no map file: the row names are the page's own food
+     names, so the mapping is the identity and a map would be a file with two
+     lines in it. Both are indexed rather than only the later one, because a
+     cell drawn from the pair has to hold against both. */
+  for (const file of ["walther-2013-menaquinones.json", "walther-2017-menaquinones.json"]) {
+    const corpus = readCorpus(file);
+    if (!corpus) continue;
+    const key = corpus.source;
+    const rowFor = { natto: "Natto", "sauerkraut-canned": "Sauerkraut" };
+    for (const [page, name] of Object.entries(rowFor)) {
+      reach(key, page);
+      // The 2017 table splits one food across its primary studies, so a food
+      // can have several rows and each of them attests.
+      for (const row of (corpus.rows || []).filter(r => r.food === name)) {
+        for (const id of ["mk4", "mk7", "mk8", "mk9", "mk10"]) {
+          const c = row[id];
+          if (!c) continue;
+          const seen = out[key][page][id] ||= [];
+          if (typeof c.value === "number") seen.push(c.value);
+          else if (c.state === "range") seen.push(c.low, c.high);
+          else if (c.state === "not-detected") seen.push(0);
+          if (!seen.length) delete out[key][page][id];
+        }
+      }
+    }
+  }
+
+  /* Jensen 2022, a direct analysis of PK and MK-4 to MK-10 in five matrices.
+     Each row names the page food it maps to, so no separate map file. Only its
+     measured figures are indexed: a below-LOQ result carries no number to
+     compare a cell against, and becomes an analysed absence instead. */
+  const jensen = readCorpus("jensen-2022-vitamin-k.json");
+  if (jensen) for (const row of jensen.rows || []) {
+    reach("jensen-2022", row.page);
+    for (const id of ["mk4", "mk7", "mk8", "mk9", "mk10"]) {
+      if (row[id]?.state === "measured") put("jensen-2022", row.page, id, row[id].value);
+      // Below the limit of quantification attests zero, for the same reason an
+      // ND does: the source looked and found nothing to report.
+      else if (row[id]?.state === "below-loq") put("jensen-2022", row.page, id, 0);
+    }
+  }
+
+  // The proanthocyanidin release carries its own reviewed mapping, as a list of
+  // page slugs on each row, so it needs no separate map file.
+  const pa = readCorpus("usda-proanthocyanidins.json");
+  if (pa) for (const row of pa) for (const slug of row.page_slugs || []) {
+    reach("usda-pa-r2", slug);
+    put("usda-pa-r2", slug, "proanthocyanidins", row.subclasses?.proanthocyanidins?.sum_mg);
+  }
+
+  return out;
 }
 
 /** Exported so test/tools.mjs can exercise it without a build, the same as
@@ -417,7 +744,7 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
 
   problems.push(...checkGaps(gaps, nutrients));
 
-  problems.push(...checkEvidence(evidence, nutrients, foods, srcs));
+  problems.push(...checkEvidence(evidence, nutrients, foods, srcs, loadAttested()));
   // A citation nobody uses is the same fault as an uncited claim, read from the
   // other end, and the same check the interactions and gaps sources get.
   for (const key of Object.keys(srcs || {}))

@@ -120,12 +120,7 @@
     "glucosinolates": {
       "v": 61.7,
       "match": "McNaughton 2003",
-      "source": "eurofir"
-    },
-    "glucoraphanin": {
-      "v": 45,
-      "match": "Estimated major fraction of 61.7 total",
-      "source": "eurofir"
+      "source": "mcnaughton-2003"
     },
     "boron": {
       "v": 0.22,
@@ -254,7 +249,7 @@
     "glucosinolates": {
       "v": 101,
       "match": "McNaughton 2003",
-      "source": "eurofir"
+      "source": "mcnaughton-2003"
     }
   },
   "sunflower-seeds": {
@@ -265,11 +260,6 @@
     }
   },
   "pinto-beans-cooked": {
-    "proanthocyanidins": {
-      "v": 796,
-      "match": "796.0 mg/100g (Raw converted)",
-      "source": "usda-pa"
-    },
     "boron": {
       "v": 0.4,
       "match": "0.40 mg/100g",
@@ -282,11 +272,6 @@
     }
   },
   "kidney-beans-cooked": {
-    "proanthocyanidins": {
-      "v": 563,
-      "match": "563.0 mg/100g (Raw converted)",
-      "source": "usda-pa"
-    },
     "boron": {
       "v": 0.35,
       "match": "0.35 mg/100g",
@@ -304,22 +289,10 @@
     }
   },
   "hazelnuts": {
-    "proanthocyanidins": {
-      "v": 501.2,
-      "match": "501.2 mg/100g",
-      "source": "usda-pa"
-    },
     "boron": {
       "v": 2.1,
       "match": "2.10 mg/100g",
       "source": "pizzorno-2015"
-    }
-  },
-  "pecans": {
-    "proanthocyanidins": {
-      "v": 494,
-      "match": "494.0 mg/100g",
-      "source": "usda-pa"
     }
   },
   "oats-rolled-dry": {

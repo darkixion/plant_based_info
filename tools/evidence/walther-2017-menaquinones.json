@@ -1,0 +1,41 @@
+{
+  "source": "walther-2017",
+  "citation": "Walther B, Chollet M. Menaquinones, Bacteria, and Foods: Vitamin K2 in the Diet. In: Vitamin K2 - Vital for Health and Wellbeing. IntechOpen; 2017, Table 1",
+  "url": "https://www.intechopen.com/chapters/50921",
+  "doi": "10.5772/63712",
+  "unit": "ug/100 g",
+  "note": "The same lead author as walther-2013, revisiting the same primary studies four years later with a finer table: ranges where the earlier one gave a midpoint, and one row per primary study rather than one per food. Preferred over the earlier account wherever the two differ in granularity. Reference 6 in this table is Schurgers and Vermeer 2000; reference 32 is Kamao 2007.",
+  "legend": {
+    "nd": "not determined, per this table's own caption",
+    "nr": "not reported"
+  },
+  "conflict": "The two accounts define their abbreviations differently. walther-2013 says plainly 'ND, not detectable' and marks natto MK-9 and MK-10, and sauerkraut MK-10, as ND. This table says 'nd, not determined' and marks natto MK-9 as nd and MK-10 as nr for every row drawn from reference 6. One account says the assay ran and found none; the other says it never ran. Where they disagree the weaker claim is the one this page makes, so those cells are recorded as not-measured rather than not-detected. Natto MK-9 is the exception: reference 6 reports a figure for MK-9 in sauerkraut, so the same assay plainly reached MK-9, and an empty natto cell from that study is an absence rather than a gap.",
+  "rows": [
+    {
+      "food": "Sauerkraut", "ref": 6,
+      "mk4": { "state": "range", "low": 0.3, "high": 0.5 },
+      "mk5": { "state": "range", "low": 0.6, "high": 1.0 },
+      "mk6": { "state": "range", "low": 1.4, "high": 1.6 },
+      "mk7": { "state": "range", "low": 0.1, "high": 0.3 },
+      "mk8": { "state": "range", "low": 0.6, "high": 0.9 },
+      "mk9": { "state": "range", "low": 0.9, "high": 1.3 },
+      "mk10": { "state": "not-measured", "raw": "nr" }
+    },
+    {
+      "food": "Natto", "ref": 6,
+      "mk4": { "state": "not-detected", "raw": "nd" },
+      "mk5": { "state": "range", "low": 7.1, "high": 7.8 },
+      "mk6": { "state": "range", "low": 12.7, "high": 14.8 },
+      "mk7": { "state": "range", "low": 882, "high": 1034 },
+      "mk8": { "state": "range", "low": 78.3, "high": 89.8 },
+      "mk9": { "state": "not-detected", "raw": "nd" },
+      "mk10": { "state": "not-measured", "raw": "nr" }
+    },
+    {
+      "food": "Natto", "ref": 32,
+      "mk4": { "state": "measured", "value": 2, "sd": 3 },
+      "mk7": { "state": "measured", "value": 939, "sd": 753 }
+    }
+  ],
+  "not-on-this-page": "The table's other plant row is buckwheat, which sits under its Bread heading and is buckwheat bread rather than the cooked groats this page carries. Its MK-7 is 1.0 to 1.2 ug."
+}

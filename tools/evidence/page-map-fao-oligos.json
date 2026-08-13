@@ -1,0 +1,21 @@
+[
+ {
+  "page": "chickpeas-cooked",
+  "match": "close",
+  "note": "Page food is 60.2 g water. Row 144 is Portugal, water-soaked and pressure-cooked at 56.5 g water, and is the only cooked chickpea row in either workbook carrying verbascose. Rows 126, 129 and 132 are three boiled Egyptian Kabuli cultivars at 63.9 to 64.7 g water, which carry raffinose only. Graded close because the page food is boiled and unspecified as to cultivar.",
+  "components": {
+   "verbascose": [144],
+   "stachyose": [144],
+   "raffinose": [144, 126, 129, 132]
+  }
+ },
+ {
+  "page": "cannellini-beans-cooked",
+  "match": "close",
+  "note": "Row 60 is a white Phaseolus vulgaris, canned and cooked, drained, at 57.9 g water against the page food's 63.1. Same species and much the same preparation; the canning liquor carried salt and ascorbic acid, which is why this is close rather than exact. Carries no verbascose.",
+  "components": {
+   "raffinose": [60],
+   "stachyose": [60]
+  }
+ }
+]

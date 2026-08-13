@@ -903,16 +903,43 @@ boiled. Every legume on this page is cooked and most outside sources report dry.
 **A right value against the wrong preparation is worse than none, because it
 looks right.**
 
-Cells also carry a `match` grade of `exact`, `close` or `proxy`, and a proxy
+Each mapping carries a `match` grade of `exact`, `close` or `proxy`, and a proxy
 match is marked with `~` in the table. The grade is a property of the mapping
-rather than of the measurement.
+rather than of the measurement, which is why `data-ev="measured"` beside
+`data-match="proxy"` is not a contradiction: the figure was measured, and the
+food it was measured in is the approximation.
+
+There is one grade per source rather than one per food, held in
+`matches: { "<source>": "<grade>" }`. A food is mapped once into each database
+and those mappings are not equally good: cooked lentils are MEXT's boiled-lentil
+row and IFCT's dry dhal, and the single grade this replaced said `exact`, so the
+dry figure showed unmarked. A cell takes the worst grade among its own sources.
+
+Both marks are explained in the key under the table, and only when a cell
+carrying one is actually on screen.
+
+### Values are held to the source they cite
+
+`checkEvidence` reads the corpora in `tools/evidence/` back through their
+reviewed maps and refuses any figure the cited database does not hold. It exists
+because a review found 127 cells whose numbers looked entirely plausible and
+appeared nowhere in the source named beside them. One source must be reproduced
+exactly, several bound a reconciliation, and a range must span all of them. A
+source with no corpus in the repository is left alone rather than failed, which
+is a gap in the evidence and not a fault in the data.
 
 ### Regenerating
 
 ```bash
-node tools/evidence.mjs      # rewrites src/data/evidence.json from tools/evidence/
+node tools/evidence.mjs      # adds to src/data/evidence.json from tools/evidence/
 npm run build
 ```
+
+`tools/evidence.mjs` adds rather than rebuilds: it reads the existing file first
+and writes only the passes it implements. FAO phytate and the USDA
+proanthocyanidin release are joined through their own reviewed maps and a
+wholesale rewrite would delete them. It is idempotent, and running it twice in a
+row leaves the file byte for byte identical.
 
 `tools/evidence/` holds the corpora, one file per source, with `README.md` and
 `sources.json` as the way in. `src/data/sources.json` is the subset the page

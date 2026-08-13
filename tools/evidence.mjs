@@ -1,11 +1,18 @@
 #!/usr/bin/env node
 /**
- * Builds src/data/evidence.json from the corpora in tools/evidence/.
+ * Adds to src/data/evidence.json from the corpora in tools/evidence/.
  *
  * Phase 1 covers three components: soluble fibre and insoluble fibre, which
  * come from one source and need no reconciliation, and biotin, which needs all
  * four rules including ranges. That pairing is deliberate: the fibres prove the
  * rendering, biotin proves the reconciliation.
+ *
+ * Adds rather than rebuilds. It reads the existing file first and only writes
+ * the passes below, because it does not know every source the page now draws
+ * on: FAO phytate and the USDA proanthocyanidin release are joined through
+ * their own reviewed maps and would be deleted by a wholesale rewrite. A
+ * generator that silently narrows the data it regenerates is worse than one
+ * that has to be told what it covers.
  *
  * Run: node tools/evidence.mjs
  */
@@ -43,7 +50,6 @@ const CORPORA = {
 const BY_CODE = Object.fromEntries(Object.entries(CORPORA)
   .map(([k, rows]) => [k, Object.fromEntries(rows.map(r => [r.code, r]))]));
 
-const cofidBy = Object.fromEntries(cofid.map(r => [r.name, r]));
 const afcdBy = Object.fromEntries(afcd.map(r => [r.name, r]));
 
 const cnfMap = rd("page-map-cnf.json");
@@ -52,7 +58,24 @@ const cnf = rd("cnf.json");
 const afcdDB = rd("afcd-r3-plant.json"); // separate from afcdBy which uses name
 const cnfBy = Object.fromEntries(cnf.map(r => [r.key, r]));
 const afcdKeyBy = Object.fromEntries(afcdDB.map(r => [r.key, r]));
-const literature = rd("literature.json");
+
+/* Seeded from what is already on the page, so a pass this tool does not
+   implement survives a run of it. */
+const DEST = join(ROOT, "src", "data", "evidence.json");
+const out = JSON.parse(readFileSync(DEST, "utf8"));
+
+/* One grade per source rather than one per food. A food is mapped once into
+   each database and those mappings are not equally good: cooked lentils are
+   MEXT's boiled-lentil row and IFCT's dry dhal. The single grade this replaced
+   could only be right about one of them, and it was recorded as "exact", so the
+   dry-basis figure reached the page with no proxy mark on it. */
+const entryFor = (slug, prep) =>
+  (out[slug] ||= { prep: prep || "as listed", matches: {}, cells: {} });
+const grade = (slug, source, g, prep) => {
+  const e = entryFor(slug, prep);
+  if (g) e.matches[source] = g;
+  return e;
+};
 
 
 /* The uniform components: one source, one field, one cell. Biotin is not here
@@ -97,28 +120,25 @@ const bracketed = raw => {
    caller must drop the cell rather than write a zero. */
 const figureOf = c => c.value !== null && c.value !== undefined ? c.value : bracketed(c.raw);
 
-/* Reviewed page -> CoFID and AFCD names, for the biotin comparison. MEXT is
-   already mapped in page-map-mext.json. Every pair here was checked by hand
-   against both databases; automated name matching stays refused. */
+/* Reviewed page -> AFCD names, for the biotin comparison. MEXT is mapped in
+   page-map-mext.json and CoFID in page-map-cofid.json; this holds only what has
+   no map file of its own. Every pair here was checked by hand against the
+   database; automated name matching stays refused. */
 const ALT = {
-  "lentils cooked":        { cofid: "Lentils, green and brown, whole, dried, boiled in unsalted water" },
-  "kidney-beans cooked":   { cofid: "Beans, red kidney, dried, boiled in unsalted water",
-                             afcd: "Bean, red kidney, dried, boiled, drained" },
-  "mung-beans cooked":     { cofid: "Beans, mung, whole, dried, boiled in unsalted water" },
-  "black-eyed-peas cooked":{ cofid: "Beans, blackeye, whole, dried, boiled in unsalted water" },
-  "broad-beans cooked":    { cofid: "Beans, broad, whole, boiled in unsalted water" },
-  "brown-rice cooked":     { cofid: "Rice, brown, easy cook, boiled in unsalted water",
-                             afcd: "Rice, brown, boiled, no added salt" },
-  "spinach raw":           { cofid: "Spinach, baby, raw", afcd: "Spinach, Mature English, fresh, raw" },
-  "broccoli cooked":       { cofid: "Broccoli, green, boiled in unsalted water" },
-  "banana":                { cofid: "Bananas, flesh only" },
-  "avocado":               { cofid: "Avocado, Hass, flesh only" },
-  "carrots raw":           { cofid: "Carrots, old, raw" },
-  "onions raw":            { cofid: "Onions, raw" },
-  "potato baked, with skin": { cofid: "Potatoes, old, baked, flesh and skin" },
+  "kidney-beans cooked":   { afcd: "Bean, red kidney, dried, boiled, drained" },
+  "brown-rice cooked":     { afcd: "Rice, brown, boiled, no added salt" },
+  "spinach raw":           { afcd: "Spinach, Mature English, fresh, raw" },
   "chickpeas cooked":      { afcd: "Chickpea, dried, boiled, drained" },
   "split-peas cooked":     { afcd: "Pea, split, dried, boiled, drained" },
 };
+/* CoFID's reviewed mapping, read from the file the build checks values against
+   rather than copied here. The copy this replaced had drifted: it picked
+   CoFID's parboiled "easy cook" brown rice where the map picks wholegrain, so
+   the generator and the checker disagreed about the same food. */
+const COFID_ROW = {};
+for (const m of rd("page-map-cofid.json"))
+  COFID_ROW[slugify(m.page, m.page_state)] = m;
+const cofidByCode = Object.fromEntries(cofid.map(r => [r.code, r]));
 
 const num = v => { const n = parseFloat(v); return Number.isNaN(n) ? null : n; };
 
@@ -128,7 +148,6 @@ function passthrough(state) {
   return state === "trace" || state === "not-detected" || state === "not-measured" ? state : null;
 }
 
-const out = {};
 // Named apart from the per-food `cells` object below, which needs the name
 // the loop body reads and writes at every step.
 let nCells = 0, ranges = 0, disputes = 0;
@@ -155,8 +174,14 @@ for (const p of map) {
   // biotin, from up to three sources
   const cands = [];
   if (p.biotin.state === "measured") cands.push({ source: "mext-2020", value: p.biotin.value, derivation: "analysed" });
-  const cf = alt.cofid && cofidBy[alt.cofid];
-  if (cf) { const v = num(cf.biotin_ug); if (v !== null) cands.push({ source: "cofid-2021", value: v, derivation: "analysed" }); }
+  const cm = COFID_ROW[slug];
+  const cf = cm && cofidByCode[cm.cofid_code];
+  if (cf) {
+    grade(slug, "cofid-2021", cm.match, p.page_state);
+    // "N" is CoFID's marker for a component it did not measure.
+    const v = cf.biotin_ug === "N" ? null : num(cf.biotin_ug);
+    if (v !== null) cands.push({ source: "cofid-2021", value: v, derivation: "analysed" });
+  }
   const af = alt.afcd && afcdBy[alt.afcd];
   if (af) { const v = num(af.biotin_ug); if (v !== null) cands.push({ source: "afcd-r3", value: v, derivation: gradeDerivation(af.derivation) }); }
 
@@ -171,20 +196,20 @@ for (const p of map) {
     if (through) { cells.biotin = { state: through, sources: ["mext-2020"] }; nCells++; }
   }
 
-  if (Object.keys(cells).length)
-    out[slug] = { prep: p.page_state || "as listed", match: p.match, cells };
+  if (Object.keys(cells).length) {
+    const e = grade(slug, "mext-2020", p.match, p.page_state);
+    Object.assign(e.cells, cells);
+  }
 }
 
 for (const p of ifctMap) {
   if (!p.ifct_code) continue;
   const slug = slugify(p.page, p.page_state);
   
-  if (!out[slug]) {
-    out[slug] = { prep: p.page_state || "as listed", match: p.match, cells: {} };
-  } else if (p.match === "proxy") {
-    // If the main food was exact but this is proxy, or both proxy, we just append to the existing object
-    // Note: MEXT match might be "exact" and IFCT "proxy". For simplicity, we just use the existing one.
-  }
+  /* IFCT's own grade, kept beside MEXT's rather than yielding to it. This is
+     where the two used to collide: whichever pass ran first set the food's one
+     grade and the other's mapping inherited it. */
+  grade(slug, "ifct-2017", p.match, p.page_state);
   
   // extract from table 11
   const t11 = ifct11By[p.ifct_code];
@@ -202,7 +227,9 @@ for (const p of ifctMap) {
      if (t9.oxalate_soluble_mg) {
        const val = num(t9.oxalate_soluble_mg.mean);
        if (val !== null) {
-         out[slug].cells.oxalate = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
+         // Milligrams, so it belongs in oxalate_sol and not in `oxalate`,
+         // which is a gram column carrying MEXT's oxalic acid.
+         out[slug].cells.oxalate_sol = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
          nCells++;
        }
      }
@@ -216,14 +243,16 @@ for (const p of ifctMap) {
   }
 }
 
+/* Single papers, each figure carrying the key of the paper it came from. An
+   entry with no source key is skipped rather than filed under a catch-all: the
+   catch-alls this replaced ("literature", "existing", "research-papers") were
+   citations to nothing, and nothing in this repository could check them. */
 const research = rd("research.json");
 for (const [slug, cols] of Object.entries(research)) {
-  if (!out[slug]) {
-    out[slug] = { prep: "as listed", match: "proxy", cells: {} };
-  }
   for (const [colId, data] of Object.entries(cols)) {
-    // We treat research data as analyzed literature values
-    out[slug].cells[colId] = reconcile([{ source: data.source || "research-papers", value: data.v, derivation: "analysed" }]);
+    if (!data.source) continue;
+    grade(slug, data.source, out[slug]?.matches?.[data.source] || "close");
+    out[slug].cells[colId] = reconcile([{ source: data.source, value: data.v, derivation: "analysed" }]);
     nCells++;
   }
 }
@@ -233,14 +262,14 @@ for (const [slug, cols] of Object.entries(research)) {
 for (const p of Object.entries(afcdMap)) {
   const [slug, key] = p;
   if (!key) continue;
-  if (!out[slug]) out[slug] = { prep: "as listed", match: "exact", cells: {} };
+  grade(slug, "afcd-r3", out[slug]?.matches?.["afcd-r3"] || "exact");
   const row = afcdKeyBy[key];
   if (row) {
     if (row.inulin_g !== undefined) {
       const val = num(row.inulin_g);
       if (val !== null) {
         if (!out[slug].cells.inulin) out[slug].cells.inulin = { state: "measured", sources: ["afcd-r3"], value: val, min: val, max: val, derivation: "analysed" };
-        else out[slug].cells.inulin = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }, { source: out[slug].cells.inulin.sources[0] || "existing", value: out[slug].cells.inulin.value, derivation: "analysed" }]);
+        else out[slug].cells.inulin = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }]);
         nCells++;
       }
     }
@@ -248,7 +277,7 @@ for (const p of Object.entries(afcdMap)) {
       const val = num(row.oligosaccharides_g);
       if (val !== null) {
         if (!out[slug].cells.oligosaccharides) out[slug].cells.oligosaccharides = { state: "measured", sources: ["afcd-r3"], value: val, min: val, max: val, derivation: "analysed" };
-        else out[slug].cells.oligosaccharides = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }, { source: out[slug].cells.oligosaccharides.sources[0] || "existing", value: out[slug].cells.oligosaccharides.value, derivation: "analysed" }]);
+        else out[slug].cells.oligosaccharides = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }]);
         nCells++;
       }
     }
@@ -259,80 +288,43 @@ for (const p of Object.entries(afcdMap)) {
 for (const p of Object.entries(cnfMap)) {
   const [slug, key] = p;
   if (!key) continue;
-  if (!out[slug]) out[slug] = { prep: "as listed", match: "exact", cells: {} };
+  grade(slug, "cnf", out[slug]?.matches?.cnf || "exact");
   const row = cnfBy[key];
   if (row) {
     if (row["Fructans (inulin)"] !== undefined) {
       const val = num(row["Fructans (inulin)"]);
       if (val !== null) {
-        const existing = out[slug].cells.inulin ? [{ source: "existing", value: out[slug].cells.inulin.value, derivation: "analysed" }] : [];
-        out[slug].cells.inulin = reconcile([...existing, { source: "cnf", value: val, derivation: "analysed" }]);
+        out[slug].cells.inulin = reconcile([{ source: "cnf", value: val, derivation: "analysed" }]);
         nCells++;
       }
     }
     if (row["Vitamin K (menaquinone-4)"] !== undefined) {
       const val = num(row["Vitamin K (menaquinone-4)"]);
       if (val !== null) {
-        const existing = out[slug].cells.k2 ? [{ source: "existing", value: out[slug].cells.k2.value, derivation: "analysed" }] : [];
-        out[slug].cells.k2 = reconcile([...existing, { source: "cnf", value: val, derivation: "analysed" }]);
+        out[slug].cells.k2 = reconcile([{ source: "cnf", value: val, derivation: "analysed" }]);
         nCells++;
       }
     }
   }
 }
 
-// Literature integration (original boron/inositol/lignans)
-for (const lit of literature) {
-  const slug = lit.key;
-  if (!out[slug]) out[slug] = { prep: "as listed", match: "exact", cells: {} };
-  
-  if (lit.boron !== undefined) {
-    const existing = out[slug].cells.boron ? [{ source: "existing", value: out[slug].cells.boron.value, derivation: "analysed" }] : [];
-    out[slug].cells.boron = reconcile([...existing, { source: "literature", value: lit.boron, derivation: "analysed" }]);
-    nCells++;
-  }
-  if (lit.inositol !== undefined) {
-    const existing = out[slug].cells["inositol-free"] ? [{ source: "existing", value: out[slug].cells["inositol-free"].value, derivation: "analysed" }] : [];
-    out[slug].cells["inositol-free"] = reconcile([...existing, { source: "literature", value: lit.inositol, derivation: "analysed" }]);
-    nCells++;
-  }
-  if (lit.lignans !== undefined) {
-    const existing = out[slug].cells.lignans ? [{ source: "existing", value: out[slug].cells.lignans.value, derivation: "analysed" }] : [];
-    out[slug].cells.lignans = reconcile([...existing, { source: "literature", value: lit.lignans, derivation: "analysed" }]);
-    nCells++;
-  }
+/* literature.json and literature-misc.json used to be read here. Both were
+   compilations with no citation per value: literature-misc.json recorded a
+   source of "USDA/Milder2005/PhyFoodComp" for a whole row, and its figures
+   disagreed with all three. Every value they supplied has been re-derived from
+   a named source or dropped, and reading them again would put the unsourced
+   ones straight back. */
+
+/* A grade for a source no cell cites, and an entry with no cells at all, are
+   both mappings that reach nothing. They accumulate every run, because a map
+   file names foods this tool finds no figures for. */
+for (const [slug, entry] of Object.entries(out)) {
+  const cited = new Set();
+  for (const c of Object.values(entry.cells)) for (const k of c.sources || []) cited.add(k);
+  for (const c of Object.values(entry.cells)) for (const d of c.disputed || []) cited.add(d.source);
+  for (const k of Object.keys(entry.matches)) if (!cited.has(k)) delete entry.matches[k];
+  if (!Object.keys(entry.cells).length) delete out[slug];
 }
 
-// Comprehensive literature integration (Phase 3)
-const litMisc = rd("literature-misc.json");
-const LIT_FIELDS = [
-  { json: "phytate",           col: "phytate",           src: "fao-phytate" },
-  { json: "lignans",           col: "lignans",           src: "milder-2005" },
-  { json: "proanthocyanidins", col: "proanthocyanidins", src: "usda-pa-r2" },
-  { json: "glucosinolates",    col: "glucosinolates",    src: "mcnaughton-2003" },
-  { json: "glucoraphanin",     col: "glucoraphanin",     src: "mcnaughton-2003" },
-  { json: "ergothioneine",     col: "ergothioneine",     src: "halliwell-2023" },
-  { json: "beta-glucan",       col: "beta-glucan",       src: "literature" },
-  { json: "melatonin",         col: "melatonin",         src: "arnao-2018" },
-  { json: "squalene",          col: "squalene",          src: "literature" },
-  { json: "phenolics",         col: "phenolics",         src: "literature" },
-  { json: "coq10",             col: "coq10",             src: "literature" },
-  { json: "mk7",              col: "mk7",               src: "schurgers-2000" },
-  { json: "k2",               col: "k2",                src: "schurgers-2000" },
-];
-for (const entry of litMisc) {
-  const slug = entry.slug;
-  if (!out[slug]) out[slug] = { prep: "as listed", match: "exact", cells: {} };
-  for (const f of LIT_FIELDS) {
-    const val = num(entry[f.json]);
-    if (val === null) continue;
-    // Only add if no existing value, to avoid overwriting higher-quality data
-    if (!out[slug].cells[f.col]) {
-      out[slug].cells[f.col] = reconcile([{ source: f.src, value: val, derivation: "analysed" }]);
-      nCells++;
-    }
-  }
-}
-
-writeFileSync(join(ROOT, "src", "data", "evidence.json"), JSON.stringify(out, null, 1) + "\n");
+writeFileSync(DEST, JSON.stringify(out, null, 1) + "\n");
 console.log(`${Object.keys(out).length} foods, ${nCells} cells, ${ranges} ranges, ${disputes} with a disputed source`);

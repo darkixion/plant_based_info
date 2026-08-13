@@ -1,0 +1,53 @@
+{
+  "source": "jensen-2022",
+  "citation": "Jensen MB, Rod KE, Sorensen MB, Jakobsen J. In vitro bioaccessibility of vitamin K (phylloquinone and menaquinones) in food and supplements assessed by INFOGEST 2.0 - vit K. Curr Res Food Sci. 2022;5:306-314, Table 4",
+  "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8844770/",
+  "doi": "10.1016/j.crfs.2022.01.018",
+  "unit": "ug/100 g",
+  "note": "A direct LC analysis of PK and MK-4 through MK-10 in each matrix, not a review, and the first source here to put a number on the limit of quantification for each homologue separately. That matters more than the concentrations: a below-LOQ result at a stated sensitivity is an analysed absence with its detection floor on the record, which is a stronger claim than an unqualified ND.",
+  "loq": { "mk4": 0.5, "mk5": 0.7, "mk6": 0.5, "mk7": 0.5, "mk8": 1.4, "mk9": 1, "mk10": 4 },
+  "rows": [
+    {
+      "food": "Broccoli", "page": "broccoli-cooked", "match": "proxy",
+      "prep": "fresh broccoli, non-edible parts removed, juiced, and the pulp used",
+      "prep_note": "The matrix is juiced pulp rather than the whole floret, which concentrates it: this row's phylloquinone of 290 ug is roughly triple what raw broccoli usually carries. The concentration runs one way only, so a homologue below the limit of quantification in the concentrated pulp is below it in the ordinary food too, and the absences transfer where a positive figure would not.",
+      "pk": { "state": "measured", "value": 290, "sd": 2.6 },
+      "mk4": { "state": "below-loq", "loq": 0.5 },
+      "mk5": { "state": "below-loq", "loq": 0.7 },
+      "mk6": { "state": "below-loq", "loq": 0.5 },
+      "mk7": { "state": "below-loq", "loq": 0.5 },
+      "mk8": { "state": "below-loq", "loq": 1.4 },
+      "mk9": { "state": "below-loq", "loq": 1 },
+      "mk10": { "state": "below-loq", "loq": 4 }
+    },
+    {
+      "food": "Canola oil", "page": "rapeseed-oil", "match": "exact",
+      "prep": "bought in local shops in the Copenhagen area",
+      "pk": { "state": "measured", "value": 61, "sd": 3.3 },
+      "mk4": { "state": "below-loq", "loq": 0.5 },
+      "mk5": { "state": "below-loq", "loq": 0.7 },
+      "mk6": { "state": "below-loq", "loq": 0.5 },
+      "mk7": { "state": "below-loq", "loq": 0.5 },
+      "mk8": { "state": "below-loq", "loq": 1.4 },
+      "mk9": { "state": "below-loq", "loq": 1 },
+      "mk10": { "state": "below-loq", "loq": 4 }
+    },
+    {
+      "food": "Natto", "page": "natto", "match": "exact",
+      "prep": "bought in local shops in the Copenhagen area",
+      "pk": { "state": "measured", "value": 32, "sd": 1.0 },
+      "mk4": { "state": "measured", "value": 3.3, "sd": 0.08 },
+      "mk5": { "state": "measured", "value": 12, "sd": 0.3 },
+      "mk6": { "state": "measured", "value": 100, "sd": 3.3 },
+      "mk7": { "state": "measured", "value": 930, "sd": 19 },
+      "mk8": { "state": "below-loq", "loq": 1.4 },
+      "mk9": { "state": "below-loq", "loq": 1 },
+      "mk10": { "state": "below-loq", "loq": 4 }
+    }
+  ],
+  "omitted": "Table 4's other content rows are the Danish standard meal, pasteurised whole egg and two supplements, none of which this page carries. Spinach is named in the abstract as a digestion matrix but has no row in the content table.",
+  "conflicts": [
+    "Natto MK-8 is below 1.4 ug here against 78.3 to 89.8 ug in Schurgers as reported by Walther. This is not a sensitivity artefact: 84 ug is sixty times the limit of quantification and could not have been missed, so the two are measuring genuinely different natto.",
+    "Natto MK-4 is 3.3 ug here, against not detected in Sim 2021 and in Schurgers, and 2 plus or minus 3 in Kamao."
+  ]
+}

@@ -1,7 +1,15 @@
 {
  "lentils-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "biesiekierski-2011": "exact",
+   "cofid-2021": "exact",
+   "ifct-2017": "proxy",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "ryan-2007": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -101,13 +109,6 @@
      "ifct-2017"
     ]
    },
-   "oxalate": {
-    "state": "measured",
-    "value": 8.42,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 2.04,
@@ -131,19 +132,9 @@
    },
    "inulin": {
     "state": "measured",
+    "value": 0.8,
     "sources": [
      "afcd-r3"
-    ],
-    "value": 0.8,
-    "min": 0.8,
-    "max": 0.8,
-    "derivation": "analysed"
-   },
-   "boron": {
-    "state": "measured",
-    "value": 0.74,
-    "sources": [
-     "literature"
     ]
    },
    "lignans": {
@@ -153,18 +144,26 @@
      "milder-2005"
     ]
    },
-   "proanthocyanidins": {
+   "oxalate_sol": {
     "state": "measured",
-    "value": 1.3,
+    "value": 8.42,
     "sources": [
-     "usda-pa-r2"
+     "ifct-2017"
     ]
    }
   }
  },
  "chickpeas-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "biesiekierski-2011": "exact",
+   "ifct-2017": "proxy",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "ryan-2007": "exact",
+   "fao-oligosaccharides": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -264,13 +263,6 @@
      "ifct-2017"
     ]
    },
-   "oxalate": {
-    "state": "measured",
-    "value": 5.57,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 1.7,
@@ -294,19 +286,9 @@
    },
    "inulin": {
     "state": "measured",
+    "value": 0.6,
     "sources": [
      "afcd-r3"
-    ],
-    "value": 0.6,
-    "min": 0.6,
-    "max": 0.6,
-    "derivation": "analysed"
-   },
-   "boron": {
-    "state": "measured",
-    "value": 1.64,
-    "sources": [
-     "literature"
     ]
    },
    "lignans": {
@@ -315,12 +297,50 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "oxalate_sol": {
+    "state": "measured",
+    "value": 5.57,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "verbascose": {
+    "state": "measured",
+    "value": 0.4198715,
+    "sources": [
+     "fao-oligosaccharides"
+    ]
+   },
+   "stachyose": {
+    "state": "measured",
+    "value": 0.8027594999999998,
+    "sources": [
+     "fao-oligosaccharides"
+    ]
+   },
+   "raffinose": {
+    "state": "range",
+    "low": 0.2371295,
+    "high": 0.4024199999999999,
+    "sources": [
+     "fao-oligosaccharides"
+    ]
    }
   }
  },
  "kidney-beans-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "biesiekierski-2011": "exact",
+   "clements-1980": "exact",
+   "cofid-2021": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "pizzorno-2015": "exact",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -415,13 +435,6 @@
      "afcd-r3"
     ]
    },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 563,
-    "sources": [
-     "usda-pa"
-    ]
-   },
    "boron": {
     "state": "measured",
     "value": 0.35,
@@ -431,10 +444,9 @@
    },
    "inositol-free": {
     "state": "measured",
-    "value": 284.5,
+    "value": 320,
     "sources": [
-     "existing",
-     "literature"
+     "clements-1980"
     ]
    },
    "oligosaccharides": {
@@ -444,25 +456,34 @@
      "biesiekierski-2011"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 260,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.055,
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "split-peas-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "biesiekierski-2011": "exact",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -563,19 +584,16 @@
     "sources": [
      "biesiekierski-2011"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 192,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "mung-beans-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "exact",
+   "ifct-2017": "proxy",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -677,16 +695,16 @@
      "ifct-2017"
     ]
    },
-   "oxalate": {
+   "oxalate_insol": {
     "state": "measured",
-    "value": 10.57,
+    "value": 1.72,
     "sources": [
      "ifct-2017"
     ]
    },
-   "oxalate_insol": {
+   "oxalate_sol": {
     "state": "measured",
-    "value": 1.72,
+    "value": 10.57,
     "sources": [
      "ifct-2017"
     ]
@@ -695,7 +713,9 @@
  },
  "adzuki-beans-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -820,19 +840,16 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 310,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "black-eyed-peas-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "exact",
+   "ifct-2017": "proxy",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -933,16 +950,16 @@
      "ifct-2017"
     ]
    },
-   "oxalate": {
+   "oxalate_insol": {
     "state": "measured",
-    "value": 1.1,
+    "value": 0.18,
     "sources": [
      "ifct-2017"
     ]
    },
-   "oxalate_insol": {
+   "oxalate_sol": {
     "state": "measured",
-    "value": 0.18,
+    "value": 1.1,
     "sources": [
      "ifct-2017"
     ]
@@ -951,7 +968,13 @@
  },
  "green-peas-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "clements-1980": "close",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "ryan-2007": "close",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -1084,17 +1107,9 @@
    },
    "inositol-free": {
     "state": "measured",
-    "value": 237.5,
+    "value": 240,
     "sources": [
-     "existing",
-     "literature"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 160,
-    "sources": [
-     "fao-phytate"
+     "clements-1980"
     ]
    },
    "lignans": {
@@ -1103,12 +1118,29 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "edamame-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "biesiekierski-2011": "close",
+   "clements-1980": "close",
+   "mext-2020": "close",
+   "milder-2005": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1230,13 +1262,6 @@
      "biesiekierski-2011"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 520,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.137,
@@ -1248,7 +1273,10 @@
  },
  "broad-beans-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "cofid-2021": "exact",
+   "mext-2020": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1341,19 +1369,17 @@
      "mext-2020",
      "cofid-2021"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 245,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "tofu-firm": {
   "prep": "firm",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1480,8 +1506,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 260,
+    "state": "range",
+    "low": 188,
+    "high": 621,
     "sources": [
      "fao-phytate"
     ]
@@ -1492,12 +1519,30 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "tempeh": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "halliwell-2023": "exact",
+   "kamao-2007": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1562,8 +1607,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 818,
+    "state": "range",
+    "low": 431,
+    "high": 617,
     "sources": [
      "fao-phytate"
     ]
@@ -1586,7 +1632,16 @@
  },
  "natto": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "kamao-2007": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "sim-2021": "exact",
+   "walther-2013": "exact",
+   "schurgers-2000": "exact",
+   "walther-2017": "exact",
+   "jensen-2022": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1680,24 +1735,24 @@
     ]
    },
    "mk7": {
-    "state": "measured",
-    "value": 939,
+    "state": "range",
+    "low": 81.6,
+    "high": 1034,
     "sources": [
-     "kamao-2007"
+     "jensen-2022",
+     "kamao-2007",
+     "sim-2021",
+     "walther-2013",
+     "walther-2017"
     ]
    },
    "k2": {
-    "state": "measured",
-    "value": 939,
+    "state": "range",
+    "low": 939,
+    "high": 1034,
     "sources": [
-     "kamao-2007"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 930,
-    "sources": [
-     "fao-phytate"
+     "kamao-2007",
+     "schurgers-2000"
     ]
    },
    "lignans": {
@@ -1706,12 +1761,50 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "range",
+    "low": 0,
+    "high": 3.3,
+    "sources": [
+     "jensen-2022",
+     "sim-2021",
+     "walther-2017"
+    ]
+   },
+   "mk8": {
+    "state": "range",
+    "low": 0,
+    "high": 89.8,
+    "sources": [
+     "jensen-2022",
+     "walther-2013",
+     "walther-2017"
+    ]
+   },
+   "mk9": {
+    "state": "not-detected",
+    "sources": [
+     "walther-2013",
+     "walther-2017",
+     "jensen-2022"
+    ]
+   },
+   "mk10": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
+    ]
    }
   }
  },
  "soy-milk-unsweetened": {
   "prep": "unsweetened",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "close",
+   "mext-2020": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1803,8 +1896,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 190,
+    "state": "range",
+    "low": 80,
+    "high": 133,
     "sources": [
      "fao-phytate"
     ]
@@ -1820,7 +1914,15 @@
  },
  "oats-rolled-dry": {
   "prep": "rolled, dry",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "clements-1980": "exact",
+   "eurofir": "exact",
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -1935,24 +2037,15 @@
    },
    "inulin": {
     "state": "measured",
+    "value": 0.4,
     "sources": [
      "afcd-r3"
-    ],
-    "value": 0.4,
-    "min": 0.4,
-    "max": 0.4,
-    "derivation": "analysed"
-   },
-   "boron": {
-    "state": "measured",
-    "value": 0.1,
-    "sources": [
-     "literature"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 943,
+    "state": "range",
+    "low": 871,
+    "high": 947.6,
     "sources": [
      "fao-phytate"
     ]
@@ -1963,12 +2056,23 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "quinoa-cooked": {
   "prep": "cooked",
-  "match": "proxy",
+  "matches": {
+   "clements-1980": "proxy",
+   "ifct-2017": "proxy",
+   "mext-2020": "proxy",
+   "milder-2005": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -2071,13 +2175,6 @@
      "ifct-2017"
     ]
    },
-   "oxalate": {
-    "state": "measured",
-    "value": 42.22,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 40.72,
@@ -2092,25 +2189,29 @@
      "clements-1980"
     ]
    },
-   "boron": {
-    "state": "measured",
-    "value": 0.2,
-    "sources": [
-     "literature"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.013,
     "sources": [
      "milder-2005"
     ]
+   },
+   "oxalate_sol": {
+    "state": "measured",
+    "value": 42.22,
+    "sources": [
+     "ifct-2017"
+    ]
    }
   }
  },
  "amaranth-cooked": {
   "prep": "cooked",
-  "match": "proxy",
+  "matches": {
+   "ifct-2017": "proxy",
+   "mext-2020": "proxy",
+   "popa-2015": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -2211,13 +2312,6 @@
      "ifct-2017"
     ]
    },
-   "oxalate": {
-    "state": "measured",
-    "value": 32.3,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 177,
@@ -2229,14 +2323,28 @@
     "state": "measured",
     "value": 4.16,
     "sources": [
-     "research-papers"
+     "popa-2015"
+    ]
+   },
+   "oxalate_sol": {
+    "state": "measured",
+    "value": 32.3,
+    "sources": [
+     "ifct-2017"
     ]
    }
   }
  },
  "brown-rice-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "cnf": "exact",
+   "cofid-2021": "exact",
+   "fao-phytate": "close",
+   "mext-2020": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -2325,7 +2433,7 @@
    },
    "biotin": {
     "state": "range",
-    "low": 1,
+    "low": 0.9,
     "high": 2.9,
     "sources": [
      "mext-2020",
@@ -2342,7 +2450,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 378,
+    "value": 612.16,
     "sources": [
      "fao-phytate"
     ]
@@ -2358,7 +2466,11 @@
  },
  "buckwheat-cooked": {
   "prep": "cooked",
-  "match": "proxy",
+  "matches": {
+   "mext-2020": "proxy",
+   "milder-2005": "proxy",
+   "ryan-2007": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -2460,13 +2572,6 @@
      "ryan-2007"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 263,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.014,
@@ -2478,7 +2583,10 @@
  },
  "millet-cooked": {
   "prep": "cooked",
-  "match": "proxy",
+  "matches": {
+   "mext-2020": "proxy",
+   "ryan-2007": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "trace",
@@ -2578,19 +2686,15 @@
     "sources": [
      "ryan-2007"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 195,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "sweetcorn-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close",
+   "ryan-2007": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -2722,19 +2826,19 @@
     "sources": [
      "ryan-2007"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 267,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "almonds": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "clements-1980": "proxy",
+   "fao-phytate": "exact",
+   "mext-2020": "proxy",
+   "milder-2005": "proxy",
+   "pizzorno-2015": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -2829,23 +2933,22 @@
    },
    "boron": {
     "state": "measured",
-    "value": 2.41,
+    "value": 2,
     "sources": [
-     "existing",
-     "literature"
+     "pizzorno-2015"
     ]
    },
    "inositol-free": {
     "state": "measured",
-    "value": 229,
+    "value": 180,
     "sources": [
-     "existing",
-     "literature"
+     "clements-1980"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 1138,
+    "state": "range",
+    "low": 350,
+    "high": 964,
     "sources": [
      "fao-phytate"
     ]
@@ -2859,7 +2962,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 184,
+    "value": 152.73,
     "sources": [
      "usda-pa-r2"
     ]
@@ -2868,7 +2971,15 @@
  },
  "peanuts": {
   "prep": "as listed",
-  "match": "close",
+  "matches": {
+   "clements-1980": "close",
+   "fao-phytate": "exact",
+   "kubo-2008": "close",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "nih-boron": "close",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3000,29 +3111,27 @@
     "state": "measured",
     "value": 2.6,
     "sources": [
-     "research-papers"
+     "kubo-2008"
     ]
    },
    "boron": {
-    "state": "range",
-    "low": 0.46,
-    "high": 1.71,
+    "state": "measured",
+    "value": 1.71,
     "sources": [
-     "existing",
-     "literature"
+     "nih-boron"
     ]
    },
    "inositol-free": {
     "state": "measured",
-    "value": 169,
+    "value": 210,
     "sources": [
-     "existing",
-     "literature"
+     "clements-1980"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 1760,
+    "state": "range",
+    "low": 170,
+    "high": 987,
     "sources": [
      "fao-phytate"
     ]
@@ -3036,7 +3145,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 15.6,
+    "value": 130.1,
     "sources": [
      "usda-pa-r2"
     ]
@@ -3045,7 +3154,11 @@
  },
  "sunflower-seeds": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "proxy",
+   "milder-2005": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3150,7 +3263,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 1640,
+    "value": 423,
     "sources": [
      "fao-phytate"
     ]
@@ -3159,7 +3272,11 @@
  },
  "pumpkin-seeds": {
   "prep": "as listed",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "ryan-2007": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3268,26 +3385,16 @@
     "sources": [
      "milder-2005"
     ]
-   },
-   "boron": {
-    "state": "measured",
-    "value": 1.3,
-    "sources": [
-     "literature"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 1174,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "sesame-seeds": {
   "prep": "as listed",
-  "match": "close",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "close",
+   "milder-2005": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3381,17 +3488,16 @@
     ]
    },
    "lignans": {
-    "state": "range",
-    "low": 29.34,
-    "high": 800,
+    "state": "measured",
+    "value": 29.34,
     "sources": [
-     "existing",
-     "literature"
+     "milder-2005"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 4710,
+    "state": "range",
+    "low": 945.4,
+    "high": 1043.57,
     "sources": [
      "fao-phytate"
     ]
@@ -3400,7 +3506,10 @@
  },
  "chia-seeds": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -3525,13 +3634,6 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 960,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.041,
@@ -3543,7 +3645,12 @@
  },
  "flaxseed": {
   "prep": "as listed",
-  "match": "close",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "ryan-2007": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3645,15 +3752,14 @@
    },
    "lignans": {
     "state": "measured",
-    "value": 300.56,
+    "value": 301.12,
     "sources": [
-     "existing",
-     "literature"
+     "milder-2005"
     ]
    },
    "phytate": {
     "state": "measured",
-    "value": 1498,
+    "value": 1859,
     "sources": [
      "fao-phytate"
     ]
@@ -3662,7 +3768,9 @@
  },
  "hemp-seeds-hulled": {
   "prep": "hulled",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3754,19 +3862,18 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 900,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "cashews": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "proxy",
+   "milder-2005": "proxy",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3862,16 +3969,10 @@
      "mext-2020"
     ]
    },
-   "boron": {
-    "state": "measured",
-    "value": 0.4,
-    "sources": [
-     "literature"
-    ]
-   },
    "phytate": {
-    "state": "measured",
-    "value": 930,
+    "state": "range",
+    "low": 290,
+    "high": 929,
     "sources": [
      "fao-phytate"
     ]
@@ -3885,16 +3986,34 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 8.7,
+    "value": 2.02,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }
  },
  "hazelnuts": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "proxy",
+   "milder-2005": "proxy",
+   "pizzorno-2015": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -3992,22 +4111,21 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 501.2,
+    "value": 490.83,
     "sources": [
-     "usda-pa"
+     "usda-pa-r2"
     ]
    },
    "boron": {
     "state": "measured",
-    "value": 2.435,
+    "value": 2.1,
     "sources": [
-     "existing",
-     "literature"
+     "pizzorno-2015"
     ]
    },
    "phytate": {
     "state": "measured",
-    "value": 648,
+    "value": 230,
     "sources": [
      "fao-phytate"
     ]
@@ -4023,7 +4141,10 @@
  },
  "macadamia-nuts-raw": {
   "prep": "raw",
-  "match": "proxy",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "trace",
@@ -4120,23 +4241,18 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 350,
+    "value": 150,
     "sources": [
      "fao-phytate"
-    ]
-   },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 0,
-    "sources": [
-     "usda-pa-r2"
     ]
    }
   }
  },
  "chestnuts-roasted": {
   "prep": "roasted",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -4227,26 +4343,16 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 47,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 6.2,
-    "sources": [
-     "usda-pa-r2"
-    ]
    }
   }
  },
  "tahini-from-roasted-kernels": {
   "prep": "from roasted kernels",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "proxy",
+   "mext-2020": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -4343,8 +4449,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 4710,
+    "state": "range",
+    "low": 945.4,
+    "high": 1043.57,
     "sources": [
      "fao-phytate"
     ]
@@ -4360,7 +4467,16 @@
  },
  "spinach-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "afcd-r3": "exact",
+   "ifct-2017": "proxy",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "roman-pizarro-2017": "exact",
+   "usda-pa-r2": "exact",
+   "cofid-2021": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -4474,13 +4590,6 @@
      "mext-2020"
     ]
    },
-   "oxalate": {
-    "state": "measured",
-    "value": 241,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "biotin": {
     "state": "measured",
     "value": 2.7,
@@ -4513,14 +4622,7 @@
     "state": "measured",
     "value": 1.18,
     "sources": [
-     "research-papers"
-    ]
-   },
-   "boron": {
-    "state": "measured",
-    "value": 0.16,
-    "sources": [
-     "literature"
+     "roman-pizarro-2017"
     ]
    },
    "lignans": {
@@ -4529,12 +4631,50 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "oxalate_sol": {
+    "state": "measured",
+    "value": 241,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "mext-2020"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "kale-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "cnf": "exact",
+   "mcnaughton-2003": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -4642,7 +4782,7 @@
     "state": "measured",
     "value": 101,
     "sources": [
-     "eurofir"
+     "mcnaughton-2003"
     ]
    },
    "k2": {
@@ -4652,18 +4792,34 @@
      "cnf"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 20,
+   "mk4": {
+    "state": "not-detected",
     "sources": [
-     "fao-phytate"
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }
  },
  "broccoli-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "exact",
+   "kubo-2008": "exact",
+   "mcnaughton-2003": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "nih-boron": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "close",
+   "jensen-2022": "proxy",
+   "lee-2010": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -4761,7 +4917,7 @@
     "state": "measured",
     "value": 0.86,
     "sources": [
-     "research-papers"
+     "kubo-2008"
     ]
    },
    "lignans": {
@@ -4775,14 +4931,7 @@
     "state": "measured",
     "value": 61.7,
     "sources": [
-     "eurofir"
-    ]
-   },
-   "glucoraphanin": {
-    "state": "measured",
-    "value": 45,
-    "sources": [
-     "eurofir"
+     "mcnaughton-2003"
     ]
    },
    "boron": {
@@ -4792,18 +4941,63 @@
      "nih-boron"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 18,
+   "proanthocyanidins": {
+    "state": "not-detected",
     "sources": [
-     "fao-phytate"
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021",
+     "jensen-2022"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021",
+     "jensen-2022"
+    ]
+   },
+   "mk8": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
+    ]
+   },
+   "mk9": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
+    ]
+   },
+   "mk10": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
+    ]
+   },
+   "glucoraphanin": {
+    "state": "measured",
+    "value": 89,
+    "sources": [
+     "lee-2010"
     ]
    }
   }
  },
  "cauliflower-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "fao-phytate": "proxy",
+   "mattila-2001": "close",
+   "mcnaughton-2003": "close",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -4934,12 +5128,13 @@
     "state": "measured",
     "value": 0.3,
     "sources": [
-     "research-papers"
+     "mattila-2001"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 17,
+    "state": "range",
+    "low": 18.48,
+    "high": 25.66,
     "sources": [
      "fao-phytate"
     ]
@@ -4957,12 +5152,28 @@
     "sources": [
      "mcnaughton-2003"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "pak-choi-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mcnaughton-2003": "exact",
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -5093,12 +5304,21 @@
     "sources": [
      "mcnaughton-2003"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "watercress-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mcnaughton-2003": "exact",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -5206,7 +5426,10 @@
  },
  "mushrooms-white-raw": {
   "prep": "white, raw",
-  "match": "exact",
+  "matches": {
+   "eurofir": "exact",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -5312,19 +5535,15 @@
     "sources": [
      "eurofir"
     ]
-   },
-   "coq10": {
-    "state": "measured",
-    "value": 0.02,
-    "sources": [
-     "literature"
-    ]
    }
   }
  },
  "shiitake-mushrooms-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "halliwell-2023": "exact",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -5456,26 +5675,15 @@
     "sources": [
      "halliwell-2023"
     ]
-   },
-   "beta-glucan": {
-    "state": "measured",
-    "value": 2.24,
-    "sources": [
-     "literature"
-    ]
-   },
-   "coq10": {
-    "state": "measured",
-    "value": 0.05,
-    "sources": [
-     "literature"
-    ]
    }
   }
  },
  "oyster-mushrooms-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "halliwell-2023": "exact",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -5574,19 +5782,17 @@
     "sources": [
      "halliwell-2023"
     ]
-   },
-   "beta-glucan": {
-    "state": "measured",
-    "value": 1.54,
-    "sources": [
-     "literature"
-    ]
    }
   }
  },
  "sweet-potato-baked": {
   "prep": "baked",
-  "match": "close",
+  "matches": {
+   "fao-phytate": "close",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -5717,8 +5923,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 38,
+    "state": "range",
+    "low": 10,
+    "high": 34,
     "sources": [
      "fao-phytate"
     ]
@@ -5729,12 +5936,24 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "potato-baked-with-skin": {
   "prep": "baked, with skin",
-  "match": "close",
+  "matches": {
+   "cofid-2021": "exact",
+   "fao-phytate": "proxy",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -5866,7 +6085,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 44,
+    "value": 4.82,
     "sources": [
      "fao-phytate"
     ]
@@ -5877,12 +6096,30 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "asparagus-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "halliwell-2023": "close",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "muir-2007": "close",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6016,13 +6253,6 @@
      "muir-2007"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 30,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.065,
@@ -6036,12 +6266,27 @@
     "sources": [
      "halliwell-2023"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "avocado": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "close",
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "nih-boron": "exact",
+   "roman-pizarro-2017": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6142,22 +6387,27 @@
     "state": "measured",
     "value": 2.43,
     "sources": [
-     "research-papers"
+     "roman-pizarro-2017"
     ]
    },
    "boron": {
     "state": "measured",
-    "value": 0.975,
+    "value": 0.88,
     "sources": [
-     "existing",
-     "literature"
+     "nih-boron"
     ]
    },
    "phytate": {
     "state": "measured",
-    "value": 27,
+    "value": 11,
     "sources": [
      "fao-phytate"
+    ],
+    "disputed": [
+     {
+      "source": "fao-phytate",
+      "value": 356
+     }
     ]
    },
    "lignans": {
@@ -6166,12 +6416,38 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 6.17,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "banana": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "exact",
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "nih-boron": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6301,15 +6577,15 @@
    },
    "boron": {
     "state": "measured",
-    "value": 0.15,
+    "value": 0.14,
     "sources": [
-     "existing",
-     "literature"
+     "nih-boron"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 28,
+    "state": "range",
+    "low": 10.06,
+    "high": 22,
     "sources": [
      "fao-phytate"
     ]
@@ -6323,7 +6599,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 0,
+    "value": 2.66,
     "sources": [
      "usda-pa-r2"
     ]
@@ -6332,7 +6608,15 @@
  },
  "carrots-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "close",
+   "eurofir": "exact",
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6469,8 +6753,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 24,
+    "state": "range",
+    "low": 17.03,
+    "high": 88.2,
     "sources": [
      "fao-phytate"
     ]
@@ -6481,12 +6766,36 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "celery-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6613,7 +6922,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 14,
+    "value": 25.66,
     "sources": [
      "fao-phytate"
     ]
@@ -6624,12 +6933,36 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "cucumber-raw-with-peel": {
   "prep": "raw, with peel",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6757,8 +7090,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 8,
+    "state": "range",
+    "low": 15.8,
+    "high": 17.52,
     "sources": [
      "fao-phytate"
     ]
@@ -6769,12 +7103,37 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "tomatoes-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "arnao-2018": "exact",
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -6900,8 +7259,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 10,
+    "state": "range",
+    "low": 2.39,
+    "high": 30,
     "sources": [
      "fao-phytate"
     ]
@@ -6919,12 +7279,36 @@
     "sources": [
      "arnao-2018"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "onions-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "cofid-2021": "exact",
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7054,8 +7438,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 18,
+    "state": "range",
+    "low": 6.96,
+    "high": 13.9,
     "sources": [
      "fao-phytate"
     ]
@@ -7066,12 +7451,23 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "courgette-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "fao-phytate": "proxy",
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7167,8 +7563,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 15,
+    "state": "range",
+    "low": 10.57,
+    "high": 11.5,
     "sources": [
      "fao-phytate"
     ]
@@ -7179,12 +7576,27 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "aubergine-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close",
+   "milder-2005": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7311,13 +7723,6 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 14,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.014,
@@ -7329,7 +7734,13 @@
  },
  "bell-pepper-green-raw": {
   "prep": "green, raw",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7457,7 +7868,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 12,
+    "value": 15.96,
     "sources": [
      "fao-phytate"
     ]
@@ -7468,12 +7879,33 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "ginger-root-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7603,7 +8035,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 34,
+    "value": 14.5,
     "sources": [
      "fao-phytate"
     ]
@@ -7612,7 +8044,9 @@
  },
  "spring-onions-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7703,19 +8137,15 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 10,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "leeks-cooked": {
   "prep": "cooked",
-  "match": "proxy",
+  "matches": {
+   "mext-2020": "proxy",
+   "milder-2005": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7808,13 +8238,6 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 18,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.025,
@@ -7826,7 +8249,9 @@
  },
  "butternut-squash-baked": {
   "prep": "baked",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -7952,19 +8377,16 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 16,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "pumpkin-cooked": {
   "prep": "cooked",
-  "match": "close",
+  "matches": {
+   "fao-phytate": "proxy",
+   "mext-2020": "close",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -8059,17 +8481,34 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 15,
+    "state": "range",
+    "low": 19.72,
+    "high": 22.51,
     "sources": [
      "fao-phytate"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }
  },
  "radishes-raw": {
   "prep": "raw",
-  "match": "proxy",
+  "matches": {
+   "mcnaughton-2003": "proxy",
+   "mext-2020": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -8169,12 +8608,20 @@
     "sources": [
      "mcnaughton-2003"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "nori-raw": {
   "prep": "raw",
-  "match": "proxy",
+  "matches": {
+   "mext-2020": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -8269,7 +8716,9 @@
  },
  "kelp-raw": {
   "prep": "raw",
-  "match": "proxy",
+  "matches": {
+   "mext-2020": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -8397,7 +8846,13 @@
  },
  "apple-raw-with-skin": {
   "prep": "raw, with skin",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -8524,8 +8979,9 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 3,
+    "state": "range",
+    "low": 0.36,
+    "high": 0.64,
     "sources": [
      "fao-phytate"
     ]
@@ -8539,16 +8995,33 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 71,
+    "value": 93.96,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }
  },
  "strawberries-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -8681,7 +9154,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 12,
+    "value": 25.07,
     "sources": [
      "fao-phytate"
     ]
@@ -8695,7 +9168,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 145,
+    "value": 105.23,
     "sources": [
      "usda-pa-r2"
     ]
@@ -8704,7 +9177,13 @@
  },
  "orange-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "kubo-2008": "exact",
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -8803,12 +9282,12 @@
     "state": "measured",
     "value": 0.39,
     "sources": [
-     "research-papers"
+     "kubo-2008"
     ]
    },
    "phytate": {
     "state": "measured",
-    "value": 11,
+    "value": 10,
     "sources": [
      "fao-phytate"
     ]
@@ -8821,8 +9300,7 @@
     ]
    },
    "proanthocyanidins": {
-    "state": "measured",
-    "value": 0,
+    "state": "not-detected",
     "sources": [
      "usda-pa-r2"
     ]
@@ -8831,7 +9309,11 @@
  },
  "peaches-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -8967,7 +9449,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 67.2,
+    "value": 61.8,
     "sources": [
      "usda-pa-r2"
     ]
@@ -8976,7 +9458,10 @@
  },
  "grapes-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9106,19 +9591,16 @@
     "sources": [
      "milder-2005"
     ]
-   },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 81.5,
-    "sources": [
-     "usda-pa-r2"
-    ]
    }
   }
  },
  "kiwi-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9254,7 +9736,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 0.3,
+    "value": 2.56,
     "sources": [
      "usda-pa-r2"
     ]
@@ -9263,7 +9745,11 @@
  },
  "blueberries-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9366,7 +9852,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 179.8,
+    "value": 182.23,
     "sources": [
      "usda-pa-r2"
     ]
@@ -9375,7 +9861,10 @@
  },
  "mango-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9469,16 +9958,9 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 12,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 1.1,
+    "value": 10.4,
     "sources": [
      "usda-pa-r2"
     ]
@@ -9487,7 +9969,10 @@
  },
  "pineapple-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9613,8 +10098,7 @@
     ]
    },
    "proanthocyanidins": {
-    "state": "measured",
-    "value": 2.6,
+    "state": "not-detected",
     "sources": [
      "usda-pa-r2"
     ]
@@ -9623,7 +10107,11 @@
  },
  "watermelon-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9672,17 +10160,26 @@
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 4,
+    "state": "range",
+    "low": 0.47,
+    "high": 10,
     "sources": [
      "fao-phytate"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
  },
  "grapefruit-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9806,19 +10303,16 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 6,
-    "sources": [
-     "fao-phytate"
-    ]
    }
   }
  },
  "apricots-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -9923,7 +10417,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 10.3,
+    "value": 29.68,
     "sources": [
      "usda-pa-r2"
     ]
@@ -9932,7 +10426,12 @@
  },
  "pear-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10028,13 +10527,6 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 5,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.015,
@@ -10044,16 +10536,32 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 37.4,
+    "value": 32.68,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }
  },
  "cherries-sweet-raw": {
   "prep": "sweet, raw",
-  "match": "close",
+  "matches": {
+   "mext-2020": "close",
+   "milder-2005": "close",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10110,7 +10618,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 50.3,
+    "value": 14.63,
     "sources": [
      "usda-pa-r2"
     ]
@@ -10119,7 +10627,10 @@
  },
  "jerusalem-artichokes-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10247,12 +10758,21 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "alfalfa-sprouts-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "sim-2021": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10347,12 +10867,26 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "dried-figs-dried": {
   "prep": "dried",
-  "match": "proxy",
+  "matches": {
+   "mext-2020": "proxy"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10477,26 +11011,14 @@
     "sources": [
      "mext-2020"
     ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 61,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 0,
-    "sources": [
-     "usda-pa-r2"
-    ]
    }
   }
  },
  "soybeans-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -10623,7 +11145,10 @@
  },
  "green-beans-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "sim-2021": "close"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10746,12 +11271,26 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "great-northern-beans-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -10847,7 +11386,9 @@
  },
  "white-rice-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "trace",
@@ -10942,7 +11483,11 @@
  },
  "cabbage-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11069,12 +11614,32 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "turnip-greens-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11124,7 +11689,9 @@
  },
  "endive-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11174,7 +11741,10 @@
  },
  "garlic-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11219,12 +11789,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "okra-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11352,7 +11930,9 @@
  },
  "lotus-root-cooked": {
   "prep": "cooked",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11449,7 +12029,10 @@
  },
  "cantaloupe-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11543,12 +12126,21 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "fig-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11673,12 +12265,21 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 0.01,
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "kumquat-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11728,7 +12329,9 @@
  },
  "starfruit-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11778,7 +12381,10 @@
  },
  "lime-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -11869,12 +12475,20 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "lemon-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -12004,7 +12618,9 @@
  },
  "wakame-raw": {
   "prep": "raw",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "not-measured",
@@ -12056,7 +12672,9 @@
  },
  "parsley-fresh": {
   "prep": "fresh",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -12156,7 +12774,9 @@
  },
  "basil-fresh": {
   "prep": "fresh",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -12250,7 +12870,9 @@
  },
  "peanut-butter-smooth": {
   "prep": "smooth",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "measured",
@@ -12382,7 +13004,9 @@
  },
  "soy-protein-isolate": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "mext-2020": "exact"
+  },
   "cells": {
    "solfibre": {
     "state": "not-detected",
@@ -12475,18 +13099,16 @@
  },
  "brussels-sprouts-cooked": {
   "prep": "cooked",
-  "match": "proxy",
+  "matches": {
+   "ifct-2017": "proxy",
+   "mcnaughton-2003": "proxy",
+   "milder-2005": "proxy",
+   "lee-2010": "proxy"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
     "value": 18.32,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
-   "oxalate": {
-    "state": "measured",
-    "value": 4.67,
     "sources": [
      "ifct-2017"
     ]
@@ -12511,25 +13133,46 @@
     "sources": [
      "mcnaughton-2003"
     ]
+   },
+   "oxalate_sol": {
+    "state": "measured",
+    "value": 4.67,
+    "sources": [
+     "ifct-2017"
+    ]
+   },
+   "glucoraphanin": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "lee-2010"
+    ]
    }
   }
  },
  "olive-oil-extra-virgin": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "beltran-2016": "proxy",
+   "milder-2005": "proxy",
+   "owen-2000": "proxy",
+   "venegas-2011": "proxy",
+   "zmitek-2014": "proxy",
+   "sim-2021": "close"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 6.09,
     "sources": [
-     "research-papers"
+     "zmitek-2014"
     ]
    },
    "melatonin": {
     "state": "measured",
     "value": 3.08,
     "sources": [
-     "research-papers"
+     "venegas-2011"
     ]
    },
    "squalene": {
@@ -12552,18 +13195,33 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "soybean-oil-refined": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fine-2016": "proxy",
+   "nergiz-2011": "proxy"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 3,
     "sources": [
-     "research-papers"
+     "fine-2016"
     ]
    },
    "squalene": {
@@ -12577,13 +13235,18 @@
  },
  "rapeseed-oil": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fine-2016": "proxy",
+   "milder-2005": "proxy",
+   "sim-2021": "exact",
+   "jensen-2022": "exact"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 3.5,
     "sources": [
-     "research-papers"
+     "fine-2016"
     ]
    },
    "lignans": {
@@ -12593,31 +13256,60 @@
      "milder-2005"
     ]
    },
-   "squalene": {
-    "state": "measured",
-    "value": 14.2,
+   "mk4": {
+    "state": "not-detected",
     "sources": [
-     "literature"
+     "sim-2021",
+     "jensen-2022"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021",
+     "jensen-2022"
+    ]
+   },
+   "mk8": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
+    ]
+   },
+   "mk9": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
+    ]
+   },
+   "mk10": {
+    "state": "not-detected",
+    "sources": [
+     "jensen-2022"
     ]
    }
   }
  },
  "sunflower-oil": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fine-2016": "proxy",
+   "nergiz-2011": "proxy",
+   "rodriguez-acuna-2008": "proxy"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 0.3,
     "sources": [
-     "research-papers"
+     "fine-2016"
     ]
    },
    "coq9": {
     "state": "measured",
     "value": 10.13,
     "sources": [
-     "research-papers"
+     "rodriguez-acuna-2008"
     ]
    },
    "squalene": {
@@ -12631,13 +13323,16 @@
  },
  "peanut-oil": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "cabrini-2001": "proxy",
+   "lozano-grande-2018": "proxy"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 7.7,
     "sources": [
-     "research-papers"
+     "cabrini-2001"
     ]
    },
    "squalene": {
@@ -12651,13 +13346,16 @@
  },
  "sesame-oil": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "mattila-2001": "proxy",
+   "milder-2005": "proxy"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 3.15,
     "sources": [
-     "research-papers"
+     "mattila-2001"
     ]
    },
    "lignans": {
@@ -12666,30 +13364,30 @@
     "sources": [
      "milder-2005"
     ]
-   },
-   "squalene": {
-    "state": "measured",
-    "value": 27,
-    "sources": [
-     "literature"
-    ]
    }
   }
  },
  "pistachios": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "arnao-2018": "proxy",
+   "aydogan-2023": "proxy",
+   "fao-phytate": "exact",
+   "milder-2005": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "coq10": {
     "state": "measured",
     "value": 2.5,
     "sources": [
-     "research-papers"
+     "aydogan-2023"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 903,
+    "state": "range",
+    "low": 290,
+    "high": 808,
     "sources": [
      "fao-phytate"
     ]
@@ -12703,7 +13401,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 237.3,
+    "value": 226.4,
     "sources": [
      "usda-pa-r2"
     ]
@@ -12719,26 +13417,34 @@
  },
  "walnut-oil": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "tian-2023": "proxy"
+  },
   "cells": {
    "squalene": {
     "state": "measured",
     "value": 1.1,
     "sources": [
-     "research-papers"
+     "tian-2023"
     ]
    }
   }
  },
  "pinto-beans-cooked": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "biesiekierski-2011": "proxy",
+   "fao-phytate": "close",
+   "milder-2005": "proxy",
+   "pizzorno-2015": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "proanthocyanidins": {
     "state": "measured",
-    "value": 796,
+    "value": 24.56,
     "sources": [
-     "usda-pa"
+     "usda-pa-r2"
     ]
    },
    "boron": {
@@ -12757,7 +13463,7 @@
    },
    "phytate": {
     "state": "measured",
-    "value": 234,
+    "value": 349.67,
     "sources": [
      "fao-phytate"
     ]
@@ -12773,18 +13479,22 @@
  },
  "pecans": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "fao-phytate": "close",
+   "milder-2005": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "proanthocyanidins": {
     "state": "measured",
-    "value": 494,
+    "value": 476.83,
     "sources": [
-     "usda-pa"
+     "usda-pa-r2"
     ]
    },
    "phytate": {
     "state": "measured",
-    "value": 1620,
+    "value": 180,
     "sources": [
      "fao-phytate"
     ]
@@ -12800,26 +13510,25 @@
  },
  "walnuts": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "arnao-2018": "proxy",
+   "fao-phytate": "exact",
+   "milder-2005": "proxy",
+   "pizzorno-2015": "proxy",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "boron": {
     "state": "measured",
-    "value": 1.615,
+    "value": 1.6,
     "sources": [
-     "existing",
-     "literature"
-    ]
-   },
-   "inositol-free": {
-    "state": "measured",
-    "value": 198,
-    "sources": [
-     "literature"
+     "pizzorno-2015"
     ]
    },
    "phytate": {
-    "state": "measured",
-    "value": 982,
+    "state": "range",
+    "low": 200,
+    "high": 1001,
     "sources": [
      "fao-phytate"
     ]
@@ -12833,7 +13542,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 67.3,
+    "value": 60.32,
     "sources": [
      "usda-pa-r2"
     ]
@@ -12849,7 +13558,10 @@
  },
  "black-beans-cooked": {
   "prep": "as listed",
-  "match": "proxy",
+  "matches": {
+   "biesiekierski-2011": "proxy",
+   "milder-2005": "proxy"
+  },
   "cells": {
    "oligosaccharides": {
     "state": "measured",
@@ -12858,45 +13570,27 @@
      "biesiekierski-2011"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 290,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.055,
     "sources": [
      "milder-2005"
     ]
-   },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 24.8,
-    "sources": [
-     "usda-pa-r2"
-    ]
    }
   }
  },
  "wholewheat-pasta-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "cnf": "exact",
+   "milder-2005": "exact"
+  },
   "cells": {
    "k2": {
     "state": "measured",
     "value": 0,
     "sources": [
      "cnf"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 327,
-    "sources": [
-     "fao-phytate"
     ]
    },
    "lignans": {
@@ -12910,11 +13604,15 @@
  },
  "brazil-nuts": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
-    "value": 1719,
+    "value": 190,
     "sources": [
      "fao-phytate"
     ]
@@ -12927,73 +13625,44 @@
     ]
    },
    "proanthocyanidins": {
-    "state": "measured",
-    "value": 0,
+    "state": "not-detected",
     "sources": [
      "usda-pa-r2"
     ]
    }
   }
  },
- "tvp-dry": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {}
- },
- "lupin-beans-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 410,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
- "spirulina-dried": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {}
- },
  "pearl-barley-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 160,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.024,
     "sources": [
      "milder-2005"
     ]
-   },
-   "beta-glucan": {
-    "state": "measured",
-    "value": 2.5,
-    "sources": [
-     "literature"
-    ]
    }
   }
  },
  "sauerkraut-canned": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "schurgers-2000": "exact",
+   "sim-2021": "close",
+   "walther-2013": "close",
+   "walther-2017": "close"
+  },
   "cells": {
    "mk7": {
-    "state": "measured",
-    "value": 4.8,
+    "state": "range",
+    "low": 0.1,
+    "high": 0.3,
     "sources": [
-     "schurgers-2000"
+     "walther-2013",
+     "walther-2017"
     ]
    },
    "k2": {
@@ -13002,20 +13671,54 @@
     "sources": [
      "schurgers-2000"
     ]
+   },
+   "mk4": {
+    "state": "range",
+    "low": 0.3,
+    "high": 0.5,
+    "sources": [
+     "walther-2013",
+     "walther-2017"
+    ],
+    "disputed": [
+     {
+      "source": "sim-2021",
+      "value": 0
+     }
+    ]
+   },
+   "mk8": {
+    "state": "range",
+    "low": 0.6,
+    "high": 0.9,
+    "sources": [
+     "walther-2013",
+     "walther-2017"
+    ]
+   },
+   "mk9": {
+    "state": "range",
+    "low": 0.9,
+    "high": 1.3,
+    "sources": [
+     "walther-2013",
+     "walther-2017"
+    ]
+   },
+   "mk10": {
+    "state": "not-measured",
+    "sources": [
+     "walther-2017"
+    ]
    }
   }
  },
  "miso": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "schurgers-2000": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 630,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "mk7": {
     "state": "measured",
     "value": 10.1,
@@ -13034,7 +13737,9 @@
  },
  "kohlrabi-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "mcnaughton-2003": "exact"
+  },
   "cells": {
    "glucosinolates": {
     "state": "measured",
@@ -13047,7 +13752,9 @@
  },
  "turnip-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "mcnaughton-2003": "exact"
+  },
   "cells": {
    "glucosinolates": {
     "state": "measured",
@@ -13060,7 +13767,9 @@
  },
  "swede-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "mcnaughton-2003": "exact"
+  },
   "cells": {
    "glucosinolates": {
     "state": "measured",
@@ -13073,7 +13782,9 @@
  },
  "rocket-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "mcnaughton-2003": "exact"
+  },
   "cells": {
    "glucosinolates": {
     "state": "measured",
@@ -13086,50 +13797,13 @@
  },
  "haricot-beans-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "close"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
-    "value": 200,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
- "cannellini-beans-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 200,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
- "butter-beans-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 190,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
- "borlotti-beans-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 230,
+    "value": 942.79,
     "sources": [
      "fao-phytate"
     ]
@@ -13138,15 +13812,10 @@
  },
  "bulgur-wheat-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 250,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.032,
@@ -13156,59 +13825,23 @@
    }
   }
  },
- "teff-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 310,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
- "wild-rice-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 280,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
- "couscous-cooked": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 195,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
  "pine-nuts-dried": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "phytate": {
-    "state": "measured",
-    "value": 200,
+    "state": "range",
+    "low": 200,
+    "high": 883,
     "sources": [
      "fao-phytate"
     ]
    },
    "proanthocyanidins": {
-    "state": "measured",
-    "value": 0.3,
+    "state": "not-detected",
     "sources": [
      "usda-pa-r2"
     ]
@@ -13217,11 +13850,13 @@
  },
  "coconut-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
-    "value": 357,
+    "value": 136,
     "sources": [
      "fao-phytate"
     ]
@@ -13230,31 +13865,36 @@
  },
  "artichokes-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 32,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.015,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
     ]
    }
   }
  },
  "beetroot-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "proxy",
+   "milder-2005": "exact"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
-    "value": 37,
+    "value": 12.68,
     "sources": [
      "fao-phytate"
     ]
@@ -13268,26 +13908,18 @@
    }
   }
  },
- "swiss-chard-raw": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 40,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
  "bell-pepper-red-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact",
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact",
+   "sim-2021": "close"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
-    "value": 12,
+    "value": 17.68,
     "sources": [
      "fao-phytate"
     ]
@@ -13297,41 +13929,62 @@
     "value": 0.013,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }
  },
  "bell-pepper-yellow-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "sim-2021": "close"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 12,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.013,
     "sources": [
      "milder-2005"
     ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
    }
   }
  },
  "parsnips-cooked": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 22,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.034,
@@ -13341,42 +13994,34 @@
    }
   }
  },
- "shallots-raw": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 14,
-    "sources": [
-     "fao-phytate"
-    ]
-   }
-  }
- },
  "celeriac-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 23,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.014,
     "sources": [
      "milder-2005"
     ]
+   },
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
    }
   }
  },
  "raspberries-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "lignans": {
     "state": "measured",
@@ -13387,7 +14032,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 30.3,
+    "value": 26.95,
     "sources": [
      "usda-pa-r2"
     ]
@@ -13396,7 +14041,10 @@
  },
  "blackberries-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "lignans": {
     "state": "measured",
@@ -13407,7 +14055,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 23.2,
+    "value": 19.58,
     "sources": [
      "usda-pa-r2"
     ]
@@ -13416,7 +14064,10 @@
  },
  "plums-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
    "lignans": {
     "state": "measured",
@@ -13427,20 +14078,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 141.1,
-    "sources": [
-     "usda-pa-r2"
-    ]
-   }
-  }
- },
- "pomegranate-raw": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 7.6,
+    "value": 196.91,
     "sources": [
      "usda-pa-r2"
     ]
@@ -13449,44 +14087,30 @@
  },
  "dates": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact"
+  },
   "cells": {
    "phytate": {
-    "state": "measured",
-    "value": 47,
+    "state": "range",
+    "low": 126,
+    "high": 134,
     "sources": [
      "fao-phytate"
-    ]
-   },
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 0,
-    "sources": [
-     "usda-pa-r2"
-    ]
-   }
-  }
- },
- "guava-raw": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 1.5,
-    "sources": [
-     "usda-pa-r2"
     ]
    }
   }
  },
  "papaya-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact"
+  },
   "cells": {
    "phytate": {
-    "state": "measured",
-    "value": 3,
+    "state": "range",
+    "low": 22.08,
+    "high": 25.44,
     "sources": [
      "fao-phytate"
     ]
@@ -13495,41 +14119,26 @@
  },
  "passion-fruit-raw": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "fao-phytate": "exact"
+  },
   "cells": {
    "phytate": {
     "state": "measured",
-    "value": 22,
+    "value": 83,
     "sources": [
      "fao-phytate"
-    ]
-   }
-  }
- },
- "lychees-raw": {
-  "prep": "as listed",
-  "match": "exact",
-  "cells": {
-   "proanthocyanidins": {
-    "state": "measured",
-    "value": 12.8,
-    "sources": [
-     "usda-pa-r2"
     ]
    }
   }
  },
  "cocoa-powder-unsweetened": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact",
+   "usda-pa-r2": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 1740,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.058,
@@ -13539,7 +14148,7 @@
    },
    "proanthocyanidins": {
     "state": "measured",
-    "value": 3448,
+    "value": 4252.2,
     "sources": [
      "usda-pa-r2"
     ]
@@ -13548,15 +14157,10 @@
  },
  "wheatgerm-toasted": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact"
+  },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 1543,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.189,
@@ -13568,13 +14172,243 @@
  },
  "flaxseed-oil-cold-pressed": {
   "prep": "as listed",
-  "match": "exact",
+  "matches": {
+   "milder-2005": "exact"
+  },
   "cells": {
    "lignans": {
     "state": "measured",
     "value": 0.314,
     "sources": [
      "milder-2005"
+    ]
+   }
+  }
+ },
+ "cinnamon-ground": {
+  "prep": "ground",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 8084.22,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "oregano-dried": {
+  "prep": "dried",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "poppy-seeds": {
+  "prep": "as listed",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "turmeric-ground": {
+  "prep": "ground",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "cranberries-raw": {
+  "prep": "raw",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 354.75,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "honeydew-melon-raw": {
+  "prep": "raw",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "prunes-dried": {
+  "prep": "dried",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "red-cabbage-raw": {
+  "prep": "raw",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "romaine-lettuce-raw": {
+  "prep": "raw",
+  "matches": {
+   "usda-pa-r2": "exact",
+   "sim-2021": "close"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
+    ]
+   }
+  }
+ },
+ "oat-bran-raw": {
+  "prep": "raw",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "sorghum-grain": {
+  "prep": "grain",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "measured",
+    "value": 1950.46,
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "wheat-bran": {
+  "prep": "as listed",
+  "matches": {
+   "usda-pa-r2": "exact"
+  },
+  "cells": {
+   "proanthocyanidins": {
+    "state": "not-detected",
+    "sources": [
+     "usda-pa-r2"
+    ]
+   }
+  }
+ },
+ "cannellini-beans-cooked": {
+  "prep": "cooked",
+  "matches": {
+   "fao-oligosaccharides": "close"
+  },
+  "cells": {
+   "raffinose": {
+    "state": "measured",
+    "value": 0.527092,
+    "sources": [
+     "fao-oligosaccharides"
+    ]
+   },
+   "stachyose": {
+    "state": "measured",
+    "value": 0.745591,
+    "sources": [
+     "fao-oligosaccharides"
+    ]
+   }
+  }
+ },
+ "yeast-extract-spread": {
+  "prep": "spread",
+  "matches": {
+   "sim-2021": "exact"
+  },
+  "cells": {
+   "mk4": {
+    "state": "range",
+    "low": 1.4,
+    "high": 8.6,
+    "sources": [
+     "sim-2021"
+    ]
+   },
+   "mk7": {
+    "state": "not-detected",
+    "sources": [
+     "sim-2021"
     ]
    }
   }

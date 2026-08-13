@@ -1,0 +1,23 @@
+{
+  "source": "jensen-2025",
+  "citation": "Jensen MB, Langwagen M, Christensen T, Poulsen A, Jakobsen J. Vitamin K - content in food and dietary intake among the Danes. Food Chem. 2025;464:141651, supplementary Table S3",
+  "url": "https://backend.orbit.dtu.dk/ws/files/382428057/1-s2.0-S0308814624033016-main.pdf",
+  "supplementary": "https://ars.els-cdn.com/content/image/1-s2.0-S0308814624033016-mmc1.docx",
+  "doi": "10.1016/j.foodchem.2024.141651",
+  "unit": "ug/100 g",
+  "loq": 0.1,
+  "note": "Phylloquinone and MK-4 through MK-10 measured individually in 88 composite samples, at a limit of quantification of 0.1 ug/100 g for every vitamer. An empty cell below is a result under that limit. The main paper reports everything converted to phylloquinone equivalents; these are the underlying per-vitamer masses from Table S3, which is the unit this store wants.",
+  "why-nothing-maps": "Not one of the 88 samples is a food on this page. They are dairy, meat, offal, fish, eggs, five cereal products and four plant-based alternatives to dairy, and the page carries no bread, no muesli, no yogurt and no cheese of either kind. Only the plant rows are kept here, against the day the page gains one of them; the animal rows are omitted because it never will. Recorded rather than discarded so that this dataset does not get re-evaluated from scratch a third time.",
+  "columns": ["pk", "mk4", "mk5", "mk6", "mk7", "mk8", "mk9", "mk10", "fat_pct", "dry_matter_pct"],
+  "rows": [
+    { "group": "Cereals", "food": "Muesli", "pk": 3.70, "fat_pct": 4.6, "dry_matter_pct": 88.8 },
+    { "group": "Cereals", "food": "Wheat bread, Ciabatta", "pk": 0.29, "mk7": 0.11, "fat_pct": 1.1, "dry_matter_pct": 60.7 },
+    { "group": "Cereals", "food": "Wheat bread, Buns", "pk": 2.71, "mk8": 0.11, "mk9": 0.26, "mk10": 0.23, "fat_pct": 3.4, "dry_matter_pct": 65.9 },
+    { "group": "Cereals", "food": "Rye bread with kernels", "pk": 1.86, "mk8": 0.22, "mk9": 0.14, "fat_pct": 7.1, "dry_matter_pct": 55.1 },
+    { "group": "Cereals", "food": "Rye bread", "pk": 2.33, "mk8": 0.31, "mk9": 0.27, "mk10": 0.12, "fat_pct": 1.6, "dry_matter_pct": 52.9 },
+    { "group": "Plant-based alternative to dairy", "food": "Plantgurt, 2.5% fat", "pk": 4.34, "mk8": 0.48, "fat_pct": 2.5, "dry_matter_pct": 9.5 },
+    { "group": "Plant-based alternative to dairy", "food": "Plant-based slices", "pk": 4.90, "mk4": 0.11, "mk6": 1.01, "mk7": 3.55, "mk8": 0.73, "mk9": 0.20, "mk10": 0.14, "fat_pct": 21.4, "dry_matter_pct": 41.1 },
+    { "group": "Plant-based alternative to dairy", "food": "Cheddar style slices", "pk": 0.47, "mk6": 0.96, "mk7": 4.31, "mk8": 0.87, "mk9": 0.24, "mk10": 0.25, "fat_pct": 17.8, "dry_matter_pct": 48.5 },
+    { "group": "Plant-based alternative to dairy", "food": "Plant-based grated", "pk": 7.48, "mk4": 0.11, "mk6": 1.16, "mk7": 4.07, "mk8": 0.82, "mk9": 0.26, "mk10": 0.13, "fat_pct": 21.0, "dry_matter_pct": 43.5 }
+  ]
+}

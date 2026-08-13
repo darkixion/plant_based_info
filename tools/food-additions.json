@@ -90,7 +90,6 @@
   {"name":"Pigeon peas","state":"cooked","cat":"Legumes","colour":"#C4A44E","fdc_id":"172437"},
   {"name":"Great Northern beans","state":"cooked","cat":"Legumes","colour":"#EDE4CC","fdc_id":"173790"},
   {"name":"Moth beans","state":"cooked","cat":"Legumes","colour":"#8B7355","fdc_id":"172426"},
-  {"name":"Lima beans","state":"cooked","cat":"Legumes","colour":"#C4CCA0","fdc_id":"174253"},
   {"name":"Sorghum","state":"grain","cat":"Grains","colour":"#D4A76A","fdc_id":"169716"},
   {"name":"Spelt","state":"cooked","cat":"Grains","colour":"#C8B482","fdc_id":"169746"},
   {"name":"White rice","state":"cooked","cat":"Grains","colour":"#F0EDE4","fdc_id":"168935"},

@@ -1,0 +1,93 @@
+[
+ {
+  "page": "Lentils",
+  "page_state": "cooked",
+  "cofid_code": "13-661",
+  "cofid_name": "Lentils, green and brown, whole, dried, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Kidney beans",
+  "page_state": "cooked",
+  "cofid_code": "13-659",
+  "cofid_name": "Beans, red kidney, dried, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Mung beans",
+  "page_state": "cooked",
+  "cofid_code": "13-664",
+  "cofid_name": "Beans, mung, whole, dried, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Black-eyed peas",
+  "page_state": "cooked",
+  "cofid_code": "13-063",
+  "cofid_name": "Beans, blackeye, whole, dried, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Broad beans",
+  "page_state": "cooked",
+  "cofid_code": "13-648",
+  "cofid_name": "Beans, broad, whole, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Brown rice",
+  "page_state": "cooked",
+  "cofid_code": "11-869",
+  "cofid_name": "Rice, brown, wholegrain, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Broccoli",
+  "page_state": "cooked",
+  "cofid_code": "13-503",
+  "cofid_name": "Broccoli, green, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Potato",
+  "page_state": "baked, with skin",
+  "cofid_code": "13-491",
+  "cofid_name": "Potatoes, old, baked, flesh and skin",
+  "match": "exact"
+ },
+ {
+  "page": "Avocado",
+  "page_state": "",
+  "cofid_code": "14-386",
+  "cofid_name": "Avocado, Hass, flesh only",
+  "match": "close"
+ },
+ {
+  "page": "Banana",
+  "page_state": "",
+  "cofid_code": "14-318",
+  "cofid_name": "Bananas, flesh only",
+  "match": "exact"
+ },
+ {
+  "page": "Carrots",
+  "page_state": "raw",
+  "cofid_code": "13-496",
+  "cofid_name": "Carrots, old, raw",
+  "match": "close"
+ },
+ {
+  "page": "Onions",
+  "page_state": "raw",
+  "cofid_code": "13-499",
+  "cofid_name": "Onions, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Spinach",
+  "page_state": "raw",
+  "cofid_code": "13-572",
+  "cofid_name": "Spinach, mature, raw",
+  "match": "exact"
+ }
+]

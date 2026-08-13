@@ -59,16 +59,28 @@ interface EvidenceCell {
   sources?: string[];
   n?: number; disputed?: { source: string; value: number }[];
 }
-/* One reviewed mapping from this page's food to a source's row, and the cells
-   that mapping made reachable. `match` is graded by a human and `proxy` must
-   stay visible to a reader wherever its values appear. */
+type MatchGrade = "exact" | "close" | "proxy";
+/* The reviewed mappings from this page's food to each source's row, and the
+   cells those mappings made reachable. One grade per source rather than one per
+   food, because a food is mapped once per database and those mappings are not
+   equally good: cooked lentils are MEXT's own boiled-lentil row and IFCT's dry
+   dhal, and a single grade had to lie about one of them. It said `exact`, so
+   the dry-basis figure showed with no mark on it at all.
+
+   `proxy` must stay visible to a reader wherever its values appear, which is
+   now decidable per cell, since a cell names the sources it rests on. */
 interface EvidenceFood {
   prep: string;
-  match: "exact" | "close" | "proxy";
+  matches: Record<string, MatchGrade>;
   cells: Record<string, EvidenceCell>;
 }
+/* `short` is what appears beside a figure and is the only required label: a
+   country for a national food table, an author and year for a paper. The rest
+   are optional because they are not all knowable for both kinds of source, and
+   a record that had to invent a publisher would be worse than one without. */
 interface EvSource {
-  title: string; publisher: string; country: string; url: string; quality: string;
+  short: string; title: string; quality: string;
+  publisher?: string; country?: string; url?: string;
 }
 
 /* ---------- bioavailability ----------
@@ -806,6 +818,22 @@ const ev = (slug: string, id: string): EvidenceCell | undefined => EV[slug]?.cel
    the match grade even where they are looking at one component. */
 const evFood = (slug: string): EvidenceFood | undefined => EV[slug];
 
+/* How well the food this figure was measured in matches the food it is shown
+   against. A cell may rest on several mappings of differing quality, and the
+   weakest one is what the reader has to be told about: a value reconciled from
+   an exact row and a proxy row is only as good as the proxy. */
+const GRADE_ORDER: MatchGrade[] = ["exact", "close", "proxy"];
+const evGrade = (slug: string, c: EvidenceCell | undefined): MatchGrade | undefined => {
+  const grades = evFood(slug)?.matches;
+  if (!c || !grades) return undefined;
+  let worst: MatchGrade | undefined;
+  for (const s of c.sources || []) {
+    const g = grades[s];
+    if (g && (!worst || GRADE_ORDER.indexOf(g) > GRADE_ORDER.indexOf(worst))) worst = g;
+  }
+  return worst;
+};
+
 /* Six states and six renderings, with no default branch: the union is closed,
    so a seventh state added to the data without being added here is a compile
    error rather than a blank cell. */
@@ -1499,8 +1527,12 @@ function renderTable(r: ReturnType<typeof rows>) {
     </tr><tr>${cells}</tr>`;
 
   // Only the notes actually on show get a key beneath the table: a legend for a
-  // marker nobody can see is just more to read.
+  // marker nobody can see is just more to read. The same rule covers the two
+  // marks the stylesheet draws on evidence cells, which had no key at all: a
+  // reader met "4.2 calc" and "179.8 ~" with nothing on the page saying what
+  // either meant, and the second one looks like it contradicts the figure.
   const shownNotes = new Set<Note>();
+  const shownMarks = new Set<"calc" | "proxy">();
   $("#tbody").innerHTML = page.length ? page.map(({ f, i }) => {
     // Null where the food has no energy figure to divide by, which is why it is
     // read once here rather than tested and then read again.
@@ -1543,7 +1575,12 @@ function renderTable(r: ReturnType<typeof rows>) {
             `<span class="noref" aria-hidden="true">&ndash;</span>` +
             `<span class="sr">no daily value published</span></td>`;
           const cell = ev(slugAt(i), n.id);
-          const proxy = cell && evFood(slugAt(i))?.match === "proxy" ? ` data-match="proxy"` : "";
+          const proxy = evGrade(slugAt(i), cell) === "proxy" ? ` data-match="proxy"` : "";
+          // Both marks are drawn by the stylesheet, which cannot say what they
+          // mean. Recorded here so the key under the table explains whichever
+          // of them the reader can actually see.
+          if (cell?.state === "estimated") shownMarks.add("calc");
+          if (proxy) shownMarks.add("proxy");
           return `<td class="num ${colClass(n)}" data-g="${n.group}" data-n="${esc(n.id)}"` +
                  ` data-ev="${cell ? cell.state : "none"}"${proxy}>${esc(evText(cell, n.dp))}</td>`;
         }
@@ -1580,11 +1617,23 @@ function renderTable(r: ReturnType<typeof rows>) {
     // reads the whole table without anyone learning 60-odd daily values.
     (S.dv && S.basis === "kcal" ? " 5% here is a full day's worth at 2000 kcal." : "");
 
+  /* The marks come first because they sit on the figures themselves rather than
+     beside them, so a reader looking for "what is that squiggle" finds it at
+     the top of the key rather than after the footnotes. */
+  const MARK_KEY = {
+    calc: ["calc", "Calculated by the source",
+           "The database published this as a calculation or an inference from a similar food rather than as an assay of this one. Japan's tables print such figures in parentheses."],
+    proxy: ["~", "Measured in a proxy food",
+            "The figure itself was measured. What is only approximate is the food: the closest row in that database was a related species or a notably different preparation, so it stands in for the one named here."],
+  } as const;
   const key = $("#noteKey");
-  key.hidden = !shownNotes.size;
-  key.innerHTML = [...shownNotes].map(n =>
+  key.hidden = !shownNotes.size && !shownMarks.size;
+  key.innerHTML = [...shownMarks].map(m => {
+    const [mark, short, text] = MARK_KEY[m];
+    return `<span><sup class="fnote">${esc(mark)}</sup> <b>${esc(short)}.</b> ${esc(text)}</span>`;
+  }).concat([...shownNotes].map(n =>
     `<span><sup class="fnote">${esc(n.marker)}</sup> <b>${esc(n.short)}.</b>
-     ${esc(n.text)}</span>`).join("");
+     ${esc(n.text)}</span>`)).join("");
 
   syncHeadOffset();
 }
@@ -1850,8 +1899,13 @@ function renderDetail() {
           const figure = c && (c.state === "measured" || c.state === "range" || c.state === "estimated");
           // Named, because a reader comparing this against a figure they have
           // seen elsewhere deserves to know which country's table it came from.
+          /* Named, because a reader comparing this against a figure they have
+             seen elsewhere deserves to know where it came from. `short` rather
+             than `country`: two thirds of these are single papers, which have
+             no country worth printing, and the fallback to the raw key was
+             putting "milder-2005" and "fao-phytate" on the page. */
           const from = c?.sources?.length
-            ? ` <span class="pc">· ${esc(c.sources.map(s => SRCS[s]?.country ?? s).join(", "))}</span>` : "";
+            ? ` <span class="pc">· ${esc(c.sources.map(s => SRCS[s]?.short ?? s).join(", "))}</span>` : "";
           return `<div class="drow${L.has(n.id) ? " lensrow" : ""}" style="display:block">
             <div style="display:flex;justify-content:space-between;gap:10px">
               <dt>${esc(n.label)}</dt>

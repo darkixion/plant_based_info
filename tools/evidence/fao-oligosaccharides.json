@@ -1,0 +1,3939 @@
+[
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "01 Cereals",
+  "id": "0100545",
+  "name": "Rice, Jaya, Indica, brown, raw",
+  "processing": "r",
+  "species": "Oryza sativa indica",
+  "country": "India, Mysore",
+  "biblioid": "r051",
+  "n": null,
+  "water": 12.2,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.0439,
+   "raw": "0.0439"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300037",
+  "name": "Velvet beans, Black, var. utilis, seeds, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens (L.) DC",
+  "country": "India, Periamyllaru",
+  "biblioid": "pu014",
+  "n": 1,
+  "water": 9.38,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.01,
+   "raw": "1.01"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.23,
+   "raw": "1.23"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.334816,
+   "raw": "3.334816"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300038",
+  "name": "Velvet beans, White, var. utilis, seeds, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens (L.) DC",
+  "country": "India, Periamyllaru",
+  "biblioid": "pu014",
+  "n": 1,
+  "water": 10.68,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.93,
+   "raw": "0.93"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.08,
+   "raw": "1.08"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.6263919999999996,
+   "raw": "3.6263919999999996"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300039",
+  "name": "Itching bean, var. pruriens, seeds, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens (L.) DC",
+  "country": "India, Devipattinum, Tirunelveli District, south eastern slopes of Western Ghats, Tamil Nadu",
+  "biblioid": "pu014",
+  "n": 1,
+  "water": 10.48,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.97,
+   "raw": "0.97"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.26,
+   "raw": "1.26"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.8135519999999996,
+   "raw": "3.8135519999999996"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300040",
+  "name": "Mucuna, seeds, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna deeringiana (Bort) Merril",
+  "country": "India, Chinnamyllaru, Kanyakumari district, south eastern slopes of Western Ghats, Tamil Nadu",
+  "biblioid": "pu014",
+  "n": 1,
+  "water": 8.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.9,
+   "raw": "0.9"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.04,
+   "raw": "1.04"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.88384,
+   "raw": "3.88384"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300045",
+  "name": "Velvet beans, Black, var. utilis, seeds, sun-dried, milled into flour",
+  "processing": "p/r",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.48,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.1348479999999999,
+   "raw": "1.1348479999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.970112,
+   "raw": "0.970112"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.971968,
+   "raw": "3.971968"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300046",
+  "name": "Velvet beans, Black, var. utilis, seeds, soaked in distilled water for 4 h, oven-dried, milled",
+  "processing": "p",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.95,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.89229,
+   "raw": "0.89229"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.8740799999999999,
+   "raw": "0.8740799999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.4963199999999994,
+   "raw": "3.4963199999999994"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300047",
+  "name": "Velvet beans, Black, var. utilis, seeds, soaked in sodium bicarbonate solution for 4 h, oven-dried, milled",
+  "processing": "p",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.81,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.784234,
+   "raw": "0.784234"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.857186,
+   "raw": "0.857186"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.1734120000000003,
+   "raw": "3.1734120000000003"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300048",
+  "name": "Velvet beans, Black, var. utilis, seeds, soaked in distilled water for 4 h, cooked for 1 h, oven-dried, milled",
+  "processing": "p",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.65,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.6851249999999999,
+   "raw": "0.6851249999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.46588499999999994,
+   "raw": "0.46588499999999994"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.97316,
+   "raw": "1.97316"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300049",
+  "name": "Velvet beans, Black, var. utilis, seeds, soaked in sodium bicarbonate solution for 4 h, cooked, oven-dried, milled",
+  "processing": "p",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.58,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.59423,
+   "raw": "0.59423"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.438816,
+   "raw": "0.438816"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.87411,
+   "raw": "1.87411"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300050",
+  "name": "Velvet beans, Black, var. utilis, seeds, soaked in distilled water for 4 h, autoclaved, oven-dried, milled",
+  "processing": "p",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.72,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.41988800000000004,
+   "raw": "0.41988800000000004"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.237328,
+   "raw": "0.237328"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.9949520000000001,
+   "raw": "0.9949520000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300051",
+  "name": "Velvet beans, Black, var. utilis, seeds, soaked in sodium bicarbonate solution for 4 h, autoclaved, oven-dried, milled",
+  "processing": "p",
+  "species": "Mucuna pruriens (L.) DC.",
+  "country": "India, Kerala",
+  "biblioid": "pu017",
+  "n": 1,
+  "water": 8.66,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.12787600000000002,
+   "raw": "0.12787600000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.14614400000000002,
+   "raw": "0.14614400000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.940802,
+   "raw": "0.940802"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300052",
+  "name": "Itching bean, var. pruriens, seeds, mature, sun-dried, flour, raw",
+  "processing": "p/r",
+  "species": "Mucuna pruriens (L.) DC",
+  "country": "India, Kanjarampettai, Madurai district",
+  "biblioid": "pu018",
+  "n": 1,
+  "water": 11.2,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.8347199999999999,
+   "raw": "0.8347199999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.99456,
+   "raw": "0.99456"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.76512,
+   "raw": "3.76512"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300053",
+  "name": "Itching bean, var. pruriens, seeds, mature, sun-dried, flour, raw",
+  "processing": "p/r",
+  "species": "Mucuna pruriens (L.) DC",
+  "country": "India, Shenbagathoopu, Viruthunagar district",
+  "biblioid": "pu018",
+  "n": 1,
+  "water": 9.38,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.9424480000000002,
+   "raw": "0.9424480000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.377424,
+   "raw": "1.377424"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.334816,
+   "raw": "3.334816"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300054",
+  "name": "Itching bean, var. pruriens, seeds, mature, sun-dried, flour, raw",
+  "processing": "p/r",
+  "species": "Mucuna pruriens (L.) DC",
+  "country": "India, Thanniparai, Viruthunagar district",
+  "biblioid": "pu018",
+  "n": 1,
+  "water": 9.5,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.6697,
+   "raw": "0.6697"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.9955000000000002,
+   "raw": "0.9955000000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.0725,
+   "raw": "4.0725"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300086",
+  "name": "Velvet bean, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, South, Kerala, Idukki District, Kailasanadu",
+  "biblioid": "pu025",
+  "n": 3,
+  "water": 8.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.85188,
+   "raw": "0.85188"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0992,
+   "raw": "1.0992"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.82888,
+   "raw": "3.82888"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300087",
+  "name": "Velvet bean, var. utilis, seeds, mature, sun-dried, soaked in water for 6 h, oven-dried, raw",
+  "processing": "p/d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, South, Kerala, Idukki District, Kailasanadu",
+  "biblioid": "pu025",
+  "n": 3,
+  "water": 6.7,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.7650599999999999,
+   "raw": "0.7650599999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0636199999999998,
+   "raw": "1.0636199999999998"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.96694,
+   "raw": "2.96694"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300088",
+  "name": "Velvet bean, var. utilis, seeds, mature, sun-dried, cooked, oven-dried",
+  "processing": "p/d",
+  "species": "Mucuna pruriens",
+  "country": "India, South, Kerala, Idukki District, Kailasanadu",
+  "biblioid": "pu025",
+  "n": 3,
+  "water": 7.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.40876000000000007,
+   "raw": "0.40876000000000007"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.59456,
+   "raw": "0.59456"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.5268800000000002,
+   "raw": "2.5268800000000002"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300089",
+  "name": "Velvet bean, var. utilis, seeds, mature, sun-dried, autoclaved, oven-dried",
+  "processing": "p/d",
+  "species": "Mucuna pruriens",
+  "country": "India, South, Kerala, Idukki District, Kailasanadu",
+  "biblioid": "pu025",
+  "n": 3,
+  "water": 7.9,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.19340999999999997,
+   "raw": "0.19340999999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.29472,
+   "raw": "0.29472"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.94863,
+   "raw": "0.94863"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300090",
+  "name": "Velvet bean, var. utilis, seeds, mature, sun-dried, roasted, oven-dried",
+  "processing": "p/d",
+  "species": "Mucuna pruriens",
+  "country": "India, South, Kerala, Idukki District, Kailasanadu",
+  "biblioid": "pu025",
+  "n": 3,
+  "water": 7.5,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5642499999999999,
+   "raw": "0.5642499999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.78625,
+   "raw": "0.78625"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.367,
+   "raw": "3.367"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300116",
+  "name": "Mucuna, seeds, mature, air-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu028",
+  "n": 1,
+  "water": 4.64,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.57344,
+   "raw": "1.57344"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.172928,
+   "raw": "1.172928"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.8868480000000001,
+   "raw": "0.8868480000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300117",
+  "name": "Mucuna, seeds, mature, air-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna cochinchinensis",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu028",
+  "n": 1,
+  "water": 3.82,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.3946100000000001,
+   "raw": "1.3946100000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0098900000000002,
+   "raw": "1.0098900000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.9906540000000001,
+   "raw": "0.9906540000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300118",
+  "name": "Mucuna, seeds, mature, air-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna rajada",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu028",
+  "n": 1,
+  "water": 3.65,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.801745,
+   "raw": "1.801745"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.29109,
+   "raw": "1.29109"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.7515299999999999,
+   "raw": "0.7515299999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300119",
+  "name": "Mucuna, Mottle, seeds, mature, air-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna veracruz",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu028",
+  "n": 1,
+  "water": 3.74,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.6941760000000001,
+   "raw": "1.6941760000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0781120000000002,
+   "raw": "1.0781120000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.837462,
+   "raw": "0.837462"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300120",
+  "name": "Mucuna, White, seeds, mature, air-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna veracruz",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu028",
+  "n": 1,
+  "water": 3.88,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.163052,
+   "raw": "1.163052"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.05732,
+   "raw": "1.05732"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.018872,
+   "raw": "1.018872"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300121",
+  "name": "Mucuna, seeds, mature, air-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna deeringeana",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu028",
+  "n": 1,
+  "water": 4.46,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.05094,
+   "raw": "1.05094"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.232466,
+   "raw": "1.232466"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.6210100000000001,
+   "raw": "0.6210100000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300136",
+  "name": "Velvet bean, var. utilis, White, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, Marthandan",
+  "biblioid": "pu031",
+  "n": 1,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.0707735999999999,
+   "raw": "1.0707735999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.3115179999999997,
+   "raw": "1.3115179999999997"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.578121,
+   "raw": "2.578121"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300137",
+  "name": "Velvet bean, var. utilis, White, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, Tamil Nadu, Salem",
+  "biblioid": "pu031",
+  "n": 1,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.82773,
+   "raw": "0.82773"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.122034,
+   "raw": "1.122034"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.4464020000000004,
+   "raw": "2.4464020000000004"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300138",
+  "name": "Velvet bean, var. utilis, Black, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, Marthandan",
+  "biblioid": "pu031",
+  "n": 1,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.8223670000000002,
+   "raw": "0.8223670000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.147699,
+   "raw": "1.147699"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.214065,
+   "raw": "2.214065"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300139",
+  "name": "Velvet bean, var. utilis, White, seeds, mature, dehulled, sun-dried, raw",
+  "processing": "p/d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, Marthandan",
+  "biblioid": "pu031",
+  "n": 1,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.158549,
+   "raw": "1.158549"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6345420000000002,
+   "raw": "1.6345420000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.981692,
+   "raw": "2.981692"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300140",
+  "name": "Velvet bean, var. utilis, White, seeds, mature, dehulled, sun-dried, raw",
+  "processing": "p/d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, Tamil Nadu, Salem",
+  "biblioid": "pu031",
+  "n": 1,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.9645480000000001,
+   "raw": "0.9645480000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.25034,
+   "raw": "1.25034"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.6793,
+   "raw": "2.6793"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300141",
+  "name": "Velvet bean, var. utilis, Black, seeds, mature, dehulled, sun-dried, raw",
+  "processing": "p/d/r",
+  "species": "Mucuna pruriens",
+  "country": "India, Marthandan",
+  "biblioid": "pu031",
+  "n": 1,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.063062,
+   "raw": "1.063062"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.40833,
+   "raw": "1.40833"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.534994,
+   "raw": "2.534994"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300149",
+  "name": "Vigna radiata, var. sublota, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna radiata (L.) Wilczek",
+  "country": "India, Tamil Nadu, Western Ghats, Seithur reserve forest",
+  "biblioid": "pu035",
+  "n": null,
+  "water": 4.8,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.36176,
+   "raw": "0.36176"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.5041600000000002,
+   "raw": "1.5041600000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.93296,
+   "raw": "0.93296"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300150",
+  "name": "Vigna aconitifolia, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna aconitifolia (Jacq.) Marechal",
+  "country": "India, Tamil Nadu, Western Ghats, Coimbatore district, Siruvani reserve forest",
+  "biblioid": "pu035",
+  "n": null,
+  "water": 3.84,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.557728,
+   "raw": "0.557728"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.9039679999999999,
+   "raw": "1.9039679999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.307776,
+   "raw": "1.307776"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300151",
+  "name": "Vigna umbellata, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna umbellata",
+  "country": "India, Tamil Nadu, Western Ghats, Kanniyakumari district, Petchiparai reserve forest",
+  "biblioid": "pu035",
+  "n": null,
+  "water": 5.56,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.7366320000000001,
+   "raw": "0.7366320000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.8982439999999996,
+   "raw": "1.8982439999999996"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.6621439999999998,
+   "raw": "1.6621439999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300152",
+  "name": "Vigna unguiculata, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna unguiculata subsp. Cylindrica",
+  "country": "India, Tamil Nadu, Western Ghats, Virudhunagar district, Ayyanarkoil reserve forest",
+  "biblioid": "pu035",
+  "n": null,
+  "water": 5.44,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5295360000000001,
+   "raw": "0.5295360000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.664256,
+   "raw": "1.664256"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.955056,
+   "raw": "0.955056"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300153",
+  "name": "Vigna vexillata, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna vexillata",
+  "country": "India, Tamil Nadu, Western Ghats, Coimbatore district, Siruvani reserve forest",
+  "biblioid": "pu035",
+  "n": null,
+  "water": 6.94,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.6141960000000001,
+   "raw": "0.6141960000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.9170360000000002,
+   "raw": "1.9170360000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.619244,
+   "raw": "1.619244"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300217",
+  "name": "Terapy bean, var. latifolius, wild, seeds, raw",
+  "processing": "r",
+  "species": "Phaseolus acutifolius",
+  "country": "Mexico, Hermosillo",
+  "biblioid": "pu049",
+  "n": null,
+  "water": 8.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.0458,
+   "raw": "0.0458"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0076,
+   "raw": "1.0076"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300218",
+  "name": "Terapy bean, var. latifolius, White, seeds, raw",
+  "processing": "r",
+  "species": "Phaseolus acutifolius",
+  "country": "Arizona",
+  "biblioid": "pu049",
+  "n": null,
+  "water": 5.15,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.26558,
+   "raw": "0.26558"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 4.372585,
+   "raw": "4.372585"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300219",
+  "name": "Terapy bean, var. latifolius, White, seeds, raw",
+  "processing": "r",
+  "species": "Phaseolus acutifolius",
+  "country": "Arizona",
+  "biblioid": "pu049",
+  "n": null,
+  "water": 7.92,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.727432,
+   "raw": "0.727432"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 3.3977519999999997,
+   "raw": "3.3977519999999997"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300220",
+  "name": "Terapy bean, var. latifolius, Brown, seeds, raw",
+  "processing": "r",
+  "species": "Phaseolus acutifolius",
+  "country": "Arizona",
+  "biblioid": "pu049",
+  "n": null,
+  "water": 5.23,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.928746,
+   "raw": "0.928746"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 5.164965,
+   "raw": "5.164965"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300221",
+  "name": "Terapy bean, var. latifolius, Brown, seeds, raw",
+  "processing": "r",
+  "species": "Phaseolus acutifolius",
+  "country": "Arizona",
+  "biblioid": "pu049",
+  "n": null,
+  "water": 4.72,
+  "raffinose": {
+   "state": "not-detected",
+   "raw": "nd"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 3.115656,
+   "raw": "3.115656"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300222",
+  "name": "Pinto bean, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Mexico, Hermosillo",
+  "biblioid": "pu049",
+  "n": null,
+  "water": 4.11,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.316437,
+   "raw": "0.316437"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 4.756144,
+   "raw": "4.756144"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300241",
+  "name": "Rice bean, JCR-152, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.47,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.6893289999999999,
+   "raw": "1.6893289999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.8928060000000001,
+   "raw": "0.8928060000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.857794,
+   "raw": "0.857794"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300242",
+  "name": "Rice bean, JCR-178, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 13.28,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.439552,
+   "raw": "1.439552"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.8585280000000001,
+   "raw": "0.8585280000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.73712,
+   "raw": "0.73712"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300243",
+  "name": "Rice bean, JCR-163, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 11.56,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.131404,
+   "raw": "2.131404"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.1055,
+   "raw": "1.1055"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.910932,
+   "raw": "0.910932"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300244",
+  "name": "Rice bean, JCR-20, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 13.98,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.176306,
+   "raw": "2.176306"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.058046,
+   "raw": "1.058046"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.963424,
+   "raw": "0.963424"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300245",
+  "name": "Rice bean, IC-140802, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 14.26,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.117778,
+   "raw": "2.117778"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.337544,
+   "raw": "1.337544"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.0546019999999998,
+   "raw": "1.0546019999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300246",
+  "name": "Rice bean, IC-140795, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.28,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.2544039999999996,
+   "raw": "2.2544039999999996"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.298256,
+   "raw": "1.298256"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.2368519999999998,
+   "raw": "1.2368519999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300247",
+  "name": "Rice bean, IC-140796, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 13.23,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.2386660000000003,
+   "raw": "2.2386660000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.370966,
+   "raw": "1.370966"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.963147,
+   "raw": "0.963147"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300248",
+  "name": "Rice bean, IC-137195, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 11.17,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.856547,
+   "raw": "1.856547"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.781704,
+   "raw": "0.781704"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.092609,
+   "raw": "1.092609"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300249",
+  "name": "Rice bean, IC-137194, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.68,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.362192,
+   "raw": "1.362192"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.8470039999999999,
+   "raw": "0.8470039999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.8557359999999998,
+   "raw": "0.8557359999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300250",
+  "name": "Rice bean, IC-019352, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 13.56,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.711512,
+   "raw": "1.711512"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0632119999999998,
+   "raw": "1.0632119999999998"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.7520279999999999,
+   "raw": "0.7520279999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300251",
+  "name": "Rice bean, EC-48223-B, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.52,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.9770479999999997,
+   "raw": "1.9770479999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.460916,
+   "raw": "1.460916"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.8660519999999999,
+   "raw": "0.8660519999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300252",
+  "name": "Rice bean, BRS-2, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.57,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.8972310000000001,
+   "raw": "1.8972310000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.285221,
+   "raw": "1.285221"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.9267580000000001,
+   "raw": "0.9267580000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300253",
+  "name": "Rice bean, LRB-134, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 13.14,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.12807,
+   "raw": "2.12807"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.2594699999999999,
+   "raw": "1.2594699999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.9641460000000001,
+   "raw": "0.9641460000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300254",
+  "name": "Rice bean, LRB-164, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 13.12,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.876608,
+   "raw": "1.876608"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.877488,
+   "raw": "0.877488"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.8427359999999999,
+   "raw": "0.8427359999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300255",
+  "name": "Rice bean, LRB-168, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.47,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.706835,
+   "raw": "1.706835"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.822782,
+   "raw": "0.822782"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.857794,
+   "raw": "0.857794"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300256",
+  "name": "Rice bean, LRB-40-2, seeds, raw",
+  "processing": "r",
+  "species": "Vigna umbellata",
+  "country": "India (North–Eastern, Northern, and Western)",
+  "biblioid": "pu047",
+  "n": 1,
+  "water": 12.94,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.8369659999999999,
+   "raw": "1.8369659999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.636728,
+   "raw": "1.636728"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.879306,
+   "raw": "0.879306"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300289",
+  "name": "Common bean, var. Almonga, White, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Spain, Valladolid",
+  "biblioid": "pu055",
+  "n": 4,
+  "water": 16.15,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.0439325,
+   "raw": "1.0439325"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.341092,
+   "raw": "2.341092"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300290",
+  "name": "Common bean, var. Almonga, White, seeds, canned, cooked, salt and ascorbic acid added, drained",
+  "processing": "p",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Spain, Valladolid",
+  "biblioid": "pu055",
+  "n": 4,
+  "water": 57.9,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.527092,
+   "raw": "0.527092"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.745591,
+   "raw": "0.745591"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300291",
+  "name": "Common bean, var. Currilla, Cream, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Spain, Valladolid",
+  "biblioid": "pu055",
+  "n": 4,
+  "water": 16.55,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.0681600000000002,
+   "raw": "1.0681600000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.273178,
+   "raw": "2.273178"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300292",
+  "name": "Common bean, var. Currilla, Cream, seeds, canned, cooked, salt and ascorbic acid added, drained",
+  "processing": "p",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Spain, Valladolid",
+  "biblioid": "pu055",
+  "n": 4,
+  "water": 50.95,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5248349999999999,
+   "raw": "0.5248349999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.6646274999999999,
+   "raw": "0.6646274999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300921",
+  "name": "V. unguiculata, Black, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna unguiculata subsp. unguiculata",
+  "country": "India, Tamil Nadu, Western Ghats, Sivagiri Reserve Forest",
+  "biblioid": "pu201",
+  "n": 1,
+  "water": 8.74,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.438048,
+   "raw": "0.438048"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.5879240000000001,
+   "raw": "1.5879240000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.104246,
+   "raw": "1.104246"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300922",
+  "name": "V. unguiculata, Maroon, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "Vigna unguiculata subsp. unguiculata",
+  "country": "India, Tamil Nadu, Western Ghats, Sivagiri Reserve Forest",
+  "biblioid": "pu201",
+  "n": 1,
+  "water": 6.28,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.47797200000000006,
+   "raw": "0.47797200000000006"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6119839999999999,
+   "raw": "1.6119839999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.974688,
+   "raw": "0.974688"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301027",
+  "name": "Cowpea, var. Adzuki, Maroon, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5628,
+   "raw": "0.5628"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 3.5644,
+   "raw": "3.5644"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.4086,
+   "raw": "4.4086"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301028",
+  "name": "Cowpea, var. New Era, Dark brown, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.8217,
+   "raw": "0.8217"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.6477,
+   "raw": "2.6477"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.2911,
+   "raw": "4.2911"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301029",
+  "name": "Cowpea, var. Nig. A95, White, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.3425,
+   "raw": "1.3425"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.5955,
+   "raw": "2.5955"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.58,
+   "raw": "3.58"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301030",
+  "name": "Cowpea, var. Farin Juda C, Cream with mottled brown back, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.2025,
+   "raw": "1.2025"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0175,
+   "raw": "1.0175"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.22,
+   "raw": "2.22"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301031",
+  "name": "Cowpea, var. West bred, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.8153999999999999,
+   "raw": "0.8153999999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.7213999999999998,
+   "raw": "1.7213999999999998"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.9931999999999999,
+   "raw": "1.9931999999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301032",
+  "name": "Cowpea, var. Nig. B4, Brown, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.531,
+   "raw": "0.531"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.947,
+   "raw": "1.947"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.9205,
+   "raw": "2.9205"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301033",
+  "name": "Cowpea, var. Mala, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5268,
+   "raw": "0.5268"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.8973999999999993,
+   "raw": "2.8973999999999993"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.9509999999999996,
+   "raw": "3.9509999999999996"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301034",
+  "name": "Cowpea, var. Nig. A104, White, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.44049999999999995,
+   "raw": "0.44049999999999995"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.9953999999999996,
+   "raw": "2.9953999999999996"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.2288,
+   "raw": "4.2288"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301035",
+  "name": "Cowpea, var. Nig. B7, Brown, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5382,
+   "raw": "0.5382"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.4219000000000004,
+   "raw": "2.4219000000000004"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.3189000000000006,
+   "raw": "3.3189000000000006"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301036",
+  "name": "Cowpea, var. Prima, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5244000000000001,
+   "raw": "0.5244000000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.2724,
+   "raw": "2.2724"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.1464000000000003,
+   "raw": "3.1464000000000003"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301037",
+  "name": "Cowpea, var. Kano 2479, White, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.2646,
+   "raw": "0.2646"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.1168,
+   "raw": "2.1168"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.7342,
+   "raw": "2.7342"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301038",
+  "name": "Cowpea, var. Kano 1696, White, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.2236,
+   "raw": "1.2236"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.6220000000000003,
+   "raw": "2.6220000000000003"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.195200000000001,
+   "raw": "4.195200000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301039",
+  "name": "Cowpea, var. Line 7, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.4025,
+   "raw": "1.4025"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.8985000000000003,
+   "raw": "2.8985000000000003"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.805,
+   "raw": "2.805"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301040",
+  "name": "Cowpea, var. Anna, White, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.6111,
+   "raw": "0.6111"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.0079,
+   "raw": "2.0079"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.0951999999999997,
+   "raw": "2.0951999999999997"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301041",
+  "name": "Cowpea, var. Ima, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.6258,
+   "raw": "0.6258"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.1456,
+   "raw": "2.1456"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.5926,
+   "raw": "2.5926"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301042",
+  "name": "Cowpea, var. Kudi, White, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.5424,
+   "raw": "0.5424"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 3.3448,
+   "raw": "3.3448"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.3448,
+   "raw": "3.3448"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301043",
+  "name": "Cowpea, var. Ayi, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.528,
+   "raw": "0.528"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 3.168,
+   "raw": "3.168"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.3760000000000003,
+   "raw": "2.3760000000000003"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301044",
+  "name": "Cowpea, var. Ife, Brown, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.18,
+   "raw": "0.18"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.79,
+   "raw": "2.79"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.41,
+   "raw": "4.41"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301045",
+  "name": "Cowpea, var. FARV 13, Dark Marron, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.35960000000000003,
+   "raw": "0.35960000000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 3.596,
+   "raw": "3.596"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 4.6748,
+   "raw": "4.6748"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301046",
+  "name": "Cowpea, var. TVu 4557, Cream, seeds, raw",
+  "processing": "r",
+  "species": "Vigna unguiculata",
+  "country": "Nigeria, Ibadan",
+  "biblioid": "pu217",
+  "n": null,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.449,
+   "raw": "0.449"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.6285999999999999,
+   "raw": "0.6285999999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.0653999999999995,
+   "raw": "2.0653999999999995"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301378",
+  "name": "Chickpea, 'Giza 1', seeds, fully ripe, dry, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt (lower part)",
+  "biblioid": "pu243",
+  "n": null,
+  "water": 11.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.49734,
+   "raw": "1.49734"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301379",
+  "name": "Chickpea, 'Giza 2', seeds, fully ripe, dry, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt (upper part)",
+  "biblioid": "pu243",
+  "n": null,
+  "water": 9.5,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.4299000000000002,
+   "raw": "1.4299000000000002"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301398",
+  "name": "Chickpea, 'Kabuli', var. Frontier, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "USA, Virginia",
+  "biblioid": "pu249",
+  "n": 3,
+  "water": 8.47,
+  "raffinose": {
+   "state": "measured",
+   "value": 3.368304,
+   "raw": "3.368304"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.324862,
+   "raw": "2.324862"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301399",
+  "name": "Chickpea, 'Kabuli', var. HB-14, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "USA, Virginia",
+  "biblioid": "pu249",
+  "n": 3,
+  "water": 7.64,
+  "raffinose": {
+   "state": "measured",
+   "value": 4.036132,
+   "raw": "4.036132"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.549136,
+   "raw": "2.549136"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301400",
+  "name": "Chickpea, 'Kabuli', var. Pedro, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "USA, Virginia",
+  "biblioid": "pu249",
+  "n": 3,
+  "water": 8.33,
+  "raffinose": {
+   "state": "measured",
+   "value": 3.3917900000000003,
+   "raw": "3.3917900000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.9617380000000002,
+   "raw": "1.9617380000000002"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301401",
+  "name": "Chickpea, 'Kabuli', var. Sierra, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "USA, Virginia",
+  "biblioid": "pu249",
+  "n": 3,
+  "water": 7.41,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.5740019999999997,
+   "raw": "2.5740019999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.9258720000000003,
+   "raw": "1.9258720000000003"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301402",
+  "name": "Chickpea, 'Kabuli', var. Troy, seeds, dried, raw",
+  "processing": "d/r",
+  "species": "Cicer arietinum L.",
+  "country": "USA, Virginia",
+  "biblioid": "pu249",
+  "n": 3,
+  "water": 7.75,
+  "raffinose": {
+   "state": "measured",
+   "value": 3.2010750000000003,
+   "raw": "3.2010750000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.3616,
+   "raw": "2.3616"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301417",
+  "name": "Faba bean, 'Alen', seeds, raw",
+  "processing": "r",
+  "species": "Vicia faba L.",
+  "country": "Poland",
+  "biblioid": "pu260",
+  "n": 3,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.18353999999999998,
+   "raw": "0.18353999999999998"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.57684,
+   "raw": "0.57684"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.3809200000000001,
+   "raw": "1.3809200000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301418",
+  "name": "Faba bean, 'Kamir', seeds, raw",
+  "processing": "r",
+  "species": "Vicia faba L.",
+  "country": "Poland",
+  "biblioid": "pu260",
+  "n": 3,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.16037999999999997,
+   "raw": "0.16037999999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.52569,
+   "raw": "0.52569"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.22958,
+   "raw": "1.22958"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301419",
+  "name": "Faba bean, 'Martin', seeds, raw",
+  "processing": "r",
+  "species": "Vicia faba L.",
+  "country": "Poland",
+  "biblioid": "pu260",
+  "n": 3,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.20562000000000002,
+   "raw": "0.20562000000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.65262,
+   "raw": "0.65262"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.59132,
+   "raw": "1.59132"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301420",
+  "name": "Faba bean, 'Tibo', seeds, raw",
+  "processing": "r",
+  "species": "Vicia faba L.",
+  "country": "Poland",
+  "biblioid": "pu260",
+  "n": 3,
+  "water": null,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.19448000000000001,
+   "raw": "0.19448000000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.51272,
+   "raw": "0.51272"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.6000400000000001,
+   "raw": "1.6000400000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301520",
+  "name": "Common bean, var. A321, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.35,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.25019399999999997,
+   "raw": "0.25019399999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.7087525000000003,
+   "raw": "1.7087525000000003"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301521",
+  "name": "Common bean, var. A321, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 8.85,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.25248550000000003,
+   "raw": "0.25248550000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.7008590000000001,
+   "raw": "1.7008590000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301522",
+  "name": "Common bean, var. A321, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.16,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.26525279999999996,
+   "raw": "0.26525279999999996"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6342115999999998,
+   "raw": "1.6342115999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301523",
+  "name": "Common bean, var. A321, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 8.87,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.23511539999999997,
+   "raw": "0.23511539999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.4535234999999997,
+   "raw": "1.4535234999999997"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301524",
+  "name": "Common bean, var. A410, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 8.71,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.25469909999999996,
+   "raw": "0.25469909999999996"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.7253809999999998,
+   "raw": "1.7253809999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301525",
+  "name": "Common bean, var. A410, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 8.87,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.24331709999999998,
+   "raw": "0.24331709999999998"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.4198054,
+   "raw": "1.4198054"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301526",
+  "name": "Common bean, var. A410, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.11,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.26721659999999997,
+   "raw": "0.26721659999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6169331,
+   "raw": "1.6169331"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301527",
+  "name": "Common bean, var. Calima, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.36,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.11511280000000002,
+   "raw": "0.11511280000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.590732,
+   "raw": "1.590732"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301528",
+  "name": "Common bean, var. Calima, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.21,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.18067209999999997,
+   "raw": "0.18067209999999997"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.4317582999999998,
+   "raw": "1.4317582999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301529",
+  "name": "Common bean, var. Calima, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 10.08,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.1141984,
+   "raw": "0.1141984"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6644192000000004,
+   "raw": "1.6644192000000004"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301530",
+  "name": "Common bean, var. Calima, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.11,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.1208837,
+   "raw": "0.1208837"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6523802,
+   "raw": "1.6523802"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301531",
+  "name": "Common bean, var. Dore de Kirundo, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 9.94,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.1522014,
+   "raw": "0.1522014"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.035356,
+   "raw": "2.035356"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301532",
+  "name": "Common bean, var. Dore de Kirundo, seed, dried, raw",
+  "processing": "d/r",
+  "species": "Phaseolus vulgaris",
+  "country": "Burundi",
+  "biblioid": "pu273",
+  "n": null,
+  "water": 8.96,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.15021599999999996,
+   "raw": "0.15021599999999996"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.0811743999999996,
+   "raw": "2.0811743999999996"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301701",
+  "name": "Mung bean, var. Giza-1, seeds, whole, raw",
+  "processing": "r",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 9.75,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.370025,
+   "raw": "0.370025"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.344725,
+   "raw": "1.344725"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301702",
+  "name": "Mung bean, var. Giza-1, seeds, water-soaked, dehulled, dried, raw",
+  "processing": "p/d/r",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 10.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.26071,
+   "raw": "0.26071"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.12375,
+   "raw": "1.12375"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301703",
+  "name": "Mung bean, var. Giza-1, seeds, water-soaked, dried, raw",
+  "processing": "p/d/r",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 10.5,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.26849999999999996,
+   "raw": "0.26849999999999996"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.1008499999999999,
+   "raw": "1.1008499999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301704",
+  "name": "Mung bean, var. Giza-1, seeds, germinated, dried",
+  "processing": "p/d",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 11.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0,
+   "raw": "0"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0,
+   "raw": "0"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301705",
+  "name": "Mung bean, var. Giza-1, seeds, water soaked, drained, boiled, dried",
+  "processing": "p/d",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 10.13,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.188727,
+   "raw": "0.188727"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.006544,
+   "raw": "1.006544"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301706",
+  "name": "Mung bean, var. Giza-1, seeds, water-soaked, drained, autoclaved",
+  "processing": "p/d",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 10.15,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.20665499999999998,
+   "raw": "0.20665499999999998"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.943425,
+   "raw": "0.943425"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301707",
+  "name": "Mung bean, var. Giza-1, seeds, water-soaked, drained, cooked on microwave, dried",
+  "processing": "p/d",
+  "species": "Phaseolus aureus",
+  "country": "Egypt",
+  "biblioid": "pu178",
+  "n": null,
+  "water": 10.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.24273000000000003,
+   "raw": "0.24273000000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.9349600000000001,
+   "raw": "0.9349600000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301755",
+  "name": "Common bean, 'Negro 8025', seed, raw",
+  "processing": "r",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 8,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.0276,
+   "raw": "0.0276"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.24840000000000004,
+   "raw": "0.24840000000000004"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.009200000000000002,
+   "raw": "0.009200000000000002"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301756",
+  "name": "Common bean, 'Negro 8025', seed, cooked, lyophilized with cooking water",
+  "processing": "p/d",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.2475,
+   "raw": "0.2475"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.792,
+   "raw": "0.792"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.08910000000000001,
+   "raw": "0.08910000000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301757",
+  "name": "Common bean, 'Bayo Madero', seed, raw",
+  "processing": "r",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 11,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.062299999999999994,
+   "raw": "0.062299999999999994"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.43610000000000004,
+   "raw": "0.43610000000000004"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.07120000000000001,
+   "raw": "0.07120000000000001"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301758",
+  "name": "Common bean, 'Bayo Madero', seed, cooked, lyophilized with cooking water",
+  "processing": "p/d",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 1.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.04945,
+   "raw": "0.04945"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.5340600000000001,
+   "raw": "0.5340600000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.019780000000000006,
+   "raw": "0.019780000000000006"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301759",
+  "name": "Common bean, 'Pinto Durango', seed, raw",
+  "processing": "r",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 10.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.15283000000000002,
+   "raw": "0.15283000000000002"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.4045500000000001,
+   "raw": "0.4045500000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.017980000000000006,
+   "raw": "0.017980000000000006"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301760",
+  "name": "Common bean, 'Pinto Durango', seed, cooked, lyophilized with cooking water",
+  "processing": "p/d",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 1.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.10879000000000001,
+   "raw": "0.10879000000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.46483,
+   "raw": "0.46483"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.019780000000000006,
+   "raw": "0.019780000000000006"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301761",
+  "name": "Common bean, 'Azufrado Higuera', seed, raw",
+  "processing": "r",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 7.1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.13935000000000003,
+   "raw": "0.13935000000000003"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.39947000000000005,
+   "raw": "0.39947000000000005"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.018580000000000006,
+   "raw": "0.018580000000000006"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0301762",
+  "name": "Common bean, 'Azufrado Higuera', seed, cooked, lyophilized with cooking water",
+  "processing": "p/d",
+  "species": "Phaseolus vulgaris L.",
+  "country": "Mexico, Celaya, Guanajuato",
+  "biblioid": "pu109",
+  "n": null,
+  "water": 1,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.1386,
+   "raw": "0.1386"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.6732,
+   "raw": "0.6732"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.0495,
+   "raw": "0.0495"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302046",
+  "name": "Chickpea, Kabuli, 'Giza 1', seed, whole, raw",
+  "processing": "r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, lower, Northern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 11.41,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.4971709999999998,
+   "raw": "1.4971709999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302047",
+  "name": "Chickpea, Kabuli, 'Giza 1', seed, dehulled, raw",
+  "processing": "r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, lower, Northern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 10.61,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.573264,
+   "raw": "1.573264"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302048",
+  "name": "Chickpea, Kabuli, 'Giza 1', seed, whole, boiled",
+  "processing": "p",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, lower, Northern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 64.7,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.4024199999999999,
+   "raw": "0.4024199999999999"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302049",
+  "name": "Chickpea, Kabuli, 'Giza 2-L', seed, whole, raw",
+  "processing": "r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, lower, Southern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 9.64,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.5090119999999998,
+   "raw": "1.5090119999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302050",
+  "name": "Chickpea, Kabuli, 'Giza 2-L', seed, dehulled, raw",
+  "processing": "r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, lower, Southern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 10.28,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.5700999999999998,
+   "raw": "1.5700999999999998"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302051",
+  "name": "Chickpea, Kabuli, 'Giza 2-L', seed, whole, boiled",
+  "processing": "p",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, lower, Southern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 63.85,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.401265,
+   "raw": "0.401265"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302052",
+  "name": "Chickpea, Kabuli, 'Giza 2-U', seed, whole, raw",
+  "processing": "r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, upper, Southern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 9.5,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.4299000000000002,
+   "raw": "1.4299000000000002"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302053",
+  "name": "Chickpea, Kabuli, 'Giza 2-U', seed, dehulled, raw",
+  "processing": "r",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, upper, Southern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 9.45,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.494075,
+   "raw": "1.494075"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0302054",
+  "name": "Chickpea, Kabuli, 'Giza 2-U', seed, whole, boiled",
+  "processing": "p",
+  "species": "Cicer arietinum L.",
+  "country": "Egypt, upper, Southern",
+  "biblioid": "pu156",
+  "n": null,
+  "water": 64.73,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.36680799999999997,
+   "raw": "0.36680799999999997"
+  }
+ },
+ {
+  "release": "BioFoodComp4.0",
+  "sheet": "03 Legumes",
+  "id": "0300485",
+  "name": "Horse gram, dehulled, seed, raw",
+  "processing": "p/r",
+  "species": "Macrotyloma uniflorum",
+  "country": "India, Mysore",
+  "biblioid": "pu158",
+  "n": 3,
+  "water": 6.8,
+  "raffinose": {
+   "state": "measured",
+   "value": 6.6172,
+   "raw": "6.6172"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 14.539200000000001,
+   "raw": "14.539200000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.8212,
+   "raw": "3.8212"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300017",
+  "name": "Vigna trilobata, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "",
+  "country": "India, Tamil Nadu, Western Ghats, Coimbatore district, Siruvani reserve forest",
+  "biblioid": "",
+  "n": null,
+  "water": 5.24,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.388516,
+   "raw": "0.388516"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.6867280000000002,
+   "raw": "1.6867280000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.108692,
+   "raw": "1.108692"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300018",
+  "name": "Vigna bourneae, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "",
+  "country": "India, Tamil Nadu, Western Ghats, Seithur reserve forest",
+  "biblioid": "",
+  "n": null,
+  "water": 4.24,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.967176,
+   "raw": "0.967176"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 2.0301120000000004,
+   "raw": "2.0301120000000004"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.7619840000000002,
+   "raw": "1.7619840000000002"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300113",
+  "name": "V. aconitifolia, seeds, mature, sun-dried, raw",
+  "processing": "d/r",
+  "species": "",
+  "country": "India, Tamil Nadu, Western Ghats, Sivagiri Reserve Forest",
+  "biblioid": "",
+  "n": 1,
+  "water": 4.84,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.513864,
+   "raw": "0.513864"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.5986879999999999,
+   "raw": "1.5986879999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.199016,
+   "raw": "1.199016"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300251",
+  "name": "Chickpea, seeds, cotyledon, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": null,
+  "water": 6.5,
+  "raffinose": {
+   "state": "measured",
+   "value": 6.9376999999999995,
+   "raw": "6.9376999999999995"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 16.371850000000002,
+   "raw": "16.371850000000002"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 8.87315,
+   "raw": "8.87315"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300252",
+  "name": "Chickpea, seeds, embryonic axe, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": null,
+  "water": 9.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 3.11664,
+   "raw": "3.11664"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 8.4258,
+   "raw": "8.4258"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 2.3646599999999998,
+   "raw": "2.3646599999999998"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300253",
+  "name": "Chickpea, seeds, seed coat, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": null,
+  "water": 4.6,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.7155000000000001,
+   "raw": "0.7155000000000001"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.8776800000000001,
+   "raw": "0.8776800000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.84122,
+   "raw": "1.84122"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300254",
+  "name": "Horse gram, seeds, cotyledon, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": null,
+  "water": 5.8,
+  "raffinose": {
+   "state": "measured",
+   "value": 5.9817,
+   "raw": "5.9817"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 13.979280000000001,
+   "raw": "13.979280000000001"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.5325,
+   "raw": "3.5325"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300255",
+  "name": "Horse gram, seeds, embryonic axe, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": null,
+  "water": 8.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 2.61976,
+   "raw": "2.61976"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 5.844079999999999,
+   "raw": "5.844079999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.2640799999999999,
+   "raw": "1.2640799999999999"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300256",
+  "name": "Horse gram, seeds, seed coat, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": null,
+  "water": 3.9,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.9225599999999998,
+   "raw": "0.9225599999999998"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.6727,
+   "raw": "0.6727"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 1.00905,
+   "raw": "1.00905"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300259",
+  "name": "Chickpea, seeds, mature, water-soaked, raw",
+  "processing": "r",
+  "species": "",
+  "country": "Portugal, Miranda Douro",
+  "biblioid": "",
+  "n": 3,
+  "water": 46.89,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.4046982,
+   "raw": "0.4046982"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.1965683000000003,
+   "raw": "1.1965683000000003"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.6463487,
+   "raw": "0.6463487"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300260",
+  "name": "Chickpea, seeds, mature, water-soaked, pressure-cooked",
+  "processing": "p",
+  "species": "",
+  "country": "Portugal, Miranda Douro",
+  "biblioid": "",
+  "n": 3,
+  "water": 56.49,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.2371295,
+   "raw": "0.2371295"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.8027594999999998,
+   "raw": "0.8027594999999998"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.4198715,
+   "raw": "0.4198715"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300261",
+  "name": "White pea, seeds, mature, water-soaked, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "Portugal, Miranda Douro",
+  "biblioid": "",
+  "n": 3,
+  "water": 45.04,
+  "raffinose": {
+   "state": "not-detected",
+   "raw": "nd"
+  },
+  "stachyose": {
+   "state": "not-detected",
+   "raw": "nd"
+  },
+  "verbascose": {
+   "state": "not-detected",
+   "raw": "nd"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300262",
+  "name": "White pea, seeds, mature, water-soaked, pressure-cooked",
+  "processing": "p",
+  "species": "",
+  "country": "Portugal, Miranda Douro",
+  "biblioid": "",
+  "n": 3,
+  "water": 59,
+  "raffinose": {
+   "state": "not-detected",
+   "raw": "nd"
+  },
+  "stachyose": {
+   "state": "not-detected",
+   "raw": "nd"
+  },
+  "verbascose": {
+   "state": "not-detected",
+   "raw": "nd"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300470",
+  "name": "Chickpea, seed, raw",
+  "processing": "r",
+  "species": "",
+  "country": "Egypt, Menofiya Governorate, local market",
+  "biblioid": "",
+  "n": 3,
+  "water": 10.35,
+  "raffinose": {
+   "state": "measured",
+   "value": 1.299925,
+   "raw": "1.299925"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.694385,
+   "raw": "1.694385"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.17033500000000001,
+   "raw": "0.17033500000000001"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300471",
+  "name": "Chickpea, seed, water-soaked, boiled, dried",
+  "processing": "p/d",
+  "species": "",
+  "country": "Egypt, Menofiya Governorate, local market",
+  "biblioid": "",
+  "n": 3,
+  "water": 10.55,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.67982,
+   "raw": "0.67982"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.100235,
+   "raw": "1.100235"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0,
+   "raw": "0"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300472",
+  "name": "Chickpea, seed, water-soaked, autoclaved, dried",
+  "processing": "p/d",
+  "species": "",
+  "country": "Egypt, Menofiya Governorate, local market",
+  "biblioid": "",
+  "n": 3,
+  "water": 10.48,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.725112,
+   "raw": "0.725112"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.0652879999999998,
+   "raw": "1.0652879999999998"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0,
+   "raw": "0"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300473",
+  "name": "Chickpea, seed, water-soaked, microwaved, dried",
+  "processing": "p/d",
+  "species": "",
+  "country": "Egypt, Menofiya Governorate, local market",
+  "biblioid": "",
+  "n": 3,
+  "water": 10.39,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.636231,
+   "raw": "0.636231"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.218696,
+   "raw": "1.218696"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0,
+   "raw": "0"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300483",
+  "name": "Chickpea, dehulled seed, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": 3,
+  "water": 8.2,
+  "raffinose": {
+   "state": "measured",
+   "value": 7.894799999999999,
+   "raw": "7.894799999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 17.5338,
+   "raw": "17.5338"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 6.6096,
+   "raw": "6.6096"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300484",
+  "name": "Cowpea, dehulled seed, raw",
+  "processing": "p/r",
+  "species": "",
+  "country": "India, Mysore",
+  "biblioid": "",
+  "n": 3,
+  "water": 7.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 9.537799999999999,
+   "raw": "9.537799999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 16.4828,
+   "raw": "16.4828"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 3.3336,
+   "raw": "3.3336"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300522",
+  "name": "Lentil, seed, water-soaked for 12 h, raw, dried",
+  "processing": "p/d/r",
+  "species": "",
+  "country": "Egypt",
+  "biblioid": "",
+  "n": 3,
+  "water": 8.51,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.36595999999999995,
+   "raw": "0.36595999999999995"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.655969,
+   "raw": "1.655969"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.439152,
+   "raw": "0.439152"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300523",
+  "name": "Lentil, seed, water-soaked for 12 h, boiled, dried",
+  "processing": "p/d",
+  "species": "",
+  "country": "Egypt",
+  "biblioid": "",
+  "n": 3,
+  "water": 8.63,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.18297999999999998,
+   "raw": "0.18297999999999998"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.9148999999999999,
+   "raw": "0.9148999999999999"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.283619,
+   "raw": "0.283619"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300524",
+  "name": "Lentil, seed, water-soaked for 12 h, autoclaved, dried",
+  "processing": "p/d",
+  "species": "",
+  "country": "Egypt",
+  "biblioid": "",
+  "n": 3,
+  "water": 8.55,
+  "raffinose": {
+   "state": "measured",
+   "value": 0.09148999999999999,
+   "raw": "0.09148999999999999"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 1.00639,
+   "raw": "1.00639"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.201278,
+   "raw": "0.201278"
+  }
+ },
+ {
+  "release": "AnFooD2.0",
+  "sheet": "03 Legumes",
+  "id": "0300525",
+  "name": "Lentil, seed, water-soaked for 12 h, microwave cooked, dried",
+  "processing": "p/d",
+  "species": "",
+  "country": "Egypt",
+  "biblioid": "",
+  "n": 3,
+  "water": 8.4,
+  "raffinose": {
+   "state": "measured",
+   "value": 0,
+   "raw": "0"
+  },
+  "stachyose": {
+   "state": "measured",
+   "value": 0.82341,
+   "raw": "0.82341"
+  },
+  "verbascose": {
+   "state": "measured",
+   "value": 0.201278,
+   "raw": "0.201278"
+  }
+ }
+]

@@ -4,126 +4,253 @@
     "publisher": "Ministry of Education, Culture, Sports, Science and Technology (MEXT), Japan",
     "country": "Japan",
     "url": "https://www.mext.go.jp/a_menu/syokuhinseibun/mext_01110.html",
-    "quality": "high"
+    "quality": "high",
+    "short": "Japan (MEXT)"
   },
   "cofid-2021": {
     "title": "McCance and Widdowson's The Composition of Foods Integrated Dataset (CoFID), 2021",
     "publisher": "Public Health England / Food Standards Agency",
     "country": "United Kingdom",
     "url": "https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid",
-    "quality": "high"
+    "quality": "high",
+    "short": "UK (CoFID)"
   },
   "afcd-r3": {
     "title": "Australian Food Composition Database, Release 3",
     "publisher": "Food Standards Australia New Zealand (FSANZ)",
     "country": "Australia",
     "url": "https://www.foodstandards.gov.au/science-data/food-nutrient-databases/afcd/data-files",
-    "quality": "high, except chromium"
+    "quality": "high, except chromium",
+    "short": "Australia (AFCD)"
   },
   "ifct-2017": {
     "title": "Indian Food Composition Tables 2017",
     "publisher": "National Institute of Nutrition, Indian Council of Medical Research, Hyderabad",
     "country": "India",
     "url": "https://www.nin.res.in/ebooks/IFCT2017.pdf",
-    "quality": "high"
-  },
-  "research-papers": {
-    "title": "Primary Research Literature Compilation (CoQ10, CoQ9, Melatonin, Squalene)",
-    "publisher": "Various (Venegas 2011, Žmitek 2014, Kubo 2008, Fine 2016, etc.)",
-    "country": "International",
-    "url": "",
-    "quality": "high"
+    "quality": "high",
+    "short": "India (IFCT)"
   },
   "lozano-grande-2018": {
     "title": "Plant Sources, Extraction Methods, and Uses of Squalene",
-    "quality": "high"
+    "quality": "high",
+    "short": "Lozano-Grande 2018"
   },
   "ryan-2007": {
     "title": "Phytosterol, Squalene, Tocopherol Content and Fatty Acid Profile of Selected Seeds, Grains, and Legumes",
-    "quality": "high"
+    "quality": "high",
+    "short": "Ryan 2007"
   },
   "owen-2000": {
     "title": "Olive-oil consumption and health: the possible role of antioxidants",
-    "quality": "high"
+    "quality": "high",
+    "short": "Owen 2000"
   },
   "beltran-2016": {
     "title": "Squalene in virgin olive oil: Screening of variability in olive cultivars",
-    "quality": "high"
+    "quality": "high",
+    "short": "Beltran 2016"
   },
   "nergiz-2011": {
     "title": "The effect of the refining processes on the squalene content of vegetable oils",
-    "quality": "high"
-  },
-  "usda-pa": {
-    "name": "USDA Database for the Proanthocyanidin Content of Selected Foods (Release 2, 2015)",
-    "url": "https://data.nal.usda.gov/dataset/usda-database-proanthocyanidin-content-selected-foods-release-2-2015"
+    "quality": "high",
+    "short": "Nergiz 2011"
   },
   "milder-2005": {
-    "name": "Milder et al. 2005, Lignan contents of Dutch plant foods (Br J Nutr)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/15705221/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/15705221/",
+    "short": "Milder 2005",
+    "title": "Milder et al. 2005, Lignan contents of Dutch plant foods (Br J Nutr)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "eurofir": {
-    "name": "EuroFIR eBASIS Bioactive Database",
-    "url": "https://www.eurofir.org/our-tools/ebasis/"
+    "url": "https://www.eurofir.org/our-tools/ebasis/",
+    "short": "EuroFIR eBASIS",
+    "title": "EuroFIR eBASIS Bioactive Database",
+    "country": "Europe",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "kamao-2007": {
-    "name": "Kamao et al. 2007, Vitamin K content of foods (J Nutr Sci Vitaminol)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/18202534/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/18202534/",
+    "short": "Kamao 2007",
+    "title": "Kamao et al. 2007, Vitamin K content of foods (J Nutr Sci Vitaminol)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "clements-1980": {
-    "name": "Clements & Darnell 1980, Myo-inositol content of common foods (Am J Clin Nutr)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/7416064/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/7416064/",
+    "short": "Clements 1980",
+    "title": "Clements & Darnell 1980, Myo-inositol content of common foods (Am J Clin Nutr)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "nih-boron": {
-    "name": "NIH Office of Dietary Supplements, Boron Fact Sheet",
-    "url": "https://ods.od.nih.gov/factsheets/Boron-HealthProfessional/"
+    "url": "https://ods.od.nih.gov/factsheets/Boron-HealthProfessional/",
+    "short": "NIH ODS",
+    "title": "NIH Office of Dietary Supplements, Boron Fact Sheet",
+    "country": "United States",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "pizzorno-2015": {
-    "name": "Pizzorno 2015, Nothing Boring About Boron (Integr Med)",
-    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4712861/"
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4712861/",
+    "short": "Pizzorno 2015",
+    "title": "Pizzorno 2015, Nothing Boring About Boron (Integr Med)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "biesiekierski-2011": {
-    "name": "Biesiekierski et al. 2011, Quantification of fructans, GOS and other FODMAPs (J Hum Nutr Diet)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/21332832/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/21332832/",
+    "short": "Biesiekierski 2011",
+    "title": "Biesiekierski et al. 2011, Quantification of fructans, GOS and other FODMAPs (J Hum Nutr Diet)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "muir-2007": {
-    "name": "Muir et al. 2007, Measurement of short-chain carbohydrates (J Agric Food Chem)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/17441508/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/17441508/",
+    "short": "Muir 2007",
+    "title": "Muir et al. 2007, Measurement of short-chain carbohydrates (J Agric Food Chem)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "cnf": {
     "title": "Canadian Nutrient File (CNF)",
-    "quality": "high"
-  },
-  "literature": {
-    "title": "Scientific Literature Compilation",
-    "quality": "high"
-  },
-  "existing": {
-    "title": "Existing Pre-compiled Data",
-    "quality": "high"
+    "quality": "high",
+    "short": "Canada (CNF)",
+    "country": "Canada"
   },
   "fao-phytate": {
-    "name": "FAO/INFOODS PhyFoodComp 1.0 (2018)",
-    "url": "https://www.fao.org/food-composition/tables-and-databases/detail/(global--2018)-fao-infoods-izincg-global-food-composition-database-for-phytate---version-1.0-(phyfoodcomp1.0)/en"
+    "url": "https://www.fao.org/food-composition/tables-and-databases/detail/(global--2018)-fao-infoods-izincg-global-food-composition-database-for-phytate---version-1.0-(phyfoodcomp1.0)/en",
+    "short": "FAO/INFOODS",
+    "title": "FAO/INFOODS PhyFoodComp 1.0 (2018)",
+    "country": "International",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "usda-pa-r2": {
-    "name": "USDA Proanthocyanidin Database R2 (2015)",
-    "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/proanthocyanidins/"
+    "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/proanthocyanidins/",
+    "short": "USDA PA R2",
+    "title": "USDA Proanthocyanidin Database R2 (2015)",
+    "country": "United States",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "mcnaughton-2003": {
-    "name": "McNaughton & Marks 2003, Glucosinolates database (Br J Nutr)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/14513828/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/14513828/",
+    "short": "McNaughton 2003",
+    "title": "McNaughton & Marks 2003, Glucosinolates database (Br J Nutr)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "halliwell-2023": {
-    "name": "Halliwell et al. 2023, Ergothioneine (Br J Nutr)",
-    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/"
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9816654/",
+    "short": "Halliwell 2023",
+    "title": "Halliwell et al. 2023, Ergothioneine (Br J Nutr)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "schurgers-2000": {
-    "name": "Schurgers & Vermeer 2000, Menaquinone content of foods (Haemostasis)",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/11356998/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/11356998/",
+    "short": "Schurgers 2000",
+    "title": "Schurgers & Vermeer 2000, Menaquinone content of foods (Haemostasis)",
+    "quality": "single study, not reproduced against any corpus here"
   },
   "arnao-2018": {
-    "name": "Arnao & Hernandez-Ruiz 2018, Phytomelatonin (Molecules)",
-    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/"
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
+    "short": "Arnao 2018",
+    "title": "Arnao & Hernandez-Ruiz 2018, Phytomelatonin (Molecules)",
+    "quality": "single study, not reproduced against any corpus here"
+  },
+  "popa-2015": {
+    "title": "Popa et al. 2015, squalene in amaranth seed",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Popa 2015"
+  },
+  "kubo-2008": {
+    "title": "Kubo et al. 2008, coenzyme Q10 content of foods",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Kubo 2008"
+  },
+  "roman-pizarro-2017": {
+    "title": "Roman-Pizarro et al. 2017, coenzyme Q10 in plant foods",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Roman-Pizarro 2017"
+  },
+  "mattila-2001": {
+    "title": "Mattila & Kumpulainen 2001, coenzyme Q9 and Q10 in foods",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Mattila 2001"
+  },
+  "zmitek-2014": {
+    "title": "Zmitek et al. 2014, coenzyme Q10 in extra virgin olive oil",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Zmitek 2014"
+  },
+  "venegas-2011": {
+    "title": "Venegas et al. 2011, melatonin in olive oil",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Venegas 2011"
+  },
+  "fine-2016": {
+    "title": "Fine et al. 2016, coenzyme Q10 in industrially refined vegetable oils",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Fine 2016"
+  },
+  "rodriguez-acuna-2008": {
+    "title": "Rodriguez-Acuna et al. 2008, coenzyme Q9 and Q10 in vegetable oils",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Rodriguez-Acuna 2008"
+  },
+  "cabrini-2001": {
+    "title": "Cabrini et al. 2001, coenzyme Q10 in crude seed oils",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Cabrini 2001"
+  },
+  "aydogan-2023": {
+    "title": "Aydogan et al. 2023, coenzyme Q10 across pistachio cultivars",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Aydogan 2023"
+  },
+  "tian-2023": {
+    "title": "Tian et al. 2023, squalene in walnut oil",
+    "quality": "single study, not reproduced against any corpus here",
+    "short": "Tian 2023"
+  },
+  "fao-oligosaccharides": {
+    "short": "FAO/INFOODS",
+    "title": "FAO/INFOODS BioFoodComp 4.0 (2017) and AnFooD 2.0 (2017), oligosaccharide tags RAFS, STAS and VERS",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "country": "International",
+    "url": "https://www.fao.org/infoods/infoods/tables-and-databases/faoinfoods-databases/en/",
+    "quality": "high; per 100 g edible portion on a fresh weight basis, stated in each workbook"
+  },
+  "sim-2021": {
+    "short": "Australia (Sim 2021)",
+    "title": "Sim et al. 2021, Development of a Vitamin K Database for Commercially Available Food in Australia (Front Nutr)",
+    "publisher": "Frontiers in Nutrition",
+    "country": "Australia",
+    "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2021.753059/full",
+    "quality": "high for phylloquinone and MK-4; the authors report having had no MK-7 standard for their recovery work"
+  },
+  "walther-2013": {
+    "short": "Walther 2013",
+    "title": "Walther et al. 2013, Menaquinones, bacteria and the food supply (Adv Nutr), reporting Schurgers and Vermeer 2000",
+    "publisher": "Advances in Nutrition",
+    "country": "International",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3941825/",
+    "quality": "review; the natto MK-8 figure is Schurgers and Vermeer 2000 as quoted there"
+  },
+  "lee-2010": {
+    "short": "Lee 2010",
+    "title": "Lee, Boyce and Breadmore 2010, Quantitative determination of glucoraphanin in Brassica vegetables by micellar electrokinetic capillary chromatography (Anal Chim Acta)",
+    "publisher": "Analytica Chimica Acta",
+    "country": "Australia",
+    "url": "https://ro.ecu.edu.au/ecuworks/6312/",
+    "quality": "single study; the paper does not state a preparation for the vegetables assayed"
+  },
+  "walther-2017": {
+    "short": "Walther 2017",
+    "title": "Walther and Chollet 2017, Menaquinones, Bacteria, and Foods: Vitamin K2 in the Diet (IntechOpen), Table 1",
+    "publisher": "IntechOpen",
+    "country": "International",
+    "url": "https://www.intechopen.com/chapters/50921",
+    "quality": "review; the same author as walther-2013 with a finer table, reporting Schurgers 2000 and Kamao 2007"
+  },
+  "jensen-2022": {
+    "short": "Denmark (Jensen 2022)",
+    "title": "Jensen et al. 2022, In vitro bioaccessibility of vitamin K assessed by INFOGEST 2.0 (Curr Res Food Sci), Table 4",
+    "publisher": "Current Research in Food Science",
+    "country": "Denmark",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8844770/",
+    "quality": "high; a direct LC analysis reporting a separate limit of quantification for each homologue"
   }
 }

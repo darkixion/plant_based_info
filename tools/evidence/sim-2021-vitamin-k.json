@@ -1,0 +1,43 @@
+{
+  "source": "sim-2021",
+  "citation": "Sim M, Lewis JR, Prince RL, et al. Development of a Vitamin K Database for Commercially Available Food in Australia. Front Nutr. 2021;8:753059",
+  "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2021.753059/full",
+  "table": "Table 2",
+  "unit": "ug/100 g",
+  "basis": "per 100 g as purchased from Australian supermarkets",
+  "note": "Median (range) except where marked mean. ND is not detected: the assay ran and found none, which is a finding rather than a gap. Only phylloquinone, MK-4 and MK-7 were measured; MK-8 through MK-11 were outside the method, so this file is silent about them rather than reporting them absent. The paper's own summary of the plant rows: MK-4 and MK-7 were not detected in any non-fermented vegetable or fruit. Animal, dairy and fish rows are omitted here; this page has no such foods.",
+  "rows": [
+    { "food": "Spinach",      "group": "Vegetables", "pk": 262.9, "pk_range": [244.7, 286.2], "mk4": "ND", "mk7": "ND" },
+    { "food": "Kale",         "group": "Vegetables", "pk": 128.5, "pk_range": [92.5, 272.6],  "mk4": "ND", "mk7": "ND" },
+    { "food": "Cabbage",      "group": "Vegetables", "pk": 70.4,  "pk_range": [28.6, 94.4],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Broccoli",     "group": "Vegetables", "pk": 67.9,  "pk_range": [50.9, 92.9],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Carrot",       "group": "Vegetables", "pk": 36.4,  "pk_range": [10.0, 67.5],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Green beans",  "group": "Vegetables", "pk": 32.5,  "pk_range": [29.1, 46.7],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Cucumber",     "group": "Vegetables", "pk": 26.4,  "pk_range": [17.1, 32.0],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Lettuce",      "group": "Vegetables", "pk": 25.7,  "pk_range": [10.3, 43.2],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Peas",         "group": "Vegetables", "pk": 22.7,  "pk_range": [17.9, 31.4],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Kidney beans", "group": "Vegetables", "pk": 21.0,  "pk_range": [5.4, 29.7],    "mk4": "ND", "mk7": "ND" },
+    { "food": "Zucchini",     "group": "Vegetables", "pk": 18.3,  "pk_range": [12.8, 24.7],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Celery",       "group": "Vegetables", "pk": 17.3,  "pk_range": [13.6, 20.8],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Cauliflower",  "group": "Vegetables", "pk": 16.4,  "pk_range": [12.5, 20.1],   "mk4": "ND", "mk7": "ND", "samples": 2 },
+    { "food": "Pumpkin",      "group": "Vegetables", "pk": 14.8,  "pk_range": [3.3, 19.3],    "mk4": "ND", "mk7": "ND" },
+    { "food": "Capsicum",     "group": "Vegetables", "pk": 9.55,  "pk_range": [8.2, 14.1],    "mk4": "ND", "mk7": "ND" },
+    { "food": "Tofu",         "group": "Vegetables", "pk": 7.0,   "pk_range": [5.9, 8.1],     "mk4": "ND", "mk7": "ND", "samples": 2 },
+    { "food": "Tomato",       "group": "Vegetables", "pk": 6.0,   "pk_range": [4.4, 7.3],     "mk4": "ND", "mk7": "ND" },
+    { "food": "Bean shoots",  "group": "Vegetables", "pk": 5.4,   "pk_range": [5.1, 5.7],     "mk4": "ND", "mk7": "ND", "mean": true },
+    { "food": "Potato",       "group": "Vegetables", "pk": 0.5,   "pk_range": [0.2, 0.7],     "mk4": "ND", "mk7": "ND" },
+
+    { "food": "Avocado",      "group": "Fruits and nuts", "pk": 23.6, "pk_range": [16.2, 31.4], "mk4": "ND", "mk7": "ND" },
+    { "food": "Cashews",      "group": "Fruits and nuts", "pk": 12.3, "pk_range": [5.4, 14.0],  "mk4": "ND", "mk7": "ND" },
+    { "food": "Pear",         "group": "Fruits and nuts", "pk": 1.8,  "pk_range": [1.4, 2.7],   "mk4": "ND", "mk7": "ND" },
+    { "food": "Apple",        "group": "Fruits and nuts", "pk": 1.4,  "pk_range": [1.2, 2.2],   "mk4": "ND", "mk7": "ND" },
+
+    { "food": "Canola oil",   "group": "Oils", "pk": 75.0, "pk_range": [64.6, 121.4], "mk4": "ND", "mk7": "ND" },
+    { "food": "Olive oil",    "group": "Oils", "pk": 43.6, "pk_range": [38.6, 45.1],  "mk4": "ND", "mk7": "ND" },
+
+    { "food": "Sauerkraut",   "group": "Fermented foods", "pk": 7.0,  "pk_range": [3.2, 10.7], "mk4": "ND", "mk7": "ND", "mean": true },
+    { "food": "Natto",        "group": "Fermented foods", "pk": 6.2,  "pk_range": [6.0, 6.4],  "mk4": "ND", "mk7": 81.6, "mk7_range": [68.8, 94.5], "mean": true },
+    { "food": "Yeast extract spread (vegemite)", "group": "Fermented foods", "pk": 2.34, "pk_range": [1.9, 2.8], "mk4_range": [1.4, 8.6], "mk7": "ND", "mean": true,
+      "note": "The table prints a range for MK-4 with no median beside it, so this row carries the range alone. The source writes the name as \"Yeast extract * spread (vegemite)\", the asterisk being its footnote marker for a single analysed sample." }
+  ]
+}

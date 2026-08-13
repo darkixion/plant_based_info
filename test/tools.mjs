@@ -145,13 +145,21 @@ test("estimates take no part in choosing a value", () => {
 
 const NUTS = [{ id: "solfibre", evidence: true }, { id: "protein" }];
 const FOODS = [{ name: "Oats", state: "rolled, dry" }];
-const SRC = { "mext-2020": { title: "x", quality: "high", method: "ZETAAS" } };
+const SRC = { "mext-2020": { short: "Japan (MEXT)", title: "x", quality: "high", method: "ZETAAS" } };
 /** One well-formed food mapping with one cell, so each test below varies
  *  exactly one thing. `prep` and `match` belong to the food; everything else
  *  belongs to the cell. */
-const cell = ({ prep = "rolled, dry", match = "exact", ...over } = {}) => ({
-  "oats-rolled-dry": { prep, match, cells: { solfibre: {
+const cell = ({ prep = "rolled, dry", matches = { "mext-2020": "exact" }, ...over } = {}) => ({
+  "oats-rolled-dry": { prep, matches, cells: { solfibre: {
     state: "measured", value: 3.2, sources: ["mext-2020"], ...over } } },
+});
+
+test("a source with no short label is refused", () => {
+  // The label the dialog prints beside a figure. Without one it fell back to
+  // the source key, so a reader was shown "· milder-2005" and "· fao-phytate"
+  // where the code meant to name a country or a paper.
+  assertHas(checkEvidence(cell({}), NUTS, FOODS, { "mext-2020": { title: "x", quality: "high" } }),
+    "no short label");
 });
 
 test("a value with no resolvable source is refused", () => {
@@ -185,14 +193,36 @@ test("a measured cell with no figure is refused", () => {
 });
 
 test("an unknown match grade is refused", () => {
-  assertHas(checkEvidence(cell({ match: "roughly" }), NUTS, FOODS, SRC), "match");
+  assertHas(checkEvidence(cell({ matches: { "mext-2020": "roughly" } }), NUTS, FOODS, SRC), "match");
+});
+
+test("a source a cell rests on must carry its own match grade", () => {
+  // The fault this replaced: one grade per food, covering mappings of different
+  // quality. Cooked lentils are MEXT's boiled-lentil row and IFCT's dry dhal,
+  // and the single grade said "exact", so the dry figure showed unmarked.
+  assertHas(checkEvidence(cell({ matches: { "cofid-2021": "exact" } }), NUTS, FOODS,
+    { ...SRC, "cofid-2021": { short: "UK (CoFID)", title: "y" } }), "no match grade for mext-2020");
+  assertHas(checkEvidence(cell({ matches: {} }), NUTS, FOODS, SRC), "no match grade for mext-2020");
+});
+
+test("a grade is kept for every source, not merged into one", () => {
+  // Two sources of different quality on one food must stay separately graded,
+  // because the page decides the proxy mark per cell from the cell's sources.
+  const src = { ...SRC, "ifct-2017": { short: "India (IFCT)", title: "y" } };
+  const two = { "oats-rolled-dry": { prep: "rolled, dry",
+    matches: { "mext-2020": "exact", "ifct-2017": "proxy" },
+    cells: { solfibre: { state: "measured", value: 3.2, sources: ["mext-2020"] },
+             insolfibre: { state: "measured", value: 6.2, sources: ["ifct-2017"] } } } };
+  const nuts = [...NUTS, { id: "insolfibre", evidence: true }];
+  eq(checkEvidence(two, nuts, FOODS, src).length, 0,
+     "differing grades on one food are the point, not an error");
 });
 
 test("a cell against an unknown food or component is refused", () => {
-  const p1 = checkEvidence({ "no-such-food": { prep: "x", match: "exact", cells: { solfibre:
+  const p1 = checkEvidence({ "no-such-food": { prep: "x", matches: { "mext-2020": "exact" }, cells: { solfibre:
     { state: "measured", value: 1, sources: ["mext-2020"] } } } }, NUTS, FOODS, SRC);
   assertHas(p1, "unknown food");
-  const p2 = checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", match: "exact", cells: { nosuch:
+  const p2 = checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", matches: { "mext-2020": "exact" }, cells: { nosuch:
     { state: "measured", value: 1, sources: ["mext-2020"] } } } }, NUTS, FOODS, SRC);
   assertHas(p2, "unknown component");
 });
@@ -200,7 +230,7 @@ test("a cell against an unknown food or component is refused", () => {
 test("a column not declared as evidence may not carry evidence", () => {
   // The lock in the other direction. A cell against `protein` would be a figure
   // living in two places at once, one of them outside every total.
-  const p = checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", match: "exact", cells: { protein:
+  const p = checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", matches: { "mext-2020": "exact" }, cells: { protein:
     { state: "measured", value: 13, sources: ["mext-2020"] } } } }, NUTS, FOODS, SRC);
   assertHas(p, "unknown component");
 });
@@ -220,31 +250,152 @@ test("a well-formed cell passes", () => {
 test("a food's mapping is stored once, not on every cell", () => {
   const nutrients = [{ id: "solfibre", evidence: true, unit: "g" }];
   const foods = [{ name: "Oats", state: "rolled, dry", v: [] }];
-  const sources = { "mext-2020": { title: "t", quality: "high" } };
+  const sources = { "mext-2020": { short: "Japan (MEXT)", title: "t", quality: "high" } };
 
   // The shape the generator now writes: prep and match on the food, cells under
   // their own key, and no unit or basis anywhere.
   const good = {
     "oats-rolled-dry": {
-      prep: "rolled, dry", match: "exact",
+      prep: "rolled, dry", matches: { "mext-2020": "exact" },
       cells: { solfibre: { state: "measured", value: 3.2, sources: ["mext-2020"] } },
     },
   };
   eq(checkEvidence(good, nutrients, foods, sources).length, 0,
      "the new shape must validate clean");
 
-  // A food with no match grade is a mapping nobody graded, which is the thing
-  // the reviewed-mapping rule exists to prevent.
-  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", cells: {} } },
-    nutrients, foods, sources), "no match grade");
+  // A source nobody graded is a mapping nobody reviewed, which is the thing the
+  // reviewed-mapping rule exists to prevent. Checked against the sources a cell
+  // actually cites, since that is what the page marks.
+  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", cells: {
+    solfibre: { state: "measured", value: 3.2, sources: ["mext-2020"] } } } },
+    nutrients, foods, sources), "no match grade for mext-2020");
 
-  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", match: "guessed", cells: {} } },
+  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "rolled, dry", matches: { "mext-2020": "guessed" }, cells: {} } },
     nutrients, foods, sources), "unknown match grade");
 
   // Preparation is still the sharpest edge in this data, and the check moves up
   // a level with the field rather than disappearing.
-  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "boiled", match: "exact", cells: {} } },
+  assertHas(checkEvidence({ "oats-rolled-dry": { prep: "boiled", matches: { "mext-2020": "exact" }, cells: {} } },
     nutrients, foods, sources), "disagrees with the food's state");
+});
+
+/* ---------- values must be the source's own ----------
+   The rule that would have caught the phytate and proanthocyanidin cells: a
+   plausible number carrying a citation to a database that does not hold it. A
+   figure is either the source's or it is invented, and only the former can be
+   checked, so `attested` carries what each corpus actually says for the foods a
+   reviewed map reaches. Sources with no corpus, and foods a corpus has no map
+   entry for, are outside this check rather than failures of it. */
+const ATT = { "mext-2020": { "oats-rolled-dry": { solfibre: 3.2, insolfibre: 6.2 } } };
+
+test("a value the corpus it cites does not hold is refused", () => {
+  // 3.4 is not a wrong-looking number for oat soluble fibre. That is exactly
+  // why nothing but comparison with the row itself can catch it.
+  assertHas(checkEvidence(cell({ value: 3.4 }), NUTS, FOODS, SRC, ATT),
+    "disagrees with mext-2020");
+  eq(checkEvidence(cell({ value: 3.2 }), NUTS, FOODS, SRC, ATT).length, 0,
+     "the source's own figure passes");
+});
+
+test("a cell citing a corpus that carries no such figure is refused", () => {
+  // Two ways to cite a database that cannot support the claim: it has no row
+  // reachable for this food, or the row it has is silent on this component.
+  const noRow = { "mext-2020": { "something-else": { solfibre: 3.2 } } };
+  assertHas(checkEvidence(cell({}), NUTS, FOODS, SRC, noRow), "no mext-2020 row");
+
+  const noCell = { "mext-2020": { "oats-rolled-dry": { insolfibre: 6.2 } } };
+  assertHas(checkEvidence(cell({}), NUTS, FOODS, SRC, noCell), "carries no solfibre");
+});
+
+test("a source with no corpus is left alone rather than refused", () => {
+  // Most of the evidence store is single papers that cannot be held in a file
+  // here. Silence about them is honest; failing them would be a lie the other
+  // way, and would make the check unusable.
+  const other = { "afcd-r3": { "oats-rolled-dry": { solfibre: 9.9 } } };
+  eq(checkEvidence(cell({}), NUTS, FOODS, SRC, other).length, 0,
+     "mext-2020 has no corpus in this index, so the cell stands");
+});
+
+test("a reconciled value must lie between the figures it reconciles", () => {
+  // A value drawn from several sources equals none of them by design: banana
+  // biotin is 1.4 in Japan and 2.5 in the UK, and the page carries 1.95. What
+  // it may never do is leave the span its own sources establish.
+  const two = { "mext-2020": { "oats-rolled-dry": { solfibre: 1.4 } },
+                "cofid-2021": { "oats-rolled-dry": { solfibre: 2.5 } } };
+  const src = { ...SRC, "cofid-2021": { short: "UK (CoFID)", title: "y", quality: "high" } };
+  const both = { sources: ["mext-2020", "cofid-2021"],
+                 matches: { "mext-2020": "exact", "cofid-2021": "exact" } };
+  eq(checkEvidence(cell({ ...both, value: 1.95 }), NUTS, FOODS, src, two).length, 0,
+     "a midpoint between two attested figures is a reconciliation");
+  assertHas(checkEvidence(cell({ ...both, value: 3.1 }), NUTS, FOODS, src, two),
+    "outside the 1.4 to 2.5");
+});
+
+test("a source offering several samples is held to all of them", () => {
+  // FAO's phytate corpus carries one row per cultivar and treatment rather than
+  // one per food, so a single source can attest a spread on its own. Picking
+  // the flattering end of that spread is the same fault as inventing a number.
+  const many = { "fao-phytate": { "oats-rolled-dry": { solfibre: [871, 947.6] } } };
+  const src = { ...SRC, "fao-phytate": { short: "FAO/INFOODS", title: "z", quality: "high" } };
+  const from = { sources: ["fao-phytate"], matches: { "fao-phytate": "exact" } };
+  eq(checkEvidence(cell({ ...from, state: "range", value: undefined, low: 871, high: 947.6 }),
+     NUTS, FOODS, src, many).length, 0, "a range over the samples is the honest answer");
+  assertHas(checkEvidence(cell({ ...from, state: "range", value: undefined, low: 871, high: 900 }),
+    NUTS, FOODS, src, many), "excludes");
+  assertHas(checkEvidence(cell({ ...from, value: 1200 }), NUTS, FOODS, src, many),
+    "outside the 871 to 947.6");
+});
+
+test("a range must span every figure its sources attest", () => {
+  // A range is the breadth of the disagreement. One that excludes a source it
+  // names has dropped that source's finding while still crediting it.
+  const two = { "mext-2020": { "oats-rolled-dry": { solfibre: 1.4 } },
+                "cofid-2021": { "oats-rolled-dry": { solfibre: 2.5 } } };
+  const src = { ...SRC, "cofid-2021": { short: "UK (CoFID)", title: "y", quality: "high" } };
+  const range = { state: "range", value: undefined, sources: ["mext-2020", "cofid-2021"],
+                  matches: { "mext-2020": "exact", "cofid-2021": "exact" } };
+  eq(checkEvidence(cell({ ...range, low: 1.4, high: 2.5 }), NUTS, FOODS, src, two).length, 0,
+     "the span of both figures is the range");
+  assertHas(checkEvidence(cell({ ...range, low: 1.4, high: 2.0 }), NUTS, FOODS, src, two),
+    "range 1.4 to 2 excludes");
+});
+
+test("a component may not exceed the total it is part of", () => {
+  /* Glucoraphanin is one glucosinolate among several, so a food carrying more
+     of it than of all of them together has taken its two figures from samples
+     that cannot both describe the same food. The build already refuses this
+     shape for the fat fractions in `v`; an evidence column is the same claim
+     and was not covered, and the first glucoraphanin figure found for broccoli
+     was 89 mg against a recorded 61.7 mg of total glucosinolates. */
+  const nuts = [{ id: "glucosinolates", evidence: true }, { id: "glucoraphanin", evidence: true }];
+  const src = { "a": { short: "A", title: "a", quality: "high" } };
+  // Both cells cite source "a": one study cannot report a food as holding more
+  // of a component than of the class that component belongs to.
+  const pair = (total, part) => ({ "oats-rolled-dry": { prep: "rolled, dry",
+    matches: { a: "exact" }, cells: {
+      glucosinolates: { state: "measured", value: total, sources: ["a"] },
+      glucoraphanin: { state: "measured", value: part, sources: ["a"] } } } });
+
+  eq(checkEvidence(pair(61.7, 45), nuts, FOODS, src).length, 0, "a fraction under its total is fine");
+  eq(checkEvidence(pair(61.7, 61.7), nuts, FOODS, src).length, 0, "a fraction may be the whole of it");
+  assertHas(checkEvidence(pair(61.7, 89), nuts, FOODS, src), "exceeds");
+});
+
+test("a part and a total from different sources are not held against each other", () => {
+  /* The rule above is a compositional identity and only holds within one set of
+     samples. Broccoli's total glucosinolates here are a UK literature mean and
+     its glucoraphanin a cultivar screen in another country: one exceeding the
+     other is two studies disagreeing about broccoli, which the page shows by
+     naming both, and not a food containing more of a part than of the whole. */
+  const nuts = [{ id: "glucosinolates", evidence: true }, { id: "glucoraphanin", evidence: true }];
+  const src = { a: { short: "A", title: "a", quality: "high" },
+                b: { short: "B", title: "b", quality: "high" } };
+  const split = { "oats-rolled-dry": { prep: "rolled, dry",
+    matches: { a: "exact", b: "exact" }, cells: {
+      glucosinolates: { state: "measured", value: 61.7, sources: ["a"] },
+      glucoraphanin: { state: "measured", value: 89, sources: ["b"] } } } };
+  eq(checkEvidence(split, nuts, FOODS, src).length, 0,
+     "different sources may disagree; only one source may not contradict itself");
 });
 
 // ----------------------------------------------------------------- gap checks
