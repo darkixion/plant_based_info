@@ -144,12 +144,6 @@
     "title": "Schurgers & Vermeer 2000, Menaquinone content of foods (Haemostasis)",
     "quality": "single study, not reproduced against any corpus here"
   },
-  "arnao-2018": {
-    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017233/",
-    "short": "Arnao 2018",
-    "title": "Arnao & Hernandez-Ruiz 2018, Phytomelatonin (Molecules)",
-    "quality": "single study, not reproduced against any corpus here"
-  },
   "popa-2015": {
     "title": "Popa et al. 2015, squalene in amaranth seed",
     "quality": "single study, not reproduced against any corpus here",
@@ -244,6 +238,22 @@
     "country": "International",
     "url": "https://www.intechopen.com/chapters/50921",
     "quality": "review; the same author as walther-2013 with a finer table, reporting Schurgers 2000 and Kamao 2007"
+  },
+  "verde-2022": {
+    "short": "Verde 2022",
+    "title": "Verde et al. 2022, Melatonin content in walnuts and other commercial nuts: influence of cultivar, ripening and processing (J Food Compost Anal)",
+    "publisher": "Journal of Food Composition and Analysis",
+    "country": "Spain",
+    "url": "https://www.investigo.biblioteca.uvigo.es/xmlui/handle/11093/2737",
+    "quality": "high; a primary measurement reporting fresh weight directly, with a limit of detection and quantification stated and four walnut cultivars assayed separately"
+  },
+  "tanaka-2026": {
+    "short": "Tanaka 2026",
+    "title": "Tanaka & Tanaka 2026, Vitamin K contents of various cheeses and fermented soybean products by column-switching HPLC (Food Anal Methods), Table 5",
+    "publisher": "Food Analytical Methods",
+    "country": "Japan",
+    "url": "https://link.springer.com/article/10.1007/s12161-026-03168-8/tables/5",
+    "quality": "high for absence; the table reports phylloquinone equivalents rather than per-vitamer masses, so only its analysed absences are used here"
   },
   "jensen-2022": {
     "short": "Denmark (Jensen 2022)",

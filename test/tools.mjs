@@ -14,6 +14,7 @@ import { gradeDerivation, reconcile } from "../tools/reconcile.mjs";
 // the page as a side effect of running the tests.
 import { checkEvidence, checkGaps } from "../build.mjs";
 import { execSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 
 let passed = 0, failed = 0;
 const results = [];
@@ -413,6 +414,41 @@ test("a claim that something is absent fails once it is present", () => {
     "biotin");
   assertHas(checkGaps({ sources, gaps: [{ ...entry, absent: ["biotin"] }] }, nutrients),
     "has a column");
+});
+
+// -------------------------------------------------- what a reader can be shown
+
+test("no measured evidence figure rounds away to zero on the page", () => {
+  /* The page prints an evidence cell with toFixed(dp), so a figure smaller than
+     half of the column's last place reaches the reader as 0.0, which is what an
+     absence looks like. Two columns have shipped in that state. CoQ9 carried
+     cauliflower at 0.004 mg in a two-decimal column. Melatonin carried three
+     cells around 0.0001 ng, which turned out not to be melatonin in nanograms
+     at all but figures whose source did not contain them.
+
+     This is the check that catches both, and it belongs here rather than in the
+     browser suite because it is a fact about the data, not about the rendering:
+     any cell that fails it is either in the wrong unit or in a column whose
+     precision cannot show it. */
+  const nutrients = JSON.parse(readFileSync(new URL("../src/data/nutrients.json", import.meta.url), "utf8"));
+  const evidence = JSON.parse(readFileSync(new URL("../src/data/evidence.json", import.meta.url), "utf8"));
+  const dp = Object.fromEntries(nutrients.nutrients.filter(n => n.evidence).map(n => [n.id, n.dp]));
+  const zero = [];
+  for (const [slug, entry] of Object.entries(evidence)) {
+    for (const [id, cell] of Object.entries(entry.cells || {})) {
+      if (!(id in dp)) continue;
+      // A range shows both bounds, and its top is the most the cell claims.
+      const shown = cell.state === "range" ? cell.high
+        : (cell.state === "measured" || cell.state === "estimated") ? cell.value : null;
+      /* A stored zero is left alone. MEXT reports 0 for maltose in dozens of
+         foods and that is the source speaking, not a rounding: 47 cells here
+         are measured zeros. What this catches is a figure that is not zero and
+         prints as one. */
+      if (typeof shown !== "number" || shown === 0) continue;
+      if (Number(shown.toFixed(dp[id])) === 0) zero.push(`${slug}.${id} = ${shown} at dp ${dp[id]}`);
+    }
+  }
+  eq(zero.length, 0, `these measured figures print as zero: ${zero.join("; ")}`);
 });
 
 // ----------------------------------------------------------------- CLI checks

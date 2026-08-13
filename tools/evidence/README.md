@@ -5,7 +5,7 @@ so that adding a food later costs nothing: the values are already here, for far 
 foods than the page lists.
 
 **All 47 of the page's evidence columns draw on this directory**, over
-1,953 cells across 157 foods and 41 sources. Phase 1 added three (soluble fibre,
+1,955 cells across 157 foods and 42 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
@@ -50,6 +50,8 @@ calcium. So every component here had to come from somewhere else.
 | `jensen-2022-vitamin-k.json` | 3 | a direct LC analysis of **MK-4 to MK-10** in broccoli, canola oil and natto, with a limit of quantification per homologue |
 | `jensen-2025-vitamin-k.json` | 9 | PK and MK-4 to MK-10 in 88 Danish composite foods. Kept for later: **no page food is among them** |
 | `mattila-2001-coq.json` | 12 | **CoQ9** and CoQ10 in ug/g fresh weight. The only food table here carrying CoQ9, and the only CoQ source reaching vegetables and fruit rather than oils |
+| `verde-2022-melatonin.json` | 7 | **Melatonin** in nuts, pg/g fresh weight, four walnut cultivars assayed separately, with LOD and LOQ |
+| `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 81 | reviewed mappings from this page's foods to MEXT rows |
 
 ## The evidence states
@@ -170,6 +172,50 @@ Two disagreements are recorded rather than resolved:
 Walther's table also reports **MK-5 and MK-6** for both foods. The page has no
 column for either, so those figures are extracted and unused.
 
+### Miso, and a food that carries none
+
+Tanaka and Tanaka 2026 assayed barley miso and rice miso and found **no
+menaquinone of any chain length in either**, only phylloquinone. That fills
+MK-4, MK-8 and MK-9 on a page food that had none of them, and it is what the
+biology predicts: miso is fermented with *Aspergillus oryzae*, not with the
+*Bacillus subtilis* that makes natto's MK-7.
+
+It also disagrees with the page. Miso MK-7 is 10.1 µg from Schurgers, and
+Tanaka did not detect it. That is the sauerkraut MK-4 case again, so it is
+resolved the same way: a detection and a non-detection are not symmetrical, the
+figure stands, and Tanaka is recorded as `disputed` beside it.
+
+**Only the absences are taken from this paper.** Its table is in phylloquinone
+equivalents and this store holds actual per-vitamer masses, which is why
+`jensen-2025-vitamin-k.json` draws on that paper's supplementary table rather
+than its main text. Recovering a mass from a PK equivalent means assuming the
+authors equated on moles, which is the usual convention but is not stated in
+the table, and being wrong about it moves MK-7 by 44 per cent. An `nd` carries
+no such problem. On that assumption its natto MK-7 would be about 539 µg, which
+falls inside the span the page already records, and its MK-4 and MK-9 absences
+agree with what natto already carries, so both are recorded as corroboration.
+
+Its fourth row is **Okinawan fermented tofu, which is not the page's tofu**.
+Tofuyo is bean curd cured in brine and awamori and aged for months; the page
+carries plain firm tofu, which is neither fermented nor aged. The two share an
+English name and nothing else, and a menaquinone figure is exactly the kind of
+value that exists only because of the fermentation.
+
+The paper's method covers six vitamers and **MK-10 is not one of them**, so it
+does not help the one column still empty of figures.
+
+### Natto MK-7, where this file and the data disagree
+
+The section below says natto MK-7 "is a range over all three" of Kamao,
+Schurgers and Sim. The data says `{"state":"measured","value":939,
+"sources":["kamao-2007"]}`. One of the two is wrong and it is not clear which:
+either the range was lost in a regeneration, or it was described here and never
+applied. Left as it stands rather than guessed at, because natto MK-7 is the
+largest single figure in the vitamin K columns and moving it is the owner's
+call. Worth knowing before that call: a range would have to run **81.6 to
+1034**, not the 939 to 998 named below, because Walther's 2017 table attests an
+upper bound of 1034 and `loadAttested` indexes both ends of a range.
+
 ### Where the two accounts disagree, and how a third settled it
 
 Walther wrote both menaquinone tables, four years apart, and they define their
@@ -273,6 +319,43 @@ tell a missing row from a wrong figure is worse than no check.
 One row is deliberately unmapped. The table says only **"Bean"**, at 0.06 µg/g,
 and this page carries twenty of them.
 
+## Melatonin, and three cells that named a paper without them
+
+The column had four cells and three of them were wrong in a way that made them
+invisible rather than obviously false. Tomato carried 0.0001 ng/100 g, walnut
+0.0003 and pistachio 0.0023, all cited to Arnao and Hernández-Ruiz 2018. At the
+column's one decimal place every one of them printed as **0.0 ng**, so the page
+showed three measured values as nothing.
+
+They came from `literature-misc.json`, which records one source string for a
+whole row and which `tools/evidence.mjs` stopped reading for that reason. These
+survived the sweep because each had been given a per-value citation, and nobody
+checked it against the paper. Arnao's table gives melatonin in ng/g and:
+
+- **has no walnut row and no pistachio row at all**
+- gives tomato as **0.3 to 114 ng/g fresh weight**, which is 30 to 11,400
+  ng/100 g and nothing like the 0.0001 filed under it
+
+So all three named a source that does not contain them, which is the same fault
+the 127-cell purge was written for. Tomato and pistachio are dropped rather than
+converted: their magnitudes suggest mg/100 g in a nanogram column, but a unit
+that can be guessed at has not been established. `arnao-2018` is gone from
+`sources.json`, because nothing cites it now and the build refuses a registered
+source no cell uses.
+
+Walnut is re-derived from **Verde 2022**, a primary measurement in pg/g fresh
+weight needing no basis conversion, with a limit of detection and quantification
+stated. Four commercial cultivars were assayed separately and no one of them is
+the walnut, so the cell is a range over the whole spread, 119.1 to 330.1
+ng/100 g, the same shape the FAO phytate release forced. Raw peanut comes from
+the same paper at 8.3 ng/100 g.
+
+Two of that paper's foods are deliberately unmapped. Its chestnut figure is raw
+and the page's chestnuts are roasted, and the paper's own finding is that
+roasting lowers melatonin in every nut but peanut. Its almond, hazelnut,
+pistachio and cashew values exist only as bars in Fig. 3, with no number in the
+text, and reading a value off a bar chart is not a transcription.
+
 `sources.json` is the index. Every corpus file names its source by key, and every
 source records country, year, method, quality and limitations.
 
@@ -329,6 +412,32 @@ directory is re-deriving the same refusals:
 | Peach and pear quinic acid, cultivar datasets | quinic | Fresh weight, cultivar level, and the right shape. Taylor & Francis returned 403. The one dataset reachable is thinned **young** fruit at 5 to 10.5 mg/g, which the paper itself contrasts with ripe fruit, so it cannot stand for a ripe peach |
 | Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
 | Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+### Round two of the same sweep
+
+Pushed harder on the rows round one had not really searched, and on open copies
+of papers it had abandoned at a publisher paywall. Two sources landed, both
+verified against the primary table rather than the report of it:
+
+| Lead | Outcome |
+|---|---|
+| Verde 2022, melatonin in nuts | **Accepted.** Author's deposit in the Universidade de Vigo repository. Note that host's TLS chain is missing an intermediate, so fetching it needs verification relaxed |
+| Tanaka & Tanaka 2026, fermented soybean products | **Accepted for its absences only**, per the PK equivalent problem above |
+| Sturtz 2011, tomato and strawberry melatonin | Still unreached. Reports 4.11 to 114.52 ng/g FW for tomato and 1.38 to 11.26 for strawberry, which is four to seven orders of magnitude above what this page carried. **The best remaining melatonin lead** |
+| Vitalini 2011, grape melatonin | Milan repository holds it as *accesso riservato*, and the study is tissue-specific rather than whole berry |
+| Gonzalez-Gomez 2009, sweet cherry melatonin | *Prunus avium*, the right species unlike Burkhardt's *P. cerasus*, but reachable only through a thesis discussing it. Values around 0.01 to 0.22 ng/g and one variety not detected |
+| Obizoba 2000, cowpea oligosaccharides | Cooked cowpeas measured, but the public abstract gives percentage reductions rather than concentrations |
+| Park 2013, cabbage glucoraphanin | Dry weight, no same-sample fresh moisture |
+| Pectin, all foods | Nothing. Three sweeps now |
+
+One trap worth naming, because it nearly landed: an earlier attempt at Sari 2017
+read the dry matter column backwards, taking 100 minus 94.280 as the sample's
+dry matter and converting oyster mushroom beta-glucan to a plausible-looking
+1.386 g/100 g fresh. Had the printed figure been used the answer would have been
+22.8 g/100 g, obviously impossible, and the source would have been rejected on
+sight. **The arithmetic error is what made the answer credible.** The source
+fails regardless: its samples were hot-air dried before assay, so its dry matter
+describes the dried powder, not the mushroom.
 
 **MK-8, MK-9 and MK-10 are now a food-list problem, not a source problem.**
 `jensen-2025-vitamin-k.json` already holds MK-10 at 0.12 to 0.25 µg/100 g in rye

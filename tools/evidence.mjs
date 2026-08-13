@@ -151,6 +151,9 @@ function passthrough(state) {
 // Named apart from the per-food `cells` object below, which needs the name
 // the loop body reads and writes at every step.
 let nCells = 0, ranges = 0, disputes = 0;
+/* Cells removed rather than written, each with the reason. Printed at the end
+   because a value leaving the page is a bigger event than one arriving. */
+const dropped = [];
 
 for (const p of map) {
   const slug = slugify(p.page, p.page_state);
@@ -343,6 +346,78 @@ for (const row of mattila.rows) {
   }
 }
 
+/* Three melatonin cells that name a source which does not contain them.
+   Arnao and Hernandez-Ruiz 2018 tabulates phytomelatonin in ng/g and its list
+   has no walnut and no pistachio row at all, while its tomato is 0.3 to 114
+   ng/g fresh weight, which is 30 to 11,400 ng/100 g and nothing like the
+   0.0001 filed under it here. All three came from literature-misc.json, whose
+   rows carry one source string for a whole row and which this tool stopped
+   reading for exactly that reason; these survived the sweep because each had
+   been given a per-value citation that was never checked against the paper.
+   All three also printed as 0.0 on the page, being four orders of magnitude
+   below anything a melatonin assay can see. Walnut is re-derived from Verde
+   below. The other two are dropped rather than converted, because the unit
+   they are in can be guessed at but not established. */
+for (const [slug, why] of [
+  ["tomatoes-raw", "Arnao gives tomato as 0.3 to 114 ng/g fresh weight, not 0.0001 ng/100 g"],
+  ["pistachios", "Arnao's table has no pistachio row"],
+]) {
+  if (out[slug]?.cells?.melatonin) { delete out[slug].cells.melatonin; dropped.push(`${slug}.melatonin: ${why}`); }
+}
+
+/* Verde 2022, melatonin in nuts. Fresh weight as published, so the only
+   conversion is pg/g to ng/100 g. Four walnut cultivars were assayed and no
+   one of them is the walnut, so that cell is a range over the whole spread,
+   the same shape the FAO phytate release forced for foods it samples by
+   cultivar. This pass owns melatonin for the foods it maps. */
+const verde = rd("verde-2022-melatonin.json");
+const ngPer100g = pgPerG => Number((pgPerG * 0.1).toFixed(4));
+const byPage = {};
+for (const row of verde.rows) {
+  if (!row.page || typeof row.melatonin_pg_g !== "number") continue;
+  (byPage[row.page] ||= { figures: [], match: row.match }).figures.push(row.melatonin_pg_g);
+}
+for (const [page, { figures, match }] of Object.entries(byPage)) {
+  grade(page, "verde-2022", match);
+  const lo = ngPer100g(Math.min(...figures)), hi = ngPer100g(Math.max(...figures));
+  out[page].cells.melatonin = figures.length > 1
+    ? { state: "range", low: lo, high: hi, sources: ["verde-2022"] }
+    : { state: "measured", value: lo, sources: ["verde-2022"] };
+  nCells++;
+}
+
+/* Tanaka 2026, fermented soybean products. Only the analysed absences are
+   taken: the table is in phylloquinone equivalents and this store holds actual
+   masses, so a measured figure would have to be back-converted on an assumed
+   molar equivalence, while an nd is an nd in either unit.
+
+   Where a homologue already carries a figure, the absence is recorded as a
+   dispute rather than written over it. A detection and a non-detection are not
+   symmetrical, since the second rests on a limit of detection, which is how
+   sauerkraut MK-4 already treats Sim. */
+const tanaka = rd("tanaka-2026-vitamin-k.json");
+for (const row of tanaka.rows) {
+  if (!row.page) continue;
+  for (const id of ["mk4", "mk7", "mk8", "mk9"]) {
+    if (row[id] !== "nd") continue;
+    grade(row.page, "tanaka-2026", row.match);
+    const held = out[row.page].cells[id];
+    /* A cell already admitting the absence is corroborated, not disputed: an
+       analysed absence and a range that reaches down to nothing are the same
+       finding, and natto MK-4 is already 0 to 3.3 over three sources. Only a
+       claim that excludes zero is in conflict with an nd. */
+    const admitsNone = held
+      && (held.state === "not-detected" || (held.state === "range" && held.low <= 0));
+    if (!held) { out[row.page].cells[id] = { state: "not-detected", sources: ["tanaka-2026"] }; nCells++; }
+    else if (admitsNone) {
+      if (!held.sources.includes("tanaka-2026")) held.sources.push("tanaka-2026");
+    } else {
+      const d = (held.disputed ||= []);
+      if (!d.some(x => x.source === "tanaka-2026")) { d.push({ source: "tanaka-2026", value: 0 }); disputes++; }
+    }
+  }
+}
+
 /* literature.json and literature-misc.json used to be read here. Both were
    compilations with no citation per value: literature-misc.json recorded a
    source of "USDA/Milder2005/PhyFoodComp" for a whole row, and its figures
@@ -363,3 +438,4 @@ for (const [slug, entry] of Object.entries(out)) {
 
 writeFileSync(DEST, JSON.stringify(out, null, 1) + "\n");
 console.log(`${Object.keys(out).length} foods, ${nCells} cells, ${ranges} ranges, ${disputes} with a disputed source`);
+for (const d of dropped) console.log(`dropped ${d}`);

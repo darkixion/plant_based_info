@@ -1654,7 +1654,8 @@
    "sim-2021": "exact",
    "walther-2013": "exact",
    "walther-2017": "exact",
-   "jensen-2022": "exact"
+   "jensen-2022": "exact",
+   "tanaka-2026": "exact"
   },
   "cells": {
    "solfibre": {
@@ -1776,7 +1777,8 @@
     "sources": [
      "jensen-2022",
      "sim-2021",
-     "walther-2017"
+     "walther-2017",
+     "tanaka-2026"
     ]
    },
    "mk8": {
@@ -1794,7 +1796,8 @@
     "sources": [
      "walther-2013",
      "walther-2017",
-     "jensen-2022"
+     "jensen-2022",
+     "tanaka-2026"
     ]
    },
    "mk10": {
@@ -2985,7 +2988,8 @@
    "mext-2020": "close",
    "milder-2005": "close",
    "nih-boron": "close",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "verde-2022": "close"
   },
   "cells": {
    "solfibre": {
@@ -3155,6 +3159,13 @@
     "value": 130.1,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "melatonin": {
+    "state": "measured",
+    "value": 8.3,
+    "sources": [
+     "verde-2022"
     ]
    }
   }
@@ -7155,7 +7166,6 @@
  "tomatoes-raw": {
   "prep": "raw",
   "matches": {
-   "arnao-2018": "exact",
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
@@ -7299,13 +7309,6 @@
     "value": 0.02,
     "sources": [
      "milder-2005"
-    ]
-   },
-   "melatonin": {
-    "state": "measured",
-    "value": 0.0001,
-    "sources": [
-     "arnao-2018"
     ]
    },
    "proanthocyanidins": {
@@ -13442,7 +13445,6 @@
  "pistachios": {
   "prep": "as listed",
   "matches": {
-   "arnao-2018": "proxy",
    "aydogan-2023": "proxy",
    "fao-phytate": "exact",
    "milder-2005": "proxy",
@@ -13476,13 +13478,6 @@
     "value": 226.4,
     "sources": [
      "usda-pa-r2"
-    ]
-   },
-   "melatonin": {
-    "state": "measured",
-    "value": 0.0023,
-    "sources": [
-     "arnao-2018"
     ]
    }
   }
@@ -13583,11 +13578,11 @@
  "walnuts": {
   "prep": "as listed",
   "matches": {
-   "arnao-2018": "proxy",
    "fao-phytate": "exact",
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "verde-2022": "close"
   },
   "cells": {
    "boron": {
@@ -13620,10 +13615,11 @@
     ]
    },
    "melatonin": {
-    "state": "measured",
-    "value": 0.0003,
+    "state": "range",
+    "low": 119.1,
+    "high": 330.1,
     "sources": [
-     "arnao-2018"
+     "verde-2022"
     ]
    }
   }
@@ -13788,7 +13784,8 @@
  "miso": {
   "prep": "as listed",
   "matches": {
-   "schurgers-2000": "exact"
+   "schurgers-2000": "exact",
+   "tanaka-2026": "close"
   },
   "cells": {
    "mk7": {
@@ -13796,6 +13793,12 @@
     "value": 10.1,
     "sources": [
      "schurgers-2000"
+    ],
+    "disputed": [
+     {
+      "source": "tanaka-2026",
+      "value": 0
+     }
     ]
    },
    "k2": {
@@ -13803,6 +13806,24 @@
     "value": 10.1,
     "sources": [
      "schurgers-2000"
+    ]
+   },
+   "mk4": {
+    "state": "not-detected",
+    "sources": [
+     "tanaka-2026"
+    ]
+   },
+   "mk8": {
+    "state": "not-detected",
+    "sources": [
+     "tanaka-2026"
+    ]
+   },
+   "mk9": {
+    "state": "not-detected",
+    "sources": [
+     "tanaka-2026"
     ]
    }
   }

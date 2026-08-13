@@ -1,0 +1,24 @@
+{
+  "source": "tanaka-2026",
+  "citation": "Tanaka S, Tanaka M. Improvement of an analytical method for six types of vitamin K, including long-chain menaquinones, via column-switching high-performance liquid chromatography and analysis of the vitamin K contents of various cheeses and fermented soybean products. Food Anal Methods. 2026, Table 5",
+  "url": "https://link.springer.com/article/10.1007/s12161-026-03168-8/tables/5",
+  "doi": "10.1007/s12161-026-03168-8",
+  "unit": "PK eq ug/100 g, phylloquinone equivalents, mean +/- SD, n = 3",
+  "table-caption": "Vitamin K contents of fermented soybean products (PK eq ug/100 g) (mean +/- standard deviations (n = 3)",
+  "vitamers": "PK, MK-4, MK-6, MK-7, MK-8 and MK-9. MK-10 is not one of the six and was not assayed.",
+  "states": "nd is not detected or below the limit of detection. tr is between LOD and LOQ.",
+  "why-only-absences-are-taken": "The table is in phylloquinone equivalents and this store holds actual per-vitamer masses, which is why jensen-2025-vitamin-k.json takes that paper's supplementary table rather than its main text. Recovering a mass from a PK equivalent means assuming the authors equated on moles, which is the usual convention but is not stated in the table, and getting it wrong moves MK-7 by 44 per cent. An absence carries no such problem: nd is nd in either unit. So the nd rows are taken and the measured ones are recorded here and left off the page.",
+  "rows": [
+    { "food": "Barley miso", "page": "miso", "match": "close",
+      "pk": 1.76, "mk4": "nd", "mk6": "nd", "mk7": "nd", "mk8": "nd", "mk9": "nd", "total": 1.76 },
+    { "food": "Rice miso", "page": "miso", "match": "close",
+      "pk": 1.79, "mk4": "nd", "mk6": "nd", "mk7": "nd", "mk8": "nd", "mk9": "nd", "total": 1.79,
+      "note": "Two miso types, both found to carry no menaquinone at all. The page's food is an unqualified miso, which is why the grade is close rather than exact. Miso is fermented with Aspergillus oryzae rather than with the Bacillus subtilis that makes natto, so an absence of menaquinones is what the biology predicts." },
+    { "food": "Natto", "page": "natto", "match": "exact",
+      "pk": 11.30, "mk4": "nd", "mk6": 17.69, "mk7": 374.23, "mk8": 3.49, "mk9": "nd", "total": 406.71,
+      "note": "A fourth analysed account of natto MK-7 and nothing here takes it, because of the PK equivalent problem above. On a molar equivalence its 374.23 would be about 539 ug of actual MK-7, which falls inside the span the page already records from Kamao, Schurgers and Sim. Its MK-4 and MK-9 absences agree with what the page already carries." },
+    { "food": "Okinawan fermented tofu", "page": null, "match": null,
+      "pk": 6.52, "mk4": "nd", "mk6": "nd", "mk7": 2.38, "mk8": "nd", "mk9": "nd", "total": 8.90,
+      "why-unmapped": "Not the page's tofu. Tofuyo is bean curd cured in brine and awamori and aged for months, and the page carries plain firm tofu, which is neither fermented nor aged. The two foods share a name in English and nothing else, and a menaquinone figure is exactly the sort of value that only exists because of the fermentation." }
+  ]
+}

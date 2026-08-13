@@ -1,0 +1,30 @@
+{
+  "source": "verde-2022",
+  "citation": "Verde A, Miguez JM, Leao-Martins JM, Gago-Martinez A, Gallardo M. Melatonin content in walnuts and other commercial nuts: influence of cultivar, ripening and processing (roasting). J Food Compost Anal. 2022;105:104180",
+  "url": "https://www.investigo.biblioteca.uvigo.es/xmlui/handle/11093/2737",
+  "note-on-url": "The Universidade de Vigo repository copy, which is the author's own deposit of the full paper. Preferred over the ResearchGate copy. That host's TLS chain is missing an intermediate certificate, so fetching it needs verification relaxed, and the figures below were cross-checked against the published abstract.",
+  "doi": "10.1016/j.jfca.2021.104180",
+  "unit": "pg/g fresh weight, as the source prints it",
+  "to-page-unit": "x0.1 gives ng/100 g, which is what melatonin is stored in here",
+  "error": "means +/- SEM of ten individual samples per group, not SD",
+  "lod": "38.55 pg/mL",
+  "loq": "128.50 pg/mL",
+  "method": "HPLC with fluorescence detection, identity confirmed by LC-MS",
+  "note": "A primary measurement reporting fresh weight directly, so nothing here needs a basis conversion. Four commercial walnut cultivars were assayed separately and no single one of them is the walnut, which is why the page cell is a range rather than a figure. The paper's other finding matters for mapping: roasting lowers melatonin in every nut except peanut, where it rises.",
+  "rows": [
+    { "food": "Walnut, Hartley", "page": "walnuts", "match": "close", "melatonin_pg_g": 3301, "sem": 92, "n": 10,
+      "origin": "California, USA" },
+    { "food": "Walnut, local unrated", "page": "walnuts", "match": "close", "melatonin_pg_g": 2070, "sem": 60, "n": 10,
+      "origin": "A Estrada, Galicia, Spain" },
+    { "food": "Walnut, Franquette", "page": "walnuts", "match": "close", "melatonin_pg_g": 1600, "sem": 74, "n": 10,
+      "origin": "France" },
+    { "food": "Walnut, Pizarro", "page": "walnuts", "match": "close", "melatonin_pg_g": 1191, "sem": 57, "n": 10,
+      "origin": "Spain" },
+    { "food": "Peanut, raw", "page": "peanuts", "match": "close", "melatonin_pg_g": 83,
+      "note": "The page food carries no state and this repository reads an unstated nut as raw, which is the grade's reason. The same paper puts roasted peanut at 589 pg/g, seven times higher and the only nut that gains melatonin on roasting, so the state is what this cell rests on." },
+    { "food": "Chestnut, raw", "page": null, "match": null, "melatonin_pg_g": 1417,
+      "why-unmapped": "The page's chestnuts are roasted and this figure is raw. The paper's own finding is that roasting lowers melatonin in every nut but peanut, so this figure cannot stand for a roasted chestnut. The roasted value appears only in Fig. 3 as a bar, with no number in the text." },
+    { "food": "Almond, hazelnut, pistachio, cashew, sunflower seed", "page": null, "match": null, "melatonin_pg_g": null,
+      "why-unmapped": "Measured, but reported only as bars in Fig. 3. The text gives the extremes of that figure, raw peanut at 83 pg/g and raw chestnut at 1417 pg/g, and no number for anything between them. Reading a value off a bar chart is not a transcription." }
+  ]
+}
