@@ -7,7 +7,13 @@
   "table-caption": "Vitamin K contents of fermented soybean products (PK eq ug/100 g) (mean +/- standard deviations (n = 3)",
   "vitamers": "PK, MK-4, MK-6, MK-7, MK-8 and MK-9. MK-10 is not one of the six and was not assayed.",
   "states": "nd is not detected or below the limit of detection. tr is between LOD and LOQ.",
-  "why-only-absences-are-taken": "The table is in phylloquinone equivalents and this store holds actual per-vitamer masses, which is why jensen-2025-vitamin-k.json takes that paper's supplementary table rather than its main text. Recovering a mass from a PK equivalent means assuming the authors equated on moles, which is the usual convention but is not stated in the table, and getting it wrong moves MK-7 by 44 per cent. An absence carries no such problem: nd is nd in either unit. So the nd rows are taken and the measured ones are recorded here and left off the page.",
+  "why-only-absences-are-taken": "The table is in phylloquinone equivalents and this store holds actual per-vitamer masses, which is why jensen-2025-vitamin-k.json takes that paper's supplementary table rather than its main text. The nd rows need no conversion and are taken. The measured ones are recorded here with their conversion and left off the page, because every one of them lands inside a span the page already holds.",
+  "pk-equivalence": {
+    "resolved": "The full text settles the convention that Table 5 alone leaves ambiguous.",
+    "quote": "Content of the individual vitamin K and total vitamin K contents were calculated as PK-equivalence as ug PKeq/100 g by multiplying the relative difference in the molecular mass. The molecular masses used for correction were 450.7, 444.6, 580.9, 649.0, 717.1, and 785.2, for PK, MK-4, MK-6, MK-7, MK-8, and MK-9, respectively (Jensen et al. 2025).",
+    "molecular-masses": { "pk": 450.7, "mk4": 444.6, "mk6": 580.9, "mk7": 649.0, "mk8": 717.1, "mk9": 785.2 },
+    "direction": "A PK equivalent is a molar equivalence to phylloquinone, so PKeq = actual x 450.7 / MW, and recovering the mass is actual = PKeq x MW / 450.7. For MK-7 that is x1.440, so the equivalent understates the mass. Getting the direction backwards would halve it instead."
+  },
   "rows": [
     { "food": "Barley miso", "page": "miso", "match": "close",
       "pk": 1.76, "mk4": "nd", "mk6": "nd", "mk7": "nd", "mk8": "nd", "mk9": "nd", "total": 1.76 },
@@ -16,7 +22,8 @@
       "note": "Two miso types, both found to carry no menaquinone at all. The page's food is an unqualified miso, which is why the grade is close rather than exact. Miso is fermented with Aspergillus oryzae rather than with the Bacillus subtilis that makes natto, so an absence of menaquinones is what the biology predicts." },
     { "food": "Natto", "page": "natto", "match": "exact",
       "pk": 11.30, "mk4": "nd", "mk6": 17.69, "mk7": 374.23, "mk8": 3.49, "mk9": "nd", "total": 406.71,
-      "note": "A fourth analysed account of natto MK-7 and nothing here takes it, because of the PK equivalent problem above. On a molar equivalence its 374.23 would be about 539 ug of actual MK-7, which falls inside the span the page already records from Kamao, Schurgers and Sim. Its MK-4 and MK-9 absences agree with what the page already carries." },
+      "converted": { "mk7": 538.87, "mk8": 5.553, "mk6": 22.80 },
+      "note": "A fourth analysed account of natto and the conversion is now verified rather than assumed, so these are masses: MK-7 538.87 ug, MK-8 5.553, MK-6 22.80. Nothing here takes them, because each lands inside a span the page already holds. MK-8 is already a range of 0 to 89.8 over three sources and 5.553 sits in it. MK-7 is the interesting one: at 538.87 it falls between Sim's 81.6 and Kamao's 939, which is a fourth analysed figure inside a disagreement the page currently reports as a single number. See 'Natto MK-7, where this file and the data disagree' in README.md." },
     { "food": "Okinawan fermented tofu", "page": null, "match": null,
       "pk": 6.52, "mk4": "nd", "mk6": "nd", "mk7": 2.38, "mk8": "nd", "mk9": "nd", "total": 8.90,
       "why-unmapped": "Not the page's tofu. Tofuyo is bean curd cured in brine and awamori and aged for months, and the page carries plain firm tofu, which is neither fermented nor aged. The two foods share a name in English and nothing else, and a menaquinone figure is exactly the sort of value that only exists because of the fermentation." }

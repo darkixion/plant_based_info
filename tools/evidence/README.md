@@ -205,6 +205,26 @@ value that exists only because of the fermentation.
 The paper's method covers six vitamers and **MK-10 is not one of them**, so it
 does not help the one column still empty of figures.
 
+### The phylloquinone equivalent, resolved
+
+Tanaka's Table 5 is printed in PK equivalents and this store holds masses. The
+full text states the convention, so the ambiguity that kept its measured figures
+off the page is gone:
+
+> Content of the individual vitamin K and total vitamin K contents were
+> calculated as PK-equivalence as µg PKeq/100 g by multiplying the relative
+> difference in the molecular mass. The molecular masses used for correction
+> were 450.7, 444.6, 580.9, 649.0, 717.1, and 785.2, for PK, MK-4, MK-6, MK-7,
+> MK-8, and MK-9, respectively (Jensen et al. 2025).
+
+A PK equivalent is a molar equivalence, so `PKeq = mass × 450.7 / MW` and the
+mass comes back as `PKeq × MW / 450.7`. For MK-7 that is ×1.440. Natto's 374.23
+PKeq is **538.87 µg** of MK-7 and its 3.49 is **5.553 µg** of MK-8.
+
+It changes no cell. MK-8 is already a range of 0 to 89.8 over three sources and
+5.553 sits inside it. What it does change is the natto MK-7 question below,
+which now has a fourth analysed figure in it.
+
 ### Natto MK-7, where this file and the data disagree
 
 The section below says natto MK-7 "is a range over all three" of Kamao,
@@ -410,9 +430,37 @@ directory is re-deriving the same refusals:
 | Tortorella glucoraphanin table; Sasaki 2012 | glucoraphanin | Sasaki was already rejected above for giving only a per-cultivar maximum. Tortorella is paywalled at ACS and its table mixes mg/100 g FW, µmol/100 g FW and µmol/g DW by study |
 | Pyo, six Korean commercial oils | CoQ9 | Sesame and soybean oil are page foods and this is the best remaining CoQ9 lead. Springer requires authentication and the figures could not be read |
 | Rodríguez-Acuña 2008, soybean and rapeseed oil | CoQ9 | The page already cites this paper for sunflower oil. Its soybean and rapeseed figures are behind the ACS paywall, and the secondary sources that quote it **conflate its numbers with Kamei's corn oil and Mattila's rapeseed oil**, so nothing quoting it can be trusted for them |
-| Peach and pear quinic acid, cultivar datasets | quinic | Fresh weight, cultivar level, and the right shape. Taylor & Francis returned 403. The one dataset reachable is thinned **young** fruit at 5 to 10.5 mg/g, which the paper itself contrasts with ripe fruit, so it cannot stand for a ripe peach |
+| Peach and pear quinic acid, cultivar datasets | quinic | Chased over three rounds and now closed. See "The peach paper, and a table that is not there" below |
 | Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
 | Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+### The peach paper, and a table that is not there
+
+Guo et al., *Antioxidant profile of thinned young and ripe fruits of Chinese
+peach and nectarine varieties*, Int J Food Prop 2020, was the best quinic acid
+lead for three rounds: fresh weight, cultivar level, ripe and unripe separated,
+and the page carries raw peaches. It was unreachable behind a 403 until the
+owner supplied the PDF.
+
+**It contains no quinic acid value for ripe peach.** The organic acids appear
+only in Figure 3, a heat map, and its own caption says "the content of each
+component was normalized to complete linkage hierarchical clustering", so even
+the colours are not concentrations. The running text gives absolute figures for
+the **thinned young** fruit alone: malic 4.3 to 6.8, quinic 4.5 to 6.0, citric
+0.2 to 1.2 and oxalic 0.17 to 0.23 g/kg. For the ripe fruit it gives only a
+total, 3.8 to 6.7 g/kg, and a ratio: "the malic and quinic acid contents of the
+thinned young fruit were 1.2 to 4.7-fold and 2.1 to 4.5-fold higher than those
+of their ripe counterparts".
+
+A ripe figure could be reconstructed from that as roughly 1.0 to 2.9 g/kg, and
+it is refused. The concentration range and the fold range are aggregates over
+seven varieties and are not paired per variety, so dividing one by the other
+invents a number that no sample produced.
+
+Worth recording alongside it: an earlier search reported per-variety quinic acid
+for this lead as Jinxia 1.90, Yuhua3 1.57, Tropic Prince 1.98 and seven more.
+This paper has seven varieties, none of them called any of those, and no such
+table. Those figures did not come from the paper they were attributed to.
 
 ### Round three, and the thing three rounds of paper-hunting missed
 
