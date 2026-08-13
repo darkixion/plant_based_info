@@ -424,6 +424,18 @@ export function loadAttested() {
     }
   }
 
+  /* Jensen 2025. Indexed once a row finally mapped to a page food, which took
+     until the page gained a rye bread. Only the printed figures enter: a blank
+     in Table S3 is a result below the 0.1 ug/100 g limit of quantification and
+     carries no number, so the cell records it as an analysed absence instead. */
+  const jensen25 = readCorpus("jensen-2025-vitamin-k.json");
+  if (jensen25) for (const row of jensen25.rows || []) {
+    if (!row.page) continue;
+    reach("jensen-2025", row.page);
+    for (const id of ["mk4", "mk7", "mk8", "mk9", "mk10"])
+      if (typeof row[id] === "number") put("jensen-2025", row.page, id, row[id]);
+  }
+
   /* FoodData Central Foundation Foods. Each row names the page food it maps
      to, so no separate map file. Only the released figure is indexed: the min,
      max and median beside it describe the spread of the samples behind that
