@@ -1813,7 +1813,8 @@
   "matches": {
    "fao-phytate": "close",
    "mext-2020": "exact",
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "usda-fdc-foundation": "close"
   },
   "cells": {
    "solfibre": {
@@ -1919,6 +1920,20 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "raffinose": {
+    "state": "measured",
+    "value": 0.06653,
+    "sources": [
+     "usda-fdc-foundation"
+    ]
+   },
+   "stachyose": {
+    "state": "measured",
+    "value": 0.4344,
+    "sources": [
+     "usda-fdc-foundation"
+    ]
    }
   }
  },
@@ -1931,7 +1946,8 @@
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "usda-fdc-foundation": "exact"
   },
   "cells": {
    "solfibre": {
@@ -2025,10 +2041,12 @@
     ]
    },
    "beta-glucan": {
-    "state": "measured",
-    "value": 5.5,
+    "state": "range",
+    "low": 5.5,
+    "high": 7.52,
     "sources": [
-     "eurofir"
+     "eurofir",
+     "usda-fdc-foundation"
     ]
    },
    "inositol-free": {
@@ -5453,7 +5471,8 @@
   "prep": "white, raw",
   "matches": {
    "eurofir": "exact",
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "usda-fdc-foundation": "close"
   },
   "cells": {
    "solfibre": {
@@ -5548,17 +5567,21 @@
     ]
    },
    "beta-glucan": {
-    "state": "measured",
-    "value": 0.4,
+    "state": "range",
+    "low": 0.4,
+    "high": 0.75,
     "sources": [
-     "eurofir"
+     "eurofir",
+     "usda-fdc-foundation"
     ]
    },
    "ergothioneine": {
-    "state": "measured",
-    "value": 13,
+    "state": "range",
+    "low": 4.25,
+    "high": 13,
     "sources": [
-     "eurofir"
+     "eurofir",
+     "usda-fdc-foundation"
     ]
    }
   }
@@ -5567,7 +5590,8 @@
   "prep": "raw",
   "matches": {
    "halliwell-2023": "exact",
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "usda-fdc-foundation": "close"
   },
   "cells": {
    "solfibre": {
@@ -5695,10 +5719,19 @@
     ]
    },
    "ergothioneine": {
-    "state": "measured",
-    "value": 1.29,
+    "state": "range",
+    "low": 1.29,
+    "high": 11.06,
     "sources": [
-     "halliwell-2023"
+     "halliwell-2023",
+     "usda-fdc-foundation"
+    ]
+   },
+   "beta-glucan": {
+    "state": "measured",
+    "value": 2.92,
+    "sources": [
+     "usda-fdc-foundation"
     ]
    }
   }
@@ -5707,7 +5740,8 @@
   "prep": "raw",
   "matches": {
    "halliwell-2023": "exact",
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "usda-fdc-foundation": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5802,10 +5836,19 @@
     ]
    },
    "ergothioneine": {
-    "state": "measured",
-    "value": 0.95,
+    "state": "range",
+    "low": 0.95,
+    "high": 14,
     "sources": [
-     "halliwell-2023"
+     "halliwell-2023",
+     "usda-fdc-foundation"
+    ]
+   },
+   "beta-glucan": {
+    "state": "measured",
+    "value": 1.92,
+    "sources": [
+     "usda-fdc-foundation"
     ]
    }
   }

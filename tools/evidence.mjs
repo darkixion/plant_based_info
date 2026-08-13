@@ -418,6 +418,41 @@ for (const row of tanaka.rows) {
   }
 }
 
+/* USDA FoodData Central Foundation Foods. Not SR Legacy, which defines
+   beta-glucan and publishes zero rows of it: this is a separate release of
+   individually analysed samples, per 100 g of the food as sold, which is
+   already this store's basis and needs no conversion.
+
+   Where a component is new to a food the released figure is taken. Where the
+   page already holds one from somewhere else the cell becomes a range over
+   both, because these disagreements are large and real rather than clerical:
+   oyster mushroom ergothioneine is 0.95 mg to Halliwell's review and 14.0 mg
+   across eight analysed samples here, and shiitake 1.29 against 11.06. A
+   fifteen-fold spread is what this component does across samples, and saying
+   so is worth more than picking the source that was here first. */
+const fdc = rd("fdc-foundation-2026.json");
+const FDC_IDS = ["beta-glucan", "ergothioneine", "raffinose", "stachyose"];
+for (const row of fdc.rows) {
+  if (!row.page) continue;
+  grade(row.page, "usda-fdc-foundation", row.match);
+  for (const id of FDC_IDS) {
+    const found = row[id];
+    if (!found || typeof found.amount !== "number") continue;
+    const held = out[row.page].cells[id];
+    const previous = held && (held.state === "measured" ? held.value : held.state === "range" ? held.high : null);
+    if (typeof previous === "number" && Math.abs(previous - found.amount) > 1e-9) {
+      const lo = Math.min(previous, held.low ?? previous, found.amount);
+      const hi = Math.max(previous, found.amount);
+      out[row.page].cells[id] = { state: "range", low: lo, high: hi,
+        sources: [...new Set([...(held.sources || []), "usda-fdc-foundation"])] };
+      ranges++;
+    } else {
+      out[row.page].cells[id] = { state: "measured", value: found.amount, sources: ["usda-fdc-foundation"] };
+      nCells++;
+    }
+  }
+}
+
 /* literature.json and literature-misc.json used to be read here. Both were
    compilations with no citation per value: literature-misc.json recorded a
    source of "USDA/Milder2005/PhyFoodComp" for a whole row, and its figures

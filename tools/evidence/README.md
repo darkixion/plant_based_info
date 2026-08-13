@@ -5,7 +5,7 @@ so that adding a food later costs nothing: the values are already here, for far 
 foods than the page lists.
 
 **All 47 of the page's evidence columns draw on this directory**, over
-1,955 cells across 157 foods and 42 sources. Phase 1 added three (soluble fibre,
+1,959 cells across 157 foods and 43 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
@@ -51,6 +51,7 @@ calcium. So every component here had to come from somewhere else.
 | `jensen-2025-vitamin-k.json` | 9 | PK and MK-4 to MK-10 in 88 Danish composite foods. Kept for later: **no page food is among them** |
 | `mattila-2001-coq.json` | 12 | **CoQ9** and CoQ10 in ug/g fresh weight. The only food table here carrying CoQ9, and the only CoQ source reaching vegetables and fruit rather than oils |
 | `verde-2022-melatonin.json` | 7 | **Melatonin** in nuts, pg/g fresh weight, four walnut cultivars assayed separately, with LOD and LOQ |
+| `fdc-foundation-2026.json` | 8 | **beta-glucan**, ergothioneine, raffinose and stachyose from USDA Foundation Foods, each with n, min, max and median |
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 81 | reviewed mappings from this page's foods to MEXT rows |
 
@@ -412,6 +413,52 @@ directory is re-deriving the same refusals:
 | Peach and pear quinic acid, cultivar datasets | quinic | Fresh weight, cultivar level, and the right shape. Taylor & Francis returned 403. The one dataset reachable is thinned **young** fruit at 5 to 10.5 mg/g, which the paper itself contrasts with ripe fruit, so it cannot stand for a ripe peach |
 | Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
 | Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+### Round three, and the thing three rounds of paper-hunting missed
+
+The sweep changed strategy: stop searching journals, inventory food composition
+databases instead, because their unit of publication is per 100 g of edible
+portion as consumed and journals' is dry matter. That produced the largest
+single find in this directory's history, and it was sitting in USDA's own
+holdings the whole time.
+
+**FoodData Central Foundation Foods is not SR Legacy.** It is a separate,
+much smaller release of individually analysed samples, published with n, the
+minimum, the maximum, the median and the analytical method behind every figure.
+The "Why this exists" section above is still true: SR Legacy defines beta-glucan
+and publishes zero rows of it across 7,793 foods. **Foundation Foods has 199.**
+It also carries ergothioneine for 91 foods, quinic acid for 144, boron for 844
+and MK-4 for 438.
+
+What it reaches on this page so far:
+
+| Food | Component | Was | Now |
+|---|---|---|---|
+| Oyster mushrooms | beta-glucan | nothing | 1.92 g, n=8 |
+| Shiitake mushrooms | beta-glucan | nothing | 2.92 g, n=8 |
+| Soy milk | raffinose | nothing | 0.067 g, n=8 |
+| Soy milk | stachyose | nothing | 0.434 g, n=8 |
+| Rolled oats | beta-glucan | 5.5 g | 5.5 to 7.52 |
+| White mushrooms | beta-glucan | 0.4 g | 0.4 to 0.75 |
+| Oyster mushrooms | ergothioneine | 0.95 mg | 0.95 to 14.0 |
+| Shiitake mushrooms | ergothioneine | 1.29 mg | 1.29 to 11.06 |
+| White mushrooms | ergothioneine | 13 mg | 4.25 to 13 |
+
+The ergothioneine disagreements are the interesting ones. Halliwell's review puts
+oyster mushroom at 0.95 mg and eight analysed samples here put it at 14.0, a
+fifteen-fold gap, and shiitake is 1.29 against 11.06. Recorded as ranges rather
+than resolved, because a fifteen-fold spread is what this component does and
+saying so is worth more than preferring whichever source arrived first.
+
+**Soy milk is how the raffinose family finally got past the basis problem.**
+Every cooked-legume source refused over three rounds reported dry matter. A
+drunk soy food is measured as sold, so there is nothing to convert.
+
+Most of that release is still unmapped and it is the largest unworked seam here.
+Its boron is mostly dry beans labelled "(0% moisture)", which is a dry basis and
+refused; its quinic acid is mostly fruit juice; its MK-4 mostly meat and cheese.
+Pectin and inulin are defined in it and empty, which now makes three independent
+releases that define pectin and publish nothing.
 
 ### Round two of the same sweep
 

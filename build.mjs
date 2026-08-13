@@ -424,6 +424,18 @@ export function loadAttested() {
     }
   }
 
+  /* FoodData Central Foundation Foods. Each row names the page food it maps
+     to, so no separate map file. Only the released figure is indexed: the min,
+     max and median beside it describe the spread of the samples behind that
+     one value rather than separate attestations of the food. */
+  const foundation = readCorpus("fdc-foundation-2026.json");
+  if (foundation) for (const row of foundation.rows || []) {
+    if (!row.page) continue;
+    reach("usda-fdc-foundation", row.page);
+    for (const id of ["beta-glucan", "ergothioneine", "raffinose", "stachyose"])
+      put("usda-fdc-foundation", row.page, id, row[id]?.amount);
+  }
+
   // The proanthocyanidin release carries its own reviewed mapping, as a list of
   // page slugs on each row, so it needs no separate map file.
   const pa = readCorpus("usda-proanthocyanidins.json");

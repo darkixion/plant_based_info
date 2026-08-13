@@ -239,6 +239,14 @@
     "url": "https://www.intechopen.com/chapters/50921",
     "quality": "review; the same author as walther-2013 with a finer table, reporting Schurgers 2000 and Kamao 2007"
   },
+  "usda-fdc-foundation": {
+    "short": "USDA Foundation",
+    "title": "USDA FoodData Central, Foundation Foods, release 2026-04-30",
+    "publisher": "USDA Agricultural Research Service",
+    "country": "United States",
+    "url": "https://fdc.nal.usda.gov/download-datasets/",
+    "quality": "high; individually analysed samples published with n, minimum, maximum and median, and the only release here carrying beta-glucan at all"
+  },
   "verde-2022": {
     "short": "Verde 2022",
     "title": "Verde et al. 2022, Melatonin content in walnuts and other commercial nuts: influence of cultivar, ripening and processing (J Food Compost Anal)",
