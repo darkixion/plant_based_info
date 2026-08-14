@@ -72,6 +72,36 @@ Before comparing anything, the preparation must match. Reconciling a dry IFCT le
 against a cooked MEXT row measures hydration, not disagreement. See the leaching
 table in `README.md`.
 
+### The worked case: Lee 2010 on glucoraphanin
+
+Lee 2010 sits as `disputed` on two cooked rows and disagrees with each in the
+*opposite* direction, which looks erratic until the preparation is checked.
+
+| Food | Lee 2010 | our cooked cell | our raw cell, median and full spread |
+|---|---|---|---|
+| Broccoli | **89** | 6.37 to 9.24 (2 means) | 23.85, spread 1.19 to 217.9 over 210 means |
+| Brussels sprouts | **3** | 17.55 to 30.28 (2 means, proxy) | 6.16, spread 0.17 to 35.55 over 15 means |
+
+Both of Lee's figures land comfortably inside the **raw** distribution and nowhere
+near the cooked one. 89 sits among the high raw broccoli cultivars, where Brigadier
+gives 85.88 and Marathon 217.9. 3 sits just below the raw brussels sprouts median of
+6.16.
+
+Lee's own quality note in `sources.json` already records the reason: *the paper does
+not state a preparation for the vegetables assayed*. The most economical reading is
+that Lee measured raw material in both cases, and the two-directional disagreement is
+one artefact, not two conflicts.
+
+Two things follow. **Nothing has been moved**, because a preparation inferred from
+where a number lands is still inferred, and this project does not reassign figures on
+inference. And the raw rows Lee would need to be compared against only exist as of
+commit `8e70d8b`; Lee was filed as disputed when the page carried these vegetables
+cooked only, so it was never given the chance to agree with anything.
+
+Independently, `build.mjs` already refuses Lee's 89 on the cooked broccoli row by the
+subset check, because it exceeds the 61.7 mg of total glucosinolates recorded there.
+That guard was written for this exact figure.
+
 ## Coverage after grading by derivation
 
 AFCD plant rows, `present` versus `analysed`:
@@ -161,3 +191,13 @@ been done. Coverage is not agreement.
   (15 foods, this pass) exist so far.
 - Decide the range rule: how far apart two analysed values may sit before the page
   shows a range rather than a value.
+- Decide what a range should summarise when a source has **hundreds** of rows for one
+  food. The convention is min to max over the release's own means, which is faithful
+  and, at large n, close to uninformative. Raw broccoli in the USDA glucosinolate
+  release is the case: 210 means, a median of 23.85 and a middle half of 15.07 to
+  33.08, printed as **1.19 to 217.9** because two cultivar extremes set the bounds.
+  The endpoints were checked and are real broccoli floret samples, EV 6-1 at the
+  bottom and Marathon at the top, with no sprout or microgreen rows contaminating the
+  mapping. So the figure is honest and still tells a reader almost nothing. Every
+  other range here is built over a handful of means, where min to max is fine, so
+  this is a question about one source rather than a flaw in the mechanism.
