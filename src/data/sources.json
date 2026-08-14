@@ -239,6 +239,14 @@
     "url": "https://www.intechopen.com/chapters/50921",
     "quality": "review; the same author as walther-2013 with a finer table, reporting Schurgers 2000 and Kamao 2007"
   },
+  "usda-glucosinolate-r1": {
+    "short": "USDA glucosinolates",
+    "title": "USDA and ODS-NIH Database for the Glucosinolate Content of Foods, Release 1, May 2026",
+    "publisher": "USDA Agricultural Research Service and NIH Office of Dietary Supplements",
+    "country": "United States",
+    "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/glucosinolates/",
+    "quality": "high; 389 food descriptions and 31 glucosinolates in mg/100 g fresh weight, with cultivar, n, SD and range per row, analysed to ISO 9167-1, and the only glucosinolate source here that states the molecular weight it used"
+  },
   "jensen-2025": {
     "short": "Denmark (Jensen 2025)",
     "title": "Jensen et al. 2025, Vitamin K content in food and dietary intake among the Danes (Food Chem 464:141651), supplementary Table S3",

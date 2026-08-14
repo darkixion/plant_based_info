@@ -418,6 +418,50 @@ for (const row of tanaka.rows) {
   }
 }
 
+/* The USDA and ODS-NIH glucosinolate database, Release 1, May 2026. The
+   glucoraphanin column had two figures in it, both from a paper that does not
+   say how its vegetables were prepared. This release states everything that
+   one left open: fresh weight on its own header row, a molecular weight per
+   compound, the preparation in the food description, and a cultivar, an n and
+   a spread per row.
+
+   The molecular weight matters more than it looks. Every other candidate for
+   this column reports umol and leaves the mass to be inferred, and
+   glucoraphanin is 437.5 as the free acid against 475.6 as the potassium salt.
+   This workbook prints 437, so its milligrams are its own rather than ours.
+
+   A food maps to many rows because the release samples cultivars, locations
+   and storage regimes rather than foods, so the cell is a range over the means,
+   the same shape the FAO phytate release forced. Where a figure was already
+   held from somewhere else it is not thrown away: it is recorded as disputed
+   beside the range, because a value whose preparation is unstated cannot be
+   reconciled with one whose preparation is the whole point. */
+const gsl = rd("usda-glucosinolate-r1.json");
+/* grade() creates the entry when there is none, which most of these foods need:
+   the raw vegetables were added to the page days ago and this is the first
+   evidence any of them has carried. */
+for (const f of gsl.foods) {
+  grade(f.page, "usda-glucosinolate-r1", f.match);
+  const held = out[f.page].cells.glucoraphanin;
+  const lo = Math.min(...f.means), hi = Math.max(...f.means);
+  const cell = hi > lo
+    ? { state: "range", low: lo, high: hi, sources: ["usda-glucosinolate-r1"] }
+    : { state: "measured", value: lo, sources: ["usda-glucosinolate-r1"] };
+  /* The dissent has to survive a second run. This pass rewrites the cell from
+     the corpus every time, so on the next run it would read back its own range,
+     find no displaced figure to record, and drop the disputed source it wrote
+     the first time. Carrying it forward is what makes the pass idempotent, and
+     the store is tested for being a fixed point of its own generator. */
+  const ours = held && (held.sources || []).includes("usda-glucosinolate-r1");
+  if (ours && held.disputed) cell.disputed = held.disputed;
+  else if (held && !ours && typeof held.value === "number") {
+    cell.disputed = (held.sources || []).map(s => ({ source: s, value: held.value }));
+    disputes++;
+  }
+  out[f.page].cells.glucoraphanin = cell;
+  if (cell.state === "range") ranges++; else nCells++;
+}
+
 /* Jensen 2025, which has sat here unused since it was ingested because not one
    of its 88 composite samples was a food on this page. The page gained a rye
    bread and now one of them is.

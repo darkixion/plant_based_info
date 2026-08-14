@@ -4709,7 +4709,8 @@
    "mcnaughton-2003": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "usda-glucosinolate-r1": "close"
   },
   "cells": {
    "solfibre": {
@@ -4839,6 +4840,14 @@
     "sources": [
      "sim-2021"
     ]
+   },
+   "glucoraphanin": {
+    "state": "range",
+    "low": 0.31,
+    "high": 6.34,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
    }
   }
  },
@@ -4854,7 +4863,8 @@
    "usda-pa-r2": "exact",
    "sim-2021": "close",
    "jensen-2022": "proxy",
-   "lee-2010": "proxy"
+   "lee-2010": "proxy",
+   "usda-glucosinolate-r1": "close"
   },
   "cells": {
    "solfibre": {
@@ -5016,10 +5026,17 @@
     ]
    },
    "glucoraphanin": {
-    "state": "measured",
-    "value": 89,
+    "state": "range",
+    "low": 6.37,
+    "high": 9.24,
     "sources": [
-     "lee-2010"
+     "usda-glucosinolate-r1"
+    ],
+    "disputed": [
+     {
+      "source": "lee-2010",
+      "value": 89
+     }
     ]
    }
   }
@@ -8581,7 +8598,8 @@
   "matches": {
    "mcnaughton-2003": "proxy",
    "mext-2020": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "usda-glucosinolate-r1": "close"
   },
   "cells": {
    "solfibre": {
@@ -8687,6 +8705,13 @@
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "glucoraphanin": {
+    "state": "measured",
+    "value": 0.437,
+    "sources": [
+     "usda-glucosinolate-r1"
     ]
    }
   }
@@ -11597,7 +11622,8 @@
   "matches": {
    "mext-2020": "exact",
    "usda-pa-r2": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "usda-glucosinolate-r1": "close"
   },
   "cells": {
    "solfibre": {
@@ -11742,6 +11768,14 @@
     "state": "not-detected",
     "sources": [
      "sim-2021"
+    ]
+   },
+   "glucoraphanin": {
+    "state": "range",
+    "low": 0.34,
+    "high": 19.64,
+    "sources": [
+     "usda-glucosinolate-r1"
     ]
    }
   }
@@ -13214,7 +13248,8 @@
    "ifct-2017": "proxy",
    "mcnaughton-2003": "proxy",
    "milder-2005": "proxy",
-   "lee-2010": "proxy"
+   "lee-2010": "proxy",
+   "usda-glucosinolate-r1": "proxy"
   },
   "cells": {
    "phytate": {
@@ -13253,10 +13288,17 @@
     ]
    },
    "glucoraphanin": {
-    "state": "measured",
-    "value": 3,
+    "state": "range",
+    "low": 17.548,
+    "high": 30.281,
     "sources": [
-     "lee-2010"
+     "usda-glucosinolate-r1"
+    ],
+    "disputed": [
+     {
+      "source": "lee-2010",
+      "value": 3
+     }
     ]
    }
   }
@@ -14424,13 +14466,21 @@
  "red-cabbage-raw": {
   "prep": "raw",
   "matches": {
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "usda-glucosinolate-r1": "close"
   },
   "cells": {
    "proanthocyanidins": {
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "glucoraphanin": {
+    "state": "measured",
+    "value": 13.06,
+    "sources": [
+     "usda-glucosinolate-r1"
     ]
    }
   }
@@ -14586,6 +14636,133 @@
     "value": 0.12,
     "sources": [
      "jensen-2025"
+    ]
+   }
+  }
+ },
+ "broccoli-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 1.19,
+    "high": 217.9,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "brussels-sprouts-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 0.17,
+    "high": 35.55,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "cauliflower-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 0,
+    "high": 3.12,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "collard-greens-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 0,
+    "high": 5.77,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "kohlrabi-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 1.88,
+    "high": 4.76,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "mustard-greens-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 0,
+    "high": 0.92,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "daikon-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "proxy"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "measured",
+    "value": 0.437,
+    "sources": [
+     "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "swede-raw": {
+  "prep": "as listed",
+  "matches": {
+   "usda-glucosinolate-r1": "close"
+  },
+  "cells": {
+   "glucoraphanin": {
+    "state": "range",
+    "low": 2.4,
+    "high": 4.8,
+    "sources": [
+     "usda-glucosinolate-r1"
     ]
    }
   }

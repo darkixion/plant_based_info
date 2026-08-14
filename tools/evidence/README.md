@@ -5,7 +5,7 @@ so that adding a food later costs nothing: the values are already here, for far 
 foods than the page lists.
 
 **All 47 of the page's evidence columns draw on this directory**, over
-1,959 cells across 157 foods and 43 sources. Phase 1 added three (soluble fibre,
+1,976 cells across 166 foods and 45 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
@@ -52,6 +52,7 @@ calcium. So every component here had to come from somewhere else.
 | `mattila-2001-coq.json` | 12 | **CoQ9** and CoQ10 in ug/g fresh weight. The only food table here carrying CoQ9, and the only CoQ source reaching vegetables and fruit rather than oils |
 | `verde-2022-melatonin.json` | 7 | **Melatonin** in nuts, pg/g fresh weight, four walnut cultivars assayed separately, with LOD and LOQ |
 | `fdc-foundation-2026.json` | 8 | **beta-glucan**, ergothioneine, raffinose and stachyose from USDA Foundation Foods, each with n, min, max and median |
+| `usda-glucosinolate-r1.json` | 14 | **glucoraphanin** in mg/100 g fresh weight from USDA/ODS-NIH Release 1, with cultivar, n, SD and range per observation |
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 81 | reviewed mappings from this page's foods to MEXT rows |
 
@@ -466,6 +467,51 @@ directory is re-deriving the same refusals:
 | Peach and pear quinic acid, cultivar datasets | quinic | Chased over three rounds and now closed. See "The peach paper, and a table that is not there" below |
 | Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
 | Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+## Glucoraphanin, and a database that states its own molecular weight
+
+The column had two figures, broccoli 89 mg and Brussels sprouts 3 mg, both from
+a paper that does not say how its vegetables were prepared. It now has
+**fourteen**, from the **USDA and ODS-NIH Database for the Glucosinolate Content
+of Foods, Release 1, May 2026**, published as an Excel workbook with its own
+documentation.
+
+Its header row settles the two things that had blocked every other candidate:
+
+> Presented in milligrams per 100 grams (mg/100g) of sample on a fresh-weight
+> (FW) basis. USDA Analytical Data and Published Literature (North America)
+
+and it prints a **molecular weight per compound** on its own row, giving
+glucoraphanin as **437 g/mol**, the free acid. That is why these figures can be
+held in milligrams at all. Every other source for this column reports µmol and
+leaves the mass to be guessed, and the guess is worth 9 per cent: 437.5 as the
+free acid against 475.6 as the potassium salt. The README already records
+refusing Verkerk's µmol figures for exactly that reason, and Song and
+Thornalley's raw-vegetable values are refused on the same ground.
+
+A food maps to many rows, because the release samples cultivars, growing
+locations and storage regimes rather than foods: raw broccoli alone is 210
+observations spanning 1.19 to 217.9 mg. No single row is the food, so the cell
+is a range over the means and every observation is kept in the corpus, the same
+shape the FAO phytate release forced.
+
+**Lee 2010 was not deleted, it was demoted.** Its broccoli 89 and Brussels
+sprouts 3 are recorded as `disputed` beside the new ranges. A figure whose
+preparation is unstated cannot be reconciled with one whose preparation is the
+whole point, and 89 sits inside this release's *raw* spread rather than its
+boiled one, which is the likeliest explanation of it.
+
+Only boiled rows reach the cooked foods. The release separates boiling from
+steaming, microwaving and blanching, and they differ enough to matter: boiled
+broccoli florets are 6.37 mg against 15.91 for steamed whole florets.
+
+Sprouts and microgreens are excluded throughout. Both are several times richer
+than the vegetable and neither is a food on this page, so folding them in would
+inflate a range with something the reader cannot buy.
+
+Rocket reaches nothing, because the release carries arugula only as microgreens.
+Turnip, turnip greens, pak choi and watercress have rows but no glucoraphanin
+figure.
 
 ### The peach paper, and a table that is not there
 

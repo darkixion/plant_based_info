@@ -424,6 +424,16 @@ export function loadAttested() {
     }
   }
 
+  /* The USDA glucosinolate release. Every row's mean is indexed, not just one:
+     the release samples cultivars and treatments rather than foods, so what it
+     attests for a food is the whole spread, and a range citing it has to
+     contain all of it. */
+  const gsl = readCorpus("usda-glucosinolate-r1.json");
+  if (gsl) for (const f of gsl.foods || []) {
+    reach("usda-glucosinolate-r1", f.page);
+    if (f.means?.length) out["usda-glucosinolate-r1"][f.page].glucoraphanin = f.means;
+  }
+
   /* Jensen 2025. Indexed once a row finally mapped to a page food, which took
      until the page gained a rye bread. Only the printed figures enter: a blank
      in Table S3 is a result below the 0.1 ug/100 g limit of quantification and
@@ -771,9 +781,16 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
   problems.push(...checkEvidence(evidence, nutrients, foods, srcs, loadAttested()));
   // A citation nobody uses is the same fault as an uncited claim, read from the
   // other end, and the same check the interactions and gaps sources get.
+  /* A disputed source counts as cited. The page prints it beside the figure it
+     disagrees with, so it is doing work and a reader can follow it. Lee 2010 is
+     the case that showed this up: its two glucoraphanin figures were replaced
+     by a release that states its preparation, and Lee stayed on as the dissent,
+     at which point this check called the source uncited and failed the build. */
+  const cites = (c, key) =>
+    (c.sources || []).includes(key) || (c.disputed || []).some(d => d.source === key);
   for (const key of Object.keys(srcs || {}))
     if (!Object.values(evidence || {}).some(entry =>
-        Object.values(entry.cells || {}).some(c => (c.sources || []).includes(key))))
+        Object.values(entry.cells || {}).some(c => cites(c, key))))
       problems.push(`sources: "${key}" is cited by no evidence cell`);
 
   return problems;
