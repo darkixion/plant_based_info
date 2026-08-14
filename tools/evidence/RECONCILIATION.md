@@ -178,6 +178,49 @@ been done. Coverage is not agreement.
 | **Iodine** | **no, oats 74 vs not detected** | **range** |
 | **Oxalic acid** | **no, spinach 0.3 vs 0.7** | **range** |
 
+## The flavonoid columns are not thin because of the mapping
+
+`HANDOVER-2026-08.md` names widening `usda-map.json` beyond its 44 foods as the
+highest-value remaining work, on the grounds that it is why the flavonoid columns
+are thin. **That premise is wrong**, checked 2026-08-14.
+
+`sourceRows()` in `tools/usda.mjs` reads **two** files and merges them: the
+reviewed `usda-map.json` and the `fdc_id` each food carries in
+`tools/food-additions.json`. The map held 44, food-additions held 178, and
+between them **219 of 222 foods already had a reviewed USDA source row**. The
+three without are `soy-milk-unsweetened`, `seitan` and `nutritional-yeast`, each
+carrying a null id and a recorded reason for it.
+
+The columns are thin because **only 94 of 222 foods appear in USDA Flavonoid
+Release 3.3 at all**. That is a property of the flavonoid database, not of our
+mapping, and no amount of mapping work reaches it. Running the map out to all 222
+foods and re-running the pull changes the filled counts by nothing: 33
+anthocyanidins, 53 flavan-3-ols, 66 flavonols, 2 flavanones, 70 flavones, before
+and after.
+
+What would actually widen those columns is a different source, not a better map.
+
+### Two mapping choices worth revisiting, found on the way
+
+Neither is changed here, because both would alter a published figure and that is
+a decision about data rather than about mapping.
+
+| Food | Current row | Alternative | Why it might be better |
+|---|---|---|---|
+| Turnip greens, cooked | 170139, boiled **with salt** | 170466, boiled **without salt** | Every other cooked vegetable here uses a without-salt row. The current one carries cooking salt into the sodium column. |
+| Raisins | 168164, **golden** seedless | 168165, **dark** seedless | Dark seedless is the ordinary retail raisin. Golden is a sulphured product and differs in more than colour. |
+
+### And one trap in the matcher
+
+`tools/usda.mjs match` proposes at `exact` confidence for every pure oil, because
+oils are all close to 100 % fat and 0 of everything else, so the fingerprint
+distance between any two of them is near zero and the shared word "Oil" clears
+the content-word guard. In one run it proposed **corn and canola oil** for
+rapeseed, sunflower, sesame, walnut **and** avocado oil, and sunflower oil for
+peanut oil. The right rows all exist. This is the same failure the tool's own
+docstring describes for black beans and black pudding, and it is worth knowing
+that `exact` means "the macros agree", not "this is the food".
+
 ## Still to do
 
 - Reconcile biotin across **three** sources (MEXT, CoFID, AFCD). CoFID covers 1,925

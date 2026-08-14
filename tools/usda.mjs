@@ -334,7 +334,14 @@ async function cmdMatch() {
 
   await writeFile(MAP, JSON.stringify(out, null, 1) + "\n");
   const w = report.filter(r => r[0] === "weak" || r[0] === "NONE");
-  console.log(report.map(([c, a, b]) => `  ${c.padEnd(6)} ${a.padEnd(22)} ${b.slice(0, 52)}`).join("\n"));
+  /* A reviewed entry may carry a null description on purpose: three foods here
+     record that SR Legacy has no row that is the source, with a note saying
+     why, and that decision is worth keeping rather than re-proposing a wrong
+     match every run. They reach this line as "kept" with nothing to print, and
+     printing them as such is the point, so the report says so out loud rather
+     than throwing on the null. */
+  console.log(report.map(([c, a, b]) =>
+    `  ${c.padEnd(6)} ${a.padEnd(22)} ${(b ?? "(no USDA row: see note)").slice(0, 52)}`).join("\n"));
   console.log(`\nwrote ${MAP}`);
   console.log(`${report.length - w.length} confident, ${w.length} need review ` +
     `Check them, then set "reviewed": true on every entry you accept.`);
