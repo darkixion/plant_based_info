@@ -967,6 +967,112 @@
    "cat": "Seeds",
    "colour": "#5A3A1E",
    "fdc_id": "173755"
+  },
+  {
+   "name": "Broccoli",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#3E7A2E",
+   "fdc_id": "170379"
+  },
+  {
+   "name": "Brussels sprouts",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#5C8A34",
+   "fdc_id": "170383"
+  },
+  {
+   "name": "Cauliflower",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#EDE7D4",
+   "fdc_id": "169986"
+  },
+  {
+   "name": "Kohlrabi",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#B8C98E",
+   "fdc_id": "168424"
+  },
+  {
+   "name": "Turnip",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#DCD2DC",
+   "fdc_id": "170465"
+  },
+  {
+   "name": "Swede",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#E0A855",
+   "fdc_id": "168454"
+  },
+  {
+   "name": "Mustard greens",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#5A8B3A",
+   "fdc_id": "169256"
+  },
+  {
+   "name": "Collard greens",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#3A6B2A",
+   "fdc_id": "170406"
+  },
+  {
+   "name": "Turnip greens",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#4A7A2E",
+   "fdc_id": "170061"
+  },
+  {
+   "name": "Courgette",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#547F31",
+   "fdc_id": "169291"
+  },
+  {
+   "name": "Beetroot",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#7A1F3D",
+   "fdc_id": "169145"
+  },
+  {
+   "name": "Green peas",
+   "state": "raw",
+   "cat": "Legumes",
+   "colour": "#7BA83F",
+   "fdc_id": "170419"
+  },
+  {
+   "name": "Asparagus",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#6B9B4A",
+   "fdc_id": "168389"
+  },
+  {
+   "name": "Mangetout",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#7FA83E",
+   "fdc_id": "170010",
+   "alt": "snow peas"
+  },
+  {
+   "name": "Sweetcorn",
+   "state": "raw",
+   "cat": "Vegetables",
+   "colour": "#E5C34A",
+   "fdc_id": "169998"
   }
  ],
  "staples": [
@@ -1217,6 +1323,7 @@
   "Chlorella": "Not in USDA SR Legacy under chlorella or any synonym.",
   "Dulse": "Not in USDA SR Legacy under dulse, palmaria palmata, or dillisk.",
   "Oat milk": "Post-dates the April 2018 SR Legacy release.",
-  "Sea grapes (rong nho, umi-budou)": "Not in USDA SR Legacy under sea grape, caulerpa, green caviar, lato or umi budou. SR Legacy carries ten seaweed rows and none is Caulerpa lentillifera. It IS in MEXT 2020 as code 09012, うみぶどう 生, and this repository already holds part of that row: 97 g water, iodine 80 ug, biotin 0.1 ug, total fibre 0.8 g, chromium and molybdenum both trace, selenium not detected. Adding it therefore needs no new source, only a second route into the main table, since every food here is pinned to one SR Legacy row. Worth knowing before that is built: at 97 g of water it is the most watery food that would be on the page, and most of its 74 columns would be a zero or a blank. Separately, a reported EPA content of 0.860 g/100 g does not survive checking and must not be entered. Two independent searches agree it is 0.86 PER CENT OF TOTAL FATTY ACIDS, from Paul 2014 and Matanjun 2009, not grams per 100 g. The arithmetic settles it without needing either paper: total lipid in this species is 0.29 to 1.57 per cent of DRY weight, and at 97 g water that is at most about 0.05 g of fat in 100 g of the fresh food, so 0.86 g of any single fatty acid is seventeen times the entire fat content. The direct measurement agrees: Ratana-arporn and Chirapart 2006 report 0.03 mg/g of freeze-dried sample, which is roughly 0.0005 g/100 g fresh, about 1,600 times below the claim."
+  "Sea grapes (rong nho, umi-budou)": "Not in USDA SR Legacy under sea grape, caulerpa, green caviar, lato or umi budou. SR Legacy carries ten seaweed rows and none is Caulerpa lentillifera. It IS in MEXT 2020 as code 09012, うみぶどう 生, and this repository already holds part of that row: 97 g water, iodine 80 ug, biotin 0.1 ug, total fibre 0.8 g, chromium and molybdenum both trace, selenium not detected. Adding it therefore needs no new source, only a second route into the main table, since every food here is pinned to one SR Legacy row. Worth knowing before that is built: at 97 g of water it is the most watery food that would be on the page, and most of its 74 columns would be a zero or a blank. Separately, a reported EPA content of 0.860 g/100 g does not survive checking and must not be entered. Two independent searches agree it is 0.86 PER CENT OF TOTAL FATTY ACIDS, from Paul 2014 and Matanjun 2009, not grams per 100 g. The arithmetic settles it without needing either paper: total lipid in this species is 0.29 to 1.57 per cent of DRY weight, and at 97 g water that is at most about 0.05 g of fat in 100 g of the fresh food, so 0.86 g of any single fatty acid is seventeen times the entire fat content. The direct measurement agrees: Ratana-arporn and Chirapart 2006 report 0.03 mg/g of freeze-dried sample, which is roughly 0.0005 g/100 g fresh, about 1,600 times below the claim.",
+  "Broccoli sprouts": "Not in USDA SR Legacy under broccoli sprout, brassica sprout or broccoli seed. The release carries sprouts of mung bean, soybean, alfalfa, lentil, pea, kidney, navy and pinto bean, wheat and radish seed, and no brassica sprout among them. This one is worth wanting: broccoli sprouts carry many times the glucoraphanin of the mature head, which is the whole reason the sulforaphane literature is built on them, and it is also why they cannot be approximated from the broccoli row. The nearest thing the release does have is 'Radish seeds, sprouted, raw' at 170095, a brassica sprout with its own glucosinolate profile, but it fills only 32 of the 68 columns a food needs."
  }
 }

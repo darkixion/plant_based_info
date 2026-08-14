@@ -499,11 +499,18 @@ await test("the requested foods are present", async () => {
     const missing = want.filter(n => !have.includes(n));
     eq(missing.length, 0, `missing foods: ${missing.join(", ")}`);
 
-    // Each food appears once. Coconut and blueberries were already in the table
-    // when they were asked for again, and a second row would have collided on
-    // the storage key and taken saved favourites with it.
-    const dupes = want.filter(n => have.filter(h => h === n).length > 1);
-    eq(dupes.join(", "), "", "foods listed twice");
+    /* Each food appears once *per preparation*. Coconut and blueberries were
+       already in the table when they were asked for again, and a second row
+       would have collided on the storage key and taken saved favourites with
+       it. The key is the slug, name and state together, so a raw row beside a
+       cooked one is a different food and not that collision: several foods are
+       deliberately carried both ways now, which is what makes the raw-vegetable
+       glucosinolate literature usable at all. Checking the name alone called
+       those a duplicate. */
+    const haveSlugs = await page.evaluate(() => FOODS.map(f =>
+      `${f.name} ${f.state || ""}`.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")));
+    const dupes = haveSlugs.filter((s, i) => haveSlugs.indexOf(s) !== i);
+    eq([...new Set(dupes)].join(", "), "", "foods listed twice");
   });
 });
 
@@ -654,8 +661,13 @@ await test("export and favourites each have exactly one control", async () => {
 await test("export writes the visible columns and rows", async () => {
   await withPage(async page => {
     await showGroups(page, "macro", "amino");
+    /* Kohlrabi is carried raw and cooked, so this filter matches two rows. The
+       claim is that the export follows the filter, whatever the filter leaves,
+       so the count is read from the page rather than assumed to be one. */
     await page.fill("#q", "kohlrabi");
-    await page.waitForFunction(() => document.querySelectorAll("#tbody .fname").length === 1);
+    await page.waitForFunction(() => [...document.querySelectorAll("#tbody .fname")]
+      .every(e => e.dataset.name === "Kohlrabi") && document.querySelectorAll("#tbody .fname").length > 0);
+    const shown = await page.evaluate(() => document.querySelectorAll("#tbody .fname").length);
     const [download] = await Promise.all([
       page.waitForEvent("download"),
       page.click("#csvBtn"),
@@ -663,7 +675,7 @@ await test("export writes the visible columns and rows", async () => {
     const text = await (await download.createReadStream()).toArray()
       .then(cs => Buffer.concat(cs).toString("utf8"));
     const [head, ...rows] = text.replace(/^﻿/, "").trim().split("\r\n");
-    eq(rows.length, 1, "exported rows should follow the filter");
+    eq(rows.length, shown, "exported rows should follow the filter");
     assert(/^"Food","Also known as","State","Category"/.test(head), `header: ${head}`);
     // Every heading carries the basis, including the per-100-g one. An
     // unqualified "Protein (g)" is the ambiguity the per-calorie basis made
@@ -974,28 +986,36 @@ await test("values taken from an undifferentiated id say so per cell", async () 
        so searching for a second food leaves the count unchanged at one right
        across the search debounce, and the cell read during that window belongs
        to the previous food. Same trap as selectFood() below. */
+    /* Waits until every visible row is the food asked for. It used to wait for
+       exactly one row, which stopped being true when foods started being
+       carried raw as well as cooked: Brussels sprouts is two rows now, and the
+       marker being tested belongs to the cooked one. */
     const only = async name => {
       await page.fill("#q", name);
       await page.waitForFunction(n => {
-        const rows = document.querySelectorAll("#tbody .fname");
-        return rows.length === 1 && rows[0].dataset.name === n;
+        const rows = [...document.querySelectorAll("#tbody .fname")];
+        return rows.length > 0 && rows.every(r => r.dataset.name === n);
       }, name);
     };
-    const omega3Cell = name => page.evaluate(n => {
+    const omega3Cell = (name, state) => page.evaluate(([n, st]) => {
       const heads = [...document.querySelectorAll("#thead tr:nth-child(2) th")]
         .map(th => th.querySelector("[data-sort]").dataset.sort);
-      const tr = [...document.querySelectorAll("#tbody tr")]
-        .find(r => r.querySelector(".fname")?.dataset.name === n);
+      const tr = [...document.querySelectorAll("#tbody tr")].find(r => {
+        const b = r.querySelector(".fname");
+        if (b?.dataset.name !== n) return false;
+        // The state is rendered as its own span inside the button.
+        return !st || b.querySelector("span")?.textContent.trim() === st;
+      });
       const td = [...tr.querySelectorAll("td.num")][heads.indexOf("ala")];
       return { text: td.textContent, sup: td.querySelector("sup.fnote")?.textContent,
                hidden: td.querySelector("sup.fnote")?.getAttribute("aria-hidden"),
                sr: td.querySelector(".sr")?.textContent.trim() };
-    }, name);
+    }, [name, state]);
 
     // Brussels sprouts have no differentiated 18:3 in SR Legacy, so their
     // omega-3 comes from the undifferentiated total and must carry the marker.
     await only("Brussels sprouts");
-    const cell = await omega3Cell("Brussels sprouts");
+    const cell = await omega3Cell("Brussels sprouts", "cooked");
     eq(cell.sup, "†", `marker on the omega-3 cell: ${cell.text}`);
     eq(cell.hidden, "true", "the dagger itself should be hidden from assistive tech");
     assert(/Undifferentiated/i.test(cell.sr || ""), `spoken text: ${cell.sr}`);
