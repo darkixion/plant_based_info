@@ -294,5 +294,13 @@
     "country": "Denmark",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8844770/",
     "quality": "high; a direct LC analysis reporting a separate limit of quantification for each homologue"
+  },
+  "tbca-carb-2019": {
+    "short": "Brazil (TBCA)",
+    "title": "TBCA Tabelas complementares: Perfil de Carboidratos, Versao 7.0 (2019)",
+    "publisher": "Universidade de Sao Paulo, Food Research Center",
+    "country": "Brazil",
+    "url": "https://www.tbca.net.br/",
+    "quality": "high; resistant starch by AOAC 2002.02 per 100 g of edible portion, with the moisture of each sample printed beside the analyte so the basis is checkable per row"
   }
 }

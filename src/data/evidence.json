@@ -8,7 +8,8 @@
    "ifct-2017": "proxy",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "ryan-2007": "exact"
+   "ryan-2007": "exact",
+   "tbca-carb-2019": "close"
   },
   "cells": {
    "solfibre": {
@@ -26,9 +27,11 @@
     ]
    },
    "resstarch": {
-    "state": "not-measured",
+    "state": "range",
+    "low": 1.49,
+    "high": 1.61,
     "sources": [
-     "mext-2020"
+     "tbca-carb-2019"
     ]
    },
    "mo": {
@@ -162,7 +165,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "ryan-2007": "exact",
-   "fao-oligosaccharides": "close"
+   "fao-oligosaccharides": "close",
+   "tbca-carb-2019": "close"
   },
   "cells": {
    "solfibre": {
@@ -180,9 +184,10 @@
     ]
    },
    "resstarch": {
-    "state": "not-measured",
+    "state": "measured",
+    "value": 2.39,
     "sources": [
-     "mext-2020"
+     "tbca-carb-2019"
     ]
    },
    "mo": {
@@ -974,7 +979,8 @@
    "milder-2005": "close",
    "ryan-2007": "close",
    "sim-2021": "close",
-   "mattila-2001": "close"
+   "mattila-2001": "close",
+   "tbca-carb-2019": "close"
   },
   "cells": {
    "solfibre": {
@@ -990,10 +996,12 @@
     ]
    },
    "resstarch": {
-    "state": "measured",
-    "value": 1.6,
+    "state": "range",
+    "low": 1.55,
+    "high": 1.6,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "tbca-carb-2019"
     ]
    },
    "mo": {
@@ -13624,7 +13632,8 @@
    "fao-phytate": "close",
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "tbca-carb-2019": "proxy"
   },
   "cells": {
    "proanthocyanidins": {
@@ -13660,6 +13669,13 @@
     "value": 0.055,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "resstarch": {
+    "state": "measured",
+    "value": 1.84,
+    "sources": [
+     "tbca-carb-2019"
     ]
    }
   }
@@ -14550,13 +14566,21 @@
  "oat-bran-raw": {
   "prep": "raw",
   "matches": {
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "tbca-carb-2019": "close"
   },
   "cells": {
    "proanthocyanidins": {
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "resstarch": {
+    "state": "measured",
+    "value": 3.26,
+    "sources": [
+     "tbca-carb-2019"
     ]
    }
   }

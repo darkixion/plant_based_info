@@ -418,6 +418,42 @@ for (const row of tanaka.rows) {
   }
 }
 
+/* TBCA's carbohydrate profile, a component-specific supplementary release
+   separate from Brazil's ordinary nutrient tables. Resistant starch by
+   AOAC 2002.02, per 100 g of edible portion, and unusually it prints each
+   sample's moisture in the column beside the analyte, so the basis is
+   checkable per row rather than taken on trust.
+
+   Several foods appear twice at different boiling times, which is a spread of
+   the same preparation rather than two foods, so those become a range. Only
+   resistant starch is taken: the release also carries total fructans, and
+   total fructans is not inulin. */
+const tbca = rd("tbca-carbohydrate-2019.json");
+const byPageRS = {};
+for (const r of tbca.rows) (byPageRS[r.page] ||= { match: r.match, v: [] }).v.push(r.resstarch);
+for (const [page, { match, v }] of Object.entries(byPageRS)) {
+  grade(page, "tbca-carb-2019", match);
+  const held = out[page].cells.resstarch;
+  if (held && (held.sources || []).includes("tbca-carb-2019")) continue;
+  const lo = Math.min(...v), hi = Math.max(...v);
+  const cell = hi > lo
+    ? { state: "range", low: lo, high: hi, sources: ["tbca-carb-2019"] }
+    : { state: "measured", value: lo, sources: ["tbca-carb-2019"] };
+  /* MEXT measured green peas at 1.6 and this release at 1.55, which is
+     agreement rather than disagreement, so the cell names both and spans them
+     rather than picking one. Where MEXT only recorded not-measured there is
+     nothing to reconcile and the figure simply replaces the blank. */
+  if (held && typeof held.value === "number") {
+    out[page].cells.resstarch = { state: "range",
+      low: Math.min(lo, held.value), high: Math.max(hi, held.value),
+      sources: [...new Set([...(held.sources || []), "tbca-carb-2019"])] };
+    ranges++;
+    continue;
+  }
+  out[page].cells.resstarch = cell;
+  if (cell.state === "range") ranges++; else nCells++;
+}
+
 /* Kawabata and Sawayama 1973, which ends four rounds of failing to fill the
    pectin column. Twenty-four vegetables assayed fresh, open on J-STAGE, and
    reported against the fresh edible portion, which is already this store's

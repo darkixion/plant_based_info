@@ -5,7 +5,7 @@ so that adding a food later costs nothing: the values are already here, for far 
 foods than the page lists.
 
 **All 47 of the page's evidence columns draw on this directory**, over
-1,985 cells across 170 foods and 46 sources. Phase 1 added three (soluble fibre,
+1,987 cells across 170 foods and 47 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
@@ -52,6 +52,7 @@ calcium. So every component here had to come from somewhere else.
 | `mattila-2001-coq.json` | 12 | **CoQ9** and CoQ10 in ug/g fresh weight. The only food table here carrying CoQ9, and the only CoQ source reaching vegetables and fruit rather than oils |
 | `verde-2022-melatonin.json` | 7 | **Melatonin** in nuts, pg/g fresh weight, four walnut cultivars assayed separately, with LOD and LOQ |
 | `fdc-foundation-2026.json` | 8 | **beta-glucan**, ergothioneine, raffinose and stachyose from USDA Foundation Foods, each with n, min, max and median |
+| `tbca-carbohydrate-2019.json` | 7 | **resistant starch** by AOAC 2002.02 per 100 g edible portion, with each sample's moisture printed beside the analyte |
 | `kawabata-1973-pectin.json` | 10 | **pectin** as calcium pectate in the fresh edible portion, from a 1973 Japanese survey of 24 vegetables |
 | `usda-glucosinolate-r1.json` | 14 | **glucoraphanin** in mg/100 g fresh weight from USDA/ODS-NIH Release 1, with cultivar, n, SD and range per observation |
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
@@ -468,6 +469,27 @@ directory is re-deriving the same refusals:
 | Peach and pear quinic acid, cultivar datasets | quinic | Chased over three rounds and now closed. See "The peach paper, and a table that is not there" below |
 | Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
 | Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+## Resistant starch, and a false zero caught in time
+
+TBCA publishes a **carbohydrate profile supplement** separate from Brazil's
+ordinary nutrient tables, easy to miss if only the main database is inspected.
+Resistant starch by AOAC 2002.02, per 100 g of edible portion, and unusually it
+prints **each sample's moisture in the column beside the analyte**, so the basis
+is checkable row by row rather than taken on trust. Chickpeas, lentils, green
+peas, oat bran and pinto beans gained a figure.
+
+The reason this entry exists is the row that did not go in. Raw broccoli is in
+the release at 94.10 g moisture, and its resistant starch cell is **a dash,
+meaning not analysed**. It was first read as 0.00 plus or minus 0.02, which is
+two columns further right and belongs to the fibre fractions. This store records
+an analysed absence as a finding and distinguishes it from a gap, so a false
+zero here would have been worse than a blank: it would have said broccoli was
+tested and found to contain none. Reading a table by column position rather than
+by eye is what caught it.
+
+Total fructans are in the same release and are not taken. Fructans are not
+inulin, and relabelling them would be a fabrication.
 
 ## Pectin, found in 1973
 
