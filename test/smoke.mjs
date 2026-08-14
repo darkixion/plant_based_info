@@ -2770,7 +2770,11 @@ await test("an evidence value reaches no total, no percentage and no score", asy
         threw: (() => { try { val(FOODS[0], ev[0]); return false; } catch { return true; } })(),
       };
     });
-    eq(r.ev.length, 47, "forty-seven evidence columns");
+    /* Forty-five, not the forty-seven this started with. Total phenolics and
+       verbascose were removed: each had one value after five rounds of
+       searching, and a column that can only say "no data" costs the reader more
+       than it tells them. Same reasoning that removed mk11. */
+    eq(r.ev.length, 45, "forty-five evidence columns");
     eq(r.vLen.length, 1, `every food has one value-array length, got ${r.vLen.join(", ")}`);
     eq(r.vLen[0], r.want, "value arrays hold the non-evidence nutrients and nothing else");
     eq(r.inTotals.length, 0, `evidence ids in day totals: ${r.inTotals.join(", ")}`);

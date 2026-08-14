@@ -310,13 +310,6 @@
      "ifct-2017"
     ]
    },
-   "verbascose": {
-    "state": "measured",
-    "value": 0.4198715,
-    "sources": [
-     "fao-oligosaccharides"
-    ]
-   },
    "stachyose": {
     "state": "measured",
     "value": 0.8027594999999998,
@@ -13351,7 +13344,6 @@
   "matches": {
    "beltran-2016": "proxy",
    "milder-2005": "proxy",
-   "owen-2000": "proxy",
    "venegas-2011": "proxy",
    "zmitek-2014": "proxy",
    "sim-2021": "close"
@@ -13376,13 +13368,6 @@
     "value": 564,
     "sources": [
      "beltran-2016"
-    ]
-   },
-   "phenolics": {
-    "state": "measured",
-    "value": 23.2,
-    "sources": [
-     "owen-2000"
     ]
    },
    "lignans": {

@@ -931,16 +931,6 @@
    "why": "A triterpene and biochemical precursor to the steroid family (including vitamin D and cholesterol), highly concentrated in certain plant oils like olive and argan oil."
   },
   {
-   "id": "phenolics",
-   "label": "Total Phenolics",
-   "group": "plant",
-   "unit": "mg",
-   "dp": 1,
-   "evidence": true,
-   "why": "A diverse group of phytochemicals known for their strong antioxidant properties. They help neutralize free radicals and reduce inflammation.",
-   "dv": null
-  },
-  {
    "id": "beta-glucan",
    "name": "Beta-glucan",
    "unit": "g",
@@ -992,17 +982,6 @@
    "evidence": true,
    "why": "Non-digestible α-galactooligosaccharide prebiotic.",
    "label": "Stachyose",
-   "dp": 2,
-   "dv": null
-  },
-  {
-   "id": "verbascose",
-   "name": "Verbascose",
-   "unit": "g",
-   "group": "carbdetail",
-   "evidence": true,
-   "why": "Non-digestible α-galactooligosaccharide prebiotic.",
-   "label": "Verbascose",
    "dp": 2,
    "dv": null
   },

@@ -4,14 +4,34 @@ Extracted food-composition data for components USDA SR Legacy does not carry, ke
 so that adding a food later costs nothing: the values are already here, for far more
 foods than the page lists.
 
-**All 47 of the page's evidence columns draw on this directory**, over
-1,987 cells across 170 foods and 47 sources. Phase 1 added three (soluble fibre,
+**All 45 of the page's evidence columns draw on this directory**, over
+1,985 cells across 170 foods and 46 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
 vitamin K datasets and thirty-odd single papers.
 
-Every evidence column now carries at least one cell. There was an `mk11` column
+Every evidence column now carries at least one cell, and two columns have been
+removed for failing that test in spirit rather than in letter. **Total phenolics
+and verbascose** each held exactly one value after five rounds of searching, and
+neither was going to gain a second.
+
+Total phenolics had olive oil and nothing else, and the figure is barely
+comparable to anything: Folin-Ciocalteu results depend on the assay and are
+expressed as gallic acid equivalents, so two sources rarely mean the same thing
+by the number. The only release that could have filled it, USDA's ORAC database,
+was withdrawn by USDA in 2012. Its one source, Owen 2000, left `sources.json`
+with it.
+
+Verbascose had cooked chickpeas and nothing else, and the section below on why
+records the reason at length: every other source reports the raffinose family on
+a dry-matter basis for raw seed, and converting that to a cooked fresh weight
+would assume soaking and boiling remove none of it, which is known to be false.
+The FAO workbooks still carry its 110 rows and `fao-oligosaccharides.json` still
+holds them, so the data survives the column.
+
+A column that can only ever say "no data" costs a reader more than it tells
+them. There was also an `mk11` column
 and it has been removed: searched for three times and never found, because both
 Walther homologue tables stop at MK-10, the 2022 analytical method that
 validates MK-4 through MK-10 stops there too, and the 2026 fermented-soybean
