@@ -6701,7 +6701,8 @@
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
    "sim-2021": "exact",
-   "mattila-2001": "close"
+   "mattila-2001": "close",
+   "kawabata-1973": "close"
   },
   "cells": {
    "solfibre": {
@@ -6832,10 +6833,12 @@
     ]
    },
    "pectin": {
-    "state": "measured",
-    "value": 1.7,
+    "state": "range",
+    "low": 0.628,
+    "high": 1.7,
     "sources": [
-     "eurofir"
+     "eurofir",
+     "kawabata-1973"
     ]
    },
    "phytate": {
@@ -7060,7 +7063,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "kawabata-1973": "close"
   },
   "cells": {
    "solfibre": {
@@ -7219,6 +7223,13 @@
     "state": "not-detected",
     "sources": [
      "sim-2021"
+    ]
+   },
+   "pectin": {
+    "state": "measured",
+    "value": 0.162,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }
@@ -7398,7 +7409,8 @@
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "kawabata-1973": "close"
   },
   "cells": {
    "solfibre": {
@@ -7547,6 +7559,13 @@
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "pectin": {
+    "state": "measured",
+    "value": 0.354,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }
@@ -7830,7 +7849,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
-   "sim-2021": "close"
+   "sim-2021": "close",
+   "kawabata-1973": "close"
   },
   "cells": {
    "solfibre": {
@@ -7987,6 +8007,13 @@
     "state": "not-detected",
     "sources": [
      "sim-2021"
+    ]
+   },
+   "pectin": {
+    "state": "measured",
+    "value": 0.508,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }
@@ -11888,7 +11915,8 @@
   "prep": "raw",
   "matches": {
    "mext-2020": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "kawabata-1973": "close"
   },
   "cells": {
    "solfibre": {
@@ -11939,6 +11967,13 @@
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "pectin": {
+    "state": "measured",
+    "value": 1.113,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }
@@ -14739,7 +14774,8 @@
  "daikon-raw": {
   "prep": "as listed",
   "matches": {
-   "usda-glucosinolate-r1": "proxy"
+   "usda-glucosinolate-r1": "proxy",
+   "kawabata-1973": "close"
   },
   "cells": {
    "glucoraphanin": {
@@ -14747,6 +14783,14 @@
     "value": 0.437,
     "sources": [
      "usda-glucosinolate-r1"
+    ]
+   },
+   "pectin": {
+    "state": "range",
+    "low": 0.303,
+    "high": 0.333,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }
@@ -14763,6 +14807,66 @@
     "high": 4.8,
     "sources": [
      "usda-glucosinolate-r1"
+    ]
+   }
+  }
+ },
+ "mangetout-raw": {
+  "prep": "as listed",
+  "matches": {
+   "kawabata-1973": "close"
+  },
+  "cells": {
+   "pectin": {
+    "state": "measured",
+    "value": 0.567,
+    "sources": [
+     "kawabata-1973"
+    ]
+   }
+  }
+ },
+ "turnip-raw": {
+  "prep": "as listed",
+  "matches": {
+   "kawabata-1973": "close"
+  },
+  "cells": {
+   "pectin": {
+    "state": "measured",
+    "value": 0.294,
+    "sources": [
+     "kawabata-1973"
+    ]
+   }
+  }
+ },
+ "beetroot-raw": {
+  "prep": "as listed",
+  "matches": {
+   "kawabata-1973": "close"
+  },
+  "cells": {
+   "pectin": {
+    "state": "measured",
+    "value": 0.919,
+    "sources": [
+     "kawabata-1973"
+    ]
+   }
+  }
+ },
+ "shallots-raw": {
+  "prep": "as listed",
+  "matches": {
+   "kawabata-1973": "close"
+  },
+  "cells": {
+   "pectin": {
+    "state": "measured",
+    "value": 0.976,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }

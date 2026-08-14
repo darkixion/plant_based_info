@@ -418,6 +418,44 @@ for (const row of tanaka.rows) {
   }
 }
 
+/* Kawabata and Sawayama 1973, which ends four rounds of failing to fill the
+   pectin column. Twenty-four vegetables assayed fresh, open on J-STAGE, and
+   reported against the fresh edible portion, which is already this store's
+   basis. Every other pectin candidate died on peel, pomace or dry matter.
+
+   The catch worth carrying: the analyte is total pectin as calcium pectate,
+   summed over three sequential extractions, so it is operationally defined
+   rather than a modern pectin assay. That is what these cells mean.
+
+   Only raw page foods are mapped. The table also holds pumpkin, okra,
+   aubergine, green beans, edamame, lotus root, taro, potato and yam, all of
+   them cooked on this page, and a fresh figure on a cooked row is the mismatch
+   refused everywhere else here. */
+const kawabata = rd("kawabata-1973-pectin.json");
+for (const row of kawabata.rows) {
+  grade(row.page, "kawabata-1973", row.match);
+  const held = out[row.page].cells.pectin;
+  // Daikon was assayed in three parts along the root rather than once.
+  const parts = row.parts ? Object.values(row.parts) : [row.total];
+  const lo = Math.min(...parts), hi = Math.max(...parts);
+  const cell = hi > lo
+    ? { state: "range", low: lo, high: hi, sources: ["kawabata-1973"] }
+    : { state: "measured", value: lo, sources: ["kawabata-1973"] };
+  /* Carrot already had a figure, EuroFIR's 1.7 g against this paper's 0.628.
+     Two methods rather than two samples, and neither is the other's error, so
+     the cell spans both and names both. */
+  if (held && !(held.sources || []).includes("kawabata-1973") && typeof held.value === "number") {
+    out[row.page].cells.pectin = { state: "range",
+      low: Math.min(lo, held.value), high: Math.max(hi, held.value),
+      sources: [...new Set([...(held.sources || []), "kawabata-1973"])] };
+    ranges++;
+    continue;
+  }
+  if (held && (held.sources || []).includes("kawabata-1973")) continue;
+  out[row.page].cells.pectin = cell;
+  if (cell.state === "range") ranges++; else nCells++;
+}
+
 /* The USDA and ODS-NIH glucosinolate database, Release 1, May 2026. The
    glucoraphanin column had two figures in it, both from a paper that does not
    say how its vegetables were prepared. This release states everything that

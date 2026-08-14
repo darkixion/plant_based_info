@@ -5,7 +5,7 @@ so that adding a food later costs nothing: the values are already here, for far 
 foods than the page lists.
 
 **All 47 of the page's evidence columns draw on this directory**, over
-1,976 cells across 166 foods and 45 sources. Phase 1 added three (soluble fibre,
+1,985 cells across 170 foods and 46 sources. Phase 1 added three (soluble fibre,
 insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
 still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
 FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
@@ -52,6 +52,7 @@ calcium. So every component here had to come from somewhere else.
 | `mattila-2001-coq.json` | 12 | **CoQ9** and CoQ10 in ug/g fresh weight. The only food table here carrying CoQ9, and the only CoQ source reaching vegetables and fruit rather than oils |
 | `verde-2022-melatonin.json` | 7 | **Melatonin** in nuts, pg/g fresh weight, four walnut cultivars assayed separately, with LOD and LOQ |
 | `fdc-foundation-2026.json` | 8 | **beta-glucan**, ergothioneine, raffinose and stachyose from USDA Foundation Foods, each with n, min, max and median |
+| `kawabata-1973-pectin.json` | 10 | **pectin** as calcium pectate in the fresh edible portion, from a 1973 Japanese survey of 24 vegetables |
 | `usda-glucosinolate-r1.json` | 14 | **glucoraphanin** in mg/100 g fresh weight from USDA/ODS-NIH Release 1, with cultivar, n, SD and range per observation |
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 81 | reviewed mappings from this page's foods to MEXT rows |
@@ -467,6 +468,48 @@ directory is re-deriving the same refusals:
 | Peach and pear quinic acid, cultivar datasets | quinic | Chased over three rounds and now closed. See "The peach paper, and a table that is not there" below |
 | Venda and Nottingham theses, Chandel 2022 | pectin | Tertiary tables quoting older work, and they mix pectin content with **extraction yield** from peel and pomace. The one cell here, carrot 1.7 g from EuroFIR, is a whole-food measurement |
 | Dunlop 2022, Australian vitamin K | MK-4 to MK-10 | Cheese, yoghurt and meat. No plant food in it |
+
+## Pectin, found in 1973
+
+The column had one figure in it. Three releases define a pectin component and
+publish nothing, and four rounds of searching produced peel, pomace, extraction
+yield and dry matter and no usable value. It now has **ten**, from a paper
+published in 1973.
+
+**Kawabata and Sawayama, *A study on the content of pectic substances in
+vegetables*, Jpn J Nutr Diet 31(1):32-36.** Twenty-four vegetables, open access
+on J-STAGE, and Table 3 reports against the **fresh edible portion**, which is
+already this store's basis and is exactly what nothing modern would give.
+
+Two things about it matter more than the numbers.
+
+**The abstract is not the data.** Its English abstract reports only banded
+categories: 2 per cent or over, 1.00 to 1.99, 0.50 to 0.99, 0.10 to 0.49. Every
+secondary account of this paper repeats those bands, and a band is nearly
+useless. Table 3 carries the per-food figures, and the table is a scanned image
+with no text layer, so it had to be read rather than parsed. The Japanese
+summary also lists okra in a band the English abstract leaves it out of, which
+is a second reason not to work from the abstract.
+
+**The analyte is operationally defined.** This is total pectin as **calcium
+pectate**, summed over three sequential extractions: water at 30 C, 0.4 per cent
+sodium hexametaphosphate at 30 C, and 0.05 N hydrochloric acid at 85 C. It is
+not a modern molecularly defined pectin assay, and the cells mean what that
+method means. The paper reports the three fractions separately and the corpus
+keeps them.
+
+Only raw page foods are mapped. The table also holds pumpkin, okra, aubergine,
+green beans, edamame, lotus root, taro, potato and yam, every one of them cooked
+on this page.
+
+Carrot is the one disagreement: EuroFIR's 1.7 g against this paper's 0.628. Two
+methods rather than two samples, so the cell spans both and names both.
+
+Its 1974 companion covers fifty fruits, vegetable fruits and nuts on the same
+basis, including avocado, banana, pineapple, mango, papaya, apple, pear, tomato,
+watermelon, chestnut, walnut and peanut. It has been fetched and confirmed. It
+is not transcribed, because its food names run vertically down the left column
+of a scan and misreading one would put a real figure on the wrong food.
 
 ## Glucoraphanin, and a database that states its own molecular weight
 

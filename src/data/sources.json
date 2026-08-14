@@ -69,6 +69,14 @@
     "country": "Europe",
     "quality": "single study, not reproduced against any corpus here"
   },
+  "kawabata-1973": {
+    "short": "Kawabata 1973",
+    "title": "Kawabata & Sawayama 1973, A study on the content of pectic substances in vegetables (Jpn J Nutr Diet), Table 3",
+    "publisher": "Japanese Journal of Nutrition and Dietetics",
+    "country": "Japan",
+    "url": "https://www.jstage.jst.go.jp/article/eiyogakuzashi1941/31/1/31_1_32/_article",
+    "quality": "high for what it measures; twenty-four vegetables assayed fresh with the fractions reported separately, but the analyte is total pectin as calcium pectate by sequential extraction rather than a modern pectin assay"
+  },
   "kamao-2007": {
     "url": "https://pubmed.ncbi.nlm.nih.gov/18202534/",
     "short": "Kamao 2007",
