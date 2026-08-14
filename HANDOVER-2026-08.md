@@ -1,12 +1,22 @@
 # Handover, August 2026
 
-Branch `evidence-provenance`, 14 commits ahead of `main`, all pushed. Tests are
-green: `npm test` gives 36 in `test/tools.mjs` and 139 in `test/smoke.mjs`.
+Branch `evidence-provenance`, 19 commits ahead of `main`, 4 of them unpushed.
+Tests are green: `npm test` gives 36 in `test/tools.mjs` and 142 in
+`test/smoke.mjs`.
 
 ## Where things stand
 
 **222 foods, 119 nutrient columns, 45 of them evidence columns.** The evidence
 store holds 1,985 cells across 170 foods and 46 sources.
+
+Two corrections to earlier sections of this document are marked in place below:
+the sulforaphane question is settled, and the claim that `usda-map.json` is why
+the flavonoid columns are thin was wrong.
+
+**The canonical food list is `src/data/nutrients.json` under `foods`.** Not
+`src/data/portions.json`, which covers a subset and lacks the raw variants added
+in `8e70d8b`. Reading portions as the food list produced a wrong inventory once
+already.
 
 ## What changed, in order
 
@@ -37,6 +47,15 @@ store holds 1,985 cells across 170 foods and 46 sources.
    supplement** (Brazil), which prints each sample's moisture beside the analyte.
 9. **Total phenolics and verbascose columns removed.** One value each after five
    rounds; neither was going to gain a second.
+10. **`src/data/preparation.json` added**, the first dataset here that describes
+    what to do to a food rather than what is in it. Five records on cooked
+    brassicas, five sources read from their primary abstracts, its own check in
+    `build.mjs` and a `prep` dialog. Its `measuredIn` field is the load-bearing
+    one: the records apply to nine cooked brassicas and were measured in broccoli,
+    and the page marks the other eight as carried rather than asserting eight
+    measurements nobody made.
+11. **Lee 2010's two-directional disagreement explained** as one preparation
+    artefact rather than two conflicts, and nothing moved on the strength of it.
 
 ## Rules that earned their keep
 
@@ -64,12 +83,34 @@ inulin 4, raffinose 4, stachyose 4, MK-7 4, CoQ9 5.
 The menaquinone counts are misleading in isolation: MK-4 has 32 cells and MK-7
 33, most of them analysed absences, which is a finding rather than a gap.
 
-## Next up: does sulforaphane deserve a column?
+## Settled: sulforaphane and myrosinase both get no column
 
-**We currently hold no sulforaphane data at all and there is no column.**
+**Answered 2026-08-14, both no, for different reasons. Do not re-open either
+without reading `docs/superpowers/specs/2026-08-14-glucosinolate-preparation-design.md`,
+which holds the verified sources.**
 
-The question has been researched once and the answer was no, for a reason worth
-re-testing rather than re-deriving:
+**Sulforaphane**: the reasoning below stood up. It is the yield of a reaction
+rather than a constituent.
+
+**Myrosinase**: no column either, and it fails for a sharper reason than
+sulforaphane does. Published activity is defined by its assay, not by the food.
+Gonda 2016 measures four fresh vegetables against two substrates in one
+laboratory, and the substrate choice **reverses the rank order** of two of them:
+sinigrin says radish holds 2.3 times the myrosinase of watercress, gluconasturtiin
+says watercress holds slightly more than radish. Only two of its four foods map to
+ours, so a column would have launched at two cells, one fewer than the two columns
+deleted last round for holding one each.
+
+**What was built instead**: `src/data/preparation.json`, which says what to *do*
+to a cooked brassica rather than what is in it. Five records, five verified
+sources, its own build check and a `prep` dialog. The strongest is Okunade 2018, a
+randomised human crossover where 1 g of mustard powder with 200 g of cooked
+broccoli raised urinary sulforaphane metabolite from 9.8 to 44.7 µmol/g creatinine.
+The widely repeated 40-minute rule is refused: it has no traceable source, and
+crushing at room temperature makes the inactive nitrile the main product, 52 to
+91 % of it depending on cultivar.
+
+The original reasoning, which held:
 
 > Intact broccoli contains almost no sulforaphane. It contains **glucoraphanin**,
 > stored apart from the enzyme **myrosinase**. Sulforaphane forms only when the
@@ -91,10 +132,15 @@ disruption, myrosinase source, temperature, pH, time, additives, then the yield.
 Do not derive sulforaphane from glucoraphanin: conversion ranges from a few per
 cent to most of the substrate.
 
-Sources already identified as genuine conditioned-yield experiments, none of them
-ingested: Matusheski 2004 (open PDF at UC ANR, homogenised fresh florets,
-endogenous myrosinase, 25 °C, initial pH 6.3), Wang 2012, Pérez 2014 (dry mass,
-so unusable here), Sarvan 2016 (in vitro digestion).
+Sources already identified as genuine conditioned-yield experiments. **Matusheski
+2004 and Wang 2012 have since been read and are cited by `preparation.json`**;
+Pérez 2014 is dry mass and unusable here, Sarvan 2016 is in vitro digestion and
+was not pulled.
+
+One method note that will save the next session ten minutes: **PubMed's web
+interface blocks the fetcher with a cookie wall.** Use E-utilities instead,
+`efetch.fcgi?db=pubmed&id=<ids>&rettype=abstract&retmode=text`, which returns
+clean text and takes several ids at once.
 
 ## Known unfinished business
 
@@ -107,5 +153,26 @@ so unusable here), Sarvan 2016 (in vitro digestion).
 - **Natto MK-7** is Kamao's 939 while this README says it should be a range. The
   range cannot be built because no source publishes a total K2 for natto and the
   subset check refuses a part above its whole. Documented in the README.
-- `usda-map.json` covers **44 of 222 foods**, which is why the flavonoid columns
-  are thin. Widening it is likely worth more than any new source.
+- ~~`usda-map.json` covers **44 of 222 foods**, which is why the flavonoid columns
+  are thin. Widening it is likely worth more than any new source.~~
+  **Wrong, and checked 2026-08-14.** `sourceRows()` in `tools/usda.mjs` merges the
+  map with the `fdc_id` each food carries in `tools/food-additions.json`, which
+  already held 178, so **219 of 222 foods were already mapped**. The map was
+  widened to all 222 and the pull re-run: the filled counts did not move,
+  33/53/66/2/70 before and after. The flavonoid columns are thin because **only 94
+  of 222 foods appear in USDA Flavonoid Release 3.3 at all**, which is a property
+  of that database. Widening those columns needs a **new source**, not a better
+  map. The map is deliberately left at 44 rather than holding a second copy of 178
+  mappings that can drift, since it silently wins on a collision. Written up in
+  `tools/evidence/RECONCILIATION.md`.
+- **`tools/usda.mjs match` grades every pure oil `exact`**, because oils are all
+  near 100 % fat and nothing else, so the fingerprint distance between any two is
+  near zero while the shared word "Oil" clears the content-word guard. One run
+  proposed corn and canola oil for rapeseed, sunflower, sesame, walnut and
+  avocado, and sunflower oil for peanut. Read `exact` as "the macros agree", not
+  as "this is the food", and distrust it for anything macro-degenerate: oils,
+  juices, refined starches.
+- **Two mapping choices worth revisiting**, recorded and not made, because each
+  would change a published figure: turnip greens uses a with-salt row where every
+  other cooked vegetable uses without-salt, and raisins uses golden rather than
+  dark seedless.
