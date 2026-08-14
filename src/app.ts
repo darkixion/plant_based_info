@@ -120,6 +120,38 @@ interface Interaction {
 }
 interface Interactions { sources: Record<string, string>; interactions: Interaction[]; }
 
+/* ---------- preparation ----------
+   The mirror of an interaction, on the other side of the meal. An interaction
+   says how much of a figure you absorb; this says what has to happen to the food
+   before there is anything to absorb.
+
+   Separate from Interaction rather than a fourth `when`, for two reasons that
+   are both about honesty rather than tidiness. It names a food row directly
+   instead of being chosen by ranking a food's figures, which is what lets it
+   speak about glucoraphanin at all: an evidence column has no daily value to be
+   a meaningful share of, so the ranking rule the interactions use is blind to
+   it. And it carries `measuredIn`, which has no counterpart in an interaction,
+   because almost every study behind this data used broccoli and a page that
+   printed the same advice on nine vegetables without saying so would be
+   claiming eight measurements that do not exist. */
+interface Preparation {
+  id: string;
+  /* Singular, unlike an interaction's `affects`. A preparation record is about
+     one component becoming, or failing to become, one other thing. */
+  component: string;
+  direction: "up" | "down";
+  agent: InteractionAgent;
+  short: string;
+  /** The rows worth showing this on. */
+  applies: string[];
+  /** The subset of `applies` where it was actually measured. Every other row
+   *  prints the same text under a mark saying it is carried over. */
+  measuredIn: string[];
+  text: string;
+  cites: string[];
+}
+interface Preparations { sources: Record<string, string>; preparations: Preparation[]; }
+
 /* ---------- what food alone will not supply ----------
    The companion to the interactions above. That data says you absorb less of a
    figure than it looks; this says the figure is not here at all.
@@ -223,6 +255,10 @@ declare const P: Record<string, Portion[]>;
    every record points at a nutrient and a food that exist and cites a source
    that resolves, so the reads below can be direct. */
 declare const X: Interactions;
+/* Preparation records, injected the same way. build.mjs validates that every
+   record names a real component, applies to real food rows, and is measured
+   only in rows it applies to, so the reads below can be direct. */
+declare const PREP: Preparations;
 /* The nutrient gaps, injected the same way. */
 declare const G: Gaps;
 /* The evidence values, keyed by food slug then component id, and the sources
@@ -359,6 +395,21 @@ const AFFECTING = new Map<string, Interaction[]>();
 for (const x of INTERACTIONS)
   for (const id of x.affects)
     AFFECTING.set(id, [...(AFFECTING.get(id) || []), x]);
+
+/** Preparation records that apply to a food row, keyed by slug. Built by walking
+ *  `applies` rather than by asking each food, because a record naming nine rows
+ *  should be written once. */
+const PREPARING = new Map<string, Preparation[]>();
+for (const x of PREP.preparations)
+  for (const slug of x.applies)
+    PREPARING.set(slug, [...(PREPARING.get(slug) || []), x]);
+
+const preparing = (slug: string) => PREPARING.get(slug) || [];
+
+/** Whether a record was measured in the row it is being shown on. Everything
+ *  else is the same advice carried across from a food where it was, which the
+ *  page says out loud rather than leaving the reader to assume. */
+const prepMeasured = (x: Preparation, slug: string) => x.measuredIn.includes(slug);
 
 /** Interactions where this nutrient is the agent. What it does to others. */
 const ACTING = new Map<string, Interaction[]>();
@@ -1854,7 +1905,35 @@ function renderDetail() {
     });
     for (const { note } of curated) shownNotes.add(note);
 
-    body = `<h4>Absorption</h4>` +
+    /* Preparation sits above absorption, because it happens first: whether
+       there is anything on the plate to absorb is settled in the kitchen. Keyed
+       by the food row rather than by ranking its figures, which is the whole
+       reason this data is separate. */
+    const preps = preparing(slugAt(S.sel));
+
+    body = (preps.length ? `<h4>Preparation</h4>` + preps.map(x => {
+      const measured = prepMeasured(x, slugAt(S.sel));
+      return `
+        <div class="biorow ${x.direction}${measured ? "" : " carried"}">
+          <div class="biohead">
+            <span class="bioarrow" aria-hidden="true">${x.direction === "up" ? "↑" : "↓"}</span>
+            <b>${esc(agentLabel(x.agent))}</b>
+            <span class="biowhen">${esc(nut(x.component).label)}</span>
+          </div>
+          <p>${esc(x.text)}</p>
+          ${measured ? "" : `<p class="carriednote">Measured in
+            ${esc(andList(x.measuredIn.flatMap(s => {
+              const g = foodBySlug(s);
+              return g ? [fullName(g)] : [];
+            })))}, not in this food. Every brassica works this way, but nobody has run
+            the experiment on this one.</p>`}
+        </div>`;
+    }).join("")
+      + `<p class="nodatanote">What has to happen before there is anything to absorb.
+         Nothing here adjusts a figure: the table still says what was measured in the food.
+         <button class="absorbmore" type="button" data-dlg="prep">Sources</button></p>`
+      : "") +
+      `<h4>Absorption</h4>` +
       (curated.length ? curated.map(({ n, note }) => `
         <div class="biorow curated">
           <div class="biohead"><b>${esc(n.label)}</b>
@@ -3158,6 +3237,72 @@ function bioDialog(): string {
     foods.</p>`;
 }
 
+/* ---------- the preparation reference ----------
+   Built from src/data/preparation.json, for the reason the Absorption dialog
+   is built from its own data: a hand-written copy of a dataset is a copy that
+   stops being true.
+
+   Grouped by component rather than by food. There is one component today and
+   the grouping is still worth having, because the alternative is grouping by
+   food, and a record naming nine rows would print nine times. */
+function prepDialog(): string {
+  const groups = new Map<string, Preparation[]>();
+  for (const x of PREP.preparations)
+    groups.set(x.component, [...(groups.get(x.component) || []), x]);
+
+  const body = [...groups.entries()]
+    .sort((a, b) => (IDX.get(a[0]) ?? 999) - (IDX.get(b[0]) ?? 999))
+    .map(([id, list]) => {
+      const rows = list.map(x => {
+        const on = x.applies.flatMap(s => {
+          const g = foodBySlug(s);
+          return g ? [fullName(g)] : [];
+        });
+        return `
+        <div class="biorow ${x.direction}">
+          <div class="biohead">
+            <span class="bioarrow" aria-hidden="true">${x.direction === "up" ? "↑" : "↓"}</span>
+            <b>${esc(agentLabel(x.agent))}</b>
+            <span class="biowhen">${x.applies.length} ${x.applies.length === 1 ? "food" : "foods"}</span>
+          </div>
+          <p>${esc(x.text)}</p>
+          <p class="carriednote">Shown on ${esc(andList(on))}.
+            ${x.measuredIn.length < x.applies.length
+              ? `Measured in ${esc(andList(x.measuredIn.flatMap(s => {
+                  const g = foodBySlug(s);
+                  return g ? [fullName(g)] : [];
+                })))}; carried over to the rest.`
+              : "Measured in every food it is shown on."}</p>
+          ${x.cites.map(k => `<cite>${esc(PREP.sources[k] ?? k)}</cite>`).join("")}
+        </div>`;
+      }).join("");
+      return `<h4>${esc(nutOpt(id)?.label ?? id)}</h4>${rows}`;
+    }).join("");
+
+  return `
+    <p>Some of what a plant food does for you is not in the food at all. It is made when you
+    cut, crush or chew it, by an enzyme meeting a compound it is normally stored apart from.
+    Sulforaphane is the clearest case: broccoli contains almost none of it, and forms it only
+    when the tissue is damaged. So the useful question about a brassica is not how much it
+    contains but what you do to it.</p>
+    <p><b>No figure on this page changes because of anything here.</b> The table reports
+    glucoraphanin because glucoraphanin is what was measured in the food. What happens to it
+    afterwards depends on your knife, your pan and your gut bacteria, and a number adjusted for
+    all three would be a guess wearing a measurement's clothes.</p>
+    ${body}
+    <h4>What is not here</h4>
+    <p>There is no sulforaphane column and no myrosinase column. Sulforaphane is not in any
+    food, so a column of it would be reporting the results of other people's cooking. Myrosinase
+    is an enzyme activity rather than an amount, and published figures for it change with the
+    substrate the assay used, so a column would not be comparable down its own length.</p>
+    <p>The widely repeated advice to chop broccoli and wait forty minutes is not here either,
+    because the interval has no traceable source and crushing at room temperature sends most of
+    the reaction towards an inactive nitrile rather than sulforaphane. Chopping ahead still
+    beats cooking a brassica hard straight away, which is what the study behind it tested.</p>
+    <p>Nothing is recorded for raw brassicas, because chewing is the tissue damage and the
+    enzyme is intact. There is nothing to do.</p>`;
+}
+
 /* ---------- what food alone will not supply ----------
    Built from src/data/gaps.json plus the table itself, for the reason the
    Absorption dialog is: a hand-written copy of a dataset is a copy that stops
@@ -3467,6 +3612,7 @@ const DLG = {
     supplement or reliably fortified food is standard advice on a vegan diet.</p>`],
 
   bio: ["Absorption and bioavailability", bioDialog()],
+  prep: ["Preparation", prepDialog()],
   gaps: ["What food alone will not supply", gapsDialog()],
 } satisfies Record<string, [title: string, body: string]>;
 

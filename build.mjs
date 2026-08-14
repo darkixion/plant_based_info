@@ -31,6 +31,7 @@ const SOURCES = {
   icons: join(SRC, "data", "icons.json"),
   portions: join(SRC, "data", "portions.json"),
   interactions: join(SRC, "data", "interactions.json"),
+  preparation: join(SRC, "data", "preparation.json"),
   gaps: join(SRC, "data", "gaps.json"),
   evidence: join(SRC, "data", "evidence.json"),
   sourceList: join(SRC, "data", "sources.json"),
@@ -533,7 +534,7 @@ export function checkGaps(gaps, nutrients) {
 
 // `srcs` rather than `sources`, which the interactions block below already
 // declares from `inter`. A parameter and a const of one name is a syntax error.
-function validate(data, portions, inter, gaps, evidence, srcs) {
+function validate(data, portions, inter, prep, gaps, evidence, srcs) {
   const problems = [];
   const { nutrients, foods } = data;
 
@@ -776,6 +777,74 @@ function validate(data, portions, inter, gaps, evidence, srcs) {
     if (!interactions.some(x => (x.cites || []).includes(key)))
       problems.push(`interactions: source "${key}" is cited by nothing`);
 
+  /* ---- preparation ----
+     The same shape of check as the interactions above, and mostly the same
+     reasons, with two deliberate differences.
+
+     A preparation record MAY name an evidence column, where an interaction may
+     not. The interaction rule exists because the detail panel picks entries by
+     ranking a food's own figures, which an evidence column cannot be ranked by.
+     This data picks by naming rows outright, so the rule it was protecting does
+     not apply, and the one component this dataset is about is glucoraphanin,
+     which is an evidence column.
+
+     And `measuredIn` must be a subset of `applies`, because the page prints a
+     record on every row in `applies` and marks it as generalised on every row
+     outside `measuredIn`. A row that is measured but not applied would be a
+     measurement the page never shows, and the only reason this dataset exists
+     is that almost all of its literature is broccoli and saying so is the
+     honest part. */
+  const { sources: prepSrcs = {}, preparations = [] } = prep;
+  if (!Object.keys(prepSrcs).length) problems.push("preparation: no sources");
+  if (!Array.isArray(preparations) || !preparations.length)
+    problems.push("preparation: none");
+
+  const prepSeen = new Set();
+  for (const x of Array.isArray(preparations) ? preparations : []) {
+    const at = `preparation: "${x.id || "(no id)"}"`;
+    if (!x.id) problems.push("preparation: a record with no id");
+    else if (prepSeen.has(x.id)) problems.push(`${at} is listed twice`);
+    prepSeen.add(x.id);
+
+    if (!ids.has(x.component))
+      problems.push(`${at} names component "${x.component}", which is not a nutrient`);
+    if (!DIRECTIONS.has(x.direction))
+      problems.push(`${at} has direction "${x.direction}", not up or down`);
+    if (!x.short) problems.push(`${at} has no short label`);
+    if (!x.text || x.text.length < 40) problems.push(`${at} has no usable text`);
+
+    const a = x.agent || {};
+    if (!KINDS.has(a.kind))
+      problems.push(`${at} has agent kind "${a.kind}", which is not one of: ${[...KINDS].join(", ")}`);
+    if (a.kind === "nutrient" && !ids.has(a.id))
+      problems.push(`${at} names nutrient "${a.id}" as its agent, which does not exist`);
+    if (a.kind === "food" && !slugs.has(a.slug))
+      problems.push(`${at} names food "${a.slug}" as its agent, which does not exist`);
+    if ((a.kind === "substance" || a.kind === "practice") && !a.label)
+      problems.push(`${at} has a ${a.kind} agent with no label`);
+
+    // A record that applies to nothing renders nowhere, which reads as a food
+    // with no preparation notes rather than as a record nobody finished.
+    const applies = Array.isArray(x.applies) ? x.applies : [];
+    if (!applies.length) problems.push(`${at} applies to no food`);
+    for (const s of applies)
+      if (!slugs.has(s)) problems.push(`${at} applies to "${s}", which is not a food`);
+
+    const measured = Array.isArray(x.measuredIn) ? x.measuredIn : [];
+    for (const s of measured) {
+      if (!slugs.has(s)) problems.push(`${at} is measured in "${s}", which is not a food`);
+      else if (!applies.includes(s))
+        problems.push(`${at} is measured in "${s}" but does not apply to it`);
+    }
+
+    if (!Array.isArray(x.cites) || !x.cites.length) problems.push(`${at} cites no source`);
+    else for (const key of x.cites)
+      if (!prepSrcs[key]) problems.push(`${at} cites unknown source "${key}"`);
+  }
+  for (const key of Object.keys(prepSrcs))
+    if (!preparations.some(x => (x.cites || []).includes(key)))
+      problems.push(`preparation: source "${key}" is cited by nothing`);
+
   problems.push(...checkGaps(gaps, nutrients));
 
   problems.push(...checkEvidence(evidence, nutrients, foods, srcs, loadAttested()));
@@ -800,7 +869,7 @@ async function build() {
   for (const [name, path] of Object.entries(SOURCES))
     if (!existsSync(path)) throw new Error(`missing source: ${name} (${path})`);
 
-  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw, gapsRaw,
+  const [html, css, app, dataRaw, iconsRaw, portionsRaw, interRaw, prepRaw, gapsRaw,
          evidenceRaw, sourceRaw] = await Promise.all(
     Object.values(SOURCES).map(p => readFile(p, "utf8")));
 
@@ -817,6 +886,10 @@ async function build() {
   try { inter = JSON.parse(interRaw); }
   catch (e) { throw new Error(`interactions.json is not valid JSON: ${e.message}`); }
 
+  let prep;
+  try { prep = JSON.parse(prepRaw); }
+  catch (e) { throw new Error(`preparation.json is not valid JSON: ${e.message}`); }
+
   let gaps;
   try { gaps = JSON.parse(gapsRaw); }
   catch (e) { throw new Error(`gaps.json is not valid JSON: ${e.message}`); }
@@ -829,7 +902,7 @@ async function build() {
   try { srcs = JSON.parse(sourceRaw); }
   catch (e) { throw new Error(`sources.json is not valid JSON: ${e.message}`); }
 
-  const problems = validate(data, portions, inter, gaps, evidence, srcs);
+  const problems = validate(data, portions, inter, prep, gaps, evidence, srcs);
   if (problems.length)
     throw new Error(`data validation failed:\n  - ${problems.join("\n  - ")}`);
 
@@ -842,6 +915,7 @@ async function build() {
   out = inject(out, "//{{ICONS}}", `const I = ${safeJSON(icons)};`);
   out = inject(out, "//{{PORTIONS}}", `const P = ${safeJSON(portions)};`);
   out = inject(out, "//{{INTERACTIONS}}", `const X = ${safeJSON(inter)};`);
+  out = inject(out, "//{{PREPARATION}}", `const PREP = ${safeJSON(prep)};`);
   out = inject(out, "//{{GAPS}}", `const G = ${safeJSON(gaps)};`);
   out = inject(out, "//{{EVIDENCE}}", `const EV = ${safeJSON(evidence)};`);
   out = inject(out, "//{{SOURCES}}", `const SRCS = ${safeJSON(srcs)};`);

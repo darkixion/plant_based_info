@@ -3199,11 +3199,11 @@ await test("the page does not say iodine has no column", async () => {
      own table is worse than one that shows less. */
   await withPage(async page => {
     /* openDialog replaces #dlgB each time, so the text has to be collected per
-       dialog rather than read from the body once at the end. The five ids are
+       dialog rather than read from the body once at the end. The six ids are
        DLG's own keys; "gaps" is the one that renders gaps.json. */
     const text = await page.evaluate(() => {
       let all = "";
-      for (const id of ["how", "meth", "about", "bio", "gaps"]) {
+      for (const id of ["how", "meth", "about", "bio", "prep", "gaps"]) {
         openDialog(id);
         all += document.querySelector("#dlgB").innerText + "\n";
       }
@@ -3265,6 +3265,81 @@ await test("a new source does not overwrite a figure another paper already held"
        Mattila alone is the pass's own, and it was carrying 0.3 where the source
        says 2.7 ug/g, which is 0.27. */
     eq(held.cauliflower.value, 0.27, "cauliflower CoQ10 corrected to what the source says");
+  });
+});
+
+/* Broccoli is carried raw and cooked and both rows say "Broccoli", so the
+   data-name lookup selectFood() uses cannot tell them apart. The preparation
+   data is entirely about which of the two you are looking at, so these tests
+   address the row by slug instead. */
+async function panelBySlug(page, slug, tab = "absorption") {
+  await page.fill("#q", "");
+  await page.locator("#tbody .fname").first().click();
+  await page.waitForFunction(() => document.querySelector("#detailDlg h3") !== null);
+  const text = await page.evaluate(([s, t]) => {
+    S.sel = BY_SLUG.get(s); S.tab = t; renderDetail();
+    return document.querySelector("#detailDlg").innerText;
+  }, [slug, tab]);
+  await page.evaluate(() => document.querySelector("#detailDlg").close());
+  return text;
+}
+
+await test("a cooked brassica says what to do with it, a raw one does not", async () => {
+  /* The whole point of the preparation data. Sulforaphane is not in broccoli;
+     it forms when myrosinase meets glucoraphanin after the tissue is damaged.
+     A cooked row has no working enzyme left, so it needs the advice. A raw row
+     needs nothing, because chewing does the damage, and printing "chop this
+     first" on watercress would be noise dressed as guidance. */
+  await withPage(async page => {
+    const cooked = await panelBySlug(page, "broccoli-cooked");
+    assert(/Preparation/.test(cooked), "cooked broccoli has a Preparation section");
+    assert(/Mustard powder/.test(cooked), `mustard record shown, got: ${cooked.slice(0, 300)}`);
+
+    for (const slug of ["broccoli-raw", "watercress-raw"]) {
+      const raw = await panelBySlug(page, slug);
+      assert(!/Preparation/.test(raw),
+        `${slug} shows no preparation section, because there is nothing to do`);
+    }
+  });
+});
+
+await test("advice carried from broccoli says it was carried", async () => {
+  /* Almost every study behind this data used broccoli. The same advice is worth
+     showing on the other cooked brassicas, and showing it silently would be
+     claiming eight measurements that were never made. */
+  await withPage(async page => {
+    const swede = await panelBySlug(page, "swede-cooked");
+    assert(/Preparation/.test(swede), "swede carries the preparation section");
+    assert(/not in this food/.test(swede),
+      `swede marks the advice as carried over, got: ${swede.slice(0, 400)}`);
+
+    const broccoli = await panelBySlug(page, "broccoli-cooked");
+    assert(!/not in this food/.test(broccoli),
+      "broccoli is where it was measured, so nothing is marked as carried");
+  });
+});
+
+await test("the forty minute rule is never stated without being refused", async () => {
+  /* The interval has no traceable primary source, and crushing at room
+     temperature sends most of the reaction to an inactive nitrile anyway. The
+     page has to name the rule in order to refuse it, so this cannot assert the
+     phrase is absent. It asserts the stronger thing: every sentence that
+     mentions the interval also says it has no source. Somebody restoring the
+     advice in good faith would write a sentence that fails this. */
+  await withPage(async page => {
+    const text = await page.evaluate(() => {
+      openDialog("prep");
+      const dlg = document.querySelector("#dlgB").innerText;
+      S.sel = BY_SLUG.get("broccoli-cooked"); S.tab = "absorption"; renderDetail();
+      return dlg + "\n" + document.querySelector("#detailDlg").innerText;
+    });
+    const mentions = text.split(/(?<=\.)\s+/)
+      .filter(s => /\b(40|forty) minute/i.test(s));
+    assert(mentions.length > 0, "the page names the rule so it can refuse it");
+    for (const s of mentions)
+      assert(/no traceable source|has no source/i.test(s),
+        `this sentence states the interval without refusing it: ${s.trim()}`);
+    assert(/nitrile/.test(text), "it explains what room-temperature crushing actually makes");
   });
 });
 

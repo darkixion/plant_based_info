@@ -1,0 +1,77 @@
+{
+  "_comment": "What to do to a food so that a component forms, survives, or is lost. Explanatory only: nothing here is ever applied to a figure, exactly as in interactions.json. It is a separate dataset because it is not bioavailability: absorption is about what happens after you eat, and this is about what happens before. It also has to name evidence columns, which an interaction may not, because the component this data is about is glucoraphanin. Research and full citations in docs/superpowers/specs/2026-08-14-glucosinolate-preparation-design.md. `applies` lists the rows a record is worth showing on. `measuredIn` lists the subset where it was actually measured, and every row outside it is a generalisation the page marks as one, because nearly all of this literature is broccoli.",
+
+  "sources": {
+    "okunade2018": "Okunade O, Niranjan K, Ghawi SK, Kuhnle G, Methven L. Supplementation of the diet by exogenous myrosinase via mustard seeds to increase the bioavailability of sulforaphane in healthy human subjects after the consumption of cooked broccoli. Mol Nutr Food Res. 2018;62(18):e1700980.",
+    "matusheski2004": "Matusheski NV, Juvik JA, Jeffery EH. Heating decreases epithiospecifier protein activity and increases sulforaphane formation in broccoli. Phytochemistry. 2004;65(9):1273-81.",
+    "wang2012": "Wang GC, Farnham M, Jeffery EH. Impact of thermal processing on sulforaphane yield from broccoli (Brassica oleracea L. ssp. italica). J Agric Food Chem. 2012;60(27):6743-8.",
+    "wu2018": "Wu Y, Shen Y, Wu X, Zhu Y, Mupunga J, Bao W, Huang J, Mao J, Liu S, You Y. Hydrolysis before stir-frying increases the isothiocyanate content of broccoli. J Agric Food Chem. 2018;66(6):1509-15.",
+    "dosz2013": "Dosz EB, Jeffery EH. Modifying the processing and handling of frozen broccoli for increased sulforaphane formation. J Food Sci. 2013;78(9):H1459-63."
+  },
+
+  "preparations": [
+    {
+      "id": "glucoraphanin-mustard",
+      "component": "glucoraphanin",
+      "direction": "up",
+      "agent": { "kind": "practice", "label": "Mustard powder" },
+      "short": "Mustard powder",
+      "applies": ["broccoli-cooked", "brussels-sprouts-cooked", "cauliflower-cooked",
+        "collard-greens-cooked", "kohlrabi-cooked", "mustard-greens-cooked",
+        "swede-cooked", "turnip-cooked", "turnip-greens-cooked"],
+      "measuredIn": ["broccoli-cooked"],
+      "text": "Cooking destroys a brassica's own myrosinase, so its glucoraphanin arrives largely unconverted and the sulforaphane never forms. Mustard seed myrosinase survives better, and putting it back restores the reaction on the plate. Twelve adults ate 200 g of cooked broccoli with and without 1 g of powdered brown mustard: the mustard raised urinary sulforaphane metabolite from 9.8 to 44.7 micromoles per gram of creatinine, more than fourfold.",
+      "cites": ["okunade2018"]
+    },
+    {
+      "id": "glucoraphanin-steam",
+      "component": "glucoraphanin",
+      "direction": "up",
+      "agent": { "kind": "practice", "label": "Steaming briefly" },
+      "short": "Brief steaming",
+      "applies": ["broccoli-cooked", "brussels-sprouts-cooked", "cauliflower-cooked",
+        "collard-greens-cooked", "kohlrabi-cooked", "mustard-greens-cooked",
+        "swede-cooked", "turnip-cooked", "turnip-greens-cooked"],
+      "measuredIn": ["broccoli-cooked"],
+      "text": "Steaming broccoli for one to three minutes gives more sulforaphane than eating it raw. The cofactor that diverts the reaction towards an inactive nitrile is destroyed by heat sooner than myrosinase is, so gentle heat removes the diversion while leaving the enzyme working. Heating to 60 C before crushing raises sulforaphane and lowers the nitrile together; at 70 C and above both fall away. Boiling and microwaving cross the same window but are through it inside a minute.",
+      "cites": ["wang2012", "matusheski2004"]
+    },
+    {
+      "id": "glucoraphanin-chop-first",
+      "component": "glucoraphanin",
+      "direction": "up",
+      "agent": { "kind": "practice", "label": "Chopping before cooking" },
+      "short": "Chopping first",
+      "applies": ["broccoli-cooked", "brussels-sprouts-cooked", "cauliflower-cooked",
+        "collard-greens-cooked", "kohlrabi-cooked", "mustard-greens-cooked",
+        "swede-cooked", "turnip-cooked", "turnip-greens-cooked"],
+      "measuredIn": ["broccoli-cooked"],
+      "text": "Chopping starts the reaction while the enzyme is still alive, so that something has formed before heat destroys it. Broccoli hydrolysed for 90 minutes before stir-frying gave 2.8 times the sulforaphane of broccoli stir-fried straight away, because myrosinase loses 80 per cent of its activity in three minutes of stir-frying while sulforaphane itself lasts far longer. The commonly repeated 40 minute figure has no traceable source. Crushing at room temperature still sends most of the reaction to the inactive nitrile, so this beats cooking a brassica hard immediately, and has never been tested against steaming it briefly.",
+      "cites": ["wu2018", "matusheski2004"]
+    },
+    {
+      "id": "glucoraphanin-frozen",
+      "component": "glucoraphanin",
+      "direction": "down",
+      "agent": { "kind": "practice", "label": "Commercial freezing" },
+      "short": "Commercial freezing",
+      "applies": ["broccoli-cooked"],
+      "measuredIn": ["broccoli-cooked"],
+      "text": "Commercially frozen broccoli is blanched before freezing, and blanching at 86 C or above destroys myrosinase along with the enzymes the blanching is aimed at. Thawing does not bring it back: nine hours of it produced no sulforaphane unless an enzyme source was added. The glucoraphanin survives, so the figure in this table is not wrong and gut bacteria still convert some of it, but the fast route on the plate has gone.",
+      "cites": ["dosz2013"]
+    },
+    {
+      "id": "glucoraphanin-daikon",
+      "component": "glucoraphanin",
+      "direction": "up",
+      "agent": { "kind": "food", "slug": "daikon-raw" },
+      "short": "Daikon",
+      "applies": ["broccoli-cooked", "brussels-sprouts-cooked", "cauliflower-cooked",
+        "collard-greens-cooked", "kohlrabi-cooked", "mustard-greens-cooked",
+        "swede-cooked", "turnip-cooked", "turnip-greens-cooked"],
+      "measuredIn": ["broccoli-cooked"],
+      "text": "Daikon myrosinase is unusually heat stable, still supporting sulforaphane formation after ten minutes at 125 C, which is hotter and longer than microwave cooking. A quarter of one per cent stirred into frozen broccoli restored the reaction as it thawed, with no visible change to the food. Broccoli's own root, tested alongside, was no more heat stable than its floret. Shown as a food processing intervention rather than a kitchen one.",
+      "cites": ["dosz2013"]
+    }
+  ]
+}

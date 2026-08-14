@@ -258,6 +258,12 @@ select.sel.lensactive{border-color:var(--lens-line); box-shadow:inset 0 0 0 1px 
 .biofor{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--faint);
   font-weight:650; margin:16px 0 7px}
 .biofor:first-child{margin-top:4px}
+/* Where a preparation record is being shown on a food it was not measured in.
+   Dashed rather than a colour, because it is not a third direction: the claim
+   is the same claim, and what changes is how far it has been carried. */
+.biorow.carried{border-left-style:dashed}
+.carriednote{font-size:11.5px; color:var(--faint); line-height:1.45; margin:5px 0 0;
+  font-style:italic}
 
 /* lens editor dialog */
 .lensform{display:flex; flex-direction:column; gap:14px}

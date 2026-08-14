@@ -309,6 +309,36 @@ Recommendation: option 1, given the stated intention to build a preparation guid
 later. Option 2 is the cheaper path if these claims are wanted on the existing
 Absorption page in the near term.
 
+### What was built
+
+Option 1, on 2026-08-14. `src/data/preparation.json`, validated in `build.mjs`
+alongside the interactions check, injected as `PREP` and rendered in two places:
+a Preparation block at the top of a food's Absorption tab, and a `prep` dialog.
+
+Two things the design gained on contact with the code.
+
+**`measuredIn` earned its place.** The records apply to nine cooked brassicas and
+were measured in one, and the page now marks the other eight visibly, with a
+dashed rule and a line naming the food it was measured in instead. Without that
+field the page would have been asserting eight measurements that do not exist,
+which is the single biggest risk in this dataset.
+
+**The evidence-column guard did not need relaxing.** Preparation records pick
+rows by naming them, so the ranking rule the interactions guard protects never
+applies. `build.mjs:740-741` is untouched and interactions still may not name an
+evidence column.
+
+The build check refuses a record measured in a row it does not apply to, an
+unknown food slug, a component with no column, an unresolved citation, and a
+source nothing cites. All five were exercised by breaking the data deliberately
+before the work was committed.
+
+Three smoke tests cover it: a cooked brassica shows the section and a raw one
+does not, carried advice is marked as carried, and every sentence mentioning the
+forty minute interval also refuses it. That last one is written as a property
+rather than a forbidden string, because the page has to name the rule in order to
+argue with it.
+
 ## The records, drafted
 
 Written in the existing `interactions.json` record shape, because the record
