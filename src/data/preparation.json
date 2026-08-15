@@ -6,7 +6,9 @@
     "matusheski2004": "Matusheski NV, Juvik JA, Jeffery EH. Heating decreases epithiospecifier protein activity and increases sulforaphane formation in broccoli. Phytochemistry. 2004;65(9):1273-81.",
     "wang2012": "Wang GC, Farnham M, Jeffery EH. Impact of thermal processing on sulforaphane yield from broccoli (Brassica oleracea L. ssp. italica). J Agric Food Chem. 2012;60(27):6743-8.",
     "wu2018": "Wu Y, Shen Y, Wu X, Zhu Y, Mupunga J, Bao W, Huang J, Mao J, Liu S, You Y. Hydrolysis before stir-frying increases the isothiocyanate content of broccoli. J Agric Food Chem. 2018;66(6):1509-15.",
-    "dosz2013": "Dosz EB, Jeffery EH. Modifying the processing and handling of frozen broccoli for increased sulforaphane formation. J Food Sci. 2013;78(9):H1459-63."
+    "dosz2013": "Dosz EB, Jeffery EH. Modifying the processing and handling of frozen broccoli for increased sulforaphane formation. J Food Sci. 2013;78(9):H1459-63.",
+    "song2001": "Song K, Milner JA. The influence of heating on the anticancer properties of garlic. J Nutr. 2001;131(3s):1054S-7S.",
+    "lawson1992": "Lawson LD, Hughes BG. Characterization of the formation of allicin and other thiosulfinates from garlic. Planta Med. 1992;58(4):345-50."
   },
 
   "preparations": [
@@ -72,6 +74,28 @@
       "measuredIn": ["broccoli-cooked"],
       "text": "Daikon myrosinase is unusually heat stable, still supporting sulforaphane formation after ten minutes at 125 C, which is hotter and longer than microwave cooking. A quarter of one per cent stirred into frozen broccoli restored the reaction as it thawed, with no visible change to the food. Broccoli's own root, tested alongside, was no more heat stable than its floret. Shown as a food processing intervention rather than a kitchen one.",
       "cites": ["dosz2013"]
+    },
+    {
+      "id": "allicin-crush-and-stand",
+      "componentLabel": "Allicin",
+      "direction": "up",
+      "agent": { "kind": "practice", "label": "Crushing before heating" },
+      "short": "Crush, then wait",
+      "applies": ["garlic-raw"],
+      "measuredIn": ["garlic-raw"],
+      "text": "Garlic holds alliin and the enzyme alliinase apart, and crushing brings them together. Heating destroys the enzyme first: 60 seconds in a microwave, or 45 minutes in an oven, blocked garlic's effect on carcinogen binding in rats entirely. Letting crushed garlic stand for 10 minutes before that same microwaving prevented the total loss. Crush it rather than slicing it, leave it while you prepare everything else, and add it to the heat last.",
+      "cites": ["song2001"]
+    },
+    {
+      "id": "allicin-stomach-acid",
+      "componentLabel": "Allicin",
+      "direction": "down",
+      "agent": { "kind": "practice", "label": "Swallowing garlic whole" },
+      "short": "Swallowing whole",
+      "applies": ["garlic-raw"],
+      "measuredIn": ["garlic-raw"],
+      "text": "Alliinase is destroyed below pH 3.6 and neutralising the acid afterwards does not bring it back, so garlic that reaches the stomach undamaged makes nothing. The enzyme has to meet the alliin outside you. This is also why the ten minute wait is not about allicin itself, which forms within about 20 seconds at body temperature: garlic carries a second, slower alliinase activity whose products take more than ten times as long.",
+      "cites": ["lawson1992"]
     }
   ]
 }

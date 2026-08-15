@@ -806,8 +806,30 @@ function validate(data, portions, inter, prep, gaps, evidence, srcs) {
     else if (prepSeen.has(x.id)) problems.push(`${at} is listed twice`);
     prepSeen.add(x.id);
 
-    if (!ids.has(x.component))
-      problems.push(`${at} names component "${x.component}", which is not a nutrient`);
+    /* A preparation record may be about something the table does not measure.
+       Garlic is the case: crushing turns alliin into allicin, there is no
+       allicin column and no data for one, and "crush it and let it stand before
+       heating" is still the most useful thing the page can say about garlic.
+       Adding an empty column to hold the advice would be worse than saying
+       plainly that there is no column, which is what interactions.json already
+       does for phytate and oxalate on its agent side.
+
+       So exactly one of the two must be present. `component` names a real
+       column and the record is grouped under it; `componentLabel` names a
+       substance with no column and the page says so where it prints it. Both
+       would leave the dialog with two headings for one record, and neither
+       leaves it with none. */
+    const named = x.component !== undefined && x.component !== null;
+    const labelled = x.componentLabel !== undefined && x.componentLabel !== null;
+    if (named && labelled)
+      problems.push(`${at} has both a component and a componentLabel; it needs exactly one`);
+    else if (!named && !labelled)
+      problems.push(`${at} names no component and carries no componentLabel`);
+    else if (named && !ids.has(x.component))
+      problems.push(`${at} names component "${x.component}", which is not a nutrient. ` +
+        `A substance with no column goes in componentLabel instead.`);
+    else if (labelled && !String(x.componentLabel).trim())
+      problems.push(`${at} has an empty componentLabel`);
     if (!DIRECTIONS.has(x.direction))
       problems.push(`${at} has direction "${x.direction}", not up or down`);
     if (!x.short) problems.push(`${at} has no short label`);

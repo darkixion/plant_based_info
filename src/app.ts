@@ -137,8 +137,13 @@ interface Interactions { sources: Record<string, string>; interactions: Interact
 interface Preparation {
   id: string;
   /* Singular, unlike an interaction's `affects`. A preparation record is about
-     one component becoming, or failing to become, one other thing. */
-  component: string;
+     one component becoming, or failing to become, one other thing.
+     Exactly one of these two. `component` is a column id; `componentLabel` is a
+     substance the table does not measure, which the page then says out loud
+     rather than implying a column exists. Garlic's allicin is the case that
+     needed the second form. build.mjs refuses both at once and refuses neither. */
+  component?: string;
+  componentLabel?: string;
   direction: "up" | "down";
   agent: InteractionAgent;
   short: string;
@@ -410,6 +415,17 @@ const preparing = (slug: string) => PREPARING.get(slug) || [];
  *  else is the same advice carried across from a food where it was, which the
  *  page says out loud rather than leaving the reader to assume. */
 const prepMeasured = (x: Preparation, slug: string) => x.measuredIn.includes(slug);
+
+/** What a preparation record is about, named for a reader. A column's label
+ *  where there is a column, and the record's own label where there is not.
+ *  build.mjs guarantees exactly one of the two, so this cannot fall through. */
+const prepComponent = (x: Preparation) =>
+  x.component ? (nutOpt(x.component)?.label ?? x.component) : (x.componentLabel ?? "");
+
+/** Whether the thing a record is about has a column in this table. Drives the
+ *  one extra sentence the dialog prints, so a reader who goes looking for an
+ *  allicin column is told there isn't one rather than failing to find it. */
+const prepHasColumn = (x: Preparation) => Boolean(x.component);
 
 /** Interactions where this nutrient is the agent. What it does to others. */
 const ACTING = new Map<string, Interaction[]>();
@@ -1918,7 +1934,7 @@ function renderDetail() {
           <div class="biohead">
             <span class="bioarrow" aria-hidden="true">${x.direction === "up" ? "↑" : "↓"}</span>
             <b>${esc(agentLabel(x.agent))}</b>
-            <span class="biowhen">${esc(nut(x.component).label)}</span>
+            <span class="biowhen">${esc(prepComponent(x))}</span>
           </div>
           <p>${esc(x.text)}</p>
           ${measured ? "" : `<p class="carriednote">Measured in
@@ -3247,9 +3263,14 @@ function bioDialog(): string {
    food, and a record naming nine rows would print nine times. */
 function prepDialog(): string {
   const groups = new Map<string, Preparation[]>();
-  for (const x of PREP.preparations)
-    groups.set(x.component, [...(groups.get(x.component) || []), x]);
+  for (const x of PREP.preparations) {
+    const key = x.component ?? `label:${x.componentLabel}`;
+    groups.set(key, [...(groups.get(key) || []), x]);
+  }
 
+  // Columns first, in table order, then the substances with no column. A
+  // heading for something the table does not measure belongs after the ones it
+  // does, not interleaved by an index it has no position in.
   const body = [...groups.entries()]
     .sort((a, b) => (IDX.get(a[0]) ?? 999) - (IDX.get(b[0]) ?? 999))
     .map(([id, list]) => {
@@ -3276,7 +3297,14 @@ function prepDialog(): string {
           ${x.cites.map(k => `<cite>${esc(PREP.sources[k] ?? k)}</cite>`).join("")}
         </div>`;
       }).join("");
-      return `<h4>${esc(nutOpt(id)?.label ?? id)}</h4>${rows}`;
+      const first = list[0];
+      const heading = first ? prepComponent(first) : id;
+      const noColumn = first && !prepHasColumn(first)
+        ? `<p class="carriednote">There is no column for this in the table. It is
+           made when you damage the food, not held in it, so there is nothing to
+           measure per 100 g.</p>`
+        : "";
+      return `<h4>${esc(heading)}</h4>${noColumn}${rows}`;
     }).join("");
 
   return `

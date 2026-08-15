@@ -256,15 +256,70 @@ destroy myrosinase, and thawing does not restore it.
 Kept separate, because the mechanism is analogous and the evidence is not
 interchangeable. Garlic holds alliin and alliinase apart; damage gives allicin.
 
-**Not verified, and carrying a visible contradiction.** The second research pass
-reported both that thiosulfinate formation is essentially complete within 10 to
-60 seconds of crushing, and that a 10-minute stand before heating is needed.
-Those cannot both be load-bearing. If formation finishes inside a minute, the
-10-minute rule is not doing what popular advice says it does, and it deserves the
-same scepticism that killed the 40-minute figure.
+**Verified 2026-08-15, and the contradiction resolves.** The apparent conflict
+was that thiosulfinate formation completes in seconds while popular advice asks
+for a 10-minute stand. Both papers were pulled and both are right.
 
-Do not write the garlic guidance until Song & Milner and the thiosulfinate
-kinetics paper have been pulled and read the way the five above were.
+> Song K, Milner JA. The influence of heating on the anticancer properties of
+> garlic. *J Nutr.* 2001;131(3s):1054S-7S. doi:10.1093/jn/131.3.1054S.
+> PMID 11238815. Pennsylvania State University.
+
+- **60 seconds** of microwave heating, or **45 minutes** of oven heating, blocked
+  garlic's ability to inhibit binding of the mammary carcinogen DMBA to rat
+  mammary epithelial cell DNA.
+- Allowing crushed garlic to **stand for 10 minutes** before that same 60-second
+  microwaving **prevented the total loss** of that activity.
+- The authors attribute the blocking to inactivation of alliinase.
+
+> Lawson LD, Hughes BG. Characterization of the formation of allicin and other
+> thiosulfinates from garlic. *Planta Med.* 1992;58(4):345-50.
+> doi:10.1055/s-2006-961482. PMID 17226483.
+
+- Dipropenyl thiosulfinates, allicin among them, were **completely formed in 0.3
+  minutes at 37 °C**.
+- The **methyl thiosulfinates were not complete until 3.5 minutes**, more than ten
+  times as long. The paper concludes there are **two alliinase activities** in
+  garlic.
+- Optimum pH 4.5 to 5.0 for the dipropenyls. **Below pH 3.6 no thiosulfinates
+  form at all**, and neutralising afterwards does not restore it, so alliinase is
+  "completely and irreversibly inhibited by the acidic conditions found in the
+  stomach".
+
+**Why they do not contradict each other.** The fast reaction is allicin, and it
+is over in about 20 seconds. The 10-minute stand is not about allicin. A second,
+slower alliinase activity is still working an order of magnitude later, and Song &
+Milner's endpoint was biological activity rather than allicin specifically.
+
+**So the garlic rule survives where the broccoli one did not**, and the difference
+is worth stating precisely: the 40-minute broccoli interval has no traceable
+primary source at all, while the 10-minute garlic interval is the interval an
+experiment actually tested.
+
+**What it is not.** Song & Milner tested 10 minutes against zero. No other
+interval was tried, so 10 minutes is a duration that worked, not an optimum, which
+is the same epistemic standing as Wu's 90 minutes for broccoli. It is also a rat
+carcinogen-binding model, not a human study, and the paper is a supplement issue
+reviewing the authors' own work rather than the primary report. The primary papers
+behind it have not been pulled.
+
+**Onion, spring onion, leek and shallot get nothing.** The mechanism is the same
+family, the chemistry is not: onion's principal cysteine sulfoxide is isoalliin
+and its products are the lachrymatory factor and different thiosulfinates, not
+allicin. No food-specific interval was found for any of them, so none is written.
+
+### What this needed from the schema
+
+Garlic forced the one extension `preparation.json` has had. There is no allicin
+column and no data for one, so a record could not name a component that resolves.
+Adding an empty column to carry the advice would be worse than saying there is no
+column, which is what `interactions.json` already does for phytate and oxalate on
+its agent side.
+
+So a record now carries **either** `component`, a real column id, **or**
+`componentLabel`, a substance the table does not measure, and `build.mjs` refuses
+both at once and refuses neither. Where there is no column the dialog says so
+under the heading, and those headings sort after the column-backed ones because
+they have no table position to be interleaved by.
 
 ## Integration: the blocker
 

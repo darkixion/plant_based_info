@@ -3343,6 +3343,57 @@ await test("the forty minute rule is never stated without being refused", async 
   });
 });
 
+await test("garlic gets preparation advice without an allicin column", async () => {
+  /* The allium half of the same idea, and the case that made a preparation
+     record able to name something the table does not measure. Crushing turns
+     alliin into allicin; there is no allicin column and no data for one, and
+     "crush it and let it stand" is still the most useful thing the page can say
+     about garlic. Adding an empty column to hold the advice would be worse, so
+     the page says there is no column instead of implying one. */
+  await withPage(async page => {
+    const garlic = await panelBySlug(page, "garlic-raw");
+    assert(/Preparation/.test(garlic), "raw garlic has a Preparation section");
+    // Case-insensitive: .biowhen is text-transform:uppercase, so innerText
+    // renders the component chip as "ALLICIN".
+    assert(/allicin/i.test(garlic), `allicin named, got: ${garlic.slice(0, 300)}`);
+    assert(!/not in this food/.test(garlic),
+      "garlic is where it was measured, so nothing is marked as carried");
+
+    const text = await page.evaluate(() => {
+      openDialog("prep");
+      return document.querySelector("#dlgB").innerText;
+    });
+    assert(/no column for this in the table/.test(text),
+      "the dialog says there is no allicin column rather than implying one");
+    // The nutrient columns come first; a substance with no column has no index
+    // to be interleaved by, so it sorts to the end.
+    const lower = text.toLowerCase();
+    assert(lower.indexOf("glucoraphanin") < lower.indexOf("allicin"),
+      "the column-backed heading comes before the one with no column");
+  });
+});
+
+await test("the ten minute garlic rule survives where the forty minute one did not", async () => {
+  /* Both are folk numbers, and they do not have the same standing. The broccoli
+     interval has no traceable source. The garlic one does: Song & Milner tested
+     exactly it. The kinetics look like they contradict it, since allicin itself
+     forms in about 20 seconds, and the page has to explain why they do not
+     rather than quietly dropping one of the two facts. */
+  await withPage(async page => {
+    const text = await page.evaluate(() => {
+      openDialog("prep");
+      const dlg = document.querySelector("#dlgB").innerText;
+      S.sel = BY_SLUG.get("garlic-raw"); S.tab = "absorption"; renderDetail();
+      return dlg + "\n" + document.querySelector("#detailDlg").innerText;
+    });
+    assert(/10 minutes/.test(text), "the garlic interval is stated, not refused");
+    assert(/second, slower alliinase/.test(text),
+      "the page explains why fast allicin formation does not contradict the wait");
+    assert(/Song/.test(text) && /Lawson/.test(text),
+      "both garlic sources are cited in the dialog");
+  });
+});
+
 await browser.close();
 
 console.log(results.join("\n"));
