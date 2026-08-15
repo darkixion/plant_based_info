@@ -200,6 +200,53 @@ and after.
 
 What would actually widen those columns is a different source, not a better map.
 
+### The candidate: Phenol-Explorer, ingested and never used
+
+`tools/evidence/phenol-explorer.json` holds **6,953 rows across 439 foods**, is
+graded `quality: high`, and its own source note says **5,055 of those rows carry a
+PubMed id, the best provenance of any source here**. It has **zero cells** in
+`evidence.json`. It has been sitting unused since ingestion, the same way
+`jensen-2025` sat until a food list finally matched it.
+
+**Four of our five columns line up.** Phenol-Explorer stores glycosides and
+aglycones as separate rows, and the aglycones are exactly what our columns sum:
+
+| Column | Aglycones needed | Fresh-weight rows | Foods |
+|---|---|---|---|
+| Flavonols | Kaempferol, Myricetin, Quercetin | 504 | 197 |
+| Flavones | Apigenin, Luteolin | 287 | 147 |
+| Flavan-3-ols | catechin, EGC, EC, ECG, EGCG | 421 | 126 |
+| Flavanones | Eriodictyol, Hesperetin, Naringenin | 127 | 69 |
+| **Anthocyanidins** | Cyanidin, Delphinidin, Malvidin, Pelargonidin, Peonidin, Petunidin | **9** | **5** |
+
+**Anthocyanidins is out.** Phenol-Explorer reports anthocyanins as their
+glycosides, and the aglycone rows barely exist. Converting glycoside to aglycone
+needs a molecular mass per compound and a decision this project has refused
+elsewhere, so that column stays with USDA.
+
+**The realistic gain is around 30 foods**, against 128 currently empty. A crude
+name match hits 78 of our 222 foods, 33 of which are empty in all four columns.
+
+### Why it is a project rather than a pull
+
+- **It needs a reviewed page map**, like the ten already in this directory. The
+  crude match used for the estimate above paired **"Pearl barley" with "pear"**,
+  which is the whole argument for a reviewed map in one line.
+- **Phenol-Explorer food names often omit the preparation.** Its "potato" does not
+  say baked or boiled, and Rule 4 above forbids comparing across that.
+- **The flavonoid columns live in `v`, not in the evidence store**, and are filled
+  by `flavonoids.mjs` from a single source. A second source needs per-cell
+  provenance, which only evidence columns carry. So step one is deciding whether
+  the five flavonoid columns become evidence columns, and that is a bigger
+  decision than the fill it would enable.
+- Phenol-Explorer is a compilation spanning methods and decades. Its own
+  limitation note says the method group is recorded per row and must be carried
+  through.
+
+**Recommendation:** worth doing, and it is a piece of work the size of
+`flavonoids.mjs` itself rather than an afternoon. Start by settling whether the
+flavonoid columns become evidence columns, because everything else depends on it.
+
 ### Two mapping choices worth revisiting, found on the way
 
 Neither is changed here, because both would alter a published figure and that is
