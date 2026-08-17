@@ -1,17 +1,20 @@
 # Handover, August 2026
 
-Branch `evidence-provenance`, 19 commits ahead of `main`, 4 of them unpushed.
-Tests are green: `npm test` gives 36 in `test/tools.mjs` and 142 in
-`test/smoke.mjs`.
+**All of this is on `main` and pushed.** `evidence-provenance` and
+`preparation-alliums` were both merged and deleted; the remote still carries a
+stale `evidence-provenance` that can go whenever. Tests are green: `npm test`
+gives 36 in `test/tools.mjs` and 144 in `test/smoke.mjs`.
 
 ## Where things stand
 
 **222 foods, 119 nutrient columns, 45 of them evidence columns.** The evidence
-store holds 1,985 cells across 170 foods and 46 sources.
+store holds 1,985 cells across 170 foods and 46 sources. `src/data/preparation.json`
+holds 7 records over 2 components and 7 sources.
 
-Two corrections to earlier sections of this document are marked in place below:
-the sulforaphane question is settled, and the claim that `usda-map.json` is why
-the flavonoid columns are thin was wrong.
+Three corrections to earlier sections of this document are marked in place below,
+and they are the most useful thing in it. The sulforaphane question is settled,
+the claim that `usda-map.json` is why the flavonoid columns are thin was wrong,
+and the 40-minute chopping rule is refused while the 10-minute garlic one is not.
 
 **The canonical food list is `src/data/nutrients.json` under `foods`.** Not
 `src/data/portions.json`, which covers a subset and lacks the raw variants added
@@ -56,6 +59,15 @@ already.
     measurements nobody made.
 11. **Lee 2010's two-directional disagreement explained** as one preparation
     artefact rather than two conflicts, and nothing moved on the strength of it.
+12. **Garlic added to `preparation.json`**, and the 10-minute rule kept rather
+    than refused. Song & Milner 2001 tested exactly that interval; Lawson & Hughes
+    1992 shows the kinetics do not contradict it, because garlic has two alliinase
+    activities and the fast one, allicin, is over in about 20 seconds. Onion, leek,
+    shallot and spring onion deliberately get nothing.
+13. **`componentLabel` added** to the preparation schema, its first extension. A
+    record may now name a substance the table does not measure, because there is
+    no allicin column and no data for one, and adding an empty column to carry the
+    advice would be worse than saying there is no column.
 
 ## Rules that earned their keep
 
@@ -141,6 +153,26 @@ One method note that will save the next session ten minutes: **PubMed's web
 interface blocks the fetcher with a cookie wall.** Use E-utilities instead,
 `efetch.fcgi?db=pubmed&id=<ids>&rettype=abstract&retmode=text`, which returns
 clean text and takes several ids at once.
+
+## Next up: do the flavonoid columns become evidence columns?
+
+**This gates the most valuable work left, and it is a design decision rather than
+a data pull.**
+
+`tools/evidence/phenol-explorer.json` holds 6,953 rows over 439 foods, is graded
+`quality: high`, and its own note calls its 5,055 PubMed ids the best provenance
+of any source here. It has **zero cells**. Four of the five flavonoid columns line
+up with it, because it stores aglycones as their own rows and the aglycones are
+what those columns sum. Anthocyanidins does not: it reports glycosides.
+
+The blocker is not the data. The five flavonoid columns live in `v`, filled by
+`flavonoids.mjs` from one source, and a `v` column has nowhere to record which
+source a cell came from. Evidence columns do. So taking a second flavonoid source
+means converting those columns first, and that changes how 222 rows render.
+
+Sized at roughly **30 foods gained** against 128 now empty. Full assessment,
+including why a reviewed page map is needed and the "Pearl barley" to "pear"
+match that proves it, is in `tools/evidence/RECONCILIATION.md`.
 
 ## Known unfinished business
 
