@@ -372,10 +372,68 @@ async function cmdPull(args) {
   console.log(`\nwrote ${DATA}, run 'npm run build && npm test' to verify`);
 }
 
+/* ---------- page_slugs for the evidence corpus ----------
+   `tools/evidence/usda-flavonoids.json` carries the release row by row, and
+   each row names the page foods it belongs to, the same shape the
+   proanthocyanidin corpus uses so that neither needs a separate map file. Those
+   names were only ever filled in for 54 rows, while the columns themselves
+   reach 94 foods, because the columns resolve through a chain this file did
+   not.
+
+   Nothing here is a new judgement. The chain is the reviewed one computeValues
+   already uses: page food -> fdc_id, from usda-map.json and
+   food-additions.json, both human-checked -> NDB number, from SR Legacy's own
+   crosswalk -> release row. There is no fuzzy matching anywhere in it, which is
+   the whole reason it can be run rather than reviewed by hand.
+
+   Written as its own command because it changes an evidence corpus rather than
+   a column, and those are checked differently. */
+async function cmdMap({ dry }) {
+  try { await access(join(SR_DIR, "sr_legacy_food.csv")); }
+  catch { throw new Error(`no SR Legacy crosswalk at ${SR_DIR}. Run 'usda.mjs match' once to fetch it.`); }
+
+  const data = JSON.parse(await readFile(DATA, "utf8"));
+  const rows = await sourceRows();
+  const ndbOf = new Map((await readCSV(join(SR_DIR, "sr_legacy_food.csv")))
+    .map(r => [r.fdc_id, String(r.NDB_number).padStart(5, "0")]));
+
+  const corpusPath = join(ROOT, "tools", "evidence", "usda-flavonoids.json");
+  const corpus = JSON.parse(await readFile(corpusPath, "utf8"));
+  const byNdb = new Map(corpus.map(r => [String(r.ndb).padStart(5, "0"), r]));
+
+  const before = corpus.filter(r => r.page_slugs?.length).length;
+  // Rebuilt rather than added to, so a food that loses its mapping loses its
+  // entry here too. An append would leave a slug behind pointing at a row the
+  // reviewed chain no longer reaches.
+  for (const r of corpus) r.page_slugs = [];
+
+  let placed = 0; const unreached = [];
+  for (const f of data.foods) {
+    const slug = slugify(f);
+    const fdc = rows.get(slug);
+    const ndb = fdc ? ndbOf.get(fdc) : undefined;
+    const row = ndb ? byNdb.get(ndb) : undefined;
+    if (!row) { unreached.push(slug); continue; }
+    row.page_slugs.push(slug);
+    placed++;
+  }
+  for (const r of corpus) r.page_slugs.sort();
+
+  const after = corpus.filter(r => r.page_slugs.length).length;
+  console.log(`rows naming a page food: ${before} -> ${after}`);
+  console.log(`page foods placed: ${placed} of ${data.foods.length}`);
+  console.log(`${unreached.length} foods reach no release row ` +
+    `(no fdc id, no NDB number, or not in Release 3.3)`);
+  if (dry) { console.log("\n--dry-run: nothing written"); return; }
+  await writeFile(corpusPath, JSON.stringify(corpus, null, 1) + "\n");
+  console.log(`\nwrote ${corpusPath}`);
+}
+
 const [cmd, ...rest] = process.argv.slice(2);
 try {
   if (cmd === "extract") await cmdExtract();
   else if (cmd === "coverage") await cmdCoverage();
   else if (cmd === "pull") await cmdPull(rest);
-  else { console.error("usage: flavonoids.mjs extract | coverage | pull [--dry-run]"); process.exit(1); }
+  else if (cmd === "map") await cmdMap({ dry: rest.includes("--dry-run") });
+  else { console.error("usage: flavonoids.mjs extract | coverage | pull [--dry-run] | map [--dry-run]"); process.exit(1); }
 } catch (e) { console.error(`\n${e.message}\n`); process.exit(1); }

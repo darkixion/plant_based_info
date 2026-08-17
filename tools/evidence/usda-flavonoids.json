@@ -503,7 +503,9 @@
   "group": "Spices and Herbs",
   "desc": "Basil, fresh",
   "sciname": "Ocimum basilicum",
-  "page_slugs": [],
+  "page_slugs": [
+   "basil-fresh"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -4551,7 +4553,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Cranberries, raw",
   "sciname": "Vaccinium macrocarpon",
-  "page_slugs": [],
+  "page_slugs": [
+   "cranberries-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -5715,7 +5719,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Elderberries, raw",
   "sciname": "Sambucus spp.",
-  "page_slugs": [],
+  "page_slugs": [
+   "elderberries-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -5841,7 +5847,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Figs, raw",
   "sciname": "Ficus carica",
-  "page_slugs": [],
+  "page_slugs": [
+   "fig-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -7559,7 +7567,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Kumquats, raw",
   "sciname": "Fortunella spp.",
-  "page_slugs": [],
+  "page_slugs": [
+   "kumquat-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -7625,7 +7635,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Lemons, raw, without peel",
   "sciname": "Citrus limon",
-  "page_slugs": [],
+  "page_slugs": [
+   "lemon-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -8015,7 +8027,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Limes, raw",
   "sciname": "Citrus latifolia",
-  "page_slugs": [],
+  "page_slugs": [
+   "lime-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -8407,7 +8421,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Melons, cantaloupe, raw",
   "sciname": "Cucumis melo",
-  "page_slugs": [],
+  "page_slugs": [
+   "cantaloupe-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -8677,7 +8693,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Melons, honeydew, raw",
   "sciname": "Cucumis melo",
-  "page_slugs": [],
+  "page_slugs": [
+   "honeydew-melon-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -8935,7 +8953,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Mulberries, raw",
   "sciname": "Morus nigra",
-  "page_slugs": [],
+  "page_slugs": [
+   "mulberries-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -9025,7 +9045,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Nectarines, raw",
   "sciname": "Prunus persica var. nucipersica",
-  "page_slugs": [],
+  "page_slugs": [
+   "nectarines-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -10241,7 +10263,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Tangerines, (mandarin oranges), raw",
   "sciname": "Citrus reticulata",
-  "page_slugs": [],
+  "page_slugs": [
+   "tangerines-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -12209,7 +12233,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Plums, dried (prunes), uncooked",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "prunes-dried"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -12719,7 +12745,9 @@
   "group": "Fruits and Fruit Juices",
   "desc": "Raisins, golden seedless",
   "sciname": "Vitis vinifera",
-  "page_slugs": [],
+  "page_slugs": [
+   "raisins"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -16831,7 +16859,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Asparagus, raw",
   "sciname": "Asparagus officinalis",
-  "page_slugs": [],
+  "page_slugs": [
+   "asparagus-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -17409,7 +17439,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Beans, snap, green, cooked, boiled, drained, without salt",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "green-beans-cooked"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -17757,7 +17789,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Beets, raw",
   "sciname": "Beta vulgaris",
-  "page_slugs": [],
+  "page_slugs": [
+   "beetroot-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -18219,7 +18253,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Broccoli, raw",
   "sciname": "Brassica oleracea var. italica",
-  "page_slugs": [],
+  "page_slugs": [
+   "broccoli-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -19343,7 +19379,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Brussels sprouts, raw",
   "sciname": "Brassica oleracea (Gemmifera Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "brussels-sprouts-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -19621,7 +19659,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Cabbage, raw",
   "sciname": "Brassica oleracea (Capitata Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "cabbage-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -19825,7 +19865,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Cabbage, red, raw",
   "sciname": "Brassica oleracea (Capitata Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "red-cabbage-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -21101,7 +21143,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Cauliflower, raw",
   "sciname": "Brassica oleracea (Botrytis Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "cauliflower-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -22291,7 +22335,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Collards, raw",
   "sciname": "Brassica oleracea var. viridis",
-  "page_slugs": [],
+  "page_slugs": [
+   "collard-greens-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -22507,7 +22553,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Corn, sweet, yellow, raw",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "sweetcorn-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -23415,7 +23463,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Endive, raw",
   "sciname": "Cichorium endivia",
-  "page_slugs": [],
+  "page_slugs": [
+   "endive-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -23589,7 +23639,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Garlic, raw",
   "sciname": "Allium sativum",
-  "page_slugs": [],
+  "page_slugs": [
+   "garlic-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -23975,7 +24027,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Kohlrabi, raw",
   "sciname": "Brassica oleracea (Gongylodes Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "kohlrabi-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -24521,7 +24575,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Lettuce, cos or romaine, raw",
   "sciname": "Lactuca sativa var. logifolia",
-  "page_slugs": [],
+  "page_slugs": [
+   "romaine-lettuce-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -25969,7 +26025,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Mustard greens, raw",
   "sciname": "Brassica juncea",
-  "page_slugs": [],
+  "page_slugs": [
+   "mustard-greens-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -26999,7 +27057,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Parsley, fresh",
   "sciname": "Petroselinum crispum",
-  "page_slugs": [],
+  "page_slugs": [
+   "parsley-fresh"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -27227,7 +27287,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Peas, edible-podded, raw",
   "sciname": "Pisum sativum",
-  "page_slugs": [],
+  "page_slugs": [
+   "mangetout-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -27341,7 +27403,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Peas, green, raw",
   "sciname": "Pisum sativum",
-  "page_slugs": [],
+  "page_slugs": [
+   "green-peas-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -30141,7 +30205,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Radishes, oriental, raw",
   "sciname": "Raphanus sativus (Longipinratus Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "daikon-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -30231,7 +30297,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Rutabagas, raw",
   "sciname": "Brassica napus var. napobrassica",
-  "page_slugs": [],
+  "page_slugs": [
+   "swede-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -30745,7 +30813,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Squash, summer, zucchini, includes skin, raw",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "courgette-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -31377,7 +31447,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Taro, cooked, without salt",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "taro-cooked"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -32417,7 +32489,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Turnip greens, raw",
   "sciname": "Brassica rapa (Rapifera Group)",
-  "page_slugs": [],
+  "page_slugs": [
+   "turnip-greens-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -32701,7 +32775,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Yam, cooked, boiled, drained, or baked, without salt",
   "sciname": "",
-  "page_slugs": [],
+  "page_slugs": [
+   "yam-cooked"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -33743,7 +33819,9 @@
   "group": "Vegetables and Vegetable Products",
   "desc": "Radicchio, raw",
   "sciname": "Cichorium intybus",
-  "page_slugs": [],
+  "page_slugs": [
+   "radicchio-raw"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",
@@ -40401,7 +40479,9 @@
   "group": "Legumes and Legume Products",
   "desc": "Carob flour",
   "sciname": "Ceratonia siliqua",
-  "page_slugs": [],
+  "page_slugs": [
+   "carob-powder"
+  ],
   "subclasses": {
    "anthocyanidins": {
     "name": "Anthocyanidins",

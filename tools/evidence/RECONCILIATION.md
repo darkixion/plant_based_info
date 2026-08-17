@@ -247,6 +247,40 @@ name match hits 78 of our 222 foods, 33 of which are empty in all four columns.
 `flavonoids.mjs` itself rather than an afternoon. Start by settling whether the
 flavonoid columns become evidence columns, because everything else depends on it.
 
+### One blocker cleared, 2026-08-17
+
+`usda-flavonoids.json` named **54** page foods while the columns themselves reach
+**94**, because the columns resolve through a chain the corpus did not. Converting
+the columns in that state would have *lost* data: flavonols show 66 foods today
+and only 54 could have followed.
+
+`flavonoids.mjs map` now rebuilds `page_slugs` from the chain `computeValues`
+already uses, and the corpus names **94** foods, matching `coverage` exactly.
+Nothing in it is a new judgement: page food to `fdc_id` comes from `usda-map.json`
+and `food-additions.json`, both human-reviewed, and `fdc_id` to NDB number comes
+from SR Legacy's own crosswalk. There is no fuzzy matching in the chain, which is
+why it can be run rather than reviewed by hand. Checked afterwards: every food
+showing a flavonol value is now named by the corpus, and no food is named twice.
+
+**Precedent worth knowing:** `proanthocyanidins` is already an evidence column in
+the same group, with the same unit and the same null daily value, holding 62 cells
+and 0 `v` values. Its corpus carries `page_slugs` in exactly this shape and
+`build.mjs` indexes what it attests at the foot of `loadAttested()`. So the
+conversion has a working model to copy rather than a design to invent.
+
+### Why the columns were not flipped in the same pass
+
+**Converting on its own adds no data and changes 224 rendered cells.** The gain
+from evidence columns is per-cell provenance and room for a second source, and the
+second source is the entire point. Doing the conversion without Phenol-Explorer
+leaves the page altered with nothing to show for it.
+
+And Phenol-Explorer cannot follow the same deterministic chain. Its food names are
+free text with no NDB number, so its page map has to be matched and then reviewed,
+which is the step this project insists on precisely because automated matching is
+confidently wrong in ways that are hard to spot. **The two belong in one pass, or
+in neither.**
+
 ### Two mapping choices worth revisiting, found on the way
 
 Neither is changed here, because both would alter a published figure and that is
