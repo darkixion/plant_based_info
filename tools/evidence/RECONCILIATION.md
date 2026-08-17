@@ -291,6 +291,22 @@ a decision about data rather than about mapping.
 | Turnip greens, cooked | 170139, boiled **with salt** | 170466, boiled **without salt** | Every other cooked vegetable here uses a without-salt row. The current one carries cooking salt into the sodium column. |
 | Raisins | 168164, **golden** seedless | 168165, **dark** seedless | Dark seedless is the ordinary retail raisin. Golden is a sulphured product and differs in more than colour. |
 
+**Both settled 2026-08-17, and they went opposite ways, which is the point of
+checking rather than assuming.**
+
+**Turnip greens was changed.** It showed **265 mg** of sodium against 40 in its own
+raw row, 15 for cooked collard greens and 9 for cooked mustard greens. It was an
+order of magnitude out of line with every comparable food, and the cause was
+cooking salt rather than the vegetable. Comparing the two SR Legacy rows nutrient
+by nutrient, **only 2 of 90 differ by more than 2 %**: sodium, 265 against 29, and
+choline, absent against 0.3 mg. So the correction was those two figures and the
+mapping, not a re-pull.
+
+**Raisins was left alone.** The same comparison gives **24 mg against 26 mg** of
+sodium. Golden and dark seedless differ in sulphur dioxide treatment and colour,
+neither of which this page carries, so switching would have changed the citation
+without changing anything a reader sees.
+
 ### And one trap in the matcher
 
 `tools/usda.mjs match` proposes at `exact` confidence for every pure oil, because

@@ -728,7 +728,8 @@
    "state": "cooked",
    "cat": "Vegetables",
    "colour": "#4A7A2E",
-   "fdc_id": "170139"
+   "fdc_id": "170466",
+   "usda_desc": "Turnip greens, cooked, boiled, drained, without salt"
   },
   {
    "name": "Dandelion greens",

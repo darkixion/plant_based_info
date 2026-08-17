@@ -180,8 +180,20 @@ match that proves it, is in `tools/evidence/RECONCILIATION.md`.
   basis. The numbers are readable; the food names run vertically down a 1974
   scan and could not be aligned to rows with confidence. Needs a better scan.
 - **Baker 1997** on fruit and vegetable pectin levels: Wiley blocks it.
-- **Pellegrini 2010** would give glucoraphanin and total glucosinolates in the
-  same samples, which would fix broccoli's part-exceeds-whole.
+- ~~**Pellegrini 2010** would give glucoraphanin and total glucosinolates in the
+  same samples, which would fix broccoli's part-exceeds-whole.~~
+  **No longer needed, checked 2026-08-17. There is no part-exceeds-whole left.**
+  Every row holding both figures now has the part below its total; cooked broccoli
+  is 9.24 against 61.7. The violation was Lee 2010's 89 mg, and it went away when
+  the USDA glucosinolate release replaced Lee's two figures and Lee stayed on as
+  the dissent. The subset check in `build.mjs` still stands guard over it.
+  Pellegrini was pulled anyway (PMID 20218674): it is a cooking-methods study and
+  its abstract reports glucosinolates only as a group, so it would not have
+  answered this without its tables, which are behind ACS.
+  **One latent risk worth knowing:** `broccoli-raw` carries glucoraphanin up to
+  **217.9** and no total. Any total added for raw broccoli below that will trip
+  the subset check, and the fault will be the 217.9, which is one cultivar extreme
+  out of 210 means.
 - **Natto MK-7** is Kamao's 939 while this README says it should be a range. The
   range cannot be built because no source publishes a total K2 for natto and the
   subset check refuses a part above its whole. Documented in the README.
