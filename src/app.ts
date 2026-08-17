@@ -3318,6 +3318,15 @@ function prepDialog(): string {
     afterwards depends on your knife, your pan and your gut bacteria, and a number adjusted for
     all three would be a guess wearing a measurement's clothes.</p>
     ${body}
+    <h4>How long you can then cook it</h4>
+    <p>Once the reaction has run, what it made survives heat far better than the enzyme that
+    made it. During stir-frying sulforaphane has a half-life of <b>7.7 minutes</b> and total
+    isothiocyanates <b>5.9</b>, while myrosinase loses <b>80% of its activity in three</b>.
+    That gap is why chopping ahead works at all: it moves the fragile step out of the pan.
+    Three minutes of cooking costs you about a quarter of what formed, ten minutes about
+    half. A long braise costs you most of it.</p>
+    <p>Boiling loses more than that arithmetic shows, because sulforaphane dissolves and
+    leaves in the water. How much has not been measured here.</p>
     <h4>What is not here</h4>
     <p>There is no sulforaphane column and no myrosinase column. Sulforaphane is not in any
     food, so a column of it would be reporting the results of other people's cooking. Myrosinase
