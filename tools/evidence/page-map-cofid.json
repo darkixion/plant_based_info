@@ -159,5 +159,54 @@
   "cofid_code": "13-667",
   "cofid_name": "Beans, edamame, frozen, boiled in unsalted water",
   "match": "close"
+ },
+ {
+  "page": "Wheat bran",
+  "page_state": "",
+  "cofid_code": "11-906",
+  "cofid_name": "Bran, wheat",
+  "match": "exact"
+ },
+ {
+  "page": "Wild rice",
+  "page_state": "cooked",
+  "cofid_code": "11-873",
+  "cofid_name": "Rice, wild, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Pearl barley",
+  "page_state": "cooked",
+  "cofid_code": "11-003",
+  "cofid_name": "Barley, pearl, boiled",
+  "match": "exact"
+ },
+ {
+  "page": "Wholewheat pasta",
+  "page_state": "cooked",
+  "cofid_code": "11-723",
+  "cofid_name": "Pasta, wholewheat, spaghetti, dried, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "White rice",
+  "page_state": "cooked",
+  "cofid_code": "11-862",
+  "cofid_name": "Rice, white, long grain, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Wheatgerm",
+  "page_state": "toasted",
+  "cofid_code": "11-907",
+  "cofid_name": "Wheatgerm",
+  "match": "close"
+ },
+ {
+  "page": "Oats",
+  "page_state": "rolled, dry",
+  "cofid_code": "11-788",
+  "cofid_name": "Porridge oats, unfortified",
+  "match": "close"
  }
 ]

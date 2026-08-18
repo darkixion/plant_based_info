@@ -1962,7 +1962,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
-   "usda-fdc-foundation": "exact"
+   "usda-fdc-foundation": "exact",
+   "cofid-2021": "close"
   },
   "cells": {
    "solfibre": {
@@ -2050,9 +2051,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 22,
+    "value": 20.5,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "beta-glucan": {
@@ -11632,7 +11634,8 @@
  "white-rice-cooked": {
   "prep": "cooked",
   "matches": {
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -11718,10 +11721,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 1.4,
+    "state": "range",
+    "low": 0.4,
+    "high": 1.4,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    }
   }
@@ -13885,7 +13890,8 @@
   "matches": {
    "cnf": "exact",
    "milder-2005": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "k2": {
@@ -13903,9 +13909,11 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 4.5,
+    "state": "range",
+    "low": 2,
+    "high": 4.5,
     "sources": [
+     "cofid-2021",
      "afcd-r3"
     ]
    }
@@ -13954,7 +13962,8 @@
  "pearl-barley-cooked": {
   "prep": "as listed",
   "matches": {
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "lignans": {
@@ -13962,6 +13971,12 @@
     "value": 0.024,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
@@ -14531,7 +14546,8 @@
  "wheatgerm-toasted": {
   "prep": "as listed",
   "matches": {
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "cofid-2021": "close"
   },
   "cells": {
    "lignans": {
@@ -14539,6 +14555,13 @@
     "value": 0.189,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 23.4,
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
@@ -14747,13 +14770,21 @@
  "wheat-bran": {
   "prep": "as listed",
   "matches": {
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "proanthocyanidins": {
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 32.3,
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
@@ -15062,6 +15093,21 @@
     "value": 0.7,
     "sources": [
      "afcd-r3"
+    ]
+   }
+  }
+ },
+ "wild-rice-cooked": {
+  "prep": "as listed",
+  "matches": {
+   "cofid-2021": "exact"
+  },
+  "cells": {
+   "biotin": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
