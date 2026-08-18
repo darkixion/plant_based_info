@@ -108,14 +108,24 @@ const RAW = ["raw", "dried", "dry", "uncooked"];
 
 /* Rows whose figure is on a different basis, or whose food is a different
    food, and which score well on words alone. Each of these was seen in the
-   corpora rather than imagined. */
+   corpora rather than imagined.
+   Word boundaries throughout, and they are not decoration. Without them
+   /salted/ matched the tail of "unsalted", and every AFCD nut row names
+   itself "raw, unsalted", so the rows this list exists to protect were the
+   ones it pushed down. */
 const TRAPS = [
   [/weighed with (shell|skin|stone|pod)/, 40],
   [/weighed as purchased/, 40],
   [/juice/, 30],
-  [/in syrup|sweetened|with sugar/, 25],
+  /* A thing pressed, ground or milled from the food is not the food, and it
+     scored level with the real row: "Oil, walnut" carries a trace and tied
+     with "Walnuts, kernel only" at 19.0, first in corpus order, so the
+     proposal would have carried the oil. The guard above is what keeps an
+     oil page food matched to its own oil. */
+  [/\boils?\b|\bbutter\b|\bmargarine\b|\bspread\b|\bpaste\b|\bflour\b|\bmilk\b/, 35],
+  [/\bin syrup\b|\bsweetened\b|\bwith sugar\b/, 25],
   [/canned/, 15],
-  [/salted|toasted|smoked/, 15],
+  [/\bsalted\b|\btoasted\b|\bsmoked\b/, 15],
 ];
 
 /**

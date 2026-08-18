@@ -365,6 +365,40 @@ test("juice is not the fruit", () => {
   if (!(fruit > juice)) throw new Error(`fruit ${fruit} should beat juice ${juice}`);
 });
 
+test("an oil is not the nut it was pressed from", () => {
+  const nut = scoreCandidate("Walnuts", "", "Walnuts, kernel only");
+  const oil = scoreCandidate("Walnuts", "", "Oil, walnut");
+  if (!(nut > oil)) throw new Error(`nut ${nut} should beat oil ${oil}`);
+  if (oil > 0) throw new Error(`an oil should not be a candidate, got ${oil}`);
+});
+
+test("an oil page food keeps its own oil row", () => {
+  const s = scoreCandidate("Olive oil", "", "Oil, olive");
+  if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);
+});
+
+test("a nut butter is not the nut", () => {
+  const butter = scoreCandidate("Peanuts", "", "Peanut butter, smooth");
+  const nut = scoreCandidate("Peanuts", "", "Nut, peanut, with skin, raw, unsalted");
+  if (butter > 0) throw new Error(`a butter should not be a candidate, got ${butter}`);
+  if (!(nut > 0)) throw new Error(`the nut itself should score, got ${nut}`);
+});
+
+test("a row that says unsalted is not penalised for saying salted", () => {
+  // Every AFCD nut row names itself "raw, unsalted", and the trap matched the
+  // tail of the word, so the rows the nuts batch exists to find were the ones
+  // being pushed down.
+  const s = scoreCandidate("Peanuts", "", "Nut, peanut, with skin, raw, unsalted");
+  if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);
+});
+
+test("a row that says unsweetened is not penalised for saying sweetened", () => {
+  // Masked until now only because the one page food it would hit carries the
+  // substring in its own name and the guard spared it by accident.
+  const s = scoreCandidate("Soy milk", "unsweetened", "Soy beverage, regular fat, unfortified, unsweetened");
+  if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);
+});
+
 // ------------------------------------------------------------ evidence checks
 
 const NUTS = [{ id: "solfibre", evidence: true }, { id: "protein" }];
