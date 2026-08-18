@@ -238,5 +238,53 @@
   "pumpkin-cooked": {
     "key": "F007543",
     "match": "close"
+  },
+  "dried-apricots-dried": {
+    "key": "F000130",
+    "match": "exact"
+  },
+  "orange-raw": {
+    "key": "F006276",
+    "match": "exact"
+  },
+  "grapefruit-raw": {
+    "key": "F011002",
+    "match": "exact"
+  },
+  "mango-raw": {
+    "key": "F005299",
+    "match": "exact"
+  },
+  "apricots-raw": {
+    "key": "F000134",
+    "match": "exact"
+  },
+  "apple-raw-with-skin": {
+    "key": "F000092",
+    "match": "exact"
+  },
+  "pear-raw": {
+    "key": "F006612",
+    "match": "exact"
+  },
+  "pineapple-raw": {
+    "key": "F006702",
+    "match": "exact"
+  },
+  "watermelon-raw": {
+    "key": "F005520",
+    "match": "exact"
+  },
+  "peaches-raw": {
+    "key": "F006573",
+    "match": "exact"
+  },
+  "plums-raw": {
+    "key": "F006832",
+    "match": "exact"
+  },
+  "honeydew-melon-raw": {
+    "key": "F005515",
+    "match": "exact"
   }
 }

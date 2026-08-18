@@ -348,5 +348,131 @@
   "cofid_code": "13-520",
   "cofid_name": "Lettuce, average, raw",
   "match": "close"
+ },
+ {
+  "page": "Blackberries",
+  "page_state": "raw",
+  "cofid_code": "14-388",
+  "cofid_name": "Blackberries, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Strawberries",
+  "page_state": "raw",
+  "cofid_code": "14-324",
+  "cofid_name": "Strawberries, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Grapefruit",
+  "page_state": "raw",
+  "cofid_code": "14-384",
+  "cofid_name": "Grapefruit, flesh only, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Raspberries",
+  "page_state": "raw",
+  "cofid_code": "14-375",
+  "cofid_name": "Raspberries, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Mango",
+  "page_state": "raw",
+  "cofid_code": "14-378",
+  "cofid_name": "Mangoes, ripe, flesh only, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Pear",
+  "page_state": "raw",
+  "cofid_code": "14-361",
+  "cofid_name": "Pears, average, flesh and skin, raw, weighed with core and stalk",
+  "match": "exact"
+ },
+ {
+  "page": "Cherries",
+  "page_state": "sweet, raw",
+  "cofid_code": "14-382",
+  "cofid_name": "Cherries, flesh and skin, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Pineapple",
+  "page_state": "raw",
+  "cofid_code": "14-376",
+  "cofid_name": "Pineapple, flesh only, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Peaches",
+  "page_state": "raw",
+  "cofid_code": "14-299",
+  "cofid_name": "Peaches, raw, flesh and skin",
+  "match": "exact"
+ },
+ {
+  "page": "Plums",
+  "page_state": "raw",
+  "cofid_code": "14-372",
+  "cofid_name": "Plums, dessert, flesh and skin, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Mulberries",
+  "page_state": "raw",
+  "cofid_code": "14-168",
+  "cofid_name": "Mulberries, whole fruit, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Blueberries",
+  "page_state": "raw",
+  "cofid_code": "14-325",
+  "cofid_name": "Blueberries",
+  "match": "exact"
+ },
+ {
+  "page": "Grapes",
+  "page_state": "raw",
+  "cofid_code": "14-350",
+  "cofid_name": "Grapes, average",
+  "match": "exact"
+ },
+ {
+  "page": "Elderberries",
+  "page_state": "raw",
+  "cofid_code": "14-089",
+  "cofid_name": "Elderberries, whole fruit",
+  "match": "exact"
+ },
+ {
+  "page": "Dates",
+  "page_state": "",
+  "cofid_code": "14-394",
+  "cofid_name": "Dates, dried, flesh and skin",
+  "match": "exact"
+ },
+ {
+  "page": "Watermelon",
+  "page_state": "raw",
+  "cofid_code": "14-296",
+  "cofid_name": "Melon, watermelon, flesh only",
+  "match": "exact"
+ },
+ {
+  "page": "Dried apricots",
+  "page_state": "dried",
+  "cofid_code": "14-392",
+  "cofid_name": "Apricots, ready-to-eat, semi-dried",
+  "match": "close"
+ },
+ {
+  "page": "Dried figs",
+  "page_state": "dried",
+  "cofid_code": "14-395",
+  "cofid_name": "Figs, ready-to-eat, semi-dried",
+  "match": "close"
  }
 ]
