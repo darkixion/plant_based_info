@@ -338,9 +338,9 @@ export function loadAttested() {
   const afcdMap = readCorpus("page-map-afcd.json");
   if (afcdMap) {
     const rows = new Map((readCorpus("afcd-r3-plant.json") || []).map(r => [r.key, r]));
-    for (const [slug, key] of Object.entries(afcdMap)) {
+    for (const [slug, entry] of Object.entries(afcdMap)) {
       reach("afcd-r3", slug);
-      const row = rows.get(key);
+      const row = rows.get(entry && entry.key);
       if (!row) continue;
       const num = v => (v === "" || v == null ? undefined : Number(v));
       put("afcd-r3", slug, "inulin", num(row.inulin_g));

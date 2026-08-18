@@ -262,10 +262,11 @@ for (const [slug, cols] of Object.entries(research)) {
 
 
 // AFCD integration
-for (const p of Object.entries(afcdMap)) {
-  const [slug, key] = p;
+for (const [slug, entry] of Object.entries(afcdMap)) {
+  if (!entry) continue;
+  const { key, match } = entry;
   if (!key) continue;
-  grade(slug, "afcd-r3", out[slug]?.matches?.["afcd-r3"] || "exact");
+  grade(slug, "afcd-r3", match);
   const row = afcdKeyBy[key];
   if (row) {
     if (row.inulin_g !== undefined) {

@@ -1,35 +1,134 @@
 {
- "lentils-cooked": "F005177",
- "chickpeas-cooked": "F002882",
- "kidney-beans-cooked": "F000451",
- "split-peas-cooked": "F006544",
- "green-peas-cooked": "F006535",
- "tofu-firm": "F009176",
- "soy-milk-unsweetened": "F008721",
- "oats-rolled-dry": "F006143",
- "quinoa-cooked": "F007596",
- "brown-rice-cooked": "F007641",
- "buckwheat-cooked": "F001918",
- "wholewheat-pasta-cooked": "F006464",
- "almonds": "F006081",
- "walnuts": "F006116",
- "cashews": "F006088",
- "peanuts": "F006107",
- "pistachios": "F006113",
- "brazil-nuts": "F006087",
- "hazelnuts": "F006098",
- "chia-seeds": "F008209",
- "hemp-seeds-hulled": "F009977",
- "flaxseed": "F008210",
- "pumpkin-seeds": "F008212",
- "sunflower-seeds": "F008215",
- "sesame-seeds": "F008214",
- "broccoli-cooked": "F001900",
- "spinach-raw": "F008761",
- "kale-raw": "F004781",
- "sweet-potato-baked": "F009033",
- "mushrooms-white-raw": "F005946",
- "avocado": "F000162",
- "banana": "F000262",
- "tvp-dry": "F009147"
+  "lentils-cooked": {
+    "key": "F005177",
+    "match": "exact"
+  },
+  "chickpeas-cooked": {
+    "key": "F002882",
+    "match": "exact"
+  },
+  "kidney-beans-cooked": {
+    "key": "F000451",
+    "match": "exact"
+  },
+  "split-peas-cooked": {
+    "key": "F006544",
+    "match": "exact"
+  },
+  "green-peas-cooked": {
+    "key": "F006535",
+    "match": "exact"
+  },
+  "tofu-firm": {
+    "key": "F009176",
+    "match": "exact"
+  },
+  "soy-milk-unsweetened": {
+    "key": "F008721",
+    "match": "exact"
+  },
+  "oats-rolled-dry": {
+    "key": "F006143",
+    "match": "exact"
+  },
+  "quinoa-cooked": {
+    "key": "F007596",
+    "match": "exact"
+  },
+  "brown-rice-cooked": {
+    "key": "F007641",
+    "match": "exact"
+  },
+  "buckwheat-cooked": {
+    "key": "F001918",
+    "match": "exact"
+  },
+  "wholewheat-pasta-cooked": {
+    "key": "F006464",
+    "match": "exact"
+  },
+  "almonds": {
+    "key": "F006081",
+    "match": "exact"
+  },
+  "walnuts": {
+    "key": "F006116",
+    "match": "exact"
+  },
+  "cashews": {
+    "key": "F006088",
+    "match": "exact"
+  },
+  "peanuts": {
+    "key": "F006107",
+    "match": "exact"
+  },
+  "pistachios": {
+    "key": "F006113",
+    "match": "exact"
+  },
+  "brazil-nuts": {
+    "key": "F006087",
+    "match": "exact"
+  },
+  "hazelnuts": {
+    "key": "F006098",
+    "match": "exact"
+  },
+  "chia-seeds": {
+    "key": "F008209",
+    "match": "exact"
+  },
+  "hemp-seeds-hulled": {
+    "key": "F009977",
+    "match": "exact"
+  },
+  "flaxseed": {
+    "key": "F008210",
+    "match": "exact"
+  },
+  "pumpkin-seeds": {
+    "key": "F008212",
+    "match": "exact"
+  },
+  "sunflower-seeds": {
+    "key": "F008215",
+    "match": "exact"
+  },
+  "sesame-seeds": {
+    "key": "F008214",
+    "match": "exact"
+  },
+  "broccoli-cooked": {
+    "key": "F001900",
+    "match": "exact"
+  },
+  "spinach-raw": {
+    "key": "F008761",
+    "match": "exact"
+  },
+  "kale-raw": {
+    "key": "F004781",
+    "match": "exact"
+  },
+  "sweet-potato-baked": {
+    "key": "F009033",
+    "match": "exact"
+  },
+  "mushrooms-white-raw": {
+    "key": "F005946",
+    "match": "exact"
+  },
+  "avocado": {
+    "key": "F000162",
+    "match": "exact"
+  },
+  "banana": {
+    "key": "F000262",
+    "match": "exact"
+  },
+  "tvp-dry": {
+    "key": "F009147",
+    "match": "exact"
+  }
 }
