@@ -154,7 +154,27 @@ interface blocks the fetcher with a cookie wall.** Use E-utilities instead,
 `efetch.fcgi?db=pubmed&id=<ids>&rettype=abstract&retmode=text`, which returns
 clean text and takes several ids at once.
 
-## Next up: do the flavonoid columns become evidence columns?
+## Answered 2026-08-17: no, not for Phenol-Explorer's sake
+
+**Phenol-Explorer is not a second source for these columns.** It and USDA
+Release 3.3 compiled the same papers: 143 of the 178 cells a page map would fill
+share at least one publication with USDA's own reference list for the same food.
+Its pecan is USDA's pecan to one decimal place. What survives the preparation,
+completeness and method rules is 8 new figures, 2 disagreements worth a range,
+and about 30 analysed zeros, which does not pay for taking five columns out of
+the chart and re-rendering 224 cells.
+
+The map, both databases' publication lists, the provenance check and the
+reasoning are committed: `tools/evidence/PHENOL-EXPLORER-MAP-REVIEW.md`,
+`tools/phenol_explorer.mjs`, `tools/flavonoids.mjs refs`. The conversion is one
+session whenever a source that is genuinely outside USDA's reference list turns
+up, and that is now a question this repo can ask of a candidate before doing any
+of the work.
+
+The section below is what was believed before that, kept because the sizing and
+the column-by-column line-up are still right.
+
+## Superseded: do the flavonoid columns become evidence columns?
 
 **This gates the most valuable work left, and it is a design decision rather than
 a data pull.**

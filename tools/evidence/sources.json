@@ -289,11 +289,14 @@
       "Other polyphenols",
       "Polyphenols, total"
     ],
-    "reports": "mean, min, max, SD, n, number of publications, publication ids and PubMed ids per value. 5055 of the stored rows carry a PubMed id, the best provenance of any source here.",
-    "quality": "high",
-    "note": "Alcoholic beverages excluded on extraction. Adds lignans and stilbenes, neither of which the page carries. Also carries a total polyphenols figure; note the page deliberately has no total flavonoid column, and the reasoning there does not automatically transfer.",
+    "reports": "mean, min, max, SD, n, number of publications, publication ids and PubMed ids per value. 5055 of the stored rows carry a PubMed id. An earlier version of this note called that the best provenance of any source here; see the limitations, because it is traceability rather than quality and one of the ids is wrong.",
+    "quality": "high as a compilation, and not independent of usda-flavonoids-r33 for the flavonoid columns",
+    "note": "Alcoholic beverages excluded on extraction. Adds lignans and stilbenes, neither of which the page carries. Also carries a total polyphenols figure; note the page deliberately has no total flavonoid column, and the reasoning there does not automatically transfer. Its own publication list is held beside it in phenol-explorer-publications.json, because the composition download references papers by id and never names them.",
     "limitations": [
-      "A compilation of published analyses, so values span methods and decades; the method group is recorded per row and must be carried through."
+      "A compilation of published analyses, so values span methods and decades; the method group is recorded per row and must be carried through.",
+      "NOT A SECOND SOURCE for the flavonoid columns. It and USDA Flavonoid Release 3.3 compiled the same literature: 143 of the 178 cells a page map would fill share at least one publication with USDA's own reference list for the same food, chiefly Hertog 1992, Justesen 1998, Harnly 2006 and Lugasi and Hovari 2000 and 2002. Its pecan is USDA's pecan to one decimal on all eight compounds. Check with `node tools/phenol_explorer.mjs overlap` before citing it beside USDA.",
+      "The PubMed ids are not reliable. All 121 rows citing publication 655, which its own publication list gives as Harnly 2006 (PMID 17177529), carry PMID 22327611, a 2012 review of diet and endothelial function that measured no food. The mismatch is upstream in composition-data.xlsx, not in this ingest, and was confirmed against a fresh download.",
+      "Two chromatography methods, and the choice changes a figure by an order of magnitude: the plain rows report the free aglycone and the hydrolysis rows the aglycone total. Blackberry quercetin is 0 by the first and 0.87 by the second. Only the hydrolysis rows compare with USDA."
     ]
   },
   "assessed-lower-value": {
@@ -319,7 +322,8 @@
     "year": 2018,
     "url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/Flav/Flav_R03-3.accdb",
     "basis": "per 100 g edible portion",
-    "quality": "high"
+    "quality": "high",
+    "note": "A compilation of published analyses, not a laboratory programme, though USDA's own Harnly 2006 is the single largest contributor. It says which paper each figure came from, and that list is extracted to usda-flavonoids-references.json by `node tools/flavonoids.mjs refs`. Ask it before treating any other polyphenol database as a second source: Phenol-Explorer shares 143 of 178 candidate cells' provenance with it."
   },
   "usda-pa-r2": {
     "title": "USDA Database for the Proanthocyanidin Content of Selected Foods, Release 2",

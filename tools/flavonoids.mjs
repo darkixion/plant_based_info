@@ -6,6 +6,7 @@
  *   node tools/flavonoids.mjs extract           .accdb -> tools/cache/flav_r33/*.csv
  *   node tools/flavonoids.mjs coverage          report what the join reaches, write nothing
  *   node tools/flavonoids.mjs pull [--dry-run]  add those columns to nutrients.json
+ *   node tools/flavonoids.mjs refs [--dry-run]  which paper each figure came from
  *
  * Why this is not part of usda.mjs: the flavonoids are not in SR Legacy. SR
  * Legacy defines the nutrient ids (1348 anthocyanidins, 1347 flavonoids, 1343
@@ -42,8 +43,9 @@ const MAP = join(ROOT, "src", "data", "usda-map.json");
 
 /* Tables worth extracting. FLAV_IND holds the 24,130 individual laboratory
    measurements behind FLAV_DAT; it is not needed to build columns but it is
-   what you read when a figure looks wrong. */
-const TABLES = ["FOOD_DES", "FLAV_DAT", "NUTR_DEF", "FD_GROUP"];
+   what you read when a figure looks wrong, and it is the only table that says
+   which paper each measurement came from, which is what `refs` is built on. */
+const TABLES = ["FOOD_DES", "FLAV_DAT", "NUTR_DEF", "FD_GROUP", "FLAV_IND"];
 
 /* ---------- what counts as a measured subclass ----------
    USDA publishes individual compounds, not subclass totals, so a column here is
@@ -429,11 +431,101 @@ async function cmdMap({ dry }) {
   console.log(`\nwrote ${corpusPath}`);
 }
 
+/* ---------- refs ----------
+   Which published paper each figure in Release 3.3 came from, written out as
+   `tools/evidence/usda-flavonoids-references.json`.
+
+   Worth having because "is this a second source or the same source twice?" is
+   otherwise unanswerable. Phenol-Explorer is the case that forced it: it agrees
+   with this release to the decimal place on a run of foods, and the reason is
+   that both compiled the same papers rather than that two laboratories found
+   the same thing. That question can only be asked of a release that says what
+   it read.
+
+   The extraction is in two halves because the database will not give up both
+   in one way. `FLAV_IND` parses cleanly and carries a `DataSrc ID` against every
+   individual measurement, so which references a food rests on is a straight
+   read. The reference text lives in `DATA_SRC`, which `access-parser` refuses
+   with a KeyError and `mdbtools` is not installed for. It is recoverable
+   anyway: Access stores it as UTF-16, and each record brackets its own id, so
+   the citations can be lifted out of the file directly. That is a scrape rather
+   than a parse and it is written down as one; it recovers 299 of them and
+   anything it misses simply does not appear, which is why the ids come from
+   FLAV_IND rather than from here. */
+async function cmdRefs({ dry }) {
+  const indPath = join(CSV_DIR, "FLAV_IND.csv");
+  try { await access(indPath); }
+  catch { throw new Error(`no FLAV_IND at ${indPath}. Run 'flavonoids.mjs extract' first.`); }
+  await ensureAccdb();
+
+  const raw = await readFile(ACCDB);
+  const text = raw.toString("utf16le");
+  const references = {};
+  /* Each DATA_SRC record is bracketed by its own reference id, so the id is
+     both the key and the terminator. The citation between them runs the
+     authors, title, journal, year, volume and pages together with no
+     separators, because Access stored them as separate fields and this is
+     reading the row rather than the fields. */
+  for (const m of text.matchAll(/(R\d{3}[a-z]?)([A-Z][\s\S]{20,600}?)\1/g)) {
+    if (references[m[1]]) continue;
+    const citation = m[2].replace(/\s+/g, " ").trim();
+    /* Author and year are parsed out for comparing against another database's
+       publication list. The surname is everything before the first comma. The
+       year is the start of the trailing digit run, because year, volume, issue
+       and pages ran together into one number and the year comes first in it:
+       "Food Chemistry2010122819825" is 2010, volume 122, pages 819 to 825.
+       Neither the first nor the last year-shaped substring works. Two
+       citations carry a season in the title ("the 1975-76 and 1976-77 citrus
+       season") where the first is wrong, and several have pages that read as a
+       year, "122819825" holding 1982, where the last is wrong. */
+    const tail = /(\d{4,})$/.exec(citation);
+    const lead = tail && Number(tail[1].slice(0, 4));
+    const years = [...citation.matchAll(/(19[5-9]\d|20[0-2]\d)/g)].map(x => Number(x[1]));
+    references[m[1]] = {
+      citation,
+      author: citation.split(/[,\s]+/)[0].toLowerCase().replace(/[^a-z]/g, ""),
+      year: lead >= 1950 && lead <= 2029 ? lead : (years.length ? years[years.length - 1] : null),
+    };
+  }
+
+  const byNdb = {};
+  for (const row of await readCSV(indPath)) {
+    const ndb = String(row.NDB_No).padStart(5, "0");
+    const id = row["DataSrc ID"];
+    if (!id) continue;
+    (byNdb[ndb] ||= []);
+    if (!byNdb[ndb].includes(id)) byNdb[ndb].push(id);
+  }
+  for (const ndb of Object.keys(byNdb)) byNdb[ndb].sort();
+
+  const unnamed = new Set(Object.values(byNdb).flat().filter(id => !references[id]));
+  const out = {
+    source: "usda-flavonoids-r33",
+    note: "Which published paper each figure in USDA Flavonoid Release 3.3 rests on. " +
+      "`by_ndb` comes from FLAV_IND, the table of individual measurements. `references` " +
+      "is scraped out of the DATA_SRC records in the .accdb, which no reader here can parse; " +
+      "an id in by_ndb with no entry in references is a citation the scrape did not recover.",
+    generated_by: "node tools/flavonoids.mjs refs",
+    references,
+    references_unrecovered: [...unnamed].sort(),
+    by_ndb: byNdb,
+  };
+
+  console.log(`${Object.keys(references).length} citations recovered`);
+  console.log(`${Object.keys(byNdb).length} foods carry a reference list`);
+  console.log(`${unnamed.size} reference ids used but not recovered`);
+  if (dry) { console.log("\n--dry-run: nothing written"); return; }
+  const path = join(ROOT, "tools", "evidence", "usda-flavonoids-references.json");
+  await writeFile(path, JSON.stringify(out, null, 1) + "\n");
+  console.log(`\nwrote ${path}`);
+}
+
 const [cmd, ...rest] = process.argv.slice(2);
 try {
   if (cmd === "extract") await cmdExtract();
   else if (cmd === "coverage") await cmdCoverage();
   else if (cmd === "pull") await cmdPull(rest);
   else if (cmd === "map") await cmdMap({ dry: rest.includes("--dry-run") });
-  else { console.error("usage: flavonoids.mjs extract | coverage | pull [--dry-run] | map [--dry-run]"); process.exit(1); }
+  else if (cmd === "refs") await cmdRefs({ dry: rest.includes("--dry-run") });
+  else { console.error("usage: flavonoids.mjs extract | coverage | pull [--dry-run] | map [--dry-run] | refs [--dry-run]"); process.exit(1); }
 } catch (e) { console.error(`\n${e.message}\n`); process.exit(1); }

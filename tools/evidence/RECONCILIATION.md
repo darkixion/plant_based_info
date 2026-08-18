@@ -243,9 +243,11 @@ name match hits 78 of our 222 foods, 33 of which are empty in all four columns.
   limitation note says the method group is recorded per row and must be carried
   through.
 
-**Recommendation:** worth doing, and it is a piece of work the size of
-`flavonoids.mjs` itself rather than an afternoon. Start by settling whether the
-flavonoid columns become evidence columns, because everything else depends on it.
+**Recommendation, superseded 2026-08-17.** It read: worth doing, a piece of work
+the size of `flavonoids.mjs` rather than an afternoon, starting with the column
+conversion. The map was built and the recommendation did not survive it. See
+**"Phenol-Explorer is not a second source"** below and
+`PHENOL-EXPLORER-MAP-REVIEW.md`.
 
 ### One blocker cleared, 2026-08-17
 
@@ -280,6 +282,59 @@ free text with no NDB number, so its page map has to be matched and then reviewe
 which is the step this project insists on precisely because automated matching is
 confidently wrong in ways that are hard to spot. **The two belong in one pass, or
 in neither.**
+
+### Phenol-Explorer is not a second source, 2026-08-17
+
+The map was built, 73 page foods against 173 Phenol-Explorer foods, and it
+answers the question the other way round from how this document expected.
+
+**143 of the 178 cells it would fill share at least one publication with USDA
+Release 3.3's own reference list for the same food.** Both are compilations and
+they compiled the same papers: Hertog 1992, Justesen 1998, Harnly 2006, Lugasi
+and Hovari 2000 and 2002, Arts 2000, Mattila 2000. Phenol-Explorer's pecan is
+USDA's pecan to one decimal place on all eight compounds, because publication 655
+there is Harnly 2006, which is reference R110 here. Celeriac and kohlrabi agree
+with the page **exactly**, because both sides read Lugasi and Hovari 2000.
+
+This is checkable rather than inferred, and now checkable offline: both databases
+publish their paper lists, and both are ingested. `node tools/phenol_explorer.mjs
+overlap` prints it.
+
+**Three rules fell out of the exercise.**
+
+*Method beats source.* Phenol-Explorer stores two chromatography methods and the
+choice changes a figure by an order of magnitude. Its plain `Chromatography` rows
+report the free aglycone, near zero in anything storing the compound as a
+glycoside; the `Chromatography after hydrolysis` rows report the aglycone total,
+which is what USDA measures. Blackberry quercetin is 0 by the first and 0.87 by
+the second, yellow onion quercetin 0.28 against 12.65. This belongs beside Rule 1:
+a derivation, a preparation and now a method can each make two figures for the
+same food not comparable.
+
+*Shared provenance is not agreement.* Two compilations agreeing is worth nothing
+if they read the same paper, and the page must not print one measurement twice
+under two names. The rule written into the map: a cell may cite a second
+compilation beside USDA only where the two do not share a paper, and that only
+bites where USDA already has a figure, since an empty cell duplicates nothing.
+47 of the 178 pass.
+
+*A PubMed id is traceability, not quality.* All 121 Phenol-Explorer rows citing
+Harnly 2006 carry the PMID of a 2012 narrative review of endothelial function
+instead. The mismatch is upstream in the published file.
+
+**What is left of the 30 foods.** After the preparation rule, the completeness
+rule and the method rule: **8 new figures above zero**, 2 genuine disagreements
+worth a range (pak choi flavonols 48.7 against 6.42, and flavones 5.7 against
+0.33, both Bahorun 2004, which USDA did not use for that food), and about 30
+analysed zeros. The best of them is orange flavanones at 44.83 mg, in a column
+holding two figures in the whole table.
+
+**So the columns were not converted.** Converting costs 224 rendered cells, takes
+the five columns out of the chart, since `app.ts` offers only non-evidence columns
+there, and silently zeroes `FLAV_REACHED`. That price was worth paying for a
+second source and is not worth paying for eight figures. The map, both publication
+lists and the provenance rule are committed, so the decision costs one session
+whenever it is next taken.
 
 ### Two mapping choices worth revisiting, found on the way
 

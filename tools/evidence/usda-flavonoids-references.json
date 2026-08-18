@@ -1,0 +1,3849 @@
+{
+ "source": "usda-flavonoids-r33",
+ "note": "Which published paper each figure in USDA Flavonoid Release 3.3 rests on. `by_ndb` comes from FLAV_IND, the table of individual measurements. `references` is scraped out of the DATA_SRC records in the .accdb, which no reader here can parse; an id in by_ndb with no entry in references is a citation the scrape did not recover.",
+ "generated_by": "node tools/flavonoids.mjs refs",
+ "references": {
+  "R009": {
+   "citation": "Antonen, M. J. and Karjalainen, R. O.High-performance liquid chromatography analysis of black currant (Ribes nigrum L.) fruit phenolics grown either conventionally or organically.J. Agric. Food Chem.20065475307538",
+   "author": "antonen",
+   "year": 2006
+  },
+  "R008": {
+   "citation": "Andres-Laceuva, C., Monogas, M., Khan, N., Izquierdo-Pulido, M., Urpi-Sarda, M., Permanyer, J., and Lamuela-Raventos, R. M.Flavanol and flavonol contents of cocoa powder products: Influence of the manufacturing process.J. Agric. Food Chem.20085631113117",
+   "author": "andreslaceuva",
+   "year": 2008
+  },
+  "R007": {
+   "citation": "Andlauer, W., Stumpf, C., Hubert, M., Rings, A., and Furst, P. Influence of cooking process on phenolic marker compounds of vegetables.Int. J. Vitam. Nutr. Res.2003732152159",
+   "author": "andlauer",
+   "year": 2003
+  },
+  "R006": {
+   "citation": "Andlauer, W., Stumpf, C., and Fürst, P. Influence of the acetification process on phenolic compounds.J. Agric. Food Chem.20004835333536",
+   "author": "andlauer",
+   "year": 2000
+  },
+  "R005": {
+   "citation": "Ancos, B. de, Gonzalez, E., and Cano, M. P. Differentiation of raspberry varieties according to anthocyanin composition.Z. Lebensm Unters Forsch A19992083338",
+   "author": "ancos",
+   "year": 1999
+  },
+  "R004": {
+   "citation": "Amiot, M. J., Tacchini, M., Aubert, S. Y., and Oleszek, W. Influence of cultivar, maturity stage and storage conditions on phenolic composition and browning of pear fruits.J. Agric. Food Chem.19954311321137",
+   "author": "amiot",
+   "year": 1995
+  },
+  "R003": {
+   "citation": "Aligourchi, H., Barzegar, M., and Abbasi, S.Anthocyanin characterization of 15 Iranian pomegranate (Puncia granatum) varieties and their variation after cold storage and pasteurization.Eur Food Res Technol2008227881887",
+   "author": "aligourchi",
+   "year": 2008
+  },
+  "R002": {
+   "citation": "Adhikari, D. P., Francis, J. A., Schutzki, R. E., Chandra A., and Nair, M.Quantification and characterization of cyclooxygenase and lipid peroxidation inhibitory anthocyanins in fruits of Amelanchier.Phytochem. Anal200516175180",
+   "author": "adhikari",
+   "year": 2005
+  },
+  "R001": {
+   "citation": "Achilli, G., Cellerino, G. P., and Gamache, P. H.Identification and determination of phenolic constituents in natural beverages and plant extracts by means of a coulometric electrode array system.J. Chromatogr.19936321/2111117",
+   "author": "achilli",
+   "year": 1993
+  },
+  "R018": {
+   "citation": "Bahroun, T., Luximon-Ramma, A., Crozier, A., and Arouma, O. Total phenol, flavonoid, proanthocyanidin and vitamin C levels and antioxidant activities of Mauritian vegetablesJ. Sci. Food Agric.20048415531561",
+   "author": "bahroun",
+   "year": 2004
+  },
+  "R017": {
+   "citation": "Ayerza, R. and Coates, W. Some quality components of four chia (Salvia hispanica L.) genotypes under tropical coastal desert ecosystem conditions.Asian J. Plant Sci.20098301307",
+   "author": "ayerza",
+   "year": 2009
+  },
+  "R016": {
+   "citation": "Arts, I. C. W., van de Putte, B., and Hollman, P. C. H. Catechin content of foods commonly consumed in the Netherlands. 2. Tea, wine, fruit juices, and chocolate milk.J. Agric. Food Chem.20004817521757",
+   "author": "arts",
+   "year": 2000
+  },
+  "R015": {
+   "citation": "Arts, I. C. W., van de Putte, B., and Hollman, P. C. H. Catechin content of foods commonly consumed in the Netherlands. 1. Fruits, vegetables, staple foods and processed foods.J. Agric. Food Chem.20004817461751",
+   "author": "arts",
+   "year": 2000
+  },
+  "R014": {
+   "citation": "Artajo, L.S., Romero, M. P., and Motilva, M. J.Transfer of phenolic compounds during olive oil extraction in relation to ripening stage of the fruit.J. Sci. Food Agric.200686518527",
+   "author": "artajo",
+   "year": 2006
+  },
+  "R013": {
+   "citation": "Areias, F. M., Valentão, P., Andrade, P. B., Ferreres, F., and Seabra, R. M. Phenolic fingerprint of peppermint leaves.Food Chem.200173307311",
+   "author": "areias",
+   "year": 2001
+  },
+  "R012": {
+   "citation": "Arai, Yusuke, Watanabe, S., Kimira, M., Shimoi, K., Mochizuki, R., and Kinae, N.Dietary intakes of flavonols and isoflavones by Japanese women and inverse correlation between quercetin intake and plasma LDL cholesterol concentrationJ. Nutr.200013022432250",
+   "author": "arai",
+   "year": 2000
+  },
+  "R011": {
+   "citation": "Arabbi, P. R., Genovese, M. I., and Lajolo, F. M. Flavonoids in vegetable foods commonly consumed in Brazil and estimated ingestion by the Brazilian population.J. Agric. Food Chem.200452511241131",
+   "author": "arabbi",
+   "year": 2004
+  },
+  "R010": {
+   "citation": "Antonen, M. J. and Karjalainen, R. O.Environmental and genetic variation of phenolic compounds in red raspberry.J. Food Comp. Anal.200518759769",
+   "author": "antonen",
+   "year": 2005
+  },
+  "R028": {
+   "citation": "Blekas, G., Vassilakis, C., Harizanis, C., Tsimidou, M., and Boskou, D. G.Biophenols in table olives.J. Agric. Food Chem.20025036883692",
+   "author": "blekas",
+   "year": 2002
+  },
+  "R027": {
+   "citation": "Bilyk, A., Cooper, P. L., and Sapers, G. M. Vaietal differences in distribution of qercetin and kaempferol in onion (Allium cepa L.) Tissue.J. Agric. Food Chem198432274276",
+   "author": "bilyk",
+   "year": 1984
+  },
+  "R026": {
+   "citation": "Bilyk, A., and Sapers, G. M. Distribution of quercetin and kaempferol in lettuce, kale, chive, garlic chive, leek, horseradish, red radish, and red cabbage tissues.J. Agric. Food Chem.198533226228",
+   "author": "bilyk",
+   "year": 1985
+  },
+  "R025": {
+   "citation": "Bilyk, A., and Sapers, G. M. Varietal differences in the quercetin, kaempferol, and myricetin contents of highbush blueberry, cranberry, and thornless blackberry fruits.J. Agric. Food Chem.198634585588",
+   "author": "bilyk",
+   "year": 1986
+  },
+  "R024": {
+   "citation": "Bermudez-Soto, M. J., and Tomás-Barberan, F. A.Evaluation of commercial red fruit juice concentrates as ingredients for antoxidant functional juices.Eur. Food Res Technol.2004219133141",
+   "author": "bermudezsoto",
+   "year": 2004
+  },
+  "R023": {
+   "citation": "Bete!s-Saura, C., Andre!s-Lacueva, C., and Lamuela-Ravento!s, R. M. Phenolics in white free run juices and wines from Penede!s by high performance liquid chromatography: Changes during vinification.J. Agric. Food Chem.19964430403046",
+   "author": "betessaura",
+   "year": 1996
+  },
+  "R022": {
+   "citation": "Berhow, M., Tisserat, B., Kanes, K., and Vandercook, C. Survey of phenolic compounds produced in citrus.Technical Bulletin Number 1856, ARS, USDA, December 1998.1998",
+   "author": "berhow",
+   "year": 1998
+  },
+  "R021": {
+   "citation": "Berhow, M. A. Effects of early growth regulator treatment on flavonoid levels in grapefruit.Plant Growth Regulation200030225232",
+   "author": "berhow",
+   "year": 2000
+  },
+  "R020": {
+   "citation": "Belajová, E. and Suhaj, M. Determination of phenolic constituents in citrus juices: Method of high performance liquid chromatography.Food Chemistry200486339343",
+   "author": "belajov",
+   "year": 2004
+  },
+  "R019": {
+   "citation": "Baron, R., Mayen, M., Merida, J., and Medina, M. Changes in phenolic compounds and browning during biological aging of sherry- type wine.J. Agric. Food Chem.199745516821685",
+   "author": "baron",
+   "year": 1997
+  },
+  "R037": {
+   "citation": "Burda, S., Oleszek, W., and Lee, C. Y. Phenolic compounds and their changes in apples during maturation and cold storage.J. Agric. Food Chem.199038945948",
+   "author": "burda",
+   "year": 1990
+  },
+  "R036": {
+   "citation": "Buendía, B., Gil, M. I., Tudela, J. A., Gady, A. L., Medina, J. J., Soria, C., López, J. M., and Tomas-Barberán, F. A. PLC-MS analysis of proanthocyanidin oligomers and other phenolics in 15 strawberry cultivars.J. Agric. Food Chem.20105839163926",
+   "author": "buenda",
+   "year": 2010
+  },
+  "R035": {
+   "citation": "Bronner, W. E., and Beecher, G. R. Extraction and measurement of prominent flavonoids in orange and grapefruit juice concentrates.J. Chromatogr. A1995705247256",
+   "author": "bronner",
+   "year": 1995
+  },
+  "R034": {
+   "citation": "Bronner, W. E., and Beecher, G. R. Method of determining the content of catechins in tea infusions by high-performance liquid chromatography.J. Chromatogr. A1998805137142",
+   "author": "bronner",
+   "year": 1998
+  },
+  "R033": {
+   "citation": "Breitfellner, F., Solar, S., and Sontag, G. Radiation induced chemical changes of phenolic compounds in strawberries.Radiat. Phys. Chem.200367497499",
+   "author": "breitfellner",
+   "year": 2003
+  },
+  "R032": {
+   "citation": "Bonvehí, J. S., Torrentó, M. S., and Lorente, E. C. Evaluation of polyphenolic and flavonoid compounds in honeybee-collected pollen produced in Spain.J. Agric. Food Chem.20014918481853",
+   "author": "bonveh",
+   "year": 2001
+  },
+  "R031": {
+   "citation": "Bonvehi, J. S. and Coll, F. Evaluation of bitterness and astringency of polyphenolic compounds in cocoa powder.Food Chemistry1997603365370",
+   "author": "bonvehi",
+   "year": 1997
+  },
+  "R030": {
+   "citation": "Bolling, B. W., Dolinkowski. G., Blumberg, J. B., and Chen, C.-Y.Polyphenol content and antioxidant activity of Calfornia almonds depend on cultivar and harvest year.Food Chemistry2010122819825",
+   "author": "bolling",
+   "year": 2010
+  },
+  "R029": {
+   "citation": "Brenes, M., Garcia, A., Garcia, P., and Garrido, A.Rapid and complete extraction of phenols from olive oil and determination by means of a coulometric electrode array system.J. Agric. Food Chem.20004851785183",
+   "author": "brenes",
+   "year": 2000
+  },
+  "R046": {
+   "citation": "Chu, Y-H., Chang, C-L., and Hsu, H-F. Flavonoid content of several vegetables and their antioxidant activity.J. Sci. Food Agric.200080561566ĢĜĖĖĒĊäV \u0002 ƿ R045Cho, M. J., Howard, L. R., Prior, R. L., and Clark, J. R. Flavonol glycosides and",
+   "author": "chu",
+   "year": 2000
+  },
+  "R045": {
+   "citation": "Cho, M. J., Howard, L. R., Prior, R. L., and Clark, J. R. Flavonol glycosides and antioxidant capacity of various blackberry and blueberry genotypes determined by high-performance liquid chromatography/mass spectrometry.J. Sci. Food Agric.20058521492158",
+   "author": "cho",
+   "year": 2005
+  },
+  "R044": {
+   "citation": "Chen, H., Zuo, Y., and Deng, Y. Separation and determination of flavonoids and other phenolic compounds in cranberry juice by high-performance liquid chromatography.J. Chromatgr. A2001913387395",
+   "author": "chen",
+   "year": 2001
+  },
+  "R043": {
+   "citation": "Charron, C. S., Clevidence, B. A., Britz, S. J., and Novotny, J. A. Effect of dose size on bioavailability of acylated and nonacylated anthocyanins from red cabbage (Brassica oleracea L. var. Capitata).J. Agric. Food Chem.20075553545362",
+   "author": "charron",
+   "year": 2007
+  },
+  "R042": {
+   "citation": "Chaovanalikit, A., and Wrolstad, R. E. Anthocyanin and polyphenolic composition of fresh and processed cherries.J. Food Sci.20046917383",
+   "author": "chaovanalikit",
+   "year": 2004
+  },
+  "R041": {
+   "citation": "Chang, Q., and Wong, Y-S. Identification of flavonoids in Hakmeitau beans (Vigna sinensis) by high-performance liquid chromatography-electron-spray mass spectrometry (LC-ESI/MS)J. Agric. Food Chem.20045266946699",
+   "author": "chang",
+   "year": 2004
+  },
+  "R040": {
+   "citation": "Chamkha, M., Cathala, B., Cheynier, V., and Douillard, R. Phenolic composition of champagnes from chardonnay and pinot noir vintages.J. Agric. Food Chem.20035131793184",
+   "author": "chamkha",
+   "year": 2003
+  },
+  "R038": {
+   "citation": "Careri, M., Elviri, L. Mangia, A., and Musci, M. Spectrophotometric and coulometric detection in the high-performance liquid chromatography of flavonoids and optimization of sample treatment for the determination of quercetin in orange juice.J. Chromatogr. A2000881449460",
+   "author": "careri",
+   "year": 2000
+  },
+  "R052": {
+   "citation": "Dani, C., Vanderlinde, O. R., Bonatto, D., Salvador, M., and Henriques, J. A. P. Phenolic content and antioxidant activities of white and purple juices manufactures with organically – or conventionally-produced grapes.Food Chem. Toxicol.20074525742580",
+   "author": "dani",
+   "year": 2007
+  },
+  "R051": {
+   "citation": "Crozier, A., Lean, M. E. J., McDonald, M. S., and Black, C. Quantitative analysis of the flavonoid content of commercial tomatoes, onions, lettuce, and celery.J. Agric. Food Chem.199745590595",
+   "author": "crozier",
+   "year": 1997
+  },
+  "R050": {
+   "citation": "Crozier, A., Jensen, E., Lean, M. E. J., and McDonald, M. S. Quantitative analysis of flavonoids by reversed-phase high-performance liquid chromatography.J. Chromatogr. A1997761315321",
+   "author": "crozier",
+   "year": 1997
+  },
+  "R049": {
+   "citation": "Cortacero-RamRrez, S., Segura-Carretero, A., Cruces-Blanco, C., Romer-Romero, M. L., and Fern<ndez-GutiJrrez, A. Simultaneous determinationof multiple constituents in real beer samples of different origins by capillary zone electrophoresis.Anal. Bioannl. Chem.2004380831837",
+   "author": "cortaceroramrrez",
+   "year": 2004
+  },
+  "R048": {
+   "citation": "Chun, O. K., Kim, D-O., Moon, H. Y., Kang, H. G., and Lee, C. Y. Contribution of individual polyphenolics to total antioxidant capacity of plums.J. Agric. Food Chem.20035172407245",
+   "author": "chun",
+   "year": 2003
+  },
+  "R047": {
+   "citation": "Chun, O. K., Smith, N., Sakagawa, A., and Lee, C. Y. Antioxidant properties of raw and processed cabbages.Int. J. Food Sci. Nutr.200455191199",
+   "author": "chun",
+   "year": 2004
+  },
+  "R064": {
+   "citation": "Ding, Z., Kuhr, S., and Engelhardt, U. H. Influence of catechins and theaflavins on the astrigent taste of black tea brews.Z Lebensm Unters Forsch1992195108111",
+   "author": "ding",
+   "year": 1992
+  },
+  "R063": {
+   "citation": "Dinelli, G., Bonetti, A., Minelli, M., Marotti, I., Catizone, P., and Mazzanti, A. Content of flavavonols in Italian bean (Phaseolus vulgaris L.) ecotypes.Food Chemistry200699105114",
+   "author": "dinelli",
+   "year": 2006
+  },
+  "R062": {
+   "citation": "Dietrych-Szostak, D., and Oleszek, W. Effect of processing on the flavonoid content in buckwheat (Fagopyrum esculentum Möench) grain.J. Agric. Food Chem.19994743844387",
+   "author": "dietrychszostak",
+   "year": 1999
+  },
+  "R061": {
+   "citation": "Dhuique-Mayer, C., Caris-Veyrat, C., Ollitrault, P., Curk, F., and Amiot, M-J.Varietal and interspecific influence on micronutrient contents in citrus from the Mediterranean area.J. Agric. Food Chem.20055321402145",
+   "author": "dhuiquemayer",
+   "year": 2005
+  },
+  "R057": {
+   "citation": "De la Torre-Carbot, K., Jauregui, O., Gimeno, E., Castellote, A. J., Lamuela-Raventós, R. M., and López-Sabater, M. C.Charaterization and quantification of phenolic compounds in olive oil by solid-phase extraction, HPLC_DAD, and HPLC-MS/MS.J. Agric. Food Chem.20055343314340",
+   "author": "de",
+   "year": 2005
+  },
+  "R073": {
+   "citation": "Dykes, l., Seitz, L. M., Rooney, W. L., and Rooney, L. W. Flavonoid composition of red sorghum genotypes.Food Chemistry2009116313317",
+   "author": "dykes",
+   "year": 2009
+  },
+  "R072": {
+   "citation": "DuPont, M.S., Mondin, Z., Williamson, G., & Price, K.R. Effect of variety, processing, and storage on the flavonoid glycoside content and composition of lettuce and endive.J. Agric. Food Chem.200048939573964",
+   "author": "dupont",
+   "year": 2000
+  },
+  "R071": {
+   "citation": "Dugo, G., Saitta, M., Guifrida, F., Vilasi, F., and La Torre, G. L. Determination of resveratrol and othe phenolic compounds in experimental wines from grapes subjected to different pesticide treatmentsItal. J. Food Sci.200416305321",
+   "author": "dugo",
+   "year": 2004
+  },
+  "R070": {
+   "citation": "Dugo, P., Favoino, O., Presti, M.L.,Luppino, R., Dogo, G., and Mondello, L. Determination of anthocyanins and related components in red wines by micro- and capillary HPLC.J. Sep. Sci.20042714581466",
+   "author": "dugo",
+   "year": 2004
+  },
+  "R069": {
+   "citation": "Dueñas, M., Pérez-Alonso, J. J., Santos-Buelga, C., and Escribano-Bailón, T. Anthocyanin composition in fig (Ficus carica L.).J. Food Comp. Anal.200821107115",
+   "author": "dueas",
+   "year": 2008
+  },
+  "R068": {
+   "citation": "Dragovic-Uzelac, V., Levaj, B., Mrkic, V., Bursac, D., Boras, M. The content of polyphenols and carotenoids in three apricot cultivars depending on stage of maturity and geographical region.Food Chemistry2007102966975",
+   "author": "dragovicuzelac",
+   "year": 2007
+  },
+  "R067": {
+   "citation": "Dragovic-Uzelac, V., Pospisil, J., Levaj, B., and Delonga, K. The study of phenolic profiles of raw apricots and apples and their purees by HPLC for the evaluation of apricot nectars and jams authenticity.Food Chemistry200591373383",
+   "author": "dragovicuzelac",
+   "year": 2005
+  },
+  "R066": {
+   "citation": "Dragovic-Uzelac, V., Delonga, K., Levaj, B., Djakovic. S., and Pospisil, J. Phenolic profiles of raw apricots, pumpkins, and their purees in the evaluation of apricot nectar and jam authenticity.J. Agric. Food Chem.20055348364842",
+   "author": "dragovicuzelac",
+   "year": 2005
+  },
+  "R065": {
+   "citation": "Dougherty, M. H., and Fisher, J. F. Quality of commercial, canned, single-strength grapefruit juice produced in Florida during the 1975-76 and 1976-77 citrus season.Proc. Fla. State Hort. Soc.197790168170",
+   "author": "dougherty",
+   "year": 1977
+  },
+  "R082": {
+   "citation": "Faudale, M., Viladomat, F., Bastida, J., Poli, F., and Codina, C. Antioxidant activity and phenolic composition of wild, edible, and medicinal fennel from different Mediterranean countries.J. Agric. Food Chem.20085619121920",
+   "author": "faudale",
+   "year": 2008
+  },
+  "R081": {
+   "citation": "Fang, Z., Zhang, M., and Wang, L. HPLC-DAD-ESIMS analysis of phenolic compounds in bayberries (Myrica rubra Sieb. Et Zucc.)Food Chemistry2007100845852",
+   "author": "fang",
+   "year": 2007
+  },
+  "R080": {
+   "citation": "Fang, F., Li, J-M., Pan, Q-H., and Huang, W-D.Determination of red wine flavonoids by HPLC and effect of aging.Food Chemistry2007101428433",
+   "author": "fang",
+   "year": 2007
+  },
+  "R079": {
+   "citation": "Fang, F., Li, J-M., Zhang, P., Tang, K., Wang, W., Pan, Q-H., and Huang, W-D.Effects of grape veriety, harvest date, fermentation vessel and wine ageing on flavonoid concentration in res wines.Food Res. Int.2008415360",
+   "author": "fang",
+   "year": 2008
+  },
+  "R078": {
+   "citation": "Fan-Chiang H-J., and Wrolstad, R. E. Anthocyanin pigment composition of blackberries.Journal of Food Science2005703C198C202",
+   "author": "fanchiang",
+   "year": 2005
+  },
+  "R077": {
+   "citation": "Fanasca, S., Rouphael, Y., Venneria, E., Azzini, E., Duazzo, A., and Maiani, G. Antioxidant properties of raw and cooked spears of green asparagus cultivars.Int. J. Food Sci. Technol.20094410171023",
+   "author": "fanasca",
+   "year": 2009
+  },
+  "R076": {
+   "citation": "Ewald, C., Fjelkner-Modig, S., Johansson, K., Sjöholm, I., and Åkesson. B. Effect of processing on major flavonoids in processed onoins, green beans, and peas.Food Chem.199964231235",
+   "author": "ewald",
+   "year": 1999
+  },
+  "R075": {
+   "citation": "Espinosa-Alonso, L. G., Lygin, A., Widholm, J.M., Valverde, M. E., and Paredes-Lopez, O. Polyphenols in wild and weedy Mexican commom beans (Phaseolus vulgaris L.).J. Agric. Food Chem.20065444364444",
+   "author": "espinosaalonso",
+   "year": 2006
+  },
+  "R074": {
+   "citation": "Escribano-Bailón, M. T., Alcalde-Eon, C., Muñoz, O., Rivas-Gonzalo, J., and Santos-Buelga, C.Anthocyanins in berries of maqui (Aristotelia chlensis (Mol.) Stuntz).Phytochem. Anal.200617814",
+   "author": "escribanobailn",
+   "year": 2006
+  },
+  "R091": {
+   "citation": "Gao, L., and Mazza, G. Characterization, quantitation, and distribution of anthocyanins and colorless phenolics in sweet cherries.J. Agric. Food Chem199543343346",
+   "author": "gao",
+   "year": 1995
+  },
+  "R090": {
+   "citation": "Gambelli, L., and Santorini, G.P. Polyphenols content in some Italian red wines of different geographical origins.J. Food Comp. Anal.200417613618",
+   "author": "gambelli",
+   "year": 2004
+  },
+  "R089": {
+   "citation": "Gamache, P., Ryan, E., and Acworth, I. N. Analysis of phenolic and flavonoid compounds in juice beverages using high-performance liquid chromatography with coulometric array detection.J. Chromatogr.1993635143150",
+   "author": "gamache",
+   "year": 1993
+  },
+  "R088": {
+   "citation": "Fuleki, T. and Ricardo da Silva, J.M. Catechin and procyanidin composition of seeds from grape cultivars grown in Ontario.J. Agric. Food Chem.19974511561160",
+   "author": "fuleki",
+   "year": 1997
+  },
+  "R087": {
+   "citation": "Fuentes-Alventosa, J. M., Rodríguez, G., Cermeño, P., Jiménez. A., Guilén, R., Fernández-Bolaños, J., and Rodríguez-Arcos, R. Identification of flavonoid diglycosides in several genotypes of asparagus from Huétor-Tájar population varietyJ. Agric. Food Chem.2007551002810035",
+   "author": "fuentesalventosa",
+   "year": 2007
+  },
+  "R086": {
+   "citation": "Frankel, E. N., Waterhouse, A. l., and Teissedre, P. L. Principal phenolic phytochemicals in selected California wines and their antioxidant activity in inhibiting oxidation of human low-density lipoproteins.J. Agric. Food Chem.199543890894",
+   "author": "frankel",
+   "year": 1995
+  },
+  "R085": {
+   "citation": "Franke, A.A., Custer, L.J., Arakaki, C., and Murphy, S.P.Vitamin C and flavonoid levels of fruits and vegetables consumed in Hawaii.J. Food Comp. Anal.200417135",
+   "author": "franke",
+   "year": 2004
+  },
+  "R084": {
+   "citation": "Ferreres, F., Gil, M. I., and Tomás-Barberán, F. A. Anthocyanins and flavonoids from shredded red onion and changes during storage in perforated films.Food Res. Int.199629389395",
+   "author": "ferreres",
+   "year": 1996
+  },
+  "R083": {
+   "citation": "Ferracane, R., Pelligrini, N., Visconti, A., Graziani, G., Chiavaro, E., Miglio, and Fogliano, V. Effects of different cooking methods on antioxidant profile, antioxidant capacity, and physical characteristics of artichoke.J. Agric. Food Chem.20085686018608",
+   "author": "ferracane",
+   "year": 2008
+  },
+  "R101": {
+   "citation": "Goldberg, D.M., Tsang, E., Karumanchiri, A., Diamandis, E.P., Doleas, G., and Ng, E. Method to assay the concentrations of phenolic constituents of biological interest in wines.Anal. Chem.19966816881694ƠƘƐƐƌ",
+   "author": "goldberg",
+   "year": 1996
+  },
+  "R100": {
+   "citation": "Goldberg, D.M., Karumanchiri, A., Tsang, E., and Soleas, G.J. Catechin and epicatechin concentrations of red wines: regional and cultivar-related differences.Am. J. Enol. Vitic.19984912334",
+   "author": "goldberg",
+   "year": 1998
+  },
+  "R099": {
+   "citation": "Gliszczyńska-Świgł0, A., Kałuźewicz, A., Lemańska, K., Knaflewski, M., and Tyrakowska, B. The effect of solar radiation on the flavonol content in broccoli inflorescence.Food Chemistry2007100241245",
+   "author": "gliszczyskawig",
+   "year": 2007
+  },
+  "R098": {
+   "citation": "Giuffrida, D., Salvo, F., Ziino, M., Toscano, G., and Dugo, G. Initial investigation on some chemical constituents of capers (Capparis Spinosa L.) from the island of Salina.Ital. J. Food Sci.20021412533",
+   "author": "giuffrida",
+   "year": 2002
+  },
+  "R097": {
+   "citation": "Gil, M. I., Ferreres, F., Ortiz, A., Subra, E., and Tomas-Barberan, F. A. Plant phenolic metabolites and floral origin of Rosemary honey.J. Agric. Food Chem.19954328332838",
+   "author": "gil",
+   "year": 1995
+  },
+  "R096": {
+   "citation": "Ghiselli, A., Nardini, M., Baldi, A., and Scaccini, C. Antioxidant activity of different phenolic fractions separated from an Italian red wine.J. Agric. Food Chem.1998462361367",
+   "author": "ghiselli",
+   "year": 1998
+  },
+  "R094": {
+   "citation": "Garcia-Viguera, C., Zafrilla, P., and Tomas-Barberán, F.A.The use of acetone as an extraction solvent for anthocyanins from strawberry fruit.Phytochem. Anal.19989274277",
+   "author": "garciaviguera",
+   "year": 1998
+  },
+  "R093": {
+   "citation": "Garćia, A., Brenes, M., Romero, C., Garćia, P. and Garrido, A.Study of phenolic compounds in virgin olive oil of the Picual variety. Phytochem. Anal.19989274277",
+   "author": "garia",
+   "year": 1998
+  },
+  "R092": {
+   "citation": "Gao, L., and Mazza, G. Quantitation and distribution of simple and acylated anthocyanins and other phenoics in blueberries.J. Food Sci.19945910571059",
+   "author": "gao",
+   "year": 1994
+  },
+  "R110": {
+   "citation": "Harnly, J. M., Doherty, R., Beecher, G. R., Holden, J. M., Haytowitz, D. B., and Bhagwat, S., and Gebhardt S. Flavonoid content of U.S. fruits, vegetables, and nutsJ. Agric. Food Chem.20065499669977",
+   "author": "harnly",
+   "year": 2006
+  },
+  "R109": {
+   "citation": "Häkkinen, S. H., Kärenlampi, S. O., Heinonen, I. M., Mykkänen, H. M., and Törrönen, A. R. Content of flavonols quercetin, myricetin, and kaempferol in edible berries.J. Agric. Food Chem.19994722742279",
+   "author": "hkkinen",
+   "year": 1999
+  },
+  "R108": {
+   "citation": "Häkkinen, S. H., Törrönen, A. R. Content of flavonols and selected phenolic acids in strawberries and Vaccinium species: influence of cultivar, cultivation site and technique.Food Res. Int.200033517524",
+   "author": "hkkinen",
+   "year": 2000
+  },
+  "R107": {
+   "citation": "Häkkinen, S. H., Kärenlampi, S. O., Mykkänen, H. M., and Törrönen, A. R. Influence of domestic processing and storage on flavonol contents in berries.J. Agric. Food Chem.20004829602965",
+   "author": "hkkinen",
+   "year": 2000
+  },
+  "R106": {
+   "citation": "Guillen, D.A., Barroso, C.G., Perez-Bustamante, J.A. Automation of sample preparation as a preliminary stage in the high-performance liquid chromatographic determination of polyphenolic compounds in sherry wines.J. Chromatogr. A19967301/23946",
+   "author": "guillen",
+   "year": 1996
+  },
+  "R105": {
+   "citation": "Gu, L., House, S. E., Wu, X., Ou, B., and Prior, R. Procyanidin and catechin contents and antioxidant capacity of cocoa and chocolate products.J. Agric. Food Chem.20065440574061",
+   "author": "gu",
+   "year": 2006
+  },
+  "R104": {
+   "citation": "Grandi, R., Trifiro, A., Gherardi, S. Calza, M., and Saccani G. Characterization of lemon juice on the basis of flavonoid content.Fruit Processing199411355359",
+   "author": "grandi",
+   "year": 1994
+  },
+  "R103": {
+   "citation": "Gonçalves, B., Landbo, A-K., Knudsen, D., Silva, A. P., Moutinho-Pereira, J., Rosa, E., and Meyer, A. Effect of ripeness and postharvest storage on the phenolic profiles of cherries (Prunus avium L.).J. Agric. Food Chem.200452523530",
+   "author": "gonalves",
+   "year": 2004
+  },
+  "R102": {
+   "citation": "Gómez-Plaza, E., Gil-Muñoz, R., López-Roca , and J. M., Martínez, A. Color and phenolic compounds of a young red wine as discriminanting variables of its status.Food Res. Int.199932503507",
+   "author": "gmezplaza",
+   "year": 1999
+  },
+  "R121": {
+   "citation": "Hosseinian, F. S., Li, W. and Beta, T. Measurement of anthocyanins and other phytochemicals in purple wheat.Food Chemistry2008109916924ĘĒČČĆþâX \u0002 ƿ R120Hosseinian, F",
+   "author": "hosseinian",
+   "year": 2008
+  },
+  "R120": {
+   "citation": "Hosseinian, F. S. and Beta, T.Saskatoon and wild blueberries have higher anthocyanin contents than other Manitoba berries.J. Agric. Food Chem.2007551083210838",
+   "author": "hosseinian",
+   "year": 2007
+  },
+  "R119": {
+   "citation": "Horbowicz, M. and Babik, I. Sulforaphane and flavonoid contents in chosen broccoli cultivars.Veg.crops Res. Bull.200562127138",
+   "author": "horbowicz",
+   "year": 2005
+  },
+  "R118": {
+   "citation": "Holtekjølen, A. K., Kinitz, C., and Knutsen, S. H. Flavanol and bound phenolic acid contents in different barley varieties.J. Agric. Food Chem.20065422532260",
+   "author": "holtekjlen",
+   "year": 2006
+  },
+  "R117": {
+   "citation": "Hertog, M. G. L., Hollman, P. C. H., and Venema, D. P. Optimization of a quantitative HPLC determination of potentially anticarcinogenic flavonoids in vegetables and fruits.J. Agric. Food Chem.19924015911598",
+   "author": "hertog",
+   "year": 1992
+  },
+  "R116": {
+   "citation": "Hertog, M. G. L., Hollman, P. C. H., and Katan, M. B. Content of potentially anticarcinogenic flavonoids of 28 vegetables and fruits commonly consumed in The Netherlands.J. Agric. Food Chem.19924023792383",
+   "author": "hertog",
+   "year": 1992
+  },
+  "R114": {
+   "citation": "Herrera, M.C., and de Castro, M.D.L.Ultrasound-assisted extraction for the analysis of phenolic compounds in strawberries.Anal. Bioanal. Chem.20043797-811061112",
+   "author": "herrera",
+   "year": 2004
+  },
+  "R113": {
+   "citation": "Hempel, J., and Böhm, H. Quality and quantity of prevailing flavonoid glycosides of yellow and green french beans (Phaseolus vulgaris L.).J. Agric. Food Chem.19964421142116",
+   "author": "hempel",
+   "year": 1996
+  },
+  "R112": {
+   "citation": "Hayashi, H., Hirako, N., Ikeshiro, Y., and Yamamoto, H. Organ specific localization of flavonoids in Glycyrrhiza glabra L.Plant Sci.1996116233238",
+   "author": "hayashi",
+   "year": 1996
+  },
+  "R111": {
+   "citation": "Harnly, J. M., Doherty, R., Beecher, G. R., Holden, J. M., Haytowitz, D. B., and Bhagwat, S. Deternination of 20 prominent flavonoids (as aglycones) in oranges.Unpublished",
+   "author": "harnly",
+   "year": null
+  },
+  "R130": {
+   "citation": "Jakobek L., Šeruga, M., Medvidović-Kosanović, M., and Novak, I.Anthocyanin content and antioxidant activity of various red fruit juices.Deutsche Lebensmittel-Rundschau20071035864ŮŪŦŦŠŘĚ \u0002 ƿ R129Iversen, C.K. Black currant nectar: Effe",
+   "author": "jakobek",
+   "year": 2007
+  },
+  "R129": {
+   "citation": "Iversen, C.K. Black currant nectar: Effect of processing and storage on anthocyanin and ascorbic acid content.J. Food Sci.19996413741",
+   "author": "iversen",
+   "year": 1999
+  },
+  "R128": {
+   "citation": "Iurlina, M. O., Saiz, A. I., Fritz, R., and Manrique, G. D. Major flavonoids of Argentinian honeys. Optimization of the extraction method and analysis of their content in relationship to the geographical source of honeysFood Chemistry200911511411149",
+   "author": "iurlina",
+   "year": 2009
+  },
+  "R127": {
+   "citation": "Innocenti, M.,, Gallori, S., Giaccherini, C., Ieri, F., Vincieri. F. F., and Mulinacci, N. Evaluation of the phenolic content in the aerial parts of different varieties of Cichorium intybus L.J. Agric. Food Chem.20055364976502",
+   "author": "innocenti",
+   "year": 2005
+  },
+  "R125": {
+   "citation": "Inocencio, C., Rivera, D., Alcaraz, F., and Tomás-Barberán, F. A. Flavonoid content of commercial capers (Capparis spinosa, C. sicula and C. orientalis) produced in Mediterranean countries.Eur. Food Res. Technol20002127074",
+   "author": "inocencio",
+   "year": 2000
+  },
+  "R124": {
+   "citation": "Huber, L. S., Hoffman-Ribani, R., and Rodriguez-Amaya, D. B. Quantitative variation in Brazilian vegetable sources of flavonols and flavones.Food Chemistry200911312781282",
+   "author": "huber",
+   "year": 2009
+  },
+  "R123": {
+   "citation": "Huang, Z., Wang, B., Eaves, D. H., Shikany, J. M., and Pace, R. D.Phenolic compound profile of selected vegetables frequently consumed by African Americans in the southeast United States.Food Chemistry200710313951402",
+   "author": "huang",
+   "year": 2007
+  },
+  "R122": {
+   "citation": "Howard, L. R., Talcott, S. T., Brenes, C. H., and Villalon, B. Changes in phytochemical and antioxidant activity of selected pepper cultivars (Capsicum species) as influenced by maturityJ. Agric. Food Chem.20004817131720",
+   "author": "howard",
+   "year": 2000
+  },
+  "R140": {
+   "citation": "Kenjerić, Mandić, M. L., Primorac, L., Čačić, F. Flavonoid pattern of sage (Salvia officinalis L.) unifloral honey.Food Chemistry2008110187192",
+   "author": "kenjeri",
+   "year": 2008
+  },
+  "R139": {
+   "citation": "Kelebek, H., Canbas, A., and Selli, S.Determination of phenolic composition and antioxidant capacity of blood orange juices obtained from cvs. Moro and Sanguinello (Citrus sinensis (L.) Osbeck) grown in Turkey.Food Chemistry200810717101716",
+   "author": "kelebek",
+   "year": 2008
+  },
+  "R138": {
+   "citation": "Karadeniz, F., Durst, R. W., and Wrolstad, R. E. Polyphenolic composuition of raisins.J. Agric. Food Chem.20004853435350",
+   "author": "karadeniz",
+   "year": 2000
+  },
+  "R137": {
+   "citation": "Kahkonen, M.P., Heinamaki, J., Ollilainen, V., and Heinonen, M. Berry anthocyanins: Isolation, identification, and antioxidant activities.J. Sci. Food Agric.20038314031411",
+   "author": "kahkonen",
+   "year": 2003
+  },
+  "R136": {
+   "citation": "Kachouri, F., and Hamdi, M.Use Lactobacillus planatrum in olive oil process and improvement of phenolic compounds content.J. Food Engineering200677746752",
+   "author": "kachouri",
+   "year": 2006
+  },
+  "R135": {
+   "citation": "Kaack, K., and Austed, T.Interaction of vitamin C and flavonoids in elderberry (Sambucus nigra L.) during juice processing.Plant Foods Hum. Nutr.199852187198",
+   "author": "kaack",
+   "year": 1998
+  },
+  "R134": {
+   "citation": "Justesen, U., Knuthsen, P., and Leth, T.Quantitative analysis of flavonols, flavones, and flavonones in fruits, vegetables and beverages by high-performance liquid chromatography with photo-diode array and mass spectrometric detection.J. Chromatogr. A1998799101110",
+   "author": "justesen",
+   "year": 1998
+  },
+  "R133": {
+   "citation": "Justesen, U., and Knuthsen, P. Composition of flavonoids in fresh herbs and calculation of flavonoid intake by use of herbs in traditional Danish dishes.Food Chem.200173245250",
+   "author": "justesen",
+   "year": 2001
+  },
+  "R132": {
+   "citation": "Joedheim, M., Måge, F., and Anderson, Ø. M.Anthocyanins in berries of Ribes including gooseberry cultivars with a high content of acylated pigments.J. Agric. Food Chem.20075555295535",
+   "author": "joedheim",
+   "year": 2007
+  },
+  "R131": {
+   "citation": "Jakobek L., Šeruga, M., Novak, I., and Medvidović-Kosanović, M.Flavonols, phenolic acids and antioxidant activity of some red fruits.Deutsche Lebensmittel-Rundschau2007103369378",
+   "author": "jakobek",
+   "year": 2007
+  },
+  "R151": {
+   "citation": "Kuti, J.O., Konuru, H.B.Antioxidant capacity and phenolic content in leaf extracts of tree spinach (Cnidoscolus spp.)J. Agric. Food Chem.200452117121",
+   "author": "kuti",
+   "year": 2004
+  },
+  "R150": {
+   "citation": "Kuti, J.O.Antioxidant compounds from four Opuntia cactus pear fruit varieties.Food ChemistryFood Chemistry200485527533",
+   "author": "kuti",
+   "year": 2004
+  },
+  "R149": {
+   "citation": "Kuhr, S., and Engelhardt, U. H.Determination of flavonols, theogallin, gallic acid and caffeine in tea using HPLC. Z Lebensm Unters Forsch1991192526529",
+   "author": "kuhr",
+   "year": 1991
+  },
+  "R148": {
+   "citation": "Kreft, S., Knapp, M., and Kreft, I. Extraction of rutin from buckwheat (Fagopyrum esculentum Moench) seeds and determination by capillary electrophoresis.J. Agric. Food Chem.19994746494652",
+   "author": "kreft",
+   "year": 1999
+  },
+  "R147": {
+   "citation": "Kreft, I., Fabjan,N., and Yasumoto, K.Rutin content in buckwheat (Fagopyrum esculentum Moench) food materials and productsFood Chemistry200698508512",
+   "author": "kreft",
+   "year": 2006
+  },
+  "R146": {
+   "citation": "Kosar, M., Kafkas, E., Paydas, S., and Base, H.C.Phenolic compositin of strawberry genotype at different maturation stages.J. Agric. Food. Chem20045215861589",
+   "author": "kosar",
+   "year": 2004
+  },
+  "R145": {
+   "citation": "Kirakosyan, A., Seymour, E. M., Urcuyo Llanes, D. E., Kaufman, P. B., and Bolling, S. F. Chemical profile and antioxidant capacities of tart cherry products.Food Chemistry20091152025",
+   "author": "kirakosyan",
+   "year": 2009
+  },
+  "R144": {
+   "citation": "Kim, D-O., Heo, H. J., Kim, Y. J., Yang, H. S., and Lee, C. Y. Sweet and sour cherry phenolics and their protective effects on neuronal cells.J. Agric. Food Chem.20055399219927",
+   "author": "kim",
+   "year": 2005
+  },
+  "R143": {
+   "citation": "Khokhar, S., Venema, D., Hollman, P.C.H., Dekker, M., and Jongen, W. A RP-HPLC method for the determination of tea catechinsCancer Letters1997114171172",
+   "author": "khokhar",
+   "year": 1997
+  },
+  "R142": {
+   "citation": "Khokhar, S. and Magnusdottir, S.G.M. Total phenol, catechin, and caffeine contents of teas commonly consumed in the United Kingdom.J. Agric. Food Chem.200250565570",
+   "author": "khokhar",
+   "year": 2002
+  },
+  "R141": {
+   "citation": "Kevers, C., Falkowski, M., Tabart, J., Defraigne, J-O., Dommes, J., and Pincemail, J. Evolution of antioxidant capacity during storage of selected fruits and vegetablesJ. Agric. Food Chem.20075585968603",
+   "author": "kevers",
+   "year": 2007
+  },
+  "R161": {
+   "citation": "Lee, Y., Howard, L. R., and Villalón, B.Flavonoids and antioxidant activity of fresh pepper (Capsicum annum) cultivars.J. Food Sci.199560473476",
+   "author": "lee",
+   "year": 1995
+  },
+  "R160": {
+   "citation": "Lee, B-L., and Ong, C-N. Comparative analysis of tea catechins and theaflavins by high-performance liquid chromatography and capillary electrophoresis.J. Chromatogr. A2000881439447",
+   "author": "lee",
+   "year": 2000
+  },
+  "R159": {
+   "citation": "Lee, J., Durst, R.W., and Wrolstad, R.E. Impact of juice processing on blueberry anthocyanins and polyphenolics: comparison of two pretreatments.J. Food Sci.200267516601667",
+   "author": "lee",
+   "year": 2002
+  },
+  "R158": {
+   "citation": "Lee, K.W., Kim, Y.J., Kim, D-O., Lee, H.J., and Lee, C.Y.Major phenolics in apple and their contribution to the total antioxidant capacityJ. Agric. Food Chem.20035165166520",
+   "author": "lee",
+   "year": 2003
+  },
+  "R157": {
+   "citation": "Lee, J., and Finn, C. E.Anthocyanins and other polyphenolics in Americanelderberry (Sambucus Canadensis) and European elderberry (S. nigra) cultivars.J. Sci. Food Agric.20078726652675",
+   "author": "lee",
+   "year": 2007
+  },
+  "R156": {
+   "citation": "Le, K., Chiu, F., and Ng, K.Identification and quantification of antioxidants in Fructus lycii.Food Chemistry2007105353363",
+   "author": "le",
+   "year": 2007
+  },
+  "R155": {
+   "citation": "Latti, A. K., Rihinen, K. R., and Kainulainen, P. S.Analysis of anthocyanin variation in wild populations of bilberry (Vaccinium myrtillus L.) in Finland.J. Agric. Food Chem.200856190196",
+   "author": "latti",
+   "year": 2008
+  },
+  "R154": {
+   "citation": "Lattanzio, V., and van Sumere, C.F. Changes in phenolic compounds during the development and cold storage of artichoke (Cynara scolymus L.) heads.Food Chemistry1987243750",
+   "author": "lattanzio",
+   "year": 1987
+  },
+  "R153": {
+   "citation": "Lamuela-Raventós, R. M., Andrés-Lacueva, Permanyer, J., and Izquierdo-Pulido, M.More antioxidants in cocoa.J. Nutr,2001131834",
+   "author": "lamuelaravents",
+   "year": 2001
+  },
+  "R152": {
+   "citation": "Lako, J., Trenerry, V. C., Wahlqvist, M., Wattanapenpaiboon, N., Sotheeswaran, S., Premier, R. Phytochemical flavonols, carotenoids and the antioxidant properties of a wide selection of Fijian fruit, vegetables and other readily available foods.Food Chemistry200710117271741",
+   "author": "lako",
+   "year": 2007
+  },
+  "R171": {
+   "citation": "Luo, X.-D., Basile, M.J., and Kennelly, E.J.Polyphenolic antioxidants from the fruits of Chrysophyllum cainito L. (Star Apple).J. Agric. Food Chem.200250613791382ŎņľļĸİĈb \u0002 ǿ R170Lugasi, A., and Hovari, J.Flavonoid aglycons in foods",
+   "author": "luo",
+   "year": 2002
+  },
+  "R170": {
+   "citation": "Lugasi, A., and Hovari, J.Flavonoid aglycons in foods of plant origin I. VegetablesActa Alimentaria200029345352",
+   "author": "lugasi",
+   "year": 2000
+  },
+  "R169": {
+   "citation": "Lugasi, A. and Hovari, J. Flavonoid aglycons in foods of plant origin II. Fresh and dried fruits.Acta Alimentaria20023116371",
+   "author": "lugasi",
+   "year": 2002
+  },
+  "R168": {
+   "citation": "Lopez, M., Martinez, F., Del Valle, C., Orte, C., and Miro, M.Analysis of phenolic constituents of biological interest in red wines by high-performance liquid chromatography.J. Chromat. A.2001922359363",
+   "author": "lopez",
+   "year": 2001
+  },
+  "R166": {
+   "citation": "Lombard, K., Peffley, E., Geoffriau, E., Thompson, L., and Herring, A.Quercetin in onion (Allium cepa L.) after heat-treatment simulating home preparation.J. Food Comp. Anal.200518571581",
+   "author": "lombard",
+   "year": 2005
+  },
+  "R165": {
+   "citation": "Lin J-K., Lin, C-L., Liang, Y-C., Lin-Shiau, S-Y., and Juan, I-M.Survey of catechins, gallic acid, and methylxanthines in green, oolong, pu-erh, and black teas.J. Agric. Food Chem.19984636353642",
+   "author": "lin",
+   "year": 1998
+  },
+  "R164": {
+   "citation": "Lin, L-Z., Mukhopadhayay, S., Robbins, R. J., and Harnly, J. M. Identification and quantification of flavonoids of Mexican oregano (Lippia graveolens) by LC-DAD-ESI/MS analysis.J. Food Comp. Anal.200720361369",
+   "author": "lin",
+   "year": 2007
+  },
+  "R163": {
+   "citation": "Lin, L-Z., Lu, S., and Harnly, J. M.Detection and quantification of glycosylated flavonoid malonates in celery, Chinese celery, and clery seed by LCDAD-ESI/MS.J. Agric. Food Chem.20075513211326",
+   "author": "lin",
+   "year": 2007
+  },
+  "R162": {
+   "citation": "Lichtenthäler, R., Rodrigues, R. B., Maia, J. G. S., Papagiannopoulos, M., Fabricius, H., and Marx, F.Total oxygen scavenging capacities of Euterpe oleracea Mart. (Açaí) fruits.Int. J. Food Sci. Nutr.2005565364",
+   "author": "lichtenthler",
+   "year": 2005
+  },
+  "R180": {
+   "citation": "McMurrough, I. and Madigan, D.Semipreparative chromatographic procedure for the isolation of dimeric and trimeric proanthocyanidins from barley.J. Agric. Food Chem.199644717311735",
+   "author": "mcmurrough",
+   "year": 1996
+  },
+  "R179": {
+   "citation": "Mattila, P., Astola, J., and Kumpulainen, J.Determination of flavonoids in plant material by HPLC with diode-array and electro-array detection.J. Agric. Food Chem.20004858345841",
+   "author": "mattila",
+   "year": 2000
+  },
+  "R178": {
+   "citation": "Martínez-Sánchez, A., Gil-Izquierdo, A., Gil, M. I., and Ferreres, F.A comparative study of flavonoid compounds, vitamin C, and antioxidant properties of baby leaf Brassicaceae species.J. Agric. Food Chem.20085623302340",
+   "author": "martnezsnchez",
+   "year": 2008
+  },
+  "R177": {
+   "citation": "Marotti, M. and Piccaglia, R.Characterization of flavonoids in different cultivars of onion (Allium cepa L.).J. Food Sci.200267312291232",
+   "author": "marotti",
+   "year": 2002
+  },
+  "R176": {
+   "citation": "Marini, D., and Balestrieri, F.Multivariate analysis of flavanone glycosides in citrus juices.Ital. J. Food sci.19953255264",
+   "author": "marini",
+   "year": 1995
+  },
+  "R175": {
+   "citation": "Marin, F.R., Martinez, M., Uribesalgo, T., Castillo, S., and Frutos, M.J.Changes in nutraceutical composition of lemon juices according to different industrial extraction systemsFood Chemistry2002783319324",
+   "author": "marin",
+   "year": 2002
+  },
+  "R174": {
+   "citation": "Makris, D.P. and Rossiter, J.T. Domestic processing of onion bulbs (Allium cepa) and asparagus spears (Asparagus officinalis): Effect on flavonol content and antioxidant statusJ. Agric. Food Chem.200149732163222",
+   "author": "makris",
+   "year": 2001
+  },
+  "R173": {
+   "citation": "Määttä, K.R., Kamal-Eldin, A., and Torronen, A.R. High-Performance liquid chromatography (HPLC) analysis of phenolic compounds in berries with diode array and electrospray ionization mass spectrometric (MS) detection: Ribes species.J. Agric. Food Chem.20035167366744",
+   "author": "mtt",
+   "year": 2003
+  },
+  "R172": {
+   "citation": "Määttä, K. R., Kamal-Eldin, A., and Torronen, A.R. Identification and classification of phenolic compounds in berries of Fragaria and Rubus species (family Rosaceae).J. Agric. Food Chem.20045261786187",
+   "author": "mtt",
+   "year": 2004
+  },
+  "R189": {
+   "citation": "Mullen, W., Marks, S., and Crozier, A.Evaluation of phenolic compounds in commercial fruit juices and fruit drinks.J. Agric. Food Chem.20075531483157ĴĬĤ",
+   "author": "mullen",
+   "year": 2007
+  },
+  "R187": {
+   "citation": "Mouly, P. P., Arzouyan, C. R., Gaydou, E. M., and Estienne, J. M. Differentiation of citrus juices by factorial discriminant analysis using liquid chromatography of flavanone glycosidesJ. Agric. Food Chem.1994427079",
+   "author": "mouly",
+   "year": 1994
+  },
+  "R186": {
+   "citation": "Mouly, P. P., Gaydou, E. M., Faure, R., and Estienne, J. M. Blood orange juice authentication using cinnamic acid derivatives. Variety differentiations associated with flavanone glycoside content.J. Agric. Food Chem.199745373377",
+   "author": "mouly",
+   "year": 1997
+  },
+  "R185": {
+   "citation": "Morelló, J-R., Romero, M-P., and Motilva, M-J.Effect of the maturation process of the olive fruit on the phenolic fraction of drupes and oils from Arbequina, Farga, and Morrut cultivars.. J. Agric. Food Chem.J. Agric. Food Chem.20045260026009",
+   "author": "morell",
+   "year": 2004
+  },
+  "R184": {
+   "citation": "Montefiori, M., McGhie, T. K., Costa, G., and Ferguson, A. R.Pigments in the fruit of red-fleshed kiwifruit (Actinidia chinensis and Actinidia deliciosa).J. Agric. Food Chem.20055395269530",
+   "author": "montefiori",
+   "year": 2005
+  },
+  "R183": {
+   "citation": "Milbury, P. E., Chen, C-Y., Dolinikowski, G. G. and Blumberg, J. B. Determination of flovonoids and phenolics and their distribution in almonds.J. Agric. Food Chem.20065450275033",
+   "author": "milbury",
+   "year": 2006
+  },
+  "R182": {
+   "citation": "Mikkonen, T., Määttä, K.R., Hukkanen, A. T., Kokko, H. I., Törrönen, T., Kärenlampi, S. O., and Karjalainen, R. O. Flavonol content varies among black currant cultivars.J. Agric. Food Chem.20014932743277",
+   "author": "mikkonen",
+   "year": 2001
+  },
+  "R181": {
+   "citation": "Mertz, C., Cheynier, V., Günata, Z., and Brat, P.Analysis of phenolic compounds in two blackberry species (Rubus glaucus and Rubus adenotrichus) by high-oerformance liquid chromatography with diode array detection and electrospray ion trap mass spectrometry.J. Agric. Food Chem.20075586168624",
+   "author": "mertz",
+   "year": 2007
+  },
+  "R197": {
+   "citation": "Olsen, H., Aaby, K., and Borge, G. I.Characterization and quantification of flavonoids and hydroxycinnamic acids in culry kale (Brassica oleracea L. convar. Acephala var. sabellica) by HPLC-DAD-ESI-MS.J. Agric. Food Chem.20095728162825",
+   "author": "olsen",
+   "year": 2009
+  },
+  "R196": {
+   "citation": "Ollanketo, M., and Riekkola, M-L.Column-switching technique for selective determination of flavonoids in Finnish berry wines by high-performance liquid chromatography with diode array detection.J. Liq. Chrom. & Rel. Technol.20002313391351",
+   "author": "ollanketo",
+   "year": 2000
+  },
+  "R195": {
+   "citation": "Nyman, N. A. and Kumpulainen, J. T.Determination of anthocyanins in berries and red wine by high-performance liquid chromatography.J. Agric. Food Chem.20014941834187",
+   "author": "nyman",
+   "year": 2001
+  },
+  "R194": {
+   "citation": "Nuutila, A.M., Kammiovirta, K., and Oksman-Caldentey, K.-M. Comparison of methods for the hydrolysis of flavonoids and phenolic acids from onion and spinach for HPLC analysis.Food Chem.2002764519525",
+   "author": "nuutila",
+   "year": 2002
+  },
+  "R193": {
+   "citation": "Nogata, Y., Ohta, H., Yoza, K-I., Berhow, M., and Hasegawa, S. High-performance liquid chromatographic determination of naturally occurring flavonoids in citrus with a photodiode-array detectorJ. Chromatogr. A19946675966",
+   "author": "nogata",
+   "year": 1994
+  },
+  "R192": {
+   "citation": "Nicolle, C., Carnat, A., Fraisse, D., Lamison, J-L., Rock, E., Michel, H., Amouroux, P., and Remesy, C. Characterization and variation of antioxidant micronutrients in lettuce (Lactuca sativa folium).J. Sci. Food Agric.20048420612069",
+   "author": "nicolle",
+   "year": 2004
+  },
+  "R191": {
+   "citation": "Netzel, M., Netzel, G., Tian, Q., Schwartz, S., and Konzak, I.Sources of antioxidant activity in Australian native fruits. Identification and quantification of anthocyanins.J. Agric. Food Chem.20065498209826",
+   "author": "netzel",
+   "year": 2006
+  },
+  "R190": {
+   "citation": "Mullen, W., Stewart, A.J., Lean, M.E.J., Gardner, P., Duthie, G.G., and Crozier, A.Effect of freezing and storage on the phenolics, ellagitannins, flavonoids, and antioxidant capacity of red raspberries.J. Agric. Food Chem.20025051975201",
+   "author": "mullen",
+   "year": 2002
+  },
+  "R206a": {
+   "citation": "Pei et alUnpublished data2015",
+   "author": "pei",
+   "year": 2015
+  },
+  "R206": {
+   "citation": "Patil, B. S., Pike, L. M., and Yoo, K. S.Variation in the quercetin content in different colored onions (Allium cepa L.).J. Amer. Soc. Hort. Sci.1995120909913",
+   "author": "patil",
+   "year": 1995
+  },
+  "R205": {
+   "citation": "Patil, B. S., Pike, L. M., and Hamilton, B. K. Changes in quercetin concentration in onion (Allium cepa L.) owing to location, growth stage and soil type.New Phytol.1995130340355",
+   "author": "patil",
+   "year": 1995
+  },
+  "R204": {
+   "citation": "Papagiannopoulos, M., Wollseifen, H.R., Mellenthin, A., Haber, B., and Galensa, R. Identification and quantification of polyphenols in carob fruits (Ceratonia siliqua L.) and derived products by HPLC-UV-ESI/MSn.J. Agric. Food Chem.20045237843791",
+   "author": "papagiannopoulos",
+   "year": 2004
+  },
+  "R203": {
+   "citation": "Pallau, K., Rivas-Gonzalo, J. C., del Castillo, M. D., Cano, M. P., and de Pascual-Tertesa, S.Characterization of the antioxidant composition of strawberry tree (Arbutus unedo L.) fruits.J. Food Comp. Anal.200821273281",
+   "author": "pallau",
+   "year": 2008
+  },
+  "R202": {
+   "citation": "Palimino, O., Gómez_Serranillos, M. P., Carretero, S. E., and Villar, A. Study of polyphenols in grape berries by reversed-phase high-performance liquid chromatography.J. Chromatogr. A2000870449451",
+   "author": "palimino",
+   "year": 2000
+  },
+  "R201": {
+   "citation": "Ozga, J. A., Saeed, A., Wismer, W., and Reinecke, D. M.Characterization of cyaniding- and quercetin-derived flovonoids and other phenolcs in mature Saskatoon fruits (Amelanchier alnifolia Nutt.).J. Agric. Food Chem.2007551041410424",
+   "author": "ozga",
+   "year": 2007
+  },
+  "R200": {
+   "citation": "Oszmianski, J., and Lee, C. Y. Isolation and HPLC determination of phenolic compounds in red grapes.Am. J. Enol. Vitic.199041204206",
+   "author": "oszmianski",
+   "year": 1990
+  },
+  "R199": {
+   "citation": "Oomah, D. B., and Mazza, G.Flavonoids and antioxidative activities in buckwheat.J. Agric. Food Chem.19964417461750",
+   "author": "oomah",
+   "year": 1996
+  },
+  "R198": {
+   "citation": "Ooghe, W. C., and Detavernier, C. M.Detection of the addition of citrus reticulata and hybrids to citrus sinensis by flavonoids.J. Agric. Food Chem.19974516331637",
+   "author": "ooghe",
+   "year": 1997
+  },
+  "R214": {
+   "citation": "Price, K. R., Colquhoun, I. J., Barnes, K. A., and Rhodes, M. J. C. Composition and content of flavonol glycosides in green beans and their fate during processing.J. Agric. Food Chem.19984648984903",
+   "author": "price",
+   "year": 1998
+  },
+  "R213": {
+   "citation": "Price, K. R., Casuscelli, F., Colquhoun, I. J., and Rhodes, M. J. C. Composition and content of flavonol glycosides in broccoli florets (Brassica oleracea) and their fate during cooking.J. Sci. Food Agric.199877468472",
+   "author": "price",
+   "year": 1998
+  },
+  "R212": {
+   "citation": "Price, K. R., Prosser, T., Richetin, A. M. F., and Rhodes, M. J. C.A comparison of the flavonol content and composition of dessert, cooking and cider-making apples; distribution within the fruit and effect of juicing.Food Chem.199966489494",
+   "author": "price",
+   "year": 1999
+  },
+  "R211": {
+   "citation": "Pour Nikfardjam, M. S., Márk, L., Avar, P., Figler, M., and Ohmacht, R. Polyphenols, anthocyanins, and trans-resveratrol in red wines from the Hungarian villainy region.Food Chemistry200698453462",
+   "author": "pour",
+   "year": 2006
+  },
+  "R210": {
+   "citation": "Pinto, M. D. S., Lajolo, F. M., and Genovese, M. I.Bioactive compounds and quantification of total ellagic acid in strawberries (Fragaria x ananasa Duch.).Food Chemistry200810716291635",
+   "author": "pinto",
+   "year": 2008
+  },
+  "R209": {
+   "citation": "Pinto, M. D. S., Lajolo, F. M., and Genovese, M. I.Bioactive compounds and antioxidant capacity of strawberry jam.Foods Hum Nutr200762127131",
+   "author": "pinto",
+   "year": 2007
+  },
+  "R208": {
+   "citation": "Pellegrini, N., Chiavaro, E., Gardana, C., Mazzeo, T., Contino, D., Gallo, M., Riso, P., Fogliano, V., and Porrini, M. Effect of different cooking methods on color, phytochemical concentration, and antioxidant capacity of raw and frozen Brassica vegetables.J. Agric. Food Chem.20105843104321",
+   "author": "pellegrini",
+   "year": 2010
+  },
+  "R207": {
+   "citation": "Pérez-Gregorio, R. M., Garćia-Falćon, M. S., Simal-Gándara, J., Rodrigues, A. S., and Almeida, D. P. F.Identification and quantification of flavonoids in traditional cultivars of red and white onions at harvest.J. Food Comp. Anal.201023592598",
+   "author": "prezgregorio",
+   "year": 2010
+  },
+  "R223": {
+   "citation": "Quettier-Eleu, C., Gressier, B., Vasseur, J., Dine, T., Brunet, C., Luyckx, M., Cazin M., Cazin, J-C., Bailleul, F., and Trotin, F. Phenolic compounds and antioxidant activities of buckwheat (Fagoppyrum esculentum Moench) hulls and flour.J. Ethnopharmacol.2000723542",
+   "author": "quettiereleu",
+   "year": 2000
+  },
+  "R222": {
+   "citation": "Pyo, Y-H., Lee, T-C., Logendra, L., and Rosen, R.T. Antioxidant activity and phenolic compounds of Swiss chard (Beta vulgaris subspecies cycla) extracts.Food Chemistry2004851926",
+   "author": "pyo",
+   "year": 2004
+  },
+  "R221": {
+   "citation": "Puupponen-Pimia, R., Hokkinen, S.T., Aarni, M., Suortti, T., Lampi, A-M., Eurola, M., Piironen, V., Nuutila, A M., and Oksman-Caldentey, K-M.Blanching and long-term freezing affect various bioactive compounds of vegetables in different ways.J. Sci. Food Agric.20038313891402",
+   "author": "puupponenpimia",
+   "year": 2003
+  },
+  "R220": {
+   "citation": "Pupin A. M., Dennis, M. J., and Toledo, M. C. F. Flavanone glycosides in Brazilian orange juice.Food Chem.199861275280",
+   "author": "pupin",
+   "year": 1998
+  },
+  "R219": {
+   "citation": "Proteggente, A.R., Saija, A., De Pasquale, A., and Rice-Evans, C.A. The compositional characterisation and antioxidant activity of fresh juices from Sicilian sweet orange (Citrus sinensis L. Osbeck) varietiesFree Radical Research2003376681687",
+   "author": "proteggente",
+   "year": 2003
+  },
+  "R218": {
+   "citation": "Price, W. E. And Spitzer, J. C. Variations in the amount of individual flavanols in a range of green teas.Food Chem.199347271276",
+   "author": "price",
+   "year": 1993
+  },
+  "R217": {
+   "citation": "Price, K. R., Bacon, J. R., and Rhodes, M. J. C. Effect of storage and domestic processing on the content and composition of flavonol glucosides in onion (Allium cepa).J. Agric. Food Chem.199745938942",
+   "author": "price",
+   "year": 1997
+  },
+  "R216": {
+   "citation": "Price, K. R., and Rhodes, M. J. C. Analysis of the major flavonol glycosides present in four varieties of onion (Allium cepa) and changes in composition resulting from autolysis.J. Sci. Food Agric.199774331339",
+   "author": "price",
+   "year": 1997
+  },
+  "R215": {
+   "citation": "Price, K. R., Rhodes, M. J. C., and Barnes, K. A. Flavonol glycoside content and composition of tea infusions made from commercially available teas and tea products.J. Agric. Food Chem.19984625172522",
+   "author": "price",
+   "year": 1998
+  },
+  "R232": {
+   "citation": "Rodríguez-Delgado, M. A., Malovaná, S., Pérez, J. P., and Borges, T. Separation of phenolic compounds by high-performance liquid chromatography with absorbance and fluorimetric detectionJ. Chromatogr. A2001912249257",
+   "author": "rodrguezdelgado",
+   "year": 2001
+  },
+  "R231": {
+   "citation": "Rodriguez-Delgado, M.-A., Gonzalez-Hernandez, G., Conde-Gonzalez, J.-E., and Perez-Trujillo, J.-P.Principal component analysis of the polyphenol content in young red wines.Food Chem.2002784523532",
+   "author": "rodriguezdelgado",
+   "year": 2002
+  },
+  "R230": {
+   "citation": "Ribani, H. F., Huber, L. S., and Ridriguez-Amaya, D. B.Flavonols in fresh and processed Brazilian fruits.J. Food Comp. Anal.200922263268",
+   "author": "ribani",
+   "year": 2009
+  },
+  "R229": {
+   "citation": "Revilla, E. Analysis of flavonol aglycones in wine extracts by high performance liquid chromatography.Chromatographia19862216",
+   "author": "revilla",
+   "year": 1986
+  },
+  "R228": {
+   "citation": "Revilla, E., Ryan, J-M., and Martin-Ortega, G.Comparison of several procedures used for the extraction of anthocyanins from red grapes.J. Agric. Food Chem.1998461145924597",
+   "author": "revilla",
+   "year": 1998
+  },
+  "R227": {
+   "citation": "Reto, M., Figueira, M. E., Filipe, H. M., and Almeida, C. M. M.Chemical composition of green tea (Camellia sinensis) infusions commercialized in Portugal.Plant Foods Hum Nutr.200762139144",
+   "author": "reto",
+   "year": 2007
+  },
+  "R225": {
+   "citation": "Rechner, A.R., Wagner, E., Van Buren, L., Van de Put, F., Wiseman, S., and Rice-Evans, C.A.Black tea represents a major source of dietary phenolics among regular tea drinkers.Free Radic. Res.2002361011271135",
+   "author": "rechner",
+   "year": 2002
+  },
+  "R224": {
+   "citation": "Raffo, A., Leonardi, C., Fogliano, V., Ambrosino, P., Salucci, M., Gennaro, L., Buglianesi, R., Giuffrida, F., and Quaglia, G. Nutritional value of cherry tomatoes (Lycopersicon esculentum Cv. Naomi F1) harvested at different ripening stages.J. Agric. Food Chem.2002502265506556",
+   "author": "raffo",
+   "year": 2002
+  },
+  "R241": {
+   "citation": "Sanchez-Moreno, C., Plaza, L., de Ancos, B., and Cano., M.P. Quantitative bioactive compounds assessment and their relative contribution to the antioxidant capacity of commercial orange juices.J. Sci. Food Agric.2003835430439",
+   "author": "sanchezmoreno",
+   "year": 2003
+  },
+  "R240": {
+   "citation": "San, B. and Yildirim, A. N.Phenolic, alpha-tocopherol, beta-carotene and fatty acid composition of four promising jujube (Zizipus jujube Miller) selectionsJ. Food Comp. Anal.201023706710",
+   "author": "san",
+   "year": 2010
+  },
+  "R239": {
+   "citation": "Sampson, L., Rimm, E., Hollman, P.C.H., de Vries, J.H.M., and Katan, M.B. Flavonol and flavone intakes in US health professionalsJ. Am. Diet. Assoc.20021021014141420",
+   "author": "sampson",
+   "year": 2002
+  },
+  "R238": {
+   "citation": "Sakakibara, H., Honda, Y., Nakagawa, S., Ashida, H., and Kanazawa, K. Simultaneous determination of all polyphenols in vegetables, fruits, and teasJ. Agric. Food Chem.2003513571581",
+   "author": "sakakibara",
+   "year": 2003
+  },
+  "R237": {
+   "citation": "Rouseff, R. L., Barros, S. M., Dougherty, M. H., and Martin, S. F.A survey of quality factors found in florida canned single-strength grapefruit juice from the 1977-78, 1978-79, and 1979-80 seasonsProc. Fla. State Hort. Soc.198093286289",
+   "author": "rouseff",
+   "year": 1980
+  },
+  "R236": {
+   "citation": "Rouseff, R. L. Liquid chromatographic determination of naringin and neohesperidin as a detector of grapefruit juice in orange juiceJ. Assoc. Off. Anal. Chem.198871798802",
+   "author": "rouseff",
+   "year": 1988
+  },
+  "R235": {
+   "citation": "Rusak, G., Komes, D., Likić, S., Horžić, D., and Kovač, M.Phenolic content and antioxidative capacity of green and white tea extracts depending on extraction conditions and the solvent used.Food Chemistry2008110852858",
+   "author": "rusak",
+   "year": 2008
+  },
+  "R234": {
+   "citation": "Romani, A., Vignolini, P., Galardi, C., Mulinacci, N., Benedettelli, s., and Heimler, D.Germplasm characterization of Zolfino Landraces (Phaseolus vulgaris L.) by flavonoid contentJ. Agric. Food Chem.20045238383842",
+   "author": "romani",
+   "year": 2004
+  },
+  "R233": {
+   "citation": "Rodríguez-Delgado, M. A., Pérez, M. L., Corbella, R., González, G., García Montelongo, F. J.Optimization of the separation of phenolic compounds by micellar electokinetic capillary chromatographyJ. Chromatogr. A200087142748",
+   "author": "rodrguezdelgado",
+   "year": 2000
+  },
+  "R250": {
+   "citation": "Shishikura, Y. and Khokar, S. Factors affecting the levels of catechins and caffeine in tea beverage: estimated daily intakes and antioxidant activity.J. Sci. Food Agric.20058521252133",
+   "author": "shishikura",
+   "year": 2005
+  },
+  "R249": {
+   "citation": "Shao, W. Powell, C., and Clifford, M. N. The analysis by HPLC of green, black and pu’er teas produced in Yunnan.J. Sci. Food Agric.199569535540",
+   "author": "shao",
+   "year": 1995
+  },
+  "R248": {
+   "citation": "Sellappan, s. and Akoh, C.Flavonoids and antioxidant capacity of Georgia-grown Vidalia onionsJ. Agric. Food Chem.20025053385342",
+   "author": "sellappan",
+   "year": 2002
+  },
+  "R247": {
+   "citation": "Sellappan, S., Akoh, C.C., and Krewer, G. Phenolic compounds and antioxidant capacity of Georgia-grown blueberries and blackberries.J. Agric. Food Chem.200250824322438",
+   "author": "sellappan",
+   "year": 2002
+  },
+  "R246": {
+   "citation": "Schutz, K., Kammerer, D., Carle, R., and Schieber, A.Identification and quantification of caffeoylquinic acids and flavonoids from artichoke (Cynara scolymus L.) heads, juice and pomace by HPLC-DAD-ESI/MSnJ. Agric. Food Chem.20045240904096",
+   "author": "schutz",
+   "year": 2004
+  },
+  "R245": {
+   "citation": "Schieber, A., Keller, P., Carle, R. Determination of phenolic acids and flavonoids of apple and pear by high-performance liquid chromatographyJ. Chromatogr. A2001910265273",
+   "author": "schieber",
+   "year": 2001
+  },
+  "R244": {
+   "citation": "Schauss, A. G., Wu, X., Prior, R. L., Ou, B., Patel, D., Huang, D., and Kababick, J. P. Phytochemical and nutrient composition of the freeze-dried Amazonian palm berry, Euterpe oleracea Mart. (Acai).J. Agric. Food Chem.20065485988603",
+   "author": "schauss",
+   "year": 2006
+  },
+  "R243": {
+   "citation": "Sanchez-Moreno, C., Cao, G., Ou, B., and Prior, R.L. Anthocyanin and proanthocyanin content in selected white and red wines. Oxygen radical absorbance capacity comparison with nontraditional wines obtained from highbush blueberry.J. Agric. Food Chem.20035148894896",
+   "author": "sanchezmoreno",
+   "year": 2003
+  },
+  "R242": {
+   "citation": "Sanchez-Moreno, C., Plaza, L., de Ancos, B., and Cano., M.P. Effect of high-pressure processing on health-promoting attributes of freshly squeezed orange juice (Citrus sinensis L.) during chilled storage.Eur. Food Res. Technol.20032161822",
+   "author": "sanchezmoreno",
+   "year": 2003
+  },
+  "R260": {
+   "citation": "Stewart, A. J., Bozonnet, S., Mullen, W., Jenkins, G., Lean, M. E. J., and Crozier, A.Occurrence of flavonols in tomatoes and tomato-based procucts.J. Agric. Food Chem.20004826632669",
+   "author": "stewart",
+   "year": 2000
+  },
+  "R259": {
+   "citation": "Steinhaus, B., and Engelhardt, U. H. Theaflavins in black tea.Z Lebensm Unters Forsch1989188509511",
+   "author": "steinhaus",
+   "year": 1989
+  },
+  "R258": {
+   "citation": "Steadman, K. J., Burgoon, M.S., Lewis, B.A., Edwardson, S., and Obendorf, R.L. Minerals, phytic acid, tannin and rutin in buckwheat seed milling fractions.J. Sci. Food Agric.20018110941100",
+   "author": "steadman",
+   "year": 2001
+  },
+  "R257": {
+   "citation": "Spanos, G.A., Wrolstad, R.E., and Heatherbell, D.A. Influence of processing and storage on the phenolic composition of apple juice.J. Agric. Food Chem.199038715721579",
+   "author": "spanos",
+   "year": 1990
+  },
+  "R256": {
+   "citation": "Spanos, G.A. and Wrolstad, R.E. Influence of processing and storage on the phenolic composition of Thompson seedless grape juice.J. Agric. Food Chem.199038715651571",
+   "author": "spanos",
+   "year": 1990
+  },
+  "R255": {
+   "citation": "Slimestad, R., Toskangerpoll, K., Nateland, H.S., Johannessen, T., and Giske, N.H.Flavonoids from black chokeberries, Aronia melanocarpa.J. Food Comp. Anal2005186168",
+   "author": "slimestad",
+   "year": 2005
+  },
+  "R254": {
+   "citation": "Slimestad, R., Vangdal, E., and Brede, C. Analysis of phenolic compounds in six Norwegian plum cultivars (Prunus domestica L.).J. Agric. Food Chem.2009571137011375",
+   "author": "slimestad",
+   "year": 2009
+  },
+  "R253": {
+   "citation": "Skegret, M. Kotnik, P., Hadolin, M., Hraš, A.R., Simonic, M., and Knez, Z. Phenols, proanthocyanidins, flavones, and flavonols in some plant materials and their antioxidant activities.Food Chemistry200589191198",
+   "author": "skegret",
+   "year": 2005
+  },
+  "R251": {
+   "citation": "Simonetti, P., Piétta, P., and Testolin, G. Polyphenol content and total antioxidant potential of selected Italian winesJ. Agric. Food Chem.19974511521155",
+   "author": "simonetti",
+   "year": 1997
+  },
+  "R269": {
+   "citation": "Tsanova-Savova, S., Ribarova, F., and Gerova, M. (+)-Catechin and (-)-Epicatechin in Bulgarian fruits.J. Food Comp. Anal.200518691698",
+   "author": "tsanovasavova",
+   "year": 2005
+  },
+  "R268": {
+   "citation": "Tsanova-Savova, S., and Ribarova, F. Free and conjugated myricetin, quercetin, and kaempferol in Bulgarian red wines.J. Food Comp. Anal200215639645",
+   "author": "tsanovasavova",
+   "year": 2002
+  },
+  "R267": {
+   "citation": "Trichopoulou, A., Vasilopoulou, E., Hollman, P., Chamalides, Ch., Foufa, E.,Kaloudis,Tr., Kromhout, D., Miskaki, Ph., Petrochilou, I., Poulima, E., Stafilakis, K., and Theophilou, D. Nutritional composition and flavonoid content of edible wild greens and green pies: a potential rich source of antioxidant nutrients in the Mediterranean diet.Food Chem.200070319323",
+   "author": "trichopoulou",
+   "year": 2000
+  },
+  "R266": {
+   "citation": "Toyoda, M., Tanaka, K., Hoshino, K., Akiyama, H., Tanimura, A., and Saito, Y.Profiles of potentially antiallergic flavonoids in 27 kinds of health tea and green tea infusions.J. Agric. Food Chem.1994525612564",
+   "author": "toyoda",
+   "year": 1994
+  },
+  "R265": {
+   "citation": "Tomás-Lorente, F., García-Viguera, C., Ferreres, F., and Tomás-Barberán, F. Phenolic compounds analysis in the determination of fruit jam genuineness.J. Agric. Food Chem.19924018001804",
+   "author": "tomslorente",
+   "year": 1992
+  },
+  "R264": {
+   "citation": "Tomas-Barberan, F.A., Gil, M.I., Cremin, P., Waterhouse, A.L., Hess-Pierce, B., and Kader, A.A. HPLC-DAD-ESIMS analysis of phenolic compounds in nectarines, peaches, and plums.J. Agric. Food Chem.20014947484760",
+   "author": "tomasbarberan",
+   "year": 2001
+  },
+  "R263": {
+   "citation": "Teissedre, P-L., and Landrault, N. Wine phenolics: contribution to dietary intake and bioavailability.Food Res. Int.200033461467",
+   "author": "teissedre",
+   "year": 2000
+  },
+  "R262": {
+   "citation": "Tarola, A. M., Milano, F., and Giannetti, V.Simultaneous determination of phenolic compounds in red wines by HPLC.Analytical Letters20074024332445",
+   "author": "tarola",
+   "year": 2007
+  },
+  "R261": {
+   "citation": "Suárez, B., Picinelli, A., Mangas, J. J. Solid-phase extraction and high-performance liquid chromatographic determination of polyphenols in apple musts and ciders.J. Chronmatogr. A1996727203209",
+   "author": "surez",
+   "year": 1996
+  },
+  "R278": {
+   "citation": "Vandercook, C. E., and Tisserat, B. Flavonoid changes in developing lemons grown in vivo and in vitro.Phytochemistry198928799803",
+   "author": "vandercook",
+   "year": 1989
+  },
+  "R277": {
+   "citation": "Vanamala, J., Reddivari, L., Yoo, K. S., Pike, L. M., and Patil, B. S.Variation in the content of bioactive flavonoids in different brands of orange and grapefruit juices.J. Food Comp. Anal.200619157166",
+   "author": "vanamala",
+   "year": 2006
+  },
+  "R276": {
+   "citation": "Valavanidis, A., Vlachogianni, T., Psomas, A., Zovoili, A., and Siatis, V. Polyphenolic profile and antioxidant activity of five apple cultivars grown under organic and conventional agricultural practices.Int. J. Food Sci. Technol.200914411671175",
+   "author": "valavanidis",
+   "year": 2009
+  },
+  "R275": {
+   "citation": "Valles, B.S., Santamaria Victorero, J., Mangas Alonso, J.J., and Blanco Gomis, D.High-performance liquid chromatography of the neutral phenolic compounds of low molecular weight in apple juice.J. Agric. Food Chem.19944227322736",
+   "author": "valles",
+   "year": 1994
+  },
+  "R274": {
+   "citation": "Usenik, V., Fabčič, J., and Štampar, F. Sugars, organic acids, phenolic composition and antioxidant activity of sweet cherry (Prunus avium L.).Food Chemistry2008107185192",
+   "author": "usenik",
+   "year": 2008
+  },
+  "R273": {
+   "citation": "Usenik, V., Štampar, F., and Veberič, R.Anthocyanins and fruit color in plums (Prunus domestica L.) during ripening.Food Chemistry2009114529534",
+   "author": "usenik",
+   "year": 2009
+  },
+  "R272": {
+   "citation": "Unilever Bestfoods, North America.Summary Flavonoid Content of Teas in the U.S. Market.Unpublished Data2002",
+   "author": "unilever",
+   "year": 2002
+  },
+  "R271": {
+   "citation": "Tsushida T., and Suzuki, M. Content of flavonol glucosides and some properties of enzymes metabolizing the glucosides in onion.J. Jap. Soc. Food Sci. Technol.199643642649",
+   "author": "tsushida",
+   "year": 1996
+  },
+  "R270": {
+   "citation": "Tsao, R., Yang, R., Young, J.C., and Zhu, H. T Polyphenolic profiles in eight apple cultivars using high-performance liquid chromatography (HPLC).J. Agric. Food Chem.20035163476353",
+   "author": "tsao",
+   "year": 2003
+  },
+  "R289": {
+   "citation": "Wang, S.Y., and Lin, H-S.Compost as a soil supplement increases the level of antioxidant compounds and oxygen radical absorbance capacity in strawberriesJ. Agric. Food Chem.20035168446850ƀŸŰŰŬŤļ< \u0002 ƿ R288Wang, M., Sim",
+   "author": "wang",
+   "year": 2003
+  },
+  "R288": {
+   "citation": "Wang, M., Simon, J.E., Aviles, I.F., He, K., Zheng, Q-Y., Tadmor, Y.Analysis of antioxidative phenolic compounds in artichoke (Cynara scolymus L.).J. Agric. Food Chem.200351601608",
+   "author": "wang",
+   "year": 2003
+  },
+  "R287": {
+   "citation": "Wang, S. Y., Chen, C., Sciarappa, W., Wang, C. Y., and Camp, M.Fruit quality, antioxidant capacity, and flavonoid content of organically grown and conventionally grown blueberries.J. Agric. Food Chem.20085657885794",
+   "author": "wang",
+   "year": 2008
+  },
+  "R286": {
+   "citation": "Wang, C. Y., Wang, S. Y., and Chen, C. Increasing antioxidant activity and reducing decay of blueberries by essential oils.J. Agric. Food Chem.20085635873592",
+   "author": "wang",
+   "year": 2008
+  },
+  "R284": {
+   "citation": "Vuorinen, H., Määttä, Törrönen, R. Content of the flavonols Myricetin, Quercetin, and Kaempferol in Finnish berry wines.J. Agric. Food Chem.20004826752680",
+   "author": "vuorinen",
+   "year": 2000
+  },
+  "R283": {
+   "citation": "Vrhovsek, U., Rigo, A., Tonon, D., and Mattivi, F. Quantitation of polyphenols in different apple varieties.J. Agric. Food Chem.20045265326538",
+   "author": "vrhovsek",
+   "year": 2004
+  },
+  "R282": {
+   "citation": "Velioglu, Y. S., Ekici, L., and Poyrazoglu, E. S. Phenolic composition of European cranberrybush (Viburnum opulus L.) berries and astringency removal of its commercial juice.Int. J. Food Sci. Technol.20064110111015",
+   "author": "velioglu",
+   "year": 2006
+  },
+  "R281": {
+   "citation": "Veberic, R., Colaric, M., and Stampar, F. Phenolic acids and flavonoids of fig fruit (Ficus carica L.) in the northern Mediterranean region.Food Chemistry2008106153157",
+   "author": "veberic",
+   "year": 2008
+  },
+  "R280": {
+   "citation": "Veberic, R., Jakopic, J., Stampar, F., and Schmitzer, V.European elderberry (Sambucus nigra L.) rich in sugars, organic acids, anthocyanins and selected polyphenols.Food Chemistry2009114511515",
+   "author": "veberic",
+   "year": 2009
+  },
+  "R298": {
+   "citation": "Yao, L., Jiang, Y., Singanusong, R., D’Arcy, B., Datta. N., Caffin, N., and Raymont, K. Flavonoids in Australian Melaleuca, Guia, Lophostemon, Banksia and Helianthus honeys and their potential for floral authentication.Food Res. Int.200437166174",
+   "author": "yao",
+   "year": 2004
+  },
+  "R297": {
+   "citation": "Yang, B., Halttunen, T., Raimo, O., Price, K., and Kallio, H.Flavonol glycosides in wild and cultivated berries of three major subspecies of Hippophaë rhamnosides and changes during harvesting period.Food Chemistry2009115657664",
+   "author": "yang",
+   "year": 2009
+  },
+  "R296": {
+   "citation": "Yamada, K., Naemura, A., Sawashita, N., Noguchi, Y., and Yamamoto, J. An onion variety has natural antithrombotic effect as assessed by thrombosis/thrombolysis models in rodents.Thrombosis Res.2004114213220",
+   "author": "yamada",
+   "year": 2004
+  },
+  "R295": {
+   "citation": "Wu, X., Gu, L., Prior, R. L., and McKay, S. Characterization of anthocyanins and proanthocyanidins in some cultivars of Ribes, Aronis, and Sambucus and their antioxidant capacityJ. Agric. Food Chem.20045278467856",
+   "author": "wu",
+   "year": 2004
+  },
+  "R294": {
+   "citation": "Wu, X., Beecher, G. R., Holden, J. M., Haytowitz, D. B., Gebhardt, S. E., and Prior, R. L.Concentrations of anthocyanins in common foods in the United States and estimation of normal consumption. J. Agric. Food Chem.20065440694075",
+   "author": "wu",
+   "year": 2006
+  },
+  "R293": {
+   "citation": "Will, F., Hilsendegen, P., Bonerz, D., Patz, C-D., and Dietrich, H.Analytical composition of fruit juices from different sour cherry cultivars.J. Appl. Bot. Food Qual.2005791216",
+   "author": "will",
+   "year": 2005
+  },
+  "R292": {
+   "citation": "Wang, H., Nair. M. G., Iezzoni, A. F., Strasburg, G. M., Booren, A. M., and Gray, I.Quantification and characterization of anthocyanins in Balaton tart cherries.J. Agric. Food Chem.19974525562560",
+   "author": "wang",
+   "year": 1997
+  },
+  "R291": {
+   "citation": "Wang, H. F., Helliwell, K. Determination of flavonols in green and black tea leaves and green tea infusions by high-performance liquid chromatography.Food Res. Int.200134223227",
+   "author": "wang",
+   "year": 2001
+  },
+  "R290": {
+   "citation": "Wang, S.Y., Zheng, W., and Galleta, G. Cultural system affects fruit quality and antioxidant capacity in strawberries.J. Agric. Food Chem.20025065346542",
+   "author": "wang",
+   "year": 2002
+  },
+  "R308": {
+   "citation": "Zheng, W. and Wang, S.Y. Antioxidant activity and phenolic compounds in selected herbs.J. Agric. Food Chem.2001491151655170",
+   "author": "zheng",
+   "year": 2001
+  },
+  "R307": {
+   "citation": "Zheng, W. and Wang, S.Y.Oxygen radical absorbing capacity of phenolics in blueberries, cranberries, chokeberries, and lingonberriesJ. Agric. Food Chem.200351502509",
+   "author": "zheng",
+   "year": 2003
+  },
+  "R306": {
+   "citation": "Zafrilla, P., Ferreres, F., and Tomas-Barberan, F.A.Effect of processing and storage on the antioxidant ellagic acid derivatives and flavonoids of red raspberry (Rubus idaeus) jamsJ. Agric. Food Chem20014983653655",
+   "author": "zafrilla",
+   "year": 2001
+  },
+  "R305": {
+   "citation": "Yousfi, K., Cert, R. M., and Garćia, J. M. Changes in quality and phenolic compounds of virgn olive oils during objectively described fruit maturationEur. Food Res. Technol.2006223117124",
+   "author": "yousfi",
+   "year": 2006
+  },
+  "R304": {
+   "citation": "Yusof, S., Ghazali, H. M., and King, G. S. Naringin content in local citrus fruits.Food Chem199037113121",
+   "author": "yusof",
+   "year": 1990
+  },
+  "R303": {
+   "citation": "Young, J. E., Zhao, X., Carey, E. E., Welti, R., Yang, S-S., and Wang, W. Phytochmical phenolics in organically grown vegetabesMol. Nutr. Food Res.20054911361142",
+   "author": "young",
+   "year": 2005
+  },
+  "R302": {
+   "citation": "You, Q., Wang, B., Chen, F., Huang, Z., Wang, X., and Luo, P. Comparison of anthocyanins and phenolics in organically and conventionally grown blueberries, in selected cultivarsFood Chemistry2011125201208",
+   "author": "you",
+   "year": 2011
+  },
+  "R301": {
+   "citation": "Yoo, K.M., Lee, K.W., Park, J.B., Lee, H.J., and Hwang, I.K.Variation in major antioxidants and total antioxidant activity of yuzu (Citrus junos Sieb ex Tanaka) during maturation and between cultivars.J. Agric. Food Chem20045259075913",
+   "author": "yoo",
+   "year": 2004
+  },
+  "R300": {
+   "citation": "Yilmaz, Y., and Toledo, R.T.Major flavonoids in grape seeds and skins: Antioxidant capacity of catechin, epicatechin, and gallic acidJ. Agric.Food Chem.200452255260",
+   "author": "yilmaz",
+   "year": 2004
+  },
+  "R299": {
+   "citation": "Yao, L., Jiang, Y., D’Arcy, B., Singanusong, R., Datta. N., Caffin, N., and Raymont, K. Quantitative high-performance liquid chromatography analyses of flavonoids in Australian Eucalyptus honeys.J. Agric. Food Chem.200452210214",
+   "author": "yao",
+   "year": 2004
+  },
+  "R285": {
+   "citation": "Wang, S. Y., Chen, H., Camp, M. J., and Ehlenfeldt, M. K.Flavonoid constituents and their contribution to antioxidant activity in cultivars and hybrids of rabbiteye blueberry (Vaccinium ashei Reade). Food Chemistry2012132855864",
+   "author": "wang",
+   "year": 2012
+  },
+  "R188": {
+   "citation": "Mouly, P., Gaydou, E. M., and Estienne, J.Column liquid chromatographic determination of flavanone glycosides in Citrus.J. Chromatogr.1993634129134",
+   "author": "mouly",
+   "year": 1993
+  },
+  "R167": {
+   "citation": "Lombardi-Boccia, G., Lucarini, M., Lanzi,S., Agizzi, A., and Cappelloni, M. Nutrients and antioxidant molecules in yellow plums (Prunus domestica L.) from conventional and organic productions: a comparative study.J. Agric. Food Chem.2004529094",
+   "author": "lombardiboccia",
+   "year": 2004
+  },
+  "R126": {
+   "citation": "Innocenti, M., Michelozzi, M., Giaccherini, C., Ieri, F., Vincieri. F. F., and Mulinacci, N.Flavonoids and bioflavonoids in Tuscan berries of Juniperus communis L.: detection and quantitation by HPLC/DAD/ESI/MS.J. Agric. Food Chem.20075565966602",
+   "author": "innocenti",
+   "year": 2007
+  },
+  "R115": {
+   "citation": "Hertog, M. G. L., Hollman, P. C. H., and van de Putte, B. Content of potentially anticarcinogenic flavonoids of tea infusions, wines, and fruit juices.J. Agric. Food Chem.19934112421246",
+   "author": "hertog",
+   "year": 1993
+  },
+  "R095": {
+   "citation": "Gennaro, L., Leonardi, C., Esposito, F., Salucci, M., Maiani, G., Quaglia, G., and Fogliano, V. Flavonoid and carbohydrate contents in tropea red onions: Effects of homelike peeling and storage.J. Agric. Food Chem.20025019041910",
+   "author": "gennaro",
+   "year": 2002
+  },
+  "R039": {
+   "citation": "Carmona, M., Sánchez, A. M., Ferreres, F., Zalacain, A., Tomas-Barberán, F. A., and Alonso, G. L.Identification of the flavonoid fraction in saffron spice by LC/DAD/MS/MS: Comparative study of samples from different geographical origins.Food Chemistry2007100445450",
+   "author": "carmona",
+   "year": 2007
+  }
+ },
+ "references_unrecovered": [
+  "R053",
+  "R054",
+  "R055",
+  "R056",
+  "R058",
+  "R059",
+  "R060",
+  "R226",
+  "R252",
+  "R279"
+ ],
+ "by_ndb": {
+  "11001": [
+   "R239"
+  ],
+  "11004": [
+   "R152"
+  ],
+  "11006": [
+   "R152"
+  ],
+  "11007": [
+   "R083",
+   "R154",
+   "R246",
+   "R288"
+  ],
+  "11011": [
+   "R077",
+   "R087",
+   "R141",
+   "R174",
+   "R238"
+  ],
+  "11012": [
+   "R077",
+   "R174"
+  ],
+  "11025": [
+   "R152"
+  ],
+  "11031": [
+   "R123"
+  ],
+  "11043": [
+   "R012"
+  ],
+  "11052": [
+   "R007",
+   "R012",
+   "R015",
+   "R058",
+   "R085",
+   "R113",
+   "R116",
+   "R134",
+   "R141",
+   "R214"
+  ],
+  "11053": [
+   "R007",
+   "R085",
+   "R152"
+  ],
+  "11056": [
+   "R116",
+   "R214"
+  ],
+  "11060": [
+   "R076"
+  ],
+  "11061": [
+   "R076"
+  ],
+  "11080": [
+   "R015",
+   "R116",
+   "R170"
+  ],
+  "11088": [
+   "R015",
+   "R058",
+   "R116"
+  ],
+  "11089": [
+   "R015"
+  ],
+  "11090": [
+   "R012",
+   "R015",
+   "R018",
+   "R085",
+   "R099",
+   "R110",
+   "R116",
+   "R119",
+   "R134",
+   "R141",
+   "R170",
+   "R179",
+   "R213",
+   "R238"
+  ],
+  "11091": [
+   "R110",
+   "R208",
+   "R213"
+  ],
+  "11092": [
+   "R221"
+  ],
+  "11096": [
+   "R110"
+  ],
+  "11097": [
+   "R110"
+  ],
+  "11098": [
+   "R015",
+   "R116",
+   "R134",
+   "R170",
+   "R208"
+  ],
+  "11099": [
+   "R208"
+  ],
+  "11109": [
+   "R012",
+   "R018",
+   "R046",
+   "R047",
+   "R116",
+   "R134",
+   "R170",
+   "R221",
+   "R238"
+  ],
+  "11110": [
+   "R085"
+  ],
+  "11112": [
+   "R015",
+   "R026",
+   "R046",
+   "R047",
+   "R085",
+   "R116",
+   "R170",
+   "R294"
+  ],
+  "11113": [
+   "R043"
+  ],
+  "11114": [
+   "R047"
+  ],
+  "11115": [
+   "R152"
+  ],
+  "11116": [
+   "R015",
+   "R018",
+   "R046",
+   "R085",
+   "R170",
+   "R238",
+   "R303"
+  ],
+  "11117": [
+   "R085",
+   "R152"
+  ],
+  "11119": [
+   "R085"
+  ],
+  "11124": [
+   "R012",
+   "R015",
+   "R018",
+   "R058",
+   "R116",
+   "R141",
+   "R152",
+   "R170"
+  ],
+  "11125": [
+   "R152"
+  ],
+  "11128": [
+   "R116"
+  ],
+  "11135": [
+   "R015",
+   "R018",
+   "R116",
+   "R170",
+   "R208",
+   "R221"
+  ],
+  "11136": [
+   "R208"
+  ],
+  "11137": [
+   "R208",
+   "R221"
+  ],
+  "11138": [
+   "R208"
+  ],
+  "11141": [
+   "R170"
+  ],
+  "11143": [
+   "R050",
+   "R051",
+   "R110",
+   "R117",
+   "R134",
+   "R141",
+   "R163",
+   "R238"
+  ],
+  "11147": [
+   "R222"
+  ],
+  "11152": [
+   "R011",
+   "R015",
+   "R116",
+   "R127"
+  ],
+  "11156": [
+   "R026",
+   "R133",
+   "R267"
+  ],
+  "11161": [
+   "R123",
+   "R303"
+  ],
+  "11165": [
+   "R133",
+   "R238"
+  ],
+  "11167": [
+   "R015"
+  ],
+  "11191": [
+   "R123"
+  ],
+  "11200": [
+   "R085"
+  ],
+  "11203": [
+   "R133"
+  ],
+  "11204": [
+   "R152"
+  ],
+  "11205": [
+   "R012",
+   "R015",
+   "R046",
+   "R116",
+   "R141",
+   "R152",
+   "R170"
+  ],
+  "11209": [
+   "R012",
+   "R058",
+   "R123",
+   "R294"
+  ],
+  "11213": [
+   "R015",
+   "R072",
+   "R116",
+   "R117"
+  ],
+  "11215": [
+   "R141"
+  ],
+  "11220": [
+   "R046"
+  ],
+  "11222": [
+   "R152"
+  ],
+  "11233": [
+   "R026",
+   "R116",
+   "R123",
+   "R124",
+   "R134",
+   "R170",
+   "R197"
+  ],
+  "11241": [
+   "R170"
+  ],
+  "11246": [
+   "R015",
+   "R026",
+   "R116",
+   "R117",
+   "R134",
+   "R141",
+   "R170"
+  ],
+  "11250": [
+   "R026",
+   "R110",
+   "R192"
+  ],
+  "11251": [
+   "R072",
+   "R110",
+   "R303"
+  ],
+  "11252": [
+   "R015",
+   "R026",
+   "R051",
+   "R072",
+   "R085",
+   "R110",
+   "R116",
+   "R117",
+   "R170"
+  ],
+  "11253": [
+   "R011",
+   "R012",
+   "R018",
+   "R026",
+   "R046",
+   "R051",
+   "R072",
+   "R110",
+   "R124",
+   "R141",
+   "R152",
+   "R192"
+  ],
+  "11254": [
+   "R012"
+  ],
+  "11257": [
+   "R011",
+   "R072",
+   "R110",
+   "R192",
+   "R294",
+   "R303"
+  ],
+  "11260": [
+   "R015",
+   "R116"
+  ],
+  "11264": [
+   "R116"
+  ],
+  "11270": [
+   "R123"
+  ],
+  "11276": [
+   "R124"
+  ],
+  "11278": [
+   "R123",
+   "R238"
+  ],
+  "11282": [
+   "R012",
+   "R015",
+   "R027",
+   "R058",
+   "R076",
+   "R085",
+   "R116",
+   "R117",
+   "R134",
+   "R141",
+   "R166",
+   "R170",
+   "R174",
+   "R177",
+   "R179",
+   "R205",
+   "R206",
+   "R239",
+   "R271",
+   "R296"
+  ],
+  "11283": [
+   "R076",
+   "R174"
+  ],
+  "11291": [
+   "R134",
+   "R152",
+   "R170"
+  ],
+  "11292": [
+   "R085",
+   "R123"
+  ],
+  "11293": [
+   "R238"
+  ],
+  "11294": [
+   "R027",
+   "R085",
+   "R110",
+   "R206",
+   "R239",
+   "R248"
+  ],
+  "11297": [
+   "R012",
+   "R124",
+   "R133",
+   "R134",
+   "R170",
+   "R238"
+  ],
+  "11298": [
+   "R170"
+  ],
+  "11300": [
+   "R015"
+  ],
+  "11304": [
+   "R058",
+   "R116",
+   "R238"
+  ],
+  "11308": [
+   "R015",
+   "R116"
+  ],
+  "11312": [
+   "R076"
+  ],
+  "11313": [
+   "R076",
+   "R085"
+  ],
+  "11333": [
+   "R011",
+   "R012",
+   "R058",
+   "R134",
+   "R141",
+   "R170",
+   "R238",
+   "R239"
+  ],
+  "11352": [
+   "R012",
+   "R015",
+   "R046",
+   "R110",
+   "R221"
+  ],
+  "11354": [
+   "R110"
+  ],
+  "11355": [
+   "R110"
+  ],
+  "11356": [
+   "R110"
+  ],
+  "11357": [
+   "R110"
+  ],
+  "11358": [
+   "R110"
+  ],
+  "11422": [
+   "R152",
+   "R169"
+  ],
+  "11427": [
+   "R116",
+   "R123"
+  ],
+  "11429": [
+   "R026",
+   "R110",
+   "R116",
+   "R170",
+   "R294"
+  ],
+  "11430": [
+   "R012"
+  ],
+  "11435": [
+   "R116",
+   "R123",
+   "R170"
+  ],
+  "11439": [
+   "R047",
+   "R116"
+  ],
+  "11450": [
+   "R012"
+  ],
+  "11457": [
+   "R012",
+   "R046",
+   "R085",
+   "R116",
+   "R141",
+   "R170",
+   "R194"
+  ],
+  "11463": [
+   "R116"
+  ],
+  "11477": [
+   "R007",
+   "R058"
+  ],
+  "11478": [
+   "R007"
+  ],
+  "11505": [
+   "R046",
+   "R085",
+   "R123",
+   "R152"
+  ],
+  "11506": [
+   "R152"
+  ],
+  "11507": [
+   "R085"
+  ],
+  "11510": [
+   "R152"
+  ],
+  "11518": [
+   "R238"
+  ],
+  "11519": [
+   "R152"
+  ],
+  "11520": [
+   "R085"
+  ],
+  "11521": [
+   "R085",
+   "R152"
+  ],
+  "11529": [
+   "R011",
+   "R012",
+   "R015",
+   "R018",
+   "R051",
+   "R058",
+   "R085",
+   "R110",
+   "R116",
+   "R134",
+   "R141",
+   "R152",
+   "R170",
+   "R238",
+   "R260"
+  ],
+  "11530": [
+   "R085",
+   "R110"
+  ],
+  "11531": [
+   "R085"
+  ],
+  "11547": [
+   "R260"
+  ],
+  "11568": [
+   "R116",
+   "R238"
+  ],
+  "11587": [
+   "R238"
+  ],
+  "11591": [
+   "R085",
+   "R133",
+   "R178"
+  ],
+  "11602": [
+   "R152"
+  ],
+  "11616": [
+   "R267"
+  ],
+  "11670": [
+   "R018",
+   "R161"
+  ],
+  "11676": [
+   "R238"
+  ],
+  "11696": [
+   "R260"
+  ],
+  "11722": [
+   "R113"
+  ],
+  "11724": [
+   "R152"
+  ],
+  "11821": [
+   "R011",
+   "R015",
+   "R058",
+   "R116",
+   "R134",
+   "R141"
+  ],
+  "11886": [
+   "R115",
+   "R189",
+   "R260"
+  ],
+  "11935": [
+   "R260"
+  ],
+  "11951": [
+   "R011",
+   "R122",
+   "R141"
+  ],
+  "11952": [
+   "R127"
+  ],
+  "11957": [
+   "R082"
+  ],
+  "11959": [
+   "R011",
+   "R124",
+   "R178"
+  ],
+  "11960": [
+   "R110"
+  ],
+  "11977": [
+   "R161"
+  ],
+  "11979": [
+   "R161"
+  ],
+  "12061": [
+   "R030",
+   "R110",
+   "R183"
+  ],
+  "12078": [
+   "R110"
+  ],
+  "12086": [
+   "R110"
+  ],
+  "12098": [
+   "R058"
+  ],
+  "12119": [
+   "R152"
+  ],
+  "12120": [
+   "R110"
+  ],
+  "12131": [
+   "R110"
+  ],
+  "12142": [
+   "R110"
+  ],
+  "12149": [
+   "R110"
+  ],
+  "12151": [
+   "R110",
+   "R294"
+  ],
+  "12155": [
+   "R110"
+  ],
+  "14003": [
+   "R001",
+   "R016",
+   "R049",
+   "R058",
+   "R115",
+   "R180",
+   "R226"
+  ],
+  "14057": [
+   "R211"
+  ],
+  "14096": [
+   "R001",
+   "R006",
+   "R016",
+   "R056",
+   "R058",
+   "R070",
+   "R071",
+   "R079",
+   "R080",
+   "R086",
+   "R090",
+   "R096",
+   "R100",
+   "R101",
+   "R102",
+   "R115",
+   "R134",
+   "R168",
+   "R179",
+   "R195",
+   "R211",
+   "R229",
+   "R231",
+   "R232",
+   "R233",
+   "R239",
+   "R243",
+   "R251",
+   "R262",
+   "R263",
+   "R268",
+   "R284"
+  ],
+  "14097": [
+   "R079",
+   "R080",
+   "R211"
+  ],
+  "14098": [
+   "R079"
+  ],
+  "14100": [
+   "R211"
+  ],
+  "14106": [
+   "R001",
+   "R006",
+   "R016",
+   "R023",
+   "R058",
+   "R071",
+   "R086",
+   "R115",
+   "R229",
+   "R232",
+   "R251",
+   "R263",
+   "R284"
+  ],
+  "14192": [
+   "R008",
+   "R031"
+  ],
+  "14194": [
+   "R058"
+  ],
+  "14209": [
+   "R016",
+   "R058",
+   "R115"
+  ],
+  "14242": [
+   "R044",
+   "R085",
+   "R189"
+  ],
+  "14352": [
+   "R239",
+   "R272"
+  ],
+  "14355": [
+   "R016",
+   "R034",
+   "R058",
+   "R064",
+   "R115",
+   "R134",
+   "R143",
+   "R149",
+   "R160",
+   "R179",
+   "R218",
+   "R225",
+   "R259",
+   "R272",
+   "R291"
+  ],
+  "14367": [
+   "R272"
+  ],
+  "16014": [
+   "R294"
+  ],
+  "16029": [
+   "R015"
+  ],
+  "16032": [
+   "R294"
+  ],
+  "16033": [
+   "R152"
+  ],
+  "16042": [
+   "R058",
+   "R075"
+  ],
+  "16049": [
+   "R058",
+   "R238"
+  ],
+  "16054": [
+   "R015",
+   "R116"
+  ],
+  "16055": [
+   "R204",
+   "R238"
+  ],
+  "16056": [
+   "R058"
+  ],
+  "16069": [
+   "R058"
+  ],
+  "16089": [
+   "R110"
+  ],
+  "16126": [
+   "R012"
+  ],
+  "18075": [
+   "R015"
+  ],
+  "19078": [
+   "R105"
+  ],
+  "19120": [
+   "R015",
+   "R058",
+   "R105"
+  ],
+  "19165": [
+   "R008",
+   "R105",
+   "R153"
+  ],
+  "19166": [
+   "R008",
+   "R105"
+  ],
+  "19719": [
+   "R015",
+   "R067",
+   "R265"
+  ],
+  "20004": [
+   "R118"
+  ],
+  "20008": [
+   "R147",
+   "R199"
+  ],
+  "20009": [
+   "R062",
+   "R147",
+   "R258"
+  ],
+  "20011": [
+   "R147",
+   "R148",
+   "R223",
+   "R258"
+  ],
+  "20045": [
+   "R015"
+  ],
+  "20100": [
+   "R015"
+  ],
+  "43201": [
+   "R032",
+   "R058"
+  ],
+  "97003": [
+   "R088",
+   "R300"
+  ],
+  "97005": [
+   "R058"
+  ],
+  "97007": [
+   "R058",
+   "R203"
+  ],
+  "97034": [
+   "R238"
+  ],
+  "97041": [
+   "R058"
+  ],
+  "97043": [
+   "R048",
+   "R085",
+   "R141",
+   "R169",
+   "R264"
+  ],
+  "97046": [
+   "R048",
+   "R167",
+   "R254",
+   "R264"
+  ],
+  "97049": [
+   "R264"
+  ],
+  "97054": [
+   "R264"
+  ],
+  "97068": [
+   "R110",
+   "R270"
+  ],
+  "97071": [
+   "R085",
+   "R110",
+   "R270"
+  ],
+  "97074": [
+   "R058",
+   "R085",
+   "R169",
+   "R200",
+   "R228",
+   "R294"
+  ],
+  "97077": [
+   "R085",
+   "R110",
+   "R294"
+  ],
+  "97085": [
+   "R092",
+   "R120",
+   "R294"
+  ],
+  "97088": [
+   "R012",
+   "R058"
+  ],
+  "99001": [
+   "R267"
+  ],
+  "99007": [
+   "R107",
+   "R129",
+   "R130"
+  ],
+  "99009": [
+   "R051"
+  ],
+  "99011": [
+   "R011",
+   "R051",
+   "R224",
+   "R260"
+  ],
+  "99012": [
+   "R109",
+   "R120",
+   "R131",
+   "R255",
+   "R295",
+   "R307"
+  ],
+  "99014": [
+   "R267"
+  ],
+  "99016": [
+   "R267"
+  ],
+  "99019": [
+   "R267"
+  ],
+  "99021": [
+   "R107",
+   "R109",
+   "R134",
+   "R137",
+   "R179",
+   "R307"
+  ],
+  "99022": [
+   "R015"
+  ],
+  "99027": [
+   "R265"
+  ],
+  "99029": [
+   "R015"
+  ],
+  "99031": [
+   "R265"
+  ],
+  "99032": [
+   "R267"
+  ],
+  "99035": [
+   "R128",
+   "R140",
+   "R298",
+   "R299"
+  ],
+  "99037": [
+   "R109",
+   "R120",
+   "R297"
+  ],
+  "99038": [
+   "R265"
+  ],
+  "99041": [
+   "R161"
+  ],
+  "99042": [
+   "R161"
+  ],
+  "99043": [
+   "R109",
+   "R172"
+  ],
+  "99044": [
+   "R015",
+   "R058",
+   "R109",
+   "R116",
+   "R131",
+   "R132",
+   "R134",
+   "R169",
+   "R173",
+   "R295"
+  ],
+  "99045": [
+   "R015",
+   "R109",
+   "R173"
+  ],
+  "99047": [
+   "R015",
+   "R058",
+   "R116",
+   "R134",
+   "R138",
+   "R141",
+   "R169",
+   "R269"
+  ],
+  "99048": [
+   "R015",
+   "R116",
+   "R134",
+   "R141",
+   "R202",
+   "R269"
+  ],
+  "99049": [
+   "R016"
+  ],
+  "99050": [
+   "R189",
+   "R257"
+  ],
+  "99051": [
+   "R260"
+  ],
+  "99052": [
+   "R015"
+  ],
+  "99053": [
+   "R026"
+  ],
+  "99054": [
+   "R116"
+  ],
+  "99055": [
+   "R011",
+   "R018",
+   "R027",
+   "R051",
+   "R084",
+   "R085",
+   "R095",
+   "R124",
+   "R134",
+   "R166",
+   "R170",
+   "R177",
+   "R179",
+   "R206",
+   "R207",
+   "R216",
+   "R217",
+   "R271",
+   "R294",
+   "R296"
+  ],
+  "99056": [
+   "R011",
+   "R050",
+   "R051",
+   "R124",
+   "R177",
+   "R206",
+   "R207",
+   "R216",
+   "R239",
+   "R271"
+  ],
+  "99058": [
+   "R267"
+  ],
+  "99064": [
+   "R015",
+   "R107",
+   "R209",
+   "R265"
+  ],
+  "99065": [
+   "R107"
+  ],
+  "99066": [
+   "R107"
+  ],
+  "99067": [
+   "R107"
+  ],
+  "99068": [
+   "R272"
+  ],
+  "99069": [
+   "R272"
+  ],
+  "99070": [
+   "R012",
+   "R034",
+   "R058",
+   "R115",
+   "R143",
+   "R149",
+   "R160",
+   "R165",
+   "R179",
+   "R215",
+   "R227",
+   "R235",
+   "R249",
+   "R266",
+   "R272",
+   "R291"
+  ],
+  "99071": [
+   "R115",
+   "R143",
+   "R149",
+   "R160",
+   "R165"
+  ],
+  "99073": [
+   "R015"
+  ],
+  "99074": [
+   "R284"
+  ],
+  "99075": [
+   "R019",
+   "R106",
+   "R229"
+  ],
+  "99079": [
+   "R026",
+   "R170"
+  ],
+  "99080": [
+   "R015"
+  ],
+  "99083": [
+   "R006",
+   "R058",
+   "R261"
+  ],
+  "99086": [
+   "R148"
+  ],
+  "99088": [
+   "R170"
+  ],
+  "99098": [
+   "R046"
+  ],
+  "99102": [
+   "R046"
+  ],
+  "99104": [
+   "R112"
+  ],
+  "99105": [
+   "R046"
+  ],
+  "99107": [
+   "R046",
+   "R152"
+  ],
+  "99108": [
+   "R006"
+  ],
+  "99109": [
+   "R006"
+  ],
+  "99110": [
+   "R044"
+  ],
+  "99111": [
+   "R133"
+  ],
+  "99112": [
+   "R133"
+  ],
+  "99113": [
+   "R015"
+  ],
+  "99114": [
+   "R015"
+  ],
+  "99115": [
+   "R133",
+   "R253"
+  ],
+  "99116": [
+   "R133",
+   "R308"
+  ],
+  "99117": [
+   "R133"
+  ],
+  "99118": [
+   "R051"
+  ],
+  "99304": [
+   "R022",
+   "R188"
+  ],
+  "99305": [
+   "R022"
+  ],
+  "99306": [
+   "R022",
+   "R198"
+  ],
+  "99311": [
+   "R022",
+   "R193",
+   "R304"
+  ],
+  "99313": [
+   "R022",
+   "R139",
+   "R186",
+   "R187",
+   "R219"
+  ],
+  "99316": [
+   "R198"
+  ],
+  "99321": [
+   "R015"
+  ],
+  "99323": [
+   "R196",
+   "R284"
+  ],
+  "99324": [
+   "R016"
+  ],
+  "99326": [
+   "R108",
+   "R109"
+  ],
+  "99327": [
+   "R085"
+  ],
+  "99335": [
+   "R109"
+  ],
+  "99337": [
+   "R109",
+   "R172"
+  ],
+  "99339": [
+   "R109"
+  ],
+  "99341": [
+   "R272"
+  ],
+  "99342": [
+   "R272"
+  ],
+  "99343": [
+   "R272"
+  ],
+  "99344": [
+   "R272"
+  ],
+  "99347": [
+   "R134"
+  ],
+  "99349": [
+   "R272"
+  ],
+  "99350": [
+   "R272"
+  ],
+  "99351": [
+   "R006"
+  ],
+  "99356": [
+   "R238"
+  ],
+  "99357": [
+   "R107",
+   "R108",
+   "R109",
+   "R137",
+   "R155",
+   "R195"
+  ],
+  "99359": [
+   "R078",
+   "R130"
+  ],
+  "99360": [
+   "R098"
+  ],
+  "99361": [
+   "R301"
+  ],
+  "99362": [
+   "R110"
+  ],
+  "99363": [
+   "R110"
+  ],
+  "99364": [
+   "R151"
+  ],
+  "99365": [
+   "R142"
+  ],
+  "99367": [
+   "R048"
+  ],
+  "99368": [
+   "R085"
+  ],
+  "99369": [
+   "R122"
+  ],
+  "99370": [
+   "R122"
+  ],
+  "99371": [
+   "R122"
+  ],
+  "99372": [
+   "R122"
+  ],
+  "99373": [
+   "R012",
+   "R238"
+  ],
+  "99374": [
+   "R178",
+   "R238"
+  ],
+  "99376": [
+   "R253"
+  ],
+  "99377": [
+   "R085"
+  ],
+  "99378": [
+   "R238"
+  ],
+  "99379": [
+   "R238"
+  ],
+  "99380": [
+   "R308"
+  ],
+  "99382": [
+   "R171"
+  ],
+  "99383": [
+   "R194"
+  ],
+  "99384": [
+   "R122"
+  ],
+  "99385": [
+   "R085"
+  ],
+  "99386": [
+   "R238"
+  ],
+  "99387": [
+   "R085"
+  ],
+  "99394": [
+   "R121"
+  ],
+  "99395": [
+   "R169"
+  ],
+  "99396": [
+   "R063",
+   "R234"
+  ],
+  "99397": [
+   "R024"
+  ],
+  "99398": [
+   "R024",
+   "R130"
+  ],
+  "99399": [
+   "R204"
+  ],
+  "99400": [
+   "R204"
+  ],
+  "99402": [
+   "R024",
+   "R130"
+  ],
+  "99403": [
+   "R306"
+  ],
+  "99404": [
+   "R204"
+  ],
+  "99405": [
+   "R058",
+   "R211"
+  ],
+  "99406": [
+   "R085"
+  ],
+  "99409": [
+   "R169"
+  ],
+  "99411": [
+   "R294"
+  ],
+  "99412": [
+   "R105"
+  ],
+  "99428": [
+   "R230"
+  ],
+  "99429": [
+   "R230"
+  ],
+  "99436": [
+   "R189"
+  ],
+  "99437": [
+   "R130"
+  ],
+  "99460": [
+   "R073"
+  ],
+  "99461": [
+   "R073"
+  ],
+  "99577": [
+   "R244"
+  ],
+  "99582": [
+   "R235"
+  ],
+  "99594": [
+   "R162"
+  ],
+  "99595": [
+   "R162"
+  ],
+  "99596": [
+   "R162"
+  ],
+  "99597": [
+   "R152"
+  ],
+  "99598": [
+   "R081"
+  ],
+  "99599": [
+   "R047"
+  ],
+  "99600": [
+   "R055",
+   "R230"
+  ],
+  "99601": [
+   "R191"
+  ],
+  "99602": [
+   "R017"
+  ],
+  "99603": [
+   "R145"
+  ],
+  "99604": [
+   "R145"
+  ],
+  "99605": [
+   "R145"
+  ],
+  "99606": [
+   "R145"
+  ],
+  "99607": [
+   "R054"
+  ],
+  "99608": [
+   "R184"
+  ],
+  "99609": [
+   "R047"
+  ],
+  "99610": [
+   "R130",
+   "R293"
+  ],
+  "99611": [
+   "R040"
+  ],
+  "99612": [
+   "R152"
+  ],
+  "99613": [
+   "R054"
+  ],
+  "99614": [
+   "R126"
+  ],
+  "99615": [
+   "R126"
+  ],
+  "99616": [
+   "R002",
+   "R120",
+   "R201"
+  ],
+  "99617": [
+   "R152"
+  ],
+  "99618": [
+   "R156"
+  ],
+  "99619": [
+   "R152"
+  ],
+  "99621": [
+   "R191"
+  ],
+  "99622": [
+   "R152"
+  ],
+  "99623": [
+   "R152"
+  ],
+  "99624": [
+   "R152"
+  ],
+  "99625": [
+   "R132"
+  ],
+  "99626": [
+   "R130"
+  ],
+  "99627": [
+   "R152"
+  ],
+  "99628": [
+   "R152"
+  ],
+  "99629": [
+   "R191"
+  ],
+  "99630": [
+   "R152"
+  ],
+  "99631": [
+   "R282"
+  ],
+  "99632": [
+   "R191"
+  ],
+  "99633": [
+   "R189"
+  ],
+  "99634": [
+   "R178"
+  ],
+  "99635": [
+   "R230"
+  ],
+  "99636": [
+   "R074"
+  ],
+  "99637": [
+   "R152"
+  ],
+  "99638": [
+   "R152"
+  ],
+  "99639": [
+   "R191"
+  ],
+  "99640": [
+   "R152"
+  ],
+  "99641": [
+   "R191"
+  ],
+  "99642": [
+   "R152"
+  ],
+  "99643": [
+   "R123"
+  ],
+  "99644": [
+   "R152"
+  ],
+  "99645": [
+   "R194"
+  ],
+  "99646": [
+   "R164"
+  ],
+  "99647": [
+   "R152"
+  ],
+  "99649": [
+   "R163"
+  ],
+  "99650": [
+   "R200",
+   "R294"
+  ],
+  "99651": [
+   "R141"
+  ],
+  "99652": [
+   "R235"
+  ],
+  "99653": [
+   "R247",
+   "R285",
+   "R302"
+  ],
+  "99654": [
+   "R132"
+  ],
+  "99655": [
+   "R253"
+  ],
+  "99656": [
+   "R151"
+  ],
+  "99657": [
+   "R041"
+  ],
+  "99660": [
+   "R028"
+  ],
+  "99661": [
+   "R085"
+  ],
+  "99662": [
+   "R152"
+  ],
+  "99686": [
+   "R238"
+  ],
+  "01103": [
+   "R016",
+   "R115"
+  ],
+  "02007": [
+   "R163"
+  ],
+  "02023": [
+   "R308"
+  ],
+  "02029": [
+   "R124",
+   "R179"
+  ],
+  "02037": [
+   "R039"
+  ],
+  "02044": [
+   "R133"
+  ],
+  "02045": [
+   "R133",
+   "R170"
+  ],
+  "02049": [
+   "R133",
+   "R308"
+  ],
+  "02054": [
+   "R098",
+   "R125"
+  ],
+  "02063": [
+   "R133",
+   "R308"
+  ],
+  "02064": [
+   "R013",
+   "R133"
+  ],
+  "04053": [
+   "R014",
+   "R029",
+   "R057",
+   "R093",
+   "R136",
+   "R185",
+   "R305"
+  ],
+  "06159": [
+   "R260"
+  ],
+  "06931": [
+   "R260"
+  ],
+  "09001": [
+   "R054",
+   "R230"
+  ],
+  "09003": [
+   "R011",
+   "R012",
+   "R015",
+   "R058",
+   "R067",
+   "R085",
+   "R110",
+   "R116",
+   "R141",
+   "R158",
+   "R169",
+   "R179",
+   "R212",
+   "R230",
+   "R239",
+   "R269",
+   "R276",
+   "R279",
+   "R283",
+   "R294"
+  ],
+  "09004": [
+   "R015",
+   "R037",
+   "R085",
+   "R110",
+   "R134",
+   "R270",
+   "R279"
+  ],
+  "09016": [
+   "R016",
+   "R115",
+   "R189",
+   "R212",
+   "R239",
+   "R245",
+   "R256",
+   "R275"
+  ],
+  "09019": [
+   "R015",
+   "R116"
+  ],
+  "09021": [
+   "R015",
+   "R058",
+   "R066",
+   "R067",
+   "R068",
+   "R116",
+   "R134",
+   "R141",
+   "R169",
+   "R269"
+  ],
+  "09023": [
+   "R116"
+  ],
+  "09037": [
+   "R015",
+   "R058",
+   "R110",
+   "R239"
+  ],
+  "09040": [
+   "R015",
+   "R058",
+   "R060",
+   "R110",
+   "R141",
+   "R152",
+   "R169",
+   "R206a"
+  ],
+  "09042": [
+   "R015",
+   "R025",
+   "R045",
+   "R058",
+   "R078",
+   "R110",
+   "R131",
+   "R169",
+   "R181",
+   "R247",
+   "R269",
+   "R294"
+  ],
+  "09050": [
+   "R015",
+   "R025",
+   "R045",
+   "R058",
+   "R085",
+   "R092",
+   "R109",
+   "R110",
+   "R131",
+   "R134",
+   "R191",
+   "R238",
+   "R247",
+   "R269",
+   "R285",
+   "R286",
+   "R287",
+   "R294",
+   "R307"
+  ],
+  "09053": [
+   "R134"
+  ],
+  "09054": [
+   "R085",
+   "R108",
+   "R159"
+  ],
+  "09063": [
+   "R042",
+   "R131",
+   "R144",
+   "R169",
+   "R252",
+   "R269",
+   "R292"
+  ],
+  "09068": [
+   "R145"
+  ],
+  "09070": [
+   "R015",
+   "R042",
+   "R058",
+   "R091",
+   "R103",
+   "R110",
+   "R116",
+   "R130",
+   "R131",
+   "R134",
+   "R141",
+   "R144",
+   "R152",
+   "R169",
+   "R238",
+   "R269",
+   "R274",
+   "R294"
+  ],
+  "09078": [
+   "R015",
+   "R025",
+   "R109",
+   "R110",
+   "R117",
+   "R134",
+   "R294",
+   "R307"
+  ],
+  "09079": [
+   "R085"
+  ],
+  "09081": [
+   "R085"
+  ],
+  "09083": [
+   "R009",
+   "R015",
+   "R107",
+   "R109",
+   "R129",
+   "R132",
+   "R137",
+   "R169",
+   "R173",
+   "R182",
+   "R195",
+   "R284",
+   "R295"
+  ],
+  "09086": [
+   "R058"
+  ],
+  "09087": [
+   "R110"
+  ],
+  "09088": [
+   "R135",
+   "R157",
+   "R280",
+   "R295"
+  ],
+  "09089": [
+   "R058",
+   "R069",
+   "R110",
+   "R230",
+   "R269",
+   "R281"
+  ],
+  "09107": [
+   "R015",
+   "R109",
+   "R132",
+   "R169",
+   "R295"
+  ],
+  "09112": [
+   "R085",
+   "R110"
+  ],
+  "09116": [
+   "R085",
+   "R169"
+  ],
+  "09123": [
+   "R020",
+   "R065",
+   "R189",
+   "R236",
+   "R237"
+  ],
+  "09126": [
+   "R035"
+  ],
+  "09128": [
+   "R021",
+   "R022",
+   "R115",
+   "R187",
+   "R188",
+   "R277"
+  ],
+  "09135": [
+   "R016",
+   "R052",
+   "R085",
+   "R115",
+   "R189"
+  ],
+  "09146": [
+   "R240"
+  ],
+  "09148": [
+   "R012",
+   "R015",
+   "R058",
+   "R110",
+   "R141",
+   "R169"
+  ],
+  "09149": [
+   "R238"
+  ],
+  "09150": [
+   "R134",
+   "R141",
+   "R169",
+   "R179",
+   "R278"
+  ],
+  "09152": [
+   "R001",
+   "R022",
+   "R104",
+   "R115",
+   "R187"
+  ],
+  "09153": [
+   "R020",
+   "R104",
+   "R175"
+  ],
+  "09159": [
+   "R134"
+  ],
+  "09160": [
+   "R022",
+   "R187",
+   "R304"
+  ],
+  "09176": [
+   "R015",
+   "R085",
+   "R152"
+  ],
+  "09181": [
+   "R110",
+   "R141",
+   "R169",
+   "R239",
+   "R269"
+  ],
+  "09184": [
+   "R110"
+  ],
+  "09190": [
+   "R169"
+  ],
+  "09191": [
+   "R015",
+   "R110",
+   "R264",
+   "R294"
+  ],
+  "09193": [
+   "R015",
+   "R028"
+  ],
+  "09195": [
+   "R028"
+  ],
+  "09200": [
+   "R011",
+   "R012",
+   "R015",
+   "R059",
+   "R085",
+   "R134",
+   "R141",
+   "R169",
+   "R179",
+   "R230",
+   "R238"
+  ],
+  "09202": [
+   "R085",
+   "R111"
+  ],
+  "09206": [
+   "R020",
+   "R022",
+   "R038",
+   "R059",
+   "R061",
+   "R089",
+   "R115",
+   "R134",
+   "R176",
+   "R187",
+   "R189",
+   "R219",
+   "R220",
+   "R241",
+   "R242",
+   "R277"
+  ],
+  "09209": [
+   "R020",
+   "R089",
+   "R189",
+   "R241",
+   "R277"
+  ],
+  "09215": [
+   "R035",
+   "R198",
+   "R220"
+  ],
+  "09218": [
+   "R059",
+   "R085",
+   "R169"
+  ],
+  "09221": [
+   "R022",
+   "R193",
+   "R304"
+  ],
+  "09225": [
+   "R152",
+   "R198"
+  ],
+  "09226": [
+   "R085",
+   "R152"
+  ],
+  "09236": [
+   "R012",
+   "R015",
+   "R058",
+   "R110",
+   "R116",
+   "R169",
+   "R264",
+   "R269",
+   "R294"
+  ],
+  "09252": [
+   "R004",
+   "R015",
+   "R058",
+   "R110",
+   "R116",
+   "R141",
+   "R169",
+   "R245",
+   "R269"
+  ],
+  "09266": [
+   "R015",
+   "R058",
+   "R085",
+   "R110",
+   "R152"
+  ],
+  "09273": [
+   "R189"
+  ],
+  "09276": [
+   "R230"
+  ],
+  "09279": [
+   "R015",
+   "R058",
+   "R110",
+   "R116",
+   "R134",
+   "R169",
+   "R254",
+   "R269",
+   "R273",
+   "R294"
+  ],
+  "09286": [
+   "R058",
+   "R169"
+  ],
+  "09287": [
+   "R150"
+  ],
+  "09291": [
+   "R085",
+   "R110"
+  ],
+  "09295": [
+   "R085"
+  ],
+  "09296": [
+   "R058",
+   "R169"
+  ],
+  "09297": [
+   "R138"
+  ],
+  "09298": [
+   "R015",
+   "R085",
+   "R110"
+  ],
+  "09302": [
+   "R005",
+   "R010",
+   "R015",
+   "R058",
+   "R107",
+   "R109",
+   "R110",
+   "R120",
+   "R131",
+   "R134",
+   "R169",
+   "R172",
+   "R190",
+   "R269",
+   "R294",
+   "R306"
+  ],
+  "09307": [
+   "R015"
+  ],
+  "09315": [
+   "R152"
+  ],
+  "09316": [
+   "R012",
+   "R015",
+   "R033",
+   "R036",
+   "R053",
+   "R058",
+   "R085",
+   "R094",
+   "R107",
+   "R109",
+   "R110",
+   "R114",
+   "R116",
+   "R120",
+   "R131",
+   "R134",
+   "R141",
+   "R169",
+   "R172",
+   "R195",
+   "R210",
+   "R230",
+   "R269",
+   "R289",
+   "R290",
+   "R294"
+  ],
+  "09318": [
+   "R085",
+   "R094",
+   "R107",
+   "R108",
+   "R146"
+  ],
+  "09326": [
+   "R012",
+   "R110",
+   "R152",
+   "R169",
+   "R239"
+  ],
+  "09370": [
+   "R015",
+   "R116"
+  ],
+  "09404": [
+   "R022",
+   "R059",
+   "R187"
+  ],
+  "09430": [
+   "R110"
+  ],
+  "09442": [
+   "R003",
+   "R189"
+  ],
+  "09445": [
+   "R110"
+  ],
+  "09504": [
+   "R085",
+   "R110",
+   "R283",
+   "R294"
+  ],
+  "09503": [
+   "R011",
+   "R110",
+   "R169",
+   "R276",
+   "R283",
+   "R294"
+  ],
+  "09501": [
+   "R011",
+   "R110",
+   "R276",
+   "R283"
+  ],
+  "09502": [
+   "R058",
+   "R110",
+   "R239",
+   "R276",
+   "R283"
+  ],
+  "09500": [
+   "R085",
+   "R110",
+   "R276",
+   "R283",
+   "R294"
+  ]
+ }
+}

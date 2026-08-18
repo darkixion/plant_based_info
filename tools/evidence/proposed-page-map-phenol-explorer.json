@@ -1,0 +1,3418 @@
+{
+ "source": "phenol-explorer",
+ "status": "PROPOSED, NOT REVIEWED, AND NOT IN USE. No entry here may reach the page until a person has checked it. The five flavonoid columns are still v columns, so nothing here has anywhere to go yet either.",
+ "proposed_on": "2026-08-17",
+ "rules_applied": {
+  "basis": "fresh weight rows only; mg/100 ml and dry weight rows dropped",
+  "method": {
+   "flavonols, flavones, flavanones": "Chromatography after hydrolysis. The plain Chromatography rows report the free aglycone and are near zero for foods that carry the compound as a glycoside; USDA reports the hydrolysed aglycone total, so only the hydrolysis rows are comparable.",
+   "flavan-3-ols": "Chromatography. The catechins are not glycosides and Phenol-Explorer has no hydrolysis rows for them. The Normal phase HPLC rows are the proanthocyanidin oligomers and belong to a different column."
+  },
+  "completeness": "the same rule flavonoids.mjs applies to USDA: a subclass is withheld unless every required aglycone is present. flavonols need quercetin, kaempferol and myricetin; flavones apigenin and luteolin; flavan-3-ols the five catechins; flavanones eriodictyol, hesperetin and naringenin.",
+  "compounds_summed": "only the compounds USDA's own NUTR_DEF puts in each class, so the two sources sum the same thing. Phenol-Explorer's extra aglycones (galangin, morin, rhamnetin, tangeretin and the rest) are left out.",
+  "preparation": "no match across a preparation boundary. Phenol-Explorer is almost entirely raw, so every cooked page food is out, and its raw pulse rows are dry seed against our cooked legumes.",
+  "provenance": "A cell may cite Phenol-Explorer beside USDA only where the two do not rest on a shared paper. Both are compilations of the same literature: 143 of these 178 cells share at least one paper with USDA Release 3.3 own reference list for the same food. Shared provenance only bites where USDA already has a figure, because that is where citing both would print one measurement twice; an empty cell duplicates nothing. The per-cell verdict is the citable field, computed by tools/phenol_explorer.mjs annotate against tools/evidence/phenol-explorer-publications.json and tools/evidence/usda-flavonoids-references.json."
+ },
+ "proposed": [
+  {
+   "page": "raisins",
+   "pe_foods": [
+    "Grape, raisin"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "raisin is the dried grape; page row is golden seedless, PE does not say",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "prunes-dried",
+   "pe_foods": [
+    "Plum, prune"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "prune is the dried plum",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 1.82,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0.01,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "dates",
+   "pe_foods": [
+    "Date, dried"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "page row is the dried date; PE also carries 'Date, fresh', which is a different food",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "dried-figs-dried",
+   "pe_foods": [
+    "Fig, dried"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "cranberries-raw",
+   "pe_foods": [
+    "American cranberry"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "V. macrocarpon, the cultivated cranberry; PE's European cranberry is V. oxycoccos and is not it",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 19.28,
+     "page_now": 23.76,
+     "verdict": "differs",
+     "publications": [
+      "230 bilyk 1986"
+     ],
+     "shared_with_usda": [
+      "bilyk 1986"
+     ],
+     "citable": false,
+     "n": 6
+    }
+   }
+  },
+  {
+   "page": "blueberries-raw",
+   "pe_foods": [
+    "Highbush blueberry, raw"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "cultivated highbush is the retail blueberry; PE's lowbush, half-highbush, rabbiteye and bilberry rows are other species or wild types",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 11.97,
+     "page_now": 10.63,
+     "verdict": "differs",
+     "publications": [
+      "210 sellappan 2002",
+      "211 taruscio 2004",
+      "205 hakkinen 1999",
+      "98 hakkinen 2000",
+      "230 bilyk 1986"
+     ],
+     "shared_with_usda": [
+      "sellappan 2002",
+      "bilyk 1986"
+     ],
+     "citable": false,
+     "n": 19
+    },
+    "flavan3ols": {
+     "phenol_explorer": 1.11,
+     "page_now": 6.69,
+     "verdict": "differs",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "raspberries-raw",
+   "pe_foods": [
+    "Red raspberry, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's black raspberry is a different species",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.94,
+     "page_now": 1.11,
+     "verdict": "differs",
+     "publications": [
+      "201 mullen 2002",
+      "205 hakkinen 1999",
+      "8 justesen 1998",
+      "223 hakkinen 2000",
+      "334 anttonen 2005"
+     ],
+     "shared_with_usda": [
+      "mullen 2002",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 46
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 5.63,
+     "page_now": 5.83,
+     "verdict": "differs",
+     "publications": [
+      "208 maattariihinen 2004",
+      "20 arts 2000",
+      "218 wada 2002"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 4
+    }
+   }
+  },
+  {
+   "page": "blackberries-raw",
+   "pe_foods": [
+    "Blackberry, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's arctic blackberry is a different species",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 6.81,
+     "page_now": 4.52,
+     "verdict": "differs",
+     "publications": [
+      "210 sellappan 2002",
+      "123 lugasi 2002",
+      "230 bilyk 1986"
+     ],
+     "shared_with_usda": [
+      "sellappan 2002",
+      "lugasi 2002",
+      "bilyk 1986"
+     ],
+     "citable": false,
+     "n": 12
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 12.35,
+     "page_now": 42.5,
+     "verdict": "differs",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "218 wada 2002"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 5
+    }
+   }
+  },
+  {
+   "page": "strawberries-raw",
+   "pe_foods": [
+    "Strawberry, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 4.59,
+     "page_now": 1.65,
+     "verdict": "differs",
+     "publications": [
+      "205 hakkinen 1999",
+      "98 hakkinen 2000",
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "223 hakkinen 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 26
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavan3ols": {
+     "phenol_explorer": 6.76,
+     "page_now": 4.6,
+     "verdict": "differs",
+     "publications": [
+      "208 maattariihinen 2004",
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "240 skupien 2004"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 9
+    }
+   }
+  },
+  {
+   "page": "grapes-raw",
+   "pe_foods": [
+    "Grape [Black]",
+    "Grape [Green]"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "page food is generic table grape; the two colour rows are the spread, not a choice",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": [
+      1.87,
+      1.73
+     ],
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 4
+    },
+    "flavones": {
+     "phenol_explorer": [
+      0,
+      0
+     ],
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 4
+    },
+    "flavan3ols": {
+     "phenol_explorer": [
+      12.41,
+      2.17
+     ],
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "101 karadeniz 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 4
+    }
+   }
+  },
+  {
+   "page": "grapefruit-raw",
+   "pe_foods": [
+    "Grapefruit"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.6,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "lemon-raw",
+   "pe_foods": [
+    "Lemon"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.37,
+     "page_now": 1.67,
+     "verdict": "differs",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998",
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998",
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 1.27,
+     "page_now": 1.9,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "11 mattila 2000",
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "mattila 2000",
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavanones": {
+     "phenol_explorer": 35.25,
+     "page_now": 49.81,
+     "verdict": "differs",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "lime-raw",
+   "pe_foods": [
+    "Lime"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.4,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "justesen 1998"
+     ],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "justesen 1998"
+     ],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "orange-raw",
+   "pe_foods": [
+    "Orange [Blond]"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "blond is the ordinary sweet orange; PE's only other orange rows are juices",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.1,
+     "page_now": 0.73,
+     "verdict": "differs",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998",
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998",
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0.19,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "11 mattila 2000",
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "mattila 2000",
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavanones": {
+     "phenol_explorer": 44.83,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998"
+     ],
+     "citable": true,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "tangerines-raw",
+   "pe_foods": [
+    "Tangerine"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "apricots-raw",
+   "pe_foods": [
+    "Apricot, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 2.08,
+     "page_now": 2.26,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavan3ols": {
+     "phenol_explorer": 6.43,
+     "page_now": 8.41,
+     "verdict": "differs",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "nectarines-raw",
+   "pe_foods": [
+    "Nectarine, whole"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "whole rather than PE's peeled row, matching the page's with-skin food",
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 4.72,
+     "page_now": 5.52,
+     "verdict": "differs",
+     "publications": [
+      "180 chang 2000",
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 9
+    }
+   }
+  },
+  {
+   "page": "peaches-raw",
+   "pe_foods": [
+    "Peach, whole"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "whole rather than PE's peeled row",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.88,
+     "verdict": "differs",
+     "publications": [
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 2.33,
+     "page_now": 8.6,
+     "verdict": "differs",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "plums-raw",
+   "pe_foods": [
+    "Plum, fresh"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 2.23,
+     "page_now": 0.9,
+     "verdict": "differs",
+     "publications": [
+      "178 lombardiboccia 2004",
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 10
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavan3ols": {
+     "phenol_explorer": 6.82,
+     "page_now": 7.58,
+     "verdict": "differs",
+     "publications": [
+      "185 donovan 1998",
+      "20 arts 2000",
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 3
+    }
+   }
+  },
+  {
+   "page": "cherries-sweet-raw",
+   "pe_foods": [
+    "Sweet cherry, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's sour cherry is a different food and the page has no row for it",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.12,
+     "page_now": 2.63,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavan3ols": {
+     "phenol_explorer": 9.42,
+     "page_now": 9.75,
+     "verdict": "differs",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "cantaloupe-raw",
+   "pe_foods": [
+    "Muskmelon"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "muskmelon is the netted cantaloupe; see the open question about PE's unqualified 'Melon'",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.08,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 2.58,
+     "page_now": 0.64,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "watermelon-raw",
+   "pe_foods": [
+    "Watermelon"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.45,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 1.84,
+     "page_now": 0.46,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "apple-raw-with-skin",
+   "pe_foods": [
+    "Apple [Dessert], whole, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "whole and dessert; PE's peeled and cider rows are both wrong for this food",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 2.47,
+     "page_now": 4.15,
+     "verdict": "differs",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 12
+    },
+    "flavones": {
+     "phenol_explorer": 0.17,
+     "page_now": 0.12,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998",
+      "11 mattila 2000",
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 12
+    },
+    "flavan3ols": {
+     "phenol_explorer": 9.6,
+     "page_now": 9.29,
+     "verdict": "differs",
+     "publications": [
+      "17 van 2001",
+      "20 arts 2000",
+      "154 podsedek 2000",
+      "330 vrhovsek 2004",
+      "306 lee 2003"
+     ],
+     "shared_with_usda": [
+      "arts 2000",
+      "vrhovsek 2004",
+      "lee 2003"
+     ],
+     "citable": false,
+     "n": 35
+    },
+    "flavanones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "mattila 2000"
+     ],
+     "citable": true,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "pear-raw",
+   "pe_foods": [
+    "Pear, whole"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "whole rather than peeled",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.45,
+     "page_now": 1.14,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavan3ols": {
+     "phenol_explorer": 4.05,
+     "page_now": 4.81,
+     "verdict": "differs",
+     "publications": [
+      "15 schieber 2001",
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "schieber 2001",
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 7
+    }
+   }
+  },
+  {
+   "page": "banana",
+   "pe_foods": [
+    "Banana, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.18,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 1.45,
+     "page_now": 6.12,
+     "verdict": "differs",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "655 harnly 2006",
+      "842 del 2003"
+     ],
+     "shared_with_usda": [
+      "arts 2000",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 6
+    }
+   }
+  },
+  {
+   "page": "kiwi-raw",
+   "pe_foods": [
+    "Kiwi"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 1.07,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 0.74,
+     "page_now": 0.74,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0.36,
+     "page_now": 0.37,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "arts 2000",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 4
+    }
+   }
+  },
+  {
+   "page": "mango-raw",
+   "pe_foods": [
+    "Mango"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 1.72,
+     "page_now": 1.72,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "persimmon-raw",
+   "pe_foods": [
+    "Persimmon, fresh"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "PE does not name the species; the page row is Japanese persimmon",
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 0.8,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "pineapple-raw",
+   "pe_foods": [
+    "Pineapple"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.15,
+     "verdict": "differs",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0.01,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "arts 2000",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 4
+    }
+   }
+  },
+  {
+   "page": "pomegranate-raw",
+   "pe_foods": [
+    "Pomegranate"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002"
+     ],
+     "shared_with_usda": [
+      "lugasi 2002"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0.81,
+     "page_now": 0.81,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "fig-raw",
+   "pe_foods": [
+    "Fig, peeled, fresh"
+   ],
+   "match": "proxy",
+   "reviewed": false,
+   "note": "PE's complete row is peeled and the page food is the whole fresh fig; PE's 'Fig, whole, fresh' exists but no subclass is complete on it",
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 0.12,
+     "page_now": 2.09,
+     "verdict": "differs",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   },
+   "flags": {
+    "flavan3ols": "REFUSE. The Phenol-Explorer row is the peeled fig and the page food is the whole fresh fig, so 0.12 against 2.09 is a preparation difference rather than a disagreement."
+   }
+  },
+  {
+   "page": "olive-oil-extra-virgin",
+   "pe_foods": [
+    "Olive, oil, extra virgin"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's virgin and refined rows are separate grades and the page carries only extra virgin",
+   "would_fill": {}
+  },
+  {
+   "page": "rapeseed-oil",
+   "pe_foods": [
+    "Rape seed, oil"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {}
+  },
+  {
+   "page": "parsley-fresh",
+   "pe_foods": [
+    "Parsley, fresh"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "fresh, not PE's dried row",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 3.33,
+     "page_now": 16.61,
+     "verdict": "differs",
+     "publications": [
+      "117 justesen 2001",
+      "453 lugasi 2000",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "justesen 2001",
+      "lugasi 2000",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 303.24,
+     "page_now": 216.55,
+     "verdict": "differs",
+     "publications": [
+      "453 lugasi 2000",
+      "8 justesen 1998",
+      "117 justesen 2001"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "justesen 1998",
+      "justesen 2001"
+     ],
+     "citable": false,
+     "n": 3
+    }
+   }
+  },
+  {
+   "page": "basil-fresh",
+   "pe_foods": [
+    "Sweet basil, fresh"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "fresh, not PE's dried row",
+   "would_fill": {
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "117 justesen 2001"
+     ],
+     "shared_with_usda": [
+      "justesen 2001"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "watercress-raw",
+   "pe_foods": [
+    "Watercress, fresh"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE files watercress under herbs, the page under vegetables; same plant",
+   "would_fill": {
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0.03,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "117 justesen 2001"
+     ],
+     "shared_with_usda": [
+      "justesen 2001"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "almonds",
+   "pe_foods": [
+    "Almond"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 3.39,
+     "verdict": "differs",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 4.47,
+     "page_now": 4.47,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "652 milbury 2006",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "milbury 2006",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 9
+    }
+   }
+  },
+  {
+   "page": "brazil-nuts",
+   "pe_foods": [
+    "Brazil nut"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "cashews",
+   "pe_foods": [
+    "Cashew nut, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "page food is the raw kernel",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 1.1,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "hazelnuts",
+   "pe_foods": [
+    "Hazelnut, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": true,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 5.3,
+     "page_now": 5.25,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "macadamia-nuts-raw",
+   "pe_foods": [
+    "Macadamia nut"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "peanuts",
+   "pe_foods": [
+    "Peanut"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "the raw peanut; PE's roasted row is a separate food and is incomplete",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "pecans",
+   "pe_foods": [
+    "Pecan nut"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 15.9,
+     "page_now": 15.99,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "pine-nuts-dried",
+   "pe_foods": [
+    "Pines"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "PE's name is a translation artefact for pine nut; it sits in the nut group beside the others",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "pistachios",
+   "pe_foods": [
+    "Pistachio"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's dehulled row is a different preparation",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.33,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": true,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 6.4,
+     "page_now": 6.85,
+     "verdict": "differs",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "walnuts",
+   "pe_foods": [
+    "Walnut"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "flags": {
+    "flavonols": "REFUSE. 65.21 mg, all myricetin, from n=2 with min 0 and max 456.5. Five times kale whole flavonol figure and nothing else in either database is near it."
+   },
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 65.21,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": true,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "123 lugasi 2002",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "broccoli-raw",
+   "pe_foods": [
+    "Broccoli, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 9.9,
+     "page_now": 11.16,
+     "verdict": "differs",
+     "publications": [
+      "11 mattila 2000",
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0.8,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998",
+      "11 mattila 2000"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998",
+      "mattila 2000"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavanones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998"
+     ],
+     "citable": true,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "brussels-sprouts-raw",
+   "pe_foods": [
+    "Brussel sprouts, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.25,
+     "page_now": 2.78,
+     "verdict": "differs",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 0.17,
+     "page_now": 0.33,
+     "verdict": "differs",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "cauliflower-raw",
+   "pe_foods": [
+    "Cauliflower, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.08,
+     "page_now": 0.9,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavones": {
+     "phenol_explorer": 0.2,
+     "page_now": 0.12,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "cabbage-raw",
+   "pe_foods": [
+    "Common cabbage [White], raw",
+    "Common cabbage [Green], raw"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "page food is the ordinary green or white cabbage; PE splits them and the pair is the spread",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": [
+      0.92,
+      0.04
+     ],
+     "page_now": 0.46,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "399 bahorun 2004",
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "420 chun 2004"
+     ],
+     "shared_with_usda": [
+      "chu 2000",
+      "lugasi 2000",
+      "hertog 1992",
+      "chun 2004"
+     ],
+     "citable": false,
+     "n": 7
+    },
+    "flavones": {
+     "phenol_explorer": [
+      0.1,
+      0
+     ],
+     "page_now": 0.18,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004",
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "420 chun 2004"
+     ],
+     "shared_with_usda": [
+      "chu 2000",
+      "lugasi 2000",
+      "hertog 1992",
+      "chun 2004"
+     ],
+     "citable": false,
+     "n": 7
+    }
+   }
+  },
+  {
+   "page": "red-cabbage-raw",
+   "pe_foods": [
+    "Common cabbage [Red], raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE also carries a 'Purple' cabbage row, which looks like the same vegetable under another name and is left out rather than merged",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.43,
+     "page_now": 0.56,
+     "verdict": "differs",
+     "publications": [
+      "420 chun 2004",
+      "453 lugasi 2000",
+      "36 bilyk 1985",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chun 2004",
+      "lugasi 2000",
+      "bilyk 1985",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 7
+    },
+    "flavones": {
+     "phenol_explorer": 0.21,
+     "page_now": 0.16,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "420 chun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chun 2004",
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "kale-raw",
+   "pe_foods": [
+    "Kale, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 34.45,
+     "page_now": 92.98,
+     "verdict": "differs",
+     "publications": [
+      "453 lugasi 2000",
+      "36 bilyk 1985",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "bilyk 1985",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 3
+    }
+   }
+  },
+  {
+   "page": "pak-choi-raw",
+   "pe_foods": [
+    "Pak choy, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's napa cabbage is B. rapa pekinensis and is not pak choi",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 48.7,
+     "page_now": 6.42,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 5.7,
+     "page_now": 0.33,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "sauerkraut-canned",
+   "pe_foods": [
+    "Sauerkraut"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "PE does not say canned",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.04,
+     "page_now": 0.05,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "420 chun 2004",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chun 2004",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 7
+    },
+    "flavones": {
+     "phenol_explorer": 0.02,
+     "page_now": 0.02,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "420 chun 2004",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chun 2004",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 7
+    }
+   }
+  },
+  {
+   "page": "avocado",
+   "pe_foods": [
+    "Avocado, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0.53,
+     "page_now": 0.52,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000",
+      "655 harnly 2006"
+     ],
+     "shared_with_usda": [
+      "arts 2000",
+      "harnly 2006"
+     ],
+     "citable": false,
+     "n": 3
+    }
+   }
+  },
+  {
+   "page": "bell-pepper-green-raw",
+   "pe_foods": [
+    "Sweet pepper [Green], raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.94,
+     "page_now": 2.27,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "536 howard 2000",
+      "599 lee 1995"
+     ],
+     "shared_with_usda": [
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavones": {
+     "phenol_explorer": 0.63,
+     "page_now": 4.71,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "536 howard 2000",
+      "599 lee 1995"
+     ],
+     "shared_with_usda": [
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 3
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "bell-pepper-red-raw",
+   "pe_foods": [
+    "Sweet pepper [Red], raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.25,
+     "verdict": "differs",
+     "publications": [
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavones": {
+     "phenol_explorer": 0.72,
+     "page_now": 0.61,
+     "verdict": "differs",
+     "publications": [
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "bell-pepper-yellow-raw",
+   "pe_foods": [
+    "Sweet pepper [Yellow], raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.42,
+     "page_now": 1.27,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "536 howard 2000"
+     ],
+     "shared_with_usda": [
+      "howard 2000"
+     ],
+     "citable": false,
+     "n": 2
+    },
+    "flavones": {
+     "phenol_explorer": 0.48,
+     "page_now": 1.02,
+     "verdict": "differs",
+     "publications": [
+      "8 justesen 1998",
+      "536 howard 2000"
+     ],
+     "shared_with_usda": [
+      "howard 2000"
+     ],
+     "citable": false,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "tomatoes-raw",
+   "pe_foods": [
+    "Tomato, whole, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "the whole ordinary tomato; PE's cherry row is a separate food",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.22,
+     "page_now": 0.8,
+     "verdict": "differs",
+     "publications": [
+      "34 crozier 1997",
+      "397 martinezvalverde 2002",
+      "61 stewart 2000",
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "crozier 1997",
+      "stewart 2000",
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 43
+    },
+    "flavones": {
+     "phenol_explorer": 0.09,
+     "page_now": 0,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004",
+      "34 crozier 1997",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "crozier 1997",
+      "lugasi 2000",
+      "hertog 1992",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 21
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "cucumber-raw-with-peel",
+   "pe_foods": [
+    "Cucumber, raw"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "PE does not say whether the peel is on; the page row is with peel",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.1,
+     "page_now": 0.17,
+     "verdict": "differs",
+     "publications": [
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chu 2000",
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chu 2000",
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "courgette-raw",
+   "pe_foods": [
+    "Zucchini, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "spinach-raw",
+   "pe_foods": [
+    "Spinach, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 13.74,
+     "page_now": 10.7,
+     "verdict": "differs",
+     "publications": [
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "78 nuutila 2002",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chu 2000",
+      "lugasi 2000",
+      "nuutila 2002",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 7
+    },
+    "flavones": {
+     "phenol_explorer": 1.11,
+     "page_now": 0.74,
+     "verdict": "differs",
+     "publications": [
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "chu 2000",
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    }
+   }
+  },
+  {
+   "page": "swiss-chard-raw",
+   "pe_foods": [
+    "Swiss chard leaves [Red], raw",
+    "Swiss chard leaves [White], raw"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "leaves only; PE carries the stems as separate rows and the page food is the whole chard",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": [
+      18.9,
+      11.1
+     ],
+     "page_now": 11.1,
+     "verdict": "differs",
+     "publications": [
+      "408 pyo 2004"
+     ],
+     "shared_with_usda": [
+      "pyo 2004"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "onions-raw",
+   "pe_foods": [
+    "Onion [Yellow], raw",
+    "Onion [White], raw"
+   ],
+   "match": "close",
+   "reviewed": false,
+   "note": "the ordinary cooking onion in both colours; PE's red onion is left out because the page has no red onion row and red would widen the spread on a food nobody asked about",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": [
+      15.02,
+      3.25
+     ],
+     "page_now": 25.99,
+     "verdict": "differs",
+     "publications": [
+      "11 mattila 2000",
+      "389 sellappan 2002",
+      "8 justesen 1998",
+      "386 patil 1995",
+      "387 patil 1995",
+      "485 patil 1995",
+      "34 crozier 1997"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998",
+      "patil 1995"
+     ],
+     "citable": false,
+     "n": 84
+    },
+    "flavones": {
+     "phenol_explorer": [
+      0,
+      0
+     ],
+     "page_now": 0.03,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "8 justesen 1998",
+      "11 mattila 2000",
+      "34 crozier 1997"
+     ],
+     "shared_with_usda": [
+      "justesen 1998",
+      "mattila 2000"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavanones": {
+     "phenol_explorer": 0,
+     "page_now": null,
+     "verdict": "new",
+     "publications": [
+      "11 mattila 2000",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "mattila 2000",
+      "justesen 1998"
+     ],
+     "citable": true,
+     "n": 2
+    }
+   }
+  },
+  {
+   "page": "green-peas-raw",
+   "pe_foods": [
+    "Fresh pea, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0.02,
+     "page_now": 0.02,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "mangetout-raw",
+   "pe_foods": [
+    "Sugar pea, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "carrots-raw",
+   "pe_foods": [
+    "Carrot, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.48,
+     "page_now": 0.49,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavones": {
+     "phenol_explorer": 0.27,
+     "page_now": 0.11,
+     "verdict": "differs",
+     "publications": [
+      "399 bahorun 2004",
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "celeriac-raw",
+   "pe_foods": [
+    "Celeriac, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.18,
+     "page_now": 0.18,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 2.41,
+     "page_now": 2.41,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "kohlrabi-raw",
+   "pe_foods": [
+    "Kohlrabi, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 2.83,
+     "page_now": 2.83,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000"
+     ],
+     "citable": false,
+     "n": 1
+    },
+    "flavones": {
+     "phenol_explorer": 1.3,
+     "page_now": 1.3,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "radishes-raw",
+   "pe_foods": [
+    "Radish, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "PE's black radish is a separate row and a different vegetable",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.63,
+     "page_now": 0.86,
+     "verdict": "differs",
+     "publications": [
+      "453 lugasi 2000",
+      "36 bilyk 1985",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "bilyk 1985",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 6
+    },
+    "flavones": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 5
+    }
+   }
+  },
+  {
+   "page": "beetroot-raw",
+   "pe_foods": [
+    "Red beetroot, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0.13,
+     "page_now": 0.13,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavones": {
+     "phenol_explorer": 0.37,
+     "page_now": 0.37,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 5
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [
+      "arts 2000"
+     ],
+     "citable": false,
+     "n": 1
+    }
+   }
+  },
+  {
+   "page": "swede-raw",
+   "pe_foods": [
+    "Swede, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 2.78,
+     "page_now": 2.5,
+     "verdict": "differs",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 4
+    },
+    "flavones": {
+     "phenol_explorer": 3.85,
+     "page_now": 3.85,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "453 lugasi 2000",
+      "18 hertog 1992"
+     ],
+     "shared_with_usda": [
+      "lugasi 2000",
+      "hertog 1992"
+     ],
+     "citable": false,
+     "n": 4
+    }
+   }
+  },
+  {
+   "page": "celery-raw",
+   "pe_foods": [
+    "Celery stalks, raw"
+   ],
+   "match": "exact",
+   "reviewed": false,
+   "note": "stalks, which is what the page food is; PE's celery leaves are a separate row",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 0,
+     "page_now": 0.61,
+     "verdict": "differs",
+     "publications": [
+      "34 crozier 1997",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "crozier 1997",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 7
+    },
+    "flavones": {
+     "phenol_explorer": 6.53,
+     "page_now": 3.9,
+     "verdict": "differs",
+     "publications": [
+      "34 crozier 1997",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [
+      "crozier 1997",
+      "justesen 1998"
+     ],
+     "citable": false,
+     "n": 7
+    }
+   }
+  }
+ ],
+ "open_questions": [
+  {
+   "page": "romaine-lettuce-raw",
+   "pe_foods": [
+    "Lettuce [Green], raw"
+   ],
+   "match": "proxy",
+   "reviewed": false,
+   "note": "PE's generic green lettuce standing for cos; the page has no generic lettuce row. Reject if a proxy is not wanted here",
+   "would_fill": {
+    "flavonols": {
+     "phenol_explorer": 1.71,
+     "page_now": 2.22,
+     "verdict": "differs",
+     "publications": [
+      "34 crozier 1997",
+      "399 bahorun 2004",
+      "400 chu 2000",
+      "453 lugasi 2000",
+      "36 bilyk 1985",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 37
+    },
+    "flavones": {
+     "phenol_explorer": 0.02,
+     "page_now": 0.05,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "399 bahorun 2004",
+      "400 chu 2000",
+      "34 crozier 1997",
+      "453 lugasi 2000",
+      "18 hertog 1992",
+      "8 justesen 1998"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 14
+    },
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000",
+      "46 pascualteresa 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 2
+    }
+   },
+   "flags": {
+    "all": "REJECT unless someone decides otherwise. A proxy on a food the page does not carry generically, or a Phenol-Explorer food that does not say what it is."
+   }
+  },
+  {
+   "page": "honeydew-melon-raw",
+   "pe_foods": [
+    "Melon"
+   ],
+   "match": "proxy",
+   "reviewed": false,
+   "note": "PE's unqualified 'Melon' beside its named 'Muskmelon'; likely the smooth-skinned melon but it does not say",
+   "would_fill": {
+    "flavan3ols": {
+     "phenol_explorer": 0,
+     "page_now": 0.05,
+     "verdict": "agrees-to-rounding",
+     "publications": [
+      "20 arts 2000"
+     ],
+     "shared_with_usda": [],
+     "citable": true,
+     "n": 1
+    }
+   },
+   "flags": {
+    "all": "REJECT unless someone decides otherwise. A proxy on a food the page does not carry generically, or a Phenol-Explorer food that does not say what it is."
+   }
+  }
+ ],
+ "annotated_on": "2026-08-17",
+ "recommendation": {
+  "summary": "Worth banking, not worth acting on yet. See tools/evidence/PHENOL-EXPLORER-MAP-REVIEW.md.",
+  "what_it_would_add": "8 new figures above zero (grapes flavonols and flavan-3-ols, grapefruit flavonols, lime flavonols, orange flavanones 44.83, persimmon flavan-3-ols, cashew flavan-3-ols, pistachio flavonols), 2 genuine disagreements to carry as ranges (pak choi flavonols and flavones, from Bahorun 2004), and about 30 analysed zeros.",
+  "what_it_would_cost": "Converting five v columns to evidence columns: 224 rendered cells, the five columns leaving the chart because an evidence column is not offered there, FLAV_REACHED in app.ts rewiring, and a smoke test built on charting nuts against flavonols.",
+  "refuse": [
+   "walnuts flavonols",
+   "fig-raw flavan3ols",
+   "both open questions"
+  ]
+ }
+}
