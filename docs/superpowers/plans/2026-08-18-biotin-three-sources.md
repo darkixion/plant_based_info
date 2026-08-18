@@ -154,6 +154,18 @@ test("a finding beats a gap when neither source has a figure", () => {
   eq(c.state, "trace", "the finding is the cell");
 });
 
+test("a gap does not disagree with a finding", () => {
+  // Not-measured is nobody having looked. It has no quarrel with a trace, and
+  // recording one would fill the conflict report with noise that hides the
+  // real disagreements.
+  const c = biotinCell({
+    mext: { state: "not-measured", value: null },
+    cofid: { biotin_ug: "Tr" },
+  });
+  eq(c.state, "trace", "the finding is still the cell");
+  eq(c.conflict, undefined, "and nothing is reported as a conflict");
+});
+
 test("two sources reporting different findings record the conflict", () => {
   // Not-detected against trace is a disagreement no figure can express, and
   // the one thing that must not happen is silence about it.
@@ -231,6 +243,10 @@ const passthrough = s =>
    the evidence supports. The disagreement is recorded either way. */
 const RANK = { trace: 3, "not-detected": 2, "not-measured": 1 };
 
+/* Two of these are findings and one is a gap. Not-measured says nothing, so
+   it cannot disagree with anything. */
+const FINDING = new Set(["trace", "not-detected"]);
+
 /**
  * The biotin cell for one food, from whichever of the three sources reach it.
  *
@@ -272,8 +288,9 @@ export function biotinCell(rows) {
   const [who, state] = held[0];
   const cell = { state, sources: [who === "mext" ? "mext-2020" : "cofid-2021"] };
   /* Two sources reporting different findings is a disagreement no figure can
-     express and no range can hold. Recorded rather than resolved. */
-  if (held.length > 1 && held[1][1] !== state)
+     express and no range can hold. Recorded rather than resolved. A finding
+     against a gap is not a disagreement, so both have to be findings. */
+  if (held.length > 1 && held[1][1] !== state && held.every(([, st]) => FINDING.has(st)))
     cell.conflict = Object.fromEntries(held);
   return cell;
 }
@@ -282,7 +299,7 @@ export function biotinCell(rows) {
 - [ ] **Step 4: Run the tests and watch them pass**
 
 Run: `node test/tools.mjs`
-Expected: 51 pass, 0 fail. The count rises from 41 by the 10 tests added.
+Expected: 52 pass, 0 fail. The count rises from 41 by the 11 tests added.
 
 - [ ] **Step 5: Run the whole gate**
 
@@ -416,7 +433,7 @@ here on the grounds that it looks harmless.
 - [ ] **Step 6: Run the whole gate**
 
 Run: `npm test`
-Expected: passes, 51 and 145, and `node build.mjs` reports no problems.
+Expected: passes, 52 and 145, and `node build.mjs` reports no problems.
 
 - [ ] **Step 7: Commit**
 
@@ -469,6 +486,12 @@ test("scoring refuses to cross raw and cooked", () => {
   const dried = scoreCandidate("Lentils", "cooked", "Lentils, green and brown, whole, dried, raw");
   if (!(cooked > dried)) throw new Error(`cooked ${cooked} should beat dried ${dried}`);
   if (dried > 0) throw new Error(`a raw row for a cooked food should not score, got ${dried}`);
+});
+
+test("a food with no preparation is not penalised for having none", () => {
+  // Nuts and most fruit carry no state, and neither do their rows.
+  const s = scoreCandidate("Almonds", "", "Almonds, whole kernels");
+  if (!(s >= 18)) throw new Error(`expected at least 18, got ${s}`);
 });
 
 test("a different basis scores below the same basis", () => {
@@ -552,6 +575,11 @@ export function scoreCandidate(name, state, row) {
 
   if (wantsCooked && rowCooked) score += 8;
   if (wantsRaw && rowRaw) score += 8;
+  /* A page food carrying no state, matched to a row that names no preparation
+     either, has nothing to disagree about. Without this, a whole nut and a raw
+     fruit can never reach the score that suggests an exact grade, and every
+     pair in those categories arrives at review marked proxy. */
+  if (!wantsCooked && !wantsRaw && !rowCooked && !rowRaw) score += 8;
   /* A preparation mismatch is not a weaker match, it is a different
      measurement. It takes the candidate out rather than ranking it lower. */
   if (wantsCooked && rowRaw) return 0;
@@ -653,7 +681,7 @@ if (process.argv[1] && process.argv[1].endsWith("biotin.mjs")) {
 - [ ] **Step 4: Run the tests and watch them pass**
 
 Run: `node test/tools.mjs`
-Expected: 55 pass, 0 fail.
+Expected: 57 pass, 0 fail.
 
 - [ ] **Step 5: Run the whole gate and commit**
 
