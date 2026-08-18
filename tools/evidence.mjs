@@ -20,6 +20,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gradeDerivation, reconcile, spanCell } from "./reconcile.mjs";
+import { biotinCell } from "./biotin.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const EV = join(ROOT, "tools", "evidence");
@@ -50,12 +51,10 @@ const CORPORA = {
 const BY_CODE = Object.fromEntries(Object.entries(CORPORA)
   .map(([k, rows]) => [k, Object.fromEntries(rows.map(r => [r.code, r]))]));
 
-const afcdBy = Object.fromEntries(afcd.map(r => [r.name, r]));
-
 const cnfMap = rd("page-map-cnf.json");
 const afcdMap = rd("page-map-afcd.json");
 const cnf = rd("cnf.json");
-const afcdDB = rd("afcd-r3-plant.json"); // separate from afcdBy which uses name
+const afcdDB = rd("afcd-r3-plant.json");
 const cnfBy = Object.fromEntries(cnf.map(r => [r.key, r]));
 const afcdKeyBy = Object.fromEntries(afcdDB.map(r => [r.key, r]));
 
@@ -120,17 +119,6 @@ const bracketed = raw => {
    caller must drop the cell rather than write a zero. */
 const figureOf = c => c.value !== null && c.value !== undefined ? c.value : bracketed(c.raw);
 
-/* Reviewed page -> AFCD names, for the biotin comparison. MEXT is mapped in
-   page-map-mext.json and CoFID in page-map-cofid.json; this holds only what has
-   no map file of its own. Every pair here was checked by hand against the
-   database; automated name matching stays refused. */
-const ALT = {
-  "kidney-beans cooked":   { afcd: "Bean, red kidney, dried, boiled, drained" },
-  "brown-rice cooked":     { afcd: "Rice, brown, boiled, no added salt" },
-  "spinach raw":           { afcd: "Spinach, Mature English, fresh, raw" },
-  "chickpeas cooked":      { afcd: "Chickpea, dried, boiled, drained" },
-  "split-peas cooked":     { afcd: "Pea, split, dried, boiled, drained" },
-};
 /* CoFID's reviewed mapping, read from the file the build checks values against
    rather than copied here. The copy this replaced had drifted: it picked
    CoFID's parboiled "easy cook" brown rice where the map picks wholegrain, so
@@ -157,7 +145,6 @@ const dropped = [];
 
 for (const p of map) {
   const slug = slugify(p.page, p.page_state);
-  const alt = ALT[`${slugify(p.page, "")} ${p.page_state}`.trim()] || {};
   const cells = {};
 
   for (const comp of COMPONENTS) {
@@ -174,35 +161,58 @@ for (const p of map) {
     nCells++;
   }
 
-  // biotin, from up to three sources
-  const cands = [];
-  if (p.biotin.state === "measured") cands.push({ source: "mext-2020", value: p.biotin.value, derivation: "analysed" });
-  const cm = COFID_ROW[slug];
-  const cf = cm && cofidByCode[cm.cofid_code];
-  if (cf) {
-    grade(slug, "cofid-2021", cm.match, p.page_state);
-    // "N" is CoFID's marker for a component it did not measure.
-    const v = cf.biotin_ug === "N" ? null : num(cf.biotin_ug);
-    if (v !== null) cands.push({ source: "cofid-2021", value: v, derivation: "analysed" });
-  }
-  const af = alt.afcd && afcdBy[alt.afcd];
-  if (af) { const v = num(af.biotin_ug); if (v !== null) cands.push({ source: "afcd-r3", value: v, derivation: gradeDerivation(af.derivation) }); }
-
-  if (cands.length) {
-    const cell = reconcile(cands);
-    cells.biotin = cell;
-    nCells++;
-    if (cell.state === "range") ranges++;
-    if (cell.disputed) disputes++;
-  } else {
-    const through = passthrough(p.biotin.state);
-    if (through) { cells.biotin = { state: through, sources: ["mext-2020"] }; nCells++; }
-  }
-
   if (Object.keys(cells).length) {
     const e = grade(slug, "mext-2020", p.match, p.page_state);
     Object.assign(e.cells, cells);
   }
+}
+
+/* Biotin, over the union of the three maps rather than inside the loop over
+   one of them.
+ *
+ * This used to sit inside the MEXT loop, which meant a food Japan never
+ * assayed could not have a biotin cell whatever Britain and Australia held.
+ * Walnuts, pistachios, brazil nuts and wholewheat pasta each carry an analysed
+ * AFCD figure and had no route to the page. loadAttested in build.mjs already
+ * read all three maps, so the checker and the generator held different views
+ * of what evidence existed for this column. */
+const mextBySlug = Object.fromEntries(map.map(p => [slugify(p.page, p.page_state), p]));
+const biotinSlugs = new Set([
+  ...Object.keys(mextBySlug),
+  ...Object.keys(COFID_ROW),
+  ...Object.keys(afcdMap),
+]);
+const conflicts = [];
+
+for (const slug of biotinSlugs) {
+  const mp = mextBySlug[slug];
+  const cm = COFID_ROW[slug];
+  const cf = cm && cofidByCode[cm.cofid_code];
+  const am = afcdMap[slug];
+  const af = am && afcdKeyBy[am.key];
+
+  const cell = biotinCell({
+    mext: mp && mp.biotin,
+    cofid: cf,
+    afcd: af,
+  });
+  if (!cell) continue;
+
+  if (cell.conflict) { conflicts.push(`${slug}: ${JSON.stringify(cell.conflict)}`); delete cell.conflict; }
+
+  /* A grade per source that the cell actually cites. A grade for a source no
+     cell names is stripped at the end of this file anyway, but writing one
+     here would claim a mapping was used when it was not. */
+  const named = new Set([...(cell.sources || []), ...(cell.disputed || []).map(d => d.source)]);
+  const prep = mp ? mp.page_state : undefined;
+  if (named.has("mext-2020") && mp) grade(slug, "mext-2020", mp.match, prep);
+  if (named.has("cofid-2021") && cm) grade(slug, "cofid-2021", cm.match, prep);
+  if (named.has("afcd-r3") && am) grade(slug, "afcd-r3", am.match, prep);
+
+  entryFor(slug, prep).cells.biotin = cell;
+  nCells++;
+  if (cell.state === "range") ranges++;
+  if (cell.disputed) disputes++;
 }
 
 for (const p of ifctMap) {
@@ -614,3 +624,4 @@ for (const [slug, entry] of Object.entries(out)) {
 writeFileSync(DEST, JSON.stringify(out, null, 1) + "\n");
 console.log(`${Object.keys(out).length} foods, ${nCells} cells, ${ranges} ranges, ${disputes} with a disputed source`);
 for (const d of dropped) console.log(`dropped ${d}`);
+for (const c of conflicts) console.log(`biotin findings disagree, ${c}`);

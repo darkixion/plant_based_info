@@ -1821,7 +1821,8 @@
    "fao-phytate": "close",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "usda-fdc-foundation": "close"
+   "usda-fdc-foundation": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -1908,9 +1909,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 3.9,
+    "value": 3.05,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "phytate": {
@@ -2874,7 +2876,8 @@
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
    "usda-pa-r2": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -2967,6 +2970,12 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ],
+    "disputed": [
+     {
+      "source": "afcd-r3",
+      "value": 0.5
+     }
     ]
    },
    "boron": {
@@ -3018,7 +3027,8 @@
    "nih-boron": "close",
    "usda-pa-r2": "exact",
    "verde-2022": "close",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3142,10 +3152,11 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 82,
+    "value": 88,
     "sources": [
      "mext-2020",
-     "cofid-2021"
+     "cofid-2021",
+     "afcd-r3"
     ]
    },
    "coq10": {
@@ -3205,7 +3216,8 @@
   "matches": {
    "fao-phytate": "exact",
    "mext-2020": "proxy",
-   "milder-2005": "proxy"
+   "milder-2005": "proxy",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3296,10 +3308,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 80,
+    "state": "range",
+    "low": 29,
+    "high": 80,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "lignans": {
@@ -3442,7 +3456,8 @@
    "fao-phytate": "exact",
    "mext-2020": "close",
    "milder-2005": "close",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3531,10 +3546,11 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 13,
+    "value": 12,
     "sources": [
      "mext-2020",
-     "cofid-2021"
+     "cofid-2021",
+     "afcd-r3"
     ]
    },
    "lignans": {
@@ -3923,7 +3939,8 @@
    "milder-2005": "proxy",
    "usda-pa-r2": "exact",
    "sim-2021": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4015,10 +4032,11 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 15.85,
+    "value": 19,
     "sources": [
      "mext-2020",
-     "cofid-2021"
+     "cofid-2021",
+     "afcd-r3"
     ]
    },
    "phytate": {
@@ -4066,7 +4084,8 @@
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
    "usda-pa-r2": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4161,7 +4180,8 @@
     "value": 79,
     "sources": [
      "mext-2020",
-     "cofid-2021"
+     "cofid-2021",
+     "afcd-r3"
     ]
    },
    "proanthocyanidins": {
@@ -4198,7 +4218,8 @@
   "prep": "raw",
   "matches": {
    "fao-phytate": "exact",
-   "mext-2020": "proxy"
+   "mext-2020": "proxy",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4288,10 +4309,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 6.5,
+    "state": "range",
+    "low": 1,
+    "high": 6.5,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "phytate": {
@@ -4394,10 +4417,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 6,
+    "state": "range",
+    "low": 2,
+    "high": 6,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "inulin": {
@@ -4414,7 +4439,8 @@
   "matches": {
    "fao-phytate": "proxy",
    "mext-2020": "exact",
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "afcd-r3": "close"
   },
   "cells": {
    "solfibre": {
@@ -4506,9 +4532,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 13,
+    "value": 13.5,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "phytate": {
@@ -4737,7 +4764,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "sim-2021": "exact",
-   "usda-glucosinolate-r1": "close"
+   "usda-glucosinolate-r1": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4829,10 +4857,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 4,
+    "state": "range",
+    "low": 1.6,
+    "high": 4,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "lignans": {
@@ -5517,7 +5547,8 @@
   "matches": {
    "eurofir": "exact",
    "mext-2020": "exact",
-   "usda-fdc-foundation": "close"
+   "usda-fdc-foundation": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5605,10 +5636,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 11,
+    "state": "range",
+    "low": 5.3,
+    "high": 11,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "beta-glucan": {
@@ -6399,7 +6432,8 @@
    "nih-boron": "exact",
    "roman-pizarro-2017": "exact",
    "usda-pa-r2": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6490,11 +6524,13 @@
    },
    "biotin": {
     "state": "range",
-    "low": 2.4,
+    "low": 1.2,
     "high": 5.3,
+    "median": 2.4,
     "sources": [
      "mext-2020",
-     "cofid-2021"
+     "cofid-2021",
+     "afcd-r3"
     ]
    },
    "coq10": {
@@ -6560,7 +6596,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "nih-boron": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6682,11 +6719,14 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 1.95,
+    "state": "range",
+    "low": 0.3,
+    "high": 2.5,
+    "median": 1.4,
     "sources": [
      "mext-2020",
-     "cofid-2021"
+     "cofid-2021",
+     "afcd-r3"
     ]
    },
    "boron": {
@@ -13599,7 +13639,8 @@
    "aydogan-2023": "proxy",
    "fao-phytate": "exact",
    "milder-2005": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "coq10": {
@@ -13629,6 +13670,13 @@
     "value": 226.4,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 24,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }
@@ -13708,7 +13756,8 @@
   "matches": {
    "fao-phytate": "close",
    "milder-2005": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "proanthocyanidins": {
@@ -13731,6 +13780,13 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 25,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -13741,7 +13797,9 @@
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
    "usda-pa-r2": "exact",
-   "verde-2022": "close"
+   "verde-2022": "close",
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "boron": {
@@ -13782,6 +13840,14 @@
     "sources": [
      "verde-2022"
     ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 19,
+    "sources": [
+     "cofid-2021",
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -13812,7 +13878,8 @@
   "prep": "as listed",
   "matches": {
    "cnf": "exact",
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "k2": {
@@ -13828,6 +13895,13 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 4.5,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -13836,7 +13910,9 @@
   "matches": {
    "fao-phytate": "exact",
    "milder-2005": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "phytate": {
@@ -13857,6 +13933,14 @@
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 10.35,
+    "sources": [
+     "cofid-2021",
+     "afcd-r3"
     ]
    }
   }
@@ -14087,7 +14171,8 @@
   "prep": "as listed",
   "matches": {
    "fao-phytate": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "afcd-r3": "close"
   },
   "cells": {
    "phytate": {
@@ -14103,13 +14188,21 @@
     "sources": [
      "usda-pa-r2"
     ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 1.7,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
  "coconut-raw": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact"
+   "fao-phytate": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "phytate": {
@@ -14117,6 +14210,13 @@
     "value": 136,
     "sources": [
      "fao-phytate"
+    ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 2.7,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }
