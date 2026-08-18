@@ -20,3 +20,8 @@ tools/cache/
 # task briefs and review packages, all of which describe work whose record is
 # the git history itself.
 .superpowers/
+
+# Isolated worktrees for branch work. The checkouts inside are the same
+# repository seen from another directory, and committing them into it would
+# nest the tree inside itself.
+.worktrees/
