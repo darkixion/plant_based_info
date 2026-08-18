@@ -145,5 +145,19 @@
   "cofid_code": "14-892",
   "cofid_name": "Peanut butter, smooth",
   "match": "exact"
+ },
+ {
+  "page": "Tempeh",
+  "page_state": "",
+  "cofid_code": "13-118",
+  "cofid_name": "Tempeh",
+  "match": "exact"
+ },
+ {
+  "page": "Edamame",
+  "page_state": "cooked",
+  "cofid_code": "13-667",
+  "cofid_name": "Beans, edamame, frozen, boiled in unsalted water",
+  "match": "close"
  }
 ]

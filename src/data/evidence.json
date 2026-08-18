@@ -1158,7 +1158,8 @@
    "biesiekierski-2011": "close",
    "clements-1980": "close",
    "mext-2020": "close",
-   "milder-2005": "close"
+   "milder-2005": "close",
+   "cofid-2021": "close"
   },
   "cells": {
    "solfibre": {
@@ -1247,10 +1248,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 11,
+    "state": "range",
+    "low": 1.7,
+    "high": 11,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "inositol-free": {
@@ -1561,7 +1564,8 @@
    "halliwell-2023": "exact",
    "kamao-2007": "exact",
    "mext-2020": "exact",
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -1606,10 +1610,12 @@
     ]
    },
    "biotin": {
-    "state": "measured",
-    "value": 20,
+    "state": "range",
+    "low": 20,
+    "high": 53,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "mk7": {
@@ -14140,7 +14146,8 @@
  "haricot-beans-cooked": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "close"
+   "fao-phytate": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "phytate": {
@@ -14148,6 +14155,13 @@
     "value": 942.79,
     "sources": [
      "fao-phytate"
+    ]
+   },
+   "biotin": {
+    "state": "measured",
+    "value": 1.5,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }
@@ -15026,6 +15040,28 @@
     "value": 0.976,
     "sources": [
      "kawabata-1973"
+    ]
+   }
+  }
+ },
+ "green-peas-raw": {
+  "prep": "as listed",
+  "matches": {
+   "afcd-r3": "exact"
+  },
+  "cells": {
+   "biotin": {
+    "state": "measured",
+    "value": 3,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "inulin": {
+    "state": "measured",
+    "value": 0.7,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }

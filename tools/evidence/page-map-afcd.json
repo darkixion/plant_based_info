@@ -154,5 +154,13 @@
   "tahini-from-roasted-kernels": {
     "key": "F009076",
     "match": "close"
+  },
+  "haricot-beans-cooked": {
+    "key": "F000437",
+    "match": "exact"
+  },
+  "green-peas-raw": {
+    "key": "F006536",
+    "match": "exact"
   }
 }
