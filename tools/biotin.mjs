@@ -126,6 +126,11 @@ const TRAPS = [
   [/\bin syrup\b|\bsweetened\b|\bwith sugar\b/, 25],
   [/canned/, 15],
   [/\bsalted\b|\btoasted\b|\bsmoked\b/, 15],
+  /* A dish containing the food is not the food. Peanut brittle led the
+     peanut candidates at 24 ug where the kernel row holds 72, and a figure
+     for brittle is a figure for its sugar and butter as much as for its
+     peanuts. */
+  [/\b(brittle|yogurt|yoghurt|biscuit|cereal|bhaji|confectioner|chocolate|cake|brownie|pie|pudding|curry|soup|salad|sandwich|toast|takeaway|homemade|roast)\b/, 35],
 ];
 
 /**

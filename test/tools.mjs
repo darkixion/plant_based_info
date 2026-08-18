@@ -399,6 +399,31 @@ test("a row that says unsweetened is not penalised for saying sweetened", () => 
   if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);
 });
 
+test("a dish containing the food is not the food", () => {
+  // Peanut brittle led the peanut candidates at 24 ug where the kernel row
+  // holds 72. A figure for brittle is a figure for its sugar and butter too.
+  const kernel = scoreCandidate("Peanuts", "", "Peanuts, kernel only, plain, unsalted");
+  const brittle = scoreCandidate("Peanuts", "", "Peanut brittle, homemade");
+  if (brittle > 0) throw new Error(`a dish should not be a candidate, got ${brittle}`);
+  if (!(kernel > 0)) throw new Error(`the kernel row should score, got ${kernel}`);
+});
+
+test("a roasted nut is not a nut roast", () => {
+  // The two words share a stem and mean opposite things here: one is the nut
+  // prepared, the other is a dish the nut went into.
+  const nut = scoreCandidate("Chestnuts", "roasted", "Nut, chestnut, roasted, unsalted");
+  const dish = scoreCandidate("Sunflower seeds", "", "Nut and seed roast, mixed nuts and sunflower seeds, homemade");
+  if (!(nut > 0)) throw new Error(`a roasted chestnut should score, got ${nut}`);
+  if (dish > 0) throw new Error(`a nut roast should not be a candidate, got ${dish}`);
+});
+
+test("a yogurt flavoured with the nut is not the nut", () => {
+  const kernel = scoreCandidate("Hazelnuts", "", "Hazelnuts, kernel only");
+  const yogurt = scoreCandidate("Hazelnuts", "", "Yogurt, low fat, hazelnut");
+  if (!(kernel > yogurt)) throw new Error(`kernel ${kernel} should beat yogurt ${yogurt}`);
+  if (yogurt > 0) throw new Error(`a yogurt should not be a candidate, got ${yogurt}`);
+});
+
 // ------------------------------------------------------------ evidence checks
 
 const NUTS = [{ id: "solfibre", evidence: true }, { id: "protein" }];
