@@ -474,5 +474,54 @@
   "cofid_code": "14-395",
   "cofid_name": "Figs, ready-to-eat, semi-dried",
   "match": "close"
+ },
+ {
+  "page": "Rapeseed oil",
+  "page_state": "",
+  "cofid_code": "17-041",
+  "cofid_name": "Oil, rapeseed",
+  "match": "exact"
+ },
+ {
+  "page": "Sesame oil",
+  "page_state": "",
+  "cofid_code": "17-043",
+  "cofid_name": "Oil, sesame",
+  "match": "exact"
+ },
+ {
+  "page": "Walnut oil",
+  "page_state": "",
+  "cofid_code": "17-047",
+  "cofid_name": "Oil, walnut",
+  "match": "exact"
+ },
+ {
+  "page": "Coconut oil",
+  "page_state": "",
+  "cofid_code": "17-031",
+  "cofid_name": "Oil, coconut",
+  "match": "exact"
+ },
+ {
+  "page": "Peanut oil",
+  "page_state": "",
+  "cofid_code": "17-040",
+  "cofid_name": "Oil, peanut (groundnut)",
+  "match": "exact"
+ },
+ {
+  "page": "Olive oil",
+  "page_state": "extra virgin",
+  "cofid_code": "17-038",
+  "cofid_name": "Oil, olive",
+  "match": "close"
+ },
+ {
+  "page": "Soybean oil",
+  "page_state": "refined",
+  "cofid_code": "17-044",
+  "cofid_name": "Oil, soya",
+  "match": "close"
  }
 ]

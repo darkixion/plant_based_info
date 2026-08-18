@@ -13550,7 +13550,8 @@
    "milder-2005": "proxy",
    "venegas-2011": "proxy",
    "zmitek-2014": "proxy",
-   "sim-2021": "close"
+   "sim-2021": "close",
+   "cofid-2021": "close"
   },
   "cells": {
    "coq10": {
@@ -13592,6 +13593,12 @@
     "sources": [
      "sim-2021"
     ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
+    ]
    }
   }
  },
@@ -13599,7 +13606,8 @@
   "prep": "as listed",
   "matches": {
    "fine-2016": "proxy",
-   "nergiz-2011": "proxy"
+   "nergiz-2011": "proxy",
+   "cofid-2021": "close"
   },
   "cells": {
    "coq10": {
@@ -13615,6 +13623,12 @@
     "sources": [
      "nergiz-2011"
     ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
+    ]
    }
   }
  },
@@ -13625,7 +13639,8 @@
    "milder-2005": "proxy",
    "sim-2021": "exact",
    "jensen-2022": "exact",
-   "mattila-2001": "close"
+   "mattila-2001": "close",
+   "cofid-2021": "exact"
   },
   "cells": {
    "coq10": {
@@ -13679,6 +13694,12 @@
     "sources": [
      "mattila-2001"
     ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
+    ]
    }
   }
  },
@@ -13717,7 +13738,8 @@
   "prep": "as listed",
   "matches": {
    "cabrini-2001": "proxy",
-   "lozano-grande-2018": "proxy"
+   "lozano-grande-2018": "proxy",
+   "cofid-2021": "exact"
   },
   "cells": {
    "coq10": {
@@ -13733,6 +13755,12 @@
     "sources": [
      "lozano-grande-2018"
     ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
+    ]
    }
   }
  },
@@ -13740,7 +13768,8 @@
   "prep": "as listed",
   "matches": {
    "mattila-2001": "proxy",
-   "milder-2005": "proxy"
+   "milder-2005": "proxy",
+   "cofid-2021": "exact"
   },
   "cells": {
    "coq10": {
@@ -13755,6 +13784,12 @@
     "value": 29.16,
     "sources": [
      "milder-2005"
+    ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
@@ -13810,7 +13845,8 @@
  "walnut-oil": {
   "prep": "as listed",
   "matches": {
-   "tian-2023": "proxy"
+   "tian-2023": "proxy",
+   "cofid-2021": "exact"
   },
   "cells": {
    "squalene": {
@@ -13818,6 +13854,12 @@
     "value": 1.1,
     "sources": [
      "tian-2023"
+    ]
+   },
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
@@ -15415,6 +15457,20 @@
     "sources": [
      "cofid-2021",
      "afcd-r3"
+    ]
+   }
+  }
+ },
+ "coconut-oil": {
+  "prep": "as listed",
+  "matches": {
+   "cofid-2021": "exact"
+  },
+  "cells": {
+   "biotin": {
+    "state": "trace",
+    "sources": [
+     "cofid-2021"
     ]
    }
   }
