@@ -85,3 +85,156 @@ export function biotinCell(rows) {
     cell.conflict = Object.fromEntries(held);
   return cell;
 }
+
+/* Words that say nothing about which food this is. Preparation words are not
+   here: they are scored separately, because getting them wrong is the one
+   mistake that puts a plausible number on the wrong row. */
+const STOP = new Set(["and", "with", "the", "in", "or", "no", "added", "whole",
+  "fresh", "weighed", "flesh", "only", "commercial", "average", "type",
+  "unfortified", "regular", "unsalted", "salt", "water", "drained", "from",
+  "each", "per", "all", "kernels", "seeds"]);
+
+/* A crude stem: enough to pair "Chickpeas" with "Chickpea" and "Almonds" with
+   "Almond" without pulling in a stemmer. Deliberately conservative, because a
+   stem that over-merges invents matches a reviewer then has to catch. */
+const stem = w => w.length > 3 && w.endsWith("es") ? w.slice(0, -2)
+  : w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w;
+
+const tokens = s => new Set(String(s).toLowerCase().split(/[^a-z]+/)
+  .filter(w => w.length > 2 && !STOP.has(w)).map(stem));
+
+const COOKED = ["cooked", "boiled", "baked", "roasted", "steamed", "grilled", "fried", "stewed"];
+const RAW = ["raw", "dried", "dry", "uncooked"];
+
+/* Rows whose figure is on a different basis, or whose food is a different
+   food, and which score well on words alone. Each of these was seen in the
+   corpora rather than imagined. */
+const TRAPS = [
+  [/weighed with (shell|skin|stone|pod)/, 40],
+  [/weighed as purchased/, 40],
+  [/juice/, 30],
+  [/in syrup|sweetened|with sugar/, 25],
+  [/canned/, 15],
+  [/salted|toasted|smoked/, 15],
+];
+
+/**
+ * How well a source row matches a page food. Zero or below means no candidate.
+ *
+ * @param {string} name page food name, "Chickpeas"
+ * @param {string} state page food state, "cooked" or ""
+ * @param {string} row the source row's own name
+ * @returns {number}
+ */
+export function scoreCandidate(name, state, row) {
+  const want = tokens(name), have = tokens(row);
+  let shared = 0;
+  for (const w of want) if (have.has(w)) shared++;
+  if (!shared) return 0;
+
+  let score = shared * 10;
+  const low = String(row).toLowerCase();
+  const wantsCooked = COOKED.some(w => String(state).toLowerCase().includes(w));
+  const wantsRaw = RAW.some(w => String(state).toLowerCase().includes(w));
+  const rowCooked = COOKED.some(w => low.includes(w));
+  const rowRaw = RAW.some(w => low.includes(w)) && !rowCooked;
+
+  if (wantsCooked && rowCooked) score += 8;
+  if (wantsRaw && rowRaw) score += 8;
+  /* A page food carrying no state, matched to a row that names no preparation
+     either, has nothing to disagree about. Without this, a whole nut and a raw
+     fruit can never reach the score that suggests an exact grade, and every
+     pair in those categories arrives at review marked proxy. */
+  if (!wantsCooked && !wantsRaw && !rowCooked && !rowRaw) score += 8;
+  /* A preparation mismatch is not a weaker match, it is a different
+     measurement. It takes the candidate out rather than ranking it lower. */
+  if (wantsCooked && rowRaw) return 0;
+  if (wantsRaw && rowCooked) return 0;
+
+  for (const [re, penalty] of TRAPS)
+    if (re.test(low) && !re.test(String(name).toLowerCase())) score -= penalty;
+
+  return score;
+}
+
+/* A grade is a claim about the pair, and the reviewer's to make. This suggests
+   one so the common case is a nod rather than a decision. */
+const suggestGrade = (score, name, row) => {
+  const want = tokens(name), have = tokens(row);
+  let shared = 0;
+  for (const w of want) if (have.has(w)) shared++;
+  return shared === want.size && score >= 18 ? "exact" : score >= 18 ? "close" : "proxy";
+};
+
+/* Run as a command rather than imported: propose map pairs for review. The
+   same entry-point guard tools/usda.mjs carries, so importing this file for
+   biotinCell never runs a proposal. */
+if (process.argv[1] && process.argv[1].endsWith("biotin.mjs")) {
+  const [, , cmd, ...args] = process.argv;
+  if (cmd !== "propose") {
+    console.error("usage: node tools/biotin.mjs propose <Category> [<Category>...]");
+    process.exit(1);
+  }
+  const { readFileSync, writeFileSync, existsSync } = await import("node:fs");
+  const { dirname, join } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
+  const EV = join(ROOT, "tools", "evidence");
+  const rd = f => JSON.parse(readFileSync(join(EV, f), "utf8"));
+  const slugify = (name, state) => `${name} ${state || ""}`
+    .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const foods = JSON.parse(readFileSync(join(ROOT, "src", "data", "nutrients.json"), "utf8"))
+    .foods.filter(f => args.includes(f.cat));
+  if (!foods.length) {
+    console.error(`no page foods in category ${args.join(", ")}`);
+    process.exit(1);
+  }
+
+  const hasFigure = v => v != null && v !== "" && v !== "N" && !Number.isNaN(parseFloat(v));
+  const cofidRows = rd("cofid-2021-plant.json")
+    .filter(r => hasFigure(r.biotin_ug) || r.biotin_ug === "Tr");
+  const afcdRows = rd("afcd-r3-plant.json").filter(r => hasFigure(r.biotin_ug));
+
+  const cofidMapped = new Set(rd("page-map-cofid.json")
+    .map(m => slugify(m.page, m.page_state)));
+  const afcdMapped = new Set(Object.keys(rd("page-map-afcd.json")));
+
+  const top = (rows, nameOf, food) => rows
+    .map(r => ({ row: r, score: scoreCandidate(food.name, food.state, nameOf(r)) }))
+    .filter(c => c.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+
+  const cofidOut = [], afcdOut = {};
+  let lines = `\n## Batch: ${args.join(", ")}\n\nProposed ${new Date().toISOString().slice(0, 10)}. Nothing here is mapped until it is read.\n`;
+
+  for (const food of foods) {
+    const slug = slugify(food.name, food.state);
+    const label = `${food.name}${food.state ? `, ${food.state}` : ""}`;
+    const cofid = cofidMapped.has(slug) ? [] : top(cofidRows, r => r.name, food);
+    const afcd = afcdMapped.has(slug) ? [] : top(afcdRows, r => r.name, food);
+    if (!cofid.length && !afcd.length) continue;
+
+    lines += `\n### ${label}\n\n| Source | Row | Biotin | Derivation | Score | Grade |\n|---|---|---|---|---|---|\n`;
+    for (const c of cofid)
+      lines += `| CoFID | ${c.row.code} ${c.row.name} | ${c.row.biotin_ug} | analysed | ${c.score} | ${suggestGrade(c.score, food.name, c.row.name)} |\n`;
+    for (const c of afcd)
+      lines += `| AFCD | ${c.row.key} ${c.row.name} | ${c.row.biotin_ug} | ${c.row.derivation} | ${c.score} | ${suggestGrade(c.score, food.name, c.row.name)} |\n`;
+
+    if (cofid[0]) cofidOut.push({ page: food.name, page_state: food.state || "",
+      cofid_code: cofid[0].row.code, cofid_name: cofid[0].row.name,
+      match: suggestGrade(cofid[0].score, food.name, cofid[0].row.name),
+      biotin_ug: cofid[0].row.biotin_ug });
+    if (afcd[0]) afcdOut[slug] = { key: afcd[0].row.key, name: afcd[0].row.name,
+      match: suggestGrade(afcd[0].score, food.name, afcd[0].row.name),
+      biotin_ug: afcd[0].row.biotin_ug, derivation: afcd[0].row.derivation };
+  }
+
+  writeFileSync(join(EV, "proposed-page-map-cofid.json"), JSON.stringify(cofidOut, null, 1) + "\n");
+  writeFileSync(join(EV, "proposed-page-map-afcd.json"), JSON.stringify(afcdOut, null, 1) + "\n");
+  const doc = join(EV, "BIOTIN-MAP-REVIEW.md");
+  const head = "# Biotin map proposals, for review\n\nWritten by `node tools/biotin.mjs propose`. Every pair here is a suggestion.\nAutomated name matching is refused in this project, so nothing reaches a\n`page-map-*.json` until it has been read.\n";
+  writeFileSync(doc, (existsSync(doc) ? readFileSync(doc, "utf8") : head) + lines);
+  console.log(`${cofidOut.length} CoFID and ${Object.keys(afcdOut).length} AFCD pairs proposed, for review in tools/evidence/BIOTIN-MAP-REVIEW.md`);
+}

@@ -9,7 +9,7 @@
  */
 import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
-import { biotinCell } from "../tools/biotin.mjs";
+import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
@@ -325,6 +325,44 @@ test("an analysed absence ranges against a finding", () => {
   eq(c.low, 0, "from nothing");
   eq(c.high, 4, "to the figure");
   eq(c.median, undefined, "and two figures get no median");
+});
+
+test("a plural page food still matches its singular source row", () => {
+  // A first crude pass scored chickpeas and cashews as having no candidate in
+  // either database when both hold them, because "Chickpeas" does not contain
+  // "Chickpea, dried, boiled, drained".
+  const s = scoreCandidate("Chickpeas", "cooked", "Chickpea, dried, boiled, drained");
+  if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);
+});
+
+test("scoring refuses to cross raw and cooked", () => {
+  // Preparation is the sharpest edge in this data. A cooked page food matched
+  // to a dried row measures hydration, not disagreement.
+  const cooked = scoreCandidate("Lentils", "cooked", "Lentils, green and brown, whole, dried, boiled in unsalted water");
+  const dried = scoreCandidate("Lentils", "cooked", "Lentils, green and brown, whole, dried, raw");
+  if (!(cooked > dried)) throw new Error(`cooked ${cooked} should beat dried ${dried}`);
+  if (dried > 0) throw new Error(`a raw row for a cooked food should not score, got ${dried}`);
+});
+
+test("a food with no preparation is not penalised for having none", () => {
+  // Nuts and most fruit carry no state, and neither do their rows.
+  const s = scoreCandidate("Almonds", "", "Almonds, whole kernels");
+  if (!(s >= 18)) throw new Error(`expected at least 18, got ${s}`);
+});
+
+test("a different basis scores below the same basis", () => {
+  // CoFID holds almonds four ways. "Weighed with shells" at 23.7 against 64
+  // for kernels is a different basis, not a different figure, and a reviewer
+  // who accepted it would put a shell-diluted number on the page.
+  const kernels = scoreCandidate("Almonds", "", "Almonds, whole kernels");
+  const shells = scoreCandidate("Almonds", "", "Almonds, weighed with shells");
+  if (!(kernels > shells)) throw new Error(`kernels ${kernels} should beat shells ${shells}`);
+});
+
+test("juice is not the fruit", () => {
+  const fruit = scoreCandidate("Apples", "raw", "Apples, eating, raw, flesh only");
+  const juice = scoreCandidate("Apples", "raw", "Apple juice, clear, ambient and chilled");
+  if (!(fruit > juice)) throw new Error(`fruit ${fruit} should beat juice ${juice}`);
 });
 
 // ------------------------------------------------------------ evidence checks
