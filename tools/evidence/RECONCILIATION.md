@@ -165,6 +165,26 @@ project called it the strongest single-value candidate of the nine; that was wro
 and it was wrong because it rested on coverage counts before any cross-comparison had
 been done. Coverage is not agreement.
 
+### The 14-food table above is now a corpus, not an argument
+
+That table compared 14 foods by hand. Biotin has since been given its own pass
+over the union of MEXT, CoFID and AFCD, mapped and reviewed rather than run
+inside the loop over MEXT's rows alone, and the same disagreement now shows in
+the whole column rather than a sample of it: 142 of 222 foods carry a biotin
+cell, 92 measured, 30 range, 8 trace, 2 estimated and 10 not-measured. Of the
+142, 79 cells cite one source, 46 cite two and 17 cite three, and 4 of those
+carry sources that disagree. 63 foods now rest on two or three national
+programmes, against 13 before this pass. Ten of the ranges carry a median,
+against 2 before.
+
+Running biotin as its own pass rather than inside MEXT's loop is also what
+grew coverage: a food MEXT never assayed can now still carry a biotin figure.
+Pistachios, pecans, walnuts, wholewheat pasta, brazil nuts, pine nuts and
+coconut gained one this way. And CoFID's `Tr` marker, which used to reach
+`parseFloat`, become `NaN` and vanish, is now carried through as the `trace`
+state: eight of the new cells are pearl barley, plums and the seven oils, less
+any overlap, each reporting a trace rather than nothing.
+
 ## Status by component
 
 | Component | Reconciles? | Treatment |

@@ -76,7 +76,7 @@ calcium. So every component here had to come from somewhere else.
 | `kawabata-1973-pectin.json` | 10 | **pectin** as calcium pectate in the fresh edible portion, from a 1973 Japanese survey of 24 vegetables |
 | `usda-glucosinolate-r1.json` | 14 | **glucoraphanin** in mg/100 g fresh weight from USDA/ODS-NIH Release 1, with cultivar, n, SD and range per observation |
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
-| `page-map-mext.json` | 81 | reviewed mappings from this page's foods to MEXT rows |
+| `page-map-mext.json` | 102 | reviewed mappings from this page's foods to MEXT rows |
 
 ## The evidence states
 
@@ -85,7 +85,9 @@ collapsing them throws away the most useful thing the data says:
 
 - `measured` : a figure was reported
 - `not-detected` : analysed, none found. **This is a finding, not a gap.**
-- `trace` : the source says trace
+- `trace` : the source says trace. CoFID marks this `Tr` in its own tables; it
+  used to reach `parseFloat`, become `NaN` and leave no data, and is now carried
+  through as `trace` instead
 - `estimated` : the source calculated or imputed it
 - `not-measured` : nobody assayed it
 - `no-data` : the source has no cell at all
@@ -109,6 +111,10 @@ replaced could only be right about one of them, and it recorded `exact`, so the
 dry-basis phytate figure reached the page with no proxy mark on it at all. The
 grades live in `evidence.json` as `matches: { "<source>": "<grade>" }`, and a
 cell's mark is the worst grade among the sources that cell names.
+
+`page-map-afcd.json` entries are `{ key, match }`, each carrying its own
+reviewed grade. The code used to default every entry to `exact` regardless of
+what the reviewer had actually found.
 
 ## Values must be the source's own
 
