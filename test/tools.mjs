@@ -9,6 +9,7 @@
  */
 import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
+import { biotinCell } from "../tools/biotin.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
@@ -206,6 +207,124 @@ test("estimates take no part in choosing a value", () => {
   eq(c.state, "measured", "one analysed value stands alone");
   eq(c.value, 8.9, "and the estimate does not move it");
   eq(c.sources.length, 1, "only the analysed source is credited");
+});
+
+// ------------------------------------------------------------------- biotin
+
+test("a food absent from MEXT still gets a biotin cell", () => {
+  // The structural limit this work exists to remove. Walnuts, pistachios,
+  // brazil nuts and wholewheat pasta each carry an analysed AFCD figure and
+  // no Japanese row, so the old pass, which looped over the MEXT map, could
+  // never reach them.
+  const c = biotinCell({ afcd: { biotin_ug: "19", derivation: "Analysed" } });
+  eq(c.state, "measured", "one analysed source is a measurement");
+  eq(c.value, 19, "and it is that source's own figure");
+  eq(c.sources[0], "afcd-r3", "named");
+});
+
+test("an AFCD recipe figure never reconciles against a measurement", () => {
+  // Rule 1. Chickpeas is the case: AFCD's 2.5 is calculated from ingredients
+  // and cooking factors, so MEXT's 8.9 stands alone rather than becoming a
+  // range of 2.5 to 8.9 that no laboratory would recognise.
+  const c = biotinCell({
+    mext: { state: "measured", value: 8.9 },
+    afcd: { biotin_ug: "2.5", derivation: "Recipe" },
+  });
+  eq(c.state, "measured", "a recipe cannot open a range");
+  eq(c.value, 8.9, "the analysed figure stands");
+  eq(c.sources.length, 1, "and cites one source");
+});
+
+test("three sources let the outlier be disputed rather than printed", () => {
+  // Almonds. CoFID 64 and MEXT 60 agree at 1.07x, AFCD's 0.5 sits 120x from
+  // the median, and rule 4 has the third source it needs to say which is odd.
+  const c = biotinCell({
+    mext: { state: "measured", value: 60 },
+    cofid: { biotin_ug: "64" },
+    afcd: { biotin_ug: "0.5", derivation: "Analysed" },
+  });
+  eq(c.state, "measured", "two agreeing sources against one outlier");
+  eq(c.value, 62, "the median of what is left");
+  eq(c.disputed[0].source, "afcd-r3", "the outlier is named");
+});
+
+test("CoFID's trace marker is a finding, not a gap", () => {
+  // "Tr" went through parseFloat, became NaN and then no data, discarding the
+  // finding on 63 rows. Trace is one of the six states.
+  const c = biotinCell({ cofid: { biotin_ug: "Tr" } });
+  eq(c.state, "trace", "a trace is what the source said");
+  eq(c.sources[0], "cofid-2021", "and it is named");
+});
+
+test("a trace never bounds a range", () => {
+  // A trace carries no figure, so it cannot be a low bound. Where a source has
+  // a number, the number is the cell.
+  const c = biotinCell({
+    mext: { state: "measured", value: 2.5 },
+    cofid: { biotin_ug: "Tr" },
+  });
+  eq(c.state, "measured", "the figure decides the cell");
+  eq(c.value, 2.5, "at its own value");
+  eq(c.sources.length, 1, "citing only the source that had a figure");
+});
+
+test("CoFID's N is no data and never a zero", () => {
+  const c = biotinCell({ cofid: { biotin_ug: "N" } });
+  eq(c, null, "a component nobody assayed says nothing");
+});
+
+test("a finding beats a gap when neither source has a figure", () => {
+  // MEXT looked at nothing, CoFID saw a trace. The trace is the only
+  // information here.
+  const c = biotinCell({
+    mext: { state: "not-measured", value: null },
+    cofid: { biotin_ug: "Tr" },
+  });
+  eq(c.state, "trace", "the finding is the cell");
+});
+
+test("a gap does not disagree with a finding", () => {
+  // Not-measured is nobody having looked. It has no quarrel with a trace, and
+  // recording one would fill the conflict report with noise that hides the
+  // real disagreements.
+  const c = biotinCell({
+    mext: { state: "not-measured", value: null },
+    cofid: { biotin_ug: "Tr" },
+  });
+  eq(c.state, "trace", "the finding is still the cell");
+  eq(c.conflict, undefined, "and nothing is reported as a conflict");
+});
+
+test("two sources reporting different findings record the conflict", () => {
+  // Not-detected against trace is a disagreement no figure can express, and
+  // the one thing that must not happen is silence about it.
+  const c = biotinCell({
+    mext: { state: "not-detected", value: null },
+    cofid: { biotin_ug: "Tr" },
+  });
+  eq(c.state, "trace", "the more informative finding is shown");
+  eq(c.conflict.mext, "not-detected", "and the other is recorded");
+  eq(c.conflict.cofid, "trace", "with what it said");
+});
+
+test("MEXT's own state passes through when nothing has a figure", () => {
+  const c = biotinCell({ mext: { state: "not-detected", value: null } });
+  eq(c.state, "not-detected", "analysed and none found is a finding");
+  eq(c.sources[0], "mext-2020", "named");
+});
+
+test("an analysed absence ranges against a finding", () => {
+  // AFCD reports 18 analysed biotin zeros. The fix of 2026-08-18 meeting the
+  // case it was written for: a source that looked and found nothing widens the
+  // spread rather than being averaged away.
+  const c = biotinCell({
+    mext: { state: "measured", value: 4 },
+    afcd: { biotin_ug: "0", derivation: "Analysed" },
+  });
+  eq(c.state, "range", "an absence against a finding is a range");
+  eq(c.low, 0, "from nothing");
+  eq(c.high, 4, "to the figure");
+  eq(c.median, undefined, "and two figures get no median");
 });
 
 // ------------------------------------------------------------ evidence checks
