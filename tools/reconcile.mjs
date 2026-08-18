@@ -37,6 +37,23 @@ const SPREAD_LIMIT = 2;
    rather than the honest breadth of the evidence. */
 const OUTLIER_FACTOR = 10;
 
+/** A cell over figures that are being spanned rather than reconciled: repeated
+ *  samples of one food, or two sources whose figures the cell names together
+ *  rather than choosing between. Shared with the passes in evidence.mjs so that
+ *  a range built there carries the same centre a reconciled one does.
+ *
+ *  The median is only set where three or more figures make one. Two have no
+ *  median distinct from their midpoint, and printing that midpoint is what
+ *  rule 3 forbids: AFCD's 74 ug of iodine in rolled oats against MEXT's not
+ *  detected reads as 0 to 74, never as 37. */
+export function spanCell(figures, sources) {
+  const lo = Math.min(...figures), hi = Math.max(...figures);
+  if (!(hi > lo)) return { state: "measured", value: tidy(lo), sources };
+  return figures.length > 2
+    ? { state: "range", low: tidy(lo), high: tidy(hi), median: tidy(median(figures)), sources }
+    : { state: "range", low: tidy(lo), high: tidy(hi), sources };
+}
+
 export function reconcile(candidates) {
   const analysed = candidates.filter(c => c.derivation === "analysed");
 
@@ -63,13 +80,31 @@ export function reconcile(candidates) {
   }
 
   const vals = kept.map(c => c.value);
-  const positive = vals.filter(v => v > 0);
-  const spread = positive.length > 1 ? Math.max(...positive) / Math.min(...positive) : 1;
+  /* An analysed absence is a finding, and the widest disagreement there is.
+     This used to compare only the values above zero, so a source that looked
+     and found nothing could not widen the spread and the cell collapsed to a
+     midpoint neither source had measured. RECONCILIATION.md names the case in
+     as many words: AFCD reports 74 ug of iodine in rolled oats where MEXT
+     reports not detected, and "it must be shown as a range with both sources
+     named, never averaged to 37". This returned exactly 37.
+
+     Zero against zero is still agreement, so the guard is only against mixing
+     an absence with a finding, which no ratio can express. */
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  const spread = vals.length < 2 ? 1
+    : (lo === 0 ? (hi === 0 ? 1 : Infinity) : hi / lo);
   const sources = kept.map(c => c.source);
   const n = kept.reduce((t, c) => c.n ? t + c.n : t, 0) || undefined;
 
   if (spread > SPREAD_LIMIT) {
-    const cell = { state: "range", low: tidy(Math.min(...vals)), high: tidy(Math.max(...vals)), sources };
+    /* The median goes in the cell because the page reads and sorts a range on
+       it. Only where three or more figures make one: the median of two is
+       their midpoint, and printing that is the thing rule 3 forbids. AFCD's
+       74 ug of iodine in rolled oats against MEXT's not detected must read as
+       0 to 74 and never as 37. */
+    const cell = vals.length > 2
+      ? { state: "range", low: tidy(lo), high: tidy(hi), median: tidy(median(vals)), sources }
+      : { state: "range", low: tidy(lo), high: tidy(hi), sources };
     if (n) cell.n = n;
     return cell;
   }

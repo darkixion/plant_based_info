@@ -55,7 +55,7 @@ type EvState = "measured" | "range" | "trace" | "not-detected" | "estimated" | "
    would let the two disagree; not holding it makes that unrepresentable. */
 interface EvidenceCell {
   state: EvState;
-  value?: number; low?: number; high?: number;
+  value?: number; low?: number; high?: number; median?: number;
   sources?: string[];
   n?: number; disputed?: { source: string; value: number }[];
 }
@@ -908,7 +908,15 @@ const evText = (c: EvidenceCell | undefined, dp: number): string => {
   if (!c) return "no data";
   switch (c.state) {
     case "measured":  return c.value!.toFixed(dp);
-    case "range":     return `${c.low!.toFixed(dp)} to ${c.high!.toFixed(dp)}`;
+    /* A range leads with its median where it has one, and shows the bounds
+       behind it. Bounds alone read as an interval whose centre is halfway
+       along, and for raw broccoli's 210 cultivar means that centre is 109.5
+       against a median of 23.85. A range over two figures has no median
+       distinct from that midpoint and prints the bounds alone, which is what
+       the oats iodine rule requires: 0 to 74, never 37. */
+    case "range":     return c.median === undefined
+      ? `${c.low!.toFixed(dp)} to ${c.high!.toFixed(dp)}`
+      : `${c.median.toFixed(dp)} (${c.low!.toFixed(dp)} to ${c.high!.toFixed(dp)})`;
     case "estimated": return c.value!.toFixed(dp);
     case "trace":         return "trace";
     case "not-detected":  return "none detected";
@@ -916,14 +924,17 @@ const evText = (c: EvidenceCell | undefined, dp: number): string => {
   }
 };
 
-/* A range sorts by its midpoint, which is the only defensible single point on
-   it. Everything that is not a figure sorts as absent, which is where n/a
-   already sorts. */
+/* A range sorts by its median where it carries one. The midpoint of the bounds
+   was used before and is only the centre of a symmetric spread: raw broccoli,
+   210 cultivar means, sorted at 109.5 against a median of 23.85 and led the
+   glucoraphanin column on it. A range over two figures has no median and still
+   sorts on the midpoint, which is the only point it has. Everything that is
+   not a figure sorts as absent, which is where n/a already sorts. */
 const evSortKey = (slug: string, id: string): number | null => {
   const c = ev(slug, id);
   if (!c) return null;
   if (c.state === "measured" || c.state === "estimated") return c.value ?? null;
-  if (c.state === "range") return (c.low! + c.high!) / 2;
+  if (c.state === "range") return c.median ?? (c.low! + c.high!) / 2;
   return null;
 };
 

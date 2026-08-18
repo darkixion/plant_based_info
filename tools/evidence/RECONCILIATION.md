@@ -373,6 +373,56 @@ peanut oil. The right rows all exist. This is the same failure the tool's own
 docstring describes for black beans and black pudding, and it is worth knowing
 that `exact` means "the macros agree", not "this is the food".
 
+## Settled 2026-08-18: what a range shows, and one thing it must never show
+
+Both open range questions are answered, and answering the first turned up a
+defect that contradicted rule 3 in code.
+
+**How far apart before a range?** Already decided and already implemented:
+`SPREAD_LIMIT` in `reconcile.mjs` is 2, from the observed data rather than
+chosen in the abstract. Molybdenum agrees at 0.7 to 1.5x, biotin's spinach
+disagrees at 29x, and nothing sits awkwardly near the boundary. What was open
+was the second question and a hole in the first.
+
+**The hole. `reconcile([0, 74])` returned `measured 37`.** Rule 3 above says of
+that exact case, AFCD's 74 ug of iodine in rolled oats against MEXT's not
+detected, that it "must be shown as a range with both sources named, never
+averaged to 37". The spread was computed over the values above zero, so a source
+that looked and found nothing could not widen it, and the cell collapsed to a
+midpoint neither laboratory measured. An analysed absence is a finding and the
+widest disagreement there is. Fixed, and covered by two tests. It was latent
+rather than live: every cell of that shape on the page today was written by
+another pass and is correctly a range. The biotin work would have hit it.
+
+**What a range summarises.** A range is now `low`, `high` and, where three or
+more figures make one, `median`. The page prints the median first and the bounds
+behind it, and sorts on the median.
+
+Sorting is where the old convention did visible damage. A range sorted on the
+midpoint of its bounds, which is the centre of an interval rather than of the
+evidence:
+
+| food | printed | sorted at | median |
+|---|---|---|---|
+| Broccoli, raw | 1.19 to 217.9 | **109.5** | 23.85 |
+| Brussels sprouts, raw | 0.17 to 35.55 | 17.9 | 6.16 |
+| Cabbage, raw | 0.34 to 19.64 | 10.0 | 1.03 |
+
+Raw broccoli led the glucoraphanin column on 109.5, a figure nobody measured,
+and raw brussels sprouts outranked red cabbage's own measured 13.06. The bounds
+are kept because they are honest and because 217.9 is a real floret sample; the
+median is added because it is the figure a reader should compare on.
+
+**Two figures get no median.** This is the half that protects rule 3. The median
+of two figures is their midpoint, so a two-figure range prints its bounds alone:
+oats iodine reads 0 to 74 and never 37. Thirty of the 62 range cells carry a
+median; the other 32 rest on two figures.
+
+The rule lives in `reconcile.mjs` for both shapes a range can take: `reconcile`
+for figures from different sources, and `spanCell` for repeated samples of one
+food, which the four passes in `evidence.mjs` that span samples now share rather
+than building cells by hand.
+
 ## Still to do
 
 - Reconcile biotin across **three** sources (MEXT, CoFID, AFCD). CoFID covers 1,925
@@ -384,15 +434,3 @@ that `exact` means "the macros agree", not "this is the food".
   insoluble separately and is not yet extracted).
 - Build reviewed page mappings for CoFID and IFCT. Only MEXT (81 foods) and AFCD
   (15 foods, this pass) exist so far.
-- Decide the range rule: how far apart two analysed values may sit before the page
-  shows a range rather than a value.
-- Decide what a range should summarise when a source has **hundreds** of rows for one
-  food. The convention is min to max over the release's own means, which is faithful
-  and, at large n, close to uninformative. Raw broccoli in the USDA glucosinolate
-  release is the case: 210 means, a median of 23.85 and a middle half of 15.07 to
-  33.08, printed as **1.19 to 217.9** because two cultivar extremes set the bounds.
-  The endpoints were checked and are real broccoli floret samples, EV 6-1 at the
-  bottom and Marathon at the top, with no sprout or microgreen rows contaminating the
-  mapping. So the figure is honest and still tells a reader almost nothing. Every
-  other range here is built over a handful of means, where min to max is fine, so
-  this is a question about one source rather than a flaw in the mechanism.

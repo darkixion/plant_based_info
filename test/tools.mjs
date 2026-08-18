@@ -8,7 +8,7 @@
  * `npm test`.
  */
 import { nextValue } from "../tools/usda.mjs";
-import { gradeDerivation, reconcile } from "../tools/reconcile.mjs";
+import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
@@ -120,6 +120,72 @@ test("two sources cannot produce an outlier, only a range", () => {
   ]);
   eq(c.state, "range", "two sources disagreeing is disagreement");
   eq(c.disputed, undefined, "with nothing to arbitrate between them");
+});
+
+test("an analysed absence against a measurement is a range, never their midpoint", () => {
+  /* The case RECONCILIATION.md rule 3 is written around, and the rule said in
+     as many words that it "must be shown as a range with both sources named,
+     never averaged to 37". It returned 37, because the spread was computed
+     over the values above zero and a source that found nothing could not widen
+     it. A midpoint neither laboratory measured is the one answer that cannot
+     be defended, and it is the one the page would have printed. */
+  const c = reconcile([
+    { source: "mext-2020", value: 0, derivation: "analysed" },
+    { source: "afcd-r3", value: 74, derivation: "analysed" },
+  ]);
+  eq(c.state, "range", "found nothing against found 74 is the widest disagreement there is");
+  eq(c.low, 0, "the range runs from the absence");
+  eq(c.high, 74, "to the finding");
+});
+
+test("two analysed absences agree rather than disagreeing", () => {
+  // No ratio can be formed, and none is needed: both looked and found nothing.
+  const c = reconcile([
+    { source: "mext-2020", value: 0, derivation: "analysed" },
+    { source: "afcd-r3", value: 0, derivation: "analysed" },
+  ]);
+  eq(c.state, "measured", "nothing and nothing is not a disagreement");
+  eq(c.value, 0, "and the figure is zero");
+});
+
+test("a range over three or more figures carries its median", () => {
+  /* The page reads and sorts a range on this. Without it it falls back to the
+     midpoint of the bounds, which is the centre of the interval rather than of
+     the evidence: raw broccoli's glucoraphanin runs 1.19 to 217.9 over 210
+     cultivar means with a median of 23.85, and it sorted at 109.5, ahead of
+     every other food in the column, on a figure nobody measured. */
+  const c = reconcile([
+    { source: "mext-2020", value: 3.7, derivation: "analysed" },
+    { source: "cofid-2021", value: 0.5, derivation: "analysed" },
+    { source: "afcd-r3", value: 1.3, derivation: "analysed" },
+  ]);
+  eq(c.state, "range", "7.4x apart is disagreement");
+  eq(c.median, 1.3, "and the centre is the median, not the 2.1 midpoint of 0.5 and 3.7");
+});
+
+test("a range over two figures carries no median", () => {
+  // Their median is their midpoint, and printing that is what rule 3 forbids.
+  const c = reconcile([
+    { source: "mext-2020", value: 0, derivation: "analysed" },
+    { source: "afcd-r3", value: 74, derivation: "analysed" },
+  ]);
+  eq(c.median, undefined, "0 to 74 has no third figure to make a centre from");
+});
+
+test("spanned samples follow the same rule as reconciled sources", () => {
+  /* evidence.mjs spans repeated samples of one food in four places and used to
+     build those cells by hand, so a range written there arrived without the
+     centre a reconciled one had. Daikon is the case: three parts along the
+     root at 0.303, 0.333 and 0.319, whose median is 0.319 and whose midpoint
+     is 0.318. */
+  const many = spanCell([0.303, 0.333, 0.319], ["kawabata-1973"]);
+  eq(many.state, "range", "three different figures are a spread");
+  eq(many.median, 0.319, "and the centre is the middle sample");
+  const two = spanCell([1.49, 1.61], ["tbca-carb-2019"]);
+  eq(two.median, undefined, "two samples have no median distinct from their midpoint");
+  const same = spanCell([1.55, 1.55], ["tbca-carb-2019"]);
+  eq(same.state, "measured", "samples that agree are one figure, not a range");
+  eq(same.value, 1.55, "with that figure");
 });
 
 test("an estimated value is shown but never reconciles", () => {

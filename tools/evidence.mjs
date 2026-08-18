@@ -19,7 +19,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { gradeDerivation, reconcile } from "./reconcile.mjs";
+import { gradeDerivation, reconcile, spanCell } from "./reconcile.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const EV = join(ROOT, "tools", "evidence");
@@ -379,10 +379,7 @@ for (const row of verde.rows) {
 }
 for (const [page, { figures, match }] of Object.entries(byPage)) {
   grade(page, "verde-2022", match);
-  const lo = ngPer100g(Math.min(...figures)), hi = ngPer100g(Math.max(...figures));
-  out[page].cells.melatonin = figures.length > 1
-    ? { state: "range", low: lo, high: hi, sources: ["verde-2022"] }
-    : { state: "measured", value: lo, sources: ["verde-2022"] };
+  out[page].cells.melatonin = spanCell(figures.map(ngPer100g), ["verde-2022"]);
   nCells++;
 }
 
@@ -435,18 +432,14 @@ for (const [page, { match, v }] of Object.entries(byPageRS)) {
   grade(page, "tbca-carb-2019", match);
   const held = out[page].cells.resstarch;
   if (held && (held.sources || []).includes("tbca-carb-2019")) continue;
-  const lo = Math.min(...v), hi = Math.max(...v);
-  const cell = hi > lo
-    ? { state: "range", low: lo, high: hi, sources: ["tbca-carb-2019"] }
-    : { state: "measured", value: lo, sources: ["tbca-carb-2019"] };
+  const cell = spanCell(v, ["tbca-carb-2019"]);
   /* MEXT measured green peas at 1.6 and this release at 1.55, which is
      agreement rather than disagreement, so the cell names both and spans them
      rather than picking one. Where MEXT only recorded not-measured there is
      nothing to reconcile and the figure simply replaces the blank. */
   if (held && typeof held.value === "number") {
-    out[page].cells.resstarch = { state: "range",
-      low: Math.min(lo, held.value), high: Math.max(hi, held.value),
-      sources: [...new Set([...(held.sources || []), "tbca-carb-2019"])] };
+    out[page].cells.resstarch = spanCell([...v, held.value],
+      [...new Set([...(held.sources || []), "tbca-carb-2019"])]);
     ranges++;
     continue;
   }
@@ -473,17 +466,13 @@ for (const row of kawabata.rows) {
   const held = out[row.page].cells.pectin;
   // Daikon was assayed in three parts along the root rather than once.
   const parts = row.parts ? Object.values(row.parts) : [row.total];
-  const lo = Math.min(...parts), hi = Math.max(...parts);
-  const cell = hi > lo
-    ? { state: "range", low: lo, high: hi, sources: ["kawabata-1973"] }
-    : { state: "measured", value: lo, sources: ["kawabata-1973"] };
+  const cell = spanCell(parts, ["kawabata-1973"]);
   /* Carrot already had a figure, EuroFIR's 1.7 g against this paper's 0.628.
      Two methods rather than two samples, and neither is the other's error, so
      the cell spans both and names both. */
   if (held && !(held.sources || []).includes("kawabata-1973") && typeof held.value === "number") {
-    out[row.page].cells.pectin = { state: "range",
-      low: Math.min(lo, held.value), high: Math.max(hi, held.value),
-      sources: [...new Set([...(held.sources || []), "kawabata-1973"])] };
+    out[row.page].cells.pectin = spanCell([...parts, held.value],
+      [...new Set([...(held.sources || []), "kawabata-1973"])]);
     ranges++;
     continue;
   }
@@ -517,10 +506,7 @@ const gsl = rd("usda-glucosinolate-r1.json");
 for (const f of gsl.foods) {
   grade(f.page, "usda-glucosinolate-r1", f.match);
   const held = out[f.page].cells.glucoraphanin;
-  const lo = Math.min(...f.means), hi = Math.max(...f.means);
-  const cell = hi > lo
-    ? { state: "range", low: lo, high: hi, sources: ["usda-glucosinolate-r1"] }
-    : { state: "measured", value: lo, sources: ["usda-glucosinolate-r1"] };
+  const cell = spanCell(f.means, ["usda-glucosinolate-r1"]);
   /* The dissent has to survive a second run. This pass rewrites the cell from
      the corpus every time, so on the next run it would read back its own range,
      find no displaced figure to record, and drop the disputed source it wrote

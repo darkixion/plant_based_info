@@ -3040,6 +3040,51 @@ await test("an evidence column shows no percentage it does not have", async () =
   });
 });
 
+await test("a range leads with its median, and two figures get none", async () => {
+  /* Raw broccoli's glucoraphanin is 210 cultivar means from 1.19 to 217.9 with
+     a median of 23.85. Printed as bounds alone it reads as an interval whose
+     centre is 109.5, and the column sorted it there, ahead of every other food
+     on a figure nobody measured.
+
+     Cooked broccoli is the other half of the rule: two means, whose median is
+     their midpoint, so it prints its bounds alone. That is what stops the oats
+     iodine case being averaged to 37. */
+  await withPage(async page => {
+    await showGroups(page, "macro", "plant");
+    const cellFor = (name, state, id) => page.evaluate(({ name, state, id }) => {
+      const row = [...document.querySelectorAll("#tbody tr")].find(tr => {
+        const b = tr.querySelector(".fname");
+        return b?.dataset.name === name && (b.querySelector("span")?.textContent.trim() || "") === state;
+      });
+      if (!row) throw new Error(`no row for ${name} ${state}`);
+      const shown = [...document.querySelectorAll("#thead [data-sort]")].map(b => b.dataset.sort);
+      return row.querySelectorAll("td")[shown.indexOf(id)].textContent.trim();
+    }, { name, state, id });
+
+    eq(await cellFor("Broccoli", "raw", "glucoraphanin"), "23.9 (1.2 to 217.9)",
+       "210 means lead with the median the cell carries, at the column's own precision");
+    eq(await cellFor("Broccoli", "cooked", "glucoraphanin"), "6.4 to 9.2",
+       "two means have no median distinct from their midpoint, so neither is shown");
+
+    /* And the column ranks on it. Raw brussels sprouts sat above red cabbage
+       on a midpoint of 17.9 against its own median of 6.16 and red cabbage's
+       measured 13.06. */
+    const order = await page.evaluate(() => {
+      const head = [...document.querySelectorAll("#thead [data-sort]")];
+      head.find(b => b.dataset.sort === "glucoraphanin").click();
+      return [...document.querySelectorAll("#tbody tr")].map(tr => {
+        const b = tr.querySelector(".fname");
+        return `${b?.dataset.name} ${b?.querySelector("span")?.textContent.trim() || ""}`.trim();
+      });
+    });
+    const at = name => order.indexOf(name);
+    assert(at("Red cabbage raw") > -1 && at("Brussels sprouts raw") > -1,
+      `both foods must be in the sorted column: ${order.slice(0, 8).join(", ")}`);
+    assert(at("Red cabbage raw") < at("Brussels sprouts raw"),
+      `red cabbage's 13.06 outranks raw brussels sprouts' median of 6.16, got ${order.slice(0, 8).join(", ")}`);
+  });
+});
+
 await test("the dropped components stay dropped", async () => {
   /* Eight candidates were dropped with reasons in the design. Tocotrienols had
      4 analysed foods, all breads and pasta, none of them on this page. Ajugose

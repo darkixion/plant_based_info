@@ -122,7 +122,31 @@ their own food maps to. The rule is in `checkEvidence`, fed by `loadAttested`:
 - one source with a figure here: the cell must reproduce it exactly
 - several sources: the cell is a reconciliation and must lie within their span
 - a `range`: it must contain every figure its sources attest
+- a `range` over three or more attested figures: it must also carry its `median`
 - a source with no corpus here: not checked, and not failed either
+
+## A range carries its own centre
+
+A range is `low`, `high` and, where three or more figures make one, `median`.
+The page prints the median first and the bounds behind it, "23.9 (1.2 to 217.9)",
+and sorts the column on the median.
+
+It used to print the bounds alone and sort on their midpoint, which is only the
+centre of a symmetric spread. Raw broccoli glucoraphanin is 210 cultivar means
+from 1.19 to 217.9 with a median of 23.85, and it sorted at **109.5**, ahead of
+every other food in the column, on a figure nobody had measured. Raw brussels
+sprouts sorted at 17.9 against a median of 6.16, above red cabbage's own measured
+13.06.
+
+**Two figures get no median**, and this is the important half of the rule. The
+median of two figures is their midpoint, and printing the midpoint is exactly
+what the iodine case forbids: AFCD 74 ug in rolled oats against MEXT not
+detected must read as 0 to 74 and never as 37. Three figures or more make a
+centre that is a measurement rather than an average of two extremes.
+
+`spanCell` in `reconcile.mjs` applies the rule to repeated samples of one food
+and `reconcile` to figures from different sources, so a range built by either
+carries the same kind of centre.
 
 A source that has a corpus but no reviewed map is a cell citing a database
 nothing connects it to, and fails.

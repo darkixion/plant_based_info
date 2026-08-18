@@ -164,6 +164,17 @@ export function checkEvidence(evidence, nutrients, foods, sources, attested = {}
           problems.push(`${at}: range with no bounds`);
         else if (!(c.high > c.low))
           problems.push(`${at}: range bounds are equal or inverted, which means reconciliation was skipped`);
+        /* A range may carry its own centre, and the page reads and sorts on
+           that rather than on the midpoint of the bounds, which is wrong
+           wherever the samples are not symmetric: raw broccoli's glucoraphanin
+           spans 1.19 to 217.9 over 210 cultivar means with a median of 23.85,
+           and it used to sort at 109.5, above every other food in the column,
+           on a figure nobody measured. Required below, where the figures are
+           known, since only three or more of them make a median. */
+        if (c.median !== undefined && typeof c.median !== "number")
+          problems.push(`${at}: median is not a number`);
+        else if (typeof c.median === "number" && (c.median < c.low - 0.0005 || c.median > c.high + 0.0005))
+          problems.push(`${at}: median ${c.median} is outside its own range ${c.low} to ${c.high}`);
       }
 
       /* What the sources this cell names actually say, for the ones a corpus
@@ -195,6 +206,17 @@ export function checkEvidence(evidence, nutrients, foods, sources, attested = {}
         for (const { source, figure } of found)
           if (figure < c.low - 0.0005 || figure > c.high + 0.0005)
             problems.push(`${at}: range ${c.low} to ${c.high} excludes ${source}'s ${figure}`);
+        /* Three figures or more make a median, and then the cell must carry
+           one: without it the page falls back to the midpoint of the bounds,
+           which is the centre of the interval rather than of the evidence.
+           Only required, never forbidden. This index is deliberately partial,
+           so a cell can rest on more figures than are visible here: cooked
+           green peas span TBCA's two samples and MEXT's one, and only MEXT is
+           indexed, which makes its median look like it came from a single
+           figure. Whether a median is meaningful is decided where the figures
+           are, in spanCell and reconcile. */
+        if (found.length > 2 && typeof c.median !== "number")
+          problems.push(`${at}: a range over ${found.length} attested figures with no median, so the page would sort it on the midpoint of its bounds`);
       } else if (found.length === 1) {
         if (!attests(c.value, found[0].figure))
           problems.push(`${at}: ${c.value} disagrees with ${found[0].source}, which says ${found[0].figure}`);
