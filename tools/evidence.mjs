@@ -269,19 +269,23 @@ for (const [slug, entry] of Object.entries(afcdMap)) {
   grade(slug, "afcd-r3", match);
   const row = afcdKeyBy[key];
   if (row) {
+    /* One shape, whether the cell is new or already there. The two branches
+       this replaced wrote a first cell as a literal carrying min, max and
+       derivation, and the next pass rewrote it to reconcile's plainer shape,
+       so the file was not a fixed point of the generator that wrote it. No
+       food had ever hit it: it takes a newly mapped food reaching its first
+       inulin cell, which is what roasted chestnuts did. */
     if (row.inulin_g !== undefined) {
       const val = num(row.inulin_g);
       if (val !== null) {
-        if (!out[slug].cells.inulin) out[slug].cells.inulin = { state: "measured", sources: ["afcd-r3"], value: val, min: val, max: val, derivation: "analysed" };
-        else out[slug].cells.inulin = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }]);
+        out[slug].cells.inulin = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }]);
         nCells++;
       }
     }
     if (row.oligosaccharides_g !== undefined) {
       const val = num(row.oligosaccharides_g);
       if (val !== null) {
-        if (!out[slug].cells.oligosaccharides) out[slug].cells.oligosaccharides = { state: "measured", sources: ["afcd-r3"], value: val, min: val, max: val, derivation: "analysed" };
-        else out[slug].cells.oligosaccharides = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }]);
+        out[slug].cells.oligosaccharides = reconcile([{ source: "afcd-r3", value: val, derivation: "analysed" }]);
         nCells++;
       }
     }
