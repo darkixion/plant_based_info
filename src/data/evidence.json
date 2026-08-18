@@ -2873,7 +2873,8 @@
    "mext-2020": "proxy",
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -2962,9 +2963,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 60,
+    "value": 62,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "boron": {
@@ -3015,7 +3017,8 @@
    "milder-2005": "close",
    "nih-boron": "close",
    "usda-pa-r2": "exact",
-   "verde-2022": "close"
+   "verde-2022": "close",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3139,9 +3142,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 92,
+    "value": 82,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "coq10": {
@@ -3437,7 +3441,8 @@
   "matches": {
    "fao-phytate": "exact",
    "mext-2020": "close",
-   "milder-2005": "close"
+   "milder-2005": "close",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3526,9 +3531,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 15,
+    "value": 13,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "lignans": {
@@ -3916,7 +3922,8 @@
    "mext-2020": "proxy",
    "milder-2005": "proxy",
    "usda-pa-r2": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4008,9 +4015,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 19,
+    "value": 15.85,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "phytate": {
@@ -4057,7 +4065,8 @@
    "mext-2020": "proxy",
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4149,9 +4158,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 82,
+    "value": 79,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    },
    "proanthocyanidins": {
@@ -4296,7 +4306,8 @@
  "chestnuts-roasted": {
   "prep": "roasted",
   "matches": {
-   "mext-2020": "close"
+   "mext-2020": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4387,6 +4398,13 @@
     "value": 6,
     "sources": [
      "mext-2020"
+    ]
+   },
+   "inulin": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }
@@ -13070,7 +13088,8 @@
  "peanut-butter-smooth": {
   "prep": "smooth",
   "matches": {
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "cofid-2021": "exact"
   },
   "cells": {
    "solfibre": {
@@ -13194,9 +13213,10 @@
    },
    "biotin": {
     "state": "measured",
-    "value": 79,
+    "value": 86.5,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "cofid-2021"
     ]
    }
   }

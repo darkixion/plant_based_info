@@ -89,5 +89,61 @@
   "cofid_code": "13-572",
   "cofid_name": "Spinach, mature, raw",
   "match": "exact"
+ },
+ {
+  "page": "Almonds",
+  "page_state": "",
+  "cofid_code": "14-896",
+  "cofid_name": "Almonds, whole kernels",
+  "match": "exact"
+ },
+ {
+  "page": "Walnuts",
+  "page_state": "",
+  "cofid_code": "14-879",
+  "cofid_name": "Walnuts, kernel only",
+  "match": "exact"
+ },
+ {
+  "page": "Cashews",
+  "page_state": "",
+  "cofid_code": "14-811",
+  "cofid_name": "Cashew nuts, kernel only, plain",
+  "match": "exact"
+ },
+ {
+  "page": "Peanuts",
+  "page_state": "",
+  "cofid_code": "14-877",
+  "cofid_name": "Peanuts, kernel only, plain, unsalted",
+  "match": "exact"
+ },
+ {
+  "page": "Brazil nuts",
+  "page_state": "",
+  "cofid_code": "14-871",
+  "cofid_name": "Brazil nuts, kernel only",
+  "match": "exact"
+ },
+ {
+  "page": "Hazelnuts",
+  "page_state": "",
+  "cofid_code": "14-874",
+  "cofid_name": "Hazelnuts, kernel only",
+  "match": "exact"
+ },
+ {
+  "page": "Sesame seeds",
+  "page_state": "",
+  "cofid_code": "14-844",
+  "cofid_name": "Sesame seeds",
+  "match": "exact"
+ },
+ {
+  "page": "Peanut butter",
+  "page_state": "smooth",
+  "cofid_code": "14-892",
+  "cofid_name": "Peanut butter, smooth",
+  "match": "exact"
  }
 ]

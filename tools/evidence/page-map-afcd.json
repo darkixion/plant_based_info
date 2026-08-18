@@ -130,5 +130,29 @@
   "tvp-dry": {
     "key": "F009147",
     "match": "exact"
+  },
+  "pecans": {
+    "key": "F006111",
+    "match": "exact"
+  },
+  "macadamia-nuts-raw": {
+    "key": "F006099",
+    "match": "exact"
+  },
+  "chestnuts-roasted": {
+    "key": "F006096",
+    "match": "exact"
+  },
+  "coconut-raw": {
+    "key": "F002983",
+    "match": "exact"
+  },
+  "pine-nuts-dried": {
+    "key": "F006112",
+    "match": "close"
+  },
+  "tahini-from-roasted-kernels": {
+    "key": "F009076",
+    "match": "close"
   }
 }
