@@ -162,5 +162,81 @@
   "green-peas-raw": {
     "key": "F006536",
     "match": "exact"
+  },
+  "brussels-sprouts-cooked": {
+    "key": "F001913",
+    "match": "exact"
+  },
+  "brussels-sprouts-raw": {
+    "key": "F001914",
+    "match": "exact"
+  },
+  "alfalfa-sprouts-raw": {
+    "key": "F008803",
+    "match": "exact"
+  },
+  "green-beans-cooked": {
+    "key": "F000430",
+    "match": "exact"
+  },
+  "asparagus-cooked": {
+    "key": "F000151",
+    "match": "exact"
+  },
+  "asparagus-raw": {
+    "key": "F000155",
+    "match": "exact"
+  },
+  "cauliflower-cooked": {
+    "key": "F002377",
+    "match": "exact"
+  },
+  "cauliflower-raw": {
+    "key": "F002378",
+    "match": "exact"
+  },
+  "broccoli-raw": {
+    "key": "F001905",
+    "match": "exact"
+  },
+  "carrots-raw": {
+    "key": "F002276",
+    "match": "exact"
+  },
+  "onions-raw": {
+    "key": "F006225",
+    "match": "exact"
+  },
+  "celery-raw": {
+    "key": "F002390",
+    "match": "exact"
+  },
+  "romaine-lettuce-raw": {
+    "key": "F005191",
+    "match": "exact"
+  },
+  "cabbage-raw": {
+    "key": "F002015",
+    "match": "close"
+  },
+  "beetroot-cooked": {
+    "key": "F001013",
+    "match": "close"
+  },
+  "beetroot-raw": {
+    "key": "F001015",
+    "match": "exact"
+  },
+  "sweetcorn-cooked": {
+    "key": "F003213",
+    "match": "close"
+  },
+  "parsnips-cooked": {
+    "key": "F006326",
+    "match": "close"
+  },
+  "pumpkin-cooked": {
+    "key": "F007543",
+    "match": "close"
   }
 }

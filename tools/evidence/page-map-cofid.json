@@ -208,5 +208,145 @@
   "cofid_code": "11-788",
   "cofid_name": "Porridge oats, unfortified",
   "match": "close"
+ },
+ {
+  "page": "Sweet potato",
+  "page_state": "baked",
+  "cofid_code": "13-672",
+  "cofid_name": "Sweet potato, baked",
+  "match": "exact"
+ },
+ {
+  "page": "Brussels sprouts",
+  "page_state": "cooked",
+  "cofid_code": "13-630",
+  "cofid_name": "Brussels sprouts, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Brussels sprouts",
+  "page_state": "raw",
+  "cofid_code": "13-177",
+  "cofid_name": "Brussels sprouts, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Butternut squash",
+  "page_state": "baked",
+  "cofid_code": "13-644",
+  "cofid_name": "Squash, butternut, baked",
+  "match": "exact"
+ },
+ {
+  "page": "Spring onions",
+  "page_state": "raw",
+  "cofid_code": "13-351",
+  "cofid_name": "Spring onions, bulbs only, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Green beans",
+  "page_state": "cooked",
+  "cofid_code": "13-515",
+  "cofid_name": "Beans, green, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Red cabbage",
+  "page_state": "raw",
+  "cofid_code": "13-190",
+  "cofid_name": "Cabbage, red, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Kale",
+  "page_state": "raw",
+  "cofid_code": "13-234",
+  "cofid_name": "Curly kale, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Cauliflower",
+  "page_state": "cooked",
+  "cofid_code": "13-513",
+  "cofid_name": "Cauliflower, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Cauliflower",
+  "page_state": "raw",
+  "cofid_code": "13-512",
+  "cofid_name": "Cauliflower, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Broccoli",
+  "page_state": "raw",
+  "cofid_code": "13-502",
+  "cofid_name": "Broccoli, green, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Leeks",
+  "page_state": "cooked",
+  "cofid_code": "13-625",
+  "cofid_name": "Leeks, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Celery",
+  "page_state": "raw",
+  "cofid_code": "13-636",
+  "cofid_name": "Celery, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Cucumber",
+  "page_state": "raw, with peel",
+  "cofid_code": "13-523",
+  "cofid_name": "Cucumber, raw, flesh and skin",
+  "match": "exact"
+ },
+ {
+  "page": "Pumpkin",
+  "page_state": "cooked",
+  "cofid_code": "13-549",
+  "cofid_name": "Pumpkin, flesh only, boiled in unsalted water",
+  "match": "exact"
+ },
+ {
+  "page": "Cabbage",
+  "page_state": "raw",
+  "cofid_code": "13-582",
+  "cofid_name": "Cabbage, average, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Tomatoes",
+  "page_state": "raw",
+  "cofid_code": "13-517",
+  "cofid_name": "Tomatoes, standard, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Bell pepper",
+  "page_state": "red, raw",
+  "cofid_code": "13-524",
+  "cofid_name": "Pepper, capsicum, red, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Bell pepper",
+  "page_state": "yellow, raw",
+  "cofid_code": "13-526",
+  "cofid_name": "Pepper, capsicum, yellow, raw",
+  "match": "exact"
+ },
+ {
+  "page": "Romaine lettuce",
+  "page_state": "raw",
+  "cofid_code": "13-520",
+  "cofid_name": "Lettuce, average, raw",
+  "match": "close"
  }
 ]
