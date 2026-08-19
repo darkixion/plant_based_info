@@ -1,4 +1,45 @@
 {
+  "_withdrawn": {
+    "why": "These five cited eurofir, which this repository declared as the EuroFIR eBASIS bioactive database. They are not from it. Three say \"Estimated from literature\" and two quote a range with no paper behind it, and eBASIS is a polyphenol and phytoestrogen database that does not carry beta-glucan, ergothioneine or pectin at all. So this was a literature impression wearing a database's name, which is the one thing the evidence columns exist to stop, and worse than the catch-alls this file already refuses because it looked checkable. The loop below files every research.json figure as analysed, so an admitted estimate was published as a measurement.",
+    "cost": "Four of the five set the low or the high of a range against a real measurement. White button mushroom ergothioneine ran to 13 on the estimate, above shiitake's measured 11.06, when USDA measures white button at 4.25 and it is the poorest of the three. Oats lose their only ergothioneine figure and the column goes from six foods to five. Pectin becomes a Kawabata column throughout.",
+    "entries": [
+      {
+        "page_slug": "oats-rolled-dry",
+        "component": "beta-glucan",
+        "source": "eurofir",
+        "was": 5.5,
+        "said": "Mean of 3.0-8.0g"
+      },
+      {
+        "page_slug": "oats-rolled-dry",
+        "component": "ergothioneine",
+        "source": "eurofir",
+        "was": 0.5,
+        "said": "Estimated from literature"
+      },
+      {
+        "page_slug": "mushrooms-white-raw",
+        "component": "beta-glucan",
+        "source": "eurofir",
+        "was": 0.4,
+        "said": "Estimated from literature"
+      },
+      {
+        "page_slug": "mushrooms-white-raw",
+        "component": "ergothioneine",
+        "source": "eurofir",
+        "was": 13,
+        "said": "Estimated from literature"
+      },
+      {
+        "page_slug": "carrots-raw",
+        "component": "pectin",
+        "source": "eurofir",
+        "was": 1.7,
+        "said": "Mean of 1.0-2.4g"
+      }
+    ]
+  },
   "olive-oil-extra-virgin": {
     "coq10": {
       "v": 6.09,
@@ -291,32 +332,10 @@
     }
   },
   "oats-rolled-dry": {
-    "beta-glucan": {
-      "v": 5.5,
-      "match": "Mean of 3.0-8.0g",
-      "source": "eurofir"
-    },
     "inositol-free": {
       "v": 19.25,
       "match": "Mean of 8.5-30.0 mg",
       "source": "clements-1980"
-    },
-    "ergothioneine": {
-      "v": 0.5,
-      "match": "Estimated from literature",
-      "source": "eurofir"
-    }
-  },
-  "mushrooms-white-raw": {
-    "beta-glucan": {
-      "v": 0.4,
-      "match": "Estimated from literature",
-      "source": "eurofir"
-    },
-    "ergothioneine": {
-      "v": 13,
-      "match": "Estimated from literature",
-      "source": "eurofir"
     }
   },
   "asparagus-cooked": {
@@ -410,13 +429,6 @@
       "v": 5.5,
       "match": "Mean of 4.0-7.0g",
       "source": "biesiekierski-2011"
-    }
-  },
-  "carrots-raw": {
-    "pectin": {
-      "v": 1.7,
-      "match": "Mean of 1.0-2.4g",
-      "source": "eurofir"
     }
   },
   "black-beans-cooked": {

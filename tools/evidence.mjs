@@ -265,12 +265,32 @@ for (const w of ifctCited.withdrawn ?? []) {
    citations to nothing, and nothing in this repository could check them. */
 const research = rd("research.json");
 for (const [slug, cols] of Object.entries(research)) {
+  if (slug.startsWith("_")) continue;   // _withdrawn, handled below
   for (const [colId, data] of Object.entries(cols)) {
     if (!data.source) continue;
     grade(slug, data.source, out[slug]?.matches?.[data.source] || "close");
     out[slug].cells[colId] = reconcile([{ source: data.source, value: data.v, derivation: "analysed" }]);
     nCells++;
   }
+}
+
+/* Withdrawing a figure, for the same reason IFCT needed it: `out` is seeded
+   from the page, so deleting an entry above leaves its cell standing.
+
+   A cell that names a withdrawn source is voided whole rather than edited,
+   because where the figure was reconciled against a real measurement the range
+   was computed from both and cannot be unpicked. Voiding is safe here only
+   because this runs before the passes that own the surviving sources, so
+   Kawabata and the Foundation Foods rewrite what is theirs from scratch. Move
+   this below them and it silently deletes evidence instead. */
+for (const w of research._withdrawn?.entries ?? []) {
+  const cell = out[w.page_slug]?.cells?.[w.component];
+  if (!cell || !(cell.sources || []).includes(w.source)) continue;
+  delete out[w.page_slug].cells[w.component];
+  nCells--;
+  const stillCited = Object.values(out[w.page_slug].cells)
+    .some(c => (c.sources || []).includes(w.source));
+  if (!stillCited) delete out[w.page_slug].matches[w.source];
 }
 
 
@@ -485,9 +505,12 @@ for (const row of kawabata.rows) {
   // Daikon was assayed in three parts along the root rather than once.
   const parts = row.parts ? Object.values(row.parts) : [row.total];
   const cell = spanCell(parts, ["kawabata-1973"]);
-  /* Carrot already had a figure, EuroFIR's 1.7 g against this paper's 0.628.
-     Two methods rather than two samples, and neither is the other's error, so
-     the cell spans both and names both. */
+  /* Carrot used to arrive here holding 1.7 g against this paper's 0.628, and
+     the cell spanned both as two methods rather than two samples. The 1.7 was
+     withdrawn above: it cited EuroFIR eBASIS, which carries no pectin, and was
+     a literature range with no paper behind it. Carrot is now this paper's
+     figure alone, like the other nine. The branch stays because the reasoning
+     holds for any future second method. */
   if (held && !(held.sources || []).includes("kawabata-1973") && typeof held.value === "number") {
     out[row.page].cells.pectin = spanCell([...parts, held.value],
       [...new Set([...(held.sources || []), "kawabata-1973"])]);
