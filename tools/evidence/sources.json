@@ -249,7 +249,7 @@
     "title": "Frida, the Danish Food Composition Database, version 6.1",
     "publisher": "DTU National Food Institute",
     "country": "Denmark",
-    "url": "https://frida.fooddata.dk/",
+    "url": "https://fcdb.fooddata.dk/",
     "basis": "per 100 g",
     "foods_with_target_params": 1240,
     "reports": "value, min, max, median, number of determinations and source per value. The richest per-value provenance of any database here.",
@@ -268,11 +268,18 @@
       "organic_acids_g": 83
     },
     "quality": "high",
-    "key_finding": "Unblocks boron. Its 49 boron values are on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7), wheat bran 270 (n=10), buckwheat groats 530.",
+    "key_finding": "Unblocks boron, but by 21 values rather than 49. Its boron is on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7) and wheat bran 270 (n=10) stand; buckwheat groats 530 is n=0 from FINKOST 1986 and is refused. See FRIDA-PROVENANCE.md.",
     "limitations": [
       "Danish samples and Danish soils.",
-      "Copyright asserted on the dataset; check redistribution terms before committing any derived values to a public repository."
-    ]
+      "A mean can sit below its own min: the mean divides by every determination while min and max span only the detections above the limit, so it counts non-detects as zero and understates. Marked partial, not corrected.",
+      "Two molybdenum rows, both corn flakes, report min=20 against max=3. Refused as malformed.",
+      "A mean can sit below its own min: it divides by every determination while min and max span only the detections above the limit, so it counts non-detects as zero and understates. Marked partial, not corrected.",
+      "Two molybdenum rows, both corn flakes, report min=20 against max=3. Refused as malformed.",
+      "frida-6.1.json was pulled from the old website and lacks the SourceFood column, so borrowed values are identified by their missing source id. Exact for biotin at 146 against 146, but re-extraction from the CC BY workbook would make it explicit."
+    ],
+    "provenance": "Every value carries a number of determinations and a named source, and the published source table names all 502. That separates Frida's own analytical work from the foreign tables it compiled. Of 873 biotin values 473 are admitted; the rest are borrowed from another food (146), undetermined (209) or compiled (45). Source 1344 is McCance and Widdowson 4th edition, of which CoFID is the 7th; sources 2141, 2145 and 2289 are CoFID, AFCD and the CNF, all already cited here directly. The admission rule is in tools/frida.mjs.",
+    "doi": "10.11583/DTU.32312844",
+    "licence": "CC BY 4.0, checked 2026-08-19 against the dataset's own Readme sheet and the DTU Data record. Redistribution of derived values is permitted with attribution. Required credit: \"The Danish Food Composition Database (http://fcdb.fooddata.dk), version 6.1, May 2026. The Food Institute, Technical University of Denmark.\" Only the documentation PDFs are all rights reserved; both data files are CC-BY 4.0."
   },
   "phenol-explorer": {
     "title": "Phenol-Explorer, database on polyphenol content in foods",
