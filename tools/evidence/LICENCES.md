@@ -17,8 +17,8 @@ summary and the two problems.
 | CoFID 2021, UK | 74 | Open Government Licence v3.0 | yes |
 | USDA proanthocyanidins R2 | 62 | US government work, public domain | yes |
 | AFCD R3, Australia | 58 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
-| FAO/INFOODS phytate | 46 | © FAO and CHRCO, **non-commercial only** | **no** |
-| IFCT 2017, India | 21 | © NIN; quoted with attribution, tables no longer held | resolved |
+| FAO/INFOODS phytate | 54 | © FAO and CHRCO, **non-commercial only** | **no** |
+| IFCT 2017, India | 18 | © NIN; quoted with attribution, tables no longer held | resolved |
 | USDA glucosinolates R1 | 14 | public domain | yes |
 | USDA Foundation Foods | 9 | public domain | yes |
 | TBCA 2019, Brazil | 5 | citation required, commercial use by arrangement | **no** |
@@ -26,6 +26,14 @@ summary and the two problems.
 | FAO/INFOODS oligosaccharides | 4 | the same FAO non-commercial terms | **no** |
 | CNF, Canada | 3 | Open Government Licence, Canada | yes |
 | Frida 6.1, Denmark | 0 | CC BY 4.0, see FRIDA-PROVENANCE.md | yes |
+
+**PhyFoodComp is a compilation, and 291 of its 2,442 plant rows are IFCT 2017.**
+Those rows are now refused, so no cell citing `fao-phytate` rests on a table
+this page holds under another key. FAO has whatever right it needed to compile
+IFCT; the problem this solves is double counting rather than licensing, but it
+lands on the same table, and `FAO-PROVENANCE.md` records it. The IFCT count
+above fell from 21 to 18 in the same pass, three dry-basis phytate figures
+having been withdrawn in favour of cooked measurements from primary papers.
 
 Roughly 25 further cells cite individual journal papers. Those are numeric
 findings quoted with attribution, which is ordinary scholarly citation rather

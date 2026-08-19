@@ -9,7 +9,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "ryan-2007": "exact",
-   "tbca-carb-2019": "close"
+   "tbca-carb-2019": "close",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -105,13 +106,6 @@
      "cofid-2021"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 218,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 2.04,
@@ -153,6 +147,13 @@
     "sources": [
      "ifct-2017"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 189.5,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -166,7 +167,8 @@
    "milder-2005": "exact",
    "ryan-2007": "exact",
    "fao-oligosaccharides": "close",
-   "tbca-carb-2019": "close"
+   "tbca-carb-2019": "close",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -261,13 +263,6 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 578,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 1.7,
@@ -324,6 +319,15 @@
     "median": 0.384037,
     "sources": [
      "fao-oligosaccharides"
+    ]
+   },
+   "phytate": {
+    "state": "range",
+    "low": 134.03,
+    "high": 268.28,
+    "median": 213.29,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -592,7 +596,8 @@
   "matches": {
    "cofid-2021": "exact",
    "ifct-2017": "proxy",
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -688,13 +693,6 @@
      "cofid-2021"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 375,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
    "oxalate_insol": {
     "state": "measured",
     "value": 1.72,
@@ -707,6 +705,13 @@
     "value": 10.57,
     "sources": [
      "ifct-2017"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 395.49,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -847,7 +852,8 @@
   "prep": "cooked",
   "matches": {
    "cofid-2021": "exact",
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -940,6 +946,14 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ]
+   },
+   "phytate": {
+    "state": "range",
+    "low": 349,
+    "high": 496.1,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -2599,7 +2613,8 @@
   "prep": "cooked",
   "matches": {
    "mext-2020": "proxy",
-   "ryan-2007": "proxy"
+   "ryan-2007": "proxy",
+   "fao-phytate": "close"
   },
   "cells": {
    "solfibre": {
@@ -2699,6 +2714,13 @@
     "value": 0.5,
     "sources": [
      "ryan-2007"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 200,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -2969,9 +2991,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 350,
-    "high": 964,
+    "state": "measured",
+    "value": 350,
     "sources": [
      "fao-phytate"
     ]
@@ -3190,7 +3211,6 @@
  "sunflower-seeds": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "proxy",
    "milder-2005": "proxy",
    "afcd-r3": "exact"
@@ -3297,13 +3317,6 @@
     "value": 0.69,
     "sources": [
      "milder-2005"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 423,
-    "sources": [
-     "fao-phytate"
     ]
    }
   }
@@ -3688,7 +3701,6 @@
  "flaxseed": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "close",
    "milder-2005": "close",
    "ryan-2007": "close"
@@ -3797,13 +3809,6 @@
     "value": 301.12,
     "sources": [
      "milder-2005"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 1859,
-    "sources": [
-     "fao-phytate"
     ]
    }
   }
@@ -4018,8 +4023,7 @@
    "phytate": {
     "state": "range",
     "low": 290,
-    "high": 929,
-    "median": 604.8,
+    "high": 604.8,
     "sources": [
      "fao-phytate"
     ]
@@ -5225,9 +5229,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 18.48,
-    "high": 25.66,
+    "state": "measured",
+    "value": 18.48,
     "sources": [
      "fao-phytate"
     ]
@@ -5529,7 +5532,8 @@
   "matches": {
    "mext-2020": "exact",
    "usda-fdc-foundation": "close",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5637,6 +5641,13 @@
     "value": 4.25,
     "sources": [
      "usda-fdc-foundation"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 3.22,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -5796,7 +5807,8 @@
   "matches": {
    "halliwell-2023": "exact",
    "mext-2020": "exact",
-   "usda-fdc-foundation": "exact"
+   "usda-fdc-foundation": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5904,6 +5916,13 @@
     "value": 1.92,
     "sources": [
      "usda-fdc-foundation"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 5.37,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -6531,12 +6550,6 @@
     "value": 11,
     "sources": [
      "fao-phytate"
-    ],
-    "disputed": [
-     {
-      "source": "fao-phytate",
-      "value": 356
-     }
     ]
    },
    "lignans": {
@@ -6716,10 +6729,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 10.06,
-    "high": 22,
-    "median": 12.49,
+    "state": "measured",
+    "value": 22,
     "sources": [
      "fao-phytate"
     ]
@@ -6884,10 +6895,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 17.03,
-    "high": 88.2,
-    "median": 19.6,
+    "state": "measured",
+    "value": 88.2,
     "sources": [
      "fao-phytate"
     ]
@@ -6942,7 +6951,6 @@
  "celery-raw": {
   "prep": "raw",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
@@ -7078,13 +7086,6 @@
      "afcd-r3"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 25.66,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.014,
@@ -7115,7 +7116,6 @@
  "cucumber-raw-with-peel": {
   "prep": "raw, with peel",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
@@ -7248,15 +7248,6 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
-    ]
-   },
-   "phytate": {
-    "state": "range",
-    "low": 15.8,
-    "high": 17.52,
-    "median": 16.35,
-    "sources": [
-     "fao-phytate"
     ]
    },
    "lignans": {
@@ -7429,10 +7420,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 2.39,
-    "high": 30,
-    "median": 2.59,
+    "state": "measured",
+    "value": 30,
     "sources": [
      "fao-phytate"
     ]
@@ -7605,10 +7594,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 6.96,
-    "high": 13.9,
-    "median": 8.28,
+    "state": "measured",
+    "value": 6.96,
     "sources": [
      "fao-phytate"
     ]
@@ -7645,7 +7632,6 @@
  "courgette-cooked": {
   "prep": "cooked",
   "matches": {
-   "fao-phytate": "proxy",
    "mext-2020": "close",
    "milder-2005": "close",
    "sim-2021": "close"
@@ -7742,14 +7728,6 @@
     "value": 2.7,
     "sources": [
      "mext-2020"
-    ]
-   },
-   "phytate": {
-    "state": "range",
-    "low": 10.57,
-    "high": 11.5,
-    "sources": [
-     "fao-phytate"
     ]
    },
    "lignans": {
@@ -7917,7 +7895,6 @@
  "bell-pepper-green-raw": {
   "prep": "green, raw",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
@@ -8049,13 +8026,6 @@
      "mext-2020"
     ]
    },
-   "phytate": {
-    "state": "measured",
-    "value": 15.96,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.013,
@@ -8093,7 +8063,6 @@
  "ginger-root-raw": {
   "prep": "raw",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "exact"
   },
   "cells": {
@@ -8221,13 +8190,6 @@
     "value": 0.7,
     "sources": [
      "mext-2020"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 14.5,
-    "sources": [
-     "fao-phytate"
     ]
    }
   }
@@ -8579,7 +8541,6 @@
  "pumpkin-cooked": {
   "prep": "cooked",
   "matches": {
-   "fao-phytate": "proxy",
    "mext-2020": "close",
    "sim-2021": "close",
    "cofid-2021": "exact"
@@ -8677,14 +8638,6 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
-    ]
-   },
-   "phytate": {
-    "state": "range",
-    "low": 19.72,
-    "high": 22.51,
-    "sources": [
-     "fao-phytate"
     ]
    },
    "mk4": {
@@ -9054,7 +9007,6 @@
  "apple-raw-with-skin": {
   "prep": "raw, with skin",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
@@ -9188,15 +9140,6 @@
      "afcd-r3"
     ]
    },
-   "phytate": {
-    "state": "range",
-    "low": 0.36,
-    "high": 0.64,
-    "median": 0.51,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.013,
@@ -9242,7 +9185,6 @@
  "strawberries-raw": {
   "prep": "raw",
   "matches": {
-   "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
@@ -9378,13 +9320,6 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 25.07,
-    "sources": [
-     "fao-phytate"
     ]
    },
    "lignans": {
@@ -10131,7 +10066,8 @@
    "mext-2020": "exact",
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -10235,6 +10171,14 @@
     "value": 10.4,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "phytate": {
+    "state": "range",
+    "low": 25,
+    "high": 30,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -10442,10 +10386,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 0.47,
-    "high": 10,
-    "median": 0.61,
+    "state": "measured",
+    "value": 10,
     "sources": [
      "fao-phytate"
     ]
@@ -11693,7 +11635,8 @@
   "prep": "cooked",
   "matches": {
    "mext-2020": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -11785,6 +11728,15 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
+    ]
+   },
+   "phytate": {
+    "state": "range",
+    "low": 23.94,
+    "high": 71.74,
+    "median": 29.72,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -12136,7 +12088,8 @@
  "okra-cooked": {
   "prep": "cooked",
   "matches": {
-   "mext-2020": "exact"
+   "mext-2020": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "solfibre": {
@@ -12260,6 +12213,13 @@
     "sources": [
      "mext-2020"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 13,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -12366,7 +12326,8 @@
   "prep": "raw",
   "matches": {
    "mext-2020": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "fao-phytate": "close"
   },
   "cells": {
    "solfibre": {
@@ -12467,6 +12428,13 @@
     "sources": [
      "usda-pa-r2"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 9,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
@@ -12474,7 +12442,8 @@
   "prep": "raw",
   "matches": {
    "mext-2020": "exact",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "fao-phytate": "close"
   },
   "cells": {
    "solfibre": {
@@ -12606,6 +12575,13 @@
     "value": 0.01,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 9.6,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -13772,9 +13748,8 @@
     ]
    },
    "phytate": {
-    "state": "range",
-    "low": 290,
-    "high": 808,
+    "state": "measured",
+    "value": 290,
     "sources": [
      "fao-phytate"
     ]
@@ -13940,8 +13915,7 @@
    "phytate": {
     "state": "range",
     "low": 200,
-    "high": 1001,
-    "median": 611,
+    "high": 611,
     "sources": [
      "fao-phytate"
     ]
@@ -14322,9 +14296,8 @@
   },
   "cells": {
    "phytate": {
-    "state": "range",
-    "low": 200,
-    "high": 883,
+    "state": "measured",
+    "value": 200,
     "sources": [
      "fao-phytate"
     ]
@@ -14347,17 +14320,9 @@
  "coconut-raw": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact",
    "afcd-r3": "exact"
   },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 136,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "biotin": {
     "state": "measured",
     "value": 2.7,
@@ -14392,18 +14357,10 @@
  "beetroot-cooked": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "proxy",
    "milder-2005": "exact",
    "afcd-r3": "close"
   },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 12.68,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.015,
@@ -14423,20 +14380,12 @@
  "bell-pepper-red-raw": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
    "sim-2021": "close",
    "cofid-2021": "exact"
   },
   "cells": {
-   "phytate": {
-    "state": "measured",
-    "value": 17.68,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "lignans": {
     "state": "measured",
     "value": 0.013,
@@ -14648,18 +14597,9 @@
  "dates": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact",
    "cofid-2021": "exact"
   },
   "cells": {
-   "phytate": {
-    "state": "range",
-    "low": 126,
-    "high": 134,
-    "sources": [
-     "fao-phytate"
-    ]
-   },
    "biotin": {
     "state": "measured",
     "value": 1.5,
@@ -14676,10 +14616,8 @@
   },
   "cells": {
    "phytate": {
-    "state": "range",
-    "low": 22.08,
-    "high": 25.44,
-    "median": 23,
+    "state": "measured",
+    "value": 23,
     "sources": [
      "fao-phytate"
     ]
@@ -14942,7 +14880,8 @@
   "prep": "raw",
   "matches": {
    "usda-pa-r2": "exact",
-   "tbca-carb-2019": "close"
+   "tbca-carb-2019": "close",
+   "fao-phytate": "exact"
   },
   "cells": {
    "proanthocyanidins": {
@@ -14957,13 +14896,21 @@
     "sources": [
      "tbca-carb-2019"
     ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 2769,
+    "sources": [
+     "fao-phytate"
+    ]
    }
   }
  },
  "sorghum-grain": {
   "prep": "grain",
   "matches": {
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "proanthocyanidins": {
@@ -14971,6 +14918,15 @@
     "value": 1950.46,
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "phytate": {
+    "state": "range",
+    "low": 427,
+    "high": 1307.85,
+    "median": 809.94,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -15044,7 +15000,8 @@
  "rye-bread": {
   "prep": "as listed",
   "matches": {
-   "jensen-2025": "close"
+   "jensen-2025": "close",
+   "fao-phytate": "exact"
   },
   "cells": {
    "mk4": {
@@ -15078,6 +15035,15 @@
     "value": 0.12,
     "sources": [
      "jensen-2025"
+    ]
+   },
+   "phytate": {
+    "state": "range",
+    "low": 77,
+    "high": 377.6,
+    "median": 330.6,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -15141,7 +15107,8 @@
   "matches": {
    "usda-glucosinolate-r1": "close",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "fao-phytate": "exact"
   },
   "cells": {
    "glucoraphanin": {
@@ -15160,6 +15127,13 @@
     "sources": [
      "cofid-2021",
      "afcd-r3"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 18.48,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -15200,7 +15174,8 @@
  "mustard-greens-raw": {
   "prep": "as listed",
   "matches": {
-   "usda-glucosinolate-r1": "close"
+   "usda-glucosinolate-r1": "close",
+   "fao-phytate": "exact"
   },
   "cells": {
    "glucoraphanin": {
@@ -15209,6 +15184,13 @@
     "high": 0.92,
     "sources": [
      "usda-glucosinolate-r1"
+    ]
+   },
+   "phytate": {
+    "state": "measured",
+    "value": 9.18,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }
@@ -15431,6 +15413,97 @@
     "state": "trace",
     "sources": [
      "cofid-2021"
+    ]
+   }
+  }
+ },
+ "tvp-dry": {
+  "prep": "as listed",
+  "matches": {
+   "fao-phytate": "exact"
+  },
+  "cells": {
+   "phytate": {
+    "state": "range",
+    "low": 882.7,
+    "high": 1879,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "yam-cooked": {
+  "prep": "as listed",
+  "matches": {
+   "fao-phytate": "exact"
+  },
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 50,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "cassava-raw": {
+  "prep": "as listed",
+  "matches": {
+   "fao-phytate": "exact"
+  },
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 9.3,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "portabella-mushrooms-raw": {
+  "prep": "as listed",
+  "matches": {
+   "fao-phytate": "close"
+  },
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 3.22,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "guava-raw": {
+  "prep": "as listed",
+  "matches": {
+   "fao-phytate": "exact"
+  },
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 13,
+    "sources": [
+     "fao-phytate"
+    ]
+   }
+  }
+ },
+ "raisins": {
+  "prep": "as listed",
+  "matches": {
+   "fao-phytate": "exact"
+  },
+  "cells": {
+   "phytate": {
+    "state": "measured",
+    "value": 11,
+    "sources": [
+     "fao-phytate"
     ]
    }
   }

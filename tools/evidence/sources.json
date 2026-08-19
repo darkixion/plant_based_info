@@ -331,7 +331,9 @@
     "url": "https://www.fao.org/food-composition/tables-and-databases/detail/(global--2018)-fao-infoods-izincg-global-food-composition-database-for-phytate---version-1.0-(phyfoodcomp1.0)/en",
     "basis": "per 100 g edible portion",
     "quality": "high",
-    "licence": "NON-COMMERCIAL. © FAO and Children's Hospital & Research Center at Oakland, 2018, checked 2026-08-19 in the database's own front matter: material may be copied 'for private study, research and teaching purposes, or for use in non-commercial products or services', with acknowledgement. Resale and other commercial use rights must be requested from copyright@fao.org. Not a Creative Commons licence."
+    "licence": "NON-COMMERCIAL. © FAO and Children's Hospital & Research Center at Oakland, 2018, checked 2026-08-19 in the database's own front matter: material may be copied 'for private study, research and teaching purposes, or for use in non-commercial products or services', with acknowledgement. Resale and other commercial use rights must be requested from copyright@fao.org. Not a Creative Commons licence.",
+    "reports": "food name, processing code, species, country, sample count where the primary study gave one, and a Biblioid resolving against the release's own 324-entry bibliography, committed as fao-phytate-sources.json. That bibliography is what makes each row's origin answerable.",
+    "compilation": "A compilation, not a programme. 2,075 of its 2,442 plant rows cite a primary paper; 291 are the Indian Food Composition Tables 2017, 38 Foods of Rural Gambia, 37 the Bangladesh table and 1 the Kenyan. The IFCT rows are refused, this page citing IFCT under its own key, so admitting one would count a single table twice. See FAO-PROVENANCE.md."
   },
   "usda-flavonoids-r33": {
     "title": "USDA Database for the Flavonoid Content of Selected Foods, Release 3.3",

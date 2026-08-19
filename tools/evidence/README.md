@@ -57,12 +57,14 @@ calcium. So every component here had to come from somewhere else.
 | `mext-2020-sugars.json` | 717 | starch, glucose, fructose, galactose, sucrose, maltose, sorbitol, mannitol |
 | `mext-2020-organic-acids.json` | 201 | 22 organic acids including oxalic |
 | `afcd-r3-plant.json` | 612 | **inulin**, raffinose, stachyose, resistant starch, oxalic acid, iodine, molybdenum, biotin |
-| `ifct-2017-cited.json` | 7 | the IFCT figures this page actually cites, phytate and soluble and insoluble oxalate, one row per food, with the pairing that was withdrawn and why. Replaces the two whole tables, which the IFCT licence did not permit this repository to hold |
+| `ifct-2017-cited.json` | 7 | the IFCT figures this page actually cites, phytate and soluble and insoluble oxalate, one row per food, with the four figures withdrawn and why. Replaces the two whole tables, which the IFCT licence did not permit this repository to hold |
 | `cofid-2021-plant.json` | 456 | lumped oligosaccharide total, biotin |
 | `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**; joins by NDB id |
 | `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median, n, source and the `sourceFood` that marks a value copied from another food. Rebuilt by `tools/extract_frida.mjs` |
 | `phenol-explorer.json` | 6,953 | 508 polyphenols over 458 foods, with mean, min, max, SD, n and **PubMed ids**; adds lignans and stilbenes |
 | `fao-oligosaccharides.json` | 157 | **verbascose**, raffinose and stachyose from FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, with each row's water content |
+| `fao-phytate.json` | 2,442 | **phytate** per 100 g edible portion, fresh weight, from FAO/INFOODS PhyFoodComp 1.0, each row with its country, sample count and `biblioid`. Rebuilt by `tools/extract_fao_phytate.mjs` |
+| `fao-phytate-sources.json` | 324 | PhyFoodComp's own bibliography, which is what makes each row's origin answerable and what the admission rule is decided from |
 | `sim-2021-vitamin-k.json` | 28 | phylloquinone, **MK-4 and MK-7** across Australian supermarket foods, mostly as analysed absence |
 | `walther-2013-menaquinones.json` | 2 | the full **MK-4 to MK-10** profile of natto and sauerkraut, quoting Schurgers 2000 and Kamao 2007 |
 | `walther-2017-menaquinones.json` | 3 | the same author's later and finer table: ranges rather than midpoints, one row per primary study |
@@ -79,6 +81,8 @@ calcium. So every component here had to come from somewhere else.
 | `BIOTIN-MAP-REVIEW.md` | 133 | every candidate pairing put to review for the biotin column, what was accepted into the CoFID and AFCD maps, and the reason for each refusal |
 | `LICENCES.md` | 13 | what each source permits, checked against the publisher's own terms, and the two places this repository currently exceeds them |
 | `FRIDA-PROVENANCE.md` | 5 | Frida's licence (CC BY 4.0, so republishable with credit) and why 400 of its 873 biotin values are refused: borrowed from another food, undetermined, or compiled from CoFID, AFCD and the CNF under other ids |
+| `FAO-PROVENANCE.md` | 4 | what PhyFoodComp measured and what it copied: 291 of its 2,442 plant rows are IFCT 2017, which this page cites in its own right, so those rows are refused. Also what that cost |
+| `FAO-PHYTATE-MAP-REVIEW.md` | 23 | every candidate pairing put to review for the phytate column, what was banked, and the reason for each refusal |
 | `frida-6.1-sources.json` | 502 | Frida's own source table, which names every reference its values cite and types each one, the file the admission rule is decided from |
 
 ## The evidence states
@@ -494,8 +498,19 @@ source records country, year, method, quality and limitations.
 - **FAO PhyFoodComp samples cultivars and treatments, not foods.** "Cashew nut,
   raw" is three rows spanning 290 to 929 mg and no one of them is the cashew, so
   `page-map-fao-phytate.json` maps a food to a list of rows and the cell becomes
-  a range. Forty-five foods that had a phytate figure now have none, because the
+  a range. Many foods that could carry a phytate figure have none, because the
   release has no row of that species at that preparation.
+- **PhyFoodComp is a compilation, and 291 of its 2,442 plant rows are IFCT
+  2017.** This page cites IFCT in its own right, so those rows are refused:
+  admitting one puts a single table on the page twice under two names.
+  `FAO-PROVENANCE.md` has the finding, `tools/fao_phytate.mjs` has the rule, and
+  `node tools/fao_phytate.mjs provenance` reproduces every count with no
+  network. The question was asked nine days after the release first reached the
+  page in `d89a243`, and by then 46 cells rested on it: it removed 14 pairings
+  and trimmed 12.
+- **The other FAO release here has not been asked the same question.**
+  `fao-oligosaccharides.json`, 4 cells, comes from BioFoodComp and AnFooD, the
+  same publisher on the same pattern. Its workbooks are in `tools/cache/`.
 - **Not reachable from this environment**: Frida (Denmark), Fineli (Finland) and
   Ciqual (France) all blocked automated fetches. Each is known to carry relevant
   components and is worth a manual download.

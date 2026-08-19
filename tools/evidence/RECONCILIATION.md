@@ -205,8 +205,9 @@ there and all seven read the same way.
 | Molybdenum | yes, 0.7-1.5x on analysed values | single value defensible |
 | Soluble / insoluble fibre | single source (MEXT) | single value, source named |
 | Inulin | single source (AFCD) | single value, source named |
-| Raffinose / stachyose / verbascose | IFCT primary, AFCD thin | single value, dry basis stated |
-| Phytate, saponins | single source (IFCT) | single value, source named |
+| Raffinose / stachyose / verbascose | FAO and AFCD, both thin | single value, dry basis stated |
+| Phytate | single source (FAO PhyFoodComp), 58 foods | value or range over the rows it samples |
+| Saponins | single source (IFCT) | single value, source named |
 | **Biotin** | **no, up to 29x** | **range** |
 | **Iodine** | **no, oats 74 vs not detected** | **range** |
 | **Oxalic acid** | **no, spinach 0.3 vs 0.7** | **range** |

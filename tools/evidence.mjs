@@ -21,6 +21,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { reconcile, spanCell } from "./reconcile.mjs";
 import { biotinCell } from "./biotin.mjs";
+import { faoPhytateCell } from "./fao_phytate.mjs";
+import { keepsGrade } from "./withdraw.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const EV = join(ROOT, "tools", "evidence");
@@ -256,7 +258,65 @@ for (const w of ifctCited.withdrawn ?? []) {
       nCells--;
     }
   }
-  delete entry.matches["ifct-2017"];
+  /* The grade goes only if the withdrawal took this food's last IFCT cell.
+     Withdrawing dry-basis phytate from cooked lentils leaves IFCT's soluble
+     and insoluble oxalate standing, and those are exactly the cells the proxy
+     mark was warning about. */
+  if (!keepsGrade(entry, "ifct-2017")) delete entry.matches["ifct-2017"];
+}
+
+/* FAO/INFOODS PhyFoodComp 1.0, phytate. This pass owns phytate for every food
+   the reviewed map names, and owning it is the point: these cells were written
+   by hand in August 2026 and survived each run only because `out` is seeded
+   from the page, so deleting a mapping left its cell standing. That is the
+   same defect the IFCT withdrawal above exists to answer, and here it is fixed
+   by generating the cells rather than by listing the retractions.
+
+   A list of rows rather than one, because the release samples cultivars and
+   treatments rather than foods. The rule is in fao_phytate.mjs and the review
+   that banked each pairing is in FAO-PHYTATE-MAP-REVIEW.md.
+
+   Where a food's phytate came from somewhere else, that pairing has to be
+   withdrawn by its own source's mechanism first. This pass does not overwrite
+   another source's figure, because a cooked-basis figure replacing a dry-basis
+   one silently is how a page loses the record of which it is showing. */
+const faoRows = rd("fao-phytate.json");
+const faoMapped = new Set();
+for (const m of rd("page-map-fao-phytate.json")) {
+  const { cell, refused } = faoPhytateCell(m, faoRows);
+  /* A refusal here means a banked map entry names a row the release copied from
+     a table this page already cites. The map is kept clean of those, so this is
+     a guard against the next reviewer banking one by hand, not a routine
+     filter. It reports rather than passing quietly. */
+  for (const r of refused) {
+    dropped.push(`${m.page}.phytate: FAO row ${r.row} is ${r.source} copied into the release at ${r.value}, refused`);
+  }
+  if (!cell) continue;
+  const held = out[m.page]?.cells?.phytate;
+  if (held && !(held.sources || []).includes("fao-phytate")) {
+    dropped.push(`${m.page}.phytate: mapped to FAO but held by ${(held.sources || []).join(", ")}, so the FAO figure was not written`);
+    continue;
+  }
+  faoMapped.add(m.page);
+  grade(m.page, "fao-phytate", m.match);
+  out[m.page].cells.phytate = cell;
+  nCells++;
+  if (cell.state === "range") ranges++;
+  if (cell.disputed) disputes++;
+}
+
+/* The other half of owning a column: a cell whose mapping is gone goes with
+   it. Only where FAO is the cell's only source, on the same rule the IFCT
+   withdrawal follows: where another source also attests a figure, it is not
+   FAO's to withdraw. */
+for (const [slug, entry] of Object.entries(out)) {
+  const cell = entry.cells.phytate;
+  if (!cell || faoMapped.has(slug)) continue;
+  if ((cell.sources || []).length === 1 && cell.sources[0] === "fao-phytate") {
+    delete entry.cells.phytate;
+    nCells--;
+    dropped.push(`${slug}.phytate: no longer mapped to a PhyFoodComp row`);
+  }
 }
 
 /* Single papers, each figure carrying the key of the paper it came from. An

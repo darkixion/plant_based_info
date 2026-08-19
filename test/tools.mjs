@@ -11,6 +11,8 @@ import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
 import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
 import { fridaCell } from "../tools/frida.mjs";
+import { faoPhytateCell, faoAdmits } from "../tools/fao_phytate.mjs";
+import { keepsGrade } from "../tools/withdraw.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
@@ -556,6 +558,110 @@ test("an unknown source id is refused rather than assumed analytical", () => {
 
 test("an absent Frida component yields nothing rather than a refusal", () => {
   eq(fridaCell(undefined, FRIDA_SRC), null, "no cell at all is a gap, not a refusal");
+});
+
+// -------------------------------------------------------------- FAO phytate
+
+/* Three rows standing for the cashew, the shape this release forces. */
+const FAO_ROWS = [
+  { food: "Cashew nut, raw", phytate_mg_100g: 290, biblioid: "ph019" },
+  { food: "Cashew nut, raw", phytate_mg_100g: 611, biblioid: "ph032" },
+  { food: "Cashew nut, raw", phytate_mg_100g: 929, biblioid: "ph054" },
+  { food: "Avocado pear, raw", phytate_mg_100g: 11, biblioid: "ph326" },
+  { food: "Avocado, raw", phytate_mg_100g: 356, biblioid: "ph250" },
+  { food: "Pea fiber, raw", biblioid: "ph005" },
+  { food: "Brussels sprouts, raw", phytate_mg_100g: 18.32, biblioid: "IFCT" },
+];
+
+test("a food mapped to one FAO row reads as that row, not as a range", () => {
+  const { cell: c } = faoPhytateCell({ page: "avocado", rows: [3] }, FAO_ROWS);
+  eq(c.state, "measured", "one figure is a measurement");
+  eq(c.value, 11, "and it is the row's own figure");
+  eq(c.sources[0], "fao-phytate", "the cell must name the release it came from");
+});
+
+test("a food mapped to several FAO rows spans them", () => {
+  const { cell: c } = faoPhytateCell({ page: "cashews", rows: [0, 1, 2] }, FAO_ROWS);
+  eq(c.state, "range", "no one cultivar is the food");
+  eq(c.low, 290, "the range starts at the smallest sample");
+  eq(c.high, 929, "and ends at the largest");
+  eq(c.median, 611, "three figures make a median, which the page sorts on");
+});
+
+/* The case the map's own note records: row 1987 gives avocado 356 against 11
+   from the row beside it, 32x apart. A figure that far out is an error rather
+   than the honest breadth of the evidence, and rule 4 already says so for
+   reconciled sources. Spanning it would print a range of 11 to 356 as though
+   both were the avocado. */
+test("a disputed FAO row is recorded beside the cell rather than widening it", () => {
+  const { cell: c } = faoPhytateCell({ page: "avocado", rows: [3], disputed: [4] }, FAO_ROWS);
+  eq(c.state, "measured", "the disputed row must not turn a figure into a range");
+  eq(c.value, 11, "the cell keeps the figure the reviewer kept");
+  eq(c.disputed.length, 1, "and the outlier is still recorded");
+  eq(c.disputed[0].value, 356, "by its figure, so a reader can see what was set aside");
+});
+
+test("a mapping whose rows carry no phytate yields no cell", () => {
+  eq(faoPhytateCell({ page: "green-peas-raw", rows: [5] }, FAO_ROWS).cell, null,
+     "a row silent about phytate is a gap, not a zero");
+  eq(faoPhytateCell({ page: "nowhere", rows: [99] }, FAO_ROWS).cell, null,
+     "a row index the release does not have is a gap too");
+});
+
+/* PhyFoodComp is a compilation, and 291 of its 2,442 plant rows are the Indian
+   Food Composition Tables copied in whole. This page cites IFCT directly, so a
+   cell reading fao-phytate over one of those rows would put one table on the
+   page twice under two names. The case: IFCT gives Brussels sprouts 18.32 and
+   so does FAO row 1871, because row 1871 is IFCT. */
+test("a row copied from a table this page already cites is refused", () => {
+  const { cell, refused } = faoPhytateCell({ page: "brussels-sprouts-raw", rows: [6] }, FAO_ROWS);
+  eq(cell, null, "nothing is left once the compiled row goes");
+  eq(refused.length, 1, "and the refusal is reported rather than silent");
+  eq(refused[0].source, "ifct-2017", "named by the source this page already cites");
+});
+
+test("a compiled row does not drag down the measurements beside it", () => {
+  const { cell, refused } = faoPhytateCell({ page: "cashews", rows: [0, 1, 6] }, FAO_ROWS);
+  eq(cell.state, "range", "the two primary papers still make a cell");
+  eq(cell.high, 611, "and the compiled figure is not in it");
+  eq(refused.length, 1, "the refusal is still reported");
+});
+
+test("provenance is asked of the row, not of the food", () => {
+  eq(faoAdmits({ biblioid: "ph407" }), true, "a primary paper is analytical work");
+  eq(faoAdmits({ biblioid: "IFCT" }), false, "a table this page cites directly is not");
+  eq(faoAdmits({}), true, "a row with no id is not refused on a guess");
+});
+
+// --------------------------------------------------------------- withdrawals
+
+/* Withdrawing one component of a pairing must not withdraw the grade the
+   food's other cells from that source still rest on. IFCT's phytate for
+   lentils, chickpeas and mung beans is dry-basis against a cooked page food
+   and goes; its soluble and insoluble oxalate for the same three foods stay,
+   and they are the reason the grade has to stay with them. */
+test("a source's grade survives a withdrawal that leaves another of its cells standing", () => {
+  const entry = { cells: {
+    phytate: { state: "measured", value: 189.5, sources: ["fao-phytate"] },
+    oxalate_sol: { state: "measured", value: 5.57, sources: ["ifct-2017"] },
+  } };
+  eq(keepsGrade(entry, "ifct-2017"), true, "the oxalate cell still cites IFCT");
+});
+
+test("a source's grade goes when the withdrawal took its last cell", () => {
+  const entry = { cells: {
+    phytate: { state: "measured", value: 496.1, sources: ["fao-phytate"] },
+  } };
+  eq(keepsGrade(entry, "ifct-2017"), false, "nothing here rests on IFCT any more");
+  eq(keepsGrade({ cells: {} }, "ifct-2017"), false, "a food with no cells rests on nothing");
+});
+
+test("a grade survives where the source is one of several a cell names", () => {
+  const entry = { cells: {
+    biotin: { state: "range", low: 0.5, high: 3.7, sources: ["mext-2020", "ifct-2017"] },
+  } };
+  eq(keepsGrade(entry, "ifct-2017"), true,
+     "a cell naming the source among others still rests on it");
 });
 
 // ----------------------------------------------------------- evidence checks
