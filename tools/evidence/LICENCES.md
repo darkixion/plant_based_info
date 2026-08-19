@@ -13,11 +13,12 @@ summary and the two problems.
 
 | source | cells | terms | clear? |
 |---|---|---|---|
-| MEXT 2020, Japan | 1,561 | Government Standard Terms of Use, stated compatible with CC BY 4.0 | yes |
-| CoFID 2021, UK | 74 | Open Government Licence v3.0 | yes |
+| MEXT 2020, Japan | 1,553 | Government Standard Terms of Use, stated compatible with CC BY 4.0 | yes |
+| AFCD R3, Australia | 114 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
+| CoFID 2021, UK | 72 | Open Government Licence v3.0 | yes |
 | USDA proanthocyanidins R2 | 62 | US government work, public domain | yes |
-| AFCD R3, Australia | 58 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
 | FAO/INFOODS phytate | 54 | © FAO and CHRCO, **non-commercial only** | **no** |
+| USDA/FDA/ODS-NIH iodine R4 | 38 | US government work, public domain | yes |
 | IFCT 2017, India | 18 | © NIN; quoted with attribution, tables no longer held | resolved |
 | USDA glucosinolates R1 | 14 | public domain | yes |
 | USDA Foundation Foods | 9 | public domain | yes |
@@ -92,8 +93,11 @@ it governs: **Creative Commons Attribution-ShareAlike 3.0 Australia**. Two
 obligations follow that CC BY 4.0 would not have imposed.
 
 **ShareAlike.** Any derivative work must be distributed only under the same
-licence. 58 cells rest on AFCD, so `evidence.json` is arguably such a work, and
-it currently ships under MIT.
+licence. 114 cells rest on AFCD, so `evidence.json` is arguably such a work, and
+it currently ships under MIT. That count was 58 until the iodine column was
+rebuilt over three databases on 2026-08-19 and AFCD's iodine reached 56 more
+foods, which does not change the question but does double what rests on the
+answer. It is the largest single unresolved licence exposure here.
 
 **A required statement.** Every distributed copy must carry a Limitation of Data
 Statement noting that the nutrient composition of foods and ingredients varies

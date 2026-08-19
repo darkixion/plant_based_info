@@ -42,9 +42,10 @@
     ]
    },
    "iodine": {
-    "state": "not-measured",
+    "state": "estimated",
+    "value": 0,
     "sources": [
-     "mext-2020"
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -375,7 +376,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -519,7 +521,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -967,7 +970,8 @@
    "ryan-2007": "close",
    "sim-2021": "close",
    "mattila-2001": "close",
-   "tbca-carb-2019": "close"
+   "tbca-carb-2019": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -1002,7 +1006,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -1392,7 +1397,8 @@
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "sim-2021": "close"
+   "sim-2021": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -1423,10 +1429,12 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 6,
+    "state": "range",
+    "low": 2.3,
+    "high": 6,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -1850,9 +1858,10 @@
     ]
    },
    "iodine": {
-    "state": "trace",
+    "state": "measured",
+    "value": 1.3,
     "sources": [
-     "mext-2020"
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -1985,8 +1994,11 @@
     ]
    },
    "iodine": {
-    "state": "not-detected",
+    "state": "range",
+    "low": 0,
+    "high": 74,
     "sources": [
+     "afcd-r3",
      "mext-2020"
     ]
    },
@@ -2098,7 +2110,8 @@
    "clements-1980": "proxy",
    "ifct-2017": "proxy",
    "mext-2020": "proxy",
-   "milder-2005": "proxy"
+   "milder-2005": "proxy",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -2129,11 +2142,14 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 2,
+    "state": "range",
+    "low": 0,
+    "high": 2,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "usda-iodine-r4"
+    ],
+    "n": 3
    },
    "cr": {
     "state": "measured",
@@ -2401,8 +2417,11 @@
     ]
    },
    "iodine": {
-    "state": "not-detected",
+    "state": "range",
+    "low": 0,
+    "high": 9.8,
     "sources": [
+     "afcd-r3",
      "mext-2020"
     ]
    },
@@ -2875,7 +2894,8 @@
    "pizzorno-2015": "proxy",
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -2908,7 +2928,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -3056,10 +3078,12 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -3246,7 +3270,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -3563,7 +3588,8 @@
   "prep": "as listed",
   "matches": {
    "mext-2020": "exact",
-   "milder-2005": "exact"
+   "milder-2005": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3595,7 +3621,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -3703,7 +3730,8 @@
   "matches": {
    "mext-2020": "close",
    "milder-2005": "close",
-   "ryan-2007": "close"
+   "ryan-2007": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3734,8 +3762,11 @@
     ]
    },
    "iodine": {
-    "state": "not-detected",
+    "state": "range",
+    "low": 0,
+    "high": 4.3,
     "sources": [
+     "afcd-r3",
      "mext-2020"
     ]
    },
@@ -3954,7 +3985,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -4098,7 +4130,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -4229,8 +4262,11 @@
     ]
    },
    "iodine": {
-    "state": "not-detected",
+    "state": "range",
+    "low": 0,
+    "high": 3.5,
     "sources": [
+     "afcd-r3",
      "mext-2020"
     ]
    },
@@ -4343,7 +4379,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -4545,7 +4582,8 @@
    "roman-pizarro-2017": "exact",
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
-   "sim-2021": "exact"
+   "sim-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4576,11 +4614,16 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 3,
+    "state": "range",
+    "low": 0,
+    "high": 6.7,
+    "median": 3,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
+    ],
+    "n": 27
    },
    "cr": {
     "state": "measured",
@@ -4777,10 +4820,12 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 1,
+    "high": 6.7,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -4905,7 +4950,8 @@
    "sim-2021": "close",
    "jensen-2022": "proxy",
    "lee-2010": "proxy",
-   "usda-glucosinolate-r1": "close"
+   "usda-glucosinolate-r1": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -4936,9 +4982,10 @@
     ]
    },
    "iodine": {
-    "state": "not-measured",
+    "state": "measured",
+    "value": 0.8,
     "sources": [
-     "mext-2020"
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -5091,7 +5138,8 @@
    "mext-2020": "close",
    "milder-2005": "close",
    "sim-2021": "close",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5122,10 +5170,14 @@
     ]
    },
    "iodine": {
-    "state": "not-detected",
+    "state": "range",
+    "low": 0,
+    "high": 0.6,
     "sources": [
+     "usda-iodine-r4",
      "mext-2020"
-    ]
+    ],
+    "n": 35
    },
    "cr": {
     "state": "not-detected",
@@ -5533,7 +5585,8 @@
    "mext-2020": "exact",
    "usda-fdc-foundation": "close",
    "afcd-r3": "exact",
-   "fao-phytate": "exact"
+   "fao-phytate": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5564,11 +5617,16 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
+    "median": 0.3,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
+    ],
+    "n": 35
    },
    "cr": {
     "state": "not-detected",
@@ -5934,7 +5992,8 @@
    "mext-2020": "close",
    "milder-2005": "close",
    "usda-pa-r2": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -5966,10 +6025,12 @@
    },
    "iodine": {
     "state": "measured",
-    "value": 1,
+    "value": 1.25,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "usda-iodine-r4"
+    ],
+    "n": 28
    },
    "cr": {
     "state": "not-detected",
@@ -6097,7 +6158,8 @@
    "fao-phytate": "proxy",
    "mext-2020": "close",
    "milder-2005": "close",
-   "sim-2021": "close"
+   "sim-2021": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6128,10 +6190,12 @@
    },
    "iodine": {
     "state": "measured",
-    "value": 1,
+    "value": 0.75,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "usda-iodine-r4"
+    ],
+    "n": 35
    },
    "cr": {
     "state": "measured",
@@ -6263,7 +6327,8 @@
    "mext-2020": "close",
    "milder-2005": "close",
    "muir-2007": "close",
-   "usda-pa-r2": "exact"
+   "usda-pa-r2": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6295,10 +6360,12 @@
    },
    "iodine": {
     "state": "measured",
-    "value": 1,
+    "value": 0.95,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "usda-iodine-r4"
+    ],
+    "n": 35
    },
    "cr": {
     "state": "not-detected",
@@ -6431,7 +6498,8 @@
    "roman-pizarro-2017": "exact",
    "usda-pa-r2": "exact",
    "sim-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6464,7 +6532,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -6589,7 +6659,8 @@
    "milder-2005": "exact",
    "nih-boron": "exact",
    "usda-pa-r2": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6622,7 +6693,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -6793,9 +6866,10 @@
     ]
    },
    "iodine": {
-    "state": "trace",
+    "state": "measured",
+    "value": 0.6,
     "sources": [
-     "mext-2020"
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -6956,7 +7030,8 @@
    "usda-pa-r2": "exact",
    "sim-2021": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -6988,9 +7063,17 @@
    },
    "iodine": {
     "state": "measured",
-    "value": 1,
+    "value": 1.35,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "usda-iodine-r4"
+    ],
+    "n": 35,
+    "disputed": [
+     {
+      "source": "afcd-r3",
+      "value": 0
+     }
     ]
    },
    "cr": {
@@ -7462,7 +7545,8 @@
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
    "kawabata-1973": "close",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -7493,11 +7577,16 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
+    "median": 0.3,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
+    ],
+    "n": 35
    },
    "cr": {
     "state": "not-detected",
@@ -7634,7 +7723,8 @@
   "matches": {
    "mext-2020": "close",
    "milder-2005": "close",
-   "sim-2021": "close"
+   "sim-2021": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -7665,10 +7755,12 @@
     ]
    },
    "iodine": {
-    "state": "trace",
+    "state": "measured",
+    "value": 0.6,
     "sources": [
-     "mext-2020"
-    ]
+     "usda-iodine-r4"
+    ],
+    "n": 27
    },
    "cr": {
     "state": "measured",
@@ -7755,7 +7847,8 @@
   "prep": "cooked",
   "matches": {
    "mext-2020": "close",
-   "milder-2005": "close"
+   "milder-2005": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -7788,7 +7881,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -9012,7 +9106,8 @@
    "usda-pa-r2": "exact",
    "sim-2021": "exact",
    "mattila-2001": "close",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -9045,7 +9140,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -9189,7 +9286,8 @@
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
    "mattila-2001": "close",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -9220,11 +9318,14 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0.3,
+    "high": 1,
     "sources": [
-     "mext-2020"
-    ]
+     "mext-2020",
+     "usda-iodine-r4"
+    ],
+    "n": 35
    },
    "cr": {
     "state": "not-detected",
@@ -9361,7 +9462,8 @@
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
    "mattila-2001": "close",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -9394,7 +9496,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -9501,7 +9605,8 @@
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -9532,10 +9637,16 @@
     ]
    },
    "iodine": {
-    "state": "not-detected",
+    "state": "range",
+    "low": 0,
+    "high": 0.9,
+    "median": 0.2,
     "sources": [
+     "afcd-r3",
+     "usda-iodine-r4",
      "mext-2020"
-    ]
+    ],
+    "n": 35
    },
    "cr": {
     "state": "not-detected",
@@ -9657,7 +9768,8 @@
   "matches": {
    "mext-2020": "exact",
    "milder-2005": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -9690,7 +9802,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -9948,7 +10061,8 @@
    "mext-2020": "exact",
    "milder-2005": "exact",
    "usda-pa-r2": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -9981,7 +10095,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -10067,7 +10182,8 @@
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
    "afcd-r3": "exact",
-   "fao-phytate": "exact"
+   "fao-phytate": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -10099,7 +10215,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -10189,7 +10307,8 @@
    "mext-2020": "exact",
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -10221,7 +10340,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -10334,7 +10455,8 @@
    "mext-2020": "exact",
    "usda-pa-r2": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -10367,7 +10489,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -10405,7 +10529,8 @@
   "matches": {
    "mext-2020": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -10438,7 +10563,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -10576,7 +10703,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -10666,7 +10794,8 @@
    "usda-pa-r2": "exact",
    "sim-2021": "exact",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -10699,7 +10828,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -11043,10 +11174,12 @@
     ]
    },
    "iodine": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -11393,7 +11526,8 @@
   "matches": {
    "mext-2020": "exact",
    "sim-2021": "close",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -11423,9 +11557,10 @@
     ]
    },
    "iodine": {
-    "state": "not-measured",
+    "state": "estimated",
+    "value": 0.8,
     "sources": [
-     "mext-2020"
+     "afcd-r3"
     ]
    },
    "cr": {
@@ -11749,7 +11884,8 @@
    "sim-2021": "exact",
    "usda-glucosinolate-r1": "close",
    "cofid-2021": "exact",
-   "afcd-r3": "close"
+   "afcd-r3": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -11782,7 +11918,9 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -12023,7 +12161,8 @@
   "matches": {
    "mext-2020": "exact",
    "usda-pa-r2": "exact",
-   "kawabata-1973": "close"
+   "kawabata-1973": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -12053,10 +12192,12 @@
     ]
    },
    "iodine": {
-    "state": "not-measured",
+    "state": "measured",
+    "value": 1,
     "sources": [
-     "mext-2020"
-    ]
+     "usda-iodine-r4"
+    ],
+    "n": 6
    },
    "cr": {
     "state": "not-measured",
@@ -12089,7 +12230,8 @@
   "prep": "cooked",
   "matches": {
    "mext-2020": "exact",
-   "fao-phytate": "exact"
+   "fao-phytate": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -12119,10 +12261,12 @@
     ]
    },
    "iodine": {
-    "state": "not-measured",
+    "state": "measured",
+    "value": 1,
     "sources": [
-     "mext-2020"
-    ]
+     "usda-iodine-r4"
+    ],
+    "n": 7
    },
    "cr": {
     "state": "not-measured",
@@ -12327,7 +12471,8 @@
   "matches": {
    "mext-2020": "exact",
    "usda-pa-r2": "exact",
-   "fao-phytate": "close"
+   "fao-phytate": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "solfibre": {
@@ -12360,7 +12505,8 @@
    "iodine": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "usda-iodine-r4"
     ]
    },
    "cr": {
@@ -13418,7 +13564,8 @@
    "milder-2005": "proxy",
    "lee-2010": "proxy",
    "usda-glucosinolate-r1": "proxy",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "phytate": {
@@ -13476,6 +13623,14 @@
     "sources": [
      "cofid-2021"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-iodine-r4"
+    ],
+    "n": 35
    }
   }
  },
@@ -13487,7 +13642,8 @@
    "venegas-2011": "proxy",
    "zmitek-2014": "proxy",
    "sim-2021": "close",
-   "cofid-2021": "close"
+   "cofid-2021": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "coq10": {
@@ -13534,6 +13690,12 @@
     "state": "trace",
     "sources": [
      "cofid-2021"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "usda-iodine-r4"
     ]
    }
   }
@@ -13774,6 +13936,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 6.3,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -13807,7 +13976,8 @@
    "milder-2005": "proxy",
    "pizzorno-2015": "proxy",
    "usda-pa-r2": "exact",
-   "tbca-carb-2019": "proxy"
+   "tbca-carb-2019": "proxy",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "proanthocyanidins": {
@@ -13851,6 +14021,14 @@
     "sources": [
      "tbca-carb-2019"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "usda-iodine-r4"
+    ],
+    "n": 7
    }
   }
  },
@@ -13890,6 +14068,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -13902,7 +14087,8 @@
    "usda-pa-r2": "exact",
    "verde-2022": "close",
    "cofid-2021": "exact",
-   "afcd-r3": "exact"
+   "afcd-r3": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "boron": {
@@ -13950,6 +14136,15 @@
      "cofid-2021",
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "afcd-r3",
+     "usda-iodine-r4"
+    ],
+    "n": 23
    }
   }
  },
@@ -13982,7 +14177,8 @@
    "cnf": "exact",
    "milder-2005": "exact",
    "afcd-r3": "exact",
-   "cofid-2021": "exact"
+   "cofid-2021": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "k2": {
@@ -14007,6 +14203,16 @@
      "cofid-2021",
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "range",
+    "low": 0,
+    "high": 3.4,
+    "sources": [
+     "afcd-r3",
+     "usda-iodine-r4"
+    ],
+    "n": 3
    }
   }
  },
@@ -14045,6 +14251,13 @@
     "value": 10.35,
     "sources": [
      "cofid-2021",
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
      "afcd-r3"
     ]
    }
@@ -14269,6 +14482,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -14314,6 +14534,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -14326,6 +14553,13 @@
    "biotin": {
     "state": "measured",
     "value": 2.7,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
     "sources": [
      "afcd-r3"
     ]
@@ -14371,6 +14605,13 @@
    "biotin": {
     "state": "estimated",
     "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "estimated",
+    "value": 2.1,
     "sources": [
      "afcd-r3"
     ]
@@ -14473,6 +14714,13 @@
    "biotin": {
     "state": "estimated",
     "value": 0.2,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "estimated",
+    "value": 0,
     "sources": [
      "afcd-r3"
     ]
@@ -14588,6 +14836,12 @@
    "biotin": {
     "state": "measured",
     "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
     "sources": [
      "afcd-r3"
     ]
@@ -14791,6 +15045,12 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -14871,6 +15131,13 @@
     "high": 1.7,
     "sources": [
      "cofid-2021",
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 2.1,
+    "sources": [
      "afcd-r3"
     ]
    }
@@ -14956,7 +15223,8 @@
  "cannellini-beans-cooked": {
   "prep": "cooked",
   "matches": {
-   "fao-oligosaccharides": "close"
+   "fao-oligosaccharides": "close",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "raffinose": {
@@ -14971,6 +15239,12 @@
     "value": 0.745591,
     "sources": [
      "fao-oligosaccharides"
+    ]
+   },
+   "iodine": {
+    "state": "trace",
+    "sources": [
+     "usda-iodine-r4"
     ]
    }
   }
@@ -15001,7 +15275,8 @@
   "prep": "as listed",
   "matches": {
    "jensen-2025": "close",
-   "fao-phytate": "exact"
+   "fao-phytate": "exact",
+   "usda-iodine-r4": "exact"
   },
   "cells": {
    "mk4": {
@@ -15045,6 +15320,14 @@
     "sources": [
      "fao-phytate"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "usda-iodine-r4"
+    ],
+    "n": 7
    }
   }
  },
@@ -15072,6 +15355,13 @@
      "cofid-2021",
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15097,6 +15387,13 @@
     "value": 0.6,
     "sources": [
      "cofid-2021",
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
      "afcd-r3"
     ]
    }
@@ -15134,6 +15431,13 @@
     "value": 18.48,
     "sources": [
      "fao-phytate"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }
@@ -15286,6 +15590,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1.8,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15323,6 +15634,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 5,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15350,6 +15668,13 @@
    "biotin": {
     "state": "measured",
     "value": 4.2,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 0,
     "sources": [
      "afcd-r3"
     ]
@@ -15400,6 +15725,13 @@
      "cofid-2021",
      "afcd-r3"
     ]
+   },
+   "iodine": {
+    "state": "measured",
+    "value": 1.4,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15420,7 +15752,8 @@
  "tvp-dry": {
   "prep": "as listed",
   "matches": {
-   "fao-phytate": "exact"
+   "fao-phytate": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "phytate": {
@@ -15429,6 +15762,13 @@
     "high": 1879,
     "sources": [
      "fao-phytate"
+    ]
+   },
+   "iodine": {
+    "state": "estimated",
+    "value": 2.3,
+    "sources": [
+     "afcd-r3"
     ]
    }
   }
@@ -15505,6 +15845,38 @@
     "sources": [
      "fao-phytate"
     ]
+   }
+  }
+ },
+ "olives-ripe-canned": {
+  "prep": "as listed",
+  "matches": {
+   "usda-iodine-r4": "exact"
+  },
+  "cells": {
+   "iodine": {
+    "state": "measured",
+    "value": 2.1,
+    "sources": [
+     "usda-iodine-r4"
+    ],
+    "n": 10
+   }
+  }
+ },
+ "collard-greens-cooked": {
+  "prep": "as listed",
+  "matches": {
+   "usda-iodine-r4": "exact"
+  },
+  "cells": {
+   "iodine": {
+    "state": "measured",
+    "value": 0.8,
+    "sources": [
+     "usda-iodine-r4"
+    ],
+    "n": 35
    }
   }
  }

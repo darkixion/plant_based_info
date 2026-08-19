@@ -10,6 +10,7 @@
 import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
 import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
+import { iodineCell } from "../tools/iodine.mjs";
 import { fridaCell } from "../tools/frida.mjs";
 import { faoPhytateCell, faoAdmits } from "../tools/fao_phytate.mjs";
 import { faoOligosCells } from "../tools/fao_oligos.mjs";
@@ -320,6 +321,115 @@ test("MEXT's own state passes through when nothing has a figure", () => {
   const c = biotinCell({ mext: { state: "not-detected", value: null } });
   eq(c.state, "not-detected", "analysed and none found is a finding");
   eq(c.sources[0], "mext-2020", "named");
+});
+
+/* ---------- iodine, over the three databases that reach it ---------- */
+
+test("the oats conflict reaches the page as a range", () => {
+  /* RECONCILIATION.md rule 3, which described this case for months while the
+     column carried MEXT alone and could not show it. AFCD reports rolled and
+     hulled oats at 74 ug independently, so it is not a transcription slip, and
+     Japanese and Australian soils differ. Both sources named, never 37. */
+  const c = iodineCell({
+    mext: { state: "not-detected", value: null, raw: "0" },
+    afcd: { iodine_ug: "74", derivation: "Analysed" },
+  });
+  eq(c.state, "range", "a factor of at least 74 is not a value");
+  eq(c.low, 0, "the analysed absence enters the span as zero");
+  eq(c.high, 74, "against the figure");
+  eq(c.median, undefined, "two figures have no median distinct from their midpoint");
+});
+
+test("a numeric zero corroborates an absence rather than overwriting it", () => {
+  // Almonds: Japan not detected, Australia 0, the FDA 0 over three samples.
+  // "None detected" is what three laboratories said. Nothing here is a zero
+  // that anyone would rather read as a figure.
+  const c = iodineCell({
+    mext: { state: "not-detected", value: null, raw: "0" },
+    afcd: { iodine_ug: "0", derivation: "Analysed" },
+    usda: { iodine_ug_100g: "0", n: "3" },
+  });
+  eq(c.state, "not-detected", "the finding survives the figures that agree with it");
+  eq(c.sources.length, 3, "and everyone who agrees is named");
+});
+
+test("a trace is not overwritten by a zero", () => {
+  // Sesame seeds: MEXT saw something below quantification, AFCD's row says 0.
+  // A trace is a finding of presence and outranks an absence, whichever way
+  // the absence is written down.
+  const c = iodineCell({
+    mext: { state: "trace", value: null, raw: "Tr" },
+    afcd: { iodine_ug: "0", derivation: "Analysed" },
+  });
+  eq(c.state, "trace", "something was seen");
+  eq(c.sources.length, 1, "and the zero does not get to co-sign it");
+});
+
+test("a figure below the floor does not make a conflict out of nothing", () => {
+  /* Apple: AFCD 0, the FDA 0.1 over 35 samples, MEXT not detected. Ratios are
+     meaningless near zero, so without a floor this reconciled to the range
+     "0 to 0.1" and printed as "0 (0 to 0)" on a column with no decimal place.
+     A tenth of a microgram is the assay's detection limit, not the apple. */
+  const c = iodineCell({
+    mext: { state: "not-detected", value: null, raw: "0" },
+    afcd: { iodine_ug: "0", derivation: "Analysed" },
+    usda: { iodine_ug_100g: "0.1", n: "35" },
+  });
+  eq(c.state, "not-detected", "a tenth of a microgram is not a detection");
+});
+
+test("a figure above the floor is a detection and reconciles", () => {
+  // Cooked courgette: MEXT saw a trace, the FDA put 0.6 ug on it over 27
+  // samples. The figure quantifies the trace rather than contradicting it.
+  const c = iodineCell({
+    mext: { state: "trace", value: null, raw: "Tr" },
+    usda: { iodine_ug_100g: "0.6", n: "27" },
+  });
+  eq(c.state, "measured", "the figure is the answer");
+  eq(c.value, 0.6, "as published");
+  eq(c.n, 27, "carrying the sample count no other source here supplies");
+});
+
+test("a recipe figure never displaces a measurement", () => {
+  /* Rule 2, and RECONCILIATION.md's own worked artefact: millet cooked reads
+     0.6 in AFCD, derived by recipe, against MEXT's not detected. A calculation
+     that inherited its ingredients' blanks is not a laboratory disagreeing. */
+  const c = iodineCell({
+    mext: { state: "not-detected", value: null, raw: "0" },
+    afcd: { iodine_ug: "0.6", derivation: "Recipe" },
+  });
+  eq(c.state, "not-detected", "the assay stands");
+  eq(c.sources.length, 1, "and the recipe row does not corroborate it either");
+});
+
+test("a recipe figure still fills a column nothing else reaches", () => {
+  // Cooked green beans: MEXT never looked, AFCD calculated 0.8. Marked as the
+  // calculation it is rather than dropped, which is what `estimated` is for.
+  const c = iodineCell({
+    mext: { state: "not-measured", value: null, raw: "-" },
+    afcd: { iodine_ug: "0.8", derivation: "Recipe" },
+  });
+  eq(c.state, "estimated", "shown, and shown marked");
+  eq(c.value, 0.8, "with the figure it was given");
+});
+
+test("three sources let one of them be wrong", () => {
+  /* Celery: Japan 1, the FDA 1.7 over 35 samples, Australia 0. Rule 4 needs a
+     third source to arbitrate, and this column had two until the USDA release
+     was read. FSANZ warns that a zero in its own database may be an assumed
+     zero rather than an assayed one, which is exactly this shape. */
+  const c = iodineCell({
+    mext: { state: "measured", value: 1 },
+    afcd: { iodine_ug: "0", derivation: "Analysed" },
+    usda: { iodine_ug_100g: "1.7", n: "35" },
+  });
+  eq(c.state, "measured", "two agreeing sources against one outlier is not a range");
+  eq(c.disputed.length, 1, "the outlier is recorded, not deleted");
+  eq(c.disputed[0].source, "afcd-r3", "and it is named");
+});
+
+test("a food no source reaches gets no iodine cell", () => {
+  eq(iodineCell({}), null, "absence is a seventh state and is written as nothing");
 });
 
 test("an analysed absence ranges against a finding", () => {

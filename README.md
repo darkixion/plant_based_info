@@ -792,7 +792,7 @@ from the page** and **names that only mean anything inside the repository**.
 
 Three columns originally came from outside USDA, but phase 2a added 16 more across the carb detail and organic acids groups. Phase 2b added betaine, anti-nutrients, Coenzyme Q, melatonin, squalene and phenolics, taking the table to 101 columns. These 27 are marked `"evidence": true` in `nutrients.json`, and everything else about them follows from that one flag.
 
-They exist because USDA *defines* a nutrient id for each of them and publishes a value for none. That was measured rather than assumed, with a control: the same parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch, pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin. So "the id exists" says nothing about whether a pull can reach it, and these needed national food composition tables instead. The table currently draws entirely on Japan's MEXT 2020. Because all 16 of the new phase 2a columns are single-source, they are never a range until more databases are mapped in phase 2b. The cell shape reflects this: `unit`, `basis`, `prep` and `match` have been promoted to the per-food level, leaving the per-cell structure cleaner.
+They exist because USDA *defines* a nutrient id for each of them and publishes a value for none. That was measured rather than assumed, with a control: the same parser counts 7,793 protein rows and 7,708 calcium rows across SR Legacy, and zero for soluble fibre, insoluble fibre, inulin, beta-glucan, resistant starch, pectin, the oligosaccharides, iodine, chromium, molybdenum, boron and biotin. So "the id exists" says nothing about whether a pull can reach it, and these needed national food composition tables instead. All 16 of the phase 2a columns began single-source, drawn entirely on Japan's MEXT 2020, so none of them could ever be a range. Biotin was the first to gain a second and third database, and iodine the second: it now draws on MEXT, Australia's AFCD and the USDA/FDA/ODS-NIH release, 45 of its 130 cells rest on more than one of them, and 16 are ranges. The cell shape reflects this: `unit`, `basis`, `prep` and `match` have been promoted to the per-food level, leaving the per-cell structure cleaner.
 
 There are cases where a figure is known but not strictly measured. A parenthesised figure from MEXT means it was estimated rather than directly assayed. When adding support for estimated values, a bug revealed that 105 cells were dropped entirely because the parser threw them out instead of keeping them. The `estimated` branch was dead code for a whole phase until those 105 cells were recovered. Another finding was a marker collision when the first estimated cell met the first proxy food: two `::after` rules on one element collapse into one rule. The markers now compose rather than compete.
 
@@ -894,14 +894,14 @@ actually found.
    1.5x across sources and is plainly the same measurement twice. Kidney bean
    biotin is 3.7 in Japan, 0.5 in the UK and 1.3 in Australia, and the breadth
    is the honest answer rather than a failure to choose one.
-4. **An outlier is excluded rather than allowed to widen the range.** AFCD
-   reports rolled oats at 74 µg of iodine, analysed, twice, against Japan's not
-   detected. That looked like real geographic variation until a third source
-   settled it: USDA gives cooked oatmeal 0.2 µg at n=10 and brown rice 0 at
-   n=28. A rule that only knew how to widen would have published "0.2 to 74" and
-   called it honest. So a value 10x from the median, while the rest agree within
-   2x, is dropped from the value and kept as a named `disputed` entry rather
-   than deleted.
+4. **An outlier is excluded rather than allowed to widen the range.** A value
+   10x from the median, while the rest agree within 2x, is dropped from the
+   value and kept as a named `disputed` entry rather than deleted. Raw celery
+   is the worked case: Japan 1 µg of iodine, the FDA 1.7 µg over 35 samples,
+   Australia 0, and it takes the third source to say which one is odd. The rule
+   needs a floor to be worth anything, because a ratio says nothing near zero:
+   below half a microgram of iodine the three programmes are not disagreeing,
+   they are all reporting the bottom of their assays.
 
 **Rule 4 needs three sources.** Two disagreeing sources are just disagreement,
 with nothing to say which one is odd, so they yield a range. That is not a
@@ -1549,7 +1549,7 @@ reason than the carotenoids have.
   ceiling for 31 columns.
 - **Fennel**, which is in SR Legacy but raw only and with no amino acid
   analysis, so it does not match the cooked-vegetable convention.
-- **Iodine**. It has a column now resting entirely on MEXT data, as reliable per-food values are scarce elsewhere, so it remains an evidence column and is not yet a total.
+- **Iodine**. It has an evidence column drawing on three national programmes, Japan's MEXT, Australia's AFCD and the USDA/FDA/ODS-NIH release, and is not a total: iodine tracks the soil and the irrigation water more than the food, so a figure does not transfer between countries and a daily-value percentage would read as a promise the data cannot make.
 - **EPA and DHA.** Measured, and there is nothing to show: USDA finds EPA in four
   of these foods and DHA in one, all at traces indistinguishable from assay
   noise. Whole plant foods are not a source, which is a fact the Methodology

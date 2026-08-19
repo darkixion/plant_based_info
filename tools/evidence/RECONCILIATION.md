@@ -66,6 +66,25 @@ averaged to 37.
 **This is the case that justifies the whole range mechanism.** A single "best" iodine
 value for oats would be wrong whichever number was picked.
 
+### Settled 2026-08-19, and the table above is now what the page shows
+
+The column carried MEXT alone until this date, so every verdict here described a
+conflict the page had no way to display. `tools/iodine.mjs` owns it now, over
+MEXT, AFCD and the USDA, FDA and ODS-NIH release that had been sitting in this
+directory unread. Oats reads **0 to 74**, brown rice **0 to 9.8** and raw
+spinach **3 (0 to 6.7)**, each naming its sources. Cooked millet reads
+not-detected: the Recipe figure is graded `estimated` and does not contradict an
+assay, which is the artefact verdict reached without being told it.
+
+Two rules came out of it, both recorded in `USDA-IODINE-PROVENANCE.md` and both
+one rule seen twice. **A numeric zero corroborates a source's own finding of
+absence and never overrides it**, so almonds read none detected over three
+sources rather than 0. And **rules 3 and 4 are ratio tests, which are
+meaningless near zero**, so iodine carries a floor of half a microgram: without
+it, twelve fruit reconciled to ranges that printed as "0 (0 to 0)", and raw
+banana had Japan's not-detected dropped as a tenfold outlier over a fifth of a
+microgram.
+
 ## Rule 4: preparation still dominates
 
 Before comparing anything, the preparation must match. Reconciling a dry IFCT legume
@@ -209,7 +228,7 @@ there and all seven read the same way.
 | Phytate | single source (FAO PhyFoodComp), 58 foods | value or range over the rows it samples |
 | Saponins | single source (IFCT) | single value, source named |
 | **Biotin** | **no, up to 29x** | **range** |
-| **Iodine** | **no, oats 74 vs not detected** | **range** |
+| **Iodine** | **no, oats 74 vs not detected** | **range, and a floor of 0.5 ug below which a ratio says nothing** |
 | **Oxalic acid** | **no, spinach 0.3 vs 0.7** | **range** |
 
 ## The flavonoid columns are not thin because of the mapping

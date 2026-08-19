@@ -290,5 +290,13 @@
     "country": "Brazil",
     "url": "https://www.tbca.net.br/",
     "quality": "high; resistant starch by AOAC 2002.02 per 100 g of edible portion, with the moisture of each sample printed beside the analyte so the basis is checkable per row"
+  },
+  "usda-iodine-r4": {
+    "short": "USDA/FDA iodine",
+    "title": "USDA, FDA and ODS-NIH Database for the Iodine Content of Common Foods, Release 4.0 (2024)",
+    "publisher": "USDA Agricultural Research Service, FDA and NIH Office of Dietary Supplements",
+    "country": "United States",
+    "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/iodine/",
+    "quality": "high; 478 foods in ug/100 g, each with the number of samples analysed, their SD, minimum and maximum, and the programme and years behind them. The only iodine source here that says how many samples a figure rests on, and the only one that reaches this page by id rather than by a reviewed name match"
   }
 }

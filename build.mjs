@@ -343,7 +343,19 @@ export function loadAttested() {
       const num = v => (v === "" || v == null ? undefined : Number(v));
       put("afcd-r3", slug, "inulin", num(row.inulin_g));
       put("afcd-r3", slug, "biotin", num(row.biotin_ug));
+      put("afcd-r3", slug, "iodine", num(row.iodine_ug));
     }
+  }
+
+  /* The USDA, FDA and ODS-NIH iodine release, which carries its own reviewed
+     mapping as a list of page slugs per row rather than a map file, the same
+     as the proanthocyanidin release below. Written by `tools/iodine.mjs map`
+     from the page food's human-checked fdc_id through SR Legacy's own
+     crosswalk, so no name was ever matched to build it. */
+  const iodine = readCorpus("usda-iodine-r4.json");
+  if (iodine) for (const row of iodine) for (const slug of row.page_slugs || []) {
+    reach("usda-iodine-r4", slug);
+    put("usda-iodine-r4", slug, "iodine", Number(row.iodine_ug_100g));
   }
 
   /* FAO/INFOODS phytate, joined by a reviewed map from page food to row index.

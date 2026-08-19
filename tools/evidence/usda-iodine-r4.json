@@ -10,7 +10,8 @@
   "min": "3.7",
   "max": "5.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -23,7 +24,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -36,7 +38,8 @@
   "min": "28.7",
   "max": "112",
   "source": "FDA/USDAC",
-  "years": "2011,2016-2020,2023"
+  "years": "2011,2016-2020,2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -49,7 +52,8 @@
   "min": "27",
   "max": "106",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -62,7 +66,8 @@
   "min": "30.2",
   "max": "75.5",
   "source": "USDA",
-  "years": "2022"
+  "years": "2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -75,7 +80,8 @@
   "min": "12.3",
   "max": "77",
   "source": "FDA/USDAC",
-  "years": "2017-2020,2023"
+  "years": "2017-2020,2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -88,7 +94,8 @@
   "min": "27",
   "max": "67",
   "source": "FDA/USDA",
-  "years": "2013,2017-2020"
+  "years": "2013,2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -101,7 +108,8 @@
   "min": "45.4",
   "max": "175",
   "source": "USDA",
-  "years": "2013,2022"
+  "years": "2013,2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -114,7 +122,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2012"
+  "years": "2012",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -127,7 +136,8 @@
   "min": "39.200000000000003",
   "max": "82.6",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -140,7 +150,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -153,7 +164,8 @@
   "min": "33",
   "max": "440",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -166,7 +178,8 @@
   "min": "18",
   "max": "113.5",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -179,7 +192,8 @@
   "min": "23.8",
   "max": "124.8",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -192,7 +206,8 @@
   "min": "12.2",
   "max": "134.9",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -205,7 +220,8 @@
   "min": "25.1",
   "max": "47.4",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -218,7 +234,8 @@
   "min": "19.600000000000001",
   "max": "63",
   "source": "USDA",
-  "years": "2022"
+  "years": "2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -231,7 +248,8 @@
   "min": "21.3",
   "max": "55.4",
   "source": "FDA/USDA",
-  "years": "2016-2020,2022"
+  "years": "2016-2020,2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -244,7 +262,8 @@
   "min": "0.4",
   "max": "1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -257,7 +276,8 @@
   "min": "5.3",
   "max": "29.7",
   "source": "USDA",
-  "years": "2013,2022"
+  "years": "2013,2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -270,7 +290,8 @@
   "min": "18",
   "max": "46.1",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -283,7 +304,8 @@
   "min": "22.1",
   "max": "59",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -296,7 +318,8 @@
   "min": "1.5",
   "max": "1.5",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -309,7 +332,8 @@
   "min": "202",
   "max": "407",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -322,7 +346,8 @@
   "min": "27",
   "max": "115",
   "source": "USDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -335,7 +360,8 @@
   "min": "45.1",
   "max": "80.900000000000006",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -348,7 +374,8 @@
   "min": "261",
   "max": "437",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -361,7 +388,8 @@
   "min": "75.5",
   "max": "267",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -374,7 +402,8 @@
   "min": "14.3",
   "max": "120",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -387,7 +416,8 @@
   "min": "20.100000000000001",
   "max": "56.8",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -400,7 +430,8 @@
   "min": "24",
   "max": "42",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -413,7 +444,8 @@
   "min": "27.1",
   "max": "56.3",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -426,7 +458,8 @@
   "min": "26",
   "max": "52.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -439,7 +472,8 @@
   "min": "25.7",
   "max": "42.4",
   "source": "USDA",
-  "years": "2022"
+  "years": "2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -452,7 +486,8 @@
   "min": "17.3",
   "max": "44",
   "source": "FDA/USDA",
-  "years": "2014,2016-2020"
+  "years": "2014,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -465,7 +500,8 @@
   "min": "19.899999999999999",
   "max": "102.7",
   "source": "FDA/USDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -478,7 +514,8 @@
   "min": "12.9",
   "max": "85.2",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -491,7 +528,8 @@
   "min": "15.4",
   "max": "65.099999999999994",
   "source": "FDA/USDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -504,7 +542,8 @@
   "min": "17",
   "max": "83.8",
   "source": "FDA/USDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -517,7 +556,8 @@
   "min": "21.7",
   "max": "48.2",
   "source": "FDA/USDA",
-  "years": "2016-2020,2022"
+  "years": "2016-2020,2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -530,7 +570,8 @@
   "min": "16",
   "max": "31.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -543,7 +584,8 @@
   "min": "26",
   "max": "76",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -556,7 +598,8 @@
   "min": "16.7",
   "max": "79.3",
   "source": "USDA",
-  "years": "2022"
+  "years": "2022",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -569,7 +612,8 @@
   "min": "45",
   "max": "55.6",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -582,7 +626,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2014"
+  "years": "2014",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -595,7 +640,8 @@
   "min": "39.299999999999997",
   "max": "43.3",
   "source": "USDA",
-  "years": "2007"
+  "years": "2007",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -608,7 +654,8 @@
   "min": "49.3",
   "max": "51.6",
   "source": "USDA",
-  "years": "2014"
+  "years": "2014",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -621,7 +668,8 @@
   "min": "23",
   "max": "42.5",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -634,7 +682,8 @@
   "min": "33",
   "max": "146",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -647,7 +696,8 @@
   "min": "31",
   "max": "37",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Dairy and Eggs",
@@ -660,7 +710,8 @@
   "min": "22",
   "max": "57.1",
   "source": "USDA",
-  "years": "2022"
+  "years": "2022",
+  "page_slugs": []
  },
  {
   "group": "Spices and Miscellaneous",
@@ -673,7 +724,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Spices and Miscellaneous",
@@ -686,7 +738,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Spices and Miscellaneous",
@@ -699,7 +752,8 @@
   "min": "3410",
   "max": "8900",
   "source": "FDA/USDA",
-  "years": "2017-2018,2020"
+  "years": "2017-2018,2020",
+  "page_slugs": []
  },
  {
   "group": "Spices and Miscellaneous",
@@ -712,7 +766,8 @@
   "min": "2250",
   "max": "6080",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Spices and Miscellaneous",
@@ -725,7 +780,8 @@
   "min": "0",
   "max": "1.5",
   "source": "FDA/USDA",
-  "years": "2018,2020"
+  "years": "2018,2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -738,7 +794,8 @@
   "min": "0.5",
   "max": "0.9",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -751,7 +808,8 @@
   "min": "1",
   "max": "2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -764,7 +822,8 @@
   "min": "7.4",
   "max": "47.1",
   "source": "USDA",
-  "years": "2012-2013"
+  "years": "2012-2013",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -777,7 +836,8 @@
   "min": "0.6",
   "max": "1.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -790,7 +850,8 @@
   "min": "0",
   "max": "1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -803,7 +864,8 @@
   "min": "0",
   "max": "2.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -816,7 +878,8 @@
   "min": "0.9",
   "max": "7",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -829,7 +892,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -842,7 +906,8 @@
   "min": "0.4",
   "max": "0.6",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -855,7 +920,8 @@
   "min": "0.4",
   "max": "1.5",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -868,7 +934,8 @@
   "min": "1.3",
   "max": "2.1",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -881,7 +948,8 @@
   "min": "0.1",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -894,7 +962,8 @@
   "min": "4.5",
   "max": "4.8",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -907,7 +976,8 @@
   "min": "0.7",
   "max": "1.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -920,7 +990,8 @@
   "min": "6.3",
   "max": "20",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -933,7 +1004,8 @@
   "min": "13.2",
   "max": "26.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -946,7 +1018,8 @@
   "min": "2.1",
   "max": "2.2999999999999998",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -959,7 +1032,8 @@
   "min": "3",
   "max": "3.7",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -972,7 +1046,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -985,7 +1060,8 @@
   "min": "0.3",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -998,7 +1074,8 @@
   "min": "0.8",
   "max": "2.9",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -1011,7 +1088,8 @@
   "min": "0.8",
   "max": "2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Soups, Sauces, Gravies and Condiments",
@@ -1024,7 +1102,8 @@
   "min": "0.9",
   "max": "0.9",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1037,7 +1116,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2016-2017,2020"
+  "years": "2016-2017,2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1050,7 +1130,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1063,7 +1144,8 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1076,7 +1158,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1089,7 +1172,8 @@
   "min": "2.2999999999999998",
   "max": "2.7",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1102,7 +1186,8 @@
   "min": "0.4",
   "max": "0.7",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1115,7 +1200,8 @@
   "min": "0.2",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1128,7 +1214,8 @@
   "min": "0",
   "max": "1.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1141,7 +1228,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1154,7 +1242,8 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1167,7 +1256,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1180,7 +1270,8 @@
   "min": "0",
   "max": "0.8",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1193,7 +1284,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1206,7 +1298,8 @@
   "min": "0",
   "max": "0.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1219,7 +1312,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1232,7 +1326,8 @@
   "min": "0.5",
   "max": "1",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1245,7 +1340,8 @@
   "min": "0.3",
   "max": "0.6",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1258,7 +1354,8 @@
   "min": "0",
   "max": "0.6",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1271,7 +1368,8 @@
   "min": "0",
   "max": "2.2000000000000002",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1284,7 +1382,8 @@
   "min": "0.5",
   "max": "2.4",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1297,7 +1396,8 @@
   "min": "0.7",
   "max": "0.7",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1310,7 +1410,8 @@
   "min": "0.3",
   "max": "0.4",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1323,7 +1424,8 @@
   "min": "0.6",
   "max": "0.7",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1336,7 +1438,8 @@
   "min": "1.3",
   "max": "1.6",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1349,7 +1452,8 @@
   "min": "0",
   "max": "3.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1362,7 +1466,8 @@
   "min": "0.3",
   "max": "1.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1375,7 +1480,8 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1388,7 +1494,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1401,7 +1508,8 @@
   "min": "0",
   "max": "1.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1414,7 +1522,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1427,7 +1536,8 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1440,7 +1550,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1453,7 +1564,8 @@
   "min": "0.3",
   "max": "0.5",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1466,7 +1578,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1479,7 +1592,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1492,7 +1606,8 @@
   "min": "0",
   "max": "0.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1505,7 +1620,8 @@
   "min": "0.5",
   "max": "0.9",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1518,7 +1634,8 @@
   "min": "0.8",
   "max": "1.3",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1531,7 +1648,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1544,7 +1662,8 @@
   "min": "0",
   "max": "2.9",
   "source": "FDA",
-  "years": "2019-2020"
+  "years": "2019-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1557,7 +1676,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2019-2020"
+  "years": "2019-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1570,7 +1690,8 @@
   "min": "0",
   "max": "3.9",
   "source": "FDA",
-  "years": "2019-2020"
+  "years": "2019-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1583,7 +1704,8 @@
   "min": "0",
   "max": "0.1",
   "source": "FDA",
-  "years": "2016-2018"
+  "years": "2016-2018",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1596,7 +1718,8 @@
   "min": "0",
   "max": "0.1",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1609,7 +1732,8 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2018"
+  "years": "2016-2018",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1622,7 +1746,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2016-2019"
+  "years": "2016-2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1635,7 +1760,8 @@
   "min": "8.8000000000000007",
   "max": "13",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1648,7 +1774,8 @@
   "min": "13.7",
   "max": "32",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1661,7 +1788,8 @@
   "min": "30",
   "max": "37",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1674,7 +1802,8 @@
   "min": "3",
   "max": "28",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1687,7 +1816,8 @@
   "min": "6.1",
   "max": "13.4",
   "source": "FDA/USDA",
-  "years": "2015-2017"
+  "years": "2015-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1700,7 +1830,8 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1713,7 +1844,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2014"
+  "years": "2014",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1726,7 +1858,8 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1739,7 +1872,8 @@
   "min": "0",
   "max": "1.3",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1752,7 +1886,8 @@
   "min": "4.2",
   "max": "8.8000000000000007",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1765,7 +1900,8 @@
   "min": "0",
   "max": "4.5999999999999996",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1778,7 +1914,8 @@
   "min": "3.7",
   "max": "5.8",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1791,7 +1928,8 @@
   "min": "0",
   "max": "3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1804,7 +1942,8 @@
   "min": "10.6",
   "max": "35.1",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1817,7 +1956,8 @@
   "min": "0",
   "max": "2.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1830,7 +1970,8 @@
   "min": "0",
   "max": "1.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1843,7 +1984,8 @@
   "min": "0.6",
   "max": "0.7",
   "source": "FDA",
-  "years": "2019"
+  "years": "2019",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1856,7 +1998,8 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1869,7 +2012,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1882,7 +2026,8 @@
   "min": "0",
   "max": "6.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1895,7 +2040,8 @@
   "min": "100",
   "max": "130",
   "source": "FDA",
-  "years": "2019-2020"
+  "years": "2019-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1908,7 +2054,8 @@
   "min": "97",
   "max": "98",
   "source": "FDA",
-  "years": "2019-2020"
+  "years": "2019-2020",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1921,7 +2068,8 @@
   "min": "11.6",
   "max": "16",
   "source": "FDA",
-  "years": "2016-2018"
+  "years": "2016-2018",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1934,7 +2082,8 @@
   "min": "0.6",
   "max": "15",
   "source": "FDA",
-  "years": "2016-2018"
+  "years": "2016-2018",
+  "page_slugs": []
  },
  {
   "group": "Baby Foods",
@@ -1947,7 +2096,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -1960,7 +2110,8 @@
   "min": "0",
   "max": "3.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -1973,7 +2124,8 @@
   "min": "2.6",
   "max": "7.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -1986,7 +2138,10 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "olive-oil-extra-virgin"
+  ]
  },
  {
   "group": "Fats and Oils",
@@ -1999,7 +2154,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -2012,7 +2168,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -2025,7 +2182,8 @@
   "min": "9.1999999999999993",
   "max": "14.7",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -2038,7 +2196,8 @@
   "min": "7.1",
   "max": "11.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -2051,7 +2210,8 @@
   "min": "0.4",
   "max": "1.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -2064,7 +2224,8 @@
   "min": "7.5",
   "max": "8.1999999999999993",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Fats and Oils",
@@ -2077,7 +2238,8 @@
   "min": "5.9",
   "max": "19",
   "source": "FDA/USDA",
-  "years": "2013,2018-2020"
+  "years": "2013,2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2090,7 +2252,10 @@
   "min": "0",
   "max": "0.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "apple-raw-with-skin"
+  ]
  },
  {
   "group": "Fruit",
@@ -2103,7 +2268,8 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2116,7 +2282,8 @@
   "min": "1.3",
   "max": "15.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2129,7 +2296,10 @@
   "min": "0",
   "max": "3.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "avocado"
+  ]
  },
  {
   "group": "Fruit",
@@ -2142,7 +2312,10 @@
   "min": "0",
   "max": "3.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "banana"
+  ]
  },
  {
   "group": "Fruit",
@@ -2155,7 +2328,10 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": [
+   "blueberries-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2168,7 +2344,10 @@
   "min": "0",
   "max": "1.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "cantaloupe-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2181,7 +2360,8 @@
   "min": "0",
   "max": "10.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2194,7 +2374,10 @@
   "min": "0",
   "max": "0.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "grapefruit-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2207,7 +2390,10 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "grapes-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2220,7 +2406,10 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": [
+   "mango-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2233,7 +2422,10 @@
   "min": "0",
   "max": "5.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "olives-ripe-canned"
+  ]
  },
  {
   "group": "Fruit",
@@ -2246,7 +2438,10 @@
   "min": "0",
   "max": "1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "orange-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2259,7 +2454,8 @@
   "min": "1.3",
   "max": "10.199999999999999",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2272,7 +2468,10 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "peaches-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2285,7 +2484,8 @@
   "min": "0.1",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2298,7 +2498,10 @@
   "min": "0",
   "max": "0.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "pear-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2311,7 +2514,8 @@
   "min": "0.6",
   "max": "7.1",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2324,7 +2528,10 @@
   "min": "0",
   "max": "2.2999999999999998",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": [
+   "pineapple-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2337,7 +2544,8 @@
   "min": "0",
   "max": "3.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fruit",
@@ -2350,7 +2558,10 @@
   "min": "0",
   "max": "1.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "strawberries-raw"
+  ]
  },
  {
   "group": "Fruit",
@@ -2363,7 +2574,10 @@
   "min": "0",
   "max": "0.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "watermelon-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2376,7 +2590,10 @@
   "min": "0",
   "max": "3.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "asparagus-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2389,7 +2606,8 @@
   "min": "0.1",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2402,7 +2620,8 @@
   "min": "0",
   "max": "2.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2415,7 +2634,10 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "brussels-sprouts-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2428,7 +2650,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2441,7 +2664,10 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": [
+   "cabbage-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2454,7 +2680,8 @@
   "min": "0",
   "max": "3.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2467,7 +2694,8 @@
   "min": "0",
   "max": "1.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2480,7 +2708,10 @@
   "min": "0",
   "max": "3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "cauliflower-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2493,7 +2724,10 @@
   "min": "0",
   "max": "8.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "celery-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2506,7 +2740,10 @@
   "min": "0",
   "max": "7.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "collard-greens-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2519,7 +2756,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2532,7 +2770,8 @@
   "min": "0",
   "max": "7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2545,7 +2784,8 @@
   "min": "0",
   "max": "2.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2558,7 +2798,10 @@
   "min": "0",
   "max": "1",
   "source": "FDA",
-  "years": "2016-2018"
+  "years": "2016-2018",
+  "page_slugs": [
+   "aubergine-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2571,7 +2814,8 @@
   "min": "0",
   "max": "1.4",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2584,7 +2828,10 @@
   "min": "0",
   "max": "3.1",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": [
+   "garlic-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2597,7 +2844,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2610,7 +2858,8 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2623,7 +2872,8 @@
   "min": "0",
   "max": "4.4000000000000004",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2636,7 +2886,8 @@
   "min": "0",
   "max": "1.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2649,7 +2900,8 @@
   "min": "0",
   "max": "8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2662,7 +2914,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2019"
+  "years": "2016-2019",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2675,7 +2928,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2688,7 +2942,10 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "mushrooms-white-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2701,7 +2958,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2714,7 +2972,8 @@
   "min": "1640",
   "max": "2850",
   "source": "USDA",
-  "years": "2018"
+  "years": "2018",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2727,7 +2986,10 @@
   "min": "0.3",
   "max": "1.8",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": [
+   "okra-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2740,7 +3002,10 @@
   "min": "0",
   "max": "1.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "onions-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2753,7 +3018,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2766,7 +3032,10 @@
   "min": "0",
   "max": "2.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "bell-pepper-green-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2779,7 +3048,8 @@
   "min": "0.3",
   "max": "1.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2792,7 +3062,8 @@
   "min": "0",
   "max": "0.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2805,7 +3076,10 @@
   "min": "0",
   "max": "7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "potato-baked-with-skin"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2818,7 +3092,8 @@
   "min": "3.8",
   "max": "14.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2831,7 +3106,8 @@
   "min": "0",
   "max": "1.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2844,7 +3120,8 @@
   "min": "1",
   "max": "8.1",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2857,7 +3134,10 @@
   "min": "1.6",
   "max": "40",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": [
+   "spinach-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2870,7 +3150,8 @@
   "min": "0.1",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2883,7 +3164,10 @@
   "min": "0",
   "max": "4.5999999999999996",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": [
+   "courgette-cooked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2896,7 +3180,8 @@
   "min": "0",
   "max": "5.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2909,7 +3194,10 @@
   "min": "0",
   "max": "6.2",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": [
+   "sweet-potato-baked"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2922,7 +3210,8 @@
   "min": "0",
   "max": "2.2999999999999998",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Vegetables",
@@ -2935,7 +3224,10 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": [
+   "tomatoes-raw"
+  ]
  },
  {
   "group": "Vegetables",
@@ -2948,7 +3240,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -2961,7 +3254,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -2974,7 +3268,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -2987,7 +3282,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3000,7 +3296,8 @@
   "min": "0",
   "max": "2.8",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3013,7 +3310,10 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": [
+   "pinto-beans-cooked"
+  ]
  },
  {
   "group": "Legumes",
@@ -3026,7 +3326,8 @@
   "min": "0",
   "max": "2.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3039,7 +3340,8 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3052,7 +3354,10 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": [
+   "cannellini-beans-cooked"
+  ]
  },
  {
   "group": "Legumes",
@@ -3065,7 +3370,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3078,7 +3384,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3091,7 +3398,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3104,7 +3412,8 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3117,7 +3426,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Legumes",
@@ -3130,7 +3440,8 @@
   "min": "7.9",
   "max": "11",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Nuts and Seeds",
@@ -3143,7 +3454,10 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": [
+   "almonds"
+  ]
  },
  {
   "group": "Nuts and Seeds",
@@ -3156,7 +3470,8 @@
   "min": "",
   "max": "",
   "source": "FDA",
-  "years": "2020"
+  "years": "2020",
+  "page_slugs": []
  },
  {
   "group": "Nuts and Seeds",
@@ -3169,7 +3484,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Nuts and Seeds",
@@ -3182,7 +3498,10 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": [
+   "walnuts"
+  ]
  },
  {
   "group": "Beverages including Juices",
@@ -3195,7 +3514,8 @@
   "min": "0.2",
   "max": "2.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3208,7 +3528,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3221,7 +3542,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3234,7 +3556,8 @@
   "min": "0.7",
   "max": "3.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3247,7 +3570,8 @@
   "min": "0.1",
   "max": "0.9",
   "source": "FDA/USDAC",
-  "years": "2020-2022"
+  "years": "2020-2022",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3260,7 +3584,8 @@
   "min": "0.4",
   "max": "0.8",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3273,7 +3598,8 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3286,7 +3612,8 @@
   "min": "0.3",
   "max": "3",
   "source": "FDA/USDAc",
-  "years": "2019-2022"
+  "years": "2019-2022",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3299,7 +3626,8 @@
   "min": "2.9",
   "max": "6.9",
   "source": "FDA/USDAC",
-  "years": "2018,2022"
+  "years": "2018,2022",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3312,7 +3640,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3325,7 +3654,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2014"
+  "years": "2014",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3338,7 +3668,8 @@
   "min": "0",
   "max": "0.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3351,7 +3682,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3364,7 +3696,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3377,7 +3710,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3390,7 +3724,8 @@
   "min": "0.1",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3403,7 +3738,8 @@
   "min": "0",
   "max": "0.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3416,7 +3752,8 @@
   "min": "0.3",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3429,7 +3766,8 @@
   "min": "0",
   "max": "0.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3442,7 +3780,8 @@
   "min": "0",
   "max": "1.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3455,7 +3794,8 @@
   "min": "0.4",
   "max": "1.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3468,7 +3808,8 @@
   "min": "0.1",
   "max": "0.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3481,7 +3822,8 @@
   "min": "0",
   "max": "46",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3494,7 +3836,8 @@
   "min": "0",
   "max": "3.2",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3507,7 +3850,8 @@
   "min": "1.6",
   "max": "24.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3520,7 +3864,8 @@
   "min": "0.2",
   "max": "0.7",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3533,7 +3878,8 @@
   "min": "0",
   "max": "0.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3546,7 +3892,8 @@
   "min": "0.4",
   "max": "3.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3559,7 +3906,8 @@
   "min": "0.7",
   "max": "1.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3572,7 +3920,8 @@
   "min": "0.4",
   "max": "1.3",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3585,7 +3934,8 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3598,7 +3948,8 @@
   "min": "18",
   "max": "142.69999999999999",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3611,7 +3962,8 @@
   "min": "67",
   "max": "150",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3624,7 +3976,8 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3637,7 +3990,8 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3650,7 +4004,8 @@
   "min": "0",
   "max": "1.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Beverages including Juices",
@@ -3663,7 +4018,8 @@
   "min": "0",
   "max": "10.9",
   "source": "USDA",
-  "years": "2003"
+  "years": "2003",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3676,7 +4032,8 @@
   "min": "27.3",
   "max": "51.5",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3689,7 +4046,8 @@
   "min": "29.4",
   "max": "61",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3702,7 +4060,8 @@
   "min": "139",
   "max": "226",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3715,7 +4074,8 @@
   "min": "4.0999999999999996",
   "max": "38.5",
   "source": "USDAC",
-  "years": "2008,2016,2023"
+  "years": "2008,2016,2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3728,7 +4088,8 @@
   "min": "3.4",
   "max": "54.8",
   "source": "FDA/USDA",
-  "years": "2008,2016-2020"
+  "years": "2008,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3741,7 +4102,8 @@
   "min": "25.2",
   "max": "134",
   "source": "FDA/USDA",
-  "years": "2012-2013, 2016-2020"
+  "years": "2012-2013, 2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3754,7 +4116,8 @@
   "min": "1.1000000000000001",
   "max": "3.6",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3767,7 +4130,8 @@
   "min": "0",
   "max": "8.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3780,7 +4144,8 @@
   "min": "23.4",
   "max": "360.8",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3793,7 +4158,8 @@
   "min": "88",
   "max": "330",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3806,7 +4172,8 @@
   "min": "50.6",
   "max": "241",
   "source": "USDA",
-  "years": "2007-2008"
+  "years": "2007-2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3819,7 +4186,8 @@
   "min": "10.8",
   "max": "19.899999999999999",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3832,7 +4200,8 @@
   "min": "138",
   "max": "314",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3845,7 +4214,8 @@
   "min": "7.4",
   "max": "10.3",
   "source": "USDA",
-  "years": "2003,2008"
+  "years": "2003,2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3858,7 +4228,8 @@
   "min": "7.4",
   "max": "11.5",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3871,7 +4242,8 @@
   "min": "37.4",
   "max": "53.5",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3884,7 +4256,8 @@
   "min": "10.7",
   "max": "19.5",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3897,7 +4270,8 @@
   "min": "1.5",
   "max": "5.6",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3910,7 +4284,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2004"
+  "years": "2004",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3923,7 +4298,8 @@
   "min": "7.4",
   "max": "20.5",
   "source": "USDA",
-  "years": "2008,2010"
+  "years": "2008,2010",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3936,7 +4312,8 @@
   "min": "11.8",
   "max": "49.7",
   "source": "USDA",
-  "years": "2007-2008"
+  "years": "2007-2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3949,7 +4326,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2010"
+  "years": "2010",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3962,7 +4340,8 @@
   "min": "11.6",
   "max": "17",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3975,7 +4354,8 @@
   "min": "15.8",
   "max": "20.6",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -3988,7 +4368,8 @@
   "min": "0",
   "max": "29",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4001,7 +4382,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2004"
+  "years": "2004",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4014,7 +4396,8 @@
   "min": "7.4",
   "max": "7.4",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4027,7 +4410,8 @@
   "min": "16.399999999999999",
   "max": "24.9",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4040,7 +4424,8 @@
   "min": "0",
   "max": "81",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4053,7 +4438,8 @@
   "min": "0.9",
   "max": "10.8",
   "source": "USDAC",
-  "years": "2023"
+  "years": "2023",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4066,7 +4452,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4079,7 +4466,8 @@
   "min": "6.6",
   "max": "12",
   "source": "FDA/USDA",
-  "years": "2008,2012,2016-2020"
+  "years": "2008,2012,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4092,7 +4480,8 @@
   "min": "17.5",
   "max": "28.1",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4105,7 +4494,8 @@
   "min": "11.5",
   "max": "25.5",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4118,7 +4508,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2005"
+  "years": "2005",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4131,7 +4522,8 @@
   "min": "57.9",
   "max": "78",
   "source": "USDA",
-  "years": "2007"
+  "years": "2007",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4144,7 +4536,8 @@
   "min": "81.400000000000006",
   "max": "132",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Seafood",
@@ -4157,7 +4550,8 @@
   "min": "7.4",
   "max": "7.4",
   "source": "USDA",
-  "years": "2008"
+  "years": "2008",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4170,7 +4564,8 @@
   "min": "0",
   "max": "2.5",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4183,7 +4578,8 @@
   "min": "1.7",
   "max": "5.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4196,7 +4592,8 @@
   "min": "12.9",
   "max": "27.7",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4209,7 +4606,8 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4222,7 +4620,8 @@
   "min": "0",
   "max": "2.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4235,7 +4634,10 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": [
+   "wholewheat-pasta-cooked"
+  ]
  },
  {
   "group": "Grains3",
@@ -4248,7 +4650,10 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": [
+   "quinoa-cooked"
+  ]
  },
  {
   "group": "Grains3",
@@ -4261,7 +4666,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Grains3",
@@ -4274,7 +4680,8 @@
   "min": "0",
   "max": "6.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4287,7 +4694,8 @@
   "min": "0",
   "max": "1.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4300,7 +4708,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4313,7 +4722,8 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4326,7 +4736,8 @@
   "min": "0",
   "max": "0.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4339,7 +4750,8 @@
   "min": "0",
   "max": "0.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4352,7 +4764,8 @@
   "min": "0.2",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4365,7 +4778,8 @@
   "min": "8.3000000000000007",
   "max": "13",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4378,7 +4792,8 @@
   "min": "9.4",
   "max": "20.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4391,7 +4806,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4404,7 +4820,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4417,7 +4834,8 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4430,7 +4848,8 @@
   "min": "0",
   "max": "0.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4443,7 +4862,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Cereals",
@@ -4456,7 +4876,8 @@
   "min": "0",
   "max": "0",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4469,7 +4890,8 @@
   "min": "0",
   "max": "9.3000000000000007",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4482,7 +4904,8 @@
   "min": "0.7",
   "max": "5.6",
   "source": "FDA/USDA",
-  "years": "2013,2016-2017"
+  "years": "2013,2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4495,7 +4918,8 @@
   "min": "0",
   "max": "4.4000000000000004",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4508,7 +4932,10 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": [
+   "rye-bread"
+  ]
  },
  {
   "group": "Baked Products",
@@ -4521,7 +4948,8 @@
   "min": "0",
   "max": "10",
   "source": "FDA/USDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4534,7 +4962,8 @@
   "min": "480",
   "max": "1730",
   "source": "FDA/USDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4547,7 +4976,8 @@
   "min": "0",
   "max": "9.5",
   "source": "FDA/USDA",
-  "years": "2011,2013,2016-2020"
+  "years": "2011,2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4560,7 +4990,8 @@
   "min": "350",
   "max": "1178",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4573,7 +5004,8 @@
   "min": "0",
   "max": "9.5",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4586,7 +5018,8 @@
   "min": "340",
   "max": "1010",
   "source": "FDA/USDA",
-  "years": "2016,2018-2019"
+  "years": "2016,2018-2019",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4599,7 +5032,8 @@
   "min": "45",
   "max": "180",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4612,7 +5046,8 @@
   "min": "0",
   "max": "5.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4625,7 +5060,8 @@
   "min": "0.9",
   "max": "42.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4638,7 +5074,8 @@
   "min": "3.1",
   "max": "17",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4651,7 +5088,8 @@
   "min": "2.7",
   "max": "72.099999999999994",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4664,7 +5102,8 @@
   "min": "7.4",
   "max": "7.4",
   "source": "USDA",
-  "years": "2011"
+  "years": "2011",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4677,7 +5116,8 @@
   "min": "0",
   "max": "12",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4690,7 +5130,8 @@
   "min": "0",
   "max": "2.7",
   "source": "FDA/USDA",
-  "years": "2012,2016-2020"
+  "years": "2012,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4703,7 +5144,8 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4716,7 +5158,8 @@
   "min": "0",
   "max": "8.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4729,7 +5172,8 @@
   "min": "12.3",
   "max": "49",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4742,7 +5186,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2012"
+  "years": "2012",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4755,7 +5200,8 @@
   "min": "0",
   "max": "1.1000000000000001",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4768,7 +5214,8 @@
   "min": "4.7",
   "max": "18",
   "source": "FDA/USDA",
-  "years": "2009,2018-2020"
+  "years": "2009,2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4781,7 +5228,8 @@
   "min": "0",
   "max": "2.6",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4794,7 +5242,8 @@
   "min": "0",
   "max": "0.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4807,7 +5256,8 @@
   "min": "5.0999999999999996",
   "max": "41.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4820,7 +5270,8 @@
   "min": "0",
   "max": "15.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4833,7 +5284,8 @@
   "min": "5.3",
   "max": "34.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4846,7 +5298,8 @@
   "min": "3.2",
   "max": "10.4",
   "source": "FDA/USDA",
-  "years": "2013,2016-2020"
+  "years": "2013,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4859,7 +5312,8 @@
   "min": "0",
   "max": "3.5",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4872,7 +5326,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4885,7 +5340,8 @@
   "min": "17.5",
   "max": "29.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4898,7 +5354,8 @@
   "min": "4.4000000000000004",
   "max": "7.7",
   "source": "FDA",
-  "years": "2016"
+  "years": "2016",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4911,7 +5368,8 @@
   "min": "0",
   "max": "3.6",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Baked Products",
@@ -4924,7 +5382,8 @@
   "min": "0",
   "max": "7.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -4937,7 +5396,8 @@
   "min": "0",
   "max": "4.9000000000000004",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -4950,7 +5410,8 @@
   "min": "13.5",
   "max": "21.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -4963,7 +5424,8 @@
   "min": "35",
   "max": "54.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -4976,7 +5438,8 @@
   "min": "0",
   "max": "35.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -4989,7 +5452,8 @@
   "min": "0",
   "max": "9.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5002,7 +5466,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2012"
+  "years": "2012",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5015,7 +5480,8 @@
   "min": "0.1",
   "max": "4.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5028,7 +5494,8 @@
   "min": "0.1",
   "max": "1.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5041,7 +5508,8 @@
   "min": "0",
   "max": "3",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5054,7 +5522,8 @@
   "min": "0.6",
   "max": "4.5999999999999996",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5067,7 +5536,8 @@
   "min": "0.3",
   "max": "1.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5080,7 +5550,8 @@
   "min": "0.2",
   "max": "2.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5093,7 +5564,8 @@
   "min": "0.3",
   "max": "2.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5106,7 +5578,8 @@
   "min": "0",
   "max": "2.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5119,7 +5592,8 @@
   "min": "0",
   "max": "1.2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5132,7 +5606,8 @@
   "min": "13",
   "max": "15",
   "source": "FDA",
-  "years": "2018-2020"
+  "years": "2018-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5145,7 +5620,8 @@
   "min": "3",
   "max": "7.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5158,7 +5634,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2012"
+  "years": "2012",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5171,7 +5648,8 @@
   "min": "13.7",
   "max": "15.1",
   "source": "FDA",
-  "years": "2016"
+  "years": "2016",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5184,7 +5662,8 @@
   "min": "0",
   "max": "1.8",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5197,7 +5676,8 @@
   "min": "0",
   "max": "0.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5210,7 +5690,8 @@
   "min": "0.3",
   "max": "2",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sweets and Snacks",
@@ -5223,7 +5704,8 @@
   "min": "0",
   "max": "0.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5236,7 +5718,8 @@
   "min": "5.3",
   "max": "8.1",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5249,7 +5732,8 @@
   "min": "1.9",
   "max": "9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5262,7 +5746,8 @@
   "min": "0",
   "max": "2.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5275,7 +5760,8 @@
   "min": "1",
   "max": "2.8",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5288,7 +5774,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2011"
+  "years": "2011",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5301,7 +5788,8 @@
   "min": "7",
   "max": "9.8000000000000007",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5314,7 +5802,8 @@
   "min": "7.4",
   "max": "15",
   "source": "USDA",
-  "years": "2012-2013"
+  "years": "2012-2013",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5327,7 +5816,8 @@
   "min": "11.2",
   "max": "28.7",
   "source": "FDA/USDA",
-  "years": "2012,2016-2020"
+  "years": "2012,2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5340,7 +5830,8 @@
   "min": "1.9",
   "max": "5.3",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5353,7 +5844,8 @@
   "min": "8.1",
   "max": "34.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5366,7 +5858,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5379,7 +5872,8 @@
   "min": "7.4",
   "max": "15.1",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5392,7 +5886,8 @@
   "min": "16.2",
   "max": "29.3",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5405,7 +5900,8 @@
   "min": "1.5",
   "max": "1.5",
   "source": "USDA",
-  "years": "2010,2017"
+  "years": "2010,2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5418,7 +5914,8 @@
   "min": "0",
   "max": "5",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5431,7 +5928,8 @@
   "min": "1",
   "max": "2.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5444,7 +5942,8 @@
   "min": "20",
   "max": "36.6",
   "source": "USDA",
-  "years": "2009"
+  "years": "2009",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5457,7 +5956,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2012"
+  "years": "2012",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5470,7 +5970,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2012"
+  "years": "2012",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5483,7 +5984,8 @@
   "min": "10.5",
   "max": "36.1",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Mixed Dishes",
@@ -5496,7 +5998,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5509,7 +6012,8 @@
   "min": "6",
   "max": "16.5",
   "source": "FDA/USDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5522,7 +6026,8 @@
   "min": "2.7",
   "max": "9.8000000000000007",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5535,7 +6040,8 @@
   "min": "0",
   "max": "10",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5548,7 +6054,8 @@
   "min": "0",
   "max": "7.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5561,7 +6068,8 @@
   "min": "0",
   "max": "7.3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5574,7 +6082,8 @@
   "min": "22.6",
   "max": "45.4",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5587,7 +6096,8 @@
   "min": "22",
   "max": "47",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5600,7 +6110,8 @@
   "min": "7.1",
   "max": "19.600000000000001",
   "source": "FDA/USDA",
-  "years": "2010,2016-2017"
+  "years": "2010,2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5613,7 +6124,8 @@
   "min": "5.7",
   "max": "17",
   "source": "FDA/USDA",
-  "years": "2010,2017-2020"
+  "years": "2010,2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5626,7 +6138,8 @@
   "min": "1.5",
   "max": "1.5",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5639,7 +6152,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2010"
+  "years": "2010",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5652,7 +6166,8 @@
   "min": "0",
   "max": "10.199999999999999",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5665,7 +6180,8 @@
   "min": "2",
   "max": "5.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5678,7 +6194,8 @@
   "min": "7.4",
   "max": "14.6",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5691,7 +6208,8 @@
   "min": "164",
   "max": "392",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5704,7 +6222,8 @@
   "min": "7.4",
   "max": "14.5",
   "source": "FDA/USDA",
-  "years": "2013,2016-2017"
+  "years": "2013,2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5717,7 +6236,8 @@
   "min": "0.4",
   "max": "4.5",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5730,7 +6250,8 @@
   "min": "16.100000000000001",
   "max": "31.8",
   "source": "FDA/USDA",
-  "years": "2012,2016-2017"
+  "years": "2012,2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5743,7 +6264,8 @@
   "min": "22.9",
   "max": "59.6",
   "source": "FDA/USDA",
-  "years": "2013,2016-2017"
+  "years": "2013,2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5756,7 +6278,8 @@
   "min": "7.4",
   "max": "7.4",
   "source": "USDA",
-  "years": "2010"
+  "years": "2010",
+  "page_slugs": []
  },
  {
   "group": "Fast Foods",
@@ -5769,7 +6292,8 @@
   "min": "4.4000000000000004",
   "max": "11.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5782,7 +6306,8 @@
   "min": "0.6",
   "max": "15.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5795,7 +6320,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5808,7 +6334,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5821,7 +6348,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5834,7 +6362,8 @@
   "min": "0.8",
   "max": "12.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5847,7 +6376,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5860,7 +6390,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5873,7 +6404,8 @@
   "min": "34.200000000000003",
   "max": "42.3",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5886,7 +6418,8 @@
   "min": "1.2",
   "max": "16.899999999999999",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5899,7 +6432,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2013"
+  "years": "2013",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5912,7 +6446,8 @@
   "min": "12.9",
   "max": "32.299999999999997",
   "source": "USDA",
-  "years": "2013,2017"
+  "years": "2013,2017",
+  "page_slugs": []
  },
  {
   "group": "Restaurant Foods (excluding Fast Food Restaurants)",
@@ -5925,7 +6460,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2009"
+  "years": "2009",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -5938,7 +6474,8 @@
   "min": "13",
   "max": "43.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -5951,7 +6488,8 @@
   "min": "0",
   "max": "60",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -5964,7 +6502,8 @@
   "min": "7.4",
   "max": "7.4",
   "source": "USDA",
-  "years": "2010"
+  "years": "2010",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -5977,7 +6516,8 @@
   "min": "0",
   "max": "5.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -5990,7 +6530,8 @@
   "min": "0",
   "max": "3",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -6003,7 +6544,8 @@
   "min": "2.5",
   "max": "48",
   "source": "FDA/USDA",
-  "years": "2011,2017-2020"
+  "years": "2011,2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -6016,7 +6558,8 @@
   "min": "3.5",
   "max": "23.2",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -6029,7 +6572,8 @@
   "min": "",
   "max": "",
   "source": "USDA",
-  "years": "2017"
+  "years": "2017",
+  "page_slugs": []
  },
  {
   "group": "Sausage and Luncheon Meats",
@@ -6042,7 +6586,8 @@
   "min": "0",
   "max": "11",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6055,7 +6600,8 @@
   "min": "0",
   "max": "8.1",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6068,7 +6614,8 @@
   "min": "0",
   "max": "9.5",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6081,7 +6628,8 @@
   "min": "0",
   "max": "61",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6094,7 +6642,8 @@
   "min": "0",
   "max": "17",
   "source": "FDA",
-  "years": "2017-2020"
+  "years": "2017-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6107,7 +6656,8 @@
   "min": "0",
   "max": "5.9",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6120,7 +6670,8 @@
   "min": "0",
   "max": "7.7",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6133,7 +6684,8 @@
   "min": "0",
   "max": "6.8",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6146,7 +6698,8 @@
   "min": "0",
   "max": "0.9",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6159,7 +6712,8 @@
   "min": "7.7",
   "max": "21.6",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6172,7 +6726,8 @@
   "min": "3.3",
   "max": "19",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6185,7 +6740,8 @@
   "min": "1.8",
   "max": "8.1999999999999993",
   "source": "FDA",
-  "years": "2016-2017"
+  "years": "2016-2017",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6198,7 +6754,8 @@
   "min": "0",
   "max": "8.4",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  },
  {
   "group": "Meats",
@@ -6211,6 +6768,7 @@
   "min": "0",
   "max": "12",
   "source": "FDA",
-  "years": "2016-2020"
+  "years": "2016-2020",
+  "page_slugs": []
  }
 ]

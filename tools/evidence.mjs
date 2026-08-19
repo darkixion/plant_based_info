@@ -21,6 +21,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { reconcile, spanCell } from "./reconcile.mjs";
 import { biotinCell } from "./biotin.mjs";
+import { iodineCell } from "./iodine.mjs";
 import { faoPhytateCell } from "./fao_phytate.mjs";
 import { faoOligosCells } from "./fao_oligos.mjs";
 import { keepsGrade } from "./withdraw.mjs";
@@ -60,6 +61,13 @@ const cnf = rd("cnf.json");
 const afcdDB = rd("afcd-r3-plant.json");  // the only read of it; indexed by key below
 const cnfBy = Object.fromEntries(cnf.map(r => [r.key, r]));
 const afcdKeyBy = Object.fromEntries(afcdDB.map(r => [r.key, r]));
+/* The USDA iodine release carries its own mapping as a list of page slugs per
+   row, written by `node tools/iodine.mjs map` from the reviewed id chain, so
+   there is no map file to drift from it. Same arrangement the
+   proanthocyanidin release uses. */
+const usdaIodineBySlug = {};
+for (const row of rd("usda-iodine-r4.json"))
+  for (const slug of row.page_slugs || []) usdaIodineBySlug[slug] = row;
 
 /* Seeded from what is already on the page, so a pass this tool does not
    implement survives a run of it. */
@@ -86,16 +94,15 @@ const grade = (slug, source, g, prep) => {
 };
 
 
-/* The uniform components: one source, one field, one cell. Biotin is not here
-   and stays hand-written below, because it is the only multi-source component
-   and the shape of a multi-source declaration is not knowable until the AFCD
-   and IFCT mappings exist. This table covers what is uniform. */
+/* The uniform components: one source, one field, one cell. Biotin and iodine
+   are not here: each is reconciled across three databases below, and a table
+   that knows only one field per component cannot say what to do when two of
+   them disagree. This covers what is uniform. */
 const COMPONENTS = [
   { id: "solfibre",     corpus: "fibre",  field: "sol_prosky" },
   { id: "insolfibre",   corpus: "fibre",  field: "insol_prosky" },
   { id: "resstarch",    corpus: "fibre",  field: "resistant_starch" },
   { id: "mo",           corpus: "plant",  field: "mo" },
-  { id: "iodine",       corpus: "plant",  field: "iodine" },
   { id: "cr",           corpus: "plant",  field: "cr" },
   { id: "starch",       corpus: "sugars", field: "starch" },
   { id: "glucose",      corpus: "sugars", field: "glucose" },
@@ -219,6 +226,51 @@ for (const slug of biotinSlugs) {
   if (named.has("afcd-r3") && am) grade(slug, "afcd-r3", am.match, prep);
 
   entryFor(slug, prep).cells.biotin = cell;
+  nCells++;
+  if (cell.state === "range") ranges++;
+  if (cell.disputed) disputes++;
+}
+
+/* Iodine, over the union of the three maps that reach it, for the same reason
+   biotin is: the food a database has nothing to say about is not the food no
+   database reaches, and a loop over one map cannot tell them apart. Six of
+   these foods have iodine from the USDA release alone.
+ *
+ * This pass owns the column. It used to be one row of the uniform table above,
+ * MEXT and nothing else, so RECONCILIATION.md rule 3 described a conflict the
+ * page had no way to show: the rolled oats that are 74 ug in Australia and not
+ * detected in Japan read as not detected, with Australia's figure nowhere.
+ * The rule is in iodine.mjs and USDA-IODINE-PROVENANCE.md records what each
+ * source measured. */
+const iodineSlugs = new Set([
+  ...Object.keys(mextBySlug),
+  ...Object.keys(afcdMap),
+  ...Object.keys(usdaIodineBySlug),
+]);
+
+for (const slug of iodineSlugs) {
+  const mp = mextBySlug[slug];
+  const am = afcdMap[slug];
+  const ur = usdaIodineBySlug[slug];
+
+  const cell = iodineCell({
+    mext: mp && BY_CODE.plant[mp.jp_code]?.iodine,
+    afcd: am && afcdKeyBy[am.key],
+    usda: ur,
+  });
+  if (!cell) continue;
+
+  const named = new Set([...(cell.sources || []), ...(cell.disputed || []).map(d => d.source)]);
+  const prep = mp ? mp.page_state : undefined;
+  if (named.has("mext-2020") && mp) grade(slug, "mext-2020", mp.match, prep);
+  if (named.has("afcd-r3") && am) grade(slug, "afcd-r3", am.match, prep);
+  /* Exact without a reviewer having said so, because nothing here was matched
+     by name: the page food carries a human-checked fdc_id, SR Legacy's own
+     crosswalk turns that into an NDB number, and the release is keyed by it.
+     A pairing this chain makes is the same pairing three times over. */
+  if (named.has("usda-iodine-r4") && ur) grade(slug, "usda-iodine-r4", "exact", prep);
+
+  entryFor(slug, prep).cells.iodine = cell;
   nCells++;
   if (cell.state === "range") ranges++;
   if (cell.disputed) disputes++;

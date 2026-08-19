@@ -4,12 +4,13 @@ Extracted food-composition data for components USDA SR Legacy does not carry, ke
 so that adding a food later costs nothing: the values are already here, for far more
 foods than the page lists.
 
-**All 45 of the page's evidence columns draw on this directory**, over
-1,985 cells across 170 foods and 46 sources. Phase 1 added three (soluble fibre,
-insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
-still supplies 1,564 of the cells. The rest come from IFCT, CoFID, AFCD, CNF,
-FAO/INFOODS, the USDA proanthocyanidin release, the Australian and Danish
-vitamin K datasets and thirty-odd single papers.
+**All 45 of the page's evidence columns draw on this directory**, 2,058 cells
+across 185 foods, citing 45 of the page's 46 sources between them. Phase 1
+added three (soluble fibre, insoluble fibre and biotin) and phase 2a added 16
+more, all from MEXT, which still supplies 1,553 of the cells. The rest come
+from IFCT, CoFID, AFCD, CNF, FAO/INFOODS, the USDA proanthocyanidin and iodine
+releases, the Australian and Danish vitamin K datasets and thirty-odd single
+papers.
 
 Every evidence column now carries at least one cell, and two columns have been
 removed for failing that test in spirit rather than in letter. **Total phenolics
@@ -59,7 +60,7 @@ calcium. So every component here had to come from somewhere else.
 | `afcd-r3-plant.json` | 612 | **inulin**, raffinose, stachyose, resistant starch, oxalic acid, iodine, molybdenum, biotin |
 | `ifct-2017-cited.json` | 7 | the IFCT figures this page actually cites, phytate and soluble and insoluble oxalate, one row per food, with the four figures withdrawn and why. Replaces the two whole tables, which the IFCT licence did not permit this repository to hold |
 | `cofid-2021-plant.json` | 456 | lumped oligosaccharide total, biotin |
-| `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**; joins by NDB id |
+| `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**, and the programme and years behind each figure. Joins by NDB id through SR Legacy's crosswalk, and carries the result as `page_slugs` per row rather than in a map file. Written by `tools/iodine.mjs map`; see `USDA-IODINE-PROVENANCE.md` |
 | `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median, n, source and the `sourceFood` that marks a value copied from another food. Rebuilt by `tools/extract_frida.mjs` |
 | `phenol-explorer.json` | 6,953 | 508 polyphenols over 458 foods, with mean, min, max, SD, n and **PubMed ids**; adds lignans and stilbenes |
 | `fao-oligosaccharides.json` | 157 | **verbascose**, raffinose and stachyose from FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, each row with its water content, country, sample count and `biblioid`. Rebuilt by `tools/extract_fao_oligos.mjs` |
@@ -80,6 +81,7 @@ calcium. So every component here had to come from somewhere else.
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 102 | reviewed mappings from this page's foods to MEXT rows |
 | `BIOTIN-MAP-REVIEW.md` | 133 | every candidate pairing put to review for the biotin column, what was accepted into the CoFID and AFCD maps, and the reason for each refusal |
+| `USDA-IODINE-PROVENANCE.md` | 3 | what each of the three iodine databases measured, the id chain that reaches the USDA release without matching a name, the iodised-salt and dough-conditioner rows it holds, and the two rules iodine forced: a zero corroborates an absence rather than overriding it, and a ratio test needs a floor |
 | `LICENCES.md` | 13 | what each source permits, checked against the publisher's own terms, and the two places this repository currently exceeds them |
 | `FRIDA-PROVENANCE.md` | 5 | Frida's licence (CC BY 4.0, so republishable with credit) and why 400 of its 873 biotin values are refused: borrowed from another food, undetermined, or compiled from CoFID, AFCD and the CNF under other ids |
 | `FAO-PROVENANCE.md` | 4 | what PhyFoodComp measured and what it copied: 291 of its 2,442 plant rows are IFCT 2017, which this page cites in its own right, so those rows are refused. Also what that cost |
