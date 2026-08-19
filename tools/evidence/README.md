@@ -78,6 +78,7 @@ calcium. So every component here had to come from somewhere else.
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 102 | reviewed mappings from this page's foods to MEXT rows |
 | `BIOTIN-MAP-REVIEW.md` | 133 | every candidate pairing put to review for the biotin column, what was accepted into the CoFID and AFCD maps, and the reason for each refusal |
+| `LICENCES.md` | 13 | what each source permits, checked against the publisher's own terms, and the two places this repository currently exceeds them |
 | `FRIDA-PROVENANCE.md` | 5 | Frida's licence (CC BY 4.0, so republishable with credit) and why 400 of its 873 biotin values are refused: borrowed from another food, undetermined, or compiled from CoFID, AFCD and the CNF under other ids |
 | `frida-6.1-sources.json` | 502 | Frida's own source table, which names every reference its values cite and types each one, the file the admission rule is decided from |
 
