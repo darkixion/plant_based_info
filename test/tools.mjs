@@ -12,6 +12,7 @@ import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
 import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
 import { fridaCell } from "../tools/frida.mjs";
 import { faoPhytateCell, faoAdmits } from "../tools/fao_phytate.mjs";
+import { faoOligosCells } from "../tools/fao_oligos.mjs";
 import { keepsGrade } from "../tools/withdraw.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
@@ -676,6 +677,83 @@ test("every banked FAO oligosaccharide row exists and carries what it was banked
     }
   }
   eq(problems.length, 0, problems.join("; "));
+});
+
+/* Two rows the page's own map already rests on, plus the White pea rows that
+   found nothing. The shape to hold onto: a row answers for the components it
+   carries and is silent about the rest, so the mapping is per component. */
+const OLIGO_ROWS = [
+  { name: "Chickpea, water-soaked, pressure-cooked", biblioid: "pu248",
+    raffinose: { state: "measured", value: 0.2371295 },
+    stachyose: { state: "measured", value: 0.8027594999999998 },
+    verbascose: { state: "measured", value: 0.4198715 } },
+  { name: "Chickpea, Kabuli, boiled", biblioid: "pu156",
+    raffinose: { state: "measured", value: 0.40242 } },
+  { name: "Chickpea, Kabuli, boiled, second cultivar", biblioid: "pu156",
+    raffinose: { state: "measured", value: 0.365654 } },
+  { name: "White pea, water-soaked, raw", biblioid: "pu248",
+    raffinose: { state: "not-detected" },
+    stachyose: { state: "not-detected" } },
+  { name: "Pea fibre, raw", biblioid: "pu100" },
+];
+const COLS = ["raffinose", "stachyose"];
+
+test("a component mapped to one row reads as that row, not as a range", () => {
+  const { cells } = faoOligosCells({ page: "x", components: { stachyose: [0] } }, OLIGO_ROWS, COLS);
+  eq(cells.stachyose.state, "measured", "one figure is a measurement");
+  eq(cells.stachyose.value, 0.802759, "with the float artefact rounded off and nothing else");
+  eq(cells.stachyose.sources[0], "fao-oligosaccharides", "the cell must name the release");
+});
+
+/* The reason the mapping is per component rather than per food: the Portuguese
+   pressure-cooked row is the only cooked chickpea in either workbook carrying
+   verbascose, and the three boiled Egyptian cultivars carry raffinose only.
+   Both are the right food and they answer for different columns. */
+test("each component is spanned over its own rows", () => {
+  const { cells } = faoOligosCells(
+    { page: "chickpeas-cooked", components: { stachyose: [0], raffinose: [0, 1, 2] } },
+    OLIGO_ROWS, COLS);
+  eq(cells.stachyose.state, "measured", "one row answers for stachyose");
+  eq(cells.raffinose.state, "range", "three answer for raffinose");
+  eq(cells.raffinose.low, 0.23713, "the range starts at the smallest sample");
+  eq(cells.raffinose.high, 0.40242, "and ends at the largest");
+  eq(cells.raffinose.median, 0.365654, "three figures make a median, which the page sorts on");
+});
+
+/* An analysed absence is a finding, and the widest disagreement there is. The
+   same rule reconcile.mjs carries for AFCD's 74 ug of iodine in rolled oats
+   against MEXT's not detected: 0 to 74, never 37 and never 74 alone. */
+test("a row that looked and found nothing widens the span rather than vanishing", () => {
+  const { cells } = faoOligosCells({ page: "x", components: { raffinose: [1, 3] } }, OLIGO_ROWS, COLS);
+  eq(cells.raffinose.state, "range", "a finding against an absence is a disagreement");
+  eq(cells.raffinose.low, 0, "the absence is the bottom of it");
+  eq(cells.raffinose.high, 0.40242, "and the finding the top");
+});
+
+test("a component every mapped row found nothing of is an absence, not a gap", () => {
+  const { cells } = faoOligosCells({ page: "x", components: { stachyose: [3] } }, OLIGO_ROWS, COLS);
+  eq(cells.stachyose.state, "not-detected", "the release looked and reported nothing");
+  eq(cells.stachyose.value, undefined, "which carries no figure");
+  eq(cells.stachyose.sources[0], "fao-oligosaccharides", "and still names who looked");
+});
+
+/* Verbascose was removed from the page after one value, every other source
+   reporting the raffinose family on a dry-matter basis for raw seed. Row 144's
+   figure stays banked against its return, and writing it into a column that
+   does not exist would fail validation rather than wait for one. */
+test("a component the page has no column for is reported rather than written", () => {
+  const { cells, noColumn } = faoOligosCells(
+    { page: "chickpeas-cooked", components: { verbascose: [0], stachyose: [0] } }, OLIGO_ROWS, COLS);
+  eq(cells.verbascose, undefined, "nothing is written where the page cannot read it");
+  eq(cells.stachyose.state, "measured", "and the components with a column are unaffected");
+  eq(noColumn.join(), "verbascose", "the banked figure is named rather than dropped in silence");
+});
+
+test("a row that is silent about a component yields no cell for it", () => {
+  const { cells } = faoOligosCells({ page: "x", components: { raffinose: [4] } }, OLIGO_ROWS, COLS);
+  eq(cells.raffinose, undefined, "a row carrying no raffinose is a gap, not a zero");
+  eq(faoOligosCells({ page: "x", components: { raffinose: [99] } }, OLIGO_ROWS, COLS).cells.raffinose,
+     undefined, "a row index the release does not have is a gap too");
 });
 
 // --------------------------------------------------------------- withdrawals

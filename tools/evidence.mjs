@@ -22,6 +22,7 @@ import { fileURLToPath } from "node:url";
 import { reconcile, spanCell } from "./reconcile.mjs";
 import { biotinCell } from "./biotin.mjs";
 import { faoPhytateCell } from "./fao_phytate.mjs";
+import { faoOligosCells } from "./fao_oligos.mjs";
 import { keepsGrade } from "./withdraw.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -64,6 +65,12 @@ const afcdKeyBy = Object.fromEntries(afcdDB.map(r => [r.key, r]));
    implement survives a run of it. */
 const DEST = join(ROOT, "src", "data", "evidence.json");
 const out = JSON.parse(readFileSync(DEST, "utf8"));
+
+/* The components the page has an evidence column for. Read rather than listed,
+   because a pass that writes a cell into a column nutrients.json does not
+   declare produces data the page cannot read and build.mjs refuses outright. */
+const EV_COLUMNS = JSON.parse(readFileSync(join(ROOT, "src", "data", "nutrients.json"), "utf8"))
+  .nutrients.filter(n => n.evidence).map(n => n.id);
 
 /* One grade per source rather than one per food. A food is mapped once into
    each database and those mappings are not equally good: cooked lentils are
@@ -316,6 +323,58 @@ for (const [slug, entry] of Object.entries(out)) {
     delete entry.cells.phytate;
     nCells--;
     dropped.push(`${slug}.phytate: no longer mapped to a PhyFoodComp row`);
+  }
+}
+
+/* FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, the raffinose family. This pass
+   owns raffinose and stachyose for every food the reviewed map names, on the
+   same reasoning as the phytate pass above: the four cells it replaces were
+   written by hand in August 2026 and survived each run only because `out` is
+   seeded from the page, so deleting a mapping left its cell standing.
+   FAO-OLIGOS-PROVENANCE.md names that as the column's last open defect and
+   this is it closed.
+
+   Rows per component rather than per food, which phytate never needed. The
+   rule is in fao_oligos.mjs, and unlike phytate it refuses nothing: all 157
+   rows in the pool cite a primary paper.
+
+   The page's own evidence columns decide what may be written, so the third
+   component these workbooks carry stays banked and unwritten until verbascose
+   has a column again, and needs no edit here on the day it does. */
+const oligoRows = rd("fao-oligosaccharides.json");
+const oligoMapped = new Set();
+for (const m of rd("page-map-fao-oligos.json")) {
+  const { cells, noColumn } = faoOligosCells(m, oligoRows, EV_COLUMNS);
+  for (const id of noColumn) dropped.push(`${m.page}.${id}: banked, and the page has no ${id} column`);
+  for (const [id, cell] of Object.entries(cells)) {
+    /* The same rule the phytate pass follows: a figure another source put here
+       is withdrawn by that source's mechanism, not overwritten by this one.
+       Both of the page's other sources for this family, Biesiekierski and the
+       USDA Foundation Foods, hold cells in these columns for other foods. */
+    const held = out[m.page]?.cells?.[id];
+    if (held && !(held.sources || []).includes("fao-oligosaccharides")) {
+      dropped.push(`${m.page}.${id}: mapped to FAO but held by ${(held.sources || []).join(", ")}, so the FAO figure was not written`);
+      continue;
+    }
+    oligoMapped.add(`${m.page} ${id}`);
+    grade(m.page, "fao-oligosaccharides", m.match);
+    out[m.page].cells[id] = cell;
+    nCells++;
+    if (cell.state === "range") ranges++;
+  }
+}
+
+/* The other half of owning the columns, per cell rather than per food: this
+   pass owns two columns and a food may hold one of them from here and the
+   other from somewhere else. */
+for (const [slug, entry] of Object.entries(out)) {
+  for (const [id, cell] of Object.entries(entry.cells)) {
+    if (oligoMapped.has(`${slug} ${id}`)) continue;
+    if ((cell.sources || []).length === 1 && cell.sources[0] === "fao-oligosaccharides") {
+      delete entry.cells[id];
+      nCells--;
+      dropped.push(`${slug}.${id}: no longer mapped to a BioFoodComp or AnFooD row`);
+    }
   }
 }
 

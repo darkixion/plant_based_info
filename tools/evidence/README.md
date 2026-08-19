@@ -515,6 +515,15 @@ source records country, year, method, quality and limitations.
   It cost one extraction fix: AnFooD spells the reference column `BiblioID`
   where BioFoodComp spells it `Biblioid`, so 23 rows had been carrying a blank,
   one of them the row two of those four cells rest on.
+- **BioFoodComp and AnFooD map per component, not per food.** Row 144 is the
+  only cooked chickpea in either workbook carrying verbascose and rows 126, 129
+  and 132 carry raffinose alone, so `page-map-fao-oligos.json` banks a row list
+  per column and `tools/fao_oligos.mjs` builds one cell per column from it. An
+  `nd` reading enters the span as zero, because an analysed absence is a
+  finding. The generator owns raffinose and stachyose for the foods that map
+  names, so deleting a mapping now withdraws its cell instead of leaving it
+  standing, and a component with no page column, today verbascose, is reported
+  on every run rather than written where nothing would read it.
 - **Not reachable from this environment**: Frida (Denmark), Fineli (Finland) and
   Ciqual (France) all blocked automated fetches. Each is known to carry relevant
   components and is worth a manual download.

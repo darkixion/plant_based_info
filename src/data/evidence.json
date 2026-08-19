@@ -307,15 +307,15 @@
    },
    "stachyose": {
     "state": "measured",
-    "value": 0.8027594999999998,
+    "value": 0.802759,
     "sources": [
      "fao-oligosaccharides"
     ]
    },
    "raffinose": {
     "state": "range",
-    "low": 0.2371295,
-    "high": 0.4024199999999999,
+    "low": 0.23713,
+    "high": 0.40242,
     "median": 0.384037,
     "sources": [
      "fao-oligosaccharides"

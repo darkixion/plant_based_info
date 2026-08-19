@@ -105,15 +105,47 @@ keeps compiled rows out of them.
   If another component is ever taken from these workbooks, the question has to
   be asked again of whatever rows that pass returns, and the bibliographies are
   now committed so it can be.
-- **The generator does not own this column.** There is no FAO oligosaccharide
-  pass in `tools/evidence.mjs`; `build.mjs` reads the map only to check figures
-  against it. The four cells were written by hand and survive each run because
-  `evidence.json` seeds the generator from itself, which is exactly the state
-  the phytate column was in before `986209e`. Nothing here is wrong today, and
-  a mapping deleted from the map would still leave its cell standing.
 - **Verbascose is banked and reaches nothing.** The map gives row 144's
   0.42 g per 100 g,
   and the column was removed from the page in an earlier pass because it had
   one value and no prospect of a second, every other source reporting the
   raffinose family on a dry-matter basis for raw seed. The finding survives in
-  the data whether or not the column comes back.
+  the data whether or not the column comes back, and the pass below now reports
+  it on every run rather than passing over it: `chickpeas-cooked.verbascose:
+  banked, and the page has no verbascose column`.
+- **Only 5 of the 157 rows are mapped**, all of them legumes, against two page
+  foods. Every row now names its paper and its country, so more pairings can be
+  proposed against `page-map-fao-oligos.json`. A tool may propose one and only
+  a human may bank one.
+
+## What owning the column changed
+
+The last open defect here, that the generator did not own these cells, is
+closed. `tools/fao_oligos.mjs` holds the cell rule and `tools/evidence.mjs`
+writes the columns from the map, so a mapping deleted from
+`page-map-fao-oligos.json` now takes its cell with it instead of leaving it
+standing. Deleting the cannellini bean entry and re-running drops both of its
+cells and reports each one, which is what the phytate column has done since
+`986209e` and what this one could not.
+
+Three differences from the phytate pass, each forced by these releases rather
+than chosen:
+
+- **The mapping is per component**, so the withdrawal is too. A food may hold
+  raffinose from here and stachyose from somewhere else, and only the cells
+  this source is the sole author of are its to withdraw.
+- **Nothing is refused.** There is no admission rule in `fao_oligos.mjs`
+  because the answer above came back clean, and an empty refusal list would
+  read as a rule that had been applied rather than as a question that had been
+  answered.
+- **An analysed absence enters the span as zero.** 7 of the 412 readings are
+  `nd`, which is a finding and the widest disagreement there is; filtering it
+  out with the blanks is how AFCD's 74 ug of iodine in rolled oats against
+  MEXT's not detected once printed as 74 alone.
+
+Regenerating changed three figures and no cell: `0.8027594999999998` became
+`0.802759` and the chickpea raffinose bounds lost the same float artefact,
+because the hand-written cells had never been through `spanCell`'s rounding.
+A column that reproduces itself to the sixth decimal is the evidence that the
+hand-written cells were right, which is the outcome worth having and not one
+that could be claimed before the pass existed.

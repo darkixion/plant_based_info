@@ -370,8 +370,13 @@ export function loadAttested() {
     for (const m of oligoMap) {
       reach("fao-oligosaccharides", m.page);
       for (const [id, list] of Object.entries(m.components || {})) {
+        /* An analysed absence attests zero, on the same reading as Sim 2021's
+           ND below: a cell that spans a finding against an absence has to
+           contain the absence, and an index that dropped it could not say so.
+           7 of the pool's 412 readings are nd. */
         const figures = list.map(i => rows[i]?.[id])
-          .filter(c => c && typeof c.value === "number").map(c => c.value);
+          .filter(c => c && (c.state === "not-detected" || typeof c.value === "number"))
+          .map(c => (c.state === "not-detected" ? 0 : c.value));
         if (figures.length) out["fao-oligosaccharides"][m.page][id] = figures;
       }
     }
