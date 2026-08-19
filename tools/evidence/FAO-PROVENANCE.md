@@ -103,7 +103,10 @@ publisher supplied `Biblioid` all along.
 - **`n` is sparse.** 957 of 2,442 rows carry a sample count. Frida's admission
   rule could lean on determination counts because every value had one; here a
   missing `n` is not evidence of anything and is not treated as such.
-- **The other FAO release on this page has not been checked.**
-  `fao-oligosaccharides.json`, 4 cells, comes from BioFoodComp and AnFooD and
-  is a compilation by the same publisher, on the same pattern. Its workbooks
-  are in `tools/cache/`. This is the obvious next provenance question.
+- **The other FAO release on this page has been checked, and it holds.**
+  `fao-oligosaccharides.json`, 4 cells from BioFoodComp and AnFooD, is a
+  compilation by the same publisher on the same pattern, and all 157 of its
+  rows cite a primary paper. Nothing is refused there.
+  `FAO-OLIGOS-PROVENANCE.md` is the record. It found the same kind of
+  extraction fault one step smaller: 23 rows carried a blank reference because
+  AnFooD spells the column `BiblioID` and the extraction matched `Biblioid`.

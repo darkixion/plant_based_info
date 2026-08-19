@@ -35,6 +35,13 @@ lands on the same table, and `FAO-PROVENANCE.md` records it. The IFCT count
 above fell from 21 to 18 in the same pass, three dry-basis phytate figures
 having been withdrawn in favour of cooked measurements from primary papers.
 
+**BioFoodComp and AnFooD are compilations too, and neither carries a table
+this page holds by another name.** All 157 rows behind the 4 oligosaccharide
+cells resolve to primary papers, so the question that landed on IFCT above
+finds nothing here. `FAO-OLIGOS-PROVENANCE.md` records it. The terms are
+unchanged either way: both workbooks are © FAO and non-commercial, and so is
+the bibliography now committed beside them.
+
 Roughly 25 further cells cite individual journal papers. Those are numeric
 findings quoted with attribution, which is ordinary scholarly citation rather
 than redistribution of a dataset, and they are not treated here.

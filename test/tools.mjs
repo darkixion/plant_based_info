@@ -27,6 +27,11 @@ function test(name, fn) {
   try { fn(); passed++; results.push(`  PASS  ${name}`); }
   catch (e) { failed++; results.push(`  FAIL  ${name}\n          ${e.message}`); }
 }
+/* The committed corpora, read as the generator reads them. Tests that hold a
+   property of the data itself rather than of a function need the real file. */
+const readEvidence = name =>
+  JSON.parse(readFileSync(new URL(`../tools/evidence/${name}`, import.meta.url), "utf8"));
+
 const eq = (a, b, msg) => {
   if (!Object.is(a, b)) throw new Error(`${msg}, expected ${b}, got ${a}`);
 };
@@ -631,6 +636,46 @@ test("provenance is asked of the row, not of the food", () => {
   eq(faoAdmits({ biblioid: "ph407" }), true, "a primary paper is analytical work");
   eq(faoAdmits({ biblioid: "IFCT" }), false, "a table this page cites directly is not");
   eq(faoAdmits({}), true, "a row with no id is not refused on a guess");
+});
+
+// ------------------------------------------------------ FAO oligosaccharides
+
+/* BioFoodComp and AnFooD are the same publisher as PhyFoodComp on the same
+   compilation pattern, so the question FAO-PROVENANCE.md asked of PhyFoodComp
+   has to stay answerable here. It is answerable only while every row resolves
+   to a reference, and 23 of the 157 once did not: AnFooD heads its reference
+   column `BiblioID` where BioFoodComp heads it `Biblioid`, the extraction
+   matched one spelling exactly, and the sheet it missed holds every legume row
+   in that release, including the one two of the page's four cells rest on. */
+test("every FAO oligosaccharide row says which paper it came from", () => {
+  const rows = readEvidence("fao-oligosaccharides.json");
+  const { citations } = readEvidence("fao-oligosaccharides-sources.json");
+  const lost = rows
+    .map((r, i) => ({ i, r }))
+    .filter(({ r }) => !citations[r.release]?.[r.biblioid]);
+  eq(lost.length, 0, "rows whose reference does not resolve: " +
+     lost.slice(0, 5).map(({ i, r }) => `${i} (${r.release} ${JSON.stringify(r.biblioid)})`).join(", "));
+});
+
+/* The map banks row indices, not food names, so a re-extraction that filters
+   one row differently silently repoints every pairing after it. The phytate
+   extraction had to be checked row by row for this before anything was
+   rebuilt; here it is checked on every run instead. */
+test("every banked FAO oligosaccharide row exists and carries what it was banked for", () => {
+  const rows = readEvidence("fao-oligosaccharides.json");
+  const problems = [];
+  for (const m of readEvidence("page-map-fao-oligos.json")) {
+    for (const [component, list] of Object.entries(m.components || {})) {
+      for (const i of list) {
+        const cell = rows[i]?.[component];
+        if (!rows[i]) problems.push(`${m.page}: row ${i} is not in the release`);
+        else if (!cell) problems.push(`${m.page}: row ${i} carries no ${component}`);
+        else if (cell.state === "measured" && typeof cell.value !== "number")
+          problems.push(`${m.page}: row ${i} ${component} is measured with no figure`);
+      }
+    }
+  }
+  eq(problems.length, 0, problems.join("; "));
 });
 
 // --------------------------------------------------------------- withdrawals

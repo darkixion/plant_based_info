@@ -18,6 +18,13 @@
  * processing code and the bibliography id are all kept: choosing between rows
  * needs every one of them, and `page-map-fao-oligos.json` records the choice.
  *
+ * That they compile research rather than tables was an assumption when it was
+ * written. It was checked in August 2026, after PhyFoodComp turned out to be a
+ * compiler carrying 291 rows of a table this page cites in its own right, and
+ * it holds: all 157 rows resolve to a primary paper. The bibliographies both workbooks publish are written out
+ * beside the rows as `fao-oligosaccharides-sources.json` so that the check does
+ * not need the workbooks again. See FAO-OLIGOS-PROVENANCE.md.
+ *
  * The two workbooks live in tools/cache, which is not committed. Fetch them
  * with:
  *   curl -L -o tools/cache/BioFoodComp4.0.xlsx \
@@ -35,6 +42,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const SRC = process.argv[2] || join(ROOT, "tools", "cache");
 const OUT = join(ROOT, "tools", "evidence", "fao-oligosaccharides.json");
+const SOURCES = join(ROOT, "tools", "evidence", "fao-oligosaccharides-sources.json");
 
 /* Sheet 07 through 10 are meat, eggs, fish and milk. Named by exclusion rather
    than by listing what to keep, because the two workbooks disagree about the
@@ -70,6 +78,7 @@ function reading(raw) {
 }
 
 const rows = [];
+const citations = {};
 let unreadable = 0;
 for (const file of ["BioFoodComp4.0.xlsx", "AnFooD2.0.xlsx"]) {
   const path = join(SRC, file);
@@ -77,11 +86,33 @@ for (const file of ["BioFoodComp4.0.xlsx", "AnFooD2.0.xlsx"]) {
   const wb = xlsx.readFile(path);
   const release = file.replace(/\.xlsx$/, "");
 
+  /* The bibliography, kept per release because the two workbooks number their
+     references separately and an id means nothing without the release it was
+     read from. Carrying it is what lets this repository answer, on its own and
+     without the workbooks, whether a row is analytical work or a table copied
+     from somewhere this page already cites. PhyFoodComp needed exactly that
+     question asked of it and could not answer until its bibliography was
+     committed: see FAO-PROVENANCE.md. */
+  citations[release] = {};
+  for (const row of xlsx.utils.sheet_to_json(wb.Sheets["Bibliography"], { header: 1 })) {
+    if (!row || !row[0]) continue;
+    const id = String(row[0]).trim();
+    if (!id || /^biblioid$/i.test(id)) continue;
+    const citation = String(row[1] ?? "").trim();
+    if (citation) citations[release][id] = citation;
+  }
+
   for (const sheet of wb.SheetNames) {
     if (!/^\d\d/.test(sheet) || ANIMAL.test(sheet)) continue;
     const grid = xlsx.utils.sheet_to_json(wb.Sheets[sheet], { header: 1 });
     const head = grid[0] || [];
-    const at = label => head.findIndex(c => String(c).trim() === label);
+    /* Case-insensitively, because AnFooD heads its reference column `BiblioID`
+       on sheets 03 through 06, 11 and 12 and `Biblioid` on 01 and 02, while
+       BioFoodComp heads it `Biblioid` throughout. An exact match for the one
+       spelling missed the AnFooD sheet that holds every legume row, so all 23
+       of its rows were extracted with a blank `biblioid` and could not say
+       where they came from. FAO-OLIGOS-PROVENANCE.md records what that cost. */
+    const at = label => head.findIndex(c => String(c).trim().toLowerCase() === label.toLowerCase());
     const col = {};
     for (const tag of Object.keys(TAGS)) col[tag] = head.findIndex(c => new RegExp(`^${tag}\\(`).test(String(c)));
     if (Object.values(col).every(i => i < 0)) continue;
@@ -131,7 +162,16 @@ for (const file of ["BioFoodComp4.0.xlsx", "AnFooD2.0.xlsx"]) {
 }
 
 writeFileSync(OUT, JSON.stringify(rows, null, 1) + "\n");
+writeFileSync(SOURCES, JSON.stringify({
+  source: "fao-oligosaccharides",
+  note: "The Bibliography sheets of FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, keyed by release because the two number their references separately. Ids are the Biblioid column of the food sheets, and resolving them is what says whether a row is a primary paper or a table copied in.",
+  citations,
+}, null, 1) + "\n");
+
 const count = c => rows.filter(r => r[c]).length;
+const unresolved = rows.filter(r => !citations[r.release]?.[r.biblioid]).length;
 console.log(`${rows.length} rows: ${count("raffinose")} raffinose, ` +
             `${count("stachyose")} stachyose, ${count("verbascose")} verbascose` +
             (unreadable ? `, ${unreadable} cells left unread` : ""));
+console.log(`${Object.values(citations).reduce((t, c) => t + Object.keys(c).length, 0)} bibliography entries, ` +
+            `${unresolved} rows whose reference does not resolve`);

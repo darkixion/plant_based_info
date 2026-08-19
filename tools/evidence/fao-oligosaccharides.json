@@ -3329,7 +3329,7 @@
   "processing": "d/r",
   "species": "",
   "country": "India, Tamil Nadu, Western Ghats, Coimbatore district, Siruvani reserve forest",
-  "biblioid": "",
+  "biblioid": "pu035",
   "n": null,
   "water": 5.24,
   "raffinose": {
@@ -3356,7 +3356,7 @@
   "processing": "d/r",
   "species": "",
   "country": "India, Tamil Nadu, Western Ghats, Seithur reserve forest",
-  "biblioid": "",
+  "biblioid": "pu035",
   "n": null,
   "water": 4.24,
   "raffinose": {
@@ -3383,7 +3383,7 @@
   "processing": "d/r",
   "species": "",
   "country": "India, Tamil Nadu, Western Ghats, Sivagiri Reserve Forest",
-  "biblioid": "",
+  "biblioid": "pu201",
   "n": 1,
   "water": 4.84,
   "raffinose": {
@@ -3410,7 +3410,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu240",
   "n": null,
   "water": 6.5,
   "raffinose": {
@@ -3437,7 +3437,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu240",
   "n": null,
   "water": 9.4,
   "raffinose": {
@@ -3464,7 +3464,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu240",
   "n": null,
   "water": 4.6,
   "raffinose": {
@@ -3491,7 +3491,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu240",
   "n": null,
   "water": 5.8,
   "raffinose": {
@@ -3518,7 +3518,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu240",
   "n": null,
   "water": 8.4,
   "raffinose": {
@@ -3545,7 +3545,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu240",
   "n": null,
   "water": 3.9,
   "raffinose": {
@@ -3572,7 +3572,7 @@
   "processing": "r",
   "species": "",
   "country": "Portugal, Miranda Douro",
-  "biblioid": "",
+  "biblioid": "pu248",
   "n": 3,
   "water": 46.89,
   "raffinose": {
@@ -3599,7 +3599,7 @@
   "processing": "p",
   "species": "",
   "country": "Portugal, Miranda Douro",
-  "biblioid": "",
+  "biblioid": "pu248",
   "n": 3,
   "water": 56.49,
   "raffinose": {
@@ -3626,7 +3626,7 @@
   "processing": "p/r",
   "species": "",
   "country": "Portugal, Miranda Douro",
-  "biblioid": "",
+  "biblioid": "pu248",
   "n": 3,
   "water": 45.04,
   "raffinose": {
@@ -3650,7 +3650,7 @@
   "processing": "p",
   "species": "",
   "country": "Portugal, Miranda Douro",
-  "biblioid": "",
+  "biblioid": "pu248",
   "n": 3,
   "water": 59,
   "raffinose": {
@@ -3674,7 +3674,7 @@
   "processing": "r",
   "species": "",
   "country": "Egypt, Menofiya Governorate, local market",
-  "biblioid": "",
+  "biblioid": "pu154",
   "n": 3,
   "water": 10.35,
   "raffinose": {
@@ -3701,7 +3701,7 @@
   "processing": "p/d",
   "species": "",
   "country": "Egypt, Menofiya Governorate, local market",
-  "biblioid": "",
+  "biblioid": "pu154",
   "n": 3,
   "water": 10.55,
   "raffinose": {
@@ -3728,7 +3728,7 @@
   "processing": "p/d",
   "species": "",
   "country": "Egypt, Menofiya Governorate, local market",
-  "biblioid": "",
+  "biblioid": "pu154",
   "n": 3,
   "water": 10.48,
   "raffinose": {
@@ -3755,7 +3755,7 @@
   "processing": "p/d",
   "species": "",
   "country": "Egypt, Menofiya Governorate, local market",
-  "biblioid": "",
+  "biblioid": "pu154",
   "n": 3,
   "water": 10.39,
   "raffinose": {
@@ -3782,7 +3782,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu158",
   "n": 3,
   "water": 8.2,
   "raffinose": {
@@ -3809,7 +3809,7 @@
   "processing": "p/r",
   "species": "",
   "country": "India, Mysore",
-  "biblioid": "",
+  "biblioid": "pu158",
   "n": 3,
   "water": 7.4,
   "raffinose": {
@@ -3836,7 +3836,7 @@
   "processing": "p/d/r",
   "species": "",
   "country": "Egypt",
-  "biblioid": "",
+  "biblioid": "phy34",
   "n": 3,
   "water": 8.51,
   "raffinose": {
@@ -3863,7 +3863,7 @@
   "processing": "p/d",
   "species": "",
   "country": "Egypt",
-  "biblioid": "",
+  "biblioid": "phy34",
   "n": 3,
   "water": 8.63,
   "raffinose": {
@@ -3890,7 +3890,7 @@
   "processing": "p/d",
   "species": "",
   "country": "Egypt",
-  "biblioid": "",
+  "biblioid": "phy34",
   "n": 3,
   "water": 8.55,
   "raffinose": {
@@ -3917,7 +3917,7 @@
   "processing": "p/d",
   "species": "",
   "country": "Egypt",
-  "biblioid": "",
+  "biblioid": "phy34",
   "n": 3,
   "water": 8.4,
   "raffinose": {

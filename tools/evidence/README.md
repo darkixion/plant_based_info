@@ -62,7 +62,8 @@ calcium. So every component here had to come from somewhere else.
 | `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**; joins by NDB id |
 | `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median, n, source and the `sourceFood` that marks a value copied from another food. Rebuilt by `tools/extract_frida.mjs` |
 | `phenol-explorer.json` | 6,953 | 508 polyphenols over 458 foods, with mean, min, max, SD, n and **PubMed ids**; adds lignans and stilbenes |
-| `fao-oligosaccharides.json` | 157 | **verbascose**, raffinose and stachyose from FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, with each row's water content |
+| `fao-oligosaccharides.json` | 157 | **verbascose**, raffinose and stachyose from FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, each row with its water content, country, sample count and `biblioid`. Rebuilt by `tools/extract_fao_oligos.mjs` |
+| `fao-oligosaccharides-sources.json` | 1,286 | the two workbooks' own bibliographies, keyed by release. Every one of the 157 rows resolves to a primary paper through them, which is the whole of `FAO-OLIGOS-PROVENANCE.md` |
 | `fao-phytate.json` | 2,442 | **phytate** per 100 g edible portion, fresh weight, from FAO/INFOODS PhyFoodComp 1.0, each row with its country, sample count and `biblioid`. Rebuilt by `tools/extract_fao_phytate.mjs` |
 | `fao-phytate-sources.json` | 324 | PhyFoodComp's own bibliography, which is what makes each row's origin answerable and what the admission rule is decided from |
 | `sim-2021-vitamin-k.json` | 28 | phylloquinone, **MK-4 and MK-7** across Australian supermarket foods, mostly as analysed absence |
@@ -508,9 +509,12 @@ source records country, year, method, quality and limitations.
   network. The question was asked nine days after the release first reached the
   page in `d89a243`, and by then 46 cells rested on it: it removed 14 pairings
   and trimmed 12.
-- **The other FAO release here has not been asked the same question.**
-  `fao-oligosaccharides.json`, 4 cells, comes from BioFoodComp and AnFooD, the
-  same publisher on the same pattern. Its workbooks are in `tools/cache/`.
+- **The other FAO release here was asked the same question and passed.** All
+  157 rows of `fao-oligosaccharides.json` cite a primary paper, so nothing is
+  refused and its 4 cells stand. `FAO-OLIGOS-PROVENANCE.md` has the finding.
+  It cost one extraction fix: AnFooD spells the reference column `BiblioID`
+  where BioFoodComp spells it `Biblioid`, so 23 rows had been carrying a blank,
+  one of them the row two of those four cells rest on.
 - **Not reachable from this environment**: Frida (Denmark), Fineli (Finland) and
   Ciqual (France) all blocked automated fetches. Each is known to carry relevant
   components and is worth a manual download.
