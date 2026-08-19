@@ -997,10 +997,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 60,
+    "state": "range",
+    "low": 12.7,
+    "high": 60,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -1423,9 +1425,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 44,
+    "value": 56,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -1851,10 +1854,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 54,
+    "state": "range",
+    "low": 4.1,
+    "high": 54,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -2411,9 +2416,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 34,
+    "value": 29,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -2920,9 +2926,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 32,
+    "value": 36.45,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -3262,9 +3269,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 28,
+    "value": 33,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -3351,7 +3359,8 @@
   "matches": {
    "mext-2020": "close",
    "milder-2005": "close",
-   "ryan-2007": "close"
+   "ryan-2007": "close",
+   "afcd-r3": "exact"
   },
   "cells": {
    "solfibre": {
@@ -3375,10 +3384,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 42,
+    "state": "range",
+    "low": 42,
+    "high": 180,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -3613,9 +3624,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 44,
+    "value": 45,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -3756,9 +3768,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 13,
+    "value": 17.5,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -4256,9 +4269,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 5,
+    "value": 7,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -4370,10 +4384,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -4569,6 +4585,13 @@
     "sources": [
      "milder-2005"
     ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.6,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -4759,10 +4782,12 @@
     ]
    },
    "oxalate": {
-    "state": "measured",
-    "value": 0.7,
+    "state": "range",
+    "low": 0.3,
+    "high": 0.7,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "mk4": {
@@ -4814,9 +4839,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 38,
+    "value": 29.25,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -4976,9 +5002,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 4,
+    "value": 5.45,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -5611,9 +5638,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 2,
+    "value": 2.05,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -6523,10 +6551,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 2,
+    "state": "range",
+    "low": 0.2,
+    "high": 2,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -6685,9 +6715,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 7,
+    "value": 5.55,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -6860,9 +6891,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 1,
+    "value": 0.9,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -7055,10 +7087,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 2,
+    "state": "range",
+    "low": 2,
+    "high": 8.9,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -7571,9 +7605,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 1,
+    "value": 1.5,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -9131,10 +9166,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -9487,10 +9524,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -9631,9 +9670,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 1,
+    "value": 0.85,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -10209,7 +10249,8 @@
    "mo": {
     "state": "not-detected",
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -10481,9 +10522,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 1,
+    "value": 1.15,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -10554,10 +10596,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -10694,10 +10738,12 @@
     ]
    },
    "mo": {
-    "state": "measured",
-    "value": 1,
+    "state": "range",
+    "low": 0,
+    "high": 1,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -11551,9 +11597,10 @@
     ]
    },
    "mo": {
-    "state": "not-measured",
+    "state": "estimated",
+    "value": 32.2,
     "sources": [
-     "mext-2020"
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -11910,9 +11957,10 @@
    },
    "mo": {
     "state": "measured",
-    "value": 4,
+    "value": 5.75,
     "sources": [
-     "mext-2020"
+     "mext-2020",
+     "afcd-r3"
     ]
    },
    "iodine": {
@@ -13565,7 +13613,8 @@
    "lee-2010": "proxy",
    "usda-glucosinolate-r1": "proxy",
    "cofid-2021": "exact",
-   "usda-iodine-r4": "exact"
+   "usda-iodine-r4": "exact",
+   "afcd-r3": "exact"
   },
   "cells": {
    "phytate": {
@@ -13631,6 +13680,13 @@
      "usda-iodine-r4"
     ],
     "n": 35
+   },
+   "mo": {
+    "state": "estimated",
+    "value": 13,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -13940,6 +13996,13 @@
    "iodine": {
     "state": "measured",
     "value": 6.3,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 6.6,
     "sources": [
      "afcd-r3"
     ]
@@ -14257,6 +14320,13 @@
    "iodine": {
     "state": "measured",
     "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.1,
     "sources": [
      "afcd-r3"
     ]
@@ -14615,6 +14685,20 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "mo": {
+    "state": "estimated",
+    "value": 6.2,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "oxalate": {
+    "state": "estimated",
+    "value": 0.2,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -14721,6 +14805,13 @@
    "iodine": {
     "state": "estimated",
     "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "estimated",
+    "value": 4.8,
     "sources": [
      "afcd-r3"
     ]
@@ -14842,6 +14933,13 @@
    },
    "iodine": {
     "state": "trace",
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 0,
     "sources": [
      "afcd-r3"
     ]
@@ -15051,6 +15149,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2.3,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15137,6 +15242,13 @@
    "iodine": {
     "state": "measured",
     "value": 2.1,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 1.8,
     "sources": [
      "afcd-r3"
     ]
@@ -15362,6 +15474,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 17,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15393,6 +15512,13 @@
    "iodine": {
     "state": "measured",
     "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 12.5,
     "sources": [
      "afcd-r3"
     ]
@@ -15436,6 +15562,13 @@
    "iodine": {
     "state": "measured",
     "value": 0,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 3.9,
     "sources": [
      "afcd-r3"
     ]
@@ -15597,6 +15730,20 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 5.1,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "oxalate": {
+    "state": "measured",
+    "value": 0.1,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15638,6 +15785,13 @@
    "iodine": {
     "state": "measured",
     "value": 5,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 67,
     "sources": [
      "afcd-r3"
     ]
@@ -15732,6 +15886,13 @@
     "sources": [
      "afcd-r3"
     ]
+   },
+   "mo": {
+    "state": "measured",
+    "value": 2.5,
+    "sources": [
+     "afcd-r3"
+    ]
    }
   }
  },
@@ -15767,6 +15928,13 @@
    "iodine": {
     "state": "estimated",
     "value": 2.3,
+    "sources": [
+     "afcd-r3"
+    ]
+   },
+   "mo": {
+    "state": "estimated",
+    "value": 68,
     "sources": [
      "afcd-r3"
     ]

@@ -344,6 +344,13 @@ export function loadAttested() {
       put("afcd-r3", slug, "inulin", num(row.inulin_g));
       put("afcd-r3", slug, "biotin", num(row.biotin_ug));
       put("afcd-r3", slug, "iodine", num(row.iodine_ug));
+      /* Forced duplicates of the PAIRED table in tools/mext_afcd.mjs, on the
+         same terms as the portion floors below: build.mjs may import nothing
+         but node:*, so the mapping cannot be shared and must not quietly
+         become an import. test/tools.mjs holds the two in step by running
+         loadAttested and checking that each component actually indexes. */
+      put("afcd-r3", slug, "mo", num(row.molybdenum_ug));
+      put("afcd-r3", slug, "oxalate", num(row.oxalic_acid_g));
     }
   }
 

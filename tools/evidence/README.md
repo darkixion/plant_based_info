@@ -4,10 +4,11 @@ Extracted food-composition data for components USDA SR Legacy does not carry, ke
 so that adding a food later costs nothing: the values are already here, for far more
 foods than the page lists.
 
-**All 45 of the page's evidence columns draw on this directory**, 2,058 cells
-across 185 foods, citing 45 of the page's 46 sources between them. Phase 1
-added three (soluble fibre, insoluble fibre and biotin) and phase 2a added 16
-more, all from MEXT, which still supplies 1,553 of the cells. The rest come
+**All 45 of the page's evidence columns draw on this directory**, 2,076 cells
+across 185 foods, citing 45 of the page's 46 sources between them, and 150 of
+them rest on more than one source. Phase 1 added three (soluble fibre,
+insoluble fibre and biotin) and phase 2a added 16 more, all from MEXT, which
+still supplies 1,552 of the cells. The rest come
 from IFCT, CoFID, AFCD, CNF, FAO/INFOODS, the USDA proanthocyanidin and iodine
 releases, the Australian and Danish vitamin K datasets and thirty-odd single
 papers.
@@ -57,7 +58,7 @@ calcium. So every component here had to come from somewhere else.
 | `mext-2020-fibre.json` | 1,106 | soluble, insoluble and total fibre by two methods, plus resistant starch |
 | `mext-2020-sugars.json` | 717 | starch, glucose, fructose, galactose, sucrose, maltose, sorbitol, mannitol |
 | `mext-2020-organic-acids.json` | 201 | 22 organic acids including oxalic |
-| `afcd-r3-plant.json` | 612 | **inulin**, raffinose, stachyose, resistant starch, oxalic acid, iodine, molybdenum, biotin |
+| `afcd-r3-plant.json` | 709 | **inulin**, raffinose, stachyose, resistant starch, oxalic acid, iodine, molybdenum, biotin, with one `derivation` for the whole row rather than one per component. Its iodine, molybdenum and oxalic acid columns were read for the first time on 2026-08-19; the oxalic acid zeros are refused, for the reason RECONCILIATION.md rule 6 gives |
 | `ifct-2017-cited.json` | 7 | the IFCT figures this page actually cites, phytate and soluble and insoluble oxalate, one row per food, with the four figures withdrawn and why. Replaces the two whole tables, which the IFCT licence did not permit this repository to hold |
 | `cofid-2021-plant.json` | 456 | lumped oligosaccharide total, biotin |
 | `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**, and the programme and years behind each figure. Joins by NDB id through SR Legacy's crosswalk, and carries the result as `page_slugs` per row rather than in a map file. Written by `tools/iodine.mjs map`; see `USDA-IODINE-PROVENANCE.md` |

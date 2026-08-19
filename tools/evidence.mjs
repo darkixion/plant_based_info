@@ -22,6 +22,7 @@ import { fileURLToPath } from "node:url";
 import { reconcile, spanCell } from "./reconcile.mjs";
 import { biotinCell } from "./biotin.mjs";
 import { iodineCell } from "./iodine.mjs";
+import { PAIRED, pairedCell } from "./mext_afcd.mjs";
 import { faoPhytateCell } from "./fao_phytate.mjs";
 import { faoOligosCells } from "./fao_oligos.mjs";
 import { keepsGrade } from "./withdraw.mjs";
@@ -94,15 +95,16 @@ const grade = (slug, source, g, prep) => {
 };
 
 
-/* The uniform components: one source, one field, one cell. Biotin and iodine
-   are not here: each is reconciled across three databases below, and a table
-   that knows only one field per component cannot say what to do when two of
-   them disagree. This covers what is uniform. */
+/* The uniform components: one source, one field, one cell. Biotin, iodine,
+   molybdenum and oxalate are not here, because each is reconciled across more
+   than one database below and a table that knows only one field per component
+   cannot say what to do when two of them disagree. This covers what is
+   uniform, which since AFCD's molybdenum and oxalic acid were wired in is
+   MEXT's alone. */
 const COMPONENTS = [
   { id: "solfibre",     corpus: "fibre",  field: "sol_prosky" },
   { id: "insolfibre",   corpus: "fibre",  field: "insol_prosky" },
   { id: "resstarch",    corpus: "fibre",  field: "resistant_starch" },
-  { id: "mo",           corpus: "plant",  field: "mo" },
   { id: "cr",           corpus: "plant",  field: "cr" },
   { id: "starch",       corpus: "sugars", field: "starch" },
   { id: "glucose",      corpus: "sugars", field: "glucose" },
@@ -115,7 +117,6 @@ const COMPONENTS = [
   { id: "citric",       corpus: "acids",  field: "citric" },
   { id: "malic",        corpus: "acids",  field: "malic" },
   { id: "quinic",       corpus: "acids",  field: "quinic" },
-  { id: "oxalate",      corpus: "acids",  field: "oxalic" },
 ];
 
 /* MEXT prints a calculated figure in parentheses and the extractor kept the
@@ -274,6 +275,65 @@ for (const slug of iodineSlugs) {
   nCells++;
   if (cell.state === "range") ranges++;
   if (cell.disputed) disputes++;
+}
+
+/* Molybdenum and oxalic acid, over the union of the MEXT and AFCD maps.
+ *
+ * Both were single-source rows of the uniform table above while AFCD's own
+ * columns for them sat unread beside a reviewed map that had reached 72 foods
+ * since the biotin work. The rule and the field names are in mext_afcd.mjs,
+ * which build.mjs reads too, so the pass that writes a cell and the check that
+ * holds it to its source cannot disagree about which column is which.
+ *
+ * Molybdenum is the one that changes what RECONCILIATION.md says. Rule 3's
+ * limit of 2x was set partly on molybdenum agreeing at 0.7 to 1.5x, which was
+ * true of the four foods then compared; over all 32 that both tables reach it
+ * is not, and the disagreements are real rather than derivational. */
+for (const spec of PAIRED) {
+  const written = new Set();
+  for (const slug of new Set([...Object.keys(mextBySlug), ...Object.keys(afcdMap)])) {
+    const mp = mextBySlug[slug];
+    const am = afcdMap[slug];
+    const { cell, refused } = pairedCell({
+      mext: mp && BY_CODE[spec.mextCorpus][mp.jp_code]?.[spec.mextField],
+      afcd: am && afcdKeyBy[am.key],
+    }, spec);
+    /* Reported rather than passed over. A source's figure being turned away is
+       the kind of thing that has to be visible on every run, which is how the
+       FAO passes below handle the same situation. */
+    if (refused)
+      dropped.push(`${slug}.${spec.id}: AFCD ${refused.value} is below its own `
+        + `reporting limit of ${refused.limit}, refused as a non-answer`);
+    if (!cell) continue;
+
+    const named = new Set([...(cell.sources || []), ...(cell.disputed || []).map(d => d.source)]);
+    const prep = mp ? mp.page_state : undefined;
+    if (named.has("mext-2020") && mp) grade(slug, "mext-2020", mp.match, prep);
+    if (named.has("afcd-r3") && am) grade(slug, "afcd-r3", am.match, prep);
+
+    entryFor(slug, prep).cells[spec.id] = cell;
+    written.add(slug);
+    nCells++;
+    if (cell.state === "range") ranges++;
+    if (cell.disputed) disputes++;
+  }
+
+  /* This pass owns the column, so what it declines to write it has to take
+     away. `out` is seeded from what is already on the page, which is what lets
+     a pass this tool does not implement survive a run, and the same property
+     means a cell stays behind when the pass stops producing it. Refusing
+     AFCD's oxalate zeros left 23 of them standing on the page until this loop
+     existed, which is the black-eyed-pea phytate defect exactly. Only cells
+     resting on the two sources this pass owns are touched. */
+  const OURS = new Set(["mext-2020", "afcd-r3"]);
+  for (const [slug, entry] of Object.entries(out)) {
+    const held = entry.cells?.[spec.id];
+    if (!held || written.has(slug)) continue;
+    if (!(held.sources || []).every(src => OURS.has(src))) continue;
+    delete entry.cells[spec.id];
+    nCells--;
+    dropped.push(`${slug}.${spec.id}: neither MEXT nor AFCD has a figure for it any more`);
+  }
 }
 
 for (const p of ifctCited.values) {

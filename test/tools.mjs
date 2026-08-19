@@ -8,9 +8,10 @@
  * `npm test`.
  */
 import { nextValue } from "../tools/usda.mjs";
-import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
+import { gradeDerivation, nationalCell, reconcile, spanCell } from "../tools/reconcile.mjs";
 import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
 import { iodineCell } from "../tools/iodine.mjs";
+import { PAIRED, pairedCell } from "../tools/mext_afcd.mjs";
 import { fridaCell } from "../tools/frida.mjs";
 import { faoPhytateCell, faoAdmits } from "../tools/fao_phytate.mjs";
 import { faoOligosCells } from "../tools/fao_oligos.mjs";
@@ -18,7 +19,7 @@ import { keepsGrade } from "../tools/withdraw.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
-import { checkEvidence, checkGaps } from "../build.mjs";
+import { checkEvidence, checkGaps, loadAttested } from "../build.mjs";
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -321,6 +322,98 @@ test("MEXT's own state passes through when nothing has a figure", () => {
   const c = biotinCell({ mext: { state: "not-detected", value: null } });
   eq(c.state, "not-detected", "analysed and none found is a finding");
   eq(c.sources[0], "mext-2020", "named");
+});
+
+/* ---------- molybdenum and oxalate, where Japan and Australia meet ---------- */
+
+const MO = PAIRED.find(p => p.id === "mo");
+const OXALATE = PAIRED.find(p => p.id === "oxalate");
+
+test("the shared rule takes a floor from its caller rather than owning one", () => {
+  /* Rule 6 belongs to the component, not to reconcile.mjs. Half a microgram is
+     nothing for iodine and everything for a column measured in grams, and the
+     same figures have to come out differently under each. */
+  const figures = [{ source: "afcd-r3", value: 0.2, derivation: "analysed" }];
+  const states = { "mext-2020": "not-detected" };
+  eq(nationalCell(figures, states, 0.1).state, "range", "0.2 is a detection above a floor of 0.1");
+  eq(nationalCell(figures, states, 0.5).state, "not-detected", "and is not one above a floor of 0.5");
+});
+
+test("molybdenum does not agree as well as rule 3 was told", () => {
+  /* Rule 3's limit of 2x was set partly on molybdenum sitting at 0.7 to 1.5x,
+     which was true of the four foods then compared. Unsweetened soy milk is
+     54 in Japan and 4.1 in Australia, both analysed, and that is a range. */
+  const { cell } = pairedCell({
+    mext: { state: "measured", value: 54 },
+    afcd: { molybdenum_ug: "4.0999999999999996", derivation: "Analysed" },
+  }, MO);
+  eq(cell.state, "range", "thirteenfold is not the same measurement twice");
+  eq(cell.low, 4.1, "the float artefact is rounded off");
+  eq(cell.high, 54, "and the span is both figures");
+});
+
+test("an estimated trace is a trace and not a figure", () => {
+  // MEXT prints a calculated trace as "(Tr)", which carries no digits at all.
+  // It used to be the only shape in the plant table nothing had a rule for.
+  const { cell } = pairedCell({ mext: { state: "trace", value: null, raw: "(Tr)" } }, MO);
+  eq(cell.state, "trace", "the finding survives its parentheses");
+  eq(cell.value, undefined, "and carries no number");
+});
+
+test("AFCD's oxalate zeros are refused as non-answers, and reported", () => {
+  /* AFCD reports oxalic acid in grams to one decimal, so a step of 0.1 g
+     against an analyte usually quoted in tens of milligrams. 205 of its 214
+     figures are 0, and the database contradicts itself about what that means:
+     "Seed, sesame, unsalted" reads 0 while "Tahini, sesame seed pulp", which
+     is ground sesame seed, reads 0.6, both marked Analysed. */
+  const { cell, refused } = pairedCell({
+    afcd: { oxalic_acid_g: "0", derivation: "Analysed" },
+  }, OXALATE);
+  eq(cell, null, "a non-answer produces no cell at all");
+  eq(refused.value, 0, "and the figure turned away is handed back");
+  eq(refused.source, "afcd-r3", "named, so the generator can report it");
+});
+
+test("AFCD's oxalate figures above its own limit are admitted", () => {
+  // Raw spinach, the disagreement RECONCILIATION.md's status table has always
+  // named and the page could not show while the column was MEXT alone.
+  const { cell, refused } = pairedCell({
+    mext: { state: "measured", value: 0.7 },
+    afcd: { oxalic_acid_g: "0.3", derivation: "Analysed" },
+  }, OXALATE);
+  eq(refused, null, "0.3 g is a figure this field can hold");
+  eq(cell.state, "range", "and 2.3x apart is a disagreement");
+  eq(cell.low, 0.3, "Australia at the bottom");
+  eq(cell.high, 0.7, "Japan at the top");
+});
+
+test("a recipe figure fills a paired column but never displaces an assay", () => {
+  const calculated = pairedCell({
+    mext: { state: "not-measured", value: null, raw: "-" },
+    afcd: { molybdenum_ug: "32.200000000000003", derivation: "Recipe" },
+  }, MO).cell;
+  eq(calculated.state, "estimated", "shown, and shown marked");
+
+  const assayed = pairedCell({
+    mext: { state: "measured", value: 4 },
+    afcd: { molybdenum_ug: "1.7", derivation: "Recipe" },
+  }, MO).cell;
+  eq(assayed.state, "measured", "the assay stands alone");
+  eq(assayed.sources.length, 1, "and the recipe row is not cited beside it");
+});
+
+test("every paired component is indexed by the checker", () => {
+  /* build.mjs may import nothing but node:*, so its AFCD field names are a
+     forced duplicate of the PAIRED table. This is what holds the two in step:
+     a component the generator writes and the checker cannot see would have its
+     cells accepted unexamined, which is the state 127 cells were once found
+     in. */
+  const attested = loadAttested()["afcd-r3"] || {};
+  for (const spec of PAIRED) {
+    const reached = Object.values(attested).filter(row => typeof row[spec.id] === "number");
+    eq(reached.length > 0, true,
+      `the checker indexes AFCD's ${spec.id}, so a cell citing it is held to it`);
+  }
 });
 
 /* ---------- iodine, over the three databases that reach it ---------- */

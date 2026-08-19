@@ -135,9 +135,13 @@ Its limitation is the one `nutrients.json` already states in the column's own
 figures do not transfer. That is an argument for more sources, not fewer, and
 it is the argument this work acts on.
 
-## The two rules iodine forced that no other column had needed
+## The two rules iodine forced, which turned out not to be iodine's
 
-Both are in `tools/iodine.mjs` and both are the same rule seen twice.
+Both are `nationalCell` in `tools/reconcile.mjs`, as rules 6 and 7, and both
+are the same rule seen twice. They were written here and moved the same day:
+molybdenum and oxalate needed them the moment AFCD's columns for those were
+read, because it is MEXT marking an absence in words against AFCD writing the
+number 0 that forces them, not anything about iodine.
 
 **A numeric zero corroborates a source's finding of absence and never
 overrides it.** Almonds are not-detected in Japan, 0 in Australia and 0 over
@@ -164,6 +168,10 @@ A figure below the floor and above zero is written as a **trace**, because a
 presence too small for the page to number is what a trace means, and printing
 0.2 as "0" is a claim of absence the source did not make. `test/tools.mjs` has
 refused that shape since the CoQ9 and melatonin cells were found in it.
+
+The floor belongs to the component rather than to the rule, which is why
+`nationalCell` takes it as an argument. Half a microgram is nothing for iodine
+and everything for oxalate, whose column is measured in grams.
 
 ## What this changed
 

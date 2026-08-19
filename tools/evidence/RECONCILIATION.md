@@ -43,6 +43,28 @@ Where both sources analysed the food, they agree within 20%. Every large biotin
 way: tofu 68 versus 44 (1.5x) and brown rice 24 versus 34 (0.7x), both analysed,
 both acceptable.
 
+### Corrected 2026-08-19: molybdenum is not the easy case after all
+
+That last sentence was true of the four foods then compared and is not true of the
+27 MEXT and AFCD both reach. **Ten of them fall outside 2x**, every one on figures
+both tables call analysed:
+
+| Food | MEXT | AFCD | ratio |
+|---|---|---|---|
+| Soy milk, unsweetened | 54 | 4.1 | **13x** |
+| Avocado | 2 | 0.2 | **10x** |
+| Green peas, cooked | 60 | 12.7 | 4.7x |
+| Celery, raw | 2 | 8.9 | 4.5x |
+| Pumpkin seeds | 42 | 180 | 4.3x |
+
+The other five are apple, apricot, chestnut, grapefruit and orange, each 1 against
+AFCD's 0, and those are the shape rule 7 exists for rather than real breadth.
+
+Nothing follows for the 2x limit itself, which was never derived from molybdenum
+alone. What follows is that the column is a range in 10 of its 27 overlaps, and
+that a rule of thumb taken from four foods should not have been written down as a
+property of the component.
+
 ## Rule 3: some conflicts are real and must be preserved
 
 Iodine, ug/100 g:
@@ -217,11 +239,65 @@ olive, peanut and soybean oil, and mapping them would have made three oils read
 which country assayed which oil, not a fact about oil, so only CoFID is mapped
 there and all seven read the same way.
 
+## Rule 6: a zero is not the same statement as an absence
+
+MEXT marks an absence in words and AFCD writes the number 0, so the same finding
+arrives from the two tables in two forms that do not mean the same thing. **A
+numeric zero corroborates a source's own finding and never overrides it.**
+
+Almonds are not-detected in Japan, 0 in Australia and 0 over three FDA samples,
+and the cell reads *none detected* naming all three rather than the number 0.
+"None detected" is what a laboratory said; 0 is what a spreadsheet holds. A trace
+is a finding of presence and outranks a zero on the same reading: MEXT sees a
+trace of iodine in sesame seeds where AFCD's row says 0, and the trace stands.
+
+Written the other way round, the column would have turned thirty-odd laboratory
+findings into the number 0.
+
+### And a zero is sometimes not a statement at all
+
+**AFCD reports oxalic acid in grams to one decimal place, and 205 of its 214
+figures are 0.** A step of a tenth of a gram cannot see an analyte usually quoted
+in tens of milligrams, so a 0 there is the field's floor rather than the food's
+content. The database says so itself: **"Seed, sesame, unsalted" reads 0 and
+"Tahini, sesame seed pulp" reads 0.6, both marked Analysed.** Tahini is ground
+sesame seed and cannot hold six times the oxalate of what it is made from. AFCD's
+derivation is per row rather than per component, which is how a row can be
+Analysed while this component on it was not.
+
+So AFCD's oxalate zeros are refused as non-answers, uniformly, with the reason
+printed on every run of the generator. Its nine real figures stand, and 23
+refusals are reported. Molybdenum needs no such limit: its AFCD field carries
+0.2, 0.7 and 0.8, so it can plainly see below the unit its column prints.
+
+## Rule 7: a ratio says nothing near zero
+
+Rules 3 and 4 are both ratio tests. 0.2 against 0.4 is a factor of two, and 0
+against anything is infinite, so near the bottom of a column they manufacture
+conflicts out of the noise. **Each component supplies a floor, below which its
+sources are not disagreeing.**
+
+Iodine's is half a microgram, which is both where the FDA's assay stops and below
+what a `dp: 0` column can print. Without it, raw apple was AFCD 0, the FDA 0.1 at
+n=35 and MEXT not-detected, which reconciled to the range 0 to 0.1 and printed as
+**"0 (0 to 0)"**. Twelve fruit were in that state, nineteen figures printed as 0
+without being one, and raw banana had Japan's not-detected dropped as a tenfold
+outlier over a fifth of a microgram.
+
+A figure below the floor and above zero is written as a **trace**: a presence too
+small for the page to number is what a trace means, and printing 0.2 as "0" is a
+claim of absence the source did not make. `test/tools.mjs` has refused that shape
+since the CoQ9 and melatonin cells were found in it.
+
+The floor belongs to the component and not to `reconcile.mjs`, which is why
+`nationalCell` takes it as an argument. Half a microgram is nothing for iodine and
+everything for a column measured in grams.
+
 ## Status by component
 
 | Component | Reconciles? | Treatment |
 |---|---|---|
-| Molybdenum | yes, 0.7-1.5x on analysed values | single value defensible |
+| **Molybdenum** | **no, 10 of 27 overlaps beyond 2x** | **range where they disagree, value where they do not** |
 | Soluble / insoluble fibre | single source (MEXT) | single value, source named |
 | Inulin | single source (AFCD) | single value, source named |
 | Raffinose / stachyose / verbascose | FAO and AFCD, both thin | single value, dry basis stated |
@@ -229,7 +305,7 @@ there and all seven read the same way.
 | Saponins | single source (IFCT) | single value, source named |
 | **Biotin** | **no, up to 29x** | **range** |
 | **Iodine** | **no, oats 74 vs not detected** | **range, and a floor of 0.5 ug below which a ratio says nothing** |
-| **Oxalic acid** | **no, spinach 0.3 vs 0.7** | **range** |
+| **Oxalic acid** | **no, spinach 0.3 vs 0.7** | **range; and AFCD's zeros are refused, see rule 6** |
 
 ## The flavonoid columns are not thin because of the mapping
 

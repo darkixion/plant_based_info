@@ -4,20 +4,25 @@
  *
  * Rolled oats are 74 ug in Australia and not detected in Japan, and that
  * conflict is the case that justifies the whole range mechanism: a single best
- * value would be wrong whichever number was picked. Until now the column was
- * MEXT alone, so the conflict could not appear at all.
+ * value would be wrong whichever number was picked. The column was MEXT alone
+ * until 2026-08-19, so the conflict could not appear at all.
  *
- * Three sources reach it. MEXT assayed 102 of this page's foods and marks an
- * absence apart from a zero. AFCD reaches 72 through its reviewed map. The
- * USDA/FDA/ODS-NIH release reaches 40 through an id join with no name matching
- * anywhere in it, and is the only one that reports how many samples each figure
- * rests on. See USDA-IODINE-PROVENANCE.md for what each of them measured.
+ * Three sources reach it. MEXT holds an iodine entry for 102 of this page's
+ * foods and marks an absence apart from a zero. AFCD reaches 72 through its
+ * reviewed map. The USDA/FDA/ODS-NIH release reaches 40 through an id join
+ * with no name matching anywhere in it, and is the only one that reports how
+ * many samples each figure rests on. See USDA-IODINE-PROVENANCE.md for what
+ * each of them measured.
  *
- * The cell builder is here rather than in tools/evidence.mjs because that file
- * runs its loops at import, so nothing inside it can be tested. Same reason
- * biotin.mjs exists, and the shape is deliberately its sibling.
+ * What is left here is the reading of the three files. The cell rule itself is
+ * `nationalCell` in reconcile.mjs, because molybdenum and oxalate need the
+ * same one: it was iodine that forced it, not iodine that owns it.
+ *
+ * This file is separate from tools/evidence.mjs because that file runs its
+ * loops at import, so nothing inside it can be tested. Same reason biotin.mjs
+ * exists, and the shape is deliberately its sibling.
  */
-import { gradeDerivation, reconcile } from "./reconcile.mjs";
+import { gradeDerivation, nationalCell } from "./reconcile.mjs";
 
 const num = v => {
   const n = parseFloat(v);
@@ -30,54 +35,18 @@ const figureOf = c =>
   typeof c.value === "number" ? c.value
   : (m => (m ? Number(m[0]) : null))(/-?\d+(\.\d+)?/.exec(String(c.raw ?? "")));
 
-/* A state that carries meaning without carrying a figure. Which kind of
-   nothing a cell holds is the most useful thing this dataset says, so these
-   are never collapsed into each other. MEXT's "*" is a seventh thing, a food
-   the table has no entry for at all, and says nothing. */
-const passthrough = s =>
-  s === "trace" || s === "not-detected" || s === "not-measured" ? s : null;
-
-/* A trace says something was seen and not-detected says nothing was, so the
-   trace is the stronger statement. Not-measured says nothing at all and can
-   never outrank a finding. */
-const RANK = { trace: 3, "not-detected": 2, "not-measured": 1 };
-
-/* The floor below which these sources are not saying different things, in ug
-   per 100 g. Rules 3 and 4 are both ratio tests, and a ratio is meaningless
-   near zero: 0.2 against 0.4 is a factor of two and 0 against anything is
-   infinite, so without a floor every fruit in the release comes out as a
-   conflict. Apple raw was AFCD 0, USDA 0.1 over 35 samples and MEXT not
-   detected, which reconciled to the range "0 to 0.1" and printed as
-   "0 (0 to 0)".
-
-   Half a microgram, for two reasons that agree. It is where the assays stop:
-   the FDA's Total Diet Study reports iodine to a limit of detection around a
-   tenth of a microgram per 100 g, so a figure of 0.1 is the instrument's floor
-   rather than the food's content. And it is below what the column can print,
-   `dp: 0` in nutrients.json, so a spread that lives entirely under it is a
+/* Rule 6's floor for this column, in ug per 100 g, and the reason it is half a
+   microgram is two reasons that agree. It is where the assays stop: the FDA's
+   Total Diet Study reports iodine to a limit of detection around a tenth of a
+   microgram per 100 g, so a figure of 0.1 is the instrument's floor rather
+   than the food's content. And it is below what the column can print, `dp: 0`
+   in nutrients.json, so a spread that lives entirely under it is a
    disagreement no reader could see. Nothing on this page sits awkwardly near
    it: the next figure up is celery at 1.7. */
-const FLOOR = 0.5;
+export const IODINE_FLOOR = 0.5;
 
 /**
  * The iodine cell for one food, from whichever of the three sources reach it.
- *
- * Two rules beyond the four in reconcile.mjs, and they are the same rule seen
- * twice: **a numeric zero corroborates a source's own finding of absence, and
- * never overrides it.**
- *
- * - Where nothing analysed reaches the floor and a source reported
- *   not-detected, the cell stays not-detected and names everyone who agrees.
- *   "None detected" is what a laboratory said; 0 is what a spreadsheet holds,
- *   and the page has spent a lot of effort keeping those apart.
- * - Where nothing analysed reaches the floor and a source reported a trace,
- *   the cell stays a trace. Something was seen. AFCD's cooked-pumpkin 0 is a
- *   Recipe figure and MEXT's trace is an assay, and the assay wins on more
- *   than derivation.
- *
- * Once an analysed figure reaches the floor the cell is a reconciliation, and
- * then an analysed absence enters the span as zero: that is the oats rule, and
- * it is what makes 0 to 74 rather than 74 alone.
  *
  * @param {{
  *   mext?: { state: string, value: number|null, raw?: string },
@@ -96,7 +65,7 @@ export function iodineCell(rows) {
       const v = figureOf(rows.mext);
       if (v !== null) figures.push({ source: "mext-2020", value: v,
         derivation: st === "estimated" ? "estimated" : "analysed" });
-    } else if (passthrough(st)) states["mext-2020"] = st;
+    } else states["mext-2020"] = st;
   }
 
   /* AFCD's derivation is per row rather than per component, so Analysed means
@@ -122,57 +91,7 @@ export function iodineCell(rows) {
     }
   }
 
-  const analysed = figures.filter(f => f.derivation === "analysed");
-  const found = Object.entries(states).filter(([, s]) => s !== "not-measured");
-
-  /* Nothing numeric anywhere. The strongest finding held wins, and a food no
-     source assayed comes back as the gap it is. */
-  if (!figures.length) {
-    const held = Object.entries(states);
-    if (!held.length) return null;
-    held.sort((a, b) => RANK[b[1]] - RANK[a[1]]);
-    return { state: held[0][1], sources: [held[0][0]] };
-  }
-
-  /* Detected, at a level this column can tell from nothing. Below the floor
-     the sources agree that there is no iodine here to speak of, however much
-     their ratios differ, and the finding a source reported in words is the
-     better answer than a range across their noise. */
-  if (!analysed.some(f => f.value >= FLOOR)) {
-    if (found.length) {
-      found.sort((a, b) => RANK[b[1]] - RANK[a[1]]);
-      const [source, state] = found[0];
-      /* Only the analysed sources corroborate. A Recipe zero is a calculation
-         that inherited its ingredients' blanks, which is not a laboratory
-         agreeing with anything. A trace is not corroborated at all: the other
-         sources put a number on it, and naming them beside a cell that shows
-         no number would credit them with a finding they did not report. */
-      const agrees = state === "not-detected"
-        ? analysed.map(f => f.source).filter(s => s !== source) : [];
-      return { state, sources: [source, ...agrees] };
-    }
-    /* No source reported a finding in words, and every figure is below the
-       floor. A figure cannot be shown: 0.2 ug of iodine in olive oil, over ten
-       samples, prints as 0 on a column of whole micrograms, and 0 is what an
-       absence looks like. The page already refuses that shape, in the test
-       named "no measured evidence figure rounds away to zero".
-
-       So the finding is written as the finding it is. A trace is a presence
-       too small for the page to put a number on, which is exactly what these
-       are, and it is the same statement MEXT makes in words about the same
-       foods. A determination of exactly zero is a different claim and keeps
-       its figure: the sources say none, and none is what 0 prints as. */
-    const seen = analysed.filter(f => f.value > 0);
-    if (seen.length) return { state: "trace", sources: seen.map(f => f.source) };
-    /* Nothing analysed reached the floor or rose above zero. What is left is
-       zeros, which print truthfully, and calculated figures, which are the
-       only thing a food nobody assayed has and are shown marked. */
-  }
-
-  for (const [source, state] of Object.entries(states))
-    if (state === "not-detected") figures.push({ source, value: 0, derivation: "analysed" });
-
-  return reconcile(figures);
+  return nationalCell(figures, states, IODINE_FLOOR);
 }
 
 
