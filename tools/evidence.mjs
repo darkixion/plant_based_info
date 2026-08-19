@@ -32,11 +32,12 @@ const slugify = (name, state) => `${name} ${state || ""}`
   .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const map = rd("page-map-mext.json");
-const ifctMap = rd("page-map-ifct.json");
-const ifct11 = rd("ifct-2017-table11.json");
-const ifct9 = rd("ifct-2017-table9.json");
-const ifct11By = Object.fromEntries(ifct11.map(r => [r.code, r]));
-const ifct9By = Object.fromEntries(ifct9.map(r => [r.code, r]));
+/* IFCT is quoted rather than carried. Its terms forbid storing part of the
+   publication in electronic format to make a product, and holding both tables
+   whole, 616 rows, to use seven foods was exactly that. What is left is the
+   figures actually cited, one row per page food, the same shape the 33 other
+   single papers here already use. See LICENCES.md. */
+const ifctCited = rd("ifct-2017-cited.json");
 const cofid = rd("cofid-2021-plant.json");
 
 const CORPORA = {
@@ -214,45 +215,48 @@ for (const slug of biotinSlugs) {
   if (cell.disputed) disputes++;
 }
 
-for (const p of ifctMap) {
-  if (!p.ifct_code) continue;
+for (const p of ifctCited.values) {
   const slug = slugify(p.page, p.page_state);
-  
+
   /* IFCT's own grade, kept beside MEXT's rather than yielding to it. This is
      where the two used to collide: whichever pass ran first set the food's one
      grade and the other's mapping inherited it. */
   grade(slug, "ifct-2017", p.match, p.page_state);
-  
-  // extract from table 11
-  const t11 = ifct11By[p.ifct_code];
-  if (t11 && t11.phytate_mg) {
-     const val = num(t11.phytate_mg.mean);
-     if (val !== null) {
-       out[slug].cells.phytate = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
-       nCells++;
-     }
-  }
 
-  // extract from table 9
-  const t9 = ifct9By[p.ifct_code];
-  if (t9) {
-     if (t9.oxalate_soluble_mg) {
-       const val = num(t9.oxalate_soluble_mg.mean);
-       if (val !== null) {
-         // Milligrams, so it belongs in oxalate_sol and not in `oxalate`,
-         // which is a gram column carrying MEXT's oxalic acid.
-         out[slug].cells.oxalate_sol = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
-         nCells++;
-       }
-     }
-     if (t9.oxalate_insoluble_mg) {
-       const val = num(t9.oxalate_insoluble_mg.mean);
-       if (val !== null) {
-         out[slug].cells.oxalate_insol = reconcile([{ source: "ifct-2017", value: val, derivation: "analysed" }]);
-         nCells++;
-       }
-     }
+  const put = (component, value) => {
+    if (typeof value !== "number") return;
+    out[slug].cells[component] =
+      reconcile([{ source: "ifct-2017", value, derivation: "analysed" }]);
+    nCells++;
+  };
+
+  put("phytate", p.phytate_mg);
+  /* Milligrams, so these belong in oxalate_sol and oxalate_insol and not in
+     `oxalate`, which is a gram column carrying MEXT's oxalic acid. */
+  put("oxalate_sol", p.oxalate_soluble_mg);
+  put("oxalate_insol", p.oxalate_insoluble_mg);
+}
+
+/* Withdrawing a pairing has to be explicit. `out` is seeded from what is
+   already on the page, which is what lets a pass this tool does not implement
+   survive a run, and the same property means deleting a mapping quietly leaves
+   its cell behind. Black-eyed peas carried a phytate of 1.63 mg for a year that
+   way. Only a cell resting on IFCT alone is removed: where another source also
+   attests it, the figure is not IFCT's to withdraw. */
+for (const w of ifctCited.withdrawn ?? []) {
+  const entry = out[slugify(w.page, w.page_state)];
+  if (!entry) continue;
+  for (const component of Object.keys(w.was ?? {})) {
+    const name = { phytate_mg: "phytate", oxalate_soluble_mg: "oxalate_sol",
+                   oxalate_insoluble_mg: "oxalate_insol" }[component];
+    const cell = entry.cells[name];
+    if (cell && cell.sources && cell.sources.length === 1
+        && cell.sources[0] === "ifct-2017") {
+      delete entry.cells[name];
+      nCells--;
+    }
   }
+  delete entry.matches["ifct-2017"];
 }
 
 /* Single papers, each figure carrying the key of the paper it came from. An
@@ -261,12 +265,32 @@ for (const p of ifctMap) {
    citations to nothing, and nothing in this repository could check them. */
 const research = rd("research.json");
 for (const [slug, cols] of Object.entries(research)) {
+  if (slug.startsWith("_")) continue;   // _withdrawn, handled below
   for (const [colId, data] of Object.entries(cols)) {
     if (!data.source) continue;
     grade(slug, data.source, out[slug]?.matches?.[data.source] || "close");
     out[slug].cells[colId] = reconcile([{ source: data.source, value: data.v, derivation: "analysed" }]);
     nCells++;
   }
+}
+
+/* Withdrawing a figure, for the same reason IFCT needed it: `out` is seeded
+   from the page, so deleting an entry above leaves its cell standing.
+
+   A cell that names a withdrawn source is voided whole rather than edited,
+   because where the figure was reconciled against a real measurement the range
+   was computed from both and cannot be unpicked. Voiding is safe here only
+   because this runs before the passes that own the surviving sources, so
+   Kawabata and the Foundation Foods rewrite what is theirs from scratch. Move
+   this below them and it silently deletes evidence instead. */
+for (const w of research._withdrawn?.entries ?? []) {
+  const cell = out[w.page_slug]?.cells?.[w.component];
+  if (!cell || !(cell.sources || []).includes(w.source)) continue;
+  delete out[w.page_slug].cells[w.component];
+  nCells--;
+  const stillCited = Object.values(out[w.page_slug].cells)
+    .some(c => (c.sources || []).includes(w.source));
+  if (!stillCited) delete out[w.page_slug].matches[w.source];
 }
 
 
@@ -481,9 +505,12 @@ for (const row of kawabata.rows) {
   // Daikon was assayed in three parts along the root rather than once.
   const parts = row.parts ? Object.values(row.parts) : [row.total];
   const cell = spanCell(parts, ["kawabata-1973"]);
-  /* Carrot already had a figure, EuroFIR's 1.7 g against this paper's 0.628.
-     Two methods rather than two samples, and neither is the other's error, so
-     the cell spans both and names both. */
+  /* Carrot used to arrive here holding 1.7 g against this paper's 0.628, and
+     the cell spanned both as two methods rather than two samples. The 1.7 was
+     withdrawn above: it cited EuroFIR eBASIS, which carries no pectin, and was
+     a literature range with no paper behind it. Carrot is now this paper's
+     figure alone, like the other nine. The branch stays because the reasoning
+     holds for any future second method. */
   if (held && !(held.sources || []).includes("kawabata-1973") && typeof held.value === "number") {
     out[row.page].cells.pectin = spanCell([...parts, held.value],
       [...new Set([...(held.sources || []), "kawabata-1973"])]);

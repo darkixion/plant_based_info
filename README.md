@@ -8,6 +8,29 @@ The deliverable is **one self-contained `index.html`**: no server, no build step
 at view time, no network calls. Open it from disk, email it, or serve it from
 GitHub Pages.
 
+## Licence, and why the data is not MIT
+
+`LICENSE` is MIT and it covers the **code**: the build, the tools, the tests and
+the page's markup, styles and prose.
+
+It does not cover the **data**. Everything under `tools/evidence/` and
+`src/data/evidence.json` comes from national food composition programmes and
+published research, and each source carries the terms its publisher set. Those
+terms are in the `licence` field of `tools/evidence/sources.json`, and
+`tools/evidence/LICENCES.md` summarises them and records where they bind.
+
+They differ, and the differences matter. MEXT, CoFID, the Canadian Nutrient File
+and everything from the USDA are freely reusable. Frida is CC BY 4.0. **AFCD is
+CC BY-SA 3.0 Australia**, so a derivative of it carries ShareAlike. The two FAO
+databases are **non-commercial**. So MIT could not honestly be read as covering
+the lot, and it no longer claims to.
+
+**Data user statement, required by the AFCD licence:** the nutrient composition
+of foods and ingredients can vary substantially between batches and brands.
+That is true of every source here, not only the Australian one, and it is the
+reason this page shows ranges and disagreements rather than a single number
+wherever the evidence supports more than one.
+
 ## Working on it
 
 ```bash

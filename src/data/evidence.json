@@ -847,7 +847,6 @@
   "prep": "cooked",
   "matches": {
    "cofid-2021": "exact",
-   "ifct-2017": "proxy",
    "mext-2020": "exact"
   },
   "cells": {
@@ -941,27 +940,6 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 1.63,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
-   "oxalate_insol": {
-    "state": "measured",
-    "value": 0.18,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
-   "oxalate_sol": {
-    "state": "measured",
-    "value": 1.1,
-    "sources": [
-     "ifct-2017"
     ]
    }
   }
@@ -1957,7 +1935,6 @@
   "matches": {
    "afcd-r3": "exact",
    "clements-1980": "exact",
-   "eurofir": "exact",
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
@@ -2057,27 +2034,11 @@
      "cofid-2021"
     ]
    },
-   "beta-glucan": {
-    "state": "range",
-    "low": 5.5,
-    "high": 7.52,
-    "sources": [
-     "eurofir",
-     "usda-fdc-foundation"
-    ]
-   },
    "inositol-free": {
     "state": "measured",
     "value": 19.25,
     "sources": [
      "clements-1980"
-    ]
-   },
-   "ergothioneine": {
-    "state": "measured",
-    "value": 0.5,
-    "sources": [
-     "eurofir"
     ]
    },
    "inulin": {
@@ -2106,6 +2067,13 @@
     "state": "not-detected",
     "sources": [
      "usda-pa-r2"
+    ]
+   },
+   "beta-glucan": {
+    "state": "measured",
+    "value": 7.52,
+    "sources": [
+     "usda-fdc-foundation"
     ]
    }
   }
@@ -5559,7 +5527,6 @@
  "mushrooms-white-raw": {
   "prep": "white, raw",
   "matches": {
-   "eurofir": "exact",
    "mext-2020": "exact",
    "usda-fdc-foundation": "close",
    "afcd-r3": "exact"
@@ -5659,20 +5626,16 @@
     ]
    },
    "beta-glucan": {
-    "state": "range",
-    "low": 0.4,
-    "high": 0.75,
+    "state": "measured",
+    "value": 0.75,
     "sources": [
-     "eurofir",
      "usda-fdc-foundation"
     ]
    },
    "ergothioneine": {
-    "state": "range",
-    "low": 4.25,
-    "high": 13,
+    "state": "measured",
+    "value": 4.25,
     "sources": [
-     "eurofir",
      "usda-fdc-foundation"
     ]
    }
@@ -6781,7 +6744,6 @@
   "prep": "raw",
   "matches": {
    "cofid-2021": "close",
-   "eurofir": "exact",
    "fao-phytate": "exact",
    "mext-2020": "exact",
    "milder-2005": "exact",
@@ -6921,15 +6883,6 @@
      "afcd-r3"
     ]
    },
-   "pectin": {
-    "state": "range",
-    "low": 0.628,
-    "high": 1.7,
-    "sources": [
-     "eurofir",
-     "kawabata-1973"
-    ]
-   },
    "phytate": {
     "state": "range",
     "low": 17.03,
@@ -6975,6 +6928,13 @@
     "value": 0.17,
     "sources": [
      "mattila-2001"
+    ]
+   },
+   "pectin": {
+    "state": "measured",
+    "value": 0.628,
+    "sources": [
+     "kawabata-1973"
     ]
    }
   }

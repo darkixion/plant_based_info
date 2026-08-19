@@ -54,7 +54,8 @@
       "Single figures with no n or SD published in the main table, so ranges cannot be derived from this source alone.",
       "Japanese samples. Iodine, molybdenum and chromium in plants track soil, so these are not UK values.",
       "Hijiki rows distinguish stainless steel from iron cooking vessels; other rows do not state vessel."
-    ]
+    ],
+    "licence": "Free use, checked 2026-08-19. MEXT's site terms follow the Government Standard Terms of Use (政府標準利用規約 2.0), which state compatibility with CC BY 4.0: reproduction, adaptation and commercial use are all permitted, with no notification or fee. The food composition pages add that the data may be used freely and ask that secondary use in papers, books and applications name the edition. Credit: 日本食品標準成分表2020年版（八訂）, MEXT."
   },
   "afcd-r3": {
     "title": "Australian Food Composition Database, Release 3",
@@ -90,7 +91,8 @@
       "Oligosaccharides (undifferentiated) are reported for cereal bars and processed foods only, and are generally imputed or borrowed. Do not use as analytical values.",
       "Blank and zero are not distinguished as cleanly as in MEXT: absence of a value is a blank cell, but a reported 0 may be an assumed zero.",
       "No soluble/insoluble fibre split; total dietary fibre only."
-    ]
+    ],
+    "licence": "CC BY-SA 3.0 Australia, corrected 2026-08-19. The FSANZ site-wide copyright page says CC BY 4.0, but the AFCD's own Data User Licence Agreement governs the database and is different: it is based on Creative Commons Attribution-ShareAlike 3.0 Australia, requires attribution to FSANZ, requires that any derivative work be distributed only under the same licence, and requires a Limitation of Data Statement to accompany every copy distributed. The ShareAlike term and that statement are both live obligations this repository does not currently meet. See LICENCES.md."
   },
   "ifct-2017": {
     "title": "Indian Food Composition Tables 2017",
@@ -126,7 +128,8 @@
       "Extracted from PDF text by column position. Anchors are read from each page's own header row because the layout shifts between pages; an early global-anchor version silently shifted phytosterols one column left and was discarded. Parsed rows were verified against the raw text for eight foods.",
       "304 of 528 foods parsed. Rows whose names wrap awkwardly may still be missing.",
       "Table 9 IS now extracted (312 rows). Table 1 (fibre fractions), Table 6 (starch and individual sugars) and Table 10 (polyphenols) are NOT yet extracted."
-    ]
+    ],
+    "licence": "RESTRICTED, and the repository is currently outside these terms. © National Institute of Nutrition 2017, checked 2026-08-19 in the PDF front matter: 'The use and dissemination of the data in this book is encouraged. This publication can be reproduced for personal use with full acknowledgment of the source. However, no part of this publication can be stored or reproduced in any electronic format for creating a product without the prior written permission of the National Institute of Nutrition, Hyderabad.' See LICENCES.md."
   },
   "cofid-2021": {
     "title": "McCance and Widdowson's The Composition of Foods Integrated Dataset (CoFID), 2021",
@@ -151,7 +154,8 @@
       "Oligosaccharide is populated for 363 of 2887 foods; biotin for 1925.",
       "No chromium, molybdenum, boron, taurine, inulin, beta-glucan, pectin or soluble/insoluble fibre column exists in CoFID.",
       "Foods join by UK food codes, so any link to this page's rows is a reviewed name match, never an id join."
-    ]
+    ],
+    "licence": "Open Government Licence v3.0, checked 2026-08-19, per the gov.uk publication page. Reuse including commercial is permitted with attribution. The page carries the standard 'except where otherwise stated' wording and no exception is stated for the dataset."
   },
   "usda-foundation-2025": {
     "title": "USDA FoodData Central, Foundation Foods",
@@ -175,14 +179,16 @@
       "Boron values are all 'Beans, Dry, X (0% moisture)', a dry-matter basis that cannot be converted to a cooked row without assuming hydration and no leaching.",
       "Chromium (1096), taurine (1234), inulin (1403) and pectin (1017) have ZERO rows.",
       "Foundation Foods uses different FDC ids from SR Legacy and does not join to it by id."
-    ]
+    ],
+    "licence": "Public domain. A work of the United States government, not subject to copyright."
   },
   "usda-sr-legacy-2018": {
     "title": "USDA FoodData Central, SR Legacy",
     "release": "2018-04",
     "country": "United States",
     "note": "Measured this session: nutrient ids for chromium (1096), molybdenum (1102), boron (1137), biotin (1176), taurine (1234), inulin (1403), pectin (1017), beta-glucan (1068/2058), oligosaccharides (1069/2064), raffinose (1076), stachyose (1077), verbascose (2063), soluble fibre (1082) and insoluble fibre (1084) are all DEFINED but carry ZERO rows across all 7793 foods. Control counts: protein 7793, calcium 7708, vitamin E 5580, phytosterols 489.",
-    "quality": "n/a, empty for these components"
+    "quality": "n/a, empty for these components",
+    "licence": "Public domain. A work of the United States government, not subject to copyright."
   },
   "cnf-2026": {
     "title": "Canadian Nutrient File 2026",
@@ -191,7 +197,8 @@
     "url": "https://open.canada.ca/data/en/dataset/1b6139bd-ed7e-4043-bc28-ff00e10f3109",
     "assessed": "checked and largely rejected",
     "note": "173 nutrients, 5690 foods. Of the components wanted here it carries only biotin (416, 116 rows) and 'Fructans (inulin)' (1001, 53 rows, mostly manufactured foods such as cookies and sandwiches). No iodine, chromium, molybdenum, boron, taurine, oxalate, phytate, and total dietary fibre only. Not extracted.",
-    "quality": "not useful for this work"
+    "quality": "not useful for this work",
+    "licence": "Open Government Licence - Canada, checked 2026-08-19, as published on open.canada.ca. Reuse and redistribution permitted with attribution."
   },
   "thor-2011": {
     "citation": "Thor M.Y., Harnack L., King D., Jasthi B., Pettit J. (2011). Evaluation of the comprehensiveness and reliability of the chromium composition of foods in the literature. Journal of Food Composition and Analysis 24(8):1147-1152.",
@@ -243,13 +250,14 @@
     "limitations": [
       "US samples.",
       "Iodised salt dominates several processed categories; pasta boiled in iodised salt reads 22.4 ug against 0 for whole wheat pasta cooked without."
-    ]
+    ],
+    "licence": "Public domain. A work of the United States government, not subject to copyright."
   },
   "frida-6.1": {
     "title": "Frida, the Danish Food Composition Database, version 6.1",
     "publisher": "DTU National Food Institute",
     "country": "Denmark",
-    "url": "https://frida.fooddata.dk/",
+    "url": "https://fcdb.fooddata.dk/",
     "basis": "per 100 g",
     "foods_with_target_params": 1240,
     "reports": "value, min, max, median, number of determinations and source per value. The richest per-value provenance of any database here.",
@@ -268,11 +276,18 @@
       "organic_acids_g": 83
     },
     "quality": "high",
-    "key_finding": "Unblocks boron. Its 49 boron values are on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7), wheat bran 270 (n=10), buckwheat groats 530.",
+    "key_finding": "Unblocks boron, but by 21 values rather than 49. Its boron is on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7) and wheat bran 270 (n=10) stand; buckwheat groats 530 is n=0 from FINKOST 1986 and is refused. See FRIDA-PROVENANCE.md.",
     "limitations": [
       "Danish samples and Danish soils.",
-      "Copyright asserted on the dataset; check redistribution terms before committing any derived values to a public repository."
-    ]
+      "A mean can sit below its own min: the mean divides by every determination while min and max span only the detections above the limit, so it counts non-detects as zero and understates. Marked partial, not corrected.",
+      "Two molybdenum rows, both corn flakes, report min=20 against max=3. Refused as malformed.",
+      "A mean can sit below its own min: it divides by every determination while min and max span only the detections above the limit, so it counts non-detects as zero and understates. Marked partial, not corrected.",
+      "Two molybdenum rows, both corn flakes, report min=20 against max=3. Refused as malformed.",
+      "Rebuilt from the published workbook by tools/extract_frida.mjs. The workbook is not committed; fetch it from the DOI into tools/cache/."
+    ],
+    "provenance": "Every value carries a number of determinations and a named source, and the published source table names all 502. That separates Frida's own analytical work from the foreign tables it compiled. Of 873 biotin values 473 are admitted; the rest are borrowed from another food (146), undetermined (209) or compiled (45). Source 1344 is McCance and Widdowson 4th edition, of which CoFID is the 7th; sources 2141, 2145 and 2289 are CoFID, AFCD and the CNF, all already cited here directly. The admission rule is in tools/frida.mjs.",
+    "doi": "10.11583/DTU.32312844",
+    "licence": "CC BY 4.0, checked 2026-08-19 against the dataset's own Readme sheet and the DTU Data record. Redistribution of derived values is permitted with attribution. Required credit: \"The Danish Food Composition Database (http://fcdb.fooddata.dk), version 6.1, May 2026. The Food Institute, Technical University of Denmark.\" Only the documentation PDFs are all rights reserved; both data files are CC-BY 4.0."
   },
   "phenol-explorer": {
     "title": "Phenol-Explorer, database on polyphenol content in foods",
@@ -297,7 +312,8 @@
       "NOT A SECOND SOURCE for the flavonoid columns. It and USDA Flavonoid Release 3.3 compiled the same literature: 143 of the 178 cells a page map would fill share at least one publication with USDA's own reference list for the same food, chiefly Hertog 1992, Justesen 1998, Harnly 2006 and Lugasi and Hovari 2000 and 2002. Its pecan is USDA's pecan to one decimal on all eight compounds. Check with `node tools/phenol_explorer.mjs overlap` before citing it beside USDA.",
       "The PubMed ids are not reliable. All 121 rows citing publication 655, which its own publication list gives as Harnly 2006 (PMID 17177529), carry PMID 22327611, a 2012 review of diet and endothelial function that measured no food. The mismatch is upstream in composition-data.xlsx, not in this ingest, and was confirmed against a fresh download.",
       "Two chromatography methods, and the choice changes a figure by an order of magnitude: the plain rows report the free aglycone and the hydrolysis rows the aglycone total. Blackberry quercetin is 0 by the first and 0.87 by the second. Only the hydrolysis rows compare with USDA."
-    ]
+    ],
+    "licence": "Not checked. Banked and unused, so nothing derived from it is published. Check before any of it reaches the page."
   },
   "assessed-lower-value": {
     "_comment": "Downloaded and checked, little or nothing to add beyond what is already held.",
@@ -314,7 +330,8 @@
     "year": 2018,
     "url": "https://www.fao.org/food-composition/tables-and-databases/detail/(global--2018)-fao-infoods-izincg-global-food-composition-database-for-phytate---version-1.0-(phyfoodcomp1.0)/en",
     "basis": "per 100 g edible portion",
-    "quality": "high"
+    "quality": "high",
+    "licence": "NON-COMMERCIAL. © FAO and Children's Hospital & Research Center at Oakland, 2018, checked 2026-08-19 in the database's own front matter: material may be copied 'for private study, research and teaching purposes, or for use in non-commercial products or services', with acknowledgement. Resale and other commercial use rights must be requested from copyright@fao.org. Not a Creative Commons licence."
   },
   "usda-flavonoids-r33": {
     "title": "USDA Database for the Flavonoid Content of Selected Foods, Release 3.3",
@@ -323,7 +340,8 @@
     "url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/Flav/Flav_R03-3.accdb",
     "basis": "per 100 g edible portion",
     "quality": "high",
-    "note": "A compilation of published analyses, not a laboratory programme, though USDA's own Harnly 2006 is the single largest contributor. It says which paper each figure came from, and that list is extracted to usda-flavonoids-references.json by `node tools/flavonoids.mjs refs`. Ask it before treating any other polyphenol database as a second source: Phenol-Explorer shares 143 of 178 candidate cells' provenance with it."
+    "note": "A compilation of published analyses, not a laboratory programme, though USDA's own Harnly 2006 is the single largest contributor. It says which paper each figure came from, and that list is extracted to usda-flavonoids-references.json by `node tools/flavonoids.mjs refs`. Ask it before treating any other polyphenol database as a second source: Phenol-Explorer shares 143 of 178 candidate cells' provenance with it.",
+    "licence": "Public domain. A work of the United States government, not subject to copyright."
   },
   "usda-pa-r2": {
     "title": "USDA Database for the Proanthocyanidin Content of Selected Foods, Release 2",
@@ -331,7 +349,8 @@
     "year": 2015,
     "url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/PA/PA02.accdb",
     "basis": "per 100 g edible portion",
-    "quality": "high"
+    "quality": "high",
+    "licence": "Public domain. A work of the United States government, not subject to copyright."
   },
   "milder-2005": {
     "title": "Lignan contents of Dutch plant foods: a database including lariciresinol, pinoresinol, secoisolariciresinol and matairesinol",

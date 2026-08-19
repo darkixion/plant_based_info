@@ -10,6 +10,7 @@
 import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, reconcile, spanCell } from "../tools/reconcile.mjs";
 import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
+import { fridaCell } from "../tools/frida.mjs";
 // build.mjs only builds when it is the process entry point, the same guard
 // tools/usda.mjs carries. Importing it here must check its rules, not rebuild
 // the page as a side effect of running the tests.
@@ -424,7 +425,141 @@ test("a yogurt flavoured with the nut is not the nut", () => {
   if (yogurt > 0) throw new Error(`a yogurt should not be a candidate, got ${yogurt}`);
 });
 
-// ------------------------------------------------------------ evidence checks
+// ------------------------------------------------------------------- Frida
+/* Frida publishes a number of determinations beside every value, which is the
+   only field in the corpus that says whether a database measured a thing or
+   copied it. These tests pin the cases that decided the admission rule. */
+
+/* A stand-in for the committed source table, carrying only the rows these
+   tests turn on. Real ids and real types. */
+const FRIDA_SRC = {
+  "1344": { EurofirRefType: "B", TitleEnglish: "McCance and Widdowson's: The Composition of Foods, 4th revised and extended edition" },
+  "2127": { EurofirRefType: "R", TitleEnglish: "Nutrient content in vegetables sampled between 2013-2019" },
+  "2179": { EurofirRefType: "R", TitleEnglish: "Nutrient content in fruits" },
+  "1506": { EurofirRefType: "P", TitleEnglish: "Unpublished data" },
+  "1002": { EurofirRefType: "E", TitleEnglish: "Estimated value based on data for similar product" },
+  "2141": { EurofirRefType: "WW", TitleEnglish: "Food Databanks National Capability extended dataset based on PHE's McCance and Widdowson" },
+  "1348": { EurofirRefType: "AJ", TitleEnglish: "Mineral Element Composition of Finnish Foods" },
+};
+
+test("a Frida value resting on no determination is refused", () => {
+  const c = fridaCell({ val: "0.1", min: "NULL", max: "NULL", n: "0", source: "1344" }, FRIDA_SRC);
+  eq(c.admitted, false, "an n=0 value must not be admitted");
+  eq(c.refused, "undetermined", "the refusal must name the reason");
+});
+
+test("a Frida value resting on determinations is admitted", () => {
+  const c = fridaCell({ val: "1.57", min: "1.4", max: "1.9", median: "NULL", n: "10", source: "2179" }, FRIDA_SRC);
+  eq(c.admitted, true, "an n=10 value from a DTU report must be admitted");
+  eq(c.value, 1.57, "the admitted value is the reported mean");
+  eq(c.n, 10, "the determination count is carried");
+});
+
+test("a Frida value copied from another food is refused however many determinations it cites", () => {
+  /* The workbook marks these with a SourceFood: the value was carried over from
+     a different food, and the determinations belong to that food. Green peas
+     chromium cites n=21, every one of them made on food 1310. */
+  const c = fridaCell({ val: "1.4", min: "NULL", max: "NULL", n: "21",
+                        source: "NULL", sourceFood: "1310" }, FRIDA_SRC);
+  eq(c.admitted, false, "a value carried from another food is not evidence about this one");
+  eq(c.refused, "borrowed", "the refusal must name the reason");
+  eq(c.borrowedFrom, "1310", "the food the value came from must be kept");
+});
+
+test("a Frida value is still refused as borrowed on the older extraction shape", () => {
+  /* Before the workbook was used, borrowed cells were recognised only by having
+     no source id. The two coincide exactly, on 538 cells across twelve
+     components, so the older shape must keep giving the same answer. */
+  const c = fridaCell({ val: "1.4", min: "NULL", max: "NULL", n: "21", source: "NULL" }, FRIDA_SRC);
+  eq(c.admitted, false, "a cell with no source id at all is borrowed");
+  eq(c.refused, "borrowed", "the refusal must name the reason");
+});
+
+test("a Frida value from a foreign book is refused even with determinations", () => {
+  /* Source 1344 is McCance and Widdowson 4th edition, 1978. CoFID is the same
+     work at its 7th. Admitting it would put one table on the page twice, which
+     is how Phenol-Explorer failed. */
+  const c = fridaCell({ val: "0.963", min: "NULL", max: "NULL", n: "2", source: "1344" }, FRIDA_SRC);
+  eq(c.admitted, false, "a foreign composition book is not a fourth source");
+  eq(c.refused, "compiled", "the refusal must name the reason");
+});
+
+test("a Frida value from another national database is refused", () => {
+  // Source 2141 is CoFID, which this page already cites directly.
+  const c = fridaCell({ val: "5", min: "NULL", max: "NULL", n: "3", source: "2141" }, FRIDA_SRC);
+  eq(c.admitted, false, "another national database is not independent evidence here");
+  eq(c.refused, "compiled", "the refusal must name the reason");
+});
+
+test("a Frida value estimated from a similar product is refused", () => {
+  /* Celeriac carries 0.1 from source 1002, an estimate, against 4.89 from a
+     real Danish determination on the row next to it. Admitting estimates would
+     have put a 49x error on the page. */
+  const c = fridaCell({ val: "0.1", min: "NULL", max: "NULL", n: "134", source: "1002" }, FRIDA_SRC);
+  eq(c.admitted, false, "an estimate is not a measurement whatever n says");
+  eq(c.refused, "compiled", "the refusal must name the reason");
+});
+
+test("Danish unpublished data is analytical and is admitted", () => {
+  const c = fridaCell({ val: "0.0230833333333333", min: "0.277", max: "0.277", n: "12", source: "1506" }, FRIDA_SRC);
+  eq(c.admitted, true, "unpublished laboratory data is still laboratory data");
+});
+
+test("a Frida mean below its own minimum is admitted and marked", () => {
+  /* Not a defect. Frida's mean divides by every determination while min and max
+     span only those above detection, so a mean can sit below its own minimum.
+     Raw pear chromium is 0.0231 against a min and max of 0.277, and 0.277/12 is
+     exactly its n. Confirmed on 62 of the 65 cases where min equals max. */
+  const c = fridaCell({ val: "0.0230833333333333", min: "0.277", max: "0.277", n: "12", source: "1506" }, FRIDA_SRC);
+  eq(c.partial, true, "it must be marked as counting non-detects as zero");
+});
+
+test("a Frida mean inside its own range is not marked partial", () => {
+  const c = fridaCell({ val: "1.57", min: "1.4", max: "1.9", n: "10", source: "2179" }, FRIDA_SRC);
+  eq(c.partial, false, "a mean inside its range says nothing about non-detects");
+});
+
+test("a Frida range whose minimum exceeds its maximum is refused", () => {
+  // Both corn flakes molybdenum rows carry min=20 against max=3.
+  const c = fridaCell({ val: "0", min: "20", max: "3", n: "3", source: "1348" }, FRIDA_SRC);
+  eq(c.admitted, false, "a reversed range must not be admitted");
+  eq(c.refused, "malformed", "the refusal must name the reason");
+});
+
+test("a Frida cell with no determination count is refused", () => {
+  const c = fridaCell({ val: "5", min: "NULL", max: "NULL", n: "NULL", source: "1348" }, FRIDA_SRC);
+  eq(c.admitted, false, "a value with no n cannot be shown to be measured");
+  eq(c.refused, "undetermined", "an absent count is treated as no determination");
+});
+
+test("a Frida zero from real determinations is a measurement", () => {
+  /* The corpus already holds that a zero beats a trace because a zero is a
+     measurement. That only follows when something was determined. */
+  const c = fridaCell({ val: "0", min: "NULL", max: "NULL", n: "4", source: "2127" }, FRIDA_SRC);
+  eq(c.admitted, true, "a determined zero is a finding");
+  eq(c.value, 0, "the zero is carried as a figure");
+});
+
+test("a Frida cell citing two sources keeps both and is refused if either is compiled", () => {
+  /* Mushroom biotin cites 1343 and 2127 together. One analytical source cannot
+     launder a compiled one when the mean was taken across both. */
+  const c = fridaCell({ val: "9.84", min: "7.38", max: "16", n: "8", source: "1344, 2127" }, FRIDA_SRC);
+  eq(c.sources.length, 2, "both source ids must be kept");
+  eq(c.admitted, false, "a mean drawn partly from a compiled table is not clean");
+});
+
+test("an unknown source id is refused rather than assumed analytical", () => {
+  const c = fridaCell({ val: "5", min: "NULL", max: "NULL", n: "3", source: "9999" }, FRIDA_SRC);
+  eq(c.admitted, false, "a source that cannot be identified cannot be graded");
+  eq(c.refused, "compiled", "the refusal must name the reason");
+});
+
+test("an absent Frida component yields nothing rather than a refusal", () => {
+  eq(fridaCell(undefined, FRIDA_SRC), null, "no cell at all is a gap, not a refusal");
+});
+
+// ----------------------------------------------------------- evidence checks
+
 
 const NUTS = [{ id: "solfibre", evidence: true }, { id: "protein" }];
 const FOODS = [{ name: "Oats", state: "rolled, dry" }];

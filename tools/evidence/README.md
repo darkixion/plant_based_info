@@ -57,11 +57,10 @@ calcium. So every component here had to come from somewhere else.
 | `mext-2020-sugars.json` | 717 | starch, glucose, fructose, galactose, sucrose, maltose, sorbitol, mannitol |
 | `mext-2020-organic-acids.json` | 201 | 22 organic acids including oxalic |
 | `afcd-r3-plant.json` | 612 | **inulin**, raffinose, stachyose, resistant starch, oxalic acid, iodine, molybdenum, biotin |
-| `ifct-2017-table11.json` | 304 | **raffinose, stachyose, verbascose, ajugose**, phytate, saponins, phytosterol fractions, each with n and SD |
-| `ifct-2017-table9.json` | 312 | **oxalate as total, soluble and insoluble**, plus citric, fumaric, malic, quinic, succinic and tartaric acids, each with n and SD |
+| `ifct-2017-cited.json` | 7 | the IFCT figures this page actually cites, phytate and soluble and insoluble oxalate, one row per food, with the pairing that was withdrawn and why. Replaces the two whole tables, which the IFCT licence did not permit this repository to hold |
 | `cofid-2021-plant.json` | 456 | lumped oligosaccharide total, biotin |
 | `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**; joins by NDB id |
-| `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median and n |
+| `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median, n, source and the `sourceFood` that marks a value copied from another food. Rebuilt by `tools/extract_frida.mjs` |
 | `phenol-explorer.json` | 6,953 | 508 polyphenols over 458 foods, with mean, min, max, SD, n and **PubMed ids**; adds lignans and stilbenes |
 | `fao-oligosaccharides.json` | 157 | **verbascose**, raffinose and stachyose from FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, with each row's water content |
 | `sim-2021-vitamin-k.json` | 28 | phylloquinone, **MK-4 and MK-7** across Australian supermarket foods, mostly as analysed absence |
@@ -78,6 +77,9 @@ calcium. So every component here had to come from somewhere else.
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 102 | reviewed mappings from this page's foods to MEXT rows |
 | `BIOTIN-MAP-REVIEW.md` | 133 | every candidate pairing put to review for the biotin column, what was accepted into the CoFID and AFCD maps, and the reason for each refusal |
+| `LICENCES.md` | 13 | what each source permits, checked against the publisher's own terms, and the two places this repository currently exceeds them |
+| `FRIDA-PROVENANCE.md` | 5 | Frida's licence (CC BY 4.0, so republishable with credit) and why 400 of its 873 biotin values are refused: borrowed from another food, undetermined, or compiled from CoFID, AFCD and the CNF under other ids |
+| `frida-6.1-sources.json` | 502 | Frida's own source table, which names every reference its values cite and types each one, the file the admission rule is decided from |
 
 ## The evidence states
 
@@ -471,7 +473,7 @@ source records country, year, method, quality and limitations.
 
 - **IFCT Table 10** (individual polyphenols) is not extracted. Table 9 now is,
   but its `name` column parses as numeric noise and every entry in
-  `page-map-ifct.json` has an empty `ifct_name`, so no IFCT mapping can be
+  the old `page-map-ifct.json` had an empty `ifct_name`, so no IFCT mapping could be
   checked by eye. Its cowpea phytate reads 1.63 mg where every other cooked
   legume is in the hundreds, which is what a mis-parse looks like.
 - **IFCT reports pulses dry and this page cooks them.** The phytate figures for
