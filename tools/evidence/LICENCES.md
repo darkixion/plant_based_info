@@ -16,7 +16,7 @@ summary and the two problems.
 | MEXT 2020, Japan | 1,561 | Government Standard Terms of Use, stated compatible with CC BY 4.0 | yes |
 | CoFID 2021, UK | 74 | Open Government Licence v3.0 | yes |
 | USDA proanthocyanidins R2 | 62 | US government work, public domain | yes |
-| AFCD R3, Australia | 58 | CC BY 4.0 | yes |
+| AFCD R3, Australia | 58 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
 | FAO/INFOODS phytate | 46 | © FAO and CHRCO, **non-commercial only** | **no** |
 | **IFCT 2017, India** | 24 | © NIN, **no electronic reproduction to make a product** | **no** |
 | USDA glucosinolates R1 | 14 | public domain | yes |
@@ -65,6 +65,26 @@ Three ways out, and the choice is the owner's:
 Nothing has been changed here, because deleting evidence or shipping without
 permission are both decisions rather than tidying.
 
+## Problem three: AFCD carries ShareAlike, and a statement we do not ship
+
+Corrected 2026-08-19, after a first pass read the FSANZ site-wide copyright page
+and recorded CC BY 4.0. The database has its own Data User Licence Agreement and
+it governs: **Creative Commons Attribution-ShareAlike 3.0 Australia**. Two
+obligations follow that CC BY 4.0 would not have imposed.
+
+**ShareAlike.** Any derivative work must be distributed only under the same
+licence. 58 cells rest on AFCD, so `evidence.json` is arguably such a work, and
+it currently ships under MIT.
+
+**A required statement.** Every distributed copy must carry a Limitation of Data
+Statement noting that the nutrient composition of foods and ingredients varies
+substantially between batches and brands. The page does not carry it. That one
+is cheap to fix and worth fixing whatever else is decided, because it is true and
+the page is about exactly that variation.
+
+The lesson generalises: a publisher's site-wide copyright page is not authority
+for a specific dataset. Read the dataset's own terms.
+
 ## Problem two: the MIT licence promises more than the data allows
 
 `LICENSE` is MIT and covers the repository as a whole. MIT grants anyone the
@@ -100,7 +120,7 @@ Each was read from the publisher, not from a search summary:
   composition index page, which says the data may be used freely and asks for
   the edition to be named.
 - **CoFID**: the gov.uk publication page's licence statement.
-- **AFCD**: the FSANZ copyright page.
+- **AFCD**: the FSANZ copyright page said CC BY 4.0, which was wrong for the database. The AFCD's own Data User Licence Agreement governs and is CC BY-SA 3.0 Australia. Corrected 2026-08-19; a site-wide copyright page is not authority for a specific dataset.
 - **CNF**: the open.canada.ca dataset record.
 - **FAO**: the front matter of PhyFoodComp 1.0 itself. FAO's CC BY 4.0 open
   data policy covers its corporate statistical databases; this is a food

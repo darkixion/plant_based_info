@@ -92,7 +92,7 @@
       "Blank and zero are not distinguished as cleanly as in MEXT: absence of a value is a blank cell, but a reported 0 may be an assumed zero.",
       "No soluble/insoluble fibre split; total dietary fibre only."
     ],
-    "licence": "CC BY 4.0, checked 2026-08-19 against the FSANZ copyright page. Copy, distribute and adapt for commercial and non-commercial purposes, attributed to 'Food Standards Australia New Zealand'. Excludes the FSANZ logo and third-party material."
+    "licence": "CC BY-SA 3.0 Australia, corrected 2026-08-19. The FSANZ site-wide copyright page says CC BY 4.0, but the AFCD's own Data User Licence Agreement governs the database and is different: it is based on Creative Commons Attribution-ShareAlike 3.0 Australia, requires attribution to FSANZ, requires that any derivative work be distributed only under the same licence, and requires a Limitation of Data Statement to accompany every copy distributed. The ShareAlike term and that statement are both live obligations this repository does not currently meet. See LICENCES.md."
   },
   "ifct-2017": {
     "title": "Indian Food Composition Tables 2017",
