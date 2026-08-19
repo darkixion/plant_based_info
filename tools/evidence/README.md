@@ -77,6 +77,7 @@ calcium. So every component here had to come from somewhere else.
 | `usda-glucosinolate-r1.json` | 14 | **glucoraphanin** in mg/100 g fresh weight from USDA/ODS-NIH Release 1, with cultivar, n, SD and range per observation |
 | `tanaka-2026-vitamin-k.json` | 4 | PK and **MK-4, MK-6, MK-7, MK-8, MK-9** in fermented soybean products, as phylloquinone equivalents. Only its absences are used |
 | `page-map-mext.json` | 102 | reviewed mappings from this page's foods to MEXT rows |
+| `BIOTIN-MAP-REVIEW.md` | 133 | every candidate pairing put to review for the biotin column, what was accepted into the CoFID and AFCD maps, and the reason for each refusal |
 
 ## The evidence states
 
