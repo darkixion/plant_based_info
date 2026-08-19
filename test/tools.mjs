@@ -456,12 +456,22 @@ test("a Frida value resting on determinations is admitted", () => {
 });
 
 test("a Frida value copied from another food is refused however many determinations it cites", () => {
-  /* 146 biotin cells carry no source id at all, which is exactly the count of
-     biotin rows carrying a SourceFood in the published workbook: the value was
-     carried over from a different food, and the determinations belong to that
-     food. Green peas chromium cites n=21, all of them made on food 1310. */
-  const c = fridaCell({ val: "1.4", min: "NULL", max: "NULL", n: "21", source: "NULL" }, FRIDA_SRC);
+  /* The workbook marks these with a SourceFood: the value was carried over from
+     a different food, and the determinations belong to that food. Green peas
+     chromium cites n=21, every one of them made on food 1310. */
+  const c = fridaCell({ val: "1.4", min: "NULL", max: "NULL", n: "21",
+                        source: "NULL", sourceFood: "1310" }, FRIDA_SRC);
   eq(c.admitted, false, "a value carried from another food is not evidence about this one");
+  eq(c.refused, "borrowed", "the refusal must name the reason");
+  eq(c.borrowedFrom, "1310", "the food the value came from must be kept");
+});
+
+test("a Frida value is still refused as borrowed on the older extraction shape", () => {
+  /* Before the workbook was used, borrowed cells were recognised only by having
+     no source id. The two coincide exactly, on 538 cells across twelve
+     components, so the older shape must keep giving the same answer. */
+  const c = fridaCell({ val: "1.4", min: "NULL", max: "NULL", n: "21", source: "NULL" }, FRIDA_SRC);
+  eq(c.admitted, false, "a cell with no source id at all is borrowed");
   eq(c.refused, "borrowed", "the refusal must name the reason");
 });
 

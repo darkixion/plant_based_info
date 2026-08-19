@@ -275,7 +275,7 @@
       "Two molybdenum rows, both corn flakes, report min=20 against max=3. Refused as malformed.",
       "A mean can sit below its own min: it divides by every determination while min and max span only the detections above the limit, so it counts non-detects as zero and understates. Marked partial, not corrected.",
       "Two molybdenum rows, both corn flakes, report min=20 against max=3. Refused as malformed.",
-      "frida-6.1.json was pulled from the old website and lacks the SourceFood column, so borrowed values are identified by their missing source id. Exact for biotin at 146 against 146, but re-extraction from the CC BY workbook would make it explicit."
+      "Rebuilt from the published workbook by tools/extract_frida.mjs. The workbook is not committed; fetch it from the DOI into tools/cache/."
     ],
     "provenance": "Every value carries a number of determinations and a named source, and the published source table names all 502. That separates Frida's own analytical work from the foreign tables it compiled. Of 873 biotin values 473 are admitted; the rest are borrowed from another food (146), undetermined (209) or compiled (45). Source 1344 is McCance and Widdowson 4th edition, of which CoFID is the 7th; sources 2141, 2145 and 2289 are CoFID, AFCD and the CNF, all already cited here directly. The admission rule is in tools/frida.mjs.",
     "doi": "10.11583/DTU.32312844",

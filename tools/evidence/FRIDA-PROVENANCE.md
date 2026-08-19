@@ -159,8 +159,15 @@ Frida value has reached the page.**
 no `match` and no review. It predates the discipline `BIOTIN-MAP-REVIEW.md` set
 and should be rebuilt in the reviewed shape rather than extended.
 
-One known gap in the extraction: `frida-6.1.json` was pulled from the old
-website and does not carry the `SourceFood` column, so the borrowed cells are
-identified here by their missing source id. That proxy is exact for biotin, 146
-against 146, but re-extracting from the CC BY workbook would make it explicit
-and would also pick up the per-value source types directly.
+Both evidence files are now rebuilt from the published workbook rather than
+scraped from the old website, by `node tools/extract_frida.mjs`. The workbook
+itself is not committed, for the reason `.gitignore` gives: upstream datasets
+are fetched rather than redistributed. Download it from the DOI above and put
+`FCDB_6.1_Dataset.xlsx` in `tools/cache/`.
+
+The rebuild reproduces the scraped file exactly, on all 1,240 foods and all
+4,447 cells, with no disagreement on a single value, determination count or
+source id. What it adds is `sourceFood`, the column the scrape lost. 538 cells
+carry one. Every one of them also has no source id and no cell has one without
+the other, so the proxy this document previously relied on was exact; it is now
+stated outright instead.

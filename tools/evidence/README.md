@@ -61,7 +61,7 @@ calcium. So every component here had to come from somewhere else.
 | `ifct-2017-table9.json` | 312 | **oxalate as total, soluble and insoluble**, plus citric, fumaric, malic, quinic, succinic and tartaric acids, each with n and SD |
 | `cofid-2021-plant.json` | 456 | lumped oligosaccharide total, biotin |
 | `usda-iodine-r4.json` | 478 | iodine with **n, mean, SD, min, max**; joins by NDB id |
-| `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median and n |
+| `frida-6.1.json` | 1,240 | **boron**, chromium, molybdenum, iodine, biotin, raffinose, fibre fractions, oxalic acid, each with min, max, median, n, source and the `sourceFood` that marks a value copied from another food. Rebuilt by `tools/extract_frida.mjs` |
 | `phenol-explorer.json` | 6,953 | 508 polyphenols over 458 foods, with mean, min, max, SD, n and **PubMed ids**; adds lignans and stilbenes |
 | `fao-oligosaccharides.json` | 157 | **verbascose**, raffinose and stachyose from FAO/INFOODS BioFoodComp 4.0 and AnFooD 2.0, with each row's water content |
 | `sim-2021-vitamin-k.json` | 28 | phylloquinone, **MK-4 and MK-7** across Australian supermarket foods, mostly as analysed absence |

@@ -66,6 +66,8 @@ export function fridaCell(cell, sources = {}) {
   const max = num(cell.max);
   const ids = String(cell.source ?? "")
     .split(",").map(s => s.trim()).filter(s => s && s !== "NULL");
+  const from = cell.sourceFood && cell.sourceFood !== "NULL"
+    ? String(cell.sourceFood) : null;
 
   const refuse = reason => ({ admitted: false, refused: reason, sources: ids });
 
@@ -74,11 +76,14 @@ export function fridaCell(cell, sources = {}) {
      of the two numbers is wrong. */
   if (min !== null && max !== null && min > max) return refuse("malformed");
 
-  /* A cell with no source id at all is one Frida carried over from a different
-     food: the published workbook gives it a SourceFood instead. 146 biotin
-     cells are of this kind, and the count matches the workbook exactly. Their
-     determinations were made on the other food, so a large n is the most
-     misleading thing about them. */
+  /* A value Frida carried over from a different food. Its determinations were
+     made on that other food, so a large n is the most misleading thing about
+     it: green peas chromium cites n=21, every one made on food 1310.
+
+     The workbook marks these with a SourceFood, and gives them no source id.
+     The two coincide exactly, on all 538 such cells across twelve components,
+     so the id test still stands in for the older extraction shape. */
+  if (from) return { ...refuse("borrowed"), borrowedFrom: from };
   if (!ids.length) return refuse("borrowed");
 
   /* n = 0 is Frida saying it determined nothing. An absent n says no more than
