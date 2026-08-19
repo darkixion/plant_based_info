@@ -2,6 +2,18 @@ MIT License
 
 Copyright (c) 2026 Thom Brown
 
+SCOPE. This licence covers the code in this repository: the build, the tools,
+the tests and the page's own markup, styles and prose.
+
+It does NOT cover the food composition data. The files under tools/evidence/
+and src/data/evidence.json are derived from national food composition
+programmes and published research, and each carries the terms its publisher
+set. Those terms are recorded per source in the `licence` field of
+tools/evidence/sources.json, and summarised in tools/evidence/LICENCES.md.
+They are not all as permissive as this licence. Some permit commercial use and
+some do not; one carries a ShareAlike condition. Read them before reusing the
+data, because this licence cannot grant what those publishers did not.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights

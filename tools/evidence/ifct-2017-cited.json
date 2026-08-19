@@ -1,0 +1,28 @@
+{
+  "source": "ifct-2017",
+  "citation": "Longvah, T., Ananthan, R., Bhaskarachary, K. and Venkaiah, K. (2017). Indian Food Composition Tables 2017, National Institute of Nutrition, Indian Council of Medical Research, Hyderabad, Telangana, India.",
+  "url": "https://www.nin.res.in/ebooks/IFCT2017.pdf",
+  "unit": "mg/100 g edible portion",
+  "note": "Twenty-one measured values quoted with attribution, one row per page food, replacing the two whole tables this repository used to carry. IFCT's terms forbid storing or reproducing part of the publication in electronic format to make a product; 616 rows held to use seven foods was exactly that, while quoting the figures actually cited is the same thing this file's 33 sibling papers already do. See LICENCES.md, which records the search for a replacement and the pairing withdrawn below.",
+  "values": [
+    { "page": "Lentils", "page_state": "cooked", "ifct_code": "B013", "ifct_name": "Lentil dal", "match": "proxy",
+      "phytate_mg": 218, "oxalate_soluble_mg": 8.42, "oxalate_insoluble_mg": 2.04 },
+    { "page": "Chickpeas", "page_state": "cooked", "ifct_code": "B002", "ifct_name": "Bengal gram, whole (Cicer arietinum)", "match": "proxy",
+      "phytate_mg": 578, "oxalate_soluble_mg": 5.57, "oxalate_insoluble_mg": 1.7 },
+    { "page": "Mung beans", "page_state": "cooked", "ifct_code": "B011", "ifct_name": "Green gram, whole", "match": "proxy",
+      "phytate_mg": 375, "oxalate_soluble_mg": 10.57, "oxalate_insoluble_mg": 1.72 },
+    { "page": "Quinoa", "page_state": "cooked", "ifct_code": "A009", "ifct_name": "Quinoa", "match": "proxy",
+      "phytate_mg": 120, "oxalate_soluble_mg": 42.22, "oxalate_insoluble_mg": 40.72 },
+    { "page": "Amaranth", "page_state": "cooked", "ifct_code": "A002", "ifct_name": "Amaranth seed, pale brown", "match": "proxy",
+      "phytate_mg": 341, "oxalate_soluble_mg": 32.3, "oxalate_insoluble_mg": 177 },
+    { "page": "Spinach", "page_state": "raw", "ifct_code": "C033", "ifct_name": "Spinach", "match": "proxy",
+      "phytate_mg": 12.01, "oxalate_soluble_mg": 241, "oxalate_insoluble_mg": 351 },
+    { "page": "Brussels sprouts", "page_state": "cooked", "ifct_code": "C012", "ifct_name": "Brussels sprouts (Brassica oleracea)", "match": "proxy",
+      "phytate_mg": 18.32, "oxalate_soluble_mg": 4.67, "oxalate_insoluble_mg": 7.73 }
+  ],
+  "withdrawn": [
+    { "page": "Black-eyed peas", "page_state": "cooked", "ifct_code": "B007", "ifct_name": "Field bean, black (Phaseolus)",
+      "was": { "phytate_mg": 1.63, "oxalate_soluble_mg": 1.1, "oxalate_insoluble_mg": 0.18 },
+      "why": "Wrong species. Black-eyed peas are Vigna unguiculata, which IFCT carries as B005 Cowpea, brown and B006 Cowpea, white. B007 is a Phaseolus field bean, paired on the word black. Its phytate of 1.63 mg is implausible for a legume beside cowpea at 550 and 573, and the row's name did not survive extraction into table 11, so the pairing was banked against a row nobody could read. Re-pairing to B005 or B006 is a human's to bank, not a tool's." }
+  ]
+}

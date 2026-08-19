@@ -18,7 +18,7 @@ summary and the two problems.
 | USDA proanthocyanidins R2 | 62 | US government work, public domain | yes |
 | AFCD R3, Australia | 58 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
 | FAO/INFOODS phytate | 46 | © FAO and CHRCO, **non-commercial only** | **no** |
-| **IFCT 2017, India** | 24 | © NIN, **no electronic reproduction to make a product** | **no** |
+| IFCT 2017, India | 21 | © NIN; quoted with attribution, tables no longer held | resolved |
 | USDA glucosinolates R1 | 14 | public domain | yes |
 | USDA Foundation Foods | 9 | public domain | yes |
 | TBCA 2019, Brazil | 5 | citation required, commercial use by arrangement | **no** |
@@ -31,7 +31,7 @@ Roughly 25 further cells cite individual journal papers. Those are numeric
 findings quoted with attribution, which is ordinary scholarly citation rather
 than redistribution of a dataset, and they are not treated here.
 
-## Problem one: IFCT 2017 is used outside its terms
+## Problem one: IFCT 2017, resolved 2026-08-19
 
 Its front matter says, in full:
 
@@ -41,29 +41,33 @@ Its front matter says, in full:
 > in any electronic format for creating a product without the prior written
 > permission of the National Institute of Nutrition, Hyderabad.
 
-The repository does both things that sentence names. `ifct-2017-table9.json`
-holds 312 rows and `ifct-2017-table11.json` holds 304, which is the whole of
-both tables rather than the eight foods the page uses, and they are committed to
-a public repository that builds a public page. The 24 cells reach
-lentils, chickpeas, mung beans, black-eyed peas, quinoa, amaranth, spinach and
-Brussels sprouts, carrying phytate and oxalate.
+The repository used to do both things that sentence names: `ifct-2017-table9.json`
+held 312 rows and `ifct-2017-table11.json` held 304, the whole of both tables,
+to use eight foods.
 
-There is a fair argument on the other side, which is that a measured number is a
-fact and facts do not carry copyright, so quoting 24 values is not reproducing
-the publication. That argument does not cover storing both tables whole.
+**Both files are deleted.** What remains is `ifct-2017-cited.json`, seven rows
+carrying the twenty-one figures the page actually cites, each with the IFCT
+code and name it came from and the full citation. That is quoting measured
+values with attribution, which is what the 33 other single papers here already
+do and what NIN's own sentence encourages. It is not storing the publication.
 
-Three ways out, and the choice is the owner's:
+Searching for a replacement found no open re-release of IFCT by NIN or ICMR.
+The GitHub, npm, Zenodo and Kaggle copies are third-party redistributions whose
+own MIT or AGPL licences say nothing about NIN's rights, which is the same
+mistake in a different coat. Independent measurements of the same components do
+exist and some are CC BY, notably Margier 2018 for cooked lentil and chickpea
+phytate, but none reaches all eight foods on an edible-portion fresh-weight
+basis, and several otherwise good papers report dry matter, which this corpus
+already refuses for the reason the USDA boron rows were refused.
 
-1. **Ask.** NIN's stated position is that use and dissemination are encouraged,
-   and the terms name written permission as the route. `nin@ap.nic.in` and
-   `ifct2017@gmail.com` are in the front matter.
-2. **Reduce to the 24 cells used** and delete the two whole-table files, which
-   leaves quoted facts with attribution and drops the wholesale copy.
-3. **Remove IFCT** and let those cells fall back to another source or become
-   gaps.
-
-Nothing has been changed here, because deleting evidence or shipping without
-permission are both decisions rather than tidying.
+**One pairing was withdrawn rather than kept.** Black-eyed peas were paired to
+IFCT B007, which is *Field bean, black (Phaseolus)*. Black-eyed peas are *Vigna
+unguiculata*, which IFCT carries as B005 and B006, cowpea brown and white. The
+pairing was made on the word "black", the exact failure the README warns about
+with "Black beans" and "Black pudding, boiled", and it was banked against a row
+whose name had not survived extraction, so no reviewer could see what they were
+agreeing to. It put a phytate of 1.63 mg on the page beside cowpea's real 550
+and 573. Re-pairing to B005 or B006 is a human's to bank.
 
 ## Problem three: AFCD carries ShareAlike, and a statement we do not ship
 

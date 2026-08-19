@@ -847,7 +847,6 @@
   "prep": "cooked",
   "matches": {
    "cofid-2021": "exact",
-   "ifct-2017": "proxy",
    "mext-2020": "exact"
   },
   "cells": {
@@ -941,27 +940,6 @@
     "sources": [
      "mext-2020",
      "cofid-2021"
-    ]
-   },
-   "phytate": {
-    "state": "measured",
-    "value": 1.63,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
-   "oxalate_insol": {
-    "state": "measured",
-    "value": 0.18,
-    "sources": [
-     "ifct-2017"
-    ]
-   },
-   "oxalate_sol": {
-    "state": "measured",
-    "value": 1.1,
-    "sources": [
-     "ifct-2017"
     ]
    }
   }

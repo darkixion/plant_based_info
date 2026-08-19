@@ -299,21 +299,19 @@ export function loadAttested() {
           { organicacids: "total_oa", citric: "citric", malic: "malic", quinic: "quinic", oxalate: "oxalic" });
   }
 
-  // IFCT, whose two tables share one code and one reviewed map.
-  const ifctMap = readCorpus("page-map-ifct.json");
-  if (ifctMap) {
-    const t11 = new Map((readCorpus("ifct-2017-table11.json") || []).map(r => [r.code, r]));
-    const t9 = new Map((readCorpus("ifct-2017-table9.json") || []).map(r => [r.code, r]));
-    for (const m of ifctMap) {
+  /* IFCT, quoted rather than carried. The two whole tables it used to read are
+     gone, for the licence reason LICENCES.md gives, so what is attested here is
+     the figures the page actually cites. The check is stronger for it: it now
+     reads the same rows the generator wrote, and a value with no row at all
+     fails rather than passing unexamined. */
+  const ifct = readCorpus("ifct-2017-cited.json");
+  if (ifct) {
+    for (const m of ifct.values) {
       const slug = evSlug(m.page, m.page_state);
       reach("ifct-2017", slug);
-      const a = t11.get(m.ifct_code);
-      if (a) put("ifct-2017", slug, "phytate", a.phytate_mg?.mean);
-      const b = t9.get(m.ifct_code);
-      if (b) {
-        put("ifct-2017", slug, "oxalate_sol", b.oxalate_soluble_mg?.mean ?? b.oxalate_soluble_mg);
-        put("ifct-2017", slug, "oxalate_insol", b.oxalate_insoluble_mg?.mean ?? b.oxalate_insoluble_mg);
-      }
+      put("ifct-2017", slug, "phytate", m.phytate_mg);
+      put("ifct-2017", slug, "oxalate_sol", m.oxalate_soluble_mg);
+      put("ifct-2017", slug, "oxalate_insol", m.oxalate_insoluble_mg);
     }
   }
 
