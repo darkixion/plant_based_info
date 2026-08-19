@@ -19,7 +19,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { gradeDerivation, reconcile, spanCell } from "./reconcile.mjs";
+import { reconcile, spanCell } from "./reconcile.mjs";
 import { biotinCell } from "./biotin.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -38,7 +38,6 @@ const ifct9 = rd("ifct-2017-table9.json");
 const ifct11By = Object.fromEntries(ifct11.map(r => [r.code, r]));
 const ifct9By = Object.fromEntries(ifct9.map(r => [r.code, r]));
 const cofid = rd("cofid-2021-plant.json");
-const afcd = rd("afcd-r3-plant.json");
 
 const CORPORA = {
   fibre:  rd("mext-2020-fibre.json"),
@@ -54,7 +53,7 @@ const BY_CODE = Object.fromEntries(Object.entries(CORPORA)
 const cnfMap = rd("page-map-cnf.json");
 const afcdMap = rd("page-map-afcd.json");
 const cnf = rd("cnf.json");
-const afcdDB = rd("afcd-r3-plant.json");
+const afcdDB = rd("afcd-r3-plant.json");  // the only read of it; indexed by key below
 const cnfBy = Object.fromEntries(cnf.map(r => [r.key, r]));
 const afcdKeyBy = Object.fromEntries(afcdDB.map(r => [r.key, r]));
 

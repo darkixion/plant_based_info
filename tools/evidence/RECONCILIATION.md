@@ -178,12 +178,25 @@ programmes, against 13 before this pass. Ten of the ranges carry a median,
 against 2 before.
 
 Running biotin as its own pass rather than inside MEXT's loop is also what
-grew coverage: a food MEXT never assayed can now still carry a biotin figure.
-Pistachios, pecans, walnuts, wholewheat pasta, brazil nuts, pine nuts and
-coconut gained one this way. And CoFID's `Tr` marker, which used to reach
-`parseFloat`, become `NaN` and vanish, is now carried through as the `trace`
-state: eight of the new cells are pearl barley, plums and the seven oils, less
-any overlap, each reporting a trace rather than nothing.
+grew coverage: a food MEXT never assayed can now still carry a biotin figure,
+and 40 foods with no MEXT mapping now do. Pistachios, pecans, walnuts,
+wholewheat pasta, brazil nuts, pine nuts and coconut were the first.
+
+CoFID's `Tr` marker, which used to reach `parseFloat`, become `NaN` and
+vanish, is now carried through as the `trace` state. Eight cells hold one:
+boiled pearl barley and the seven oils. Fat carries essentially no biotin and
+Britain assayed it and said so, which is a different statement from nobody
+having looked.
+
+**Raw plums is the case that shows what a trace is worth against a figure.**
+CoFID reports a trace and AFCD reports an analysed zero, and the cell reads 0
+citing AFCD alone. A zero is a measurement and a trace is not, so the zero
+decides the cell and the trace does not appear in it. The same choice was made
+deliberately for the oils in the other direction: AFCD holds analysed zeros for
+olive, peanut and soybean oil, and mapping them would have made three oils read
+0 while four identical oils read trace. That difference would have recorded
+which country assayed which oil, not a fact about oil, so only CoFID is mapped
+there and all seven read the same way.
 
 ## Status by component
 
