@@ -94,7 +94,9 @@ carries.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1728 | Chia seeds | biotin 24.45 n=1; chromium 8.5 n=1; molybdenum 35.5 n=1; iodine 0 n=1 | 18 | close |
+| 1728 | Chia seeds | biotin 24.45 n=1; chromium 8.5 n=1; molybdenum 35.5 n=1; iodine 0 n=1 | 28 | exact |
+| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 18 | proxy |
+| 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 18 | proxy |
 
 ### Flaxseed
 
@@ -106,22 +108,25 @@ carries.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 366 | Pumpkin, raw | iodine 0.15 n=3 | 18 | close |
-| 1507 | Pumpkin seed, dried | biotin 13.5 n=1; chromium 8 n=1; molybdenum 157.5 n=1; iodine 0 n=1 | 18 | close |
-| 422 | Pumpkin, canned | chromium 3 n=3; molybdenum 0 n=1 partial; iodine 0.7 n=4 | 3 | proxy |
+| 1507 | Pumpkin seed, dried | biotin 13.5 n=1; chromium 8 n=1; molybdenum 157.5 n=1; iodine 0 n=1 | 28 | exact |
+| 366 | Pumpkin, raw | iodine 0.15 n=3 | 18 | proxy |
+| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 18 | proxy |
 
 ### Sunflower seeds
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 18 | close |
+| 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 28 | exact |
+| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 18 | proxy |
+| 471 | Sesame seed, decorticated | biotin 17.6 n=1; chromium 6 n=1; molybdenum 145.5 n=1 | 18 | proxy |
 
 ### Sesame seeds
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 18 | close |
-| 471 | Sesame seed, decorticated | biotin 17.6 n=1; chromium 6 n=1; molybdenum 145.5 n=1 | 18 | close |
+| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 28 | exact |
+| 471 | Sesame seed, decorticated | biotin 17.6 n=1; chromium 6 n=1; molybdenum 145.5 n=1 | 28 | exact |
+| 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 18 | proxy |
 
 ### Spinach, raw
 
@@ -257,14 +262,12 @@ carries.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 2 | Apple, raw, all varieties | biotin 0.996 n=15; chromium 0.111133333333333 n=15 partial; molybdenum 0 n=2 partial; iodine 0.0978 n=15 partial | 18 | close |
-| 1882 | Apple cider, sugar added, alcohol<0.7% | biotin 0.088 n=1; chromium 0 n=2; iodine 0.923 n=10 | 10 | proxy |
 
 ### Pear, raw
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 9 | Pear, raw | biotin 0.447 n=10; chromium 0.0230833333333333 n=12 partial; molybdenum 0 n=2 partial; iodine 0.165083333333333 n=12 partial | 18 | close |
-| 1881 | Pear cider, sugar added, alcohol<0.7% | biotin 0.089 n=1; chromium 0 n=1; iodine 1.18333333333333 n=6 | 10 | proxy |
 | 1883 | Pear cider, artificial sweetener added, alcohol<0.7% | chromium 0 n=1; iodine 1.8425 n=4 | 10 | proxy |
 
 ### Cherries, sweet, raw
@@ -330,8 +333,8 @@ carries.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1853 | Peach, raw | biotin 0 n=8; chromium 0 n=8; molybdenum 1.9625 n=8; iodine 0 n=8 | 18 | close |
-| 1884 | Peach Icetea, sugar added | iodine 0.194 n=5 partial | 10 | proxy |
 | 1886 | Peach Icetea, artificial sweetener added | iodine 0.243 n=1 | 10 | proxy |
+| 1887 | Peach Icetea, sugar and artificial sweetener added | iodine 0.212 n=1 | 10 | proxy |
 
 ### Plums, raw
 
@@ -430,7 +433,6 @@ carries.
 |---|---|---|---|---|
 | 21 | Lemon, raw | chromium 0.2 n=5; iodine 0.3 n=3 | 18 | close |
 | 541 | Lemon sole, raw | chromium 1.8 n=1 | 18 | close |
-| 1885 | Lemon Icetea, sugar added | chromium 0 n=1; iodine 0 n=3 | 10 | proxy |
 
 ### Raisins
 
@@ -457,7 +459,9 @@ carries.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1292 | Poppy seeds | chromium 75.2 n=7 | 18 | close |
+| 1292 | Poppy seeds | chromium 75.2 n=7 | 28 | exact |
+| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 18 | proxy |
+| 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 18 | proxy |
 
 ### Peanut butter, smooth
 
@@ -471,9 +475,9 @@ carries.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 166 | Rye bread crumbs with brown sugar, average values | iodine 3.4 n=6 | 28 | exact |
 | 413 | Rye bread, light | biotin 3.35 n=2; chromium 5.07333333333333 n=3; molybdenum 10 n=7 partial; boron 90 n=7 | 28 | exact |
 | 418 | Rye bread, dark, pumpernickel | biotin 5 n=1; chromium 10.05 n=2 | 28 | exact |
+| 646 | Rye bread, dark with high fat seeds and whole kernels, industrially produced | biotin 7.34 n=5; chromium 7.95 n=18 | 28 | exact |
 
 ### Pumpernickel
 
@@ -543,7 +547,7 @@ carries.
 
 ## Nothing here rose above proxy
 
-67 page foods, listed because a reviewer needs to see that the search happened and
+68 page foods, listed because a reviewer needs to see that the search happened and
 came back empty rather than that it was skipped. Frida holds meat and dairy too, so
 some of these are a page food meeting a food it has nothing to do with.
 
@@ -622,8 +626,16 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1973 | Rice, boiled | biotin 0 n=2; chromium 0 n=2; molybdenum 19.5 n=2; iodine 0 n=2 | 18 | proxy |
-| 166 | Rye bread crumbs with brown sugar, average values | iodine 3.4 n=6 | 10 | proxy |
 | 876 | Sugar, brown | chromium 0 n=5 | 10 | proxy |
+| 1912 | Beer, brown ale, alc. 5-7 % by vol. | biotin 1.5 n=2; chromium 0 n=2; molybdenum 0 n=2; iodine 0 n=2 | 10 | proxy |
+
+### Hemp seeds, hulled
+
+| FoodID | Frida row | admits | score | grade |
+|---|---|---|---|---|
+| 370 | Sesame seeds, whole | biotin 14.15 n=1; chromium 12.5 n=1; molybdenum 140.5 n=1 | 18 | proxy |
+| 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 18 | proxy |
+| 471 | Sesame seed, decorticated | biotin 17.6 n=1; chromium 6 n=1; molybdenum 145.5 n=1 | 18 | proxy |
 
 ### Sweet potato, baked
 
@@ -1076,7 +1088,7 @@ database was asked and had nothing of its own to say.
 
 ## No Frida row reaches the food at all
 
-62 of 222. Preparation does most of this: the page's legumes and
+61 of 222. Preparation does most of this: the page's legumes and
 grains are cooked and Frida reports them dried, raw or frozen, which
 `scoreCandidate` refuses outright rather than ranking lower.
 
@@ -1095,7 +1107,6 @@ believing the absence**, and belongs in `ALIASES` when it is.
 - Quinoa, cooked
 - Buckwheat, cooked
 - Amaranth, cooked
-- Hemp seeds, hulled
 - Broccoli, cooked
 - Spirulina, dried
 - Brussels sprouts, cooked

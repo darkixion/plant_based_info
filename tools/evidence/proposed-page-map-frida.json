@@ -107,7 +107,7 @@
  "chia-seeds": {
   "food_id": "1728",
   "name": "Chia seeds",
-  "match": "close",
+  "match": "exact",
   "admits": [
    "biotin",
    "chromium",
@@ -124,17 +124,20 @@
   ]
  },
  "pumpkin-seeds": {
-  "food_id": "366",
-  "name": "Pumpkin, raw",
-  "match": "close",
+  "food_id": "1507",
+  "name": "Pumpkin seed, dried",
+  "match": "exact",
   "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
    "iodine"
   ]
  },
  "sunflower-seeds": {
   "food_id": "438",
   "name": "Sunflower seeds, decorticated, dried",
-  "match": "close",
+  "match": "exact",
   "admits": [
    "biotin",
    "chromium",
@@ -144,7 +147,7 @@
  "sesame-seeds": {
   "food_id": "370",
   "name": "Sesame seeds, whole",
-  "match": "close",
+  "match": "exact",
   "admits": [
    "biotin",
    "chromium",
@@ -614,7 +617,7 @@
  "poppy-seeds": {
   "food_id": "1292",
   "name": "Poppy seeds",
-  "match": "close",
+  "match": "exact",
   "admits": [
    "chromium"
   ]
@@ -628,11 +631,14 @@
   ]
  },
  "rye-bread": {
-  "food_id": "166",
-  "name": "Rye bread crumbs with brown sugar, average values",
+  "food_id": "413",
+  "name": "Rye bread, light",
   "match": "exact",
   "admits": [
-   "iodine"
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "boron"
   ]
  },
  "pumpernickel": {

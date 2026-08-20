@@ -572,6 +572,31 @@ test("a page food that says raw refuses a dried row", () => {
   if (!(nut > 0)) throw new Error(`a stateless nut still takes a dried row, got ${nut}`);
 });
 
+test("the word seeds is what tells a seed from the plant it came from", () => {
+  /* STOP held "seeds" and "kernels", and was checked before the stem rather
+     than after, so "seeds" was dropped and "seed" survived. "Pumpkin seeds"
+     therefore scored as "Pumpkin", tied with "Pumpkin, raw" at 18 and led the
+     vegetable, which admits iodine alone where the seed row admits all four.
+     A word that says which food this is was never a stop word. */
+  const seed = scoreCandidate("Pumpkin seeds", "", "Pumpkin seed, dried");
+  const plant = scoreCandidate("Pumpkin seeds", "", "Pumpkin, raw");
+  if (!(seed > plant)) throw new Error(`the seed ${seed} should beat the plant ${plant}`);
+});
+
+test("a row sweetened with brown sugar is not the plain food", () => {
+  /* The trap read "with sugar" and the row says "with brown sugar", so "Rye
+     bread crumbs with brown sugar" tied with every plain rye bread at 28 and
+     led them on file order. It admits iodine alone; the plain breads admit
+     biotin and chromium, and one of them admits boron. */
+  const bread = scoreCandidate("Rye bread", "", "Rye bread, light");
+  const crumbs = scoreCandidate("Rye bread", "", "Rye bread crumbs with brown sugar, average values");
+  if (!(bread > crumbs)) throw new Error(`the bread ${bread} should beat the crumbs ${crumbs}`);
+  /* And a sugar pea is not a sweetened food. The page has mangetout twice and
+     Frida names its row "Sugar pea (Snow pea, Mangetout) raw". */
+  const pea = scoreCandidate("Mangetout", "raw", "Sugar pea (Snow pea, Mangetout) raw");
+  if (!(pea > 0)) throw new Error(`a sugar pea should still score, got ${pea}`);
+});
+
 test("a row that says dried and boiled names a cooking method", () => {
   /* The review's "look twice" line warns when the leading row carries a word
      the page food does not, and it warned about "White beans, dried and

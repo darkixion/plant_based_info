@@ -92,7 +92,7 @@ export function biotinCell(rows) {
 const STOP = new Set(["and", "with", "the", "in", "or", "no", "added", "whole",
   "fresh", "weighed", "flesh", "only", "commercial", "average", "type",
   "unfortified", "regular", "unsalted", "salt", "water", "drained", "from",
-  "each", "per", "all", "kernels", "seeds"]);
+  "each", "per", "all"]);
 
 /* A crude stem: enough to pair "Chickpeas" with "Chickpea" and "Almonds" with
    "Almond" without pulling in a stemmer. Deliberately conservative, because a
@@ -107,8 +107,14 @@ const stem = w => w.length > 4 && w.endsWith("ies") ? `${w.slice(0, -3)}y`
   : w.length > 3 && w.endsWith("es") ? w.slice(0, -2)
   : w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w;
 
+/* Stopped on the stem rather than before it, or the list means one thing for a
+   singular and another for its plural. It held "seeds" and "kernels" and not
+   "seed" or "kernel", so "Pumpkin seeds" scored as "Pumpkin" and led the
+   vegetable, which admits iodine alone against the seed row's four. Both words
+   are gone from the list as well: a word that says which food this is was
+   never a word that says nothing. */
 const tokens = s => new Set(String(s).toLowerCase().split(/[^a-z]+/)
-  .filter(w => w.length > 2 && !STOP.has(w)).map(stem));
+  .filter(w => w.length > 2).map(stem).filter(w => !STOP.has(w)));
 
 const COOKED = ["cooked", "boiled", "baked", "roasted", "steamed", "grilled", "fried", "stewed"];
 const RAW = ["raw", "dried", "dry", "uncooked"];
@@ -156,7 +162,11 @@ const TRAPS = [
      proposal carried the drink. Frida names these EuroFIR-style rather than as
      milks, which is why the existing word did not catch them. */
   [/\boils?\b|\bbutter\b|\bmargarine\b|\bspread\b|\bpaste\b|\bflour\b|\bmilk\b|\bdrinks?\b|\bbeverage\b/, 35],
-  [/\bin syrup\b|\bsweetened\b|\bwith sugar\b/, 25],
+  /* "with sugar" did not read "with brown sugar", and "Rye bread crumbs with
+     brown sugar" then tied with every plain rye bread at 28 and led them all.
+     Not a bare /sugar/, which would take out Frida's "Sugar pea (Snow pea,
+     Mangetout) raw", the row that answers this page's mangetout. */
+  [/\bin syrup\b|\bsweetened\b|\bwith (brown |cane |raw )?sugar\b|\bsugar added\b/, 25],
   [/canned/, 15],
   [/\bsalted\b|\btoasted\b|\bsmoked\b/, 15],
   /* A dish containing the food is not the food. Peanut brittle led the
