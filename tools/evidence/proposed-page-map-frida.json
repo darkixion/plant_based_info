@@ -21,16 +21,6 @@
    "iodine"
   ]
  },
- "green-peas-cooked": {
-  "food_id": "1821",
-  "name": "Peas, green, frozen",
-  "match": "close",
-  "admits": [
-   "biotin",
-   "chromium",
-   "molybdenum"
-  ]
- },
  "tofu-firm": {
   "food_id": "272",
   "name": "Tofu, soy bean curd",
@@ -125,6 +115,14 @@
    "iodine"
   ]
  },
+ "flaxseed": {
+  "food_id": "149",
+  "name": "Linseeds, raw",
+  "match": "close",
+  "admits": [
+   "chromium"
+  ]
+ },
  "pumpkin-seeds": {
   "food_id": "366",
   "name": "Pumpkin, raw",
@@ -173,17 +171,6 @@
    "iodine"
   ]
  },
- "sweet-potato-baked": {
-  "food_id": "1840",
-  "name": "Sweet potato fries, frozen",
-  "match": "close",
-  "admits": [
-   "biotin",
-   "chromium",
-   "molybdenum",
-   "iodine"
-  ]
- },
  "mushrooms-white-raw": {
   "food_id": "961",
   "name": "Mushroom, raw",
@@ -214,9 +201,9 @@
    "iodine"
   ]
  },
- "brussels-sprouts-cooked": {
-  "food_id": "1825",
-  "name": "Brussel sprouts, frozen",
+ "blackberries-raw": {
+  "food_id": "1849",
+  "name": "Blackberry, raw",
   "match": "close",
   "admits": [
    "biotin",
@@ -246,13 +233,14 @@
   ]
  },
  "haricot-beans-cooked": {
-  "food_id": "1822",
-  "name": "Green beans (haricots verts), frozen",
-  "match": "close",
+  "food_id": "1815",
+  "name": "White beans, dried and boiled",
+  "match": "exact",
   "admits": [
    "biotin",
    "chromium",
-   "molybdenum"
+   "molybdenum",
+   "iodine"
   ]
  },
  "pine-nuts-dried": {
@@ -287,8 +275,8 @@
   ]
  },
  "strawberries-raw": {
-  "food_id": "1819",
-  "name": "Strawberries, frozen",
+  "food_id": "1",
+  "name": "Strawberry, raw",
   "match": "close",
   "admits": [
    "biotin",
@@ -317,6 +305,17 @@
    "iodine"
   ]
  },
+ "raspberries-raw": {
+  "food_id": "1850",
+  "name": "Raspberry, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
  "mango-raw": {
   "food_id": "1859",
   "name": "Mango, raw",
@@ -329,11 +328,13 @@
   ]
  },
  "apricots-raw": {
-  "food_id": "458",
-  "name": "Apricot, dried",
+  "food_id": "1851",
+  "name": "Apricot, raw",
   "match": "close",
   "admits": [
-   "chromium"
+   "biotin",
+   "chromium",
+   "molybdenum"
   ]
  },
  "apple-raw-with-skin": {
@@ -350,6 +351,17 @@
  "pear-raw": {
   "food_id": "9",
   "name": "Pear, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "cherries-sweet-raw": {
+  "food_id": "1854",
+  "name": "Cherry, raw",
   "match": "close",
   "admits": [
    "biotin",
@@ -430,18 +442,22 @@
   ]
  },
  "peaches-raw": {
-  "food_id": "1276",
-  "name": "Peach, dried",
+  "food_id": "1853",
+  "name": "Peach, raw",
   "match": "close",
   "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
    "iodine"
   ]
  },
  "plums-raw": {
-  "food_id": "221",
-  "name": "Prune, dried plum",
+  "food_id": "1852",
+  "name": "Plum, raw",
   "match": "close",
   "admits": [
+   "biotin",
    "chromium",
    "molybdenum",
    "iodine"
@@ -503,16 +519,6 @@
    "molybdenum"
   ]
  },
- "green-beans-cooked": {
-  "food_id": "1822",
-  "name": "Green beans (haricots verts), frozen",
-  "match": "close",
-  "admits": [
-   "biotin",
-   "chromium",
-   "molybdenum"
-  ]
- },
  "wheat-bran": {
   "food_id": "617",
   "name": "Wheat bran",
@@ -565,15 +571,6 @@
    "biotin",
    "chromium",
    "molybdenum",
-   "iodine"
-  ]
- },
- "fig-raw": {
-  "food_id": "348",
-  "name": "Fig, dried",
-  "match": "close",
-  "admits": [
-   "chromium",
    "iodine"
   ]
  },
@@ -645,6 +642,15 @@
   "admits": [
    "biotin",
    "chromium"
+  ]
+ },
+ "elderberries-raw": {
+  "food_id": "28",
+  "name": "Elderberry, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
   ]
  },
  "broccoli-raw": {

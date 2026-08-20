@@ -96,8 +96,15 @@ const STOP = new Set(["and", "with", "the", "in", "or", "no", "added", "whole",
 
 /* A crude stem: enough to pair "Chickpeas" with "Chickpea" and "Almonds" with
    "Almond" without pulling in a stemmer. Deliberately conservative, because a
-   stem that over-merges invents matches a reviewer then has to catch. */
-const stem = w => w.length > 3 && w.endsWith("es") ? w.slice(0, -2)
+   stem that over-merges invents matches a reviewer then has to catch.
+
+   The -ies rule is not decoration. Without it "Strawberries" stemmed to
+   "strawberri" while "Strawberry" stemmed to itself, so Frida's "Strawberry,
+   raw" scored zero against this page's strawberries and never reached review;
+   the frozen row led on n=2 where the raw row holds n=7 to 10. Every berry on
+   this page was one letter from the same fate. */
+const stem = w => w.length > 4 && w.endsWith("ies") ? `${w.slice(0, -3)}y`
+  : w.length > 3 && w.endsWith("es") ? w.slice(0, -2)
   : w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w;
 
 const tokens = s => new Set(String(s).toLowerCase().split(/[^a-z]+/)
@@ -105,6 +112,27 @@ const tokens = s => new Set(String(s).toLowerCase().split(/[^a-z]+/)
 
 const COOKED = ["cooked", "boiled", "baked", "roasted", "steamed", "grilled", "fried", "stewed"];
 const RAW = ["raw", "dried", "dry", "uncooked"];
+
+/* On a word boundary, for the reason the traps below carry one: without it
+   "st-raw-berries" tested as a raw row, so "Strawberries, frozen" scored level
+   with "Strawberry, raw" and led it on corpus order. The same substring sits
+   in strawberry jam, strawberry ice cream and every straw-named row Frida
+   holds, and none of them is a raw food. */
+const says = (list, text) => list.some(w => new RegExp(`\\b${w}\\b`).test(text));
+
+/* The two halves of RAW, kept apart for the one test that needs them apart. */
+const SAYS_RAW = ["raw", "uncooked"];
+const DRIED = ["dried", "dry"];
+const FROZEN = ["frozen"];
+
+/** Whether a source row names a cooking method at all. Exported because
+ *  tools/frida.mjs's review needs it and must ask the same question this
+ *  scorer does: its "look twice" line warned that "White beans, dried and
+ *  boiled" says dried where the page food says cooked, of the one row that
+ *  answers a cooked page food.
+ *
+ *  @param {string} row the source row's own name */
+export const namesCooking = row => says(COOKED, String(row).toLowerCase());
 
 /* Rows whose figure is on a different basis, or whose food is a different
    food, and which score well on words alone. Each of these was seen in the
@@ -135,11 +163,32 @@ const TRAPS = [
      peanut candidates at 24 ug where the kernel row holds 72, and a figure
      for brittle is a figure for its sugar and butter as much as for its
      peanuts. */
-  [/\b(brittle|yogurt|yoghurt|biscuit|cereal|bhaji|confectioner|chocolate|cake|brownie|pie|pudding|curry|soup|salad|sandwich|toast|takeaway|homemade|roast)\b/, 35],
+  [/\b(brittle|yogurt|yoghurt|biscuit|cereal|bhaji|confectioner|chocolate|cake|brownie|pie|pudding|curry|soup|salad|sandwich|toast|takeaway|homemade|roast|sauce)\b/, 35],
 ];
+
+/* A name scorer cannot see through a synonym, and this page names its foods in
+   British English where the tables do not. Every entry here is a fact about
+   vocabulary rather than a judgement about a pairing: the alias only lets a row
+   reach the review, and a person still decides it.
+
+   Flaxseed is Frida's "Linseeds, raw", which admits a chromium determination
+   and which no scorer will ever find; the old unreviewed map held that pairing
+   and this search could not. Haricot beans are Denmark's white beans, and
+   Frida's own "Green beans (haricots verts)" is a different bean that beat the
+   right row two shared words to one.
+
+   Keyed on the page food's whole name, not a word of it, so nothing here can
+   fire on a food it was not written for. */
+const ALIASES = new Map([
+  ["flaxseed", ["Linseed"]],
+  ["haricot beans", ["White beans"]],
+]);
+
+const aliasesOf = name => ALIASES.get(String(name).toLowerCase().trim()) ?? [];
 
 /**
  * How well a source row matches a page food. Zero or below means no candidate.
+ * Scored under the page food's own name and any synonym, best answer winning.
  *
  * @param {string} name page food name, "Chickpeas"
  * @param {string} state page food state, "cooked" or ""
@@ -147,6 +196,11 @@ const TRAPS = [
  * @returns {number}
  */
 export function scoreCandidate(name, state, row) {
+  return [name, ...aliasesOf(name)]
+    .reduce((best, n) => Math.max(best, scoreOne(n, state, row)), 0);
+}
+
+function scoreOne(name, state, row) {
   const want = tokens(name), have = tokens(row);
   let shared = 0;
   for (const w of want) if (have.has(w)) shared++;
@@ -154,10 +208,11 @@ export function scoreCandidate(name, state, row) {
 
   let score = shared * 10;
   const low = String(row).toLowerCase();
-  const wantsCooked = COOKED.some(w => String(state).toLowerCase().includes(w));
-  const wantsRaw = RAW.some(w => String(state).toLowerCase().includes(w));
-  const rowCooked = COOKED.some(w => low.includes(w));
-  const rowRaw = RAW.some(w => low.includes(w)) && !rowCooked;
+  const said = String(state).toLowerCase();
+  const wantsCooked = says(COOKED, said);
+  const wantsRaw = says(RAW, said);
+  const rowCooked = says(COOKED, low);
+  const rowRaw = says(RAW, low) && !rowCooked;
 
   if (wantsCooked && rowCooked) score += 8;
   if (wantsRaw && rowRaw) score += 8;
@@ -177,6 +232,20 @@ export function scoreCandidate(name, state, row) {
      measurement. It takes the candidate out rather than ranking it lower. */
   if (wantsCooked && rowRaw) return 0;
   if (wantsRaw && rowCooked) return 0;
+  /* RAW holds raw and dried together, which is right for a page food carrying
+     no state, where "dried" is only Frida's house style for a nut. It is wrong
+     for one that says raw: Frida holds both forms of apricot, peach, plum and
+     fig, and the dried row led all four, because the two scored level and the
+     dried one came first in the file. Dried apricot's chromium is 80 where the
+     raw row's is 0. A row that says both, as "Brazil nuts, dried, raw" does,
+     is a nut sold dried rather than a food dried, and stays. */
+  if (says(SAYS_RAW, said) && says(DRIED, low) && !says(SAYS_RAW, low)) return 0;
+  /* Frozen is blanched, not cooked, and Frida has no cooked row for green
+     peas, brussels sprouts or green beans; its frozen one led all three, and
+     "Sweet potato fries, frozen" led sweet potato baked. Neither is the food
+     the page names. A row that freezes something already cooked says so and
+     keeps its bonus above, so this only takes the ones that claim nothing. */
+  if (wantsCooked && !rowCooked && says(FROZEN, low)) return 0;
 
   for (const [re, penalty] of TRAPS)
     if (re.test(low) && !re.test(String(name).toLowerCase())) score -= penalty;
@@ -192,10 +261,19 @@ export function scoreCandidate(name, state, row) {
  *
  *  @returns {{ shared: number, of: number }} */
 export function sharedTokens(name, row) {
-  const want = tokens(name), have = tokens(row);
-  let shared = 0;
-  for (const w of want) if (have.has(w)) shared++;
-  return { shared, of: want.size };
+  const count = n => {
+    const want = tokens(n), have = tokens(row);
+    let shared = 0;
+    for (const w of want) if (have.has(w)) shared++;
+    return { shared, of: want.size };
+  };
+  /* Under a synonym too, and the most complete answer wins, for the reason
+     scoreCandidate does the same: grading "Haricot beans" against "White
+     beans, dried and boiled" on the page's own words alone finds one word of
+     two and calls a right pairing a proxy. */
+  return [name, ...aliasesOf(name)]
+    .map(count)
+    .reduce((best, c) => c.shared / c.of > best.shared / best.of ? c : best);
 }
 
 /* A grade is a claim about the pair, and the reviewer's to make. This suggests

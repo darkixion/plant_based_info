@@ -40,16 +40,6 @@ carries.
 | 1816 | Beans, red kidney, dried and boiled | biotin 4.78 n=1; chromium 0 n=1; molybdenum 13 n=1; iodine 0 n=1 | 28 | exact |
 | 1809 | Chili beans (red kidney beans in chilisauce) | biotin 3.4 n=2; chromium 0 n=2; molybdenum 85 n=2; iodine 0 n=2 | 20 | close |
 
-### Green peas, cooked
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 1821 | Peas, green, frozen | biotin 6.085 n=2; chromium 4.9 n=2; molybdenum 47.5 n=2 | 20 | close |
-| 1789 | Cold cuts, with soy and pea protein | biotin 4.63333333333333 n=6; chromium 0.833333333333333 n=6 partial; molybdenum 22.6666666666667 n=6; iodine 33 n=6 | 10 | proxy |
-| 1790 | Mince, with pea protein | biotin 9.63666666666666 n=6; chromium 7.66666666666667 n=6; molybdenum 51.5 n=6; iodine 0 n=6 | 10 | proxy |
-
-**Look twice.** The leading row says *frozen* where the page food says *cooked*.
-
 ### Tofu, firm
 
 | FoodID | Frida row | admits | score | grade |
@@ -58,15 +48,11 @@ carries.
 
 ### Seitan
 
-The old map held **1784, "Seitan"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1784 | Seitan | biotin 5.6925 n=8; chromium 4 n=8 partial; molybdenum 31.125 n=8; iodine 10 n=8 partial | 18 | close |
 
 ### Almonds
-
-The old map held **35, "Almond, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -74,15 +60,11 @@ The old map held **35, "Almond, raw"**. It was never reviewed.
 
 ### Walnuts
 
-The old map held **647, "Walnuts, dried"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 647 | Walnuts, dried | biotin 18 n=1; chromium 0 n=1; molybdenum 19.5 n=1; iodine 0 n=1 | 18 | close |
 
 ### Peanuts
-
-The old map held **150, "Peanut, dried"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -90,15 +72,11 @@ The old map held **150, "Peanut, dried"**. It was never reviewed.
 
 ### Pistachios
 
-The old map held **328, "Pistachio nuts, dried"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 328 | Pistachio nuts, dried | biotin 45.5 n=1; chromium 0 n=1; molybdenum 16.5 n=1; iodine 0 n=1 | 18 | close |
 
 ### Brazil nuts
-
-The old map held **692, "Brazil nuts, dried, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -108,23 +86,23 @@ The old map held **692, "Brazil nuts, dried, raw"**. It was never reviewed.
 
 ### Hazelnuts
 
-The old map held **302, "Hazelnut, dried"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 302 | Hazelnut, dried | biotin 87.75 n=1; chromium 0 n=1; molybdenum 7.15 n=1; iodine 0.333333333333333 n=6 | 18 | close |
 
 ### Chia seeds
 
-The old map held **1728, "Chia seeds"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1728 | Chia seeds | biotin 24.45 n=1; chromium 8.5 n=1; molybdenum 35.5 n=1; iodine 0 n=1 | 18 | close |
 
-### Pumpkin seeds
+### Flaxseed
 
-The old map held **1507, "Pumpkin seed, dried"**. It was never reviewed.
+| FoodID | Frida row | admits | score | grade |
+|---|---|---|---|---|
+| 149 | Linseeds, raw | chromium 2.3 n=10 | 18 | close |
+
+### Pumpkin seeds
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -134,15 +112,11 @@ The old map held **1507, "Pumpkin seed, dried"**. It was never reviewed.
 
 ### Sunflower seeds
 
-The old map held **438, "Sunflower seeds, decorticated, dried"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 438 | Sunflower seeds, decorticated, dried | biotin 99.8 n=1; chromium 0 n=1; molybdenum 38 n=1 | 18 | close |
 
 ### Sesame seeds
-
-The old map held **370, "Sesame seeds, whole"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -150,8 +124,6 @@ The old map held **370, "Sesame seeds, whole"**. It was never reviewed.
 | 471 | Sesame seed, decorticated | biotin 17.6 n=1; chromium 6 n=1; molybdenum 145.5 n=1 | 18 | close |
 
 ### Spinach, raw
-
-The old map held **50, "Spinach, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -161,35 +133,19 @@ The old map held **50, "Spinach, raw"**. It was never reviewed.
 
 ### Kale, raw
 
-The old map held **23, "Kale, raw"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 23 | Kale, raw | chromium 8.3 n=44; iodine 1.4 n=3 | 18 | close |
 | 1391 | Kale, Danish, raw | biotin 7 n=8; chromium 0 n=8; molybdenum 47.5 n=8; iodine 0 n=8 | 18 | close |
 | 888 | Kale, frozen | biotin 2.89 n=8; chromium 4 n=8; molybdenum 16.2875 n=8; iodine 0 n=8 | 10 | proxy |
 
-### Sweet potato, baked
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 1840 | Sweet potato fries, frozen | biotin 5.65 n=2; chromium 4.4 n=2; molybdenum 7.3 n=2; iodine 0 n=2 | 20 | close |
-| 903 | Sweets, boiled | molybdenum 0 n=4 partial | 18 | proxy |
-| 132 | Potato crisps, coarse | biotin 1.3 n=18; chromium 18 n=18; iodine 0 n=18 | 10 | proxy |
-
-**Look twice.** The leading row says *frozen* and *fries* where the page food says *baked*.
-
 ### Mushrooms, white, raw
-
-The old map held **961, "Mushroom, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 961 | Mushroom, raw | chromium 0 n=8; molybdenum 1.2375 n=8; iodine 0 n=8 | 18 | close |
 
 ### Avocado
-
-The old map held **616, "Avocado, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
@@ -198,19 +154,15 @@ The old map held **616, "Avocado, raw"**. It was never reviewed.
 
 ### Banana
 
-The old map held **3, "Banana, raw"**. It was never reviewed.
-
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 3 | Banana, raw | biotin 1.57 n=10; chromium 0 n=10; iodine 0.0477 n=10 partial | 18 | close |
 
-### Brussels sprouts, cooked
+### Blackberries, raw
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1825 | Brussel sprouts, frozen | biotin 7.18 n=2; chromium 1.35 n=2 partial; molybdenum 7.5 n=2; iodine 0 n=2 | 20 | close |
-
-**Look twice.** The leading row says *frozen* where the page food says *cooked*.
+| 1849 | Blackberry, raw | biotin 1.055 n=8; chromium 0 n=8; molybdenum 10.8125 n=8; iodine 0 n=8 | 18 | close |
 
 ### Kiwi, raw
 
@@ -230,11 +182,9 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1822 | Green beans (haricots verts), frozen | biotin 4.63 n=2; chromium 9.3 n=2; molybdenum 26.5 n=2 | 20 | close |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 28 | exact |
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
-
-**Look twice.** The leading row says *frozen* where the page food says *cooked*.
+| 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
 
 ### Pine nuts, dried
 
@@ -263,9 +213,9 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1819 | Strawberries, frozen | biotin 2.45 n=2; chromium 2.3 n=2; molybdenum 5.3 n=2; iodine 0 n=2 | 18 | close |
-
-**Look twice.** The leading row says *frozen* where the page food says *raw*.
+| 1 | Strawberry, raw | biotin 0.701428571428571 n=7; chromium 0.069 n=10 partial; molybdenum 0 n=2 partial; iodine 0.0503 n=10 partial | 18 | close |
+| 1819 | Strawberries, frozen | biotin 2.45 n=2; chromium 2.3 n=2; molybdenum 5.3 n=2; iodine 0 n=2 | 10 | proxy |
+| 1924 | Strawberry ice cream | biotin 1.9 n=2; chromium 4.8 n=2; molybdenum 5.5 n=2; iodine 12.5 n=2 | 10 | proxy |
 
 ### Dried figs, dried
 
@@ -281,6 +231,14 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 |---|---|---|---|---|
 | 1856 | Grapefruit, raw | biotin 0 n=8; chromium 0 n=8; molybdenum 0.6875 n=8 partial; iodine 3.125 n=8 partial | 18 | close |
 
+### Raspberries, raw
+
+| FoodID | Frida row | admits | score | grade |
+|---|---|---|---|---|
+| 1850 | Raspberry, raw | biotin 3.71375 n=8; chromium 0 n=8; molybdenum 7.6375 n=8; iodine 0 n=8 | 18 | close |
+| 1818 | Raspberries, frozen | biotin 6.2 n=2; chromium 0 n=2; molybdenum 1.65 n=2 partial; iodine 0 n=2 | 10 | proxy |
+| 1927 | Sorbet, raspberry | biotin 2.25 n=2; chromium 5.05 n=2; molybdenum 1.35 n=2; iodine 0 n=2 | 10 | proxy |
+
 ### Mango, raw
 
 | FoodID | Frida row | admits | score | grade |
@@ -292,17 +250,13 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 458 | Apricot, dried | chromium 80 n=2 | 18 | close |
 | 1851 | Apricot, raw | biotin 0 n=6; chromium 0 n=6; molybdenum 0.566666666666667 n=6 partial | 18 | close |
-
-**Look twice.** The leading row says *dried* where the page food says *raw*.
 
 ### Apple, raw, with skin
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 2 | Apple, raw, all varieties | biotin 0.996 n=15; chromium 0.111133333333333 n=15 partial; molybdenum 0 n=2 partial; iodine 0.0978 n=15 partial | 18 | close |
-| 1166 | Apple, dried | iodine 0.8 n=3 | 18 | close |
 | 1882 | Apple cider, sugar added, alcohol<0.7% | biotin 0.088 n=1; chromium 0 n=2; iodine 0.923 n=10 | 10 | proxy |
 
 ### Pear, raw
@@ -312,6 +266,12 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 | 9 | Pear, raw | biotin 0.447 n=10; chromium 0.0230833333333333 n=12 partial; molybdenum 0 n=2 partial; iodine 0.165083333333333 n=12 partial | 18 | close |
 | 1881 | Pear cider, sugar added, alcohol<0.7% | biotin 0.089 n=1; chromium 0 n=1; iodine 1.18333333333333 n=6 | 10 | proxy |
 | 1883 | Pear cider, artificial sweetener added, alcohol<0.7% | chromium 0 n=1; iodine 1.8425 n=4 | 10 | proxy |
+
+### Cherries, sweet, raw
+
+| FoodID | Frida row | admits | score | grade |
+|---|---|---|---|---|
+| 1854 | Cherry, raw | biotin 0 n=6; chromium 1 n=6 partial; molybdenum 1.23333333333333 n=6; iodine 0 n=6 | 18 | close |
 
 ### Pineapple, raw
 
@@ -369,20 +329,15 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1276 | Peach, dried | iodine 2.8 n=3 | 18 | close |
 | 1853 | Peach, raw | biotin 0 n=8; chromium 0 n=8; molybdenum 1.9625 n=8; iodine 0 n=8 | 18 | close |
 | 1884 | Peach Icetea, sugar added | iodine 0.194 n=5 partial | 10 | proxy |
-
-**Look twice.** The leading row says *dried* where the page food says *raw*.
+| 1886 | Peach Icetea, artificial sweetener added | iodine 0.243 n=1 | 10 | proxy |
 
 ### Plums, raw
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 221 | Prune, dried plum | chromium 0.3 n=1; molybdenum 0 n=1 partial; iodine 0.8 n=4 | 18 | close |
 | 1852 | Plum, raw | biotin 0 n=8; chromium 0 n=8; molybdenum 0.6625 n=8 partial; iodine 0 n=8 | 18 | close |
-
-**Look twice.** The leading row says *dried* where the page food says *raw*.
 
 ### Rocket, raw
 
@@ -430,16 +385,6 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 | 352 | Pop corn, oil and salt added | biotin 6.1 n=20; chromium 7 n=20; iodine 0 n=20 | 18 | proxy |
 | 704 | Coconut meat, desiccated | biotin 8.45 n=1; chromium 5.86363636363636 n=11; molybdenum 18.5 n=1; iodine 0 n=1 | 18 | proxy |
 
-### Green beans, cooked
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 1822 | Green beans (haricots verts), frozen | biotin 4.63 n=2; chromium 9.3 n=2; molybdenum 26.5 n=2 | 20 | close |
-| 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
-
-**Look twice.** The leading row says *frozen* where the page food says *cooked*.
-
 ### Wheat bran
 
 | FoodID | Frida row | admits | score | grade |
@@ -478,14 +423,6 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 |---|---|---|---|---|
 | 1857 | Melon, honeydew, raw | biotin 0.61375 n=8 partial; chromium 0 n=8; molybdenum 0.4125 n=8 partial; iodine 2.875 n=8 partial | 28 | exact |
 | 1694 | Galia melon, raw | biotin 0.1775 n=8 partial; chromium 0 n=8; molybdenum 1.1625 n=8; iodine 0 n=8 | 18 | proxy |
-
-### Fig, raw
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 348 | Fig, dried | chromium 0.069 n=1; iodine 1.1 n=3 | 18 | close |
-
-**Look twice.** The leading row says *dried* where the page food says *raw*.
 
 ### Lemon, raw
 
@@ -544,6 +481,12 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 |---|---|---|---|---|
 | 418 | Rye bread, dark, pumpernickel | biotin 5 n=1; chromium 10.05 n=2 | 18 | close |
 
+### Elderberries, raw
+
+| FoodID | Frida row | admits | score | grade |
+|---|---|---|---|---|
+| 28 | Elderberry, raw | chromium 4.1 n=10; iodine 2.5 n=4 | 18 | close |
+
 ### Broccoli, raw
 
 | FoodID | Frida row | admits | score | grade |
@@ -600,7 +543,7 @@ The old map held **3, "Banana, raw"**. It was never reviewed.
 
 ## Nothing here rose above proxy
 
-69 page foods, listed because a reviewer needs to see that the search happened and
+67 page foods, listed because a reviewer needs to see that the search happened and
 came back empty rather than that it was skipped. Frida holds meat and dairy too, so
 some of these are a page food meeting a food it has nothing to do with.
 
@@ -615,16 +558,16 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Pinto beans, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Split peas, cooked
 
@@ -639,22 +582,24 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
-### Edamame, cooked
+### Green peas, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1806 | Edamame beans (Soy beans), shelled, frozen | biotin 13.7 n=2; chromium 0 n=2; molybdenum 130 n=2; iodine 0 n=2 | 10 | proxy |
+| 1789 | Cold cuts, with soy and pea protein | biotin 4.63333333333333 n=6; chromium 0.833333333333333 n=6 partial; molybdenum 22.6666666666667 n=6; iodine 33 n=6 | 10 | proxy |
+| 1790 | Mince, with pea protein | biotin 9.63666666666666 n=6; chromium 7.66666666666667 n=6; molybdenum 51.5 n=6; iodine 0 n=6 | 10 | proxy |
+| 1791 | Sausage, with pea protein | biotin 12.3333333333333 n=6; chromium 8.66666666666667 n=6; molybdenum 55.3333333333333 n=6; iodine 9.5 n=6 | 10 | proxy |
 
 ### Lupin beans, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Soy milk, unsweetened
 
@@ -676,15 +621,17 @@ some of these are a page food meeting a food it has nothing to do with.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1271 | Rice, parboiled, raw | chromium 1.2 n=20; molybdenum 40 n=4 | 18 | proxy |
 | 1973 | Rice, boiled | biotin 0 n=2; chromium 0 n=2; molybdenum 19.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 166 | Rye bread crumbs with brown sugar, average values | iodine 3.4 n=6 | 10 | proxy |
+| 876 | Sugar, brown | chromium 0 n=5 | 10 | proxy |
 
-### Broccoli, cooked
+### Sweet potato, baked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1824 | Broccoli, frozen | biotin 5.56 n=2; chromium 3.4 n=2; molybdenum 4.55 n=2; iodine 0 n=2 | 10 | proxy |
+| 903 | Sweets, boiled | molybdenum 0 n=4 partial | 18 | proxy |
+| 132 | Potato crisps, coarse | biotin 1.3 n=18; chromium 18 n=18; iodine 0 n=18 | 10 | proxy |
+| 199 | Pearl-sago (potato starch) | chromium 3 n=3; molybdenum 0 n=3 partial; iodine 0.7 n=4 | 10 | proxy |
 
 ### Nutritional yeast
 
@@ -710,7 +657,6 @@ some of these are a page food meeting a food it has nothing to do with.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1271 | Rice, parboiled, raw | chromium 1.2 n=20; molybdenum 40 n=4 | 18 | proxy |
 | 1973 | Rice, boiled | biotin 0 n=2; chromium 0 n=2; molybdenum 19.5 n=2; iodine 0 n=2 | 18 | proxy |
 
 ### Jerusalem artichokes, raw
@@ -730,24 +676,24 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Butter beans, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Adzuki beans, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Black-eyed peas, cooked
 
@@ -770,29 +716,22 @@ some of these are a page food meeting a food it has nothing to do with.
 |---|---|---|---|---|
 | 199 | Pearl-sago (potato starch) | chromium 3 n=3; molybdenum 0 n=3 partial; iodine 0.7 n=4 | 10 | proxy |
 | 1730 | Pearled barley | biotin 5.75 n=1; chromium 0 n=1; molybdenum 70 n=1 | 10 | proxy |
-| 1837 | Pearl onion. frozen | biotin 1.4 n=2; chromium 0 n=2; molybdenum 2.9 n=2; iodine 0 n=2 | 10 | proxy |
 
 ### Bulgur wheat, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 283 | Bulgur, parboiled, raw | biotin 4.3 n=1; chromium 20.5 n=1; molybdenum 63 n=1 | 18 | proxy |
 | 189 | Wheat, kernels, whole/cracked | chromium 1.2 n=34; molybdenum 20 n=7; iodine 2.7 n=9 | 10 | proxy |
 | 615 | Wheat bread, with whole kernels | chromium 5.5 n=24 | 10 | proxy |
+| 617 | Wheat bran | biotin 24 n=4; chromium 4.4 n=2; molybdenum 20 n=10; iodine 2.4 n=13; boron 270 n=10 | 10 | proxy |
 
 ### Broad beans, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
-
-### Cauliflower, cooked
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 1823 | Cauliflower, frozen | biotin 4.015 n=2; chromium 1 n=2 partial; molybdenum 2.9 n=2; iodine 0 n=2 | 10 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Potato, baked, with skin
 
@@ -813,14 +752,7 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 88 | Nut, coco, raw | chromium 1.4 n=5; iodine 0.3 n=4 | 18 | proxy |
-| 328 | Pistachio nuts, dried | biotin 45.5 n=1; chromium 0 n=1; molybdenum 16.5 n=1; iodine 0 n=1 | 18 | proxy |
 | 692 | Brazil nuts, dried, raw | iodine 0.05 n=2 | 18 | proxy |
-
-### Raspberries, raw
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 1818 | Raspberries, frozen | biotin 6.2 n=2; chromium 0 n=2; molybdenum 1.65 n=2 partial; iodine 0 n=2 | 10 | proxy |
 
 ### Bell pepper, green, raw
 
@@ -846,18 +778,13 @@ some of these are a page food meeting a food it has nothing to do with.
 | 38 | Pepper, sweet, red, raw | biotin 1.62866666666667 n=6; chromium 0.116142857142857 n=7 partial; molybdenum 70 n=2; iodine 0.144 n=7 partial | 18 | proxy |
 | 1721 | Pepper, sweet, yellow, raw | biotin 1.787 n=2; chromium 0 n=2; molybdenum 0.7 n=1; iodine 0.1015 n=2 partial | 18 | proxy |
 
-### Leeks, cooked
-
-| FoodID | Frida row | admits | score | grade |
-|---|---|---|---|---|
-| 1833 | Leek, frozen | biotin 1.935 n=2; chromium 17.5 n=2; molybdenum 5.35 n=2; iodine 0 n=2 | 10 | proxy |
-
 ### Spring onions, raw
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 716 | Onion, raw | biotin 0.953571428571429 n=14; chromium 0 n=14; molybdenum 0 n=1 partial; iodine 0.152642857142857 n=14 partial | 18 | proxy |
 | 1837 | Pearl onion. frozen | biotin 1.4 n=2; chromium 0 n=2; molybdenum 2.9 n=2; iodine 0 n=2 | 10 | proxy |
+| 1972 | Spring roll with vegetables, deepfried, fast food | biotin 1.69 n=2; chromium 0 n=2; molybdenum 12 n=2; iodine 3 n=2 partial | 10 | proxy |
 
 ### Ginger root, raw
 
@@ -902,8 +829,8 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Goji berries, dried
 
@@ -967,6 +894,14 @@ some of these are a page food meeting a food it has nothing to do with.
 | 1382 | Sunflower oil | chromium 3.8 n=1 | 18 | proxy |
 | 1396 | Cod liver oil | iodine 400 n=2 | 18 | proxy |
 
+### Green beans, cooked
+
+| FoodID | Frida row | admits | score | grade |
+|---|---|---|---|---|
+| 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
+| 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
+
 ### Pigeon peas, cooked
 
 | FoodID | Frida row | admits | score | grade |
@@ -980,16 +915,16 @@ some of these are a page food meeting a food it has nothing to do with.
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Moth beans, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
 | 1075 | Coffee bean, roasted, ground | chromium 10 n=13; iodine 0.5 n=2 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1811 | Beans, red kidney, cooked, ready to eat | biotin 4.85 n=2; chromium 13 n=2; molybdenum 205 n=2; iodine 0 n=2 | 18 | proxy |
+| 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
 
 ### Spelt, cooked
 
@@ -1001,9 +936,9 @@ some of these are a page food meeting a food it has nothing to do with.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1271 | Rice, parboiled, raw | chromium 1.2 n=20; molybdenum 40 n=4 | 18 | proxy |
-| 1808 | Baked beans (white beans in tomato sauce) | biotin 3.7 n=2; chromium 0 n=2; molybdenum 14.5 n=2; iodine 0 n=2 | 18 | proxy |
 | 1815 | White beans, dried and boiled | biotin 5.43 n=1; chromium 0 n=1; molybdenum 17 n=1; iodine 0 n=1 | 18 | proxy |
+| 1973 | Rice, boiled | biotin 0 n=2; chromium 0 n=2; molybdenum 19.5 n=2; iodine 0 n=2 | 18 | proxy |
+| 77 | Sugar, sucrose, white | chromium 2 n=6; molybdenum 0 n=2 partial | 10 | proxy |
 
 ### Oat bran, raw
 
@@ -1017,24 +952,18 @@ some of these are a page food meeting a food it has nothing to do with.
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1821 | Peas, green, frozen | biotin 6.085 n=2; chromium 4.9 n=2; molybdenum 47.5 n=2 | 10 | proxy |
-| 1822 | Green beans (haricots verts), frozen | biotin 4.63 n=2; chromium 9.3 n=2; molybdenum 26.5 n=2 | 10 | proxy |
 | 1807 | Lentils, green, boiled, canned | biotin 3.7 n=2; chromium 9 n=2; molybdenum 190 n=2; iodine 0 n=2 | 3 | proxy |
 
 ### Mustard greens, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1821 | Peas, green, frozen | biotin 6.085 n=2; chromium 4.9 n=2; molybdenum 47.5 n=2 | 10 | proxy |
-| 1822 | Green beans (haricots verts), frozen | biotin 4.63 n=2; chromium 9.3 n=2; molybdenum 26.5 n=2 | 10 | proxy |
 | 1807 | Lentils, green, boiled, canned | biotin 3.7 n=2; chromium 9 n=2; molybdenum 190 n=2; iodine 0 n=2 | 3 | proxy |
 
 ### Turnip greens, cooked
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1821 | Peas, green, frozen | biotin 6.085 n=2; chromium 4.9 n=2; molybdenum 47.5 n=2 | 10 | proxy |
-| 1822 | Green beans (haricots verts), frozen | biotin 4.63 n=2; chromium 9.3 n=2; molybdenum 26.5 n=2 | 10 | proxy |
 | 1807 | Lentils, green, boiled, canned | biotin 3.7 n=2; chromium 9 n=2; molybdenum 190 n=2; iodine 0 n=2 | 3 | proxy |
 
 ### Dandelion greens, raw
@@ -1045,12 +974,11 @@ some of these are a page food meeting a food it has nothing to do with.
 | 55 | Peas, green, raw | biotin 3 n=4; iodine 0.15 n=5 | 18 | proxy |
 | 764 | Beans, green, raw | chromium 1.2 n=20; molybdenum 20 n=2; iodine 0.8 n=4 | 18 | proxy |
 
-### Lotus root, cooked
+### Cranberries, raw
 
 | FoodID | Frida row | admits | score | grade |
 |---|---|---|---|---|
-| 1827 | Root vegetables, frozen | biotin 2.59 n=2; chromium 0 n=2; molybdenum 1.7 n=2; iodine 0 n=2 | 10 | proxy |
-| 1839 | Root vegetable fritters, frozen | biotin 4.65 n=2; chromium 3.7 n=2; molybdenum 3.9 n=2; iodine 0 n=2 | 10 | proxy |
+| 1876 | Cranberry cordial base, artificial sweetener added, dilution: 1+4 | biotin 1.21 n=1; iodine 0.67 n=1 | 10 | proxy |
 
 ### Almond butter
 
@@ -1120,7 +1048,7 @@ some of these are a page food meeting a food it has nothing to do with.
 
 ## Frida holds the food and has determined nothing about it
 
-19 page foods. A row matches, and every value on it is borrowed from
+20 page foods. A row matches, and every value on it is borrowed from
 another food, undetermined, or compiled from a table this page already cites. This
 is not the same answer as the section below and must not be read as one: the
 database was asked and had nothing of its own to say.
@@ -1136,6 +1064,7 @@ database was asked and had nothing of its own to say.
 - Endive, raw — Frida's "Endive (escarole), raw" matches and admits nothing
 - Garlic, raw — Frida's "Garlic, raw" matches and admits nothing
 - Daikon, raw — Frida's "Radishes, oriental, daikon, Japanese radish, raw" matches and admits nothing
+- Fig, raw — Frida's "Figs, raw" matches and admits nothing
 - Persimmon, raw — Frida's "Persimmon, kaki fruit, raw" matches and admits nothing
 - Lime, raw — Frida's "Lime, raw" matches and admits nothing
 - Cinnamon, ground — Frida's "Danish pastry, cinnamon roll" matches and admits nothing
@@ -1147,16 +1076,19 @@ database was asked and had nothing of its own to say.
 
 ## No Frida row reaches the food at all
 
-61 of 222. Preparation does most of this: the page's legumes and
-grains are cooked and Frida reports them dried or raw, which `scoreCandidate`
-refuses outright rather than ranking lower.
+62 of 222. Preparation does most of this: the page's legumes and
+grains are cooked and Frida reports them dried, raw or frozen, which
+`scoreCandidate` refuses outright rather than ranking lower.
 
-**Some of it is vocabulary, and the scorer cannot see through a synonym.**
-Flaxseed is Frida's "Linseeds, raw", which admits a chromium determination, and
-the old map had that pairing while this search cannot find it. Anything on this
-list that this page names in British or American English and Denmark does not is
-worth looking up by hand before believing the absence.
+**Some of it is vocabulary, and a name scorer cannot see through a synonym
+by itself.** `ALIASES` in `tools/biotin.mjs` is the hand-written answer, and
+it holds two: flaxseed is Frida's "Linseeds, raw" and this page's haricot bean
+is Denmark's white bean. Both were found by hand and neither would ever be
+found by a scorer. **Anything on this list that this page names in British or
+American English and Denmark does not is worth looking up by hand before
+believing the absence**, and belongs in `ALIASES` when it is.
 
+- Edamame, cooked
 - Tempeh
 - Natto
 - TVP, dry
@@ -1164,17 +1096,18 @@ worth looking up by hand before believing the absence.
 - Buckwheat, cooked
 - Amaranth, cooked
 - Hemp seeds, hulled
-- Flaxseed (the old map held 149, "Linseeds, raw")
+- Broccoli, cooked
 - Spirulina, dried
+- Brussels sprouts, cooked
 - Couscous, cooked
 - Asparagus, cooked
 - Artichokes, cooked
 - Guava, raw
-- Blackberries, raw
 - Nori, raw
 - Kelp, raw
 - Tahini, from roasted kernels
 - Teff, cooked
+- Cauliflower, cooked
 - Beetroot, cooked
 - Sweetcorn, cooked
 - Butternut squash, baked
@@ -1183,10 +1116,10 @@ worth looking up by hand before believing the absence.
 - Miso
 - Kohlrabi, cooked
 - Lychees, raw
-- Cherries, sweet, raw
 - Courgette, cooked
 - Aubergine, cooked
 - Parsnips, cooked
+- Leeks, cooked
 - Shallots, raw
 - Turnip, cooked
 - Swede, cooked
@@ -1199,7 +1132,7 @@ worth looking up by hand before believing the absence.
 - Yam, cooked
 - Taro, cooked
 - Plantain, baked
-- Cranberries, raw
+- Lotus root, cooked
 - Cantaloupe, raw
 - Jackfruit, raw
 - Kumquat, raw
@@ -1214,7 +1147,6 @@ worth looking up by hand before believing the absence.
 - Mangetout, cooked
 - Nectarines, raw
 - Tangerines, raw
-- Elderberries, raw
 - Mulberries, raw
 - Courgette, raw
 - Beetroot, raw

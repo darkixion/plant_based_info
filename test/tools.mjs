@@ -9,7 +9,7 @@
  */
 import { nextValue } from "../tools/usda.mjs";
 import { gradeDerivation, nationalCell, reconcile, spanCell } from "../tools/reconcile.mjs";
-import { biotinCell, scoreCandidate } from "../tools/biotin.mjs";
+import { biotinCell, namesCooking, scoreCandidate } from "../tools/biotin.mjs";
 import { iodineCell } from "../tools/iodine.mjs";
 import { PAIRED, pairedCell } from "../tools/mext_afcd.mjs";
 import { fridaCell } from "../tools/frida.mjs";
@@ -545,6 +545,76 @@ test("a plural page food still matches its singular source row", () => {
   // "Chickpea, dried, boiled, drained".
   const s = scoreCandidate("Chickpeas", "cooked", "Chickpea, dried, boiled, drained");
   if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);
+});
+
+test("a page food ending in -ies matches its -y source row", () => {
+  /* The stem turned "Strawberries" into "strawberri" and left "Strawberry"
+     alone, so Frida's FoodID 1, "Strawberry, raw", scored zero and never
+     reached the review at all. The frozen row led instead, on n=2 against the
+     raw row's n=7 to 10. */
+  const raw = scoreCandidate("Strawberries", "raw", "Strawberry, raw");
+  if (!(raw > 0)) throw new Error(`expected a positive score, got ${raw}`);
+  const frozen = scoreCandidate("Strawberries", "raw", "Strawberries, frozen");
+  if (!(raw > frozen)) throw new Error(`raw ${raw} should beat frozen ${frozen}`);
+});
+
+test("a page food that says raw refuses a dried row", () => {
+  /* Frida holds both forms of four fruits and the dried row led every time,
+     because RAW lumps raw with dried and the two then tied at 18 on corpus
+     order. Dried apricot is not raw apricot: its chromium is 80 against 0.
+     The lumping is still right for a food carrying no state, where "dried" is
+     only Frida's house style for a nut, which the test below holds. */
+  eq(scoreCandidate("Apricots", "raw", "Apricot, dried"), 0,
+    "a dried row is not a raw food");
+  const raw = scoreCandidate("Apricots", "raw", "Apricot, raw");
+  if (!(raw > 0)) throw new Error(`the raw row should still score, got ${raw}`);
+  const nut = scoreCandidate("Walnuts", "", "Walnuts, dried");
+  if (!(nut > 0)) throw new Error(`a stateless nut still takes a dried row, got ${nut}`);
+});
+
+test("a row that says dried and boiled names a cooking method", () => {
+  /* The review's "look twice" line warns when the leading row carries a word
+     the page food does not, and it warned about "White beans, dried and
+     boiled" for a cooked page food, which is the one row that answers it. A
+     row that names both is a dried bean someone then boiled. */
+  if (!namesCooking("White beans, dried and boiled"))
+    throw new Error("a row that says boiled names a cooking method");
+  if (namesCooking("Apricot, dried"))
+    throw new Error("a row that only says dried does not");
+});
+
+test("a frozen row is not a cooked food", () => {
+  /* Frida has no cooked row for green peas, brussels sprouts or green beans,
+     and its frozen one led all three; sweet potato baked led "Sweet potato
+     fries, frozen". Frozen is blanched, not cooked, and fries are fried, so
+     calling either a match for a cooked or baked page food is the inference
+     this repository refuses. A row that freezes something already cooked says
+     so, and stays. */
+  eq(scoreCandidate("Green peas", "cooked", "Peas, green, frozen"), 0,
+    "a frozen row is not a cooked food");
+  const cooked = scoreCandidate("Green peas", "cooked", "Peas, green, boiled, frozen");
+  if (!(cooked > 0)) throw new Error(`a frozen cooked row should still score, got ${cooked}`);
+});
+
+test("a food in a sauce is not the food", () => {
+  /* The same argument peanut brittle lost: a figure for beans in tomato sauce
+     is a figure for its sauce and sugar as much as for its beans. It tied with
+     the plain boiled bean at 28 and led it on corpus order. */
+  const bean = scoreCandidate("Haricot beans", "cooked", "White beans, dried and boiled");
+  const dish = scoreCandidate("Haricot beans", "cooked", "Baked beans (white beans in tomato sauce)");
+  if (!(bean > dish)) throw new Error(`the bean ${bean} should beat the dish ${dish}`);
+});
+
+test("a page food is scored under its synonyms too", () => {
+  /* The lesson flaxseed taught and haricot beans repeated: a name scorer
+     cannot see through a synonym. Frida calls flaxseed "Linseeds", and this
+     page's haricot bean is Denmark's white bean, while Frida's "haricots
+     verts" is a green bean and outscored it two words to one. */
+  const linseed = scoreCandidate("Flaxseed", "", "Linseeds, raw");
+  if (!(linseed > 0)) throw new Error(`expected a positive score, got ${linseed}`);
+  const white = scoreCandidate("Haricot beans", "cooked", "White beans, dried and boiled");
+  const verts = scoreCandidate("Haricot beans", "cooked", "Green beans (haricots verts), frozen");
+  if (!(white > verts)) throw new Error(`white beans ${white} should beat haricots verts ${verts}`);
 });
 
 test("scoring refuses to cross raw and cooked", () => {

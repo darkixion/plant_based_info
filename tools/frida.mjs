@@ -194,7 +194,7 @@ async function propose(categories) {
   const { dirname, join } = await import("node:path");
   const { fileURLToPath } = await import("node:url");
   const bio = await import("./biotin.mjs");
-  const { scoreCandidate } = bio;
+  const { scoreCandidate, namesCooking } = bio;
   sharedTokens = bio.sharedTokens;
 
   const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -296,7 +296,12 @@ async function propose(categories) {
       const said = `${food.name} ${state}`.toLowerCase();
       const flags = WATCH.filter(w =>
         best.c.row.name.toLowerCase().includes(w) && !said.includes(w)
-        && !(w === "dried" && !state));
+        && !(w === "dried" && !state)
+        /* And a row that says dried and then names a cooking method is a
+           dried food someone cooked, which is the only kind of row Frida has
+           for a cooked legume. "White beans, dried and boiled" was being
+           flagged as saying dried where the page food says cooked. */
+        && !(w === "dried" && namesCooking(best.c.row.name)));
       if (flags.length)
         block += `\n**Look twice.** The leading row says ${flags.map(f => `*${f}*`).join(" and ")}`
           + ` where the page food ${state ? `says *${state}*` : "says nothing"}.\n`;
@@ -352,13 +357,15 @@ pairing nobody checked is not evidence that it is right.
     + `database was asked and had nothing of its own to say.\n\n`
     + silent.map(u => `- ${u}`).join("\n") + "\n"
     + `\n## No Frida row reaches the food at all\n\n${unreached.length} of ${foods.length}. `
-    + `Preparation does most of this: the page's legumes and\ngrains are cooked and Frida reports them dried or raw, which \`scoreCandidate\`\n`
-    + `refuses outright rather than ranking lower.\n\n`
-    + `**Some of it is vocabulary, and the scorer cannot see through a synonym.**\n`
-    + `Flaxseed is Frida's "Linseeds, raw", which admits a chromium determination, and\n`
-    + `the old map had that pairing while this search cannot find it. Anything on this\n`
-    + `list that this page names in British or American English and Denmark does not is\n`
-    + `worth looking up by hand before believing the absence.\n\n`
+    + `Preparation does most of this: the page's legumes and\ngrains are cooked and Frida reports them dried, raw or frozen, which\n`
+    + `\`scoreCandidate\` refuses outright rather than ranking lower.\n\n`
+    + `**Some of it is vocabulary, and a name scorer cannot see through a synonym\n`
+    + `by itself.** \`ALIASES\` in \`tools/biotin.mjs\` is the hand-written answer, and\n`
+    + `it holds two: flaxseed is Frida's "Linseeds, raw" and this page's haricot bean\n`
+    + `is Denmark's white bean. Both were found by hand and neither would ever be\n`
+    + `found by a scorer. **Anything on this list that this page names in British or\n`
+    + `American English and Denmark does not is worth looking up by hand before\n`
+    + `believing the absence**, and belongs in \`ALIASES\` when it is.\n\n`
     + unreached.map(u => `- ${u}`).join("\n") + "\n";
   writeFileSync(join(EV, "FRIDA-MAP-REVIEW.md"), doc);
   console.log(`${mapped} worth a decision, ${thinCount} proxy only, `
