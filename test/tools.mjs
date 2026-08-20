@@ -584,6 +584,28 @@ test("an oil is not the nut it was pressed from", () => {
   if (oil > 0) throw new Error(`an oil should not be a candidate, got ${oil}`);
 });
 
+test("a drink made from the nut is not the nut", () => {
+  /* Frida writes "Almond drink, unfortified" where CoFID would write a milk,
+     so the existing word did not catch it, and the drink led "Almond, raw" 18
+     to 10. The proposal carried the drink. */
+  const nut = scoreCandidate("Almonds", "", "Almond, raw");
+  const drink = scoreCandidate("Almonds", "", "Almond drink, unfortified");
+  if (!(nut > drink)) throw new Error(`nut ${nut} should beat drink ${drink}`);
+  if (drink > 0) throw new Error(`a drink should not be a candidate, got ${drink}`);
+});
+
+test("a food with no preparation agrees with a row that calls itself raw", () => {
+  /* The page's nuts carry no state and Frida names its nut rows "raw" and
+     "dried", where CoFID names them "whole kernels". The same pairing was
+     arriving as a close match from one source and a proxy from the other, on
+     nothing but the source's house style. */
+  const plain = scoreCandidate("Almonds", "", "Almonds, whole kernels");
+  const raw = scoreCandidate("Almonds", "", "Almond, raw");
+  eq(raw, plain, "an unstated page food has nothing to disagree with either row about");
+  eq(scoreCandidate("Lentils", "cooked", "Lentils, dried"), 0,
+    "and a cooked food still refuses a dried row outright");
+});
+
 test("an oil page food keeps its own oil row", () => {
   const s = scoreCandidate("Olive oil", "", "Oil, olive");
   if (!(s > 0)) throw new Error(`expected a positive score, got ${s}`);

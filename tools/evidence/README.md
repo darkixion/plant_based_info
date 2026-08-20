@@ -83,6 +83,8 @@ calcium. So every component here had to come from somewhere else.
 | `page-map-mext.json` | 102 | reviewed mappings from this page's foods to MEXT rows |
 | `BIOTIN-MAP-REVIEW.md` | 133 | every candidate pairing put to review for the biotin column, what was accepted into the CoFID and AFCD maps, and the reason for each refusal |
 | `USDA-IODINE-PROVENANCE.md` | 3 | what each of the three iodine databases measured, the id chain that reaches the USDA release without matching a name, the iodised-salt and dough-conditioner rows it holds, and the two rules iodine forced: a zero corroborates an absence rather than overriding it, and a ratio test needs a floor |
+| `FRIDA-MAP-REVIEW.md` | 222 | every page food put to the Frida scorer, sorted into the 73 worth a decision, the 69 whose every candidate is a proxy, the 19 Frida holds and has determined nothing about, and the 61 it does not reach. Written by `node tools/frida.mjs propose` |
+| `page-map-frida.json` | 0 | empty on purpose, and carrying the shape a banked pairing takes. The 17 unreviewed pairs it used to hold are quoted into the review document instead |
 | `LICENCES.md` | 13 | what each source permits, checked against the publisher's own terms, and the two places this repository currently exceeds them |
 | `FRIDA-PROVENANCE.md` | 5 | Frida's licence (CC BY 4.0, so republishable with credit) and why 400 of its 873 biotin values are refused: borrowed from another food, undetermined, or compiled from CoFID, AFCD and the CNF under other ids |
 | `FAO-PROVENANCE.md` | 4 | what PhyFoodComp measured and what it copied: 291 of its 2,442 plant rows are IFCT 2017, which this page cites in its own right, so those rows are refused. Also what that cost |

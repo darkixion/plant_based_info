@@ -164,7 +164,241 @@ function provenance() {
   }
 }
 
+/* -------------------------------------------------------------- propose ---
+   Candidate pairings for review. Nothing here reaches a map: automated name
+   matching is refused in this project, and the reason is in the root README as
+   a worked example, a matcher having once paired "Black beans" with "Black
+   pudding, boiled". The scorer is the one biotin.mjs already uses, so the two
+   proposal documents are comparable and a reviewer reads one kind of table.
+
+   Only rows that admit something are offered. A pairing to a row whose every
+   component is borrowed, undetermined or compiled buys nothing and would put a
+   food in front of a reviewer for no reason. */
+/* Preparation and processing words a row can carry that `scoreCandidate` does
+   not refuse, because they are neither raw nor cooked. Each of these produced
+   a proposal worth catching: "Sweet potato fries, frozen" led baked sweet
+   potato, "Apricot, dried" led raw apricots, and "Green beans (haricots
+   verts), frozen" led haricot beans, which are a different bean entirely. The
+   scorer is not going to learn the difference between a navy bean and a French
+   one, so the document says where to look instead. */
+const WATCH = ["frozen", "canned", "dried", "fries", "juice", "powder", "brine",
+  "sauce", "concentrate", "sprouted", "enriched", "fortified"];
+
+const COMPONENT_LABEL = {
+  biotin_ug: "biotin", chromium_ug: "chromium", molybdenum_ug: "molybdenum",
+  iodine_ug: "iodine", boron_ug: "boron",
+};
+
+async function propose(categories) {
+  const { readFileSync, writeFileSync } = await import("node:fs");
+  const { dirname, join } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const bio = await import("./biotin.mjs");
+  const { scoreCandidate } = bio;
+  sharedTokens = bio.sharedTokens;
+
+  const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
+  const EV = join(ROOT, "tools", "evidence");
+  const rd = f => JSON.parse(readFileSync(join(EV, f), "utf8"));
+  const slugify = (name, state) => `${name} ${state || ""}`
+    .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const rows = rd("frida-6.1.json");
+  const sources = rd("frida-6.1-sources.json");
+  let foods = JSON.parse(readFileSync(join(ROOT, "src", "data", "nutrients.json"), "utf8")).foods;
+  if (categories.length) foods = foods.filter(f => categories.includes(f.cat));
+  if (!foods.length) throw new Error(`no page foods in category ${categories.join(", ")}`);
+
+  /* What each row can actually answer for, decided by the admission rule
+     rather than by whether the workbook holds a number. */
+  const admitsOf = new Map();
+  for (const row of rows) {
+    const admits = {};
+    for (const key of COMPONENTS) {
+      const c = fridaCell(row[key], sources);
+      if (c && c.admitted) admits[key] = c;
+    }
+    if (Object.keys(admits).length) admitsOf.set(row, admits);
+  }
+  const offerable = [...admitsOf.keys()];
+
+  const legacy = rd("page-map-frida.json");
+  const legacyBy = new Map(Object.entries(legacy).map(([slug, id]) => [slug, String(id)]));
+  const rowById = new Map(rows.map(r => [String(r.FoodID), r]));
+
+  const show = c => {
+    const parts = [`${c.value}`, `n=${c.n}`];
+    if (c.partial) parts.push("partial");
+    return parts.join(" ");
+  };
+
+  const out = {};
+  let mapped = 0, thinCount = 0;
+  const unreached = [], silent = [];
+  let worth = "", thin = "";
+
+  for (const food of foods) {
+    const slug = slugify(food.name, food.state);
+    const label = `${food.name}${food.state ? `, ${food.state}` : ""}`;
+    const top = offerable
+      .map(r => ({ row: r, score: scoreCandidate(food.name, food.state, r.name) }))
+      .filter(c => c.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3);
+
+    const was = legacyBy.get(slug);
+    if (!top.length) {
+      /* Two different answers, and the page has spent a lot of effort keeping
+         them apart everywhere else. Scoring against every row rather than only
+         the ones that admit something says which this is: a food Frida holds
+         and has determined nothing about, or a food it does not reach at all.
+         Garlic is the first: Frida's "Garlic, raw" scores 18 and its only
+         component is an iodine value borrowed from another food. */
+      const anyRow = rows
+        .map(r => ({ row: r, score: scoreCandidate(food.name, food.state, r.name) }))
+        .filter(c => c.score > 0)
+        .sort((a, b) => b.score - a.score)[0];
+      const note = was ? ` (the old map held ${was}, `
+        + `"${rowById.get(was)?.name ?? "which is not a row in this release"}")` : "";
+      if (anyRow) silent.push(`${label} — Frida's "${anyRow.row.name}" matches and admits nothing${note}`);
+      else unreached.push(label + note);
+      continue;
+    }
+
+    let block = `\n### ${label}\n\n`;
+    if (was) {
+      const row = rowById.get(was);
+      block += `The old map held **${was}${row ? `, "${row.name}"` : ", which is not a row in this release"}**. `
+        + `It was never reviewed.\n\n`;
+    }
+    block += "| FoodID | Frida row | admits | score | grade |\n|---|---|---|---|---|\n";
+    let best = null;
+    for (const c of top) {
+      const grade = suggestGrade(c.score, food.name, c.row.name);
+      if (!best && grade !== "proxy") best = { c, grade };
+      const admits = admitsOf.get(c.row);
+      const what = Object.entries(admits)
+        .map(([k, v]) => `${COMPONENT_LABEL[k]} ${show(v)}`).join("; ");
+      block += `| ${c.row.FoodID} | ${c.row.name} | ${what} | ${c.score} | ${grade} |\n`;
+    }
+    /* Sorted into two piles rather than one list. A food whose every candidate
+       is a proxy is one where the honest answer is probably no pairing at all,
+       and mixing those in with the ones worth a nod is what makes a review
+       document go unread. */
+    if (best) {
+      const state = String(food.state || "").toLowerCase();
+      /* Against the whole page food, name and state, so "Cocoa powder,
+         unsweetened" is not warned about a row that says powder. And a
+         stateless page food is not warned about "dried": the scorer already
+         treats those as agreeing, because Frida writes "Walnuts, dried" where
+         CoFID writes "Walnuts, kernel only" and neither is a claim about
+         preparation. */
+      const said = `${food.name} ${state}`.toLowerCase();
+      const flags = WATCH.filter(w =>
+        best.c.row.name.toLowerCase().includes(w) && !said.includes(w)
+        && !(w === "dried" && !state));
+      if (flags.length)
+        block += `\n**Look twice.** The leading row says ${flags.map(f => `*${f}*`).join(" and ")}`
+          + ` where the page food ${state ? `says *${state}*` : "says nothing"}.\n`;
+      mapped++;
+      worth += block;
+      out[slug] = {
+        food_id: String(best.c.row.FoodID),
+        name: best.c.row.name,
+        match: best.grade,
+        admits: Object.keys(admitsOf.get(best.c.row)).map(k => COMPONENT_LABEL[k]),
+      };
+    } else {
+      thin += block;
+      thinCount++;
+    }
+  }
+
+  writeFileSync(join(EV, "proposed-page-map-frida.json"), JSON.stringify(out, null, 1) + "\n");
+  const head = `# Frida map proposals, for review
+
+Written by \`node tools/frida.mjs propose\`. **Every pair here is a suggestion
+and none of them is mapped.** Automated name matching is refused in this
+project, so nothing reaches \`page-map-frida.json\` until a person has read it.
+The scorer is the one \`BIOTIN-MAP-REVIEW.md\` uses.
+
+\`FRIDA-PROVENANCE.md\` is the companion and should be read first: it is why the
+"admits" column exists at all. A row's borrowed, undetermined and compiled
+values are already gone by the time they reach this table, so a component named
+here is one Frida determined itself.
+
+**\`partial\` marks a mean that sits below its own minimum**, which is not a
+defect: the mean divides by every determination while min and max span only the
+detections, so a figure that counted non-detects as zero lands under its own
+floor. It understates, and the reader is owed the reason.
+
+The old \`page-map-frida.json\` held 17 slug-to-id pairs in a shape with no
+state, no grade and no review, predating the discipline \`BIOTIN-MAP-REVIEW.md\`
+set. Each is quoted above its food below rather than carried across, because a
+pairing nobody checked is not evidence that it is right.
+`;
+  const doc = head
+    + `\n## Worth a decision\n\n${mapped} page foods have at least one candidate `
+    + `graded above proxy. The first row of each is what \`proposed-page-map-frida.json\`\ncarries.\n`
+    + worth
+    + `\n## Nothing here rose above proxy\n\n${thinCount} page foods, listed because a `
+    + `reviewer needs to see that the search happened and\ncame back empty rather than that it was skipped. Frida holds meat and dairy too, `
+    + `so\nsome of these are a page food meeting a food it has nothing to do with.\n`
+    + thin
+    + `\n## Frida holds the food and has determined nothing about it\n\n`
+    + `${silent.length} page foods. A row matches, and every value on it is borrowed from\n`
+    + `another food, undetermined, or compiled from a table this page already cites. This\n`
+    + `is not the same answer as the section below and must not be read as one: the\n`
+    + `database was asked and had nothing of its own to say.\n\n`
+    + silent.map(u => `- ${u}`).join("\n") + "\n"
+    + `\n## No Frida row reaches the food at all\n\n${unreached.length} of ${foods.length}. `
+    + `Preparation does most of this: the page's legumes and\ngrains are cooked and Frida reports them dried or raw, which \`scoreCandidate\`\n`
+    + `refuses outright rather than ranking lower.\n\n`
+    + `**Some of it is vocabulary, and the scorer cannot see through a synonym.**\n`
+    + `Flaxseed is Frida's "Linseeds, raw", which admits a chromium determination, and\n`
+    + `the old map had that pairing while this search cannot find it. Anything on this\n`
+    + `list that this page names in British or American English and Denmark does not is\n`
+    + `worth looking up by hand before believing the absence.\n\n`
+    + unreached.map(u => `- ${u}`).join("\n") + "\n";
+  writeFileSync(join(EV, "FRIDA-MAP-REVIEW.md"), doc);
+  console.log(`${mapped} worth a decision, ${thinCount} proxy only, `
+    + `${silent.length} matched but silent, ${unreached.length} unreached, `
+    + `of ${foods.length} page foods`);
+  console.log(`proposals in tools/evidence/proposed-page-map-frida.json, `
+    + `review in tools/evidence/FRIDA-MAP-REVIEW.md`);
+}
+
+/* A grade is a claim about the pair and the reviewer's to make. This suggests
+   one so the common case is a nod rather than a decision, which means the
+   suggestion has to be wrong in the safe direction.
+ *
+ * **Nothing rises above proxy unless every word of the page food's name is in
+ * the row's.** The score alone is too generous to say more: one shared word
+ * scores 10 and a matching preparation adds 8, so "Black beans, cooked"
+ * against "Coffee bean, roasted, ground" reaches 18 on the word "bean" and was
+ * being offered as close. That is the pairing this project's rule against
+ * automated name matching exists to describe, and a reviewer skimming a column
+ * of grades is exactly who it would catch out. */
+let sharedTokens;  // bound by propose(), which is where biotin.mjs is loaded
+
+const suggestGrade = (score, name, row) => {
+  const { shared, of } = sharedTokens(name, row);
+  /* Both tests, because each catches what the other misses. A short score with
+     every word shared is a row the traps knocked down and usually a different
+     preparation: "Lentils, cooked" against "Lentils, green, boiled, canned"
+     shares every word and scores 3. A high score with a word missing is the
+     coffee bean. */
+  if (shared < of || score < 18) return "proxy";
+  return score >= 26 ? "exact" : "close";
+};
+
 if (process.argv[1] && process.argv[1].endsWith("frida.mjs")) {
-  if (process.argv[2] === "provenance") provenance();
-  else { console.log("usage: node tools/frida.mjs provenance"); process.exit(1); }
+  const [, , cmd, ...args] = process.argv;
+  if (cmd === "provenance") provenance();
+  else if (cmd === "propose") await propose(args);
+  else {
+    console.log("usage: node tools/frida.mjs provenance");
+    console.log("       node tools/frida.mjs propose [<Category>...]");
+    process.exit(1);
+  }
 }

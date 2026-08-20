@@ -121,8 +121,13 @@ const TRAPS = [
      scored level with the real row: "Oil, walnut" carries a trace and tied
      with "Walnuts, kernel only" at 19.0, first in corpus order, so the
      proposal would have carried the oil. The guard above is what keeps an
-     oil page food matched to its own oil. */
-  [/\boils?\b|\bbutter\b|\bmargarine\b|\bspread\b|\bpaste\b|\bflour\b|\bmilk\b/, 35],
+     oil page food matched to its own oil.
+
+     `drink` and `beverage` joined `milk` when Frida was proposed against: its
+     "Almond drink, unfortified" scored 18 and led "Almond, raw" at 10, so the
+     proposal carried the drink. Frida names these EuroFIR-style rather than as
+     milks, which is why the existing word did not catch them. */
+  [/\boils?\b|\bbutter\b|\bmargarine\b|\bspread\b|\bpaste\b|\bflour\b|\bmilk\b|\bdrinks?\b|\bbeverage\b/, 35],
   [/\bin syrup\b|\bsweetened\b|\bwith sugar\b/, 25],
   [/canned/, 15],
   [/\bsalted\b|\btoasted\b|\bsmoked\b/, 15],
@@ -156,11 +161,18 @@ export function scoreCandidate(name, state, row) {
 
   if (wantsCooked && rowCooked) score += 8;
   if (wantsRaw && rowRaw) score += 8;
-  /* A page food carrying no state, matched to a row that names no preparation
-     either, has nothing to disagree about. Without this, a whole nut and a raw
-     fruit can never reach the score that suggests an exact grade, and every
-     pair in those categories arrives at review marked proxy. */
-  if (!wantsCooked && !wantsRaw && !rowCooked && !rowRaw) score += 8;
+  /* A page food carrying no state has nothing to disagree about with a row
+     that names no preparation, and nothing to disagree about with one that
+     names a raw or dried form either: an unstated food on this page is the
+     whole, uncooked thing, which is why AFCD's raw rows are the ones its map
+     points at. Without this, a whole nut and a raw fruit can never reach the
+     score that suggests an exact grade, and every pair in those categories
+     arrives at review marked proxy.
+     The second half of it was added for Frida, which writes "Almond, raw" and
+     "Walnuts, dried" where CoFID writes "Almonds, whole kernels". The same
+     pairing was reaching review as a proxy from one source and a close match
+     from the other, on nothing but the source's house style. */
+  if (!wantsCooked && !wantsRaw && !rowCooked) score += 8;
   /* A preparation mismatch is not a weaker match, it is a different
      measurement. It takes the candidate out rather than ranking it lower. */
   if (wantsCooked && rowRaw) return 0;
@@ -172,13 +184,25 @@ export function scoreCandidate(name, state, row) {
   return score;
 }
 
-/* A grade is a claim about the pair, and the reviewer's to make. This suggests
-   one so the common case is a nod rather than a decision. */
-const suggestGrade = (score, name, row) => {
+/** How much of the page food's name the row's contains, which is a different
+ *  question from the score: the score rewards a shared word and a matching
+ *  preparation together, so one word of two can reach the same number as two
+ *  of two. Exported because tools/frida.mjs grades on it, and it must be this
+ *  tokeniser rather than another one that nearly agrees.
+ *
+ *  @returns {{ shared: number, of: number }} */
+export function sharedTokens(name, row) {
   const want = tokens(name), have = tokens(row);
   let shared = 0;
   for (const w of want) if (have.has(w)) shared++;
-  return shared === want.size && score >= 18 ? "exact" : score >= 18 ? "close" : "proxy";
+  return { shared, of: want.size };
+}
+
+/* A grade is a claim about the pair, and the reviewer's to make. This suggests
+   one so the common case is a nod rather than a decision. */
+const suggestGrade = (score, name, row) => {
+  const { shared, of } = sharedTokens(name, row);
+  return shared === of && score >= 18 ? "exact" : score >= 18 ? "close" : "proxy";
 };
 
 /* Run as a command rather than imported: propose map pairs for review. The

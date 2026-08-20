@@ -152,12 +152,28 @@ thing about itself:
 
 ## Status
 
-The admission rule is implemented and tested. **No page map is proposed and no
-Frida value has reached the page.**
+The admission rule is implemented and tested. **Candidates are now proposed and
+no Frida value has reached the page.**
 
-`page-map-frida.json` holds 17 slug-to-id pairs in the old shape, with no state,
-no `match` and no review. It predates the discipline `BIOTIN-MAP-REVIEW.md` set
-and should be rebuilt in the reviewed shape rather than extended.
+`node tools/frida.mjs propose` writes `FRIDA-MAP-REVIEW.md` and
+`proposed-page-map-frida.json`, on the scorer `BIOTIN-MAP-REVIEW.md` uses, over
+the rows the admission rule leaves standing. Of 222 page foods: **73 have a
+candidate worth a decision**, 69 have only proxies, 19 are foods Frida holds and
+has determined nothing about, and 61 it does not reach at all. Ten of the 73
+carry a "look twice" line where the leading row names a preparation the page
+food does not.
+
+`page-map-frida.json` is now empty. It held 17 slug-to-id pairs in the old
+shape, with no state, no `match` and no review, predating the discipline
+`BIOTIN-MAP-REVIEW.md` set. Each is quoted into the review document above the
+food it was for, rather than carried across a change of standard. One of them
+is knowledge the matcher does not have: **flaxseed is Frida's "Linseeds, raw"**,
+which admits a chromium determination, and no name scorer is going to find that.
+
+**Nothing reads the map yet, and that is deliberate.** A pass wired against an
+empty map writes no cells and cannot be tested against anything, so it waits
+until there are banked pairings to test it on. What exists is the rule, the
+proposals and the file's shape.
 
 Both evidence files are now rebuilt from the published workbook rather than
 scraped from the old website, by `node tools/extract_frida.mjs`. The workbook

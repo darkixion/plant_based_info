@@ -1,0 +1,724 @@
+{
+ "chickpeas-cooked": {
+  "food_id": "1813",
+  "name": "Chickpeas, steamed, ready to eat",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "kidney-beans-cooked": {
+  "food_id": "1811",
+  "name": "Beans, red kidney, cooked, ready to eat",
+  "match": "exact",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "green-peas-cooked": {
+  "food_id": "1821",
+  "name": "Peas, green, frozen",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "tofu-firm": {
+  "food_id": "272",
+  "name": "Tofu, soy bean curd",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "seitan": {
+  "food_id": "1784",
+  "name": "Seitan",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "almonds": {
+  "food_id": "35",
+  "name": "Almond, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "walnuts": {
+  "food_id": "647",
+  "name": "Walnuts, dried",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "peanuts": {
+  "food_id": "150",
+  "name": "Peanut, dried",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "pistachios": {
+  "food_id": "328",
+  "name": "Pistachio nuts, dried",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "brazil-nuts": {
+  "food_id": "692",
+  "name": "Brazil nuts, dried, raw",
+  "match": "exact",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "hazelnuts": {
+  "food_id": "302",
+  "name": "Hazelnut, dried",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "chia-seeds": {
+  "food_id": "1728",
+  "name": "Chia seeds",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "pumpkin-seeds": {
+  "food_id": "366",
+  "name": "Pumpkin, raw",
+  "match": "close",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "sunflower-seeds": {
+  "food_id": "438",
+  "name": "Sunflower seeds, decorticated, dried",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "sesame-seeds": {
+  "food_id": "370",
+  "name": "Sesame seeds, whole",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "spinach-raw": {
+  "food_id": "50",
+  "name": "Spinach, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "kale-raw": {
+  "food_id": "23",
+  "name": "Kale, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "sweet-potato-baked": {
+  "food_id": "1840",
+  "name": "Sweet potato fries, frozen",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "mushrooms-white-raw": {
+  "food_id": "961",
+  "name": "Mushroom, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "avocado": {
+  "food_id": "616",
+  "name": "Avocado, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "banana": {
+  "food_id": "3",
+  "name": "Banana, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "iodine"
+  ]
+ },
+ "brussels-sprouts-cooked": {
+  "food_id": "1825",
+  "name": "Brussel sprouts, frozen",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "kiwi-raw": {
+  "food_id": "1858",
+  "name": "Kiwi fruit, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "cocoa-powder-unsweetened": {
+  "food_id": "1256",
+  "name": "Cocoa, powder",
+  "match": "exact",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "haricot-beans-cooked": {
+  "food_id": "1822",
+  "name": "Green beans (haricots verts), frozen",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "pine-nuts-dried": {
+  "food_id": "806",
+  "name": "Pine nuts, dried",
+  "match": "exact",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "orange-raw": {
+  "food_id": "70",
+  "name": "Orange, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "blueberries-raw": {
+  "food_id": "1848",
+  "name": "Blueberries, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "strawberries-raw": {
+  "food_id": "1819",
+  "name": "Strawberries, frozen",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "dried-figs-dried": {
+  "food_id": "348",
+  "name": "Fig, dried",
+  "match": "exact",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "grapefruit-raw": {
+  "food_id": "1856",
+  "name": "Grapefruit, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "mango-raw": {
+  "food_id": "1859",
+  "name": "Mango, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "apricots-raw": {
+  "food_id": "458",
+  "name": "Apricot, dried",
+  "match": "close",
+  "admits": [
+   "chromium"
+  ]
+ },
+ "apple-raw-with-skin": {
+  "food_id": "2",
+  "name": "Apple, raw, all varieties",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "pear-raw": {
+  "food_id": "9",
+  "name": "Pear, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "pineapple-raw": {
+  "food_id": "1855",
+  "name": "Pineapple, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "watermelon-raw": {
+  "food_id": "36",
+  "name": "Watermelon, raw",
+  "match": "close",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "radishes-raw": {
+  "food_id": "39",
+  "name": "Radish, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "carrots-raw": {
+  "food_id": "24",
+  "name": "Carrot, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "onions-raw": {
+  "food_id": "716",
+  "name": "Onion, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "celery-raw": {
+  "food_id": "13",
+  "name": "Celery, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "cucumber-raw-with-peel": {
+  "food_id": "388",
+  "name": "Cucumber, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "peaches-raw": {
+  "food_id": "1276",
+  "name": "Peach, dried",
+  "match": "close",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "plums-raw": {
+  "food_id": "221",
+  "name": "Prune, dried plum",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "rocket-raw": {
+  "food_id": "1492",
+  "name": "Arugula, rocket, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "celeriac-raw": {
+  "food_id": "46",
+  "name": "Celeriac, celery root, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "tomatoes-raw": {
+  "food_id": "52",
+  "name": "Tomato, ripe, raw, origin unknown",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "iodine"
+  ]
+ },
+ "sunflower-oil": {
+  "food_id": "1382",
+  "name": "Sunflower oil",
+  "match": "exact",
+  "admits": [
+   "chromium"
+  ]
+ },
+ "olive-oil-extra-virgin": {
+  "food_id": "1467",
+  "name": "Olive oil",
+  "match": "exact",
+  "admits": [
+   "chromium"
+  ]
+ },
+ "coconut-oil": {
+  "food_id": "1440",
+  "name": "Oil, coconut",
+  "match": "exact",
+  "admits": [
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "green-beans-cooked": {
+  "food_id": "1822",
+  "name": "Green beans (haricots verts), frozen",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "wheat-bran": {
+  "food_id": "617",
+  "name": "Wheat bran",
+  "match": "exact",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine",
+   "boron"
+  ]
+ },
+ "cabbage-raw": {
+  "food_id": "26",
+  "name": "Cabbage, white, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "red-cabbage-raw": {
+  "food_id": "44",
+  "name": "Cabbage, red, raw",
+  "match": "exact",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "romaine-lettuce-raw": {
+  "food_id": "600",
+  "name": "Lettuce, Cos or romaine, raw",
+  "match": "exact",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "honeydew-melon-raw": {
+  "food_id": "1857",
+  "name": "Melon, honeydew, raw",
+  "match": "exact",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "fig-raw": {
+  "food_id": "348",
+  "name": "Fig, dried",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "lemon-raw": {
+  "food_id": "21",
+  "name": "Lemon, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "raisins": {
+  "food_id": "880",
+  "name": "Raisin , seedless",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "dried-apricots-dried": {
+  "food_id": "458",
+  "name": "Apricot, dried",
+  "match": "exact",
+  "admits": [
+   "chromium"
+  ]
+ },
+ "parsley-fresh": {
+  "food_id": "8",
+  "name": "Parsley, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "poppy-seeds": {
+  "food_id": "1292",
+  "name": "Poppy seeds",
+  "match": "close",
+  "admits": [
+   "chromium"
+  ]
+ },
+ "peanut-butter-smooth": {
+  "food_id": "1162",
+  "name": "Peanut butter",
+  "match": "exact",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "rye-bread": {
+  "food_id": "166",
+  "name": "Rye bread crumbs with brown sugar, average values",
+  "match": "exact",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "pumpernickel": {
+  "food_id": "418",
+  "name": "Rye bread, dark, pumpernickel",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium"
+  ]
+ },
+ "broccoli-raw": {
+  "food_id": "17",
+  "name": "Broccoli, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "brussels-sprouts-raw": {
+  "food_id": "41",
+  "name": "Brussels sprouts, raw",
+  "match": "exact",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "cauliflower-raw": {
+  "food_id": "14",
+  "name": "Cauliflower, all varieties, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
+ "turnip-raw": {
+  "food_id": "381",
+  "name": "Turnip, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum"
+  ]
+ },
+ "swede-raw": {
+  "food_id": "519",
+  "name": "Swede, raw",
+  "match": "close",
+  "admits": [
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "green-peas-raw": {
+  "food_id": "55",
+  "name": "Peas, green, raw",
+  "match": "exact",
+  "admits": [
+   "biotin",
+   "iodine"
+  ]
+ },
+ "asparagus-raw": {
+  "food_id": "753",
+  "name": "Asparagus, all types, raw",
+  "match": "close",
+  "admits": [
+   "iodine"
+  ]
+ },
+ "sweetcorn-raw": {
+  "food_id": "31",
+  "name": "Sweetcorn, on-the-cob, raw",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ }
+}
