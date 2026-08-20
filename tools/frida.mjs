@@ -126,6 +126,50 @@ export function fridaCell(cell, sources = {}) {
 const COMPONENTS = ["biotin_ug", "chromium_ug", "molybdenum_ug", "iodine_ug", "boron_ug"];
 const REASONS = ["borrowed", "undetermined", "compiled", "malformed"];
 
+/**
+ * Figures that appear verbatim on more than one food.
+ *
+ * Frida marks a value carried over from another food with a SourceFood, and
+ * `fridaCell` refuses those; FRIDA-PROVENANCE.md says the marker "coincides
+ * exactly, on all 538 such cells across twelve components". Some cells that
+ * look carried over do not carry it. Olive oil, corn oil and refined soyabean
+ * oil each read chromium 6.8, detected 0 to 27.6, at n=16 from source 1506,
+ * which is one determination set admitted three times.
+ *
+ * Nothing is refused here. A repeat is a question about the corpus rather than
+ * a property of the cell, and only a reviewer can say whether two foods really
+ * were measured alike. The report exists so that a pairing is banked knowing.
+ *
+ * The test is deliberately strict: value, both detection bounds, the count and
+ * the source must all agree. Reading the mean alone finds sixteen groups and
+ * most are round numbers at small n, where coincidence is ordinary; raw plum
+ * and raw kiwi both mean 0.6625 at n=8 over detections of 1.7 to 3.6 and 1.1
+ * to 1.7, and 5.3 divided by 8 twice over is no more than that. Zeros are left
+ * out for the same reason, and there are a great many of them: a zero is what
+ * many separate determinations at or below detection all look like.
+ *
+ * @param {object[]} rows the release
+ * @param {object} sources the named source table
+ * @returns {{component: string, value: number, n: number, detected: {min: number, max: number}, sources: string[], rows: object[]}[]}
+ */
+export function repeatedFigures(rows, sources = {}) {
+  const groups = new Map();
+  for (const row of rows) for (const key of COMPONENTS) {
+    const raw = row[key];
+    if (!raw) continue;
+    const cell = fridaCell(raw, sources);
+    if (!cell || !cell.admitted || cell.value === 0 || !cell.detected) continue;
+    const id = [key, cell.sources.join(","), cell.value,
+      cell.detected.min, cell.detected.max, cell.n].join("|");
+    if (!groups.has(id)) groups.set(id, { component: key, value: cell.value,
+      n: cell.n, detected: cell.detected, sources: cell.sources, rows: [] });
+    groups.get(id).rows.push(row);
+  }
+  return [...groups.values()]
+    .filter(g => g.rows.length > 1)
+    .sort((a, b) => b.rows.length - a.rows.length);
+}
+
 function provenance() {
   const rows = JSON.parse(readFileSync("tools/evidence/frida-6.1.json", "utf8"));
   const sources = JSON.parse(readFileSync("tools/evidence/frida-6.1-sources.json", "utf8"));
@@ -161,6 +205,20 @@ function provenance() {
     const s = sources[id];
     const title = s ? (s.TitleEnglish || s.TitleOriginal || "") : "(not in the source table)";
     console.log(`${String(count).padStart(5)}  ${id} [${s ? s.EurofirRefType : "?"}] ${title.slice(0, 74)}`);
+  }
+
+  /* And the figures that are admitted more than once. Not a refusal: see
+     repeatedFigures for why this is a reviewer's question rather than the
+     admission rule's. */
+  const repeats = repeatedFigures(rows, sources);
+  const cells = repeats.reduce((n, g) => n + g.rows.length, 0);
+  console.log(`\nfigures admitted verbatim on more than one food: `
+    + `${repeats.length} groups over ${cells} cells`);
+  for (const g of repeats) {
+    console.log(`  ${COMPONENT_LABEL[g.component]} ${g.value} `
+      + `(detected ${g.detected.min} to ${g.detected.max}) n=${g.n} `
+      + `source ${g.sources.join(",")}`);
+    for (const r of g.rows) console.log(`       ${String(r.FoodID).padStart(5)}  ${r.name}`);
   }
 }
 

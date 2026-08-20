@@ -12,7 +12,7 @@ import { gradeDerivation, nationalCell, reconcile, spanCell } from "../tools/rec
 import { biotinCell, namesCooking, scoreCandidate } from "../tools/biotin.mjs";
 import { iodineCell } from "../tools/iodine.mjs";
 import { PAIRED, pairedCell } from "../tools/mext_afcd.mjs";
-import { fridaCell } from "../tools/frida.mjs";
+import { fridaCell, repeatedFigures } from "../tools/frida.mjs";
 import { faoPhytateCell, faoAdmits } from "../tools/fao_phytate.mjs";
 import { faoOligosCells } from "../tools/fao_oligos.mjs";
 import { keepsGrade } from "../tools/withdraw.mjs";
@@ -781,6 +781,55 @@ test("a Frida value resting on determinations is admitted", () => {
   eq(c.admitted, true, "an n=10 value from a DTU report must be admitted");
   eq(c.value, 1.57, "the admitted value is the reported mean");
   eq(c.n, 10, "the determination count is carried");
+});
+
+test("a figure repeated verbatim on another food is reported", () => {
+  /* Frida marks a borrowed value with a SourceFood and fridaCell refuses it,
+     and FRIDA-PROVENANCE.md says the marker "coincides exactly, on all 538
+     such cells". These do not carry it. Olive oil, corn oil and refined
+     soyabean oil each read chromium 6.8, detected 0 to 27.6, at n=16 from
+     source 1506: one determination set behind three foods, admitted three
+     times. Not refused here, because a repeat is a question about the corpus
+     and not a property of the cell, and only a reviewer can settle it. */
+  const rows = [
+    { FoodID: "1467", name: "Olive oil",
+      chromium_ug: { val: "6.8", min: "0", max: "27.6", n: "16", source: "1506" } },
+    { FoodID: "1415", name: "Corn oil",
+      chromium_ug: { val: "6.8", min: "0", max: "27.6", n: "16", source: "1506" } },
+  ];
+  const found = repeatedFigures(rows, FRIDA_SRC);
+  eq(found.length, 1, "the two oils share one figure");
+  eq(found[0].component, "chromium_ug", "and it is the chromium one");
+  eq(found[0].rows.length, 2, "both foods are named");
+});
+
+test("a repeat needs the range and the count to match, not just the mean", () => {
+  /* Raw plum and raw kiwi both read molybdenum 0.6625 at n=8 from source 2179,
+     which is four figures of agreement between two unrelated fruits. Their
+     detection ranges are 1.7 to 3.6 and 1.1 to 1.7, so the means really can be
+     5.3 divided by 8 twice over. A test that reads the mean alone would call
+     that a repeat and send a reviewer after nothing. */
+  const rows = [
+    { FoodID: "1852", name: "Plum, raw",
+      molybdenum_ug: { val: "0.6625", min: "1.7", max: "3.6", n: "8", source: "2179" } },
+    { FoodID: "1858", name: "Kiwi fruit, raw",
+      molybdenum_ug: { val: "0.6625", min: "1.1", max: "1.7", n: "8", source: "2179" } },
+  ];
+  eq(repeatedFigures(rows, FRIDA_SRC).length, 0,
+    "two means that agree over different detections are not one figure twice");
+});
+
+test("a zero repeated across foods is not a repeated figure", () => {
+  /* Molybdenum reads 0 at n=1 on 73 foods. Many separate determinations coming
+     back at or below detection is what a zero means, and reporting those would
+     bury the six repeats that matter under a hundred that do not. */
+  const rows = [
+    { FoodID: "17", name: "Broccoli, raw",
+      molybdenum_ug: { val: "0", min: "NULL", max: "NULL", n: "1", source: "2179" } },
+    { FoodID: "24", name: "Carrot, raw",
+      molybdenum_ug: { val: "0", min: "NULL", max: "NULL", n: "1", source: "2179" } },
+  ];
+  eq(repeatedFigures(rows, FRIDA_SRC).length, 0, "a shared zero is not a shared figure");
 });
 
 test("a Frida value copied from another food is refused however many determinations it cites", () => {

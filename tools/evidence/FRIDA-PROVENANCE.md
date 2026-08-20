@@ -158,10 +158,13 @@ no Frida value has reached the page.**
 `node tools/frida.mjs propose` writes `FRIDA-MAP-REVIEW.md` and
 `proposed-page-map-frida.json`, on the scorer `BIOTIN-MAP-REVIEW.md` uses, over
 the rows the admission rule leaves standing. Of 222 page foods: **73 have a
-candidate worth a decision**, 69 have only proxies, 19 are foods Frida holds and
-has determined nothing about, and 61 it does not reach at all. Ten of the 73
-carry a "look twice" line where the leading row names a preparation the page
-food does not.
+candidate worth a decision**, 67 have only proxies, 20 are foods Frida holds and
+has determined nothing about, and 62 it does not reach at all. **No food carries
+a "look twice" line.** Ten did, and reading each against the corpus rather than
+against its score found that every one was the scorer's fault rather than a
+judgement call; the faults are fixed and the ten are corrected or refused. What
+that cost, and what it says about reading a generated proposal, is in
+`FRIDA-BANKING-REVIEW.md`.
 
 `page-map-frida.json` is now empty. It held 17 slug-to-id pairs in the old
 shape, with no state, no `match` and no review, predating the discipline
@@ -169,6 +172,8 @@ shape, with no state, no `match` and no review, predating the discipline
 food it was for, rather than carried across a change of standard. One of them
 is knowledge the matcher does not have: **flaxseed is Frida's "Linseeds, raw"**,
 which admits a chromium determination, and no name scorer is going to find that.
+It is now in `ALIASES` in `tools/biotin.mjs`, with this page's haricot bean for
+Denmark's white bean, so the proposal carries both again.
 
 **Nothing reads the map yet, and that is deliberate.** A pass wired against an
 empty map writes no cells and cannot be tested against anything, so it waits
@@ -187,3 +192,34 @@ source id. What it adds is `sourceFood`, the column the scrape lost. 538 cells
 carry one. Every one of them also has no source id and no cell has one without
 the other, so the proxy this document previously relied on was exact; it is now
 stated outright instead.
+
+## A figure can be admitted onto more than one food
+
+`sourceFood` marks a value Frida carried over from another food, and the
+admission rule refuses those. **It does not mark a figure that was pooled
+across a group of foods and written onto each of them**, and Frida does that a
+great deal. `node tools/frida.mjs provenance` now reports it: **64 groups over
+202 cells**, where a figure, both its detection bounds, its determination count
+and its source all agree across two or more foods.
+
+The mechanism is plainest where the group is largest. **Chromium 4, detected
+0.4 to 44, at n=85 from source 1532, sits on nineteen cuts of beef**; chromium
+5.3 at n=126 sits on the pork cuts; chromium 0.052 at n=18 sits on eighteen
+milks, creams and yoghurts. Those are not nineteen determinations of nineteen
+cuts. They are one pooled determination of beef, and **the count is the size of
+the pool rather than of the food**, which matters to anything that reads `n`.
+
+Six of those groups reach a proposed pairing, and the clearest is **chromium
+6.8, detected 0 to 27.6, at n=16 from source 1506, on olive oil, corn oil and
+refined soyabean oil alike** — one vegetable-oil determination behind three
+foods, and source 1506 is "Unpublished data". Nothing about the cell says so.
+
+**Nothing is refused for this**, and `repeatedFigures` is a report rather than a
+rule. Two foods really may have been measured alike, and only a reviewer can
+say which. The test it applies is strict on purpose: reading the mean alone
+finds sixteen groups among the proposals, and most are round numbers at small n
+where coincidence is ordinary. Raw plum and raw kiwi both mean 0.6625 at n=8
+over detections of 1.7 to 3.6 and 1.1 to 1.7, and 5.3 divided by 8 twice over
+is no more than chance. Zeros are left out for the same reason and there are a
+great many of them: a zero is what many separate determinations at or below
+detection all look like.
