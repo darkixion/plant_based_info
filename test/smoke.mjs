@@ -3110,13 +3110,21 @@ await test("an evidence column names its sources where a reader can reach them",
     // innerText, not textContent: "where a reader can reach them" is the whole
     // claim, and textContent would pass on sources nobody can see.
     const text = await page.evaluate(() => { S.tab = "vitamin"; renderDetail(); return $("#tabp").innerText; });
-    assert(/0\.5 to 3\.7/.test(text), `the panel should carry the range too, got: ${text.slice(0, 300)}`);
+    /* Four sources since Frida was banked, and the range widened with the
+       fourth: 0.5 to 3.7 became 0.5 to 4.78 when Denmark's dried-and-boiled
+       kidney bean brought 4.78. Asserted as the reader sees it, median first
+       and bounds at the column's own dp, rather than as the figures in
+       evidence.json: 4.78 prints as 4.8 on a column of one decimal, and a test
+       written against the stored number passed the generator and failed the
+       page. */
+    assert(/2\.5 \(0\.5 to 4\.8\)/.test(text),
+      `the panel should carry the range too, got: ${text.slice(0, 300)}`);
     /* The short labels rather than the source keys: "mext-2020" is this
        repository's name for it, and the page does not name its own plumbing.
        A country for a national table and an author and year for a paper, since
        two thirds of the sources are single papers and have no country worth
        printing. */
-    for (const label of ["Japan (MEXT)", "UK (CoFID)", "Australia (AFCD)"])
+    for (const label of ["Japan (MEXT)", "UK (CoFID)", "Australia (AFCD)", "Denmark (Frida)"])
       assert(text.includes(label), `${label} should be named beside the figure`);
   });
 });
@@ -3233,9 +3241,19 @@ await test("iodine says what it was measured to say", async () => {
     // The finding, and the reason this column is worth having: mostly analysed
     // absence, with seaweed orders of magnitude above everything else.
     eq(await cellText(page, "Kelp", "iodine"), "200000", "kelp iodine");
+    /* 44 before Frida joined the column and 38 after, and the six that moved
+       all moved the same way: Frida reports iodine above rule 7's floor in a
+       fruit that MEXT, AFCD and the FDA release each assayed and found none in,
+       so an analysed absence became a range naming all four. Kiwi, mango,
+       pineapple, grapefruit, cabbage and dried figs. That is rule 3 doing
+       exactly what the rolled-oats case was written for, and the threshold
+       keeps headroom rather than pinning today's number. **Five of the six rest
+       on one 2023 DTU fruit report whose detections cluster at 18 to 28 ug where
+       no other banked iodine cell detects above 10**, which FRIDA-PROVENANCE.md
+       records as the figure to question next. */
     const none = await page.evaluate(() =>
       Object.values(EV).filter(f => f.cells.iodine?.state === "not-detected").length);
-    assert(none >= 40, `expected at least 40 foods assayed and found to contain none, got ${none}`);
+    assert(none >= 35, `expected at least 35 foods assayed and found to contain none, got ${none}`);
   });
 });
 

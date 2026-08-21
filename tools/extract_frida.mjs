@@ -53,6 +53,37 @@ if (!fs.existsSync(BOOK)) {
 
 const wb = xlsx.readFile(BOOK);
 
+/* ------------------------------------------------------------- the names ---
+   The workbook's Food sheet, which the value sheet does not repeat. Two of its
+   columns decide pairings that the English name cannot.
+
+   `FødevareNavn` is the Danish name, and it is the one that says which row is
+   which. Three rows are all called "Carrot, raw" in English and they disagree;
+   in Danish they are "Gulerod, uspec.", "Gulerod, dansk" and "Gulerod,
+   importeret", so the qualifier this page needs was dropped in translation
+   rather than absent. The same word settles cauliflower, tomato, apple,
+   asparagus and brussels sprouts: where Frida has an unspecified row, it says
+   so, and an unqualified page food takes it.
+
+   `FoodEx2Description` is the EFSA classification, and it says what was
+   analysed where the name does not. Frida's "Poppy seeds" is coded roasted and
+   its name does not say so. Its "Asparagus, all types, raw" is coded canned and
+   sterilised, which its name flatly contradicts. Neither is visible in any
+   field the earlier extraction kept.
+
+   Both are carried as written and neither is scored. FoodEx2 is a code someone
+   assigned, and 753's says "Canned or jarred legumes" of a vegetable that is
+   not a legume, so it belongs in front of a reviewer rather than in a matcher. */
+const names = new Map();
+for (const row of xlsx.utils.sheet_to_json(wb.Sheets["Food"], { defval: "" })) {
+  const id = String(row.FoodID ?? "").trim();
+  if (!id) continue;
+  names.set(id, {
+    nameDanish: cell(row["FødevareNavn"]),
+    foodEx2: cell(row.FoodEx2Description),
+  });
+}
+
 /* ------------------------------------------------------------ the values --- */
 
 const rows = xlsx.utils.sheet_to_json(wb.Sheets["Data_Normalised"], { defval: "" });
@@ -66,7 +97,8 @@ for (const row of rows) {
   if (!id) continue;
 
   if (!foods.has(id))
-    foods.set(id, { FoodID: id, name: String(row.FoodName ?? "").trim() });
+    foods.set(id, { FoodID: id, name: String(row.FoodName ?? "").trim(),
+      ...(names.get(id) ?? { nameDanish: "NULL", foodEx2: "NULL" }) });
 
   foods.get(id)[key] = {
     val: cell(row.ResVal),

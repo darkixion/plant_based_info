@@ -19,12 +19,13 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { reconcile, spanCell } from "./reconcile.mjs";
+import { heldAsFigure, nationalCell, reconcile, spanCell } from "./reconcile.mjs";
 import { biotinCell } from "./biotin.mjs";
 import { iodineCell } from "./iodine.mjs";
 import { PAIRED, pairedCell } from "./mext_afcd.mjs";
 import { faoPhytateCell } from "./fao_phytate.mjs";
 import { faoOligosCells } from "./fao_oligos.mjs";
+import { FRIDA_COLUMNS, fridaFigure } from "./frida.mjs";
 import { keepsGrade } from "./withdraw.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -70,6 +71,46 @@ const usdaIodineBySlug = {};
 for (const row of rd("usda-iodine-r4.json"))
   for (const slug of row.page_slugs || []) usdaIodineBySlug[slug] = row;
 
+/* Frida 6.1, through the reviewed map, reduced to one figure per page food per
+   column before any pass sees it.
+ *
+ * The admission rule decides what a Frida cell may contribute and it is not
+ * this file's business: a value compiled from CoFID, AFCD or the CNF is refused
+ * in frida.mjs by the name of the source it came from, which is what stops one
+ * table reaching this page twice under two names. What survives is Danish
+ * analytical work, and FRIDA-PROVENANCE.md is the record of the difference.
+ *
+ * Read as a table of columns rather than a loop per component, because Frida
+ * joins four columns that already had an owner and one that had none, and the
+ * scale and the floor differ per column and nowhere else. */
+const fridaMap = rd("page-map-frida.json");
+const fridaSources = rd("frida-6.1-sources.json");
+const fridaRowById = new Map(rd("frida-6.1.json").map(r => [String(r.FoodID), r]));
+/* slug -> { entry, figures: { <column id>: figure } }. A map entry must say
+   `reviewed: true` or it is not read at all, the way tools/flavonoids.mjs
+   refuses an unreviewed usda-map.json: a pairing nobody checked is not evidence
+   that it is right, and a file that can hold a draft has to be able to say so. */
+const frida = {};
+for (const [slug, entry] of Object.entries(fridaMap)) {
+  if (slug.startsWith("_")) continue;
+  if (entry.reviewed !== true) continue;
+  const row = fridaRowById.get(String(entry.food_id));
+  if (!row) continue;
+  const figures = {};
+  for (const col of FRIDA_COLUMNS) {
+    const f = fridaFigure(row, col, fridaSources);
+    if (f) figures[col.id] = f;
+  }
+  frida[slug] = { entry, figures };
+}
+const fridaFig = (slug, id) => frida[slug]?.figures?.[id];
+/* The grade goes on only where a cell actually cites Frida, the same rule the
+   biotin and iodine passes already follow: writing one for a source no cell
+   names would claim a mapping was used when it was not. */
+const fridaGrade = (slug, named, prep) => {
+  if (named.has("frida-6.1") && frida[slug]) grade(slug, "frida-6.1", frida[slug].entry.match, prep);
+};
+
 /* Seeded from what is already on the page, so a pass this tool does not
    implement survives a run of it. */
 const DEST = join(ROOT, "src", "data", "evidence.json");
@@ -95,17 +136,16 @@ const grade = (slug, source, g, prep) => {
 };
 
 
-/* The uniform components: one source, one field, one cell. Biotin, iodine,
-   molybdenum and oxalate are not here, because each is reconciled across more
-   than one database below and a table that knows only one field per component
-   cannot say what to do when two of them disagree. This covers what is
-   uniform, which since AFCD's molybdenum and oxalic acid were wired in is
-   MEXT's alone. */
+/* The uniform components: one source, one field, one cell. Biotin, chromium,
+   iodine, molybdenum and oxalate are not here, because each is reconciled
+   across more than one database below and a table that knows only one field
+   per component cannot say what to do when two of them disagree. This covers
+   what is uniform, which since AFCD's molybdenum and oxalic acid and then
+   Frida's chromium were wired in is MEXT's alone. */
 const COMPONENTS = [
   { id: "solfibre",     corpus: "fibre",  field: "sol_prosky" },
   { id: "insolfibre",   corpus: "fibre",  field: "insol_prosky" },
   { id: "resstarch",    corpus: "fibre",  field: "resistant_starch" },
-  { id: "cr",           corpus: "plant",  field: "cr" },
   { id: "starch",       corpus: "sugars", field: "starch" },
   { id: "glucose",      corpus: "sugars", field: "glucose" },
   { id: "fructose",     corpus: "sugars", field: "fructose" },
@@ -198,6 +238,7 @@ const biotinSlugs = new Set([
   ...Object.keys(mextBySlug),
   ...Object.keys(COFID_ROW),
   ...Object.keys(afcdMap),
+  ...Object.keys(frida),
 ]);
 const conflicts = [];
 
@@ -212,6 +253,7 @@ for (const slug of biotinSlugs) {
     mext: mp && mp.biotin,
     cofid: cf,
     afcd: af,
+    frida: fridaFig(slug, "biotin"),
   });
   if (!cell) continue;
 
@@ -225,6 +267,7 @@ for (const slug of biotinSlugs) {
   if (named.has("mext-2020") && mp) grade(slug, "mext-2020", mp.match, prep);
   if (named.has("cofid-2021") && cm) grade(slug, "cofid-2021", cm.match, prep);
   if (named.has("afcd-r3") && am) grade(slug, "afcd-r3", am.match, prep);
+  fridaGrade(slug, named, prep);
 
   entryFor(slug, prep).cells.biotin = cell;
   nCells++;
@@ -247,6 +290,7 @@ const iodineSlugs = new Set([
   ...Object.keys(mextBySlug),
   ...Object.keys(afcdMap),
   ...Object.keys(usdaIodineBySlug),
+  ...Object.keys(frida),
 ]);
 
 for (const slug of iodineSlugs) {
@@ -258,6 +302,7 @@ for (const slug of iodineSlugs) {
     mext: mp && BY_CODE.plant[mp.jp_code]?.iodine,
     afcd: am && afcdKeyBy[am.key],
     usda: ur,
+    frida: fridaFig(slug, "iodine"),
   });
   if (!cell) continue;
 
@@ -270,6 +315,7 @@ for (const slug of iodineSlugs) {
      crosswalk turns that into an NDB number, and the release is keyed by it.
      A pairing this chain makes is the same pairing three times over. */
   if (named.has("usda-iodine-r4") && ur) grade(slug, "usda-iodine-r4", "exact", prep);
+  fridaGrade(slug, named, prep);
 
   entryFor(slug, prep).cells.iodine = cell;
   nCells++;
@@ -291,12 +337,17 @@ for (const slug of iodineSlugs) {
  * is not, and the disagreements are real rather than derivational. */
 for (const spec of PAIRED) {
   const written = new Set();
-  for (const slug of new Set([...Object.keys(mextBySlug), ...Object.keys(afcdMap)])) {
+  /* Frida joins molybdenum and not oxalate, which it does not carry, so the
+     union widens only for the component it can answer. Asking it about the
+     other would add foods to the loop that it has nothing to say about. */
+  const reaches = FRIDA_COLUMNS.some(c => c.id === spec.id) ? Object.keys(frida) : [];
+  for (const slug of new Set([...Object.keys(mextBySlug), ...Object.keys(afcdMap), ...reaches])) {
     const mp = mextBySlug[slug];
     const am = afcdMap[slug];
     const { cell, refused } = pairedCell({
       mext: mp && BY_CODE[spec.mextCorpus][mp.jp_code]?.[spec.mextField],
       afcd: am && afcdKeyBy[am.key],
+      frida: fridaFig(slug, spec.id),
     }, spec);
     /* Reported rather than passed over. A source's figure being turned away is
        the kind of thing that has to be visible on every run, which is how the
@@ -310,6 +361,7 @@ for (const spec of PAIRED) {
     const prep = mp ? mp.page_state : undefined;
     if (named.has("mext-2020") && mp) grade(slug, "mext-2020", mp.match, prep);
     if (named.has("afcd-r3") && am) grade(slug, "afcd-r3", am.match, prep);
+    fridaGrade(slug, named, prep);
 
     entryFor(slug, prep).cells[spec.id] = cell;
     written.add(slug);
@@ -325,7 +377,7 @@ for (const spec of PAIRED) {
      AFCD's oxalate zeros left 23 of them standing on the page until this loop
      existed, which is the black-eyed-pea phytate defect exactly. Only cells
      resting on the two sources this pass owns are touched. */
-  const OURS = new Set(["mext-2020", "afcd-r3"]);
+  const OURS = new Set(["mext-2020", "afcd-r3", "frida-6.1"]);
   for (const [slug, entry] of Object.entries(out)) {
     const held = entry.cells?.[spec.id];
     if (!held || written.has(slug)) continue;
@@ -333,6 +385,72 @@ for (const spec of PAIRED) {
     delete entry.cells[spec.id];
     nCells--;
     dropped.push(`${slug}.${spec.id}: neither MEXT nor AFCD has a figure for it any more`);
+  }
+}
+
+/* Chromium, which had one source until Frida and could have had two all along.
+ *
+ * It was a row of the uniform table above, MEXT and nothing else, on 102 cells.
+ * AFCD carries a chromium column and may not join it: FSANZ says of its own
+ * data that "levels appear to be highly variable and values presented in this
+ * database should be used with caution", which `sources.json` records as the
+ * one exception to AFCD's quality, and a source that disclaims its own figures
+ * cannot corroborate anyone else's. `mext_afcd.mjs` says the same at the top of
+ * PAIRED, which is why chromium is not in it.
+ *
+ * **Frida is the honest second source, and chromium is the component it admits
+ * most of**: 766 of its 920 chromium cells survive the admission rule, against
+ * 473 of 873 for biotin and 639 of 1,210 for iodine.
+ *
+ * Through `nationalCell` rather than `reconcile`, for the reason iodine forced
+ * it: MEXT marks an absence in words and Frida writes a determined 0, and a
+ * cell built from both has to know that a zero corroborates a finding rather
+ * than replacing it. The floor is rule 7's, half a microgram against a column
+ * that prints whole ones.
+ */
+{
+  const CR = FRIDA_COLUMNS.find(c => c.id === "cr");
+  const written = new Set();
+  for (const slug of new Set([...Object.keys(mextBySlug), ...Object.keys(frida)])) {
+    const mp = mextBySlug[slug];
+    const mc = mp && BY_CODE.plant[mp.jp_code]?.cr;
+    const figures = [];
+    const states = {};
+    if (mc) {
+      const st = mc.state;
+      if (st === "measured" || st === "estimated") {
+        const v = figureOf(mc);
+        if (v !== null) figures.push({ source: "mext-2020", value: v,
+          derivation: st === "estimated" ? "estimated" : "analysed" });
+      } else if (passthrough(st)) states["mext-2020"] = st;
+    }
+    const ff = fridaFig(slug, "cr");
+    if (ff) figures.push(ff);
+
+    const cell = nationalCell(figures, states, CR.floor);
+    if (!cell) continue;
+
+    const named = new Set([...(cell.sources || []), ...(cell.disputed || []).map(d => d.source)]);
+    const prep = mp ? mp.page_state : undefined;
+    if (named.has("mext-2020") && mp) grade(slug, "mext-2020", mp.match, prep);
+    fridaGrade(slug, named, prep);
+
+    entryFor(slug, prep).cells.cr = cell;
+    written.add(slug);
+    nCells++;
+    if (cell.state === "range") ranges++;
+    if (cell.disputed) disputes++;
+  }
+
+  /* This pass owns the column, so what it declines to write it takes away. */
+  const OURS = new Set(["mext-2020", "frida-6.1"]);
+  for (const [slug, entry] of Object.entries(out)) {
+    const held = entry.cells?.cr;
+    if (!held || written.has(slug)) continue;
+    if (!(held.sources || []).every(src => OURS.has(src))) continue;
+    delete entry.cells.cr;
+    nCells--;
+    dropped.push(`${slug}.cr: neither MEXT nor Frida has a figure for it any more`);
   }
 }
 
@@ -524,6 +642,58 @@ for (const w of research._withdrawn?.entries ?? []) {
   if (!stillCited) delete out[w.page_slug].matches[w.source];
 }
 
+
+/* Boron, which had no food composition table behind it until now.
+ *
+ * Its nine cells come from two literature compilations, written by the
+ * research.json pass just above, and this runs after that pass rather than
+ * before it for exactly that reason: a pass that writes a column has to be able
+ * to see what the passes before it put there.
+ *
+ * Frida reaches two foods, wheat bran and light rye bread, and is the only
+ * source here reporting boron on a fresh weight basis. Its own column is small:
+ * 21 admitted cells out of 49, the rest borrowed or undetermined.
+ *
+ * A literature figure already held is one measurement from one named paper, so
+ * where the two meet the held figure is taken apart and reconciled rather than
+ * overwritten. Neither of the two foods carries one today, which is why this is
+ * written as the rule rather than as a special case: the pass that meets its
+ * first collision should already know what to do.
+ */
+{
+  const BORON = FRIDA_COLUMNS.find(c => c.id === "boron");
+  const written = new Set();
+  for (const slug of Object.keys(frida)) {
+    const ff = fridaFig(slug, "boron");
+    if (!ff) continue;
+    const figures = [ff];
+    const held = heldAsFigure(out[slug]?.cells?.boron, "frida-6.1");
+    if (held) figures.push(held);
+
+    const cell = nationalCell(figures, {}, BORON.floor);
+    if (!cell) continue;
+
+    const named = new Set([...(cell.sources || []), ...(cell.disputed || []).map(d => d.source)]);
+    fridaGrade(slug, named);
+
+    entryFor(slug).cells.boron = cell;
+    written.add(slug);
+    nCells++;
+    if (cell.state === "range") ranges++;
+    if (cell.disputed) disputes++;
+  }
+
+  /* Only the cells resting on Frida alone are this pass's to take away. The
+     other seven belong to the literature pass and it rewrites its own. */
+  for (const [slug, entry] of Object.entries(out)) {
+    const held = entry.cells?.boron;
+    if (!held || written.has(slug)) continue;
+    if (!(held.sources || []).every(src => src === "frida-6.1")) continue;
+    delete entry.cells.boron;
+    nCells--;
+    dropped.push(`${slug}.boron: Frida no longer has a figure for it`);
+  }
+}
 
 // AFCD integration
 for (const [slug, entry] of Object.entries(afcdMap)) {

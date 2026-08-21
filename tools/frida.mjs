@@ -126,6 +126,72 @@ export function fridaCell(cell, sources = {}) {
 const COMPONENTS = ["biotin_ug", "chromium_ug", "molybdenum_ug", "iodine_ug", "boron_ug"];
 const REASONS = ["borrowed", "undetermined", "compiled", "malformed"];
 
+/* ---------------------------------------------------------- the columns ---
+   Which page column each Frida component feeds, and in what unit.
+
+   `scale` is there for one component. Frida reports boron in micrograms and
+   this page's boron column is milligrams, so the only conversion in the table
+   is boron's thousandth. Everything else is already in the column's unit.
+
+   `floor` is RECONCILIATION.md rule 7's, in the page column's unit: the
+   smallest difference that means anything here, below which a ratio test says
+   nothing. **It is only here for the two columns Frida arrived into without an
+   owner.** Molybdenum's belongs to `PAIRED` in mext_afcd.mjs and iodine's to
+   `IODINE_FLOOR` in iodine.mjs, where they were written and where they are
+   read; repeating them here would be two places for one number to drift in.
+   Chromium's is half a microgram against a column that prints whole ones, the
+   reasoning USDA-IODINE-PROVENANCE.md gives for iodine. Boron's is five
+   thousandths of a milligram, which is `dp: 2` and nothing else, the same way
+   oxalate's floor is its column's precision alone. Biotin needs none, because
+   `biotinCell` is rule 5's and does not take one.
+
+   `loadAttested` in build.mjs carries a forced duplicate of the id, key and
+   scale, on the same terms as the AFCD one: build.mjs may import nothing but
+   `node:*`, so a test holds the two in step instead. */
+export const FRIDA_COLUMNS = [
+  { id: "biotin", key: "biotin_ug",     scale: 1 },
+  { id: "cr",     key: "chromium_ug",   scale: 1,     floor: 0.5 },
+  { id: "mo",     key: "molybdenum_ug", scale: 1 },
+  { id: "iodine", key: "iodine_ug",     scale: 1 },
+  { id: "boron",  key: "boron_ug",      scale: 0.001, floor: 0.005 },
+];
+
+/**
+ * One Frida component as a figure the reconciliation rules can take.
+ *
+ * Everything the admission rule leaves standing is analytical work, by
+ * construction: a compiled, borrowed, undetermined or malformed cell has
+ * already been refused by the time this is called, and the four EuroFIR types
+ * that survive are Danish government reports, journal papers, unpublished
+ * Danish laboratory data and two small residual kinds. So the derivation is
+ * always `analysed` and there is no grading to do here.
+ *
+ * **A `partial` mean is admitted as an ordinary figure.** 53 of the 237 cells
+ * this page banks are means sitting below their own detection minimum, because
+ * Frida divides by every determination while min and max span only the
+ * detections. That is not a defect and not a different kind of number: it is
+ * the mean content of the food, with non-detects counted as zero, which is how
+ * a composition table reports. Seitan's iodine is 10 over eight determinations
+ * of which two detected 40, and 10 is what someone eating it gets. Refusing
+ * these would have cost a fifth of the column to a footnote about arithmetic.
+ *
+ * @param {object} row one food from `frida-6.1.json`
+ * @param {{id: string, key: string, scale: number}} col one entry of FRIDA_COLUMNS
+ * @param {object} sources the named source table
+ * @returns {{source: string, value: number, derivation: string, n?: number}|null}
+ */
+export function fridaFigure(row, col, sources = {}) {
+  const cell = fridaCell(row?.[col.key], sources);
+  if (!cell || !cell.admitted) return null;
+  const figure = {
+    source: "frida-6.1",
+    value: cell.value * col.scale,
+    derivation: "analysed",
+  };
+  if (cell.n) figure.n = cell.n;
+  return figure;
+}
+
 /**
  * Figures that appear verbatim on more than one food.
  *
@@ -240,7 +306,57 @@ function provenance() {
    scorer is not going to learn the difference between a navy bean and a French
    one, so the document says where to look instead. */
 const WATCH = ["frozen", "canned", "dried", "fries", "juice", "powder", "brine",
-  "sauce", "concentrate", "sprouted", "enriched", "fortified"];
+  "sauce", "concentrate", "sprouted", "enriched", "fortified", "ready to eat"];
+
+/**
+ * What the EFSA classification says was analysed, where the row's own name does
+ * not say it.
+ *
+ * `foodEx2` is carried by `extract_frida.mjs` and read here rather than scored,
+ * for the reason that file gives: it is a code someone assigned, and 753's says
+ * "Canned or jarred legumes" of a vegetable that is not a legume. It is right
+ * on 416 of the 417 rows whose Danish name says raw, which is what makes the
+ * one disagreement worth a reviewer's time rather than a rule.
+ *
+ * Two kinds are worth reporting and the rest are not. A preserving step is
+ * always worth it, because the page food never means the preserved form unless
+ * it says so: "Asparagus, all types, raw" is coded sterilised and industry
+ * prepared. A cooking step is worth it only where the page food names no
+ * preparation at all, which is this page's way of saying the plain, uncooked
+ * thing: "Poppy seeds" is coded roasted. Drying, decortication, sifting and
+ * seasoning are none of a nut's business and are left out, or every seed on the
+ * page carries a flag that says nothing.
+ *
+ * @param {string} foodEx2 the row's FoodEx2Description
+ * @param {string} said the page food's name and state, lowercased
+ * @returns {string[]} terms to put in front of a reviewer, possibly empty
+ */
+export function foodEx2Flags(foodEx2, said) {
+  const text = String(foodEx2 ?? "");
+  if (!text || text === "NULL") return [];
+  /* A description is a category followed by comma-separated `FACET = value`
+     clauses. Both halves are reported whole, so the reviewer reads what the
+     release says rather than the word that matched. */
+  const clauses = text.split(",").map(s => s.trim()).filter(Boolean);
+  const value = c => c.includes(" = ") ? c.slice(c.indexOf(" = ") + 3) : c;
+
+  const PRESERVED = /\bcanned\b|\bjarred\b|sterilis|pasteuris|\bfrozen\b|\bfreezing\b/i;
+  const COOKING = /\bboiling\b|\bsteaming\b|\broasting\b|\bfrying\b|\bbaking\b|\bgrilling\b/i;
+  /* A page food that says nothing is this page's way of saying the plain,
+     uncooked thing, and it is the only one a cooking term surprises. One that
+     says cooked has already agreed to a method, and which method is a question
+     the Danish name answers better than a classification code does. */
+  const statesPreparation =
+    /\b(raw|cooked|boiled|baked|roasted|steamed|grilled|fried|dried|dry|fresh)\b/.test(said);
+
+  const out = [];
+  for (const c of clauses) {
+    const v = value(c);
+    if (PRESERVED.test(v) && !PRESERVED.test(said)) out.push(v);
+    else if (!statesPreparation && COOKING.test(v)) out.push(v);
+  }
+  return out;
+}
 
 const COMPONENT_LABEL = {
   biotin_ug: "biotin", chromium_ug: "chromium", molybdenum_ug: "molybdenum",
@@ -280,8 +396,16 @@ async function propose(categories) {
   }
   const offerable = [...admitsOf.keys()];
 
-  const legacy = rd("page-map-frida.json");
-  const legacyBy = new Map(Object.entries(legacy).map(([slug, id]) => [slug, String(id)]));
+  /* What is already banked, so the document says whether this run still agrees
+     with it. Before 2026-08-21 this read a map of 17 unreviewed slug-to-id
+     pairs and quoted each above its food; those are gone and the file now holds
+     72 reviewed entries. A proposal that disagrees with a banked pairing is the
+     interesting case and gets said so, because it means either the release
+     moved or a reviewer overrode the scorer, and only one of those is fine. */
+  const banked = rd("page-map-frida.json");
+  const bankedBy = new Map(Object.entries(banked)
+    .filter(([slug, e]) => !slug.startsWith("_") && e && typeof e === "object")
+    .map(([slug, e]) => [slug, e]));
   const rowById = new Map(rows.map(r => [String(r.FoodID), r]));
 
   const show = c => {
@@ -304,7 +428,7 @@ async function propose(categories) {
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
 
-    const was = legacyBy.get(slug);
+    const was = bankedBy.get(slug);
     if (!top.length) {
       /* Two different answers, and the page has spent a lot of effort keeping
          them apart everywhere else. Scoring against every row rather than only
@@ -316,20 +440,24 @@ async function propose(categories) {
         .map(r => ({ row: r, score: scoreCandidate(food.name, food.state, r.name) }))
         .filter(c => c.score > 0)
         .sort((a, b) => b.score - a.score)[0];
-      const note = was ? ` (the old map held ${was}, `
-        + `"${rowById.get(was)?.name ?? "which is not a row in this release"}")` : "";
+      /* A banked pairing whose food no longer has a candidate is the one
+         shape of drift that matters here: the map points at a row this search
+         cannot reach, so something moved under it. */
+      const note = was ? ` (**the map banks ${was.food_id}, "${was.name}"**, `
+        + `which this search does not reach)` : "";
       if (anyRow) silent.push(`${label} — Frida's "${anyRow.row.name}" matches and admits nothing${note}`);
       else unreached.push(label + note);
       continue;
     }
 
     let block = `\n### ${label}\n\n`;
-    if (was) {
-      const row = rowById.get(was);
-      block += `The old map held **${was}${row ? `, "${row.name}"` : ", which is not a row in this release"}**. `
-        + `It was never reviewed.\n\n`;
-    }
-    block += "| FoodID | Frida row | admits | score | grade |\n|---|---|---|---|---|\n";
+    /* The Danish name is a column rather than a footnote, because it is the one
+       that says which row is which. Three rows are called "Carrot, raw" and
+       the English name cannot separate them; "Gulerod, uspec.", "Gulerod,
+       dansk" and "Gulerod, importeret" can, and the unqualified page food
+       takes the unspecified row. */
+    block += "| FoodID | Frida row | Danish name | admits | score | grade |\n"
+      + "|---|---|---|---|---|---|\n";
     let best = null;
     for (const c of top) {
       const grade = suggestGrade(c.score, food.name, c.row.name);
@@ -337,13 +465,27 @@ async function propose(categories) {
       const admits = admitsOf.get(c.row);
       const what = Object.entries(admits)
         .map(([k, v]) => `${COMPONENT_LABEL[k]} ${show(v)}`).join("; ");
-      block += `| ${c.row.FoodID} | ${c.row.name} | ${what} | ${c.score} | ${grade} |\n`;
+      block += `| ${c.row.FoodID} | ${c.row.name} | ${c.row.nameDanish} | ${what} `
+        + `| ${c.score} | ${grade} |\n`;
     }
     /* Sorted into two piles rather than one list. A food whose every candidate
        is a proxy is one where the honest answer is probably no pairing at all,
        and mixing those in with the ones worth a nod is what makes a review
        document go unread. */
     if (best) {
+      /* Where the map and this run disagree, say so. Each case is a reviewer
+         overriding the scorer on something the scorer cannot see: a row that
+         is a retail product rather than a cooked food, or one whose EFSA
+         classification says it was preserved. A refusal shows up here as a
+         food with a candidate and no banked entry at all. */
+      if (!was)
+        block += `\n**Not banked.** This food has a candidate above proxy and no `
+          + `entry in \`page-map-frida.json\`.\n`;
+      else if (was.food_id !== best.c.row.FoodID || was.match !== best.grade)
+        block += `\n**The map banks ${was.food_id}, "${was.name}", as *${was.match}*`
+          + `${was.food_id === best.c.row.FoodID ? "" : ", which is not the row leading here"}.**`
+          + `${was.note ? ` ${was.note}` : ""}\n`;
+
       const state = String(food.state || "").toLowerCase();
       /* Against the whole page food, name and state, so "Cocoa powder,
          unsweetened" is not warned about a row that says powder. And a
@@ -363,6 +505,16 @@ async function propose(categories) {
       if (flags.length)
         block += `\n**Look twice.** The leading row says ${flags.map(f => `*${f}*`).join(" and ")}`
           + ` where the page food ${state ? `says *${state}*` : "says nothing"}.\n`;
+      /* And what the row's name does not say. This is the only line in the
+         document that reads a field other than the name, and it found the two
+         the name hid: 753 is called "Asparagus, all types, raw" and classified
+         as sterilised, 1292 is called "Poppy seeds" and classified as
+         roasted. */
+      const coded = foodEx2Flags(best.c.row.foodEx2, said);
+      if (coded.length)
+        block += `\n**Look twice.** The leading row's name says nothing about `
+          + `preparation that disagrees, but EFSA's classification of it is `
+          + `${coded.map(f => `*${f}*`).join(" and ")}: \`${best.c.row.foodEx2}\`.\n`;
       mapped++;
       worth += block;
       out[slug] = {
@@ -381,9 +533,13 @@ async function propose(categories) {
   const head = `# Frida map proposals, for review
 
 Written by \`node tools/frida.mjs propose\`. **Every pair here is a suggestion
-and none of them is mapped.** Automated name matching is refused in this
+and nothing here maps anything.** Automated name matching is refused in this
 project, so nothing reaches \`page-map-frida.json\` until a person has read it.
 The scorer is the one \`BIOTIN-MAP-REVIEW.md\` uses.
+
+72 of these are now banked, and where the map disagrees with the row leading
+here the entry and its reason are quoted above the table. \`FRIDA-BANKING-REVIEW.md\`
+is the record of that reading.
 
 \`FRIDA-PROVENANCE.md\` is the companion and should be read first: it is why the
 "admits" column exists at all. A row's borrowed, undetermined and compiled
@@ -395,10 +551,13 @@ defect: the mean divides by every determination while min and max span only the
 detections, so a figure that counted non-detects as zero lands under its own
 floor. It understates, and the reader is owed the reason.
 
-The old \`page-map-frida.json\` held 17 slug-to-id pairs in a shape with no
-state, no grade and no review, predating the discipline \`BIOTIN-MAP-REVIEW.md\`
-set. Each is quoted above its food below rather than carried across, because a
-pairing nobody checked is not evidence that it is right.
+**The Danish name is a column because the English one cannot always say which
+row is which.** 24, 559 and 606 are all called "Carrot, raw"; in Danish they are
+\`uspec.\`, \`dansk\` and \`importeret\`, and an unqualified page food takes the
+unspecified row. Where the EFSA classification says a row was preserved, or
+cooked where the page food names no preparation, that is quoted too: it is the
+only field here that is not the name, and it found a raw-named asparagus
+classified as sterilised and a plain-named poppy seed classified as roasted.
 `;
   const doc = head
     + `\n## Worth a decision\n\n${mapped} page foods have at least one candidate `

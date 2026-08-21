@@ -39,12 +39,19 @@ const RANK = { trace: 3, "not-detected": 2, "not-measured": 1 };
 const FINDING = new Set(["trace", "not-detected"]);
 
 /**
- * The biotin cell for one food, from whichever of the three sources reach it.
+ * The biotin cell for one food, from whichever of the four sources reach it.
+ *
+ * Frida arrives already reduced to a figure rather than as a row, because what
+ * a Frida cell may contribute is decided by its own admission rule and not by
+ * anything here: a value compiled from CoFID or AFCD is refused there, which is
+ * what stops this page holding one table twice under two names. See
+ * `fridaFigure` in tools/frida.mjs.
  *
  * @param {{
  *   mext?: { state: string, value: number|null },
  *   cofid?: { biotin_ug: string },
  *   afcd?: { biotin_ug: string, derivation: string },
+ *   frida?: { source: string, value: number, derivation: string, n?: number },
  * }} rows
  * @returns {object|null} a cell, or null where no source says anything
  */
@@ -70,6 +77,7 @@ export function biotinCell(rows) {
     if (v !== null) cands.push({ source: "afcd-r3", value: v,
       derivation: gradeDerivation(rows.afcd.derivation) });
   }
+  if (rows.frida) cands.push(rows.frida);
 
   if (cands.length) return reconcile(cands);
 
@@ -102,9 +110,20 @@ const STOP = new Set(["and", "with", "the", "in", "or", "no", "added", "whole",
    "strawberri" while "Strawberry" stemmed to itself, so Frida's "Strawberry,
    raw" scored zero against this page's strawberries and never reached review;
    the frozen row led on n=2 where the raw row holds n=7 to 10. Every berry on
-   this page was one letter from the same fate. */
+   this page was one letter from the same fate.
+
+   **The -es rule is only right where the -s rule would not do**, which is after
+   a sibilant or an o: radishes, boxes, tomatoes. Stripping both letters off
+   every plural took "Dates" to "dat" while "Date" stayed "date", so this page's
+   dates scored zero against Frida's "Date, dried" and were reported as a food
+   Frida does not hold. **Grapes, prunes, nectarines and tangerines were the
+   same word away from the same fate**, and Frida has a row for each. The
+   symptom is the -ies bug's, one class of plural at a time: a plural that does
+   not stem to its own singular cannot meet it, and the search then says the
+   database was asked and had nothing, which is the one answer this document
+   must never give wrongly. */
 const stem = w => w.length > 4 && w.endsWith("ies") ? `${w.slice(0, -3)}y`
-  : w.length > 3 && w.endsWith("es") ? w.slice(0, -2)
+  : w.length > 4 && /(?:ch|sh|s|x|z|o)es$/.test(w) ? w.slice(0, -2)
   : w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w;
 
 /* Stopped on the stem rather than before it, or the list means one thing for a

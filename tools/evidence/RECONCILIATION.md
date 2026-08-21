@@ -306,6 +306,21 @@ everything for a column measured in grams.
 | **Biotin** | **no, up to 29x** | **range** |
 | **Iodine** | **no, oats 74 vs not detected** | **range, and a floor of 0.5 ug below which a ratio says nothing** |
 | **Oxalic acid** | **no, spinach 0.3 vs 0.7** | **range; and AFCD's zeros are refused, see rule 6** |
+| **Chromium** | **no, 12 of the 34 foods two sources reach** | **range; the second source is Frida and may not be AFCD** |
+
+**Chromium was single source until 2026-08-21 and had nothing to reconcile
+against.** AFCD carries the column and may not join it: FSANZ says of its own
+data that values "should be used with caution", the one exception to AFCD's
+quality in `sources.json`, and a source that disclaims its own figures cannot
+corroborate anyone else's. Frida is the honest second source, and chromium is
+the component its admission rule passes most of, 766 cells of 920.
+
+The two reach 34 foods together and **12 of them disagree beyond 2x**:
+flaxseed 2.3 against 25, kale 1 against 8.3, spinach 2 against 9.3, sesame
+seeds 4 against 12.5. Not one is a disputed outlier, because with two sources
+there is nothing to arbitrate; rule 4 needs a third. This is the same shape
+molybdenum turned out to have and the opposite of what a single-source column
+looked like, which is the argument for a second source stated once more.
 
 ## The flavonoid columns are not thin because of the mapping
 

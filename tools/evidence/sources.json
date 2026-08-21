@@ -276,7 +276,7 @@
       "organic_acids_g": 83
     },
     "quality": "high",
-    "key_finding": "Unblocks boron, but by 21 values rather than 49. Its boron is on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7) and wheat bran 270 (n=10) stand; buckwheat groats 530 is n=0 from FINKOST 1986 and is refused. See FRIDA-PROVENANCE.md.",
+    "key_finding": "Wired 2026-08-21 and now carries 225 cells, second only to MEXT: chromium 69, iodine 58, molybdenum 51, biotin 45, boron 2, through 77 reviewed pairings in page-map-frida.json. It is the reason chromium stopped being single-source, AFCD being the only other table carrying that column and FSANZ disclaiming it. Unblocks boron, but by 21 values rather than 49. Its boron is on a normal fresh-weight basis rather than the 0% moisture dry beans that made the USDA Foundation Foods boron unusable. Wheat germ 250 ug (n=7) and wheat bran 270 (n=10) stand; buckwheat groats 530 is n=0 from FINKOST 1986 and is refused. See FRIDA-PROVENANCE.md.",
     "limitations": [
       "Danish samples and Danish soils.",
       "A mean can sit below its own min: the mean divides by every determination while min and max span only the detections above the limit, so it counts non-detects as zero and understates. Marked partial, not corrected.",

@@ -13,8 +13,9 @@ summary and the two problems.
 
 | source | cells | terms | clear? |
 |---|---|---|---|
-| MEXT 2020, Japan | 1,552 | Government Standard Terms of Use, stated compatible with CC BY 4.0 | yes |
-| AFCD R3, Australia | 161 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
+| MEXT 2020, Japan | 1,547 | Government Standard Terms of Use, stated compatible with CC BY 4.0 | yes |
+| **Frida 6.1, Denmark** | **225** | CC BY 4.0, see FRIDA-PROVENANCE.md | yes |
+| AFCD R3, Australia | 156 | **CC BY-SA 3.0 AU**, ShareAlike, plus a required data statement | **no** |
 | CoFID 2021, UK | 72 | Open Government Licence v3.0 | yes |
 | USDA proanthocyanidins R2 | 62 | US government work, public domain | yes |
 | FAO/INFOODS phytate | 54 | © FAO and CHRCO, **non-commercial only** | **no** |
@@ -26,7 +27,6 @@ summary and the two problems.
 | "eurofir" | 5 | not a EuroFIR download at all, see below | n/a |
 | FAO/INFOODS oligosaccharides | 4 | the same FAO non-commercial terms | **no** |
 | CNF, Canada | 3 | Open Government Licence, Canada | yes |
-| Frida 6.1, Denmark | 0 | CC BY 4.0, see FRIDA-PROVENANCE.md | yes |
 
 **PhyFoodComp is a compilation, and 291 of its 2,442 plant rows are IFCT 2017.**
 Those rows are now refused, so no cell citing `fao-phytate` rests on a table
@@ -46,6 +46,30 @@ the bibliography now committed beside them.
 Roughly 25 further cells cite individual journal papers. Those are numeric
 findings quoted with attribution, which is ordinary scholarly citation rather
 than redistribution of a dataset, and they are not treated here.
+
+## Frida's credit is now owed, 2026-08-21
+
+Frida was in the table at 0 cells while its map was unbanked. It carries **225**
+now, second only to MEXT, so the obligation is live rather than hypothetical.
+CC BY 4.0 is the clearest licence of any source here and permits exactly this
+use. What it asks for is a specific credit, quoted in FRIDA-PROVENANCE.md:
+
+> The Danish Food Composition Database (http://fcdb.fooddata.dk), version 6.1,
+> May 2026. The Food Institute, Technical University of Denmark.
+
+`sources.json` carries the title, publisher and DOI, and the whole record ships
+inside the page, so the attribution data is there. What the page renders beside
+a figure is the `short` label alone, "Denmark (Frida)", which is the same model
+every attribution-requiring source here already gets: MEXT's terms and CoFID's
+Open Government Licence both ask for a citation and both are shown that way.
+
+**So this is not a new kind of exposure, it is one more source inside an
+existing decision, and that decision has never been written down.** It sits
+beside AFCD's required data statement, which is unrendered for the same reason.
+Deciding it means deciding it for all of them at once: either the short label is
+the attribution, or the page needs a credits block naming every source it draws
+on. Frida's is the sharpest case for the second answer, because DTU asks for a
+particular sentence rather than for a citation in general.
 
 ## Problem one: IFCT 2017, resolved 2026-08-19
 
@@ -93,10 +117,13 @@ it governs: **Creative Commons Attribution-ShareAlike 3.0 Australia**. Two
 obligations follow that CC BY 4.0 would not have imposed.
 
 **ShareAlike.** Any derivative work must be distributed only under the same
-licence. 161 cells rest on AFCD, so `evidence.json` is arguably such a work, and
+licence. 156 cells rest on AFCD, so `evidence.json` is arguably such a work, and
 it currently ships under MIT. That count was 58 on the morning of 2026-08-19,
 before AFCD's iodine, molybdenum and oxalic acid columns were read; it has
-nearly tripled in a day. The question is unchanged and what rests on the answer
+nearly tripled since. It fell from 161 to 156 on 2026-08-21 when Frida arrived
+and rule 4 gained a third source to arbitrate with, which moved five AFCD zeros
+into `disputed`. That is a smaller exposure by five cells and the question is
+unchanged. The question is unchanged and what rests on the answer
 is not, and it is the largest single unresolved licence exposure here.
 
 **A required statement.** Every distributed copy must carry a Limitation of Data

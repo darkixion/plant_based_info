@@ -204,6 +204,15 @@
    "iodine"
   ]
  },
+ "jerusalem-artichokes-raw": {
+  "food_id": "950",
+  "name": "Jerusalem artichoke, raw",
+  "match": "exact",
+  "admits": [
+   "chromium",
+   "iodine"
+  ]
+ },
  "blackberries-raw": {
   "food_id": "1849",
   "name": "Blackberry, raw",
@@ -283,6 +292,16 @@
   "match": "close",
   "admits": [
    "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
+ "dates": {
+  "food_id": "533",
+  "name": "Date, dried",
+  "match": "close",
+  "admits": [
    "chromium",
    "molybdenum",
    "iodine"
@@ -455,6 +474,17 @@
    "iodine"
   ]
  },
+ "grapes-raw": {
+  "food_id": "54",
+  "name": "Grape, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
  "plums-raw": {
   "food_id": "1852",
   "name": "Plum, raw",
@@ -586,6 +616,16 @@
    "iodine"
   ]
  },
+ "prunes-dried": {
+  "food_id": "221",
+  "name": "Prune, dried plum",
+  "match": "close",
+  "admits": [
+   "chromium",
+   "molybdenum",
+   "iodine"
+  ]
+ },
  "raisins": {
   "food_id": "880",
   "name": "Raisin , seedless",
@@ -648,6 +688,16 @@
   "admits": [
    "biotin",
    "chromium"
+  ]
+ },
+ "nectarines-raw": {
+  "food_id": "610",
+  "name": "Nectarine, raw",
+  "match": "close",
+  "admits": [
+   "biotin",
+   "chromium",
+   "iodine"
   ]
  },
  "elderberries-raw": {

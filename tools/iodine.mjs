@@ -46,12 +46,20 @@ const figureOf = c =>
 export const IODINE_FLOOR = 0.5;
 
 /**
- * The iodine cell for one food, from whichever of the three sources reach it.
+ * The iodine cell for one food, from whichever of the four sources reach it.
+ *
+ * Frida is the fourth, reaching 62 foods through `page-map-frida.json`, and it
+ * arrives already reduced to a figure by its own admission rule: 284 of its
+ * 1,210 iodine cells are compiled from tables this page already cites and are
+ * refused there rather than here. Note what that leaves: **its iodine is the
+ * one component of the five where the refusals outnumber almost everything**,
+ * so a Frida iodine figure that survives is Danish analytical work.
  *
  * @param {{
  *   mext?: { state: string, value: number|null, raw?: string },
  *   afcd?: { iodine_ug: string, derivation: string },
  *   usda?: { iodine_ug_100g: string, n: string },
+ *   frida?: { source: string, value: number, derivation: string, n?: number },
  * }} rows
  * @returns {object|null} a cell, or null where no source says anything
  */
@@ -90,6 +98,8 @@ export function iodineCell(rows) {
       figures.push(c);
     }
   }
+
+  if (rows.frida) figures.push(rows.frida);
 
   return nationalCell(figures, states, IODINE_FLOOR);
 }

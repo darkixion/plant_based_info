@@ -102,6 +102,38 @@ is literally titled "Natural zero value for content. Not analyzed".
 carries 4.89 from 7 determinations. Admitting estimates would have put a 49x
 error on the page.
 
+## Two fields the English name does not carry
+
+Added to `frida-6.1.json` on 2026-08-21, from the workbook's `Food` sheet,
+which the value sheet does not repeat. Both are carried as written and neither
+is scored.
+
+**`nameDanish` says which row is which.** 24, 559 and 606 are all called
+"Carrot, raw" in English and disagree on every component. In Danish they are
+"Gulerod, **uspec.**", "Gulerod, **dansk**" and "Gulerod, **importeret**". The
+qualifier was dropped in translation rather than absent, and it decides the
+pairing: an unqualified page food takes the unspecified row. Cauliflower,
+tomato, apple, brussels sprouts and asparagus carry the same word. Without this
+field `page-map-frida.json` could not even record which carrot was banked,
+since `name` reads "Carrot, raw" for all three.
+
+**`foodEx2` says what was analysed.** It is right on 416 of the 417 rows whose
+Danish name says raw, and the exceptions are worth the reading. **1292 is called
+"Poppy seeds" in both languages and classified `PROCESS = Roasting`**; eight of
+the ten rows Frida codes as roasted say so in their names and this is one of the
+two that do not. **753 is called "Asparagus, all types, raw" in both languages
+and classified "Canned or jarred legumes, PROCESS = Statical sterilisation"**,
+which is the one flat contradiction in the release and also botanically wrong,
+since asparagus is not a legume. That row's biotin is borrowed from the canned
+asparagus row beside it.
+
+**Neither field is given to the matcher.** FoodEx2 is a code someone assigned,
+and 753 is what an assigned code can be worth. `foodEx2Flags` in
+`tools/frida.mjs` reports a preserving step always, and a cooking step only
+where the page food names no preparation at all, so a dried and hulled seed
+does not carry a flag that says nothing. What it reports goes in front of a
+reviewer; nothing is refused for it.
+
 ## A correction to `sources.json`
 
 The boron key finding rested on three figures. Two survive and one does not:
@@ -152,33 +184,102 @@ thing about itself:
 
 ## Status
 
-The admission rule is implemented and tested. **Candidates are now proposed and
-no Frida value has reached the page.**
+The admission rule is implemented and tested, the map is banked and the pass is
+wired. **225 cells on the page now rest on Frida**, which makes it the second
+largest source here after MEXT.
 
 `node tools/frida.mjs propose` writes `FRIDA-MAP-REVIEW.md` and
 `proposed-page-map-frida.json`, on the scorer `BIOTIN-MAP-REVIEW.md` uses, over
-the rows the admission rule leaves standing. Of 222 page foods: **73 have a
+the rows the admission rule leaves standing. Of 222 page foods: **78 have a
 candidate worth a decision**, 67 have only proxies, 20 are foods Frida holds and
-has determined nothing about, and 62 it does not reach at all. **No food carries
-a "look twice" line.** Ten did, and reading each against the corpus rather than
-against its score found that every one was the scorer's fault rather than a
-judgement call; the faults are fixed and the ten are corrected or refused. What
-that cost, and what it says about reading a generated proposal, is in
+has determined nothing about, and 57 it does not reach at all. That last number
+was 62 until the scorer's -es rule was fixed: it stripped both letters off every
+plural, so "Dates" stemmed to "dat" where "Date" stemmed to "date", and dates,
+grapes, prunes, nectarines and Jerusalem artichokes were all reported as foods
+Frida does not hold. Ten carried a
+"look twice" line on the name and every one was the scorer's fault rather than a
+judgement call; the faults are fixed. Two more carry one on the classification,
+and those are real: a poppy seed coded roasted and an asparagus coded canned.
+What that cost, and what it says about reading a generated proposal, is in
 `FRIDA-BANKING-REVIEW.md`.
 
-`page-map-frida.json` is now empty. It held 17 slug-to-id pairs in the old
-shape, with no state, no `match` and no review, predating the discipline
-`BIOTIN-MAP-REVIEW.md` set. Each is quoted into the review document above the
-food it was for, rather than carried across a change of standard. One of them
-is knowledge the matcher does not have: **flaxseed is Frida's "Linseeds, raw"**,
-which admits a chromium determination, and no name scorer is going to find that.
-It is now in `ALIASES` in `tools/biotin.mjs`, with this page's haricot bean for
-Denmark's white bean, so the proposal carries both again.
+`page-map-frida.json` holds **77 reviewed entries**, banked 2026-08-21, each
+carrying the row's English and Danish names so that a FoodID meaning something
+else after a release is visible rather than silent. 23 are graded exact, 52
+close and 2 proxy. Together they would bring **237 cells**: chromium 72, iodine
+62, molybdenum 54, biotin 47, boron 2. The 78th proposal, asparagus, is refused.
 
-**Nothing reads the map yet, and that is deliberate.** A pass wired against an
-empty map writes no cells and cannot be tested against anything, so it waits
-until there are banked pairings to test it on. What exists is the rule, the
-proposals and the file's shape.
+It previously held 17 slug-to-id pairs in a shape with no state, no `match` and
+no review, predating the discipline `BIOTIN-MAP-REVIEW.md` set. Those were
+quoted into the review document rather than carried across a change of standard.
+One of them was knowledge the matcher does not have: **flaxseed is Frida's
+"Linseeds, raw"**, which admits a chromium determination, and no name scorer is
+going to find that. It is in `ALIASES` in `tools/biotin.mjs`, with this page's
+haricot bean for Denmark's white bean.
+
+**The pass, wired 2026-08-21.** `tools/evidence.mjs` reads the map, refuses any
+entry that does not say `"reviewed": true`, and reduces each row to one figure
+per column through `fridaFigure`. Four columns already had an owner and Frida
+joins each of them as one more national table: `biotinCell`, `iodineCell` and
+`pairedCell` take it as a figure rather than as a row, because what one of its
+cells may contribute is this file's rule to decide and not theirs.
+
+**Chromium had no owner, and that is the change worth naming.** It was a row of
+the uniform single-source table in `evidence.mjs`, MEXT and nothing else on 102
+cells, while AFCD's chromium column sat there unusable: FSANZ disclaims it, so
+it cannot corroborate anyone. Frida is the honest second source and admits more
+of chromium than of anything else, 766 cells of 920. The column is now 134 cells,
+69 of them citing Frida, and **12 of the 34 foods both sources reach disagree
+beyond 2x**: flaxseed 2.3 against 25, kale 1 against 8.3, spinach 2 against 9.3.
+RECONCILIATION.md's status table records it.
+
+What each column gained:
+
+| column | cells before | cells after | citing Frida |
+|---|---|---|---|
+| chromium | 102 | **134** | 69 |
+| iodine | 130 | **145** | 58 |
+| molybdenum | 116 | **134** | 51 |
+| biotin | 142 | **147** | 45 |
+| boron | 9 | **11** | 2 |
+
+Twelve admitted Frida figures reach no cell, and all twelve are the rules
+working rather than a loss. **Seven** are a determined zero or a figure below
+rule 7's floor meeting another source's trace: a trace outranks a zero, and a
+cell that shows no number may not name a source that reported one. **Five** are
+rule 4 finding Frida's zero to be the outlier now that a third source exists to
+arbitrate, and every one of those is kept in `disputed`, where the page can show
+it. Nothing goes missing silently.
+
+**What to question next: source 2179's iodine.** Six page foods moved from an
+analysed absence to a range when Frida joined the iodine column, and five of the
+six rest on one report, DTU's 2023 *Næringsstofindhold i frugter*. Their
+detections are the striking thing:
+
+| food | mean | detected | n |
+|---|---|---|---|
+| grapefruit, raw | 3.125 | 25 to 25 | 8 |
+| mango, raw | 6.5 | 24 to 28 | 8 |
+| honeydew melon, raw | 2.875 | 23 to 23 | 8 |
+| kiwi, raw | 5.75 | 21 to 25 | 8 |
+| pineapple, raw | 5.625 | 18 to 27 | 8 |
+
+**No other banked iodine cell detects above 10 except seitan at 40 and parsley
+at 4.3 to 47**, so these five are the whole of a cluster with a gap under it.
+Parsley is the one figure that spans the gap, and its own spread of 4.3 to 47
+over eight determinations says the same thing about the method. Five unrelated fruits detecting at 18 to 28 ug per 100 g, each on
+two or three determinations out of eight, is the shape of a limit of
+quantification around 20 rather than of five fruits containing that much iodine;
+MEXT, AFCD and the FDA release each assayed some of the same fruits and found
+none. Nothing is refused for it. The admission rule asks where a figure came
+from and not whether it is plausible, and the page's answer to a disagreement is
+a range naming both sides, which is what these now show. **But the report is
+worth reading before this column is quoted**, and it is not cached here.
+
+`build.mjs` carries a duplicate of the admission rule, because it may import
+nothing but `node:*` and a checker that attested a compiled or borrowed figure
+would let one pass unexamined. `test/tools.mjs` holds the two copies against
+each other over every mapped food and every column.
 
 Both evidence files are now rebuilt from the published workbook rather than
 scraped from the old website, by `node tools/extract_frida.mjs`. The workbook
@@ -188,10 +289,10 @@ are fetched rather than redistributed. Download it from the DOI above and put
 
 The rebuild reproduces the scraped file exactly, on all 1,240 foods and all
 4,447 cells, with no disagreement on a single value, determination count or
-source id. What it adds is `sourceFood`, the column the scrape lost. 538 cells
-carry one. Every one of them also has no source id and no cell has one without
-the other, so the proxy this document previously relied on was exact; it is now
-stated outright instead.
+source id. What it adds is `sourceFood`, the column the scrape lost, and the
+two food-sheet columns above. 538 cells carry a `sourceFood`. Every one of them
+also has no source id and no cell has one without the other, so the proxy this
+document previously relied on was exact; it is now stated outright instead.
 
 ## A figure can be admitted onto more than one food
 

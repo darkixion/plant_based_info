@@ -941,6 +941,63 @@ dry figure showed unmarked. A cell takes the worst grade among its own sources.
 Both marks are explained in the key under the table, and only when a cell
 carrying one is actually on screen.
 
+### A row's own name is not always enough to pair on
+
+Frida 6.1 has three rows called "Carrot, raw" and they disagree on every
+component: chromium 0.80 at n=67, then 0 at n=6, then 0 at n=2. No name can
+separate them and the lead was file order. The answer was in the release the
+whole time, in a column `tools/extract_frida.mjs` was dropping. In Danish they
+are "Gulerod, **uspec.**", "Gulerod, **dansk**" and "Gulerod, **importeret**",
+and an unqualified page food takes the unspecified row. The same word settles
+cauliflower, tomato, apple, brussels sprouts and asparagus, and it turned what
+looked like eight separate judgement calls into one rule.
+
+The workbook's `Food` sheet also carries the EFSA classification, which says
+what was analysed where the name does not. Frida's "Poppy seeds" is coded
+roasted; its "Asparagus, all types, raw" is coded canned and sterilised in the
+package, the one flat contradiction in 417 raw-named rows, on a row whose
+biotin is borrowed from the canned asparagus beside it. Neither is visible in
+any field a name scorer reads. Both are now reported by `foodEx2Flags`, which
+reports a preserving step always and a cooking step only where the page food
+names no preparation, so a dried and hulled seed does not carry a flag that
+says nothing.
+
+Neither field is given to the matcher. A classification is a code someone
+assigned, and calling asparagus a legume is what an assigned code can be worth.
+They go in front of a reviewer instead. **Ask a database what it measured, then
+check that the extraction kept the field that answers**: this is the third time
+the second half of that has cost something, after the iodine release's footnote
+text and AFCD's derivation column.
+
+**And a plural that does not stem to its own singular cannot meet it.** The
+crude stemmer stripped both letters off every -es plural, so "Dates" became
+"dat" while "Date" stayed "date", and this page's dates scored zero against
+Frida's "Date, dried" and were reported in the section headed "No Frida row
+reaches the food at all". Grapes, prunes, nectarines and Jerusalem artichokes
+were the same word away from it. That section is the one answer a search
+document must never give wrongly, because it says the database was asked and
+had nothing. The -es rule is only right after a sibilant or an o, which is
+radishes, boxes and tomatoes, and it now fires only there. This is the second
+plural class to do this, after -ies hid every berry on the page.
+
+The preparation rule this page holds cuts the same way inside one database.
+Frida's red kidney bean is 205 ug of molybdenum ready to eat and 13 dried and
+boiled, one bean and one report, 16x apart. `page-map-frida.json` banks the
+dried-and-boiled row, because that is what this page's cooked legumes are, and
+grades the chickpea `proxy` because Frida has no dried-and-boiled chickpea and
+the steamed ready-to-eat one is what the kidney bean pair just warned about.
+
+**What 77 pairings were worth: 225 cells, and one column that stopped being
+single-source.** Chromium was MEXT alone on 102 cells and could not have been
+anything else, because the only other table carrying it is AFCD and FSANZ
+disclaims its own chromium data in as many words. Frida is the honest second
+source and admits more of chromium than of any other component. The column is
+134 cells now, and **12 of the 34 foods both sources reach disagree beyond 2x**:
+flaxseed 2.3 against 25, kale 1 against 8.3, spinach 2 against 9.3. A column
+with one source cannot tell you that it disagrees with itself, which is the
+argument for a second source made once more and by measurement rather than by
+assertion.
+
 ### Values are held to the source they cite
 
 `checkEvidence` reads the corpora in `tools/evidence/` back through their
@@ -1236,6 +1293,12 @@ this table shows them cooked. Comparing 100 g of dry quinoa with 100 g of cooked
 broccoli is not a fair row, so the swap would have traded a consistent table for
 a mixed one. Worth revisiting if the food list ever changes to an as-purchased
 basis.
+
+**Frida is now an evidence source, which is the other half of that answer.** The
+rejection above is about replacing `v`, where every row has to be the same kind
+of thing; an evidence column has room for a second source and marks the
+preparation of each. Frida reaches 77 page foods through a reviewed map and
+carries 225 cells, second only to MEXT.
 
 **Derived figures are computed from the table, never sourced separately.**
 Amino acid score, limiting amino acid, protein per 100 kcal, the omega-6:3

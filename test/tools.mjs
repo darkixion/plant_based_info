@@ -8,11 +8,11 @@
  * `npm test`.
  */
 import { nextValue } from "../tools/usda.mjs";
-import { gradeDerivation, nationalCell, reconcile, spanCell } from "../tools/reconcile.mjs";
+import { gradeDerivation, heldAsFigure, nationalCell, reconcile, spanCell } from "../tools/reconcile.mjs";
 import { biotinCell, namesCooking, scoreCandidate } from "../tools/biotin.mjs";
 import { iodineCell } from "../tools/iodine.mjs";
 import { PAIRED, pairedCell } from "../tools/mext_afcd.mjs";
-import { fridaCell, repeatedFigures } from "../tools/frida.mjs";
+import { FRIDA_COLUMNS, fridaCell, fridaFigure, foodEx2Flags, repeatedFigures } from "../tools/frida.mjs";
 import { faoPhytateCell, faoAdmits } from "../tools/fao_phytate.mjs";
 import { faoOligosCells } from "../tools/fao_oligos.mjs";
 import { keepsGrade } from "../tools/withdraw.mjs";
@@ -558,6 +558,33 @@ test("a page food ending in -ies matches its -y source row", () => {
   if (!(raw > frozen)) throw new Error(`raw ${raw} should beat frozen ${frozen}`);
 });
 
+test("a plural whose singular ends in e still meets its singular", () => {
+  /* The -ies bug's twin. Stripping both letters off every -es plural took
+     "Dates" to "dat" while "Date" stayed "date", so this page's dates scored
+     zero against Frida's "Date, dried" and were reported as a food Frida does
+     not hold. Grapes, prunes, nectarines and Jerusalem artichokes were the
+     same word away from the same fate, and Frida has a row for each. */
+  for (const [name, row] of [
+    ["Dates", "Date, dried"],
+    ["Grapes", "Grape, raw"],
+    ["Prunes", "Prune, dried plum"],
+    ["Nectarines", "Nectarine, raw"],
+    ["Jerusalem artichokes", "Jerusalem artichoke, raw"],
+  ]) {
+    const s = scoreCandidate(name, "", row);
+    if (!(s > 0)) throw new Error(`${name} scored ${s} against "${row}"`);
+  }
+  /* And the -es rule still earns its place where the -s rule would not do. */
+  for (const [name, row] of [
+    ["Radishes", "Radish, raw"],
+    ["Tomatoes", "Tomato, ripe, raw, origin unknown"],
+    ["Peaches", "Peach, raw"],
+  ]) {
+    const s = scoreCandidate(name, "raw", row);
+    if (!(s > 0)) throw new Error(`${name} scored ${s} against "${row}"`);
+  }
+});
+
 test("a page food that says raw refuses a dried row", () => {
   /* Frida holds both forms of four fruits and the dried row led every time,
      because RAW lumps raw with dried and the two then tied at 18 on corpus
@@ -933,6 +960,242 @@ test("an unknown source id is refused rather than assumed analytical", () => {
 
 test("an absent Frida component yields nothing rather than a refusal", () => {
   eq(fridaCell(undefined, FRIDA_SRC), null, "no cell at all is a gap, not a refusal");
+});
+
+/* The two fields the English name does not carry, and what they decided. */
+
+test("every Frida row carries the Danish name and the EFSA classification", () => {
+  const rows = readEvidence("frida-6.1.json");
+  const noName = rows.filter(r => !r.nameDanish || r.nameDanish === "NULL");
+  const noCode = rows.filter(r => !r.foodEx2 || r.foodEx2 === "NULL");
+  eq(noName.length, 0, "a row with no Danish name cannot be told from its namesakes");
+  eq(noCode.length, 0, "a row with no classification cannot be asked what was analysed");
+});
+
+test("the three rows called Carrot, raw are separated by their Danish names", () => {
+  /* The decision this field exists for. In English 24, 559 and 606 are all
+     "Carrot, raw" and they disagree on every component; in Danish they are
+     unspecified, Danish and imported, and an unqualified page food takes the
+     unspecified one. */
+  const rows = readEvidence("frida-6.1.json");
+  const carrots = rows.filter(r => r.name === "Carrot, raw");
+  eq(carrots.length, 3, "the release holds three rows under that one English name");
+  eq(new Set(carrots.map(r => r.nameDanish)).size, 3, "each must be distinguishable");
+  eq(carrots.filter(r => r.nameDanish.includes("uspec.")).length, 1,
+    "exactly one of them is the unspecified row");
+});
+
+test("a preserving step in the classification is reported whatever the name says", () => {
+  /* Frida 753 is called "Asparagus, all types, raw" in English and Danish
+     alike, and classified as sterilised and industry prepared. It is the one
+     row in 417 whose Danish name says raw and whose classification disagrees. */
+  const flags = foodEx2Flags(
+    "Canned or jarred legumes, SOURCE-COMMODITIES = Asparagus, "
+    + "PROCESS = Statical sterilisation (in batch or package), "
+    + "PREPARATION-PRODUCTION-PLACE = Food industry prepared", "asparagus raw");
+  eq(flags.length, 2, "the category and the process are both worth reporting");
+  eq(flags[0], "Canned or jarred legumes", "the category is reported whole");
+});
+
+test("a cooking step is reported only where the page food names no preparation", () => {
+  /* Frida 1292 is called "Poppy seeds" and classified as roasted, and this
+     page's poppy seeds are the plain seed. */
+  eq(foodEx2Flags("Poppy seeds, PROCESS = Roasting, PROCESS = Drying (dehydration)",
+    "poppy seeds")[0], "Roasting", "a stateless page food is owed the roasting");
+  /* Where the page food says cooked it has already agreed to a method, and
+     which method is a question the Danish name answers better. */
+  eq(foodEx2Flags("Kidney bean (dry seeds), PROCESS = Boiling",
+    "kidney beans cooked").length, 0, "boiling does not surprise a cooked food");
+});
+
+test("the classification is silent about drying, decortication and seasoning", () => {
+  /* Or every nut and seed on the page carries a flag that says nothing. */
+  eq(foodEx2Flags("Sesame seeds, PROCESS = Removal of external layer, "
+    + "PROCESS = Drying (dehydration)", "sesame seeds").length, 0,
+    "a dried, hulled seed is what the page food means");
+  eq(foodEx2Flags("Meat imitates, PROCESS = Seasoning", "seitan").length, 0,
+    "seasoning is not a preparation this page distinguishes");
+});
+
+/* The banked map, held to the corpus it points at. */
+
+const FRIDA_MAP = Object.entries(readEvidence("page-map-frida.json"))
+  .filter(([slug]) => !slug.startsWith("_"));
+
+test("every banked Frida pairing is reviewed and carries a known grade", () => {
+  const bad = FRIDA_MAP.filter(([, e]) =>
+    e.reviewed !== true || !["exact", "close", "proxy"].includes(e.match));
+  eq(bad.length, 0, `unreviewed or ungraded: ${bad.map(([s]) => s).join(", ")}`);
+});
+
+test("every banked Frida pairing still names the row it was banked against", () => {
+  /* The reason `name_danish` is in the file. A FoodID that means a different
+     food after a release must be visible, and for the three rows called
+     "Carrot, raw" the English name cannot show it. */
+  const rows = readEvidence("frida-6.1.json");
+  const byId = new Map(rows.map(r => [String(r.FoodID), r]));
+  const drifted = FRIDA_MAP.filter(([, e]) => {
+    const row = byId.get(e.food_id);
+    return !row || row.name !== e.name || row.nameDanish !== e.name_danish;
+  });
+  eq(drifted.length, 0, `pointing elsewhere: ${drifted.map(([s]) => s).join(", ")}`);
+});
+
+test("no Frida determination reaches the page twice under two names", () => {
+  /* Frida pools a determination across a group of foods and writes it onto
+     each without marking it, so two page foods can be banked onto one set of
+     measurements. Two pairs on this page do, and both are deliberate: Thom's
+     decision is that the 1982 iodine figure stands on both peanuts and peanut
+     butter, since it is what the source measured for each, and dried apricots
+     and dried dates share a 1985 chromium determination on the same reading.
+     Anything else appearing here is an accident. */
+  const rows = readEvidence("frida-6.1.json");
+  const sources = readEvidence("frida-6.1-sources.json");
+  const banked = new Map(FRIDA_MAP.map(([slug, e]) => [e.food_id, slug]));
+  const ALLOWED = ["peanut-butter-smooth + peanuts", "dates + dried-apricots-dried"];
+  const doubled = repeatedFigures(rows, sources)
+    .map(g => g.rows.filter(r => banked.has(String(r.FoodID))))
+    .filter(hits => hits.length > 1)
+    .map(hits => hits.map(r => banked.get(String(r.FoodID))).sort().join(" + "));
+  const unexpected = doubled.filter(d => !ALLOWED.includes(d));
+  eq(unexpected.length, 0, `one figure on two page foods: ${unexpected.join("; ")}`);
+  eq(doubled.length, 2, "both known shared determinations are still there and no third");
+});
+
+/* What a Frida cell contributes once the map is banked and the pass is wired. */
+
+test("a Frida figure carries its determination count into the reconciliation", () => {
+  const col = FRIDA_COLUMNS.find(c => c.id === "cr");
+  const f = fridaFigure({ chromium_ug: { val: "8.3", min: "0.4", max: "24.6",
+    n: "44", source: "1506" } }, col, FRIDA_SRC);
+  eq(f.source, "frida-6.1", "the figure names the source the cell will cite");
+  eq(f.value, 8.3, "and the value the release publishes");
+  eq(f.n, 44, "n comes with it, which only the USDA release otherwise supplies");
+  eq(f.derivation, "analysed", "everything the admission rule leaves is analytical work");
+});
+
+test("a Frida cell the admission rule refuses becomes no figure at all", () => {
+  const col = FRIDA_COLUMNS.find(c => c.id === "cr");
+  /* Compiled from CoFID, which this page already cites directly. */
+  eq(fridaFigure({ chromium_ug: { val: "5", n: "3", source: "2141" } }, col, FRIDA_SRC), null,
+    "a compiled value must not reach the page under a second name");
+  /* Carried over from another food, so its n was earned elsewhere. */
+  eq(fridaFigure({ chromium_ug: { val: "1.4", n: "21", source: "NULL", sourceFood: "1310" } },
+    col, FRIDA_SRC), null, "a borrowed value is not this food's measurement");
+  eq(fridaFigure({}, col, FRIDA_SRC), null, "a component Frida does not hold is a gap");
+});
+
+test("a partial Frida mean is admitted as an ordinary figure", () => {
+  /* 53 of the 237 banked cells are means below their own detection minimum,
+     because Frida divides by every determination while min and max span only
+     the detections. That is the mean content of the food with non-detects
+     counted as zero, which is what a composition table reports, not a
+     different kind of number. Seitan's iodine is 10 over eight determinations
+     of which two detected 40. */
+  const col = FRIDA_COLUMNS.find(c => c.id === "iodine");
+  const f = fridaFigure({ iodine_ug: { val: "10", min: "40", max: "40", n: "8",
+    source: "1506" } }, col, FRIDA_SRC);
+  eq(f.value, 10, "the published mean is the figure, not the detection");
+});
+
+test("Frida's boron is converted from micrograms to the column's milligrams", () => {
+  const col = FRIDA_COLUMNS.find(c => c.id === "boron");
+  const f = fridaFigure({ boron_ug: { val: "90", min: "80", max: "110", n: "7",
+    source: "1348" } }, col, FRIDA_SRC);
+  eq(f.value, 0.09, "90 ug of boron is 0.09 mg, which is what the column prints");
+});
+
+test("Frida joins the columns that already had an owner", () => {
+  /* Each of the three cell rules takes it as a figure rather than as a row,
+     because what a Frida cell may contribute is its own admission rule's to
+     decide and not theirs. */
+  const bio = biotinCell({ mext: { state: "measured", value: 10 },
+    frida: { source: "frida-6.1", value: 12, derivation: "analysed", n: 4 } });
+  eq(bio.sources.join(","), "mext-2020,frida-6.1", "biotin reconciles both");
+  const iod = iodineCell({ mext: { state: "not-detected", value: null, raw: "0" },
+    frida: { source: "frida-6.1", value: 74, derivation: "analysed", n: 3 } });
+  eq(iod.state, "range", "iodine spans an absence against a finding");
+  eq(iod.low, 0, "the analysed absence enters the span as zero");
+  const { cell: mo } = pairedCell({ mext: { state: "measured", value: 100 },
+    frida: { source: "frida-6.1", value: 130, derivation: "analysed", n: 2 } },
+    PAIRED.find(p => p.id === "mo"));
+  eq(mo.sources.join(","), "mext-2020,frida-6.1", "molybdenum reconciles both");
+});
+
+test("the checker's copy of the Frida admission rule matches the generator's", () => {
+  /* The largest forced duplicate in build.mjs, on the same terms as the AFCD
+     column mapping and the portion floors: build.mjs may import nothing but
+     node:*, so the rule is written twice and held in step here rather than
+     shared. A checker that attested a value the page is forbidden to use would
+     let a compiled or borrowed figure pass unexamined. */
+  const attested = loadAttested()["frida-6.1"] || {};
+  const rows = new Map(readEvidence("frida-6.1.json").map(r => [String(r.FoodID), r]));
+  const sources = readEvidence("frida-6.1-sources.json");
+  const map = Object.entries(readEvidence("page-map-frida.json"))
+    .filter(([slug, e]) => !slug.startsWith("_") && e.reviewed === true);
+  let compared = 0;
+  for (const [slug, entry] of map) {
+    const row = rows.get(String(entry.food_id));
+    for (const col of FRIDA_COLUMNS) {
+      const mine = fridaFigure(row, col, sources);
+      const theirs = attested[slug]?.[col.id];
+      const want = mine ? mine.value : undefined;
+      if (!Object.is(want, theirs))
+        throw new Error(`${slug}.${col.id}: the generator says ${want} and the checker ${theirs}`);
+      compared++;
+    }
+  }
+  eq(compared, map.length * FRIDA_COLUMNS.length, "every mapped food and column was compared");
+  eq(map.length > 0, true, "and there were some to compare");
+});
+
+test("a cell already on the page can be reconciled against, if it is a single figure", () => {
+  /* Boron is the first column two passes write. Frida reaches wheat bran and
+     rye bread; the literature pass reaches nine other foods; a food could hold
+     both, and overwriting would throw away a measurement while skipping would
+     refuse one. */
+  const held = heldAsFigure({ state: "measured", value: 2, sources: ["pizzorno-2015"] }, "frida-6.1");
+  eq(held.value, 2, "a single-source measured cell gives its figure back");
+  eq(held.source, "pizzorno-2015", "under the source that made it");
+  eq(held.derivation, "analysed", "and enters the reconciliation as a measurement");
+});
+
+test("a range or a state carries no figure back out of a cell", () => {
+  /* A range's bounds are the output of a reconciliation and not an input to
+     one. Feeding a bound back in would let a spread widen itself on every run,
+     and the figures that made it are not in the cell any more. */
+  eq(heldAsFigure({ state: "range", low: 1, high: 9, sources: ["a"] }, "frida-6.1"), null,
+    "a range cannot be unpicked");
+  eq(heldAsFigure({ state: "trace", sources: ["a"] }, "frida-6.1"), null,
+    "a state carrying no figure has none to give");
+  eq(heldAsFigure({ state: "measured", value: 2, sources: ["a", "b"] }, "frida-6.1"), null,
+    "two sources mean the value is already a reconciliation of them");
+  eq(heldAsFigure({ state: "measured", value: 2, sources: ["frida-6.1"] }, "frida-6.1"), null,
+    "and the pass's own last run is what it is about to replace, not evidence");
+  eq(heldAsFigure(undefined, "frida-6.1"), null, "no cell is no figure");
+});
+
+test("AFCD never joins the chromium column", () => {
+  /* FSANZ says of its own chromium data that values "should be used with
+     caution", the single exception to AFCD's quality in sources.json, and a
+     source that disclaims its own figures cannot corroborate anyone else's.
+     Frida is the second source instead, which is the whole reason the column
+     stopped being MEXT alone. */
+  const evidence = JSON.parse(readFileSync(new URL("../src/data/evidence.json", import.meta.url), "utf8"));
+  const cr = Object.entries(evidence)
+    .filter(([slug]) => !slug.startsWith("_"))
+    .map(([slug, e]) => [slug, e.cells?.cr]).filter(([, c]) => c);
+  const afcd = cr.filter(([, c]) => (c.sources || []).includes("afcd-r3"));
+  eq(afcd.length, 0, `AFCD reached chromium on ${afcd.map(([s]) => s).join(", ")}`);
+  const frida = cr.filter(([, c]) => (c.sources || []).includes("frida-6.1"));
+  eq(frida.length > 0, true, "and Frida did reach it, or the column is single-source again");
+});
+
+test("a page food that says canned is not warned that its row is canned", () => {
+  eq(foodEx2Flags("Canned/jarred vegetables, SOURCE-COMMODITIES = Asparagus, "
+    + "PROCESS = Statical sterilisation (in batch or package)", "olives ripe canned")
+    .length, 0, "a canned page food asked for the canned row");
+  eq(foodEx2Flags("NULL", "anything").length, 0, "an absent classification says nothing");
 });
 
 // -------------------------------------------------------------- FAO phytate

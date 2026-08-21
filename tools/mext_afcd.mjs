@@ -76,10 +76,15 @@ const figureOf = c =>
   : (m => (m ? Number(m[0]) : null))(/-?\d+(\.\d+)?/.exec(String(c.raw ?? "")));
 
 /**
- * One paired cell, from whichever of the two tables reach the food.
+ * One paired cell, from whichever of the tables reach the food.
+ *
+ * Frida joins molybdenum here and not oxalate, which it does not carry. It
+ * arrives already reduced to a figure by its own admission rule rather than as
+ * a row, because what one of its cells may contribute is that rule's to decide.
  *
  * @param {{ mext?: { state: string, value: number|null, raw?: string },
- *           afcd?: Record<string, string> & { derivation: string } }} rows
+ *           afcd?: Record<string, string> & { derivation: string },
+ *           frida?: { source: string, value: number, derivation: string, n?: number } }} rows
  * @param {{ afcdField: string, floor: number, afcdLimit?: number }} spec one
  *   entry of PAIRED
  * @returns {{ cell: object|null, refused: object|null }} the cell, or null
@@ -113,6 +118,8 @@ export function pairedCell(rows, spec) {
     else if (v !== null) figures.push({ source: "afcd-r3", value: v,
       derivation: gradeDerivation(rows.afcd.derivation) });
   }
+
+  if (rows.frida) figures.push(rows.frida);
 
   return { cell: nationalCell(figures, states, spec.floor), refused };
 }

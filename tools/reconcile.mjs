@@ -136,6 +136,32 @@ const passthrough = st =>
    never outrank a finding. */
 const RANK = { trace: 3, "not-detected": 2, "not-measured": 1 };
 
+/**
+ * A cell already on the page, read back as the figure it was built from.
+ *
+ * Passes here own a column and rebuild it, which works while one pass owns the
+ * whole column. Boron is the first that does not: nine of its cells come from
+ * two literature compilations and two from Frida, and a food could hold both.
+ * Overwriting would throw away a measurement and skipping would refuse one.
+ *
+ * **Only a single-source measured cell can be unpicked.** A range was computed
+ * from figures that are not in it any more, so its bounds are the output of a
+ * reconciliation and not an input to one; feeding a bound back in would let a
+ * spread widen itself on every run. A state carrying no figure has none to
+ * give. Both come back null, and the caller keeps what it holds.
+ *
+ * @param {object} [cell] a cell from evidence.json
+ * @param {string} [mine] the source the calling pass owns, which is never a
+ *   figure to reconcile against: it is what this run is about to replace
+ * @returns {{source: string, value: number, derivation: string}|null}
+ */
+export function heldAsFigure(cell, mine) {
+  if (!cell || cell.state !== "measured" || typeof cell.value !== "number") return null;
+  const sources = cell.sources || [];
+  if (sources.length !== 1 || sources[0] === mine) return null;
+  return { source: sources[0], value: cell.value, derivation: "analysed" };
+}
+
 /** Rules 6 and 7, which the iodine column forced and which every component
  *  drawn from several national tables needs.
  *

@@ -365,6 +365,61 @@ export function loadAttested() {
     put("usda-iodine-r4", slug, "iodine", Number(row.iodine_ug_100g));
   }
 
+  /* Frida 6.1, through its reviewed map, with its admission rule duplicated.
+   *
+   * This is the largest forced duplicate in the file and it earns its place the
+   * same way the AFCD column mapping and the portion floors do: build.mjs may
+   * import nothing but `node:*`, and a check that read the corpus without the
+   * rule would attest figures the page is forbidden to use. A Frida value
+   * compiled from CoFID or AFCD, or carried over from another food, must never
+   * be able to make a cell pass, and `test/tools.mjs` holds this copy against
+   * `fridaFigure` over every mapped food and every column so the two cannot
+   * drift.
+   *
+   * The rule, in the order frida.mjs applies it: a reversed range is malformed;
+   * a `SourceFood`, or no source id at all, means the value was carried over
+   * from a different food; `n` below one means nothing was determined; and a
+   * source whose EuroFIR type is an estimate, a book, another national table
+   * or a food label is not analytical work. See FRIDA-PROVENANCE.md.
+   */
+  const fridaMap = readCorpus("page-map-frida.json");
+  if (fridaMap) {
+    const rows = new Map((readCorpus("frida-6.1.json") || []).map(r => [String(r.FoodID), r]));
+    const srcs = readCorpus("frida-6.1-sources.json") || {};
+    const NOT_ANALYTICAL = new Set(["E", "B", "F", "WW", "L"]);
+    /* Forced duplicate of FRIDA_COLUMNS in tools/frida.mjs. Boron is the one
+       conversion: Frida reports it in micrograms and this page's column is
+       milligrams. */
+    const columns = { biotin: ["biotin_ug", 1], cr: ["chromium_ug", 1],
+      mo: ["molybdenum_ug", 1], iodine: ["iodine_ug", 1], boron: ["boron_ug", 0.001] };
+    const admitted = cell => {
+      if (!cell) return undefined;
+      const n = Number.parseFloat(cell.n);
+      const min = Number.parseFloat(cell.min), max = Number.parseFloat(cell.max);
+      if (!Number.isNaN(min) && !Number.isNaN(max) && min > max) return undefined;
+      if (cell.sourceFood && cell.sourceFood !== "NULL") return undefined;
+      const ids = String(cell.source ?? "").split(",").map(x => x.trim())
+        .filter(x => x && x !== "NULL");
+      if (!ids.length) return undefined;
+      if (!(n >= 1)) return undefined;
+      if (ids.some(id => !srcs[id] || NOT_ANALYTICAL.has(srcs[id].EurofirRefType))) return undefined;
+      const v = cell.val === "NULL" ? NaN : Number.parseFloat(cell.val);
+      return Number.isNaN(v) ? undefined : v;
+    };
+    for (const [slug, entry] of Object.entries(fridaMap)) {
+      /* `_comment` is a key like any other to JSON, and an entry nobody
+         reviewed is not evidence that it is right. */
+      if (slug.startsWith("_") || !entry || entry.reviewed !== true) continue;
+      reach("frida-6.1", slug);
+      const row = rows.get(String(entry.food_id));
+      if (!row) continue;
+      for (const [id, [key, scale]] of Object.entries(columns)) {
+        const v = admitted(row[key]);
+        if (v !== undefined) put("frida-6.1", slug, id, v * scale);
+      }
+    }
+  }
+
   /* FAO/INFOODS phytate, joined by a reviewed map from page food to row index.
      A list of rows rather than one, because the release samples cultivars and
      treatments rather than foods: "Cashew nut, raw" is three rows spanning 290

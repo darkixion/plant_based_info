@@ -298,5 +298,13 @@
     "country": "United States",
     "url": "https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/iodine/",
     "quality": "high; 478 foods in ug/100 g, each with the number of samples analysed, their SD, minimum and maximum, and the programme and years behind them. The only iodine source here that says how many samples a figure rests on, and the only one that reaches this page by id rather than by a reviewed name match"
+  },
+  "frida-6.1": {
+    "title": "Frida, the Danish Food Composition Database, version 6.1 (2025)",
+    "publisher": "National Food Institute, Technical University of Denmark (DTU Fødevareinstituttet)",
+    "country": "Denmark",
+    "url": "https://doi.org/10.11583/DTU.32312844",
+    "quality": "high, and unusually it says which of its values are its own: every figure carries a determination count and a named source, and the published source table identifies all 502 of them. Only its own analytical work is used here. Values compiled from CoFID, AFCD, the CNF and other national tables this page already cites are refused by name rather than by inference, as are estimates, book values and label data. It is also the only source here reporting boron on a fresh weight basis. CC BY 4.0",
+    "short": "Denmark (Frida)"
   }
 }
